@@ -3,63 +3,592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kivon | KOBİ'lere AI Çözümleri</title>
+    <title>Kivon | KOBİ'lere Yapay Zeka Çözümleri</title>
+    <meta name="description" content="Kivon — KOBİ'lere özel yapay zeka entegrasyonu ve yazılım danışmanlığı. E-ticaret, muhasebe, restoran ve daha fazlası için AI çözümleri.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
-        .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; text-align: center; }
-        .logo { font-size: 56px; margin-bottom: 16px; }
-        h1 { font-size: 32px; color: #fff; margin-bottom: 12px; }
-        .tagline { font-size: 18px; color: #38bdf8; margin-bottom: 32px; }
-        .hero { font-size: 20px; color: #94a3b8; margin-bottom: 48px; max-width: 560px; margin-left: auto; margin-right: auto; }
-        .cta { display: inline-block; background: #38bdf8; color: #0f172a; padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; margin-bottom: 48px; }
-        .cta:hover { background: #7dd3fc; }
-        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px; text-align: left; }
-        .service-card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; }
-        .service-card h3 { color: #38bdf8; margin-bottom: 8px; font-size: 16px; }
-        .service-card p { color: #94a3b8; font-size: 14px; }
-        .footer { color: #475569; font-size: 14px; margin-top: 32px; }
-        .footer a { color: #38bdf8; text-decoration: none; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a1a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.3); }
+            50% { box-shadow: 0 0 40px rgba(56,189,248,0.6); }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes border-rotate {
+            0% { --angle: 0deg; }
+            100% { --angle: 360deg; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Layout ── */
+        section { padding: 100px 24px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #38bdf8;
+            background: rgba(56,189,248,0.08);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .section-desc {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            backdrop-filter: blur(16px);
+            background: rgba(10,10,26,0.75);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            font-size: 20px; font-weight: 800; color: #fff; text-decoration: none;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #38bdf8; }
+        .nav-cta {
+            background: #38bdf8; color: #0a0a1a !important;
+            padding: 8px 20px; border-radius: 8px; font-weight: 600 !important;
+            transition: background 0.2s !important;
+        }
+        .nav-cta:hover { background: #7dd3fc !important; }
+
+        /* ── Hero ── */
+        #hero {
+            min-height: 100vh; display: flex; align-items: center;
+            position: relative; overflow: hidden;
+            padding-top: 64px;
+        }
+        #hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(56,189,248,0.08), transparent 70%);
+            pointer-events: none;
+        }
+        #hero::after {
+            content: '';
+            position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(56,189,248,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 750px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2);
+            padding: 8px 20px; border-radius: 100px; font-size: 14px; color: #38bdf8;
+            margin-bottom: 24px; animation: fadeIn 0.8s 0.2s both;
+        }
+        .hero-title {
+            font-size: clamp(36px, 7vw, 68px); font-weight: 800; line-height: 1.1;
+            color: #fff; margin-bottom: 24px; animation: fadeInUp 0.8s 0.3s both;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            background-size: 200% 200%; animation: gradient-shift 4s ease infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 20px; color: #94a3b8; margin-bottom: 40px; line-height: 1.7;
+            animation: fadeInUp 0.8s 0.4s both;
+        }
+        .hero-buttons {
+            display: flex; gap: 16px; flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.5s both;
+        }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #38bdf8; color: #0a0a1a;
+            padding: 16px 36px; border-radius: 12px;
+            font-size: 16px; font-weight: 700; text-decoration: none;
+            transition: all 0.3s; box-shadow: 0 4px 24px rgba(56,189,248,0.25);
+        }
+        .btn-primary:hover {
+            background: #7dd3fc; transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(56,189,248,0.4);
+        }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; color: #e2e8f0;
+            padding: 16px 36px; border-radius: 12px;
+            font-size: 16px; font-weight: 600; text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            display: flex; gap: 48px; margin-top: 64px;
+            animation: fadeInUp 0.8s 0.6s both;
+        }
+        .hero-stat { text-align: left; }
+        .hero-stat-value {
+            font-size: 32px; font-weight: 800; color: #fff;
+        }
+        .hero-stat-label { font-size: 14px; color: #64748b; margin-top: 4px; }
+
+        /* ── Services ── */
+        #services { background: #0f0f23; }
+        #services .container { text-align: center; }
+        #services .section-desc { margin: 0 auto 64px; }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+        .service-card {
+            background: #151530; border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 40px 32px; text-align: left;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(56,189,248,0.25);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.3);
+        }
+        .service-card:hover::before { opacity: 1; }
+        .service-icon {
+            font-size: 40px; margin-bottom: 20px; display: block;
+        }
+        .service-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .service-card p {
+            font-size: 15px; color: #94a3b8; line-height: 1.6; margin-bottom: 20px;
+        }
+        .service-features {
+            list-style: none; display: flex; flex-direction: column; gap: 8px;
+        }
+        .service-features li {
+            font-size: 13px; color: #64748b;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .service-features li::before { content: '✓'; color: #38bdf8; font-weight: 700; }
+
+        /* ── Why Kivon ── */
+        #why { background: #0a0a1a; }
+        .why-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .why-image {
+            display: flex; align-items: center; justify-content: center;
+        }
+        .why-illustration {
+            width: 100%; max-width: 400px; aspect-ratio: 1;
+            background: radial-gradient(circle at 40% 40%, rgba(56,189,248,0.12), transparent 60%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 120px; animation: float 5s ease-in-out infinite;
+        }
+        .why-points { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+        .why-point {
+            display: flex; gap: 16px; align-items: flex-start;
+        }
+        .why-point-icon {
+            flex-shrink: 0; width: 44px; height: 44px;
+            background: rgba(56,189,248,0.1); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+        .why-point h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .why-point p { font-size: 14px; color: #94a3b8; line-height: 1.5; }
+
+        /* ── Process ── */
+        #process { background: #0f0f23; }
+        #process .container { text-align: center; }
+        #process .section-desc { margin: 0 auto 64px; }
+        .process-steps {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+        }
+        .process-step {
+            background: #151530; border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 32px 24px; text-align: center;
+            position: relative; transition: all 0.3s;
+        }
+        .process-step:hover { transform: translateY(-4px); border-color: rgba(56,189,248,0.2); }
+        .step-number {
+            font-size: 48px; font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 12px;
+        }
+        .process-step h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .process-step p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+        .step-arrow {
+            display: none;
+        }
+
+        /* ── Contact ── */
+        #contact { background: #0a0a1a; }
+        #contact .container { text-align: center; }
+        .contact-card {
+            max-width: 560px; margin: 0 auto;
+            background: #151530; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px; padding: 48px;
+        }
+        .contact-emoji { font-size: 48px; margin-bottom: 16px; }
+        .contact-card h3 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .contact-card p { color: #94a3b8; margin-bottom: 32px; font-size: 16px; }
+        .contact-actions { display: flex; flex-direction: column; gap: 14px; }
+        .contact-btn {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            padding: 16px 32px; border-radius: 12px;
+            font-size: 16px; font-weight: 700; text-decoration: none;
+            transition: all 0.3s;
+        }
+        .contact-wa {
+            background: #25D366; color: #fff;
+            box-shadow: 0 4px 24px rgba(37,211,102,0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        .contact-wa:hover { background: #20bd5a; transform: translateY(-2px); }
+        .contact-mail {
+            background: transparent; color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .contact-mail:hover {
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.04);
+        }
+        .contact-info {
+            display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+            margin-top: 32px; font-size: 14px; color: #64748b;
+        }
+        .contact-info span { display: flex; align-items: center; gap: 6px; }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 32px 24px; text-align: center;
+            color: #475569; font-size: 13px;
+        }
+
+        /* ── Mobile Nav ── */
+        .menu-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-btn { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 64px; left: 0; right: 0;
+                background: rgba(15,15,35,0.98); backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                padding: 24px; gap: 16px;
+            }
+            .services-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; gap: 40px; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .hero-stats { flex-wrap: wrap; gap: 24px; }
+            .hero-title { font-size: clamp(32px, 8vw, 48px); }
+            .why-illustration { max-width: 200px; font-size: 80px; }
+        }
+        @media (max-width: 480px) {
+            .process-steps { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; }
+            .hero-buttons .btn-primary, .hero-buttons .btn-secondary { justify-content: center; }
+            .contact-card { padding: 32px 24px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🤖</div>
-        <h1>Kivon</h1>
-        <p class="tagline">KOBİ'lere Yapay Zeka ve Yazılım Danışmanlığı</p>
-        <p class="hero">İşletmenizin tekrarlayan işlerini yapay zeka ile otomatikleştiriyor, aylık en az 20 saat tasarruf sağlıyoruz. E-ticaret, muhasebe, restoran ve daha fazlası için özel AI çözümleri.</p>
-        <a href="https://wa.me/90?text=Merhaba%2C+AI+dan%C4%B1%C5%9Fmanl%C4%B1%C4%9F%C4%B1+hakk%C4%B1nda+bilgi+almak+istiyorum" class="cta">📱 Ücretsiz Keşif Görüşmesi</a>
-        <div class="services">
-            <div class="service-card">
-                <h3>🧠 AI Danışmanlık</h3>
-                <p>İşletmenize özel AI yol haritası ve strateji</p>
-            </div>
-            <div class="service-card">
-                <h3>💬 Chatbot Entegrasyonu</h3>
-                <p>WhatsApp ve web için akıllı müşteri asistanı</p>
-            </div>
-            <div class="service-card">
-                <h3>⚡ Proses Otomasyonu</h3>
-                <p>Tekrarlayan işleri otomatikleştirin, zamandan kazanın</p>
-            </div>
-            <div class="service-card">
-                <h3>📊 Veri Analitiği</h3>
-                <p>Verilerinizden anlamlı içgörüler ve raporlar</p>
-            </div>
-            <div class="service-card">
-                <h3>📱 WhatsApp Bot</h3>
-                <p>Sipariş, randevu ve destek için 7/24 asistan</p>
-            </div>
-            <div class="service-card">
-                <h3>🔄 Aylık Destek</h3>
-                <p>Sürekli optimizasyon ve teknik destek paketi</p>
+
+    <!-- ── Nav ── -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">⚡ Kivon</a>
+            <button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Hizmetler</a></li>
+                <li><a href="#why">Neden Kivon</a></li>
+                <li><a href="#process">Süreç</a></li>
+                <li><a href="#contact" class="nav-cta">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">🤖 Türkiye'nin KOBİ odaklı AI danışmanlığı</div>
+                <h1 class="hero-title">
+                    İşletmenizi <span>yapay zeka</span> ile büyütün
+                </h1>
+                <p class="hero-desc">
+                    KOBİ'ler için özel AI entegrasyonu ve yazılım danışmanlığı. Tekrarlayan işleri otomatikleştiriyor, aylık en az 20 saat tasarruf sağlıyoruz. E-ticaret, muhasebe büroları, restoran ve daha fazlası için özel çözümler.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/90?text=Merhaba%2C+AI+dan%C4%B1%C5%9Fmanl%C4%B1%C4%9F%C4%B1+hakk%C4%B1nda+bilgi+almak+istiyorum" class="btn-primary">💬 WhatsApp'tan Başla</a>
+                    <a href="#services" class="btn-secondary">Hizmetleri Keşfet →</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">20+</div>
+                        <div class="hero-stat-label">Aylık Tasarruf (saat)</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">%40</div>
+                        <div class="hero-stat-label">Verimlilik Artışı</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">3</div>
+                        <div class="hero-stat-label">Odak Sektör</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <p class="footer">
-            📍 İstanbul, Türkiye &nbsp;|&nbsp;
-            📧 <a href="mailto:ahmet@kivon.com">ahmet@kivon.com</a> &nbsp;|&nbsp;
-            💬 <a href="https://wa.me/90">WhatsApp</a>
-        </p>
-    </div>
+    </section>
+
+    <!-- ── Services ── -->
+    <section id="services">
+        <div class="container">
+            <div class="section-label reveal">Hizmetlerimiz</div>
+            <h2 class="section-title reveal">KOBİ'niz için AI çözümleri</h2>
+            <p class="section-desc reveal">İşletmenizin ihtiyaçlarına özel, ölçeklenebilir ve bütçe dostu yapay zeka hizmetleri.</p>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <span class="service-icon">🧠</span>
+                    <h3>AI Danışmanlık</h3>
+                    <p>İşletmenize özel yapay zeka yol haritası ve strateji geliştiriyor, size en uygun teknolojileri belirliyoruz.</p>
+                    <ul class="service-features">
+                        <li>İş süreç analizi</li>
+                        <li>AI uygunluk değerlendirmesi</li>
+                        <li>Uygulama yol haritası</li>
+                    </ul>
+                </div>
+                <div class="service-card reveal">
+                    <span class="service-icon">🔌</span>
+                    <h3>Entegrasyon & Otomasyon</h3>
+                    <p>Chatbot, WhatsApp asistanı, veri analitiği ve süreç otomasyonu ile işletmenizi modernleştiriyoruz.</p>
+                    <ul class="service-features">
+                        <li>WhatsApp & web chatbot</li>
+                        <li>Sipariş ve randevu otomasyonu</li>
+                        <li>Veri raporlama ve analitik</li>
+                    </ul>
+                </div>
+                <div class="service-card reveal">
+                    <span class="service-icon">🔄</span>
+                    <h3>Sürekli Destek</h3>
+                    <p>Aylık bakım ve destek paketimizle sistemleriniz her zaman güncel ve sorunsuz çalışır.</p>
+                    <ul class="service-features">
+                        <li>Aylık performans takibi</li>
+                        <li>Sistem güncellemeleri</li>
+                        <li>Öncelikli teknik destek</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Why Kivon ── -->
+    <section id="why">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-image reveal">
+                    <div class="why-illustration">🚀</div>
+                </div>
+                <div class="reveal">
+                    <div class="section-label">Neden Kivon</div>
+                    <h2 class="section-title">KOBİ'leri anlayan teknoloji ortağınız</h2>
+                    <p class="section-desc" style="margin-bottom:0;">Büyük şirketlerin kullandığı AI teknolojilerini, KOBİ'lerin bütçesine ve ihtiyacına göre uyarlıyoruz.</p>
+                    <div class="why-points">
+                        <div class="why-point">
+                            <div class="why-point-icon">🎯</div>
+                            <div>
+                                <h4>KOBİ Odaklı Yaklaşım</h4>
+                                <p>Sadece KOBİ'lerle çalışıyor, sınırlı bütçelerle maksimum etki yaratıyoruz.</p>
+                            </div>
+                        </div>
+                        <div class="why-point">
+                            <div class="why-point-icon">⚡</div>
+                            <div>
+                                <h4>Hızlı Entegrasyon</h4>
+                                <p>İlk sonuçları günler içinde görün. Uzun kurulum süreçleri yok.</p>
+                            </div>
+                        </div>
+                        <div class="why-point">
+                            <div class="why-point-icon">🔒</div>
+                            <div>
+                                <h4>Güvenilir & Şeffaf</h4>
+                                <p>Verileriniz sizde kalır. Açık iletişim, net fiyatlandırma, sürpriz yok.</p>
+                            </div>
+                        </div>
+                        <div class="why-point">
+                            <div class="why-point-icon">🇹🇷</div>
+                            <div>
+                                <h4>İstanbul'da, Yanı Başınızda</h4>
+                                <p>Türkçe iletişim, yerel pazar bilgisi, ihtiyaç anında ulaşılabilir destek.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Process ── -->
+    <section id="process">
+        <div class="container">
+            <div class="section-label reveal">Çalışma Sürecimiz</div>
+            <h2 class="section-title reveal">4 adımda AI dönüşümü</h2>
+            <p class="section-desc reveal">Karmaşık süreçler yok. Net, hızlı ve sonuç odaklı çalışıyoruz.</p>
+            <div class="process-steps">
+                <div class="process-step reveal">
+                    <div class="step-number">01</div>
+                    <h4>Keşif Görüşmesi</h4>
+                    <p>İhtiyaçlarınızı anlıyor, size en uygun çözümü belirliyoruz.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">02</div>
+                    <h4>Yol Haritası</h4>
+                    <p>Adım adım uygulama planı ve net fiyat teklifi sunuyoruz.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">03</div>
+                    <h4>Entegrasyon</h4>
+                    <p>Çözümü hızlıca kuruyor, test ediyor ve devreye alıyoruz.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number">04</div>
+                    <h4>Destek & Büyüme</h4>
+                    <p>Sürekli optimizasyon ve destekle çözümünüzü büyütüyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-label reveal">İletişim</div>
+            <h2 class="section-title reveal">Hemen başlayalım</h2>
+            <p class="section-desc reveal" style="margin:0 auto 48px;">Ücretsiz keşif görüşmesi için bize ulaşın. 24 saat içinde dönüş yapıyoruz.</p>
+            <div class="contact-card reveal">
+                <div class="contact-emoji">📞</div>
+                <h3>Bizimle İletişime Geçin</h3>
+                <p>WhatsApp üzerinden hızlıca yazabilir veya e-posta gönderebilirsiniz.</p>
+                <div class="contact-actions">
+                    <a href="https://wa.me/90?text=Merhaba%2C+AI+dan%C4%B1%C5%9Fmanl%C4%B1%C4%9F%C4%B1+hakk%C4%B1nda+bilgi+almak+istiyorum" class="contact-btn contact-wa">
+                        💬 WhatsApp'tan Yazın
+                    </a>
+                    <a href="mailto:ahmet@kivon.com" class="contact-btn contact-mail">
+                        📧 ahmet@kivon.com
+                    </a>
+                </div>
+            </div>
+            <div class="contact-info" style="margin-top:24px;">
+                <span>📍 İstanbul, Türkiye</span>
+                <span>⚡ Hızlı ve güvenilir</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+        <p>© 2026 Kivon — KOBİ'lere Yapay Zeka ve Yazılım Danışmanlığı</p>
+    </footer>
+
+    <!-- ── JS ── -->
+    <script>
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealEls.forEach((el, i) => {
+            el.style.transitionDelay = (i % 4) * 0.1 + 's';
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // Nav scroll background
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.style.background = window.scrollY > 50
+                ? 'rgba(10,10,26,0.92)'
+                : 'rgba(10,10,26,0.75)';
+        });
+    </script>
 </body>
 </html>
