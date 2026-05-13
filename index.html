@@ -1,594 +1,284 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kivon | KOBİ'lere Yapay Zeka Çözümleri</title>
-    <meta name="description" content="Kivon — KOBİ'lere özel yapay zeka entegrasyonu ve yazılım danışmanlığı. E-ticaret, muhasebe, restoran ve daha fazlası için AI çözümleri.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0a0a1a;
-            color: #e2e8f0;
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon | KOBİ'lere Yapay Zekâ Çözümleri</title>
+<meta name="description" content="Kivon — KOBİ'lere özel yapay zekâ entegrasyonu ve yazılım danışmanlığı. Bursa merkezli, muhasebe büroları ve KOBİ'ler için AI.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+:root{--navy:#0a0a1a;--navy2:#101834;--cyan:#38bdf8;--cyan2:#0ea5e9;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--dark:#0d1117}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--navy);color:var(--white);line-height:1.6;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+h1{font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.1}
+h2{font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.2}
+.accent{color:var(--cyan)}
 
-        /* ── Animations ── */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.3); }
-            50% { box-shadow: 0 0 40px rgba(56,189,248,0.6); }
-        }
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes border-rotate {
-            0% { --angle: 0deg; }
-            100% { --angle: 360deg; }
-        }
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 40px rgba(56,189,248,0.3)}50%{box-shadow:0 0 80px rgba(56,189,248,0.5)}}
+.reveal{animation:fadeUp .8s ease forwards}
+.reveal:nth-child(2){animation-delay:.1s}
+.reveal:nth-child(3){animation-delay:.2s}
+.reveal:nth-child(4){animation-delay:.3s}
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(10,10,26,.8);border-bottom:1px solid rgba(56,189,248,.08)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 24px}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:48px;height:48px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px rgba(56,189,248,.4),0 0 20px rgba(56,189,248,.15)}
+.nav-logo img{width:100%;height:100%;object-fit:cover}
+.nav-name{font-size:20px;font-weight:800;color:var(--white);letter-spacing:3px}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:var(--cyan);color:var(--navy)!important;padding:8px 18px;border-radius:8px;font-weight:600!important}
+.nav-cta:hover{background:var(--ice)!important}
+.menu-btn{display:none;background:none;border:none;color:var(--white);font-size:24px;cursor:pointer}
 
-        /* ── Layout ── */
-        section { padding: 100px 24px; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        .section-label {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #38bdf8;
-            background: rgba(56,189,248,0.08);
-            padding: 6px 16px;
-            border-radius: 100px;
-            margin-bottom: 16px;
-        }
-        .section-title {
-            font-size: clamp(28px, 5vw, 44px);
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-        .section-desc {
-            font-size: 18px;
-            color: #94a3b8;
-            max-width: 600px;
-        }
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:68px}
+#hero .hero-bg{position:absolute;inset:0;z-index:0}
+#hero .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.35}
+#hero .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(5,5,20,.92) 0%,rgba(8,12,30,.82) 40%,rgba(10,10,26,.88) 100%)}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(56,189,248,.12),transparent 70%);pointer-events:none;z-index:1}
+#hero::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.06),transparent 70%);top:10%;right:-10%;pointer-events:none;z-index:1}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-badge{display:inline-block;background:rgba(56,189,248,.12);color:var(--cyan);font-size:13px;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:20px;border:1px solid rgba(56,189,248,.2)}
+.hero-title{margin-bottom:20px}
+.hero-desc{font-size:18px;color:var(--gray);margin-bottom:32px;max-width:550px;line-height:1.7}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--cyan);color:var(--navy);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--ice);transform:translateY(-2px);box-shadow:0 8px 30px rgba(56,189,248,.3)}
+.btn-secondary{padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid rgba(56,189,248,.3);color:var(--white);transition:all .3s}
+.btn-secondary:hover{border-color:var(--cyan);background:rgba(56,189,248,.06)}
 
-        /* ── Nav ── */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            backdrop-filter: blur(16px);
-            background: rgba(10,10,26,0.75);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 0 24px;
-        }
-        .nav-inner {
-            max-width: 1100px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
-            height: 64px;
-        }
-        .nav-logo {
-            font-size: 20px; font-weight: 800; color: #fff; text-decoration: none;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .nav-links { display: flex; gap: 32px; list-style: none; }
-        .nav-links a {
-            color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: #38bdf8; }
-        .nav-cta {
-            background: #38bdf8; color: #0a0a1a !important;
-            padding: 8px 20px; border-radius: 8px; font-weight: 600 !important;
-            transition: background 0.2s !important;
-        }
-        .nav-cta:hover { background: #7dd3fc !important; }
+section{padding:100px 0}
+.section-label{display:inline-block;background:rgba(56,189,248,.08);color:var(--cyan);font-size:12px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
 
-        /* ── Hero ── */
-        #hero {
-            min-height: 100vh; display: flex; align-items: center;
-            position: relative; overflow: hidden;
-            padding-top: 64px;
-        }
-        #hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(56,189,248,0.08), transparent 70%);
-            pointer-events: none;
-        }
-        #hero::after {
-            content: '';
-            position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(56,189,248,0.04) 0%, transparent 70%);
-            pointer-events: none;
-            animation: float 6s ease-in-out infinite;
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 750px; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2);
-            padding: 8px 20px; border-radius: 100px; font-size: 14px; color: #38bdf8;
-            margin-bottom: 24px; animation: fadeIn 0.8s 0.2s both;
-        }
-        .hero-title {
-            font-size: clamp(36px, 7vw, 68px); font-weight: 800; line-height: 1.1;
-            color: #fff; margin-bottom: 24px; animation: fadeInUp 0.8s 0.3s both;
-        }
-        .hero-title span {
-            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
-            background-size: 200% 200%; animation: gradient-shift 4s ease infinite;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-desc {
-            font-size: 20px; color: #94a3b8; margin-bottom: 40px; line-height: 1.7;
-            animation: fadeInUp 0.8s 0.4s both;
-        }
-        .hero-buttons {
-            display: flex; gap: 16px; flex-wrap: wrap;
-            animation: fadeInUp 0.8s 0.5s both;
-        }
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: #38bdf8; color: #0a0a1a;
-            padding: 16px 36px; border-radius: 12px;
-            font-size: 16px; font-weight: 700; text-decoration: none;
-            transition: all 0.3s; box-shadow: 0 4px 24px rgba(56,189,248,0.25);
-        }
-        .btn-primary:hover {
-            background: #7dd3fc; transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(56,189,248,0.4);
-        }
-        .btn-secondary {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: transparent; color: #e2e8f0;
-            padding: 16px 36px; border-radius: 12px;
-            font-size: 16px; font-weight: 600; text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.15);
-            transition: all 0.3s;
-        }
-        .btn-secondary:hover {
-            border-color: rgba(255,255,255,0.35);
-            background: rgba(255,255,255,0.04);
-            transform: translateY(-2px);
-        }
-        .hero-stats {
-            display: flex; gap: 48px; margin-top: 64px;
-            animation: fadeInUp 0.8s 0.6s both;
-        }
-        .hero-stat { text-align: left; }
-        .hero-stat-value {
-            font-size: 32px; font-weight: 800; color: #fff;
-        }
-        .hero-stat-label { font-size: 14px; color: #64748b; margin-top: 4px; }
+#services{background:var(--dark)}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px}
+.service-card{background:rgba(10,10,26,.6);border:1px solid rgba(56,189,248,.1);border-radius:20px;padding:28px 24px;transition:all .3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.service-card:hover{border-color:rgba(56,189,248,.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.service-icon{font-size:36px;margin-bottom:16px}
+.service-card h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--white)}
+.service-card p{font-size:14px;color:var(--gray);line-height:1.6}
 
-        /* ── Services ── */
-        #services { background: #0f0f23; }
-        #services .container { text-align: center; }
-        #services .section-desc { margin: 0 auto 64px; }
-        .services-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-        }
-        .service-card {
-            background: #151530; border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px; padding: 40px 32px; text-align: left;
-            transition: all 0.4s; position: relative; overflow: hidden;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(56,189,248,0.25);
-            box-shadow: 0 20px 48px rgba(0,0,0,0.3);
-        }
-        .service-card:hover::before { opacity: 1; }
-        .service-icon {
-            font-size: 40px; margin-bottom: 20px; display: block;
-        }
-        .service-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; }
-        .service-card p {
-            font-size: 15px; color: #94a3b8; line-height: 1.6; margin-bottom: 20px;
-        }
-        .service-features {
-            list-style: none; display: flex; flex-direction: column; gap: 8px;
-        }
-        .service-features li {
-            font-size: 13px; color: #64748b;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .service-features li::before { content: '✓'; color: #38bdf8; font-weight: 700; }
+#demo{background:var(--navy)}
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:40px}
+.demo-card{background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.12);border-radius:24px;padding:32px;text-decoration:none;display:block;transition:all .3s;position:relative;overflow:hidden}
+.demo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+.demo-card:hover{border-color:rgba(56,189,248,.3);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.demo-card:hover::before{opacity:1}
+.demo-icon{font-size:48px;margin-bottom:20px}
+.demo-card h3{font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px}
+.demo-card p{font-size:14px;color:var(--gray);line-height:1.6;margin-bottom:16px}
+.demo-link{color:var(--cyan);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px}
 
-        /* ── Why Kivon ── */
-        #why { background: #0a0a1a; }
-        .why-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-        }
-        .why-image {
-            display: flex; align-items: center; justify-content: center;
-        }
-        .why-illustration {
-            width: 100%; max-width: 400px; aspect-ratio: 1;
-            background: radial-gradient(circle at 40% 40%, rgba(56,189,248,0.12), transparent 60%);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 120px; animation: float 5s ease-in-out infinite;
-        }
-        .why-points { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
-        .why-point {
-            display: flex; gap: 16px; align-items: flex-start;
-        }
-        .why-point-icon {
-            flex-shrink: 0; width: 44px; height: 44px;
-            background: rgba(56,189,248,0.1); border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
-        }
-        .why-point h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .why-point p { font-size: 14px; color: #94a3b8; line-height: 1.5; }
+#pricing{background:var(--dark)}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px}
+.price-card{background:rgba(10,10,26,.6);border:1px solid rgba(56,189,248,.1);border-radius:24px;padding:32px 28px;transition:all .3s;position:relative}
+.price-card.popular{border-color:rgba(56,189,248,.3);box-shadow:0 0 40px rgba(56,189,248,.08)}
+.price-card.popular::after{content:'En Çok Tercih Edilen';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--cyan);color:var(--navy);font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px}
+.price-name{font-size:18px;font-weight:700;margin-bottom:4px}
+.price-amount{font-size:40px;font-weight:800;color:var(--cyan);margin-bottom:4px}
+.price-period{font-size:13px;color:var(--gray);margin-bottom:20px}
+.price-features{list-style:none;margin-bottom:24px}
+.price-features li{font-size:14px;color:var(--gray);padding:6px 0;padding-left:20px;position:relative}
+.price-features li::before{content:'✓';position:absolute;left:0;color:var(--cyan);font-weight:700}
+.price-btn{display:block;text-align:center;padding:12px;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;border:1px solid rgba(56,189,248,.3);color:var(--white)}
+.price-btn:hover{background:rgba(56,189,248,.1)}
+.price-card.popular .price-btn{background:var(--cyan);color:var(--navy);border:none}
 
-        /* ── Process ── */
-        #process { background: #0f0f23; }
-        #process .container { text-align: center; }
-        #process .section-desc { margin: 0 auto 64px; }
-        .process-steps {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-        }
-        .process-step {
-            background: #151530; border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px; padding: 32px 24px; text-align: center;
-            position: relative; transition: all 0.3s;
-        }
-        .process-step:hover { transform: translateY(-4px); border-color: rgba(56,189,248,0.2); }
-        .step-number {
-            font-size: 48px; font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; margin-bottom: 12px;
-        }
-        .process-step h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .process-step p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
-        .step-arrow {
-            display: none;
-        }
+#contact{background:var(--navy);text-align:center;position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;opacity:.04;background:url('img/ai-visual.jpg') center/cover}
+.contact-card{background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.12);border-radius:24px;padding:48px 32px;max-width:500px;margin:40px auto 0;backdrop-filter:blur(8px)}
+.contact-icon{font-size:48px;margin-bottom:16px}
+.contact-card h3{font-size:24px;font-weight:800;margin-bottom:8px}
+.contact-card p{color:var(--gray);margin-bottom:24px}
+.contact-btns{display:flex;flex-direction:column;gap:12px}
+.contact-wa{background:#25D366;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s}
+.contact-wa:hover{background:#1ea952;transform:translateY(-2px)}
+.contact-mail{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:14px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s}
+.contact-mail:hover{background:rgba(255,255,255,.1)}
+.contact-social{display:flex;justify-content:center;gap:14px;margin-top:20px}
+.contact-social a{color:var(--gray);font-size:14px;text-decoration:none;transition:color .2s}
+.contact-social a:hover{color:var(--cyan)}
 
-        /* ── Contact ── */
-        #contact { background: #0a0a1a; }
-        #contact .container { text-align: center; }
-        .contact-card {
-            max-width: 560px; margin: 0 auto;
-            background: #151530; border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px; padding: 48px;
-        }
-        .contact-emoji { font-size: 48px; margin-bottom: 16px; }
-        .contact-card h3 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 12px; }
-        .contact-card p { color: #94a3b8; margin-bottom: 32px; font-size: 16px; }
-        .contact-actions { display: flex; flex-direction: column; gap: 14px; }
-        .contact-btn {
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            padding: 16px 32px; border-radius: 12px;
-            font-size: 16px; font-weight: 700; text-decoration: none;
-            transition: all 0.3s;
-        }
-        .contact-wa {
-            background: #25D366; color: #fff;
-            box-shadow: 0 4px 24px rgba(37,211,102,0.3);
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-        .contact-wa:hover { background: #20bd5a; transform: translateY(-2px); }
-        .contact-mail {
-            background: transparent; color: #e2e8f0;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .contact-mail:hover {
-            border-color: rgba(255,255,255,0.35);
-            background: rgba(255,255,255,0.04);
-        }
-        .contact-info {
-            display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
-            margin-top: 32px; font-size: 14px; color: #64748b;
-        }
-        .contact-info span { display: flex; align-items: center; gap: 6px; }
+footer{padding:32px 24px;text-align:center;border-top:1px solid rgba(56,189,248,.08)}
+footer p{font-size:13px;color:rgba(255,255,255,.25)}
 
-        /* ── Footer ── */
-        footer {
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding: 32px 24px; text-align: center;
-            color: #475569; font-size: 13px;
-        }
-
-        /* ── Mobile Nav ── */
-        .menu-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-btn { display: block; }
-            .nav-links.open {
-                display: flex; flex-direction: column; position: absolute;
-                top: 64px; left: 0; right: 0;
-                background: rgba(15,15,35,0.98); backdrop-filter: blur(20px);
-                border-bottom: 1px solid rgba(255,255,255,0.06);
-                padding: 24px; gap: 16px;
-            }
-            .services-grid { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr; gap: 40px; }
-            .process-steps { grid-template-columns: 1fr 1fr; }
-            .hero-stats { flex-wrap: wrap; gap: 24px; }
-            .hero-title { font-size: clamp(32px, 8vw, 48px); }
-            .why-illustration { max-width: 200px; font-size: 80px; }
-        }
-        @media (max-width: 480px) {
-            .process-steps { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; }
-            .hero-buttons .btn-primary, .hero-buttons .btn-secondary { justify-content: center; }
-            .contact-card { padding: 32px 24px; }
-        }
-    </style>
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(10,10,26,.95);flex-direction:column;padding:24px;gap:16px;border-bottom:1px solid rgba(56,189,248,.1)}
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .hero-buttons{flex-direction:column}
+  .btn-primary,.btn-secondary{justify-content:center}
+}
+</style>
 </head>
 <body>
 
-    <!-- ── Nav ── -->
-    <nav>
-        <div class="nav-inner">
-            <a href="#hero" class="nav-logo">⚡ Kivon</a>
-            <button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#services">Hizmetler</a></li>
-                <li><a href="#why">Neden Kivon</a></li>
-                <li><a href="#process">Süreç</a></li>
-                <li><a href="#contact" class="nav-cta">İletişim</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">
+      <div class="nav-logo"><img src="img/logo.png" alt="Kivon"></div>
+      <span class="nav-name">KIVON</span>
+    </a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Hizmetler</a></li>
+      <li><a href="#demo">Demo</a></li>
+      <li><a href="#faq">SSS</a></li>
+      <li><a href="#contact" class="nav-cta">İletişim</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- ── Hero ── -->
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">🤖 Türkiye'nin KOBİ odaklı AI danışmanlığı</div>
-                <h1 class="hero-title">
-                    İşletmenizi <span>yapay zeka</span> ile büyütün
-                </h1>
-                <p class="hero-desc">
-                    KOBİ'ler için özel AI entegrasyonu ve yazılım danışmanlığı. Tekrarlayan işleri otomatikleştiriyor, aylık en az 20 saat tasarruf sağlıyoruz. E-ticaret, muhasebe büroları, restoran ve daha fazlası için özel çözümler.
-                </p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/905303982712?text=Merhaba%2C+Kivon+hakk%C4%B1nda+bilgi+almak+istiyorum" class="btn-primary">💬 WhatsApp'tan Başla</a>
-                    <a href="#services" class="btn-secondary">Hizmetleri Keşfet →</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">20+</div>
-                        <div class="hero-stat-label">Aylık Tasarruf (saat)</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">%40</div>
-                        <div class="hero-stat-label">Verimlilik Artışı</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">3</div>
-                        <div class="hero-stat-label">Odak Sektör</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="hero">
+  <div class="hero-bg"><img src="img/hero-bg.jpg" alt=""></div>
+  <div class="container">
+    <div class="hero-content" style="position:relative;z-index:2">
+      <div class="hero-badge reveal">🤖 Bursa çıkışlı, KOBİ odaklı</div>
+      <h1 class="hero-title reveal">Yapay <span class="accent">zekâyı</span><br>işinize getiriyoruz</h1>
+      <p class="hero-desc reveal">Büyük şirketlerin kullandığı AI çözümlerini, sizin bütçenize ve ihtiyacınıza uygun şekilde sunuyoruz. Chatbot, otomasyon, veri analitiği — tekrarlayan işleri makinelere devredin, siz işinize odaklanın.</p>
+      <div class="hero-buttons reveal">
+        <a href="https://wa.me/905303982712?text=Merhaba%2C+Kivon+hakk%C4%B1nda+bilgi+almak+istiyorum" class="btn-primary">💬 WhatsApp'tan Başla</a>
+        <a href="#demo" class="btn-secondary">Demoyu Dene →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ── Services ── -->
-    <section id="services">
-        <div class="container">
-            <div class="section-label reveal">Hizmetlerimiz</div>
-            <h2 class="section-title reveal">KOBİ'niz için AI çözümleri</h2>
-            <p class="section-desc reveal">İşletmenizin ihtiyaçlarına özel, ölçeklenebilir ve bütçe dostu yapay zeka hizmetleri.</p>
-            <div class="services-grid">
-                <div class="service-card reveal">
-                    <span class="service-icon">🧠</span>
-                    <h3>AI Danışmanlık</h3>
-                    <p>İşletmenize özel yapay zeka yol haritası ve strateji geliştiriyor, size en uygun teknolojileri belirliyoruz.</p>
-                    <ul class="service-features">
-                        <li>İş süreç analizi</li>
-                        <li>AI uygunluk değerlendirmesi</li>
-                        <li>Uygulama yol haritası</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal">
-                    <span class="service-icon">🔌</span>
-                    <h3>Entegrasyon & Otomasyon</h3>
-                    <p>Chatbot, WhatsApp asistanı, veri analitiği ve süreç otomasyonu ile işletmenizi modernleştiriyoruz.</p>
-                    <ul class="service-features">
-                        <li>WhatsApp & web chatbot</li>
-                        <li>Sipariş ve randevu otomasyonu</li>
-                        <li>Veri raporlama ve analitik</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal">
-                    <span class="service-icon">🔄</span>
-                    <h3>Sürekli Destek</h3>
-                    <p>Aylık bakım ve destek paketimizle sistemleriniz her zaman güncel ve sorunsuz çalışır.</p>
-                    <ul class="service-features">
-                        <li>Aylık performans takibi</li>
-                        <li>Sistem güncellemeleri</li>
-                        <li>Öncelikli teknik destek</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal">Hizmetlerimiz</div>
+    <h2 class="reveal">Size nasıl <span class="accent">yardımcı</span> oluyoruz?</h2>
+    <p class="reveal" style="color:var(--gray);font-size:17px;margin-top:8px;max-width:600px">Her biri haftada en az 3-5 saat kazandıran, KOBİ'lere özel dört temel çözüm alanı.</p>
+    <div class="service-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🧠</div>
+        <h3>AI Danışmanlığı</h3>
+        <p>İşletmenizin süreçlerini analiz ediyor, size özel yapay zekâ yol haritası çıkarıyoruz. Nereden başlayacağınızı biliyoruz.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💬</div>
+        <h3>Chatbot Entegrasyonu</h3>
+        <p>Müşterilerinize 7/24 anında cevap veren, randevu alan, fatura sorgulayan akıllı asistan. Sizin dilinizden konuşur.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⚡</div>
+        <h3>Proses Otomasyonu</h3>
+        <p>Tekrarlayan işleri makinelere devredin. E-posta yanıtlama, rapor hazırlama, stok takibi — hepsi otomatik.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📊</div>
+        <h3>Veri Analitiği</h3>
+        <p>Rakamların içindeki fırsatı görün. Size özel dashboard ile işletmenizin nabzını anlık takip edin. Veriye dayalı karar alın.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ── Why Kivon ── -->
-    <section id="why">
-        <div class="container">
-            <div class="why-grid">
-                <div class="why-image reveal">
-                    <div class="why-illustration">🚀</div>
-                </div>
-                <div class="reveal">
-                    <div class="section-label">Neden Kivon</div>
-                    <h2 class="section-title">KOBİ'leri anlayan teknoloji ortağınız</h2>
-                    <p class="section-desc" style="margin-bottom:0;">Büyük şirketlerin kullandığı AI teknolojilerini, KOBİ'lerin bütçesine ve ihtiyacına göre uyarlıyoruz.</p>
-                    <div class="why-points">
-                        <div class="why-point">
-                            <div class="why-point-icon">🎯</div>
-                            <div>
-                                <h4>KOBİ Odaklı Yaklaşım</h4>
-                                <p>Sadece KOBİ'lerle çalışıyor, sınırlı bütçelerle maksimum etki yaratıyoruz.</p>
-                            </div>
-                        </div>
-                        <div class="why-point">
-                            <div class="why-point-icon">⚡</div>
-                            <div>
-                                <h4>Hızlı Entegrasyon</h4>
-                                <p>İlk sonuçları günler içinde görün. Uzun kurulum süreçleri yok.</p>
-                            </div>
-                        </div>
-                        <div class="why-point">
-                            <div class="why-point-icon">🔒</div>
-                            <div>
-                                <h4>Güvenilir & Şeffaf</h4>
-                                <p>Verileriniz sizde kalır. Açık iletişim, net fiyatlandırma, sürpriz yok.</p>
-                            </div>
-                        </div>
-                        <div class="why-point">
-                            <div class="why-point-icon">🇹🇷</div>
-                            <div>
-                                <h4>Bursa'da, Yanı Başınızda</h4>
-                                <p>Türkçe iletişim, yerel pazar bilgisi, ihtiyaç anında ulaşılabilir destek.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section style="padding:60px 0;background:var(--dark);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;opacity:.06"><img src="img/tech-abstract.jpg" style="width:100%;height:100%;object-fit:cover" alt=""></div>
+  <div class="container" style="text-align:center;position:relative;z-index:1">
+    <div style="font-size:48px;margin-bottom:16px">⚡</div>
+    <h3 style="font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--white);margin-bottom:8px">Ayda <span class="accent">62 saat</span> zaman kazandırıyoruz</h3>
+    <p style="font-size:16px;color:var(--gray);max-width:600px;margin:0 auto">Chatbot müşteri sorularını yanıtlarken siz işinize odaklanın. Bu saatlerin değeri ortalama <span class="accent">7.750 ₺</span>. Yatırımınız ilk ayda geri döner.</p>
+  </div>
+</section>
 
-    <!-- ── Process ── -->
-    <section id="process">
-        <div class="container">
-            <div class="section-label reveal">Çalışma Sürecimiz</div>
-            <h2 class="section-title reveal">4 adımda AI dönüşümü</h2>
-            <p class="section-desc reveal">Karmaşık süreçler yok. Net, hızlı ve sonuç odaklı çalışıyoruz.</p>
-            <div class="process-steps">
-                <div class="process-step reveal">
-                    <div class="step-number">01</div>
-                    <h4>Keşif Görüşmesi</h4>
-                    <p>İhtiyaçlarınızı anlıyor, size en uygun çözümü belirliyoruz.</p>
-                </div>
-                <div class="process-step reveal">
-                    <div class="step-number">02</div>
-                    <h4>Yol Haritası</h4>
-                    <p>Adım adım uygulama planı ve net fiyat teklifi sunuyoruz.</p>
-                </div>
-                <div class="process-step reveal">
-                    <div class="step-number">03</div>
-                    <h4>Entegrasyon</h4>
-                    <p>Çözümü hızlıca kuruyor, test ediyor ve devreye alıyoruz.</p>
-                </div>
-                <div class="process-step reveal">
-                    <div class="step-number">04</div>
-                    <h4>Destek & Büyüme</h4>
-                    <p>Sürekli optimizasyon ve destekle çözümünüzü büyütüyoruz.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="demo">
+  <div class="container">
+    <div class="section-label reveal">Canlı Demo</div>
+    <h2 class="reveal">Ürünlerimizi <span class="accent">deneyimleyin</span></h2>
+    <p class="reveal" style="color:var(--gray);font-size:17px;margin-top:8px">Gerçek müşterilerimize sunduğumuz çözümlerin birebir önizlemesi. Hemen test edin.</p>
+    <div class="demo-grid">
+      <a href="demo/chatbot.html" target="_blank" class="demo-card reveal">
+        <div class="demo-icon">💬</div>
+        <h3>Muhasebe Asistanı Chatbot</h3>
+        <p>WhatsApp benzeri arayüz, çok adımlı diyalog, yazma animasyonu. Müşterileriniz 7/24 cevap alsın.</p>
+        <span class="demo-link">Demoyu Aç →</span>
+      </a>
+      <a href="demo/dashboard.html" target="_blank" class="demo-card reveal">
+        <div class="demo-icon">📊</div>
+        <h3>Veri Analitiği Paneli</h3>
+        <p>Tarih filtreli, CSV export, sayı animasyonlu. İşletmenizin dijital nabzını anlık görün.</p>
+        <span class="demo-link">Demoyu Aç →</span>
+      </a>
+      <a href="demo/ai_test.html" target="_blank" class="demo-card reveal">
+        <div class="demo-icon">🧪</div>
+        <h3>AI Hazırlık Testi</h3>
+        <p>12 soruda işletmenizin yapay zekâya ne kadar hazır olduğunu ölçün. Sonuç + ücretsiz danışmanlık.</p>
+        <span class="demo-link">Testi Başlat →</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <!-- ── Contact ── -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-label reveal">İletişim</div>
-            <h2 class="section-title reveal">Hemen başlayalım</h2>
-            <p class="section-desc reveal" style="margin:0 auto 48px;">Ücretsiz keşif görüşmesi için bize ulaşın. 24 saat içinde dönüş yapıyoruz.</p>
-            <div class="contact-card reveal">
-                <div class="contact-emoji">📞</div>
-                <h3>Bizimle İletişime Geçin</h3>
-                <p>WhatsApp üzerinden hızlıca yazabilir veya e-posta gönderebilirsiniz.</p>
-                <div class="contact-actions">
-                    <a href="https://wa.me/905303982712?text=Merhaba%2C+Kivon+hakk%C4%B1nda+bilgi+almak+istiyorum" class="contact-btn contact-wa">
-                        💬 WhatsApp'tan Yazın
-                    </a>
-                    <a href="mailto:ahmet@kivon.com" class="contact-btn contact-mail">
-                        📧 ahmet@kivon.com
-                    </a>
-                </div>
-            </div>
-            <div class="contact-info" style="margin-top:24px;">
-                <span>📍 Bursa, Türkiye</span>
-                <span>⚡ Hızlı ve güvenilir</span>
-            </div>
-        </div>
-    </section>
+<section id="faq" style="background:var(--navy)">
+  <div class="container">
+    <div class="section-label reveal">SSS</div>
+    <h2 class="reveal">Merak <span class="accent">ettikleriniz</span></h2>
+    <div style="margin-top:40px;display:flex;flex-direction:column;gap:16px;max-width:800px">
+      <details class="reveal" style="background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.1);border-radius:16px;padding:20px 24px;cursor:pointer">
+        <summary style="font-weight:700;font-size:16px;color:var(--white);list-style:none;display:flex;justify-content:space-between;align-items:center">AI işimi elimden alır mı? <span style="color:var(--cyan)">▾</span></summary>
+        <p style="margin-top:12px;color:var(--gray);font-size:14px;line-height:1.7">Hayır, tam tersi. AI angaryayı alır, danışmanlığı size bırakır. Müşteriniz "dekont nerede" diye sorduğunda chatbot yanıtlar. Siz stratejiye, rakamlara, güvene odaklanırsınız. Yani sizi büyütür, küçültmez.</p>
+      </details>
+      <details class="reveal" style="background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.1);border-radius:16px;padding:20px 24px;cursor:pointer">
+        <summary style="font-weight:700;font-size:16px;color:var(--white);list-style:none;display:flex;justify-content:space-between;align-items:center">Kurulum ne kadar sürer? <span style="color:var(--cyan)">▾</span></summary>
+        <p style="margin-top:12px;color:var(--gray);font-size:14px;line-height:1.7">Ortalama 3-5 iş günü. İlk gün ihtiyaç analizi yapıyoruz, ikinci gün sık sorulan soruları birlikte belirliyoruz, üçüncü gün test ediyoruz. Siz onay vermeden canlıya almıyoruz.</p>
+      </details>
+      <details class="reveal" style="background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.1);border-radius:16px;padding:20px 24px;cursor:pointer">
+        <summary style="font-weight:700;font-size:16px;color:var(--white);list-style:none;display:flex;justify-content:space-between;align-items:center">Verilerim güvende mi? <span style="color:var(--cyan)">▾</span></summary>
+        <p style="margin-top:12px;color:var(--gray);font-size:14px;line-height:1.7">KVKK ve GDPR uyumluyuz. Tüm veriler Türkiye'deki sunucularda şifrelenir. Hiçbir müşteri verisini üçüncü taraflarla paylaşmayız. Sözleşmemizde gizlilik maddesi var, isterseniz NDA da imzalarız.</p>
+      </details>
+      <details class="reveal" style="background:rgba(10,10,26,.5);border:1px solid rgba(56,189,248,.1);border-radius:16px;padding:20px 24px;cursor:pointer">
+        <summary style="font-weight:700;font-size:16px;color:var(--white);list-style:none;display:flex;justify-content:space-between;align-items:center">Mevcut yazılımımla çalışır mı? <span style="color:var(--cyan)">▾</span></summary>
+        <p style="margin-top:12px;color:var(--gray);font-size:14px;line-height:1.7">Logo, Paraşüt, LUCA, Mikro ve diğer popüler muhasebe yazılımlarıyla entegre çalışır. Özel yazılım kullanıyorsanız API bağlantısı kurarız. Size uyum sağlarız, sizi değiştirmeyiz.</p>
+      </details>
+    </div>
+  </div>
+</section>
 
-    <!-- ── Footer ── -->
-    <footer>
-        <p>© 2026 Kivon — KOBİ'lere Yapay Zeka ve Yazılım Danışmanlığı</p>
-    </footer>
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">İletişim</div>
+    <h2 class="reveal">Hemen <span class="accent">başlayalım</span></h2>
+    <p class="reveal" style="color:var(--gray);font-size:17px;margin-top:8px">Ücretsiz keşif görüşmesi için bize ulaşın. En geç 24 saat içinde dönüş yapıyoruz.</p>
+    <div class="contact-card reveal">
+      <div class="contact-icon">📞</div>
+      <h3>Bize Ulaşın</h3>
+      <p>WhatsApp veya e-posta ile direkt iletişim</p>
+      <div class="contact-btns">
+        <a href="https://wa.me/905303982712?text=Merhaba%2C+Kivon+hakk%C4%B1nda+bilgi+almak+istiyorum" class="contact-wa">💬 WhatsApp: +90 530 398 27 12</a>
+        <a href="mailto:kivon.iletisim@gmail.com" class="contact-mail">✉️ kivon.iletisim@gmail.com</a>
+      </div>
+      <div class="contact-social">
+        <a href="https://instagram.com/kivon.iletisim" target="_blank">@kivon.iletisim</a>
+        <span style="color:var(--gray);opacity:.3">|</span>
+        <span style="color:var(--gray);font-size:14px">📍 Bursa, Türkiye</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ── JS ── -->
-    <script>
-        // Scroll reveal
-        const revealEls = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12 });
+<footer>
+  <p>© 2026 Kivon Teknoloji Danışmanlık</p>
+</footer>
 
-        revealEls.forEach((el, i) => {
-            el.style.transitionDelay = (i % 4) * 0.1 + 's';
-            observer.observe(el);
-        });
+<script>
+document.getElementById('menuBtn').addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
+Array.from(document.querySelectorAll('.nav-links a')).forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+});
 
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('open'));
-        });
-
-        // Nav scroll background
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            nav.style.background = window.scrollY > 50
-                ? 'rgba(10,10,26,0.92)'
-                : 'rgba(10,10,26,0.75)';
-        });
-    </script>
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('reveal')});
+},{threshold:.15});
+document.querySelectorAll('[class*="reveal"]').forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>

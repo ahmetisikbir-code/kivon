@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon Veri Analitiği Demo</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;color:#fff;min-height:100vh}
+.dashboard{max-width:1100px;margin:0 auto;padding:40px 24px}
+.dash-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.dash-logo{width:48px;height:48px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px rgba(56,189,248,0.4)}
+.dash-logo img{width:100%;height:100%;object-fit:cover}
+.dash-title{font-size:24px;font-weight:800;color:#fff}
+.dash-title span{color:#38bdf8}
+.dash-sub{font-size:13px;color:#94a3b8;margin-top:2px}
+.filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:24px;padding:14px 18px;background:rgba(10,10,26,0.8);border:1px solid rgba(56,189,248,0.12);border-radius:14px}
+.filter-row label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.8px}
+.filter-row input[type="date"]{background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.18);color:#e2e8f0;padding:6px 10px;border-radius:8px;font-family:inherit;font-size:13px}
+.filter-row input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(0.7)}
+.filter-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(56,189,248,0.2);color:#94a3b8;font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit}
+.filter-btn:hover,.filter-btn.active{background:rgba(56,189,248,0.15);color:#fff;border-color:rgba(56,189,248,0.5)}
+.export-btn{background:#38bdf8;border:none;color:#0a0a1a;font-size:12px;font-weight:700;padding:8px 18px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit;margin-left:auto}
+.export-btn:hover{background:#7dd3fc;box-shadow:0 0 16px rgba(56,189,248,0.35)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:rgba(10,10,26,0.8);border:1px solid rgba(56,189,248,0.12);border-radius:18px;padding:20px 24px;backdrop-filter:blur(10px);transition:all .3s ease}
+.stat-card:hover{border-color:rgba(56,189,248,0.35);box-shadow:0 0 32px rgba(56,189,248,0.12),0 0 64px rgba(56,189,248,0.04)}
+.stat-label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.stat-value{font-size:32px;font-weight:800;color:#fff}
+.stat-change{font-size:13px;margin-top:4px}
+.stat-change.up{color:#10b981}
+.stat-change.down{color:#ef4444}
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+.chart-card{background:rgba(10,10,26,0.8);border:1px solid rgba(56,189,248,0.12);border-radius:18px;padding:20px 24px;transition:all .3s ease}
+.chart-card:hover{border-color:rgba(56,189,248,0.35);box-shadow:0 0 32px rgba(56,189,248,0.12),0 0 64px rgba(56,189,248,0.04)}
+.chart-card h3{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:16px}
+.chart-wrap{position:relative;width:100%}
+.chart-wrap canvas{width:100%!important}
+.table-card{background:rgba(10,10,26,0.8);border:1px solid rgba(56,189,248,0.12);border-radius:18px;padding:20px 24px;transition:all .3s ease}
+.table-card:hover{border-color:rgba(56,189,248,0.35);box-shadow:0 0 32px rgba(56,189,248,0.12),0 0 64px rgba(56,189,248,0.04)}
+.table-card h3{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:8px}
+.table-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.table-toolbar input{flex:1;max-width:320px;background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.18);color:#e2e8f0;padding:7px 12px;border-radius:8px;font-family:inherit;font-size:13px;outline:none}
+.table-toolbar input:focus{border-color:rgba(56,189,248,0.5);box-shadow:0 0 8px rgba(56,189,248,0.1)}
+.table-toolbar input::placeholder{color:#64748b}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;padding:10px 8px;border-bottom:1px solid rgba(56,189,248,0.1)}
+td{padding:12px 8px;font-size:14px;color:#e2e8f0;border-bottom:1px solid rgba(56,189,248,0.06)}
+td.poz{color:#10b981}td.neg{color:#ef4444}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.badge.aktif{background:rgba(16,185,129,0.15);color:#10b981}
+.badge.bekliyor{background:rgba(245,158,11,0.15);color:#f59e0b}
+.footer-note{text-align:center;font-size:12px;color:#475569;margin-top:24px}
+.footer-note span{color:#38bdf8}
+@media(max-width:768px){.stats-row{grid-template-columns:repeat(2,1fr)}.charts-row{grid-template-columns:1fr}.filter-row{flex-direction:column;align-items:flex-start}.export-btn{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <div class="dash-header">
+    <div class="dash-logo"><img src="" alt="Kivon" id="dashAvatar"></div>
+    <div>
+      <div class="dash-title"><span>Kivon</span> Veri Paneli</div>
+      <div class="dash-sub">Örnek Rapor • ABC Muhasebe Bürosu</div>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <label>Tarih Aralığı:</label>
+    <input type="date" id="dateFrom">
+    <span style="color:#94a3b8;font-size:13px">—</span>
+    <input type="date" id="dateTo">
+    <button class="filter-btn active" onclick="setPreset(7)">Son 7 gün</button>
+    <button class="filter-btn" onclick="setPreset(30)">Son 30 gün</button>
+    <button class="filter-btn" onclick="setPreset(90)">Son 90 gün</button>
+    <button class="export-btn" onclick="exportCSV()">📥 CSV Dışa Aktar</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Aylık Müşteri Sorusu</div>
+      <div class="stat-value" data-target="1247" data-prefix="" data-suffix="">1,247</div>
+      <div class="stat-change up">↑ %12 bu ay</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">AI Yanıt Oranı</div>
+      <div class="stat-value" data-target="84" data-prefix="%" data-suffix="">%84</div>
+      <div class="stat-change up">↑ %8 artış</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Kurtarılan Saat</div>
+      <div class="stat-value" data-target="62" data-prefix="" data-suffix="">62</div>
+      <div class="stat-change up">≈ 7.750 TL değer</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Müşteri Memnuniyeti</div>
+      <div class="stat-value" data-target="4.7" data-prefix="" data-suffix="">4.7</div>
+      <div class="stat-change up">↑ %94 olumlu</div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <h3>📊 Haftalık Soru Trafiği (Son 4 Hafta)</h3>
+      <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>🎯 Soru Kategorileri</h3>
+      <div class="chart-wrap" style="max-width:250px;margin:0 auto"><canvas id="chart2"></canvas></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3>📋 En Çok Sorulan Sorular (Bu Ay)</h3>
+    <div class="table-toolbar">
+      <input type="text" id="tableSearch" placeholder="Tabloda ara..." oninput="filterTable()">
+    </div>
+    <table id="dataTable">
+      <thead><tr><th>Soru</th><th>Adet</th><th>AI Yanıt</th><th>Trend</th></tr></thead>
+      <tbody>
+        <tr><td>Dekont / ödeme sorgulama</td><td>342</td><td>✅ %96</td><td class="poz">↑ %18</td></tr>
+        <tr><td>Randevu talebi</td><td>218</td><td>✅ %91</td><td class="poz">↑ %12</td></tr>
+        <tr><td>Fatura / borç sorgulama</td><td>195</td><td>✅ %88</td><td class="neg">↓ %3</td></tr>
+        <tr><td>Beyanname tarihleri</td><td>167</td><td>✅ %94</td><td class="poz">↑ %8</td></tr>
+        <tr><td>Çalışma saatleri / adres</td><td>89</td><td>✅ %99</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-note">
+    <span>Kivon AI</span> • Bu demo verileri örnek amaçlıdır • @kivon.iletisim
+  </div>
+</div>
+
+<script>
+(function() {
+
+const avatarUrl = location.hostname === 'localhost' || location.protocol === 'file:'
+  ? '../gorseller/profil_foto_final.png'
+  : 'https://raw.githubusercontent.com/ahmetisikbir-code/kivon/main/gorseller/profil_foto_final.png';
+document.getElementById('dashAvatar').src = avatarUrl;
+
+const chart1 = new Chart(document.getElementById('chart1'), {
+  type: 'bar',
+  data: {
+    labels: ['1.Hft','2.Hft','3.Hft','4.Hft'],
+    datasets: [
+      {label:'AI Yanıtlanan',data:[210,256,289,312],backgroundColor:'#38bdf8',borderRadius:6},
+      {label:'İnsana Yönlendirilen',data:[52,48,44,38],backgroundColor:'rgba(56,189,248,0.2)',borderRadius:6}
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#64748b'}},
+      y:{grid:{color:'rgba(56,189,248,0.08)'},ticks:{color:'#64748b'}}
+    }
+  }
+});
+
+new Chart(document.getElementById('chart2'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Dekont','Randevu','Fatura','Beyanname','Diğer'],
+    datasets: [{
+      data:[28,18,16,14,24],
+      backgroundColor:['#38bdf8','#0ea5e9','#0284c7','#7dd3fc','rgba(56,189,248,0.3)'],
+      borderWidth:0
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:10},padding:12}}}
+  }
+});
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function animateValue(el) {
+  var target = parseFloat(el.getAttribute('data-target'));
+  var prefix = el.getAttribute('data-prefix') || '';
+  var suffix = el.getAttribute('data-suffix') || '';
+  var duration = 1500;
+  var start = performance.now();
+  var isInt = Number.isInteger(target);
+
+  function step(now) {
+    var elapsed = now - start;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = easeOutCubic(progress);
+    var current = eased * target;
+
+    if (isInt && target > 100) {
+      el.textContent = prefix + Math.floor(current).toLocaleString('tr-TR') + suffix;
+    } else if (isInt) {
+      el.textContent = prefix + Math.floor(current) + suffix;
+    } else {
+      el.textContent = prefix + current.toFixed(1) + suffix;
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      if (isInt && target > 100) {
+        el.textContent = prefix + target.toLocaleString('tr-TR') + suffix;
+      } else {
+        el.textContent = prefix + target + suffix;
+      }
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+document.querySelectorAll('.stat-value').forEach(function(el) {
+  el.textContent = el.getAttribute('data-prefix') + '0' + el.getAttribute('data-suffix');
+  animateValue(el);
+});
+
+window.setPreset = function(days) {
+  var to = new Date();
+  var from = new Date();
+  from.setDate(from.getDate() - days);
+
+  var df = document.getElementById('dateFrom');
+  var dt = document.getElementById('dateTo');
+  df.value = from.toISOString().split('T')[0];
+  dt.value = to.toISOString().split('T')[0];
+
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+};
+
+(function initDates() {
+  var to = new Date();
+  var from = new Date();
+  from.setDate(from.getDate() - 7);
+  document.getElementById('dateFrom').value = from.toISOString().split('T')[0];
+  document.getElementById('dateTo').value = to.toISOString().split('T')[0];
+})();
+
+window.filterTable = function() {
+  var query = document.getElementById('tableSearch').value.toLowerCase();
+  var rows = document.querySelectorAll('#dataTable tbody tr');
+  rows.forEach(function(tr) {
+    var text = tr.textContent.toLowerCase();
+    tr.style.display = text.includes(query) ? '' : 'none';
+  });
+};
+
+window.exportCSV = function() {
+  var rows = [];
+  rows.push(['Soru', 'Adet', 'AI Yanıt', 'Trend']);
+
+  var tableRows = document.querySelectorAll('#dataTable tbody tr');
+  tableRows.forEach(function(tr) {
+    if (tr.style.display === 'none') return;
+    var cells = tr.querySelectorAll('td');
+    var row = [];
+    cells.forEach(function(td) { row.push('"' + td.textContent.trim().replace(/"/g, '""') + '"'); });
+    rows.push(row);
+  });
+
+  var csvContent = '\uFEFF' + rows.map(function(r) { return r.join(','); }).join('\n');
+  var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'kivon_rapor_' + new Date().toISOString().split('T')[0] + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
+})();
+</script>
+</body>
+</html>
