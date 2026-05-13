@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon | Çözüm Yönetim Paneli</title>
+<style>
+:root{--navy:#0a0a1a;--navy2:#101834;--cyan:#38bdf8;--cyan2:#0ea5e9;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24;--red:#ef4444;--green:#10b981}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);color:var(--white);min-height:100vh;padding:32px 24px}
+.container{max-width:1100px;margin:0 auto}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 2px rgba(56,189,248,0.4),0 0 20px rgba(56,189,248,0.15)}
+.logo img{width:100%;height:100%;object-fit:cover}
+.header h1{font-size:22px;font-weight:800}
+.header h1 span{color:var(--cyan)}
+.paket-switch{display:flex;gap:2px;background:rgba(255,255,255,0.04);border-radius:12px;padding:3px;border:1px solid rgba(56,189,248,0.1)}
+.paket-btn{background:none;border:none;color:var(--gray);font-size:13px;font-weight:600;padding:8px 18px;border-radius:10px;cursor:pointer;transition:all .2s;font-family:inherit}
+.paket-btn.active{background:var(--cyan);color:var(--navy)}
+.paket-btn:hover:not(.active){color:var(--white);background:rgba(255,255,255,0.05)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.stat{background:rgba(255,255,255,0.03);border:1px solid rgba(56,189,248,0.08);border-radius:14px;padding:18px 22px}
+.stat-num{font-size:28px;font-weight:800;color:var(--cyan)}
+.stat-label{font-size:12px;color:var(--gray);margin-top:2px}
+.section-title{font-size:14px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:rgba(56,189,248,0.1)}
+.cozum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:32px}
+.cozum-card{background:rgba(10,10,26,0.6);border:1px solid rgba(56,189,248,0.1);border-radius:20px;padding:24px;transition:all .3s;position:relative;overflow:hidden;backdrop-filter:blur(8px)}
+.cozum-card:hover{border-color:rgba(56,189,248,0.3);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.cozum-card.locked{opacity:0.45;pointer-events:none;filter:grayscale(0.3)}
+.cozum-card.locked:hover{transform:none;border-color:rgba(56,189,248,0.1);box-shadow:none}
+.cozum-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.cozum-icon{font-size:32px;line-height:1}
+.cozum-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.5px}
+.badge-izinli{background:rgba(16,185,129,0.15);color:var(--green)}
+.badge-red{background:rgba(239,68,68,0.15);color:var(--red)}
+.cozum-name{font-size:18px;font-weight:700;margin-bottom:6px}
+.cozum-desc{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:16px}
+.cozum-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.cozum-tag{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);color:var(--cyan);border:1px solid rgba(56,189,248,0.12)}
+.cozum-tag.red{background:rgba(239,68,68,0.08);color:var(--red);border-color:rgba(239,68,68,0.15)}
+.cozum-features{list-style:none}
+.cozum-features li{font-size:12px;color:var(--gray);padding:3px 0;padding-left:18px;position:relative}
+.cozum-features li::before{content:'✓';position:absolute;left:0;color:var(--cyan);font-weight:700;font-size:10px}
+.izin-panel{background:rgba(10,10,26,0.5);border:1px solid rgba(56,189,248,0.1);border-radius:20px;padding:24px;margin-bottom:32px}
+.izin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.izin-card{background:rgba(255,255,255,0.03);border:1px solid rgba(56,189,248,0.08);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.izin-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-green{background:var(--green);box-shadow:0 0 8px rgba(16,185,129,0.4)}
+.dot-red{background:var(--red);box-shadow:0 0 8px rgba(239,68,68,0.4)}
+.dot-yellow{background:var(--gold);box-shadow:0 0 8px rgba(251,191,36,0.4)}
+.izin-info{flex:1}
+.izin-hedef{font-size:14px;font-weight:600;color:var(--white)}
+.izin-sebep{font-size:11px;color:var(--gray);margin-top:2px}
+.izin-davranis{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.txt-green{color:var(--green)}.txt-red{color:var(--red)}.txt-yellow{color:var(--gold)}
+footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:12px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo"><img src="../gorseller/profil_foto_final.png" onerror="this.style.display='none'" alt=""></div>
+      <h1><span>Kivon</span> Çözüm Paneli</h1>
+    </div>
+    <div class="paket-switch" id="paketSwitch">
+      <button class="paket-btn active" data-paket="baslangic">Başlangıç</button>
+      <button class="paket-btn" data-paket="profesyonel">Profesyonel</button>
+      <button class="paket-btn" data-paket="kurumsal">Kurumsal</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="section-title">AI Çözümleri</div>
+  <div class="cozum-grid" id="cozumGrid"></div>
+
+  <div class="section-title">İzin Kuralları</div>
+  <div class="izin-panel">
+    <div class="izin-grid" id="izinGrid"></div>
+  </div>
+</div>
+
+<footer>© 2026 Kivon Teknoloji Danışmanlık · Çözüm Motoru v1.0</footer>
+
+<script>
+// ====================================================================
+//    KİVON ÇÖZÜM MOTORU — Web Uyumlu
+//    Esin: Claude Code buildTool() + Permission model
+// ====================================================================
+
+const PAKET_LIMITLERI = { baslangic: 1, profesyonel: 2, kurumsal: 999 };
+const PAKET_SIRASI = { baslangic: 1, profesyonel: 2, kurumsal: 3 };
+const PAKET_FIYAT = { baslangic: '1.200 TL/ay', profesyonel: '2.000 TL/ay', kurumsal: '3.500 TL/ay' };
+
+const COZUMLER = [
+  {
+    kod: 'chatbot', ad: 'Chatbot Entegrasyonu', ikon: '💬',
+    aciklama: 'Müşterilerinize 7/24 anında cevap veren, randevu alan, fatura sorgulayan akıllı asistan.',
+    minPaket: 'baslangic', sektorler: ['muhasebe', 'e-ticaret', 'restoran', 'genel'],
+    ozellikler: ['WhatsApp entegrasyonu', 'SSS bilgi tabanı', '7/24 otomatik yanıt', 'Yazma animasyonu'],
+    metrikler: { zamanKazanci: '40 saat/ay', musteriMemnuniyet: '+%35' }
+  },
+  {
+    kod: 'veri-analitigi', ad: 'Veri Analitiği', ikon: '📊',
+    aciklama: 'Rakamların içindeki fırsatı görün. Özel dashboard, otomatik raporlama, tahmin modelleri.',
+    minPaket: 'profesyonel', sektorler: ['muhasebe', 'e-ticaret', 'genel'],
+    ozellikler: ['Anlık dashboard', 'CSV/PDF export', 'Karşılaştırmalı analiz', 'Eşik uyarıları'],
+    metrikler: { zamanKazanci: '20 saat/ay', raporHizi: '5 dk/rapor' }
+  },
+  {
+    kod: 'proses-otomasyonu', ad: 'Proses Otomasyonu', ikon: '⚡',
+    aciklama: 'Tekrarlayan işleri makinelere devredin. E-posta, fatura, stok, randevu yönetimi otomatik.',
+    minPaket: 'profesyonel', sektorler: ['muhasebe', 'e-ticaret', 'restoran', 'genel'],
+    ozellikler: ['E-posta otomasyonu', 'Fatura hazırlama', 'Stok takibi', 'Randevu yönetimi'],
+    metrikler: { zamanKazanci: '30 saat/ay', hataAzaltma: '%95' }
+  }
+];
+
+const IZIN_KURALLARI = [
+  { hedef: 'chatbot', davranis: 'izinVer', sebep: 'Tüm paketlerde aktif', renk: 'green' },
+  { hedef: 'veri-analitigi', davranis: 'reddet', sebep: 'En az Profesyonel paket gerektirir', renk: 'red' },
+  { hedef: 'proses-otomasyonu', davranis: 'reddet', sebep: 'En az Profesyonel paket gerektirir', renk: 'red' },
+  { hedef: 'ozel_ai_model', davranis: 'reddet', sebep: 'Sadece Kurumsal pakette', renk: 'red' },
+  { hedef: 'canli_dashboard', davranis: 'reddet', sebep: 'Sadece Profesyonel+ pakette', renk: 'red' },
+  { hedef: 'api_direkt', davranis: 'reddet', sebep: 'Sadece Profesyonel+ pakette', renk: 'red' },
+  { hedef: 'cozum_sayisi', davranis: 'izinVer', sebep: 'Paket limiti dahilinde', renk: 'green' },
+  { hedef: '7/24_destek', davranis: 'reddet', sebep: 'Sadece Kurumsal pakette', renk: 'red' }
+];
+
+let aktifPaket = 'baslangic';
+
+function paketIcinIzinli(cozum, paket) {
+  return PAKET_SIRASI[paket] >= PAKET_SIRASI[cozum.minPaket];
+}
+
+function paketLimitKontrol(paket) {
+  const izinliCozumler = COZUMLER.filter(c => paketIcinIzinli(c, paket));
+  return {
+    limit: PAKET_LIMITLERI[paket],
+    izinli: izinliCozumler.length,
+    kullanilan: Math.min(PAKET_LIMITLERI[paket], izinliCozumler.length)
+  };
+}
+
+function render() {
+  const limit = paketLimitKontrol(aktifPaket);
+  const izinliCozumler = COZUMLER.filter(c => paketIcinIzinli(c, aktifPaket));
+  const kilitliCozumler = COZUMLER.filter(c => !paketIcinIzinli(c, aktifPaket));
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="stat-num">${PAKET_FIYAT[aktifPaket]}</div><div class="stat-label">Aylık Ücret</div></div>
+    <div class="stat"><div class="stat-num">${limit.izinli}</div><div class="stat-label">İzinli Çözüm</div></div>
+    <div class="stat"><div class="stat-num">${limit.limit}</div><div class="stat-label">Paket Limiti</div></div>
+    <div class="stat"><div class="stat-num">${kilitliCozumler.length}</div><div class="stat-label">Kilitli Çözüm</div></div>
+  `;
+
+  document.getElementById('cozumGrid').innerHTML = [...izinliCozumler, ...kilitliCozumler].map(c => {
+    const izinli = paketIcinIzinli(c, aktifPaket);
+    return `
+    <div class="cozum-card ${izinli ? '' : 'locked'}">
+      <div class="cozum-header">
+        <div class="cozum-icon">${c.ikon}</div>
+        <span class="cozum-badge ${izinli ? 'badge-izinli' : 'badge-red'}">${izinli ? 'İZİNLİ' : 'KİLİTLİ'}</span>
+      </div>
+      <div class="cozum-name">${c.ad}</div>
+      <div class="cozum-desc">${c.aciklama}</div>
+      <div class="cozum-meta">
+        <span class="cozum-tag">${c.minPaket}+</span>
+        ${c.sektorler.map(s => `<span class="cozum-tag">${s}</span>`).join('')}
+        <span class="cozum-tag">${c.metrikler.zamanKazanci}</span>
+      </div>
+      ${izinli ? `
+      <ul class="cozum-features">
+        ${c.ozellikler.map(o => `<li>${o}</li>`).join('')}
+      </ul>` : `
+      <span class="cozum-tag red">🔒 ${c.minPaket} paketine yükseltin</span>
+      `}
+    </div>`;
+  }).join('');
+
+  const guncelKurallar = IZIN_KURALLARI.map(k => {
+    if (k.hedef === 'chatbot') {
+      return { ...k, davranis: aktifPaket === 'baslangic' ? 'izinVer' : 'izinVer', renk: 'green' };
+    }
+    if (k.hedef === 'veri-analitigi' || k.hedef === 'proses-otomasyonu') {
+      return { ...k, davranis: PAKET_SIRASI[aktifPaket] >= 2 ? 'izinVer' : 'reddet', renk: PAKET_SIRASI[aktifPaket] >= 2 ? 'green' : 'red' };
+    }
+    if (k.hedef === 'canli_dashboard' || k.hedef === 'api_direkt') {
+      return { ...k, davranis: PAKET_SIRASI[aktifPaket] >= 2 ? 'izinVer' : 'reddet', renk: PAKET_SIRASI[aktifPaket] >= 2 ? 'green' : 'red' };
+    }
+    if (k.hedef === 'ozel_ai_model' || k.hedef === '7/24_destek') {
+      return { ...k, davranis: PAKET_SIRASI[aktifPaket] >= 3 ? 'izinVer' : 'reddet', renk: PAKET_SIRASI[aktifPaket] >= 3 ? 'green' : 'red' };
+    }
+    return k;
+  });
+
+  document.getElementById('izinGrid').innerHTML = guncelKurallar.map(k => `
+    <div class="izin-card">
+      <div class="izin-dot dot-${k.renk}"></div>
+      <div class="izin-info">
+        <div class="izin-hedef">${k.hedef.replace(/_/g, ' ')}</div>
+        <div class="izin-sebep">${k.sebep}</div>
+      </div>
+      <div class="izin-davranis txt-${k.renk}">${k.davranis === 'izinVer' ? 'İZİN' : 'RED'}</div>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('.paket-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.paket-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    aktifPaket = this.dataset.paket;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
