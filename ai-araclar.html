@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Araçları — Kivon</title>
+  <style>
+    :root {
+      --bg-deep: #0a0a1a;
+      --bg-card: rgba(15, 15, 40, 0.75);
+      --bg-glass: rgba(255, 255, 255, 0.04);
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.15);
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: rgba(56, 189, 248, 0.2);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 48px 20px 24px;
+    }
+    .header .logo {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    .header p {
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* ── Notice bar ── */
+    .notice {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--cyan);
+    }
+    .notice .icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ── Settings ── */
+    .settings-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      transition: all 0.25s;
+      font-family: var(--font);
+    }
+    .settings-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+    .settings-panel {
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 20px;
+      display: none;
+      animation: fadeSlide 0.3s ease;
+    }
+    .settings-panel.active { display: block; }
+    .settings-panel label { font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px; }
+    .settings-panel .key-row { display: flex; gap: 10px; }
+    .settings-panel input[type="text"] {
+      flex: 1;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 0.88rem;
+    }
+    .settings-panel input[type="text"]:focus { outline: none; border-color: var(--cyan); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: rgba(56, 189, 248, 0.22); border-color: var(--cyan); }
+    .btn.primary {
+      background: var(--cyan);
+      color: #0a0a1a;
+      border-color: var(--cyan);
+      font-weight: 600;
+    }
+    .btn.primary:hover { box-shadow: 0 0 24px var(--cyan-glow); }
+    .btn.small { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(15, 15, 40, 0.6);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.25s;
+      font-weight: 500;
+    }
+    .tab-btn.active {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.08);
+    }
+    .tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.03); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      animation: fadeSlide 0.35s ease;
+    }
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      margin-top: 12px;
+    }
+    .card label:first-of-type { margin-top: 0; }
+    .card textarea, .card select, .card input[type="text"] {
+      width: 100%;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .card textarea:focus, .card select:focus, .card input[type="text"]:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+    .card textarea { min-height: 110px; }
+    .card select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2394a3b8' viewBox='0 0 20 20'%3e%3cpath d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; padding-right: 36px; }
+    .card select option { background: #1a1a2e; color: #e2e8f0; }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+    /* ── Output ── */
+    .output {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-top: 16px;
+      display: none;
+      position: relative;
+      animation: fadeSlide 0.3s ease;
+      white-space: pre-wrap;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+    .output.active { display: block; }
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-header span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── Loading ── */
+    .loading-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 16px 0;
+      color: var(--cyan);
+    }
+    .loading-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: bounce 1.2s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    /* ── Objection chips ── */
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .chip {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font);
+    }
+    .chip:hover, .chip.selected {
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+      color: var(--cyan);
+    }
+
+    /* ── Blank state ── */
+    .blank-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-muted);
+    }
+    .blank-state .icon { font-size: 2.5rem; margin-bottom: 10px; opacity: 0.5; }
+
+    /* ── Animate ── */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 6px var(--cyan-glow); }
+      50% { box-shadow: 0 0 20px var(--cyan-glow); }
+    }
+
+    /* ── Tab content ── */
+    .tab-panel { display: none; animation: fadeSlide 0.3s ease; }
+    .tab-panel.active { display: block; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .tabs { flex-direction: column; }
+      .tab-btn { min-width: unset; }
+      .button-row { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+
+    /* ── "Hepsi" results ── */
+    .all-results { margin-top: 24px; }
+    .all-results .mini-card {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .all-results .mini-card h4 { color: var(--cyan); margin-bottom: 8px; font-size: 0.9rem; }
+
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-family: var(--font);
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .copied { color: #34d399 !important; border-color: #34d399 !important; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <div class="header">
+    <div class="logo">KIVON</div>
+    <h1>AI Araçları</h1>
+    <p>Yapay zeka destekli iş asistanları — tek platformda</p>
+  </div>
+
+  <!-- ═══════════ NOTICE ═══════════ -->
+  <div class="notice">
+    <span class="icon">&#9888;</span>
+    <span>Groq API anahtarı gereklidir. <code>api-server.js</code>'i çalıştırın veya kendi anahtarınızı aşağıdan girin.</span>
+  </div>
+
+  <!-- ═══════════ SETTINGS ═══════════ -->
+  <button class="settings-toggle" onclick="toggleSettings()" id="settingsToggle">
+    &#9881; API Ayarları
+  </button>
+  <div class="settings-panel" id="settingsPanel">
+    <label for="groqKey">Groq API Anahtarı (isteğe bağlı)</label>
+    <div class="key-row">
+      <input type="text" id="groqKey" placeholder="gsk_... veya proxy kullanıyorsanız boş bırakın">
+      <button class="btn small" onclick="saveKey()">Kaydet</button>
+    </div>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">
+      Proxy: <code>http://localhost:3000/api/groq</code> çalışıyorsa anahtara gerek yoktur.
+    </p>
+  </div>
+
+  <!-- ═══════════ TABS ═══════════ -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="0">&#128231; E-posta Asistanı</button>
+    <button class="tab-btn" data-tab="1">&#128241; İçerik Üretici</button>
+    <button class="tab-btn" data-tab="2">&#128737; İtiraz Karşılama</button>
+    <button class="tab-btn" data-tab="3">&#128203; Teklif Hazırlama</button>
+  </div>
+
+  <!-- ═══════════ TAB 0: E-posta Asistanı ═══════════ -->
+  <div class="tab-panel active" data-panel="0">
+    <div class="card">
+      <h3>&#128231; E-posta Asistanı</h3>
+      <label for="emailInput">E-posta içeriğini buraya yapıştırın:</label>
+      <textarea id="emailInput" placeholder="Sayın Kivon yetkilisi, ..."></textarea>
+      <div class="button-row">
+        <button class="btn" onclick="runEmail('ozetle')">&#128196; Özetle</button>
+        <button class="btn" onclick="runEmail('yanitla')">&#9997; Yanıtla</button>
+        <button class="btn" onclick="runEmail('siniflandir')">&#128204; Sınıflandır</button>
+      </div>
+      <div class="output" id="emailOutput">
+        <div class="output-header"><span>&#128231; Sonuç</span><button class="copy-btn" onclick="copyOutput('emailOutput')">Kopyala</button></div>
+        <div id="emailResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB 1: İçerik Üretici ═══════════ -->
+  <div class="tab-panel" data-panel="1">
+    <div class="card">
+      <h3>&#128241; İçerik Üretici</h3>
+      <label for="platformSelect">Platform:</label>
+      <select id="platformSelect">
+        <option value="Instagram">Instagram</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="Twitter/X">Twitter/X</option>
+        <option value="Facebook">Facebook</option>
+      </select>
+      <label for="sektorSelect">Sektör:</label>
+      <select id="sektorSelect">
+        <option value="Muhasebe">Muhasebe</option>
+        <option value="E-ticaret">E-ticaret</option>
+        <option value="Restoran">Restoran</option>
+        <option value="Genel">Genel</option>
+      </select>
+      <label for="konuInput">Konu / Anahtar mesaj:</label>
+      <textarea id="konuInput" placeholder="Örn: Yapay zeka ile muhasebe süreçlerinde %70 zaman tasarrufu" style="min-height:80px;"></textarea>
+      <div class="button-row">
+        <button class="btn primary" onclick="runIcerik()">&#9889; Üret</button>
+      </div>
+      <div class="output" id="icerikOutput">
+        <div class="output-header"><span>&#128241; İçerik</span><button class="copy-btn" onclick="copyOutput('icerikOutput')">Kopyala</button></div>
+        <div id="icerikResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB 2: İtiraz Karşılama ═══════════ -->
+  <div class="tab-panel" data-panel="2">
+    <div class="card">
+      <h3>&#128737; İtiraz Karşılama</h3>
+      <label>Sık karşılaşılan itirazlar (seçin veya özel yazın):</label>
+      <div class="chip-row" id="itirazChips">
+        <button class="chip" data-itiraz="AI çözümleri çok pahalı">AI pahalı</button>
+        <button class="chip" data-itiraz="Yapay zeka işimizi alır, insanları işsiz bırakır">İşimi alır</button>
+        <button class="chip" data-itiraz="Zaten yazılımcımız var, dışarıdan hizmete gerek yok">Yazılımcım var</button>
+        <button class="chip" data-itiraz="Şu an doğru zaman değil, sonra bakarız">Şimdi değil</button>
+        <button class="chip" data-itiraz="Bizim ihtiyacımız yok, mevcut sistemle devam">İhtiyacım yok</button>
+      </div>
+      <label for="itirazCustom">Veya kendi itirazınızı yazın:</label>
+      <input type="text" id="itirazCustom" placeholder="Örn: Daha önce AI denedik işe yaramadı">
+      <div class="button-row">
+        <button class="btn primary" onclick="runItiraz()">&#128170; Yanıt Üret</button>
+      </div>
+      <div class="output" id="itirazOutput">
+        <div class="output-header"><span>&#128737; Kivon Yanıtı</span><button class="copy-btn" onclick="copyOutput('itirazOutput')">Kopyala</button></div>
+        <div id="itirazResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAB 3: Teklif Hazırlama ═══════════ -->
+  <div class="tab-panel" data-panel="3">
+    <div class="card">
+      <h3>&#128203; Teklif Hazırlama</h3>
+      <label for="teklifSektor">Sektör:</label>
+      <select id="teklifSektor">
+        <option value="Muhasebe">Muhasebe</option>
+        <option value="E-ticaret">E-ticaret</option>
+        <option value="Restoran">Restoran</option>
+      </select>
+      <label for="teklifIhtiyac">İhtiyaç / Çözüm:</label>
+      <select id="teklifIhtiyac">
+        <option value="Chatbot">Chatbot</option>
+        <option value="Veri Analitiği">Veri Analitiği</option>
+        <option value="Proses Otomasyonu">Proses Otomasyonu</option>
+      </select>
+      <label for="teklifPaket">Paket:</label>
+      <select id="teklifPaket">
+        <option value="Başlangıç">Başlangıç</option>
+        <option value="Profesyonel">Profesyonel</option>
+        <option value="Kurumsal">Kurumsal</option>
+      </select>
+      <label for="musteriAdi">Müşteri Adı:</label>
+      <input type="text" id="musteriAdi" placeholder="Firma veya kişi adı">
+      <div class="button-row">
+        <button class="btn primary" onclick="runTeklif()">&#128203; Teklif Hazırla</button>
+      </div>
+      <div class="output" id="teklifOutput">
+        <div class="output-header"><span>&#128203; Teklif</span><button class="copy-btn" onclick="copyOutput('teklifOutput')">Kopyala</button></div>
+        <div id="teklifResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HEPSI BUTTON ═══════════ -->
+  <div style="text-align:center;margin-top:12px;margin-bottom:40px;">
+    <button class="btn primary" onclick="runHepsi()" id="hepsiBtn" style="padding:14px 40px;font-size:1rem;">
+      &#127760; Hepsi — Tüm araçları örnek verilerle çalıştır
+    </button>
+  </div>
+  <div class="all-results" id="allResults"></div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  GLOBAL STATE
+// ═══════════════════════════════════════
+const PROXY_URL = 'http://localhost:3000/api/groq';
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const MODEL = 'llama-3.3-70b-versatile';
+let userApiKey = localStorage.getItem('kivon_groq_key') || '';
+let activeItiraz = '';
+let activeTab = 0;
+
+// ═══════════════════════════════════════
+//  API CALL
+// ═══════════════════════════════════════
+async function aiSor(soru, sistemPrompt) {
+  const key = userApiKey || '';
+
+  // Try proxy first
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ soru, sistem: sistemPrompt }),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if (res.ok) {
+      const data = await res.json();
+      return data.cevap || data.message || data.response || '';
+    }
+  } catch (e) {
+    console.log('Proxy kullanılamadı, doğrudan API deneniyor...');
+  }
+
+  // Fallback: direct Groq API
+  if (!key) {
+    throw new Error('API anahtarı bulunamadı. Lütfen bir Groq API anahtarı girin veya proxy sunucusunu başlatın.');
+  }
+
+  const controller2 = new AbortController();
+  const timeout2 = setTimeout(() => controller2.abort(), 30000);
+  const res = await fetch(GROQ_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${key}`
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      messages: [
+        { role: 'system', content: sistemPrompt },
+        { role: 'user', content: soru }
+      ],
+      temperature: 0.7,
+      max_tokens: 2048
+    }),
+    signal: controller2.signal
+  });
+  clearTimeout(timeout2);
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || `HTTP ${res.status}: ${res.statusText}`);
+  }
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || '';
+}
+
+// ═══════════════════════════════════════
+//  KIVON SYSTEM CONTEXT
+// ═══════════════════════════════════════
+function kivonContext() {
+  return `Sen Kivon adında, Bursa merkezli bir yapay zeka ve yazılım ajansının AI asistanısın.
+Kivon hakkında bilgiler:
+- Bursa, Türkiye merkezli
+- 13 kişilik uzman ekip
+- 3 ana sektörde hizmet: Muhasebe, E-ticaret, Restoran
+- Hizmetler: Yapay zeka chatbotları, veri analitiği, proses otomasyonu, özel yazılım geliştirme
+- 3 paket seçeneği: Başlangıç (5.000-15.000 ₺/ay), Profesyonel (15.000-40.000 ₺/ay), Kurumsal (40.000+ ₺/ay)
+- Ton: Profesyonel ama sıcak, güvenilir, çözüm odaklı
+- Web sitesi: kivon.com.tr
+- İletişim: info@kivon.com.tr | +90 (224) xxx xx xx`;
+}
+
+// ═══════════════════════════════════════
+//  SETTINGS
+// ═══════════════════════════════════════
+function toggleSettings() {
+  document.getElementById('settingsPanel').classList.toggle('active');
+}
+function saveKey() {
+  const val = document.getElementById('groqKey').value.trim();
+  userApiKey = val;
+  localStorage.setItem('kivon_groq_key', val);
+  const btn = document.querySelector('.settings-panel .btn.small');
+  btn.textContent = 'Kaydedildi ✓';
+  btn.style.color = '#34d399';
+  btn.style.borderColor = '#34d399';
+  setTimeout(() => { btn.textContent = 'Kaydet'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+}
+
+// Init key from storage
+(function() {
+  if (userApiKey) document.getElementById('groqKey').value = userApiKey;
+})();
+
+// ═══════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabIdx = parseInt(this.dataset.tab);
+    activeTab = tabIdx;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector(`.tab-panel[data-panel="${tabIdx}"]`).classList.add('active');
+    document.getElementById('allResults').innerHTML = '';
+  });
+});
+
+// ═══════════════════════════════════════
+//  ITIRAZ CHIP SELECTION
+// ═══════════════════════════════════════
+document.querySelectorAll('#itirazChips .chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    document.querySelectorAll('#itirazChips .chip').forEach(c => c.classList.remove('selected'));
+    this.classList.add('selected');
+    activeItiraz = this.dataset.itiraz;
+    document.getElementById('itirazCustom').value = '';
+  });
+});
+
+// ═══════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════
+function setLoading(id) {
+  document.getElementById(id).innerHTML = '<div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+}
+function showOutput(panelId) {
+  const el = document.getElementById(panelId);
+  el.classList.add('active');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function showError(panelId, resultId, msg) {
+  document.getElementById(resultId).innerHTML = `<span style="color:#f87171;">&#10060; Hata: ${msg}</span>`;
+  showOutput(panelId);
+}
+function copyOutput(panelId) {
+  const resultEl = document.getElementById(panelId).querySelector('[id$="Result"]');
+  if (!resultEl) return;
+  const text = resultEl.textContent || resultEl.innerText;
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    const btn = document.getElementById(panelId).querySelector('.copy-btn');
+    btn.textContent = 'Kopyalandı!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Kopyala'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    alert('Kopyalanamadı, lütfen manuel seçin.');
+  });
+}
+
+// ═══════════════════════════════════════
+//  TAB 0: E-POSTA ASISTANI
+// ═══════════════════════════════════════
+async function runEmail(action) {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email) { alert('Lütfen e-posta içeriğini girin.'); return; }
+
+  const outputPane = 'emailOutput';
+  const resultId = 'emailResult';
+  setLoading(resultId);
+  showOutput(outputPane);
+
+  let sistemPrompt = '';
+  if (action === 'ozetle') {
+    sistemPrompt = kivonContext() + '\nKullanıcının verdiği e-postayı kısa, net ve maddeler halinde özetle. Türkçe yanıt ver.';
+  } else if (action === 'yanitla') {
+    sistemPrompt = kivonContext() + '\nKullanıcının verdiği e-postaya Kivon adına profesyonel ve sıcak bir dille yanıt yaz. E-postanın içeriğine uygun şekilde, Kivon\'un hizmetlerinden (AI chatbot, veri analitiği, proses otomasyonu) bahset. Türkçe yanıt ver.';
+  } else {
+    sistemPrompt = kivonContext() + '\nKullanıcının verdiği e-postayı şu kategorilerden birine sınıflandır: "İş Teklifi", "Satış Talebi", "Destek Talebi", "Genel Bilgi", "Spam". Sadece kategoriyi ve kısa bir gerekçe yaz. Türkçe.';
+  }
+
+  try {
+    const cevap = await aiSor(email, sistemPrompt);
+    document.getElementById(resultId).textContent = cevap;
+  } catch (e) {
+    showError(outputPane, resultId, e.message);
+  }
+}
+
+// ═══════════════════════════════════════
+//  TAB 1: İÇERİK ÜRETİCİ
+// ═══════════════════════════════════════
+async function runIcerik() {
+  const platform = document.getElementById('platformSelect').value;
+  const sektor = document.getElementById('sektorSelect').value;
+  const konu = document.getElementById('konuInput').value.trim();
+  if (!konu) { alert('Lütfen bir konu girin.'); return; }
+
+  const outputPane = 'icerikOutput';
+  const resultId = 'icerikResult';
+  setLoading(resultId);
+  showOutput(outputPane);
+
+  const sistemPrompt = kivonContext() + `
+Sen bir sosyal medya içerik üreticisisin. Aşağıdaki bilgilere göre ${platform} için bir gönderi hazırla.
+Platform: ${platform}
+Sektör: ${sektor}
+Konu: ${konu}
+
+Kurallar:
+- Platforma uygun ton ve uzunlukta yaz (Instagram: samimi, LinkedIn: profesyonel, Twitter: kısa ve vurucu, Facebook: topluluk odaklı)
+- Kivon'un ${sektor} sektöründeki uzmanlığını vurgula
+- Kivon adını ve değer önerisini doğal şekilde dahil et
+- Gönderinin sonuna ilgili hashtag'leri ekle (#Kivon #YapayZeka #[sektör] #[konu] vb.)
+- Emoji kullanımı platforma uygun olsun
+- Türkçe yaz.`;
+
+  try {
+    const cevap = await aiSor(konu, sistemPrompt);
+    document.getElementById(resultId).textContent = cevap;
+  } catch (e) {
+    showError(outputPane, resultId, e.message);
+  }
+}
+
+// ═══════════════════════════════════════
+//  TAB 2: İTİRAZ KARŞILAMA
+// ═══════════════════════════════════════
+async function runItiraz() {
+  const custom = document.getElementById('itirazCustom').value.trim();
+  const itiraz = custom || activeItiraz;
+  if (!itiraz) { alert('Lütfen bir itiraz seçin veya yazın.'); return; }
+
+  const outputPane = 'itirazOutput';
+  const resultId = 'itirazResult';
+  setLoading(resultId);
+  showOutput(outputPane);
+
+  const sistemPrompt = kivonContext() + `
+Sen Kivon'un satış temsilcisisin. Potansiyel bir müşteri şu itirazı dile getirdi:
+"${itiraz}"
+
+Bu itiraza Kivon'un değer önerisini savunan, profesyonel ama samimi bir yanıt ver.
+Yanıtında:
+- İtirazı anladığını göster (empati)
+- Kivon'un nasıl çözüm sunduğunu açıkla
+- Somut faydalar ve örnekler ver
+- Bursa'da 13 kişilik ekip, 3 sektör odağı, esnek paket seçeneklerinden bahset
+- Müşteriyi bir demo veya görüşmeye davet et
+
+Türkçe, sıcak ve ikna edici bir dille yaz.`;
+
+  try {
+    const cevap = await aiSor(itiraz, sistemPrompt);
+    document.getElementById(resultId).textContent = cevap;
+  } catch (e) {
+    showError(outputPane, resultId, e.message);
+  }
+}
+
+// ═══════════════════════════════════════
+//  TAB 3: TEKLIF HAZIRLAMA
+// ═══════════════════════════════════════
+async function runTeklif() {
+  const sektor = document.getElementById('teklifSektor').value;
+  const ihtiyac = document.getElementById('teklifIhtiyac').value;
+  const paket = document.getElementById('teklifPaket').value;
+  const musteri = document.getElementById('musteriAdi').value.trim();
+  if (!musteri) { alert('Lütfen müşteri adını girin.'); return; }
+
+  const outputPane = 'teklifOutput';
+  const resultId = 'teklifResult';
+  setLoading(resultId);
+  showOutput(outputPane);
+
+  const sistemPrompt = kivonContext() + `
+Sen Kivon'un teklif hazırlama asistanısın. Aşağıdaki bilgilere göre kişiselleştirilmiş bir teklif metni hazırla:
+
+Müşteri: ${musteri}
+Sektör: ${sektor}
+İhtiyaç: ${ihtiyac}
+Paket: ${paket}
+
+Teklif şu başlıkları içermelidir:
+1. GİRİŞ - ${musteri} için kişiselleştirilmiş açılış
+2. KAPSAM - ${paket} paketinde ${ihtiyac} için neler sunuluyor
+3. FİYATLANDIRMA - ${paket} seviyesine uygun fiyat aralığı (aylık)
+4. SÜREÇ - İşe başlama ve teslim takvimi (2-4 hafta)
+5. İLETİŞİM - info@kivon.com.tr | +90 (224) xxx xx xx
+6. KAPANIŞ - Teşekkür ve sonraki adım
+
+Profesyonel, güven veren ve ${sektor} sektörüne özel ifadeler kullan.
+Türkçe yaz.`;
+
+  try {
+    const cevap = await aiSor(`${musteri} - ${sektor} - ${ihtiyac} - ${paket}`, sistemPrompt);
+    document.getElementById(resultId).textContent = cevap;
+  } catch (e) {
+    showError(outputPane, resultId, e.message);
+  }
+}
+
+// ═══════════════════════════════════════
+//  HEPSI
+// ═══════════════════════════════════════
+async function runHepsi() {
+  const hepsiBtn = document.getElementById('hepsiBtn');
+  const allResults = document.getElementById('allResults');
+  hepsiBtn.disabled = true;
+  hepsiBtn.textContent = '⏳ Çalışıyor...';
+  allResults.innerHTML = '<div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><p style="color:var(--text-muted);text-align:center;margin-top:8px;">4 araç çalışıyor, lütfen bekleyin...</p>';
+  allResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  const sampleEmail = `Konu: AI çözümleri hakkında bilgi talebi
+
+Merhaba Kivon ekibi,
+
+Ben Bursa'da bir muhasebe ofisi işletiyorum. Müşterilerimden gelen rutin soruları yanıtlamak için bir chatbot çözümü arıyorum. Yaklaşık 500 aktif müşterimiz var ve her ay ortalama 200-300 sorgu alıyoruz.
+
+Fiyatlandırma ve süreç hakkında bilgi verebilir misiniz? Ayrıca referanslarınızı da görmek isterim.
+
+Saygılarımla,
+Ahmet Yılmaz
+Yılmaz Muhasebe`;
+
+  const sampleKonu = 'Muhasebe ofisleri için yapay zeka ile müşteri hizmetlerinde devrim';
+  const sampleItiraz = 'AI çözümleri çok pahalı, küçük işletmeler için uygun değil';
+  const sampleTeklif = { sektor: 'Muhasebe', ihtiyac: 'Chatbot', paket: 'Profesyonel', musteri: 'Ahmet Yılmaz — Yılmaz Muhasebe' };
+
+  const tasks = [
+    {
+      title: 'E-posta Özeti',
+      fn: () => aiSor(sampleEmail, kivonContext() + '\nBu e-postayı kısa maddeler halinde özetle. Türkçe.')
+    },
+    {
+      title: 'İçerik Üretici (LinkedIn / Muhasebe)',
+      fn: () => aiSor(sampleKonu, kivonContext() + `
+LinkedIn için, Muhasebe sektörüne yönelik profesyonel bir gönderi yaz.
+Konu: ${sampleKonu}
+Türkçe, profesyonel ton, hashtag'li.`)
+    },
+    {
+      title: 'İtiraz Yanıtı',
+      fn: () => aiSor(sampleItiraz, kivonContext() + `
+Potansiyel müşteri itirazı: "${sampleItiraz}"
+Kivon markasına uygun, profesyonel ve ikna edici bir yanıt ver. Türkçe.`)
+    },
+    {
+      title: 'Teklif (Muhasebe / Chatbot / Profesyonel)',
+      fn: () => aiSor(`Müşteri: ${sampleTeklif.musteri}`, kivonContext() + `
+Müşteri: ${sampleTeklif.musteri}
+Sektör: ${sampleTeklif.sektor}
+İhtiyaç: ${sampleTeklif.ihtiyac}
+Paket: ${sampleTeklif.paket}
+
+Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, süreç, iletişim, kapanış bölümleri olsun. Türkçe.`)
+    }
+  ];
+
+  try {
+    const results = await Promise.allSettled(tasks.map(t => t.fn()));
+    let html = '';
+    tasks.forEach((t, i) => {
+      const result = results[i];
+      const status = result.status === 'fulfilled';
+      const content = status ? result.value : 'Hata: ' + result.reason.message;
+      html += `<div class="mini-card">
+        <h4>${status ? '✅' : '❌'} ${t.title}</h4>
+        <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.5;">${content}</div>
+      </div>`;
+    });
+    allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--cyan);font-weight:600;">✨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
+  } catch (e) {
+    allResults.innerHTML = `<span style="color:#f87171;">&#10060; Toplu işlem hatası: ${e.message}</span>`;
+  } finally {
+    hepsiBtn.disabled = false;
+    hepsiBtn.textContent = '🌐 Hepsi — Tüm araçları örnek verilerle çalıştır';
+  }
+}
+</script>
+</body>
+</html>
