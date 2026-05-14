@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon Yorum Analizi</title>
+<style>
+  :root {
+    --bg: #0a0a1a;
+    --surface: rgba(255,255,255,0.05);
+    --cyan: #38bdf8;
+    --cyan-glow: rgba(56,189,248,0.15);
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.07);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(56,189,248,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(56,189,248,0.03) 0%, transparent 50%);
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 30px 0 20px;
+  }
+  .logo {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+  .subtitle { color: var(--text-muted); font-size: 14px; }
+  .stats-bar {
+    display: inline-flex; gap: 20px;
+    margin-top: 14px;
+    padding: 10px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 13px;
+  }
+  .stats-bar strong { color: var(--cyan); }
+
+  /* TEXTAREA */
+  .input-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .input-section label {
+    display: block;
+    font-size: 14px; font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  textarea {
+    width: 100%;
+    min-height: 140px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #fff;
+    padding: 14px;
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: var(--cyan); }
+  textarea::placeholder { color: var(--text-muted); }
+
+  .btn-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .btn {
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary {
+    background: var(--cyan);
+    color: #0a0a1a;
+  }
+  .btn-primary:hover { box-shadow: 0 0 24px var(--cyan-glow); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover { background: var(--surface); border-color: var(--cyan); color: var(--cyan); }
+  .btn-sm {
+    padding: 5px 12px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+
+  /* RESULTS */
+  .results { display: none; }
+  .results.active { display: block; }
+
+  .sentiment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .sent-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    border-left: 4px solid var(--text-muted);
+    animation: fadeUp 0.3s ease-out;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .sent-card.positive { border-left-color: var(--green); background: rgba(34,197,94,0.06); }
+  .sent-card.negative { border-left-color: var(--red); background: rgba(239,68,68,0.06); }
+  .sent-card.neutral  { border-left-color: var(--yellow); background: rgba(234,179,8,0.06); }
+  .sent-card .emoji { font-size: 22px; margin-bottom: 6px; }
+  .sent-card .review-text {
+    font-size: 13px; color: var(--text-muted);
+    font-style: italic; margin: 6px 0;
+    line-height: 1.5;
+  }
+  .sent-card .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .tag.positive { background: rgba(34,197,94,0.2); color: var(--green); }
+  .tag.negative { background: rgba(239,68,68,0.2); color: var(--red); }
+  .tag.neutral  { background: rgba(234,179,8,0.2); color: var(--yellow); }
+
+  /* SUMMARY */
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .summary h3 {
+    font-size: 16px; margin-bottom: 14px;
+    color: #fff; display: flex; align-items: center; gap: 8px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .summary-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .summary-item .value {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .summary-item .label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  .action-box {
+    background: rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .action-box strong { color: var(--cyan); }
+
+  /* CTA */
+  .cta-bar {
+    text-align: center; padding: 20px 0;
+    font-size: 14px; color: var(--text-muted);
+  }
+  .cta-bar a {
+    color: var(--cyan); text-decoration: none; font-weight: 600;
+  }
+
+  /* LOADING */
+  .loading {
+    text-align: center; padding: 30px;
+    display: none;
+  }
+  .loading.active { display: block; }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid rgba(56,189,248,0.2);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 10px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ERROR */
+  .error-msg {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: none;
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">Kivon</div>
+    <div class="subtitle">Yapay Zeka Destekli Yorum Analizi</div>
+    <div class="stats-bar">
+      📊 Toplam <strong id="totalAnaliz">0</strong> yorum analiz edildi
+    </div>
+  </div>
+
+  <div class="input-section">
+    <label>📝 Müşteri Yorumlarını Yapıştırın</label>
+    <textarea id="reviewInput" placeholder="Her satıra bir yorum gelecek şekilde yapıştırın. Örn: &#10;Ürün harika, çok memnun kaldım!&#10;Kargo çok yavaştı, ürün hasarlı geldi.&#10;Fiyatına göre idare eder."></textarea>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analizEt()">
+        🔍 Analiz Et
+      </button>
+      <button class="btn btn-outline btn-sm" onclick="ornekYorumlar()">
+        📋 Örnek Yorumları Dene
+      </button>
+      <button class="btn btn-outline btn-sm" onclick="temizle()">
+        🗑️ Temizle
+      </button>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div style="color:var(--text-muted);font-size:13px;">Yapay zeka yorumları analiz ediyor...</div>
+  </div>
+
+  <div class="results" id="results">
+    <h3 style="margin-bottom:12px;color:#fff;">📊 Analiz Sonuçları</h3>
+    <div class="sentiment-grid" id="sentimentGrid"></div>
+    <div class="summary" id="summaryBox"></div>
+  </div>
+
+  <div class="cta-bar">
+    Otomatik analiz için mağazanıza entegre edelim → <a href="https://wa.me/905555555555" target="_blank">WhatsApp</a>
+  </div>
+
+</div>
+
+<script>
+  const reviewInput = document.getElementById('reviewInput');
+  const analyzeBtn = document.getElementById('analyzeBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const loading = document.getElementById('loading');
+  const results = document.getElementById('results');
+  const sentimentGrid = document.getElementById('sentimentGrid');
+  const summaryBox = document.getElementById('summaryBox');
+  const totalAnaliz = document.getElementById('totalAnaliz');
+
+  const STORAGE_KEY = 'kivon_yorum_analiz_sayisi';
+
+  function sayacGuncelle() {
+    const count = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    totalAnaliz.textContent = count;
+  }
+
+  function sayacArtir(n) {
+    const count = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    localStorage.setItem(STORAGE_KEY, count + n);
+    sayacGuncelle();
+  }
+
+  function hataGoster(msg) {
+    errorMsg.textContent = '⚠️ ' + msg;
+    errorMsg.style.display = 'block';
+    setTimeout(() => { errorMsg.style.display = 'none'; }, 8000);
+  }
+
+  function hataGizle() { errorMsg.style.display = 'none'; }
+
+  function ornekYorumlar() {
+    reviewInput.value = [
+      'Ürün resimdeki gibi değil, hayal kırıklığı yaşadım. İade süreci de çok karmaşık.',
+      'Kesinlikle bayıldım! Kalitesi mükemmel, tam beden oturdu. Tekrar alacağım.',
+      'Fiyatına göre fena değil, kumaş biraz ince ama genel olarak iş görür.',
+      'Kargo 1 günde geldi, paketleme harikaydı. Satıcıya teşekkürler!',
+      'Ürünün dikişleri 2. kullanımda söküldü. Müşteri hizmetleri cevap vermiyor.',
+      'Renk seçenekleri çok güzel, aldığım lacivert tam istediğim gibi çıktı.',
+      'Hediye paketi istemiştim yapmamışlar. Onun dışında ürün güzel.',
+      'Bu fiyata bu kalite beklenmezdi, gerçekten çok iyi. Herkese tavsiye ederim.'
+    ].join('\n');
+  }
+
+  function temizle() {
+    reviewInput.value = '';
+    results.classList.remove('active');
+    sentimentGrid.innerHTML = '';
+    summaryBox.innerHTML = '';
+    hataGizle();
+  }
+
+  function renderResult(analysis) {
+    if (!analysis) return;
+
+    let html = '';
+    analysis.reviews.forEach((r, i) => {
+      let cls = r.sentiment === 'positive' ? 'positive' :
+                r.sentiment === 'negative' ? 'negative' : 'neutral';
+      let emoji = r.sentiment === 'positive' ? '😊' :
+                  r.sentiment === 'negative' ? '😡' : '😐';
+      let tagText = r.sentiment === 'positive' ? 'Olumlu' :
+                    r.sentiment === 'negative' ? 'Olumsuz' : 'Nötr';
+      html += `
+        <div class="sent-card ${cls}" style="animation-delay:${i*0.08}s">
+          <div class="emoji">${emoji}</div>
+          <div class="review-text">"${escapeHtml(r.text)}"</div>
+          <span class="tag ${cls}">${tagText}</span>
+          <div style="margin-top:8px;font-size:12px;color:var(--text-muted);">${escapeHtml(r.explanation || '')}</div>
+        </div>`;
+    });
+    sentimentGrid.innerHTML = html;
+
+    const positiveCount = analysis.reviews.filter(r => r.sentiment === 'positive').length;
+    const negativeCount = analysis.reviews.filter(r => r.sentiment === 'negative').length;
+    const neutralCount  = analysis.reviews.filter(r => r.sentiment === 'neutral').length;
+    const total = analysis.reviews.length;
+    const score = total > 0 ? Math.round((positiveCount / total) * 100) : 0;
+
+    summaryBox.innerHTML = `
+      <h3>📈 Özet Rapor</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="value">%${score}</div>
+          <div class="label">Memnuniyet Skoru</div>
+        </div>
+        <div class="summary-item">
+          <div class="value">${positiveCount}</div>
+          <div class="label">Olumlu Yorum</div>
+        </div>
+        <div class="summary-item">
+          <div class="value">${negativeCount}</div>
+          <div class="label">Olumsuz Yorum</div>
+        </div>
+        <div class="summary-item">
+          <div class="value">${neutralCount}</div>
+          <div class="label">Nötr Yorum</div>
+        </div>
+      </div>
+      <div class="action-box">
+        <strong>💡 Önerilen Aksiyon:</strong> ${escapeHtml(analysis.suggestion || 'Yorumları düzenli takip ederek müşteri memnuniyetini artırabilirsiniz.')}
+      </div>`;
+
+    results.classList.add('active');
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  async function aiSor(soru, sistem) {
+    const res = await fetch('http://localhost:3000/api/groq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ soru, sistem })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    return data.cevap || 'AI yanıt vermedi.';
+  }
+
+  function parseAIResponse(raw) {
+    try {
+      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      if (jsonMatch) return JSON.parse(jsonMatch[0]);
+    } catch(e) {}
+
+    const reviews = [];
+    const lines = raw.split('\n');
+    let suggestion = '';
+    for (const line of lines) {
+      if (line.includes('Öneri') || line.includes('Aksiyon') || line.includes('Tavsiye')) {
+        suggestion = line.replace(/^[^:：:]+[：:]\s*/, '');
+      }
+    }
+    return { reviews, suggestion: suggestion || 'Yorumları düzenli takip edin.' };
+  }
+
+  async function analizEt() {
+    const text = reviewInput.value.trim();
+    if (!text) {
+      hataGoster('Lütfen analiz edilecek yorumları yapıştırın.');
+      return;
+    }
+
+    const yorumlar = text.split('\n').filter(l => l.trim().length > 0);
+
+    if (yorumlar.length === 0) {
+      hataGoster('Analiz edilecek yorum bulunamadı.');
+      return;
+    }
+
+    hataGizle();
+    results.classList.remove('active');
+    sentimentGrid.innerHTML = '';
+    summaryBox.innerHTML = '';
+
+    analyzeBtn.disabled = true;
+    loading.classList.add('active');
+
+    const sistem = `Sen bir e-ticaret yorum analiz uzmanısın. Aşağıdaki müşteri yorumlarını analiz et.
+Her yorum için sentiment belirle: "positive", "negative" veya "neutral".
+Her yoruma kısa bir açıklama ekle.
+Son olarak genel bir öneri/tavsiye cümlesi yaz.
+
+Kesinlikle sadece JSON formatında yanıt ver, başka hiçbir şey yazma. JSON şeması:
+{
+  "reviews": [
+    { "text": "yorumun kendisi", "sentiment": "positive|negative|neutral", "explanation": "kısa açıklama" }
+  ],
+  "suggestion": "genel tavsiye cümlesi"
+}`;
+
+    const soru = 'Yorumlar:\n' + yorumlar.map((y,i) => `${i+1}. ${y}`).join('\n');
+
+    try {
+      const raw = await aiSor(soru, sistem);
+      const data = parseAIResponse(raw);
+      renderResult(data);
+      sayacArtir(yorumlar.length);
+    } catch (e) {
+      let msg = e.message;
+      if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError')) {
+        msg = 'API proxy çalışmıyor. node api-server.js ile başlatın.';
+      }
+
+      sentimentGrid.innerHTML = `
+        <div class="sent-card neutral" style="grid-column:1/-1;text-align:center;">
+          <div class="emoji" style="font-size:32px;">⚠️</div>
+          <div style="margin-top:10px;color:#fca5a5;">${escapeHtml(msg)}</div>
+          <div style="margin-top:6px;font-size:12px;color:var(--text-muted);">
+            Lütfen API sunucusunun çalıştığından emin olun.
+          </div>
+        </div>`;
+      results.classList.add('active');
+      hataGoster(msg);
+    }
+
+    analyzeBtn.disabled = false;
+    loading.classList.remove('active');
+  }
+
+  sayacGuncelle();
+</script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon Stok Takip</title>
+<style>
+  :root {
+    --bg: #0a0a1a;
+    --surface: rgba(255,255,255,0.05);
+    --cyan: #38bdf8;
+    --cyan-glow: rgba(56,189,248,0.15);
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.07);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(56,189,248,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(56,189,248,0.03) 0%, transparent 50%);
+  }
+  .container { max-width: 1024px; margin: 0 auto; }
+
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .logo {
+    font-size: 26px; font-weight: 700;
+    background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .btn {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--cyan); color: #0a0a1a; }
+  .btn-primary:hover { box-shadow: 0 0 20px var(--cyan-glow); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: var(--surface); border-color: var(--cyan); color: var(--cyan); }
+  .btn-danger { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+  .btn-danger:hover { background: rgba(239,68,68,0.25); }
+  .btn-sm { padding: 4px 10px; font-size: 11px; border-radius: 5px; }
+
+  /* ALERT BANNER */
+  .alert-banner {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #fca5a5;
+  }
+  .alert-banner.active { display: flex; }
+  .alert-banner .count { font-weight: 700; color: var(--red); }
+
+  /* ADD FORM */
+  .add-form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 4px; }
+  .form-group label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    width: 160px;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus { border-color: var(--cyan); }
+  .form-group input[name="urunAdi"] { width: 220px; }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead { background: rgba(0,0,0,0.25); }
+  th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-badge.ok      { background: rgba(34,197,94,0.15);  color: var(--green);  }
+  .status-badge.warning { background: rgba(234,179,8,0.15);  color: var(--yellow); }
+  .status-badge.danger  { background: rgba(239,68,68,0.15);  color: var(--red);    }
+
+  .stock-bar {
+    width: 80px; height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  .stock-bar-fill {
+    height: 100%; border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .stock-bar-fill.ok      { background: var(--green); }
+  .stock-bar-fill.warning { background: var(--yellow); }
+  .stock-bar-fill.danger  { background: var(--red); }
+
+  .empty-state {
+    text-align: center; padding: 40px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* AI RECO */
+  .ai-reco {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .ai-reco.active { display: block; }
+  .ai-reco h4 { color: var(--cyan); margin-bottom: 10px; font-size: 15px; }
+  .ai-reco pre {
+    background: rgba(0,0,0,0.3);
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* LOADING */
+  .loading-overlay {
+    text-align: center; padding: 18px; display: none;
+  }
+  .loading-overlay.active { display: block; }
+  .spinner {
+    width: 30px; height: 30px;
+    border: 3px solid rgba(56,189,248,0.2);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-msg {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+    margin-top: 10px;
+  }
+
+  /* CTA */
+  .cta-bar {
+    text-align: center; padding: 18px 0 8px;
+    font-size: 14px; color: var(--text-muted);
+  }
+  .cta-bar a { color: var(--cyan); text-decoration: none; font-weight: 600; }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .header-actions, .add-form, .alert-banner, .ai-reco, .cta-bar, .error-msg, .loading-overlay { display: none !important; }
+    .table-wrap { border: 1px solid #ccc; }
+    thead { background: #f5f5f5; }
+    th, td { color: #000; border-color: #ddd; }
+    .btn, .status-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .logo { -webkit-text-fill-color: #0a0a1a; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">Kivon Stok Takip</div>
+    <div class="header-actions">
+      <button class="btn btn-outline btn-sm" onclick="disaAktarCSV()">📥 CSV İndir</button>
+      <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Yazdır</button>
+      <button class="btn btn-outline btn-sm" onclick="demoYukle()">🔄 Demo Yükle</button>
+      <button class="btn btn-primary" id="aiBtn" onclick="aiStokOnerisi()">🤖 Stok Önerisi</button>
+    </div>
+  </div>
+
+  <div class="alert-banner" id="alertBanner">
+    <span style="font-size:20px;">⚠️</span>
+    <span><strong id="alertCount">0</strong> ürün kritik seviyede — hemen sipariş verilmesi gerekiyor.</span>
+  </div>
+
+  <div class="add-form">
+    <div class="form-group">
+      <label>Ürün Adı</label>
+      <input type="text" name="urunAdi" id="inpAd" placeholder="Örn: Kablosuz Kulaklık">
+    </div>
+    <div class="form-group">
+      <label>Mevcut Stok</label>
+      <input type="number" name="stok" id="inpStok" placeholder="0" min="0">
+    </div>
+    <div class="form-group">
+      <label>Min. Seviye</label>
+      <input type="number" name="minSeviye" id="inpMin" placeholder="5" min="1">
+    </div>
+    <button class="btn btn-primary" onclick="urunEkle()">+ Ürün Ekle</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ürün Adı</th>
+          <th>Stok</th>
+          <th>Min. Seviye</th>
+          <th>Durum</th>
+          <th style="width:100px;">İşlem</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="5" class="empty-state">Henüz ürün eklenmedi. Demo yükleyerek başlayabilirsiniz.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div style="color:var(--text-muted);font-size:13px;">AI stok analizi yapılıyor...</div>
+  </div>
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="ai-reco" id="aiReco">
+    <h4>🤖 Kivon AI Stok Önerisi</h4>
+    <pre id="aiRecoContent"></pre>
+  </div>
+
+  <div class="cta-bar">
+    Stok yönetiminizi otomatikleştirelim → <a href="https://wa.me/905555555555" target="_blank">WhatsApp</a>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'kivon_stok_urunler';
+  const DEMO_URUNLER = [
+    { ad: 'Kablosuz Kulaklık MX-200',     stok: 2,  min: 10 },
+    { ad: 'USB-C Hızlı Şarj Kablosu',     stok: 45, min: 15 },
+    { ad: 'Akıllı Saat Kordonu (Siyah)',  stok: 3,  min: 8  },
+    { ad: 'Taşınabilir Powerbank 20000',  stok: 12, min: 10 },
+    { ad: 'Bluetooth Hoparlör Mini',      stok: 0,  min: 5  },
+  ];
+
+  let urunler = [];
+
+  function urunleriYukle() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        urunler = JSON.parse(raw);
+      }
+    } catch(e) {
+      urunler = [];
+    }
+    if (urunler.length === 0) {
+      demoYukle();
+    }
+  }
+
+  function urunleriKaydet() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(urunler));
+  }
+
+  function durumHesapla(stok, min) {
+    if (stok <= 0) return { label: 'Kritik', cls: 'danger', barWidth: 0 };
+    if (stok <= min) return { label: 'Düşük', cls: 'warning', barWidth: Math.min(100, (stok/min) * 50) };
+    return { label: 'Yeterli', cls: 'ok', barWidth: Math.min(100, (stok/min) * 50) };
+  }
+
+  function tabloGuncelle() {
+    const tbody = document.getElementById('tableBody');
+    if (urunler.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Henüz ürün eklenmedi. Demo yükleyerek başlayabilirsiniz.</td></tr>';
+      document.getElementById('alertBanner').classList.remove('active');
+      return;
+    }
+
+    let kritikSayisi = 0;
+    let html = '';
+
+    urunler.forEach((u, i) => {
+      const d = durumHesapla(u.stok, u.min);
+      if (d.cls === 'danger') kritikSayisi++;
+
+      html += `
+        <tr>
+          <td><strong>${escapeHtml(u.ad)}</strong></td>
+          <td>
+            ${u.stok}
+            <div class="stock-bar"><div class="stock-bar-fill ${d.cls}" style="width:${d.barWidth}%"></div></div>
+          </td>
+          <td>${u.min}</td>
+          <td><span class="status-badge ${d.cls}">${d.label}</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline" onclick="stokGuncelle(${i}, 1)" title="Stok +1">+</button>
+            <button class="btn btn-sm btn-outline" onclick="stokGuncelle(${i}, -1)" title="Stok -1" style="margin-left:2px;">−</button>
+            <button class="btn btn-sm btn-danger" onclick="urunSil(${i})" style="margin-left:4px;">✕</button>
+          </td>
+        </tr>`;
+    });
+
+    tbody.innerHTML = html;
+
+    const alertBanner = document.getElementById('alertBanner');
+    if (kritikSayisi > 0) {
+      alertBanner.classList.add('active');
+      document.getElementById('alertCount').textContent = kritikSayisi;
+    } else {
+      alertBanner.classList.remove('active');
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+  }
+
+  function urunEkle() {
+    const ad = document.getElementById('inpAd').value.trim();
+    const stok = parseInt(document.getElementById('inpStok').value) || 0;
+    const min = parseInt(document.getElementById('inpMin').value) || 1;
+
+    if (!ad) {
+      hataGoster('Ürün adı gerekli.');
+      return;
+    }
+
+    urunler.push({ ad, stok, min });
+    urunleriKaydet();
+    tabloGuncelle();
+
+    document.getElementById('inpAd').value = '';
+    document.getElementById('inpStok').value = '';
+    document.getElementById('inpMin').value = '';
+    document.getElementById('inpAd').focus();
+  }
+
+  function stokGuncelle(index, delta) {
+    urunler[index].stok = Math.max(0, urunler[index].stok + delta);
+    urunleriKaydet();
+    tabloGuncelle();
+  }
+
+  function urunSil(index) {
+    urunler.splice(index, 1);
+    urunleriKaydet();
+    tabloGuncelle();
+  }
+
+  function demoYukle() {
+    urunler = DEMO_URUNLER.map(u => ({ ...u }));
+    urunleriKaydet();
+    tabloGuncelle();
+  }
+
+  function disaAktarCSV() {
+    if (urunler.length === 0) return;
+    let csv = 'Ürün Adı,Stok,Min. Seviye,Durum\n';
+    urunler.forEach(u => {
+      const d = durumHesapla(u.stok, u.min);
+      csv += `"${u.ad}",${u.stok},${u.min},${d.label}\n`;
+    });
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'kivon-stok-raporu.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function hataGoster(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = '⚠️ ' + msg;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 8000);
+  }
+
+  async function aiSor(soru, sistem) {
+    try {
+      const res = await fetch('http://localhost:3000/api/groq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ soru, sistem })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      return data.cevap || 'AI yanıt vermedi.';
+    } catch (e) {
+      if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError')) {
+        throw new Error('API proxy çalışmıyor. node api-server.js ile başlatın.');
+      }
+      throw e;
+    }
+  }
+
+  async function aiStokOnerisi() {
+    if (urunler.length === 0) {
+      hataGoster('Önce ürün ekleyin veya demo yükleyin.');
+      return;
+    }
+
+    const aiBtn = document.getElementById('aiBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const aiReco = document.getElementById('aiReco');
+    const aiRecoContent = document.getElementById('aiRecoContent');
+    const errorMsg = document.getElementById('errorMsg');
+
+    errorMsg.style.display = 'none';
+    aiReco.classList.remove('active');
+    aiBtn.disabled = true;
+    loadingOverlay.classList.add('active');
+
+    const urunListesi = urunler.map(u => {
+      const d = durumHesapla(u.stok, u.min);
+      return `• ${u.ad} | Stok: ${u.stok} | Min: ${u.min} | Durum: ${d.label}`;
+    }).join('\n');
+
+    const sistem = `Sen bir stok yönetimi ve tedarik zinciri uzmanısın. Aşağıdaki ürün listesini incele.
+Kritik seviyede (stok <= 0 veya minimum seviyenin altında) olan ürünler için:
+1. Hangi ürünlere acil sipariş verilmeli
+2. Önerilen sipariş miktarları
+3. Genel stok optimizasyonu tavsiyeleri
+
+Türkçe, kısa ve net yanıt ver. Madde işaretleri kullan.`;
+
+    try {
+      const cevap = await aiSor('Stok durumu:\n' + urunListesi, sistem);
+      aiRecoContent.textContent = cevap;
+      aiReco.classList.add('active');
+      aiReco.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (e) {
+      aiRecoContent.textContent = e.message;
+      aiReco.classList.add('active');
+      hataGoster(e.message);
+    }
+
+    aiBtn.disabled = false;
+    loadingOverlay.classList.remove('active');
+  }
+
+  urunleriYukle();
+  tabloGuncelle();
+</script>
+</body>
+</html>
