@@ -380,9 +380,59 @@ async function mesajIsle(metin) {
     return;
   }
 
-  // Hiçbir şey bulunamadı
+  // Hiçbir şey bulunamadı — Groq AI devreye girer
+  const groqYanit = await groqSor(metin);
+  if (groqYanit) {
+    await botYaz(groqYanit);
+    butonlariAyarla(varsayilanButonlar);
+    return;
+  }
+
   await botYaz(bilgiTabani.bilinmeyen);
   butonlariAyarla(varsayilanButonlar);
+}
+
+// ─── GROQ AI FALLBACK ──────────────────────────────────────────
+const GROQ_KEY = 'GROQ_API_KEY_YAZIN'; // https://console.groq.com/keys
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const PROXY_URL = 'http://localhost:3000/api/groq';
+
+async function groqSor(soru) {
+  try {
+    // Once proxy'yi dene (anahtar guvende)
+    let res = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ soru })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data.cevap || null;
+    }
+  } catch(e) {
+    // Proxy yoksa direkt API'yi dene
+    if (GROQ_KEY !== 'GROQ_API_KEY_YAZIN') {
+      try {
+        let res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
+          body: JSON.stringify({
+            model: GROQ_MODEL,
+            messages: [
+              { role: 'system', content: 'Sen Kivon\'un AI asistanisin. Kivon, Bursa merkezli, KOBİ\'lere AI cozumleri sunan bir teknoloji danismanligidir. 13 kisilik ekip. Paketler: Baslangic 1.200 TL, Profesyonel 2.000 TL, Kurumsal 3.500 TL. 3 sektor: muhasebe, e-ticaret, restoran/kafe. Turkce, kisa ve net cevap ver. Max 3-4 cumle.' },
+              { role: 'user', content: soru }
+            ],
+            temperature: 0.7, max_tokens: 300
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          return data.choices?.[0]?.message?.content || null;
+        }
+      } catch(e2) {}
+    }
+  }
+  return null;
 }
 
 function mesajGonder() {
