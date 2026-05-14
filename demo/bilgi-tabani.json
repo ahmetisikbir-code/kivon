@@ -1,0 +1,25 @@
+{
+  "_aciklama": "Kivon Asistan Bilgi Tabani. Bu JSON'u duzenleyerek chatbot'un yanitlarini kodsuz degistirebilirsiniz. 'yanitlar' altindaki her anahtar '|' ile ayrilmis kelimeler icerir. Kullanici mesajinda bu kelimelerden biri gecerse, karsiligindaki yanit verilir.",
+
+  "karsilama": "Merhaba! 👋 Ben Kivon'un AI asistaniyim. Size nasil yardimci olabilirim?",
+
+  "bilinmeyen": "Bu konuda kesin bir bilgim yok. WhatsApp (+905303982712) veya Instagram (@kivon.iletisim) uzerinden ulasabilirsiniz.",
+
+  "konu_disi": "Ben muhasebe, yapay zeka ve isletme konularinda yardimci olmak icin buradayim.",
+
+  "yanitlar": {
+    "merhaba|selam|naber": "Merhaba! Hos geldiniz. Size nasil yardimci olabilirim?",
+
+    "fiyat|ucret|paket|ne kadar": "Paketlerimiz:\n- Baslangic: 1.200 TL/ay (1 AI cozumu)\n- Profesyonel: 2.000 TL/ay (2 AI cozumu)\n- Kurumsal: 3.500 TL/ay (sinirsiz)\n\nIlk 5 musterimize %20 indirim uyguluyoruz.",
+
+    "chatbot|bot|asistan": "Chatbot'umuz musterilerinizin sik sordugu sorulari 7/24 otomatik yanitlar. WhatsApp, web ve Instagram'da calisir. Kurulum 3-5 is gunu.",
+
+    "guvenlik|kvkk|veri|gizli": "KVKK ve GDPR uyumluyuz. Veriler Turkiye'de sifrelenir. Ucuncu taraflarla paylasilmaz. Hukuk danismanimiz tum sozlesmeleri hazirladi.",
+
+    "iletisim|ulasmak|telefon|mail": "WhatsApp: +90 530 398 27 12\nE-posta: kivon.iletisim@gmail.com\nInstagram: @kivon.iletisim\nWeb: ahmetisikbir-code.github.io/kivon",
+
+    "kimsin|kivon|sirket": "Kivon, Bursa cikisli bir teknoloji danismanligi. KOBI'lere AI cozumleri sunuyoruz. Kurucu: Ahmet Isik.",
+
+    "demo|deneme|test": "Demolarimiz web sitemizde: ahmetisikbir-code.github.io/kivon"
+  }
+}

@@ -3,89 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kivon Chatbot Demo</title>
+<title>Kivon Asistan | API'siz Chatbot</title>
 <style>
+:root{--navy:#0a0a1a;--navy2:#101834;--cyan:#38bdf8;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.chat-container{width:420px;max-width:95vw;height:700px;max-height:90vh;background:#0a0a1a;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(56,189,248,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 60px rgba(56,189,248,0.08)}
-.chat-header{background:linear-gradient(135deg,#0a0a1a,#101834);padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(56,189,248,0.15)}
-.chat-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 2px rgba(56,189,248,0.4)}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}
+.chat-container{width:440px;max-width:100%;height:740px;max-height:95vh;background:var(--navy);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(56,189,248,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.chat-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(56,189,248,0.12)}
+.chat-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 2px rgba(56,189,248,0.4);background:var(--navy2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--cyan)}
 .chat-avatar img{width:100%;height:100%;object-fit:cover}
 .chat-header-info{flex:1}
-.chat-header-name{font-size:16px;font-weight:700;color:#fff}
-.chat-header-status{font-size:12px;color:#38bdf8;display:flex;align-items:center;gap:6px}
-.status-dot{width:8px;height:8px;background:#10b981;border-radius:50%;display:inline-block;flex-shrink:0;animation:statusPulse 2s ease-in-out infinite}
-@keyframes statusPulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.7)}50%{box-shadow:0 0 0 9px rgba(16,185,129,0)}}
-.chat-header-badge{background:rgba(56,189,248,0.15);color:#38bdf8;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.5px}
-.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
-.chat-body::-webkit-scrollbar{width:4px}
-.chat-body::-webkit-scrollbar-thumb{background:rgba(56,189,248,0.2);border-radius:2px}
-.msg{max-width:80%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.45;animation:fadeIn .3s ease;white-space:pre-wrap}
-.msg.bot{background:rgba(56,189,248,0.1);color:#e2e8f0;align-self:flex-start;border-bottom-left-radius:4px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,0.18)}
-.msg.user{background:#38bdf8;color:#0a0a1a;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,0.18)}
+.chat-header-name{font-size:15px;font-weight:700;color:var(--white)}
+.chat-header-status{font-size:11px;color:var(--cyan);display:flex;align-items:center;gap:5px}
+.status-dot{width:7px;height:7px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.7)}50%{box-shadow:0 0 0 7px rgba(16,185,129,0)}}
+.chat-header-badge{background:rgba(56,189,248,0.12);color:var(--cyan);font-size:9px;font-weight:700;padding:2px 8px;border-radius:12px}
+.chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat-body::-webkit-scrollbar{width:3px}
+.chat-body::-webkit-scrollbar-thumb{background:rgba(56,189,248,0.15);border-radius:2px}
+.msg{max-width:82%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.45;animation:fadeIn .3s ease;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:rgba(56,189,248,0.08);color:#e2e8f0;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid rgba(56,189,248,0.14)}
+.msg.user{background:var(--cyan);color:var(--navy);align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .typing{display:flex;gap:4px;padding:10px 14px;align-self:flex-start}
-.typing span{width:6px;height:6px;background:#38bdf8;border-radius:50%;animation:bounce 1.2s infinite}
+.typing span{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:bounce 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
-.quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px 12px}
-.quick-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(56,189,248,0.2);color:#94a3b8;font-size:13px;padding:8px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit}
-.quick-btn:hover{background:rgba(56,189,248,0.12);color:#fff;border-color:rgba(56,189,248,0.4)}
-.chat-footer{padding:10px 16px;border-top:1px solid rgba(56,189,248,0.1)}
-.chat-footer-inner{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border-radius:24px;padding:4px 16px;border:1px solid rgba(56,189,248,0.12)}
-.chat-footer-inner span{color:#64748b;font-size:13px;flex:1}
-.chat-footer-brand{font-size:10px;color:rgba(255,255,255,0.2);text-align:center;margin-top:8px}
+.quick-replies{display:flex;flex-wrap:wrap;gap:5px;padding:6px 14px 10px}
+.quick-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.16);color:var(--gray);font-size:12px;padding:6px 12px;border-radius:16px;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.quick-btn:hover{background:rgba(56,189,248,0.1);color:var(--white)}
+.chat-input-area{padding:8px 14px 12px;border-top:1px solid rgba(56,189,248,0.08);display:flex;gap:8px}
+.chat-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.15);border-radius:20px;padding:10px 16px;color:var(--white);font-size:13px;font-family:inherit;outline:none;transition:all .2s}
+.chat-input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,0.08)}
+.chat-input::placeholder{color:rgba(255,255,255,0.2)}
+.send-btn{background:var(--cyan);color:var(--navy);border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px;font-weight:700;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.send-btn:hover{background:var(--ice);box-shadow:0 0 16px rgba(56,189,248,0.25)}
+.chat-footer-brand{font-size:9px;color:rgba(255,255,255,0.15);text-align:center;padding:0 14px 8px}
+.admin-toggle{position:absolute;bottom:8px;right:14px;font-size:10px;color:rgba(255,255,255,0.15);cursor:pointer;background:none;border:none;font-family:inherit}
+.admin-panel{display:none;background:rgba(0,0,0,0.4);border:1px solid rgba(251,191,36,0.3);border-radius:14px;padding:12px;margin:0 14px 8px;max-height:180px;overflow-y:auto}
+.admin-panel.show{display:block}
+.admin-panel h4{font-size:11px;color:var(--gold);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase}
+.admin-panel textarea{width:100%;height:140px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--white);font-size:11px;font-family:monospace;padding:8px;resize:vertical}
+.admin-panel button{background:var(--gold);color:var(--navy);border:none;padding:4px 12px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit}
 </style>
 </head>
 <body>
-<div class="chat-container">
+<div class="chat-container" style="position:relative">
   <div class="chat-header">
-    <div class="chat-avatar"><img src="" alt="" id="headerAvatar"></div>
+    <div class="chat-avatar" id="headerAvatar">K</div>
     <div class="chat-header-info">
-      <div class="chat-header-name" id="headerName">Muhasebe Asistanı</div>
-      <div class="chat-header-status"><span class="status-dot"></span> Çevrimiçi</div>
+      <div class="chat-header-name">Kivon Asistan</div>
+      <div class="chat-header-status"><span class="status-dot"></span> Çevrimiçi · API'siz</div>
     </div>
-    <div class="chat-header-badge">AI</div>
+    <div class="chat-header-badge">v2.0</div>
   </div>
   <div class="chat-body" id="chatBody"></div>
   <div class="quick-replies" id="quickReplies"></div>
-  <div class="chat-footer">
-    <div class="chat-footer-inner"><span>Mesaj seçin...</span></div>
-    <div class="chat-footer-brand">Kivon AI • @kivon.iletisim</div>
+  <div class="admin-panel" id="adminPanel">
+    <h4>⚙️ Bilgi Tabanı Düzenle (JSON)</h4>
+    <textarea id="kbEditor"></textarea>
+    <button onclick="bilgiTabaniniKaydet()">Kaydet ve Uygula</button>
   </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')mesajGonder()">
+    <button class="send-btn" onclick="mesajGonder()">▶</button>
+  </div>
+  <div class="chat-footer-brand">Kivon · API'siz · Tamamen yerel</div>
+  <button class="admin-toggle" onclick="adminPanelAc()" title="Bilgi tabanı">⚙️</button>
 </div>
 
 <script>
+// ================================================================
+//    KİVON ASİSTAN v2.0 — API'SIZ, TAMAMEN YEREL
+//    Bilgi tabanı JSON ile yönetilir, localStorage'da saklanır.
+//    İsteyen herkes kodsuz kullanabilir.
+// ================================================================
+
 const chatBody = document.getElementById('chatBody');
 const quickReplies = document.getElementById('quickReplies');
-const STORAGE_KEY = 'kivon_chat_history';
+const chatInput = document.getElementById('chatInput');
+const STORAGE_KEY = 'kivon_chat_v2';
+const KB_KEY = 'kivon_bilgi_tabani';
 
-let dialogStep = null;
-let lastMessageTime = 0;
+// ─── VARSAYILAN BİLGİ TABANI ───────────────────────────────────
+const varsayilanBilgiTabani = {
+  "karsilama": "Merhaba! 👋 Ben Kivon'un muhasebe büroları için geliştirdiği AI asistanıyım. Sık sorulan sorular, fiyat bilgisi, teknik detaylar — her konuda yardımcı olabilirim. Buyurun sorun!",
+  "bilinmeyen": "Bu konuda kesin bir bilgim yok. Ancak WhatsApp'tan (+905303982712) veya Instagram'dan (@kivon.iletisim) bize ulaşabilirsiniz. Uzman ekibimiz en kısa sürede dönüş yapar. 📞",
+  "konu_disi": "Ben muhasebe, yapay zekâ ve işletme konularında yardımcı olmak için buradayım. Başka bir sorunuz varsa memnuniyetle cevaplarım. 💼",
 
-const responses = {
-  'merhaba': 'Merhaba! Ben Kivon\'un muhasebe büroları için geliştirdiği yapay zekâ asistanıyım. Size nasıl yardımcı olabilirim?',
-  'merhaba|selam|iyi günler': 'Merhaba! Hoş geldiniz. Sıkça sorulan sorulardan birini seçin veya aklınıza takılanı sorun.',
-  'dekont|ödeme|havale': 'Müşterileriniz "dekont nerede, ödeme ulaştı mı?" diye sorduğunda, asistanımız anında havale/EFT kayıtlarını kontrol edip cevap verir. Size günde ortalama 45 dakika kazandırır.',
-  'randevu|takvim|görüşme': 'Randevu yönetimi en büyük zaman kayıplarından biri. AI asistanımız boş takvim dilimlerinizi görür, müşteriye uygun saatleri önerir ve onaylanan randevuyu otomatik takvime ekler.',
-  'fatura|e-fatura|e-arşiv': 'Fatura sorgulama ve hatırlatma tamamen otomatik. Müşteri "geçen ayki faturam ne kadardı?" diye sorduğunda, sistem anında ilgili faturayı bulur ve tutarı söyler. PDF olarak da iletebilir.',
-  'beyanname|vergi|kdv': 'Beyanname dönemlerinde müşterilerinizden gelen tekrarlayan soruları asistan karşılar. "KDV beyannamesi ne zaman verilecek?", "Vergi borcum var mı?" gibi sorulara standart ve doğru cevaplar verir.',
-  'çalışma|nasıl|sistem': 'Şöyle çalışır: Mevcut muhasebe yazılımınıza (Logo, Paraşüt, LUCA vb.) bağlanırız. Sık sorulan 50-100 soruyu birlikte belirleriz. AI bu sorulara sizin onayladığınız cevapları verir. Tam kontrol sizde.',
-  'güvenlik|veri|kvkk': 'KVKK ve GDPR uyumluyuz. Tüm müşteri verileri Türkiye\'deki sunucularda şifrelenir. Hiçbir veriyi başka amaçla kullanmayız. Hukuk danışmanımız Ege Bey tüm sözleşmeleri hazırladı.',
-  'referans|müşteri|örnek': 'Henüz çok yeni bir şirketiz. İlk müşterilerimizden biri siz olabilirsiniz! Bu nedenle erken katılım indirimi ve özel ilgi sunuyoruz. İlk 5 müşterimize %20 indirim uyguluyoruz.',
-  'teşekkür|sağ ol|teşekkürler': 'Rica ederiz! Başka bir sorunuz olursa her zaman buradayım. İsterseniz sizi bir keşif görüşmesi için yönlendirebilirim. ☺️',
-  'görüşme|iletişim|ulaşmak': 'Harika! Bize şu kanallardan ulaşabilirsiniz:\n📞 WhatsApp: +90 530 398 27 12\n📧 E-posta: kivon.iletisim@gmail.com\n📷 Instagram: @kivon.iletisim\n\nDilerseniz ücretsiz keşif görüşmesi planlayalım!'
+  "yanitlar": {
+    "merhaba|selam|naber|iyi günler": "Merhaba! Hoş geldiniz. Size nasıl yardımcı olabilirim? Sormak istediğiniz konuyu yazabilir veya aşağıdaki butonlardan seçebilirsiniz. 😊",
+
+    "fiyat|ücret|paket|ne kadar|kaç para|kaç tl": "📦 Kivon hizmet paketlerimiz:\n\n🔹 Başlangıç: 1.200 TL/ay — 1 AI çözümü, WhatsApp entegrasyonu\n🔹 Profesyonel: 2.000 TL/ay — 2 AI çözümü, haftalık rapor\n🔹 Kurumsal: 3.500 TL/ay — Sınırsız AI çözümü, canlı dashboard\n\nİlk 5 müşterimize %20 erken katılım indirimi uyguluyoruz. Detay için hangi paketi incelemek istersiniz?",
+
+    "chatbot|bot|asistan|sanal asistan": "Chatbot'umuz müşterilerinizin sık sorduğu soruları 7/24 otomatik yanıtlar. WhatsApp, web siteniz ve Instagram üzerinden çalışır. Muhasebe büroları için özel eğitilmiştir.\n\nKurulum 3-5 iş günü sürer. Siz onay vermeden canlıya almıyoruz. Detaylı demo için WhatsApp'tan ulaşabilirsiniz.",
+
+    "nasıl|çalışma|sistem|nasıl çalışır": "Şöyle çalışır: Mevcut muhasebe yazılımınıza (Logo, Paraşüt, LUCA vb.) bağlanırız. Sık sorulan 50-100 soruyu birlikte belirleriz. AI bu sorulara sizin onayladığınız cevapları verir. Tam kontrol sizde, biz sadece teknolojiyi sağlarız.",
+
+    "güvenlik|kvkk|veri|gizli": "KVKK ve GDPR uyumluyuz. Tüm müşteri verileri Türkiye'deki sunucularda şifrelenir. Hiçbir veriyi üçüncü taraflarla paylaşmayız. Hukuk danışmanımız Ege Bey tüm sözleşmeleri hazırladı. İsterseniz NDA da imzalarız. 🔒",
+
+    "randevu|takvim|görüşme": "Randevu yönetimi en büyük zaman kayıplarından biri. AI asistanımız boş takvim dilimlerinizi görür, müşteriye uygun saatleri önerir ve onaylanan randevuyu otomatik takvime ekler. Size ayda ortalama 8 saat kazandırır.",
+
+    "dekont|ödeme|havale|eft": "Müşterileriniz \"dekont nerede, ödeme ulaştı mı?\" diye sorduğunda, asistanımız anında havale/EFT kayıtlarını kontrol edip cevap verir. Size günde ortalama 45 dakika kazandırır. PDF olarak dekont da iletebilir.",
+
+    "fatura|e-fatura|e-arşiv": "Fatura sorgulama ve hatırlatma tamamen otomatik. Müşteri \"geçen ayki faturam ne kadardı?\" diye sorduğunda, sistem anında ilgili faturayı bulur ve tutarı söyler. PDF olarak da iletebilir. Ayda 20 saat kazanç.",
+
+    "kdv|vergi|beyanname|maliye": "Beyanname dönemlerinde müşterilerinizden gelen tekrarlayan soruları asistan karşılar. \"KDV beyannamesi ne zaman verilecek?\", \"Vergi borcum var mı?\" gibi sorulara doğru cevaplar verir. Vergi takvimi entegrasyonu ile hiçbir tarih kaçmaz.",
+
+    "kobi|küçük işletme|esnaf|işletme": "Kivon tam olarak KOBİ'ler için kuruldu. Büyük şirketlerin kullandığı AI çözümlerini, sizin bütçenize uygun şekilde sunuyoruz. Karmaşık teknik konuları sizin dilinizden anlatıyoruz. Amacımız: Teknolojiyi demokratikleştirmek.",
+
+    "muhasebe|mali müşavir|smmm|muhasebeci": "Muhasebe büroları bizim birincil hedef kitlemiz. Sektörün ihtiyaçlarını biliyoruz: tekrarlayan müşteri soruları, beyanname dönemi yoğunluğu, evrak takibi. Tüm bunları AI ile hafifletiyoruz. Size özel ücretsiz analiz için DM atın.",
+
+    "iletişim|ulaşmak|telefon|mail|whatsapp": "Bize şu kanallardan ulaşabilirsiniz:\n📞 WhatsApp: +90 530 398 27 12\n📧 E-posta: kivon.iletisim@gmail.com\n📷 Instagram: @kivon.iletisim\n🌐 Web: ahmetisikbir-code.github.io/kivon\n\nÜcretsiz keşif görüşmesi için bekleriz!",
+
+    "kimsin|kivon|şirket|firma|siz": "Kivon, Bursa çıkışlı bir teknoloji danışmanlık şirketiyiz. KOBİ'lere yapay zekâ çözümleri sunuyoruz. Kurucumuz Ahmet Işık. 13 kişilik uzman ekibimizle çalışıyoruz. Daha şirketimizi yeni kurduk, ilk müşterilerimizi arıyoruz! 🚀",
+
+    "referans|müşteri|örnek|tecrübe": "Henüz çok yeni bir şirketiz. İlk müşterilerimizden biri siz olabilirsiniz! Bu nedenle erken katılım indirimi ve özel ilgi sunuyoruz. İlk 5 müşterimize %20 indirim. Ayrıca 14 gün ücretsiz deneme ve sözleşmede çıkış maddesi var.",
+
+    "entegrasyon|logo|paraşüt|luca|mikro": "Mevcut muhasebe yazılımınızla (Logo, Paraşüt, LUCA, Mikro ve diğerleri) entegre çalışırız. Özel yazılım kullanıyorsanız API bağlantısı kurarız. Size uyum sağlarız, sizi değiştirmeyiz. Entegrasyon 1-2 iş günü sürer.",
+
+    "teşekkür|sağ ol|eyvallah": "Rica ederiz! Başka bir sorunuz olursa her zaman buradayım. İsterseniz sizi ücretsiz keşif görüşmesi için yönlendirebilirim. ☺️",
+
+    "zaman|tasarruf|verimlilik|saat": "Yaptığımız araştırmalara göre bir muhasebe bürosu haftada ortalama 3-5 saatini tekrarlayan sorulara harcıyor. Bu, ayda yaklaşık 16-20 saat demek. Chatbot'umuz bu yükü alır. 16 saat = yeni müşterilere, stratejiye, dinlenmeye ayıracağınız zaman.",
+
+    "kosgeb|hibe|teşvik|destek": "KOSGEB Geleneksel Girişimci Destek Programı'na başvuruyoruz. 65.000 TL hibe + 100.000 TL faizsiz kredi imkanı var. Başvuru sürecinde size de yardımcı olabiliriz. Eğitime bu hafta başlıyoruz. Güncel bilgi için WhatsApp'tan ulaşın.",
+
+    "demo|deneme|test": "Canlı demolarımızı hemen inceleyebilirsiniz:\n💬 Muhasebe Asistanı Chatbot\n📊 Veri Analitiği Paneli\n🧪 AI Hazırlık Testi\n🧮 MCP Muhasebe Araçları\n\nHepsi web sitemizde ücretsiz: ahmetisikbir-code.github.io/kivon",
+
+    "sektör|e-ticaret|restoran|mağaza": "Öncelikli hedefimiz muhasebe büroları. Ancak e-ticaret işletmeleri ve restoran/kafe gibi sektörlere de özel AI çözümlerimiz var. Sipariş takibi, stok yönetimi, rezervasyon — sektörünüze özel çözüm için ücretsiz analiz yapalım."
+  }
 };
 
-const packageDetails = {
-  'Başlangıç': '📦 Başlangıç Paketi — 1.200 TL/ay\n\n✅ 1 AI çözümü\n✅ WhatsApp entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Aylık rapor\n✅ Kurulum dahil\n\n14 gün ücretsiz deneme, sözleşmede çıkış maddesi var. Başlangıç için ideal.',
-  'Profesyonel': '📦 Profesyonel Paket — 2.000 TL/ay\n\n✅ 2 AI çözümü\n✅ WhatsApp + Web entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Haftalık rapor\n✅ Randevu yönetimi\n✅ Kurulum + eğitim dahil\n\nEn çok tercih edilen paketimiz. Orta ölçekli bürolar için ideal.',
-  'Kurumsal': '📦 Kurumsal Paket — 3.500 TL/ay\n\n✅ Sınırsız AI çözümü\n✅ Tüm kanallarda entegrasyon\n✅ Özel eğitilmiş model\n✅ Canlı dashboard\n✅ Öncelikli destek\n✅ Kurulum + eğitim + danışmanlık\n\nYüksek hacimli bürolar ve zincir muhasebe ofisleri için.'
-};
+function bilgiTabaniOku() {
+  try { return JSON.parse(localStorage.getItem(KB_KEY)) || JSON.parse(JSON.stringify(varsayilanBilgiTabani)); }
+  catch { return JSON.parse(JSON.stringify(varsayilanBilgiTabani)); }
+}
+function bilgiTabaniYaz(bt) { localStorage.setItem(KB_KEY, JSON.stringify(bt)); }
+let bilgiTabani = bilgiTabaniOku();
 
-const defaultQuickButtons = ['💰 Fiyat ve paketler', '🔒 Veri güvenliği', '📅 Randevu yönetimi', '🧾 Fatura sorgulama', '📋 Nasıl çalışır?', '📞 Görüşme talep et'];
+// ─── YANIT BULMA ────────────────────────────────────────────────
+function yanitBul(metin) {
+  const lower = metin.toLowerCase().trim();
+  if (!lower) return null;
 
+  for (const [anahtar, yanit] of Object.entries(bilgiTabani.yanitlar)) {
+    const kelimeler = anahtar.split('|');
+    for (const k of kelimeler) {
+      if (lower.includes(k.trim())) return yanit;
+    }
+  }
+  return null;
+}
+
+function enIyiEslesme(metin) {
+  const lower = metin.toLowerCase().trim();
+  let enIyi = null, enIyiPuan = 0;
+
+  for (const [anahtar, yanit] of Object.entries(bilgiTabani.yanitlar)) {
+    const kelimeler = anahtar.split('|');
+    let puan = 0;
+    for (const k of kelimeler) {
+      if (lower.includes(k.trim())) puan += k.trim().length;
+      // Kismi eslesme: en az 4 harf
+      if (k.trim().length >= 4 && lower.split(' ').some(w => {
+        const k2 = k.trim();
+        return w.length >= 4 && (k2.includes(w) || w.includes(k2));
+      })) {
+        puan += 2;
+      }
+    }
+    if (puan > enIyiPuan) { enIyiPuan = puan; enIyi = yanit; }
+  }
+
+  return enIyiPuan > 2 ? enIyi : null;
+}
+
+function konuDisiMi(metin) {
+  const disiKelimeler = ['hava', 'spor', 'maç', 'film', 'dizi', 'müzik', 'şarkı', 'yemek', 'tarif', 'aşk', 'sevgi', 'politika', 'siyaset', 'din', 'futbol', 'oyun', 'tatil', 'araba'];
+  const lower = metin.toLowerCase();
+  return disiKelimeler.some(k => lower.includes(k));
+}
+
+// ─── MESAJ SİSTEMİ ─────────────────────────────────────────────
 function saveHistory() {
   const messages = [];
   chatBody.querySelectorAll('.msg').forEach(el => {
@@ -99,7 +199,6 @@ function loadHistory() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return false;
     const messages = JSON.parse(raw);
-    if (!Array.isArray(messages) || messages.length === 0) return false;
     messages.forEach(m => {
       const div = document.createElement('div');
       div.className = 'msg ' + m.type;
@@ -108,170 +207,163 @@ function loadHistory() {
     });
     chatBody.scrollTop = chatBody.scrollHeight;
     return true;
-  } catch (e) {
-    return false;
-  }
+  } catch { return false; }
 }
 
-function addMsg(text, type) {
+async function botYaz(text) {
   const div = document.createElement('div');
-  div.className = 'msg ' + type;
+  div.className = 'msg bot';
+  div.textContent = '';
+  chatBody.appendChild(div);
+  for (let i = 0; i < text.length; i++) {
+    div.textContent += text[i];
+    chatBody.scrollTop = chatBody.scrollHeight;
+    await new Promise(r => setTimeout(r, 20));
+  }
+  saveHistory();
+}
+
+function kullaniciYaz(text) {
+  const div = document.createElement('div');
+  div.className = 'msg user';
   div.textContent = text;
   chatBody.appendChild(div);
   chatBody.scrollTop = chatBody.scrollHeight;
   saveHistory();
 }
 
-async function addTypewriterMsg(text) {
+async function typing(ms) {
   const div = document.createElement('div');
-  div.className = 'msg bot';
-  div.textContent = '';
+  div.className = 'typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
   chatBody.appendChild(div);
   chatBody.scrollTop = chatBody.scrollHeight;
-
-  for (let i = 0; i < text.length; i++) {
-    div.textContent += text[i];
-    chatBody.scrollTop = chatBody.scrollHeight;
-    await new Promise(r => setTimeout(r, 30));
-  }
-  saveHistory();
+  await new Promise(r => setTimeout(r, ms));
+  div.remove();
 }
 
-function typing(duration) {
-  return new Promise(resolve => {
-    const div = document.createElement('div');
-    div.className = 'typing';
-    div.innerHTML = '<span></span><span></span><span></span>';
-    chatBody.appendChild(div);
-    chatBody.scrollTop = chatBody.scrollHeight;
-    setTimeout(() => { div.remove(); resolve(); }, duration);
+// ─── ANA MESAJ İŞLEME ──────────────────────────────────────────
+let dialogStep = null;
+
+const paketDetay = {
+  'Başlangıç': '📦 Başlangıç Paketi — 1.200 TL/ay\n\n✅ 1 AI çözümü\n✅ WhatsApp entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Aylık rapor\n✅ Kurulum dahil\n\n14 gün ücretsiz deneme + sözleşmede çıkış maddesi.',
+  'Profesyonel': '📦 Profesyonel Paket — 2.000 TL/ay\n\n✅ 2 AI çözümü\n✅ WhatsApp + Web entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Haftalık rapor\n✅ Randevu yönetimi\n✅ Kurulum + eğitim dahil\n\nEn çok tercih edilen paket.',
+  'Kurumsal': '📦 Kurumsal Paket — 3.500 TL/ay\n\n✅ Sınırsız AI çözümü\n✅ Tüm kanallarda entegrasyon\n✅ Özel eğitilmiş model\n✅ Canlı dashboard\n✅ Öncelikli destek\n\nYüksek hacimli bürolar için ideal.'
+};
+
+const varsayilanButonlar = ['💰 Fiyat ve paketler', '💬 Chatbot nedir?', '🔒 Veri güvenliği', '📅 Randevu yönetimi', '📋 Nasıl çalışır?', '📞 İletişim'];
+
+function butonlariAyarla(butonlar) {
+  quickReplies.innerHTML = butonlar.map(b => `<button class="quick-btn">${b}</button>`).join('');
+  quickReplies.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', function() { mesajIsle(this.textContent); });
   });
 }
 
-function findResponse(text) {
-  const lower = text.toLowerCase();
-  for (const [key, val] of Object.entries(responses)) {
-    const keywords = key.split('|');
-    if (keywords.some(k => lower.includes(k))) return val;
-  }
-  return null;
-}
+async function mesajIsle(metin) {
+  const lower = metin.toLowerCase();
+  kullaniciYaz(metin);
+  chatInput.value = '';
+  await typing(400 + Math.random() * 400);
 
-async function callGemini(question) {
-  const API_KEY = 'AIzaSyDbBWPZrtVzD7TQro4YNaHDr9qSgdqbXUU';
-
-  // 1. Uzunluk siniri
-  if (question.length > 200) return 'Sorunuz biraz uzun. Daha kısa ve net sorabilir misiniz? 😊';
-
-  // 2. Konu disi filtre (yapay zeka kontrolu)
-  const offTopic = ['hava', 'spor', 'maç', 'film', 'dizi', 'müzik', 'şarkı', 'yemek', 'tarif', 'aşk', 'sevgi', 'politika', 'siyaset', 'din', 'futbol'];
-  if (offTopic.some(w => question.toLowerCase().includes(w))) {
-    return 'Bu konuda yardımcı olamam. Ben muhasebe, yapay zekâ ve işletme konularında size destek olmak için buradayım. Başka bir sorunuz var mı? 💼';
-  }
-
-  // 3. Spam korumasi (2 saniye bekleme)
-  const now = Date.now();
-  if (now - lastMessageTime < 2000) return null;
-  lastMessageTime = now;
-
-  // 4. Gunluk kota kontrolu (50 soru/gun)
-  const today = new Date().toDateString();
-  const usage = JSON.parse(localStorage.getItem('kivon_usage') || '{}');
-  if (usage.date !== today) { usage.date = today; usage.count = 0; }
-  if (usage.count >= 50) return 'Bugünlük AI soru limitine ulaştık. Yarın tekrar bekleriz. Acil konular için WhatsApp\'tan ulaşabilirsiniz: +905303982712 📞';
-  usage.count++;
-  localStorage.setItem('kivon_usage', JSON.stringify(usage));
-
-  const systemPrompt = `Sen Kivon'un AI asistanısın. Kivon, Bursa merkezli bir yapay zeka danışmanlık şirketidir. KOBİ'lere (özellikle muhasebe bürolarına) chatbot, otomasyon ve veri analitiği hizmeti verirsin.
-Paketler: Başlangıç 1.200 TL/ay, Profesyonel 2.000 TL/ay, Kurumsal 3.500 TL/ay.
-İletişim: Instagram @kivon.iletisim, WhatsApp +905303982712.
-Kısa, samimi, KOBİ dilinde cevap ver. 3-4 cümleyi geçme. Sadece muhasebe, yapay zeka, işletme konularında konuş. Alakasız sorulara cevap verme, kibarca konuya dön.`;
-
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ parts: [{ text: question }] }]
-      })
-    });
-    const data = await res.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-  } catch (e) {
-    return null;
-  }
-}
-
-async function handleMsg(text) {
-  const lower = text.toLowerCase();
-  addMsg(text, 'user');
-  await typing(600 + Math.random() * 500);
-
-  if (dialogStep === 'awaiting_package') {
-    const match = Object.keys(packageDetails).find(p => text.includes(p));
-    if (match) {
-      await addTypewriterMsg(packageDetails[match]);
-      setQuickButtons(defaultQuickButtons);
+  // Paket seçim diyaloğu
+  if (dialogStep === 'paket') {
+    const eslesen = Object.keys(paketDetay).find(p => metin.includes(p));
+    if (eslesen) {
+      await botYaz(paketDetay[eslesen]);
+      butonlariAyarla(varsayilanButonlar);
       dialogStep = null;
       return;
     }
   }
 
-  const hasFiyat = lower.includes('fiyat') || lower.includes('ücret') || lower.includes('paket') || lower.includes('💰');
-  if (hasFiyat) {
-    dialogStep = 'awaiting_package';
-    setQuickButtons(['📦 Başlangıç Paketi', '📦 Profesyonel Paket', '📦 Kurumsal Paket']);
-    await addTypewriterMsg('Size en uygun paketi seçmeniz için yardımcı olayım. Hangi paket hakkında detaylı bilgi almak istersiniz? 📋');
+  // Fiyat/paket sorulduysa paket seçimine geç
+  if (lower.includes('fiyat') || lower.includes('ücret') || lower.includes('paket') || lower.includes('💰')) {
+    dialogStep = 'paket';
+    butonlariAyarla(['📦 Başlangıç Paketi', '📦 Profesyonel Paket', '📦 Kurumsal Paket']);
+    await botYaz('Size en uygun paketi seçmeniz için yardımcı olayım. Hangi paket hakkında bilgi almak istersiniz? 📋');
     return;
   }
 
-  const localResponse = findResponse(text);
-  if (localResponse) {
-    await addTypewriterMsg(localResponse);
-    setQuickButtons(defaultQuickButtons);
+  // Konu dışı
+  if (konuDisiMi(metin)) {
+    await botYaz(bilgiTabani.konu_disi);
+    butonlariAyarla(varsayilanButonlar);
     return;
   }
 
-  // Gemini API
-  await typing(800);
-  const aiResponse = await callGemini(text);
-  if (aiResponse) {
-    await addTypewriterMsg(aiResponse);
+  // Tam eşleşme ara
+  const tamYanit = yanitBul(metin);
+  if (tamYanit) {
+    await botYaz(tamYanit);
+    butonlariAyarla(varsayilanButonlar);
+    return;
+  }
+
+  // Kısmi/akıllı eşleşme
+  const enIyi = enIyiEslesme(metin);
+  if (enIyi) {
+    await botYaz(enIyi);
+    butonlariAyarla(varsayilanButonlar);
+    return;
+  }
+
+  // Hiçbir şey bulunamadı
+  await botYaz(bilgiTabani.bilinmeyen);
+  butonlariAyarla(varsayilanButonlar);
+}
+
+function mesajGonder() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  mesajIsle(text);
+}
+
+// ─── BİLGİ TABANI YÖNETİMİ ─────────────────────────────────────
+function adminPanelAc() {
+  const panel = document.getElementById('adminPanel');
+  const editor = document.getElementById('kbEditor');
+  if (panel.classList.contains('show')) {
+    panel.classList.remove('show');
   } else {
-    await addTypewriterMsg('Bu konuda hemen cevap veremedim. İsterseniz bize WhatsApp\'tan ulaşın, uzman ekibimiz en kısa sürede dönüş yapsın. 📞');
+    editor.value = JSON.stringify(bilgiTabani, null, 2);
+    panel.classList.add('show');
+    editor.focus();
   }
-  setQuickButtons(defaultQuickButtons);
 }
 
-function setQuickButtons(buttons) {
-  quickReplies.innerHTML = buttons.map(b => '<button class="quick-btn">' + b + '</button>').join('');
-  quickReplies.querySelectorAll('.quick-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      handleMsg(this.textContent);
-    });
-  });
+function bilgiTabaniniKaydet() {
+  try {
+    const yeni = JSON.parse(document.getElementById('kbEditor').value);
+    bilgiTabani = yeni;
+    bilgiTabaniYaz(yeni);
+    document.getElementById('adminPanel').classList.remove('show');
+    kullaniciYaz('⚙️ Bilgi tabanı güncellendi');
+    botYaz('Bilgi tabanı başarıyla kaydedildi! Yeni yanıtlar hemen aktif. Denemek için bir soru sorun. ✅');
+  } catch(e) {
+    alert('JSON hatası: ' + e.message);
+  }
 }
 
-function renderQuickReplies() {
-  setQuickButtons(defaultQuickButtons);
-}
-
+// ─── BAŞLANGIÇ ──────────────────────────────────────────────────
 window.onload = async () => {
   const avatarUrl = location.hostname === 'localhost' || location.protocol === 'file:'
     ? '../../gorseller/profil_foto_final.png'
     : '../img/logo.png';
-  document.getElementById('headerAvatar').src = avatarUrl;
-  document.getElementById('headerName').textContent = 'Kivon Muhasebe Asistanı';
+  const avatarEl = document.getElementById('headerAvatar');
+  const img = new Image();
+  img.onload = () => { avatarEl.innerHTML = ''; avatarEl.appendChild(img); img.style.width='100%';img.style.height='100%';img.style.objectFit='cover'; };
+  img.onerror = () => { avatarEl.textContent = 'K'; };
+  img.src = avatarUrl;
 
-  renderQuickReplies();
+  butonlariAyarla(varsayilanButonlar);
 
   const restored = loadHistory();
   if (!restored) {
-    await typing(1000);
-    await addTypewriterMsg('Merhaba! 👋 Ben Kivon\'un muhasebe büroları için geliştirdiği yapay zekâ asistanıyım. Müşterilerinizin sık sorduğu soruları 7/24 yanıtlayarak size zaman kazandırırım.');
-    await typing(600);
-    await addTypewriterMsg('Aşağıdan merak ettiğiniz bir konuyu seçin, hemen anlatayım ⤵');
+    await typing(800);
+    await botYaz(bilgiTabani.karsilama);
+    await typing(500);
+    await botYaz('Aşağıdan bir konu seçin veya sorunuzu yazın ⤵');
   }
 };
 </script>
