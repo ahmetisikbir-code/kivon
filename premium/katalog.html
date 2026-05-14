@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon — AI Otomasyon Kataloğu</title>
+<style>
+  :root {
+    --bg-deep: #050510;
+    --bg-card: rgba(10, 10, 32, 0.55);
+    --bg-card-hover: rgba(10, 10, 32, 0.75);
+    --cyan: #38bdf8;
+    --cyan-glow: rgba(56, 189, 248, 0.4);
+    --indigo: #6366f1;
+    --indigo-glow: rgba(99, 102, 241, 0.35);
+    --gold: #fbbf24;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-glow: rgba(56, 189, 248, 0.5);
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Animated Background ── */
+  .bg-orb {
+    position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.12;
+    pointer-events: none; z-index: 0;
+  }
+  .bg-orb--1 { width: 600px; height: 600px; background: var(--cyan); top: -200px; left: -150px; animation: float1 18s ease-in-out infinite; }
+  .bg-orb--2 { width: 500px; height: 500px; background: var(--indigo); bottom: -180px; right: -120px; animation: float2 22s ease-in-out infinite; }
+  .bg-orb--3 { width: 400px; height: 400px; background: var(--gold); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: float3 20s ease-in-out infinite; opacity: 0.05; }
+
+  @keyframes float1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(80px,60px)} 66%{transform:translate(-40px,100px)} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-70px,-50px)} 66%{transform:translate(50px,-90px)} }
+  @keyframes float3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.4)} }
+
+  /* ── Layout ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* ── Top Bar ── */
+  .topbar {
+    padding: 32px 0 16px;
+    display: flex; align-items: center; justify-content: center; gap: 48px;
+    flex-wrap: wrap; position: relative; z-index: 1;
+  }
+  .topbar__logo {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 1.5rem; font-weight: 700; color: #fff;
+  }
+  .topbar__logo-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--cyan), var(--indigo));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; box-shadow: 0 0 30px var(--cyan-glow);
+  }
+  .topbar__stat {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 20px; border-left: 1px solid rgba(255,255,255,0.08);
+  }
+  .topbar__stat:first-of-type { border-left: none; }
+  .topbar__stat-value { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--indigo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .topbar__stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em; margin-top: 2px; }
+
+  /* ── Hero ── */
+  .hero { text-align: center; padding: 20px 0 36px; position: relative; z-index: 1; }
+  .hero__title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .hero__title span { background: linear-gradient(135deg, var(--cyan), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero__sub { color: var(--muted); margin-top: 8px; font-size: 1rem; }
+
+  /* ── Filter Bar ── */
+  .filter-bar { position: relative; z-index: 1; padding: 0 0 8px; }
+  .filter-bar__inner {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+    padding: 6px; border-radius: 40px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+  }
+  .filter-btn {
+    padding: 10px 22px; border-radius: 30px; border: none; cursor: pointer;
+    font-size: 0.88rem; font-weight: 500; color: var(--muted);
+    background: transparent; transition: all var(--transition);
+    white-space: nowrap; position: relative;
+    font-family: inherit;
+  }
+  .filter-btn:hover { color: #fff; background: rgba(255,255,255,0.04); }
+  .filter-btn.active {
+    color: #fff; background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(99,102,241,0.2));
+    box-shadow: 0 0 20px var(--cyan-glow), 0 0 8px rgba(56,189,248,0.15);
+  }
+  .filter-btn__dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: middle; position: relative; top: -1px; opacity: 0.5; transition: opacity var(--transition); }
+  .filter-btn.active .filter-btn__dot { opacity: 1; }
+
+  /* ── Search & Controls ── */
+  .controls-row {
+    display: flex; gap: 14px; align-items: center; justify-content: center;
+    padding: 16px 0; flex-wrap: wrap; position: relative; z-index: 1;
+  }
+  .search-wrap {
+    flex: 1; min-width: 280px; max-width: 560px; position: relative;
+  }
+  .search-wrap__icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    width: 18px; height: 18px; pointer-events: none; color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .search-input {
+    width: 100%; padding: 12px 16px 12px 44px; border-radius: 30px;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+    color: #fff; font-size: 0.9rem; font-family: inherit;
+    backdrop-filter: blur(20px); transition: all var(--transition);
+  }
+  .search-input::placeholder { color: rgba(148,163,184,0.5); }
+  .search-input:focus { outline: none; border-color: rgba(56,189,248,0.4); box-shadow: 0 0 24px var(--cyan-glow); }
+  .search-clear {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.08); border: none; color: var(--muted);
+    width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+    font-size: 0.8rem; display: none; align-items: center; justify-content: center;
+    transition: var(--transition);
+  }
+  .search-clear:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .search-clear.visible { display: flex; }
+
+  .view-toggle {
+    display: flex; gap: 4px; background: rgba(255,255,255,0.04); border-radius: 12px;
+    padding: 4px; border: 1px solid var(--border);
+  }
+  .view-toggle__btn {
+    width: 38px; height: 34px; border: none; background: transparent;
+    border-radius: 8px; cursor: pointer; color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    transition: all var(--transition); font-size: 1rem;
+  }
+  .view-toggle__btn:hover { color: #fff; }
+  .view-toggle__btn.active { background: rgba(56,189,248,0.2); color: var(--cyan); }
+
+  /* ── Counter ── */
+  .counter-row { display: flex; justify-content: center; padding: 8px 0 20px; position: relative; z-index: 1; }
+  .counter {
+    font-size: 0.85rem; color: var(--muted);
+    padding: 8px 20px; border-radius: 20px;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+    transition: all var(--transition);
+  }
+  .counter strong { color: var(--cyan); font-weight: 700; }
+  .counter__count { display: inline-block; min-width: 24px; text-align: center; }
+
+  /* ── Service Grid ── */
+  .grid { display: grid; gap: 18px; position: relative; z-index: 1; padding-bottom: 60px; }
+  .grid--cards { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .grid--list { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; cursor: default;
+    display: flex; gap: 18px;
+    opacity: 0; transform: translateY(16px);
+  }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card.hidden { display: none; }
+
+  .card::before {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(56,189,248,0), rgba(99,102,241,0));
+    transition: opacity var(--transition); pointer-events: none; z-index: -1;
+  }
+  .card:hover { transform: translateY(-6px); border-color: var(--border-glow); box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.15); }
+  .card:hover::before { background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(99,102,241,0.08)); }
+
+  .grid--list .card { flex-direction: row; align-items: flex-start; gap: 24px; padding-right: 32px; }
+  .grid--list .card__icon { flex-shrink: 0; width: 52px; height: 52px; font-size: 1.5rem; }
+  .grid--list .card__body { flex: 1; display: flex; align-items: center; gap: 24px; }
+  .grid--list .card__info { flex: 1; min-width: 0; }
+  .grid--list .card__meta { flex-shrink: 0; display: flex; align-items: center; gap: 14px; }
+
+  .card__icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .card__body { flex: 1; min-width: 0; }
+  .card__title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .card__desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+  .card__bottom { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  .card__price {
+    font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;
+    background: rgba(251,191,36,0.1); color: var(--gold); white-space: nowrap;
+  }
+  .card__diff { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); }
+  .card__diff--low .card__diff-dot { background: var(--success); box-shadow: 0 0 6px rgba(34,197,94,0.4); }
+  .card__diff--mid .card__diff-dot { background: var(--warning); box-shadow: 0 0 6px rgba(245,158,11,0.4); }
+  .card__diff--high .card__diff-dot { background: var(--danger); box-shadow: 0 0 6px rgba(239,68,68,0.4); }
+  .card__diff-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .card__sector {
+    font-size: 0.73rem; padding: 3px 8px; border-radius: 5px; white-space: nowrap;
+    background: rgba(99,102,241,0.1); color: var(--indigo);
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+
+  /* ── Empty State ── */
+  .empty-state {
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 20px; text-align: center; position: relative; z-index: 1;
+  }
+  .empty-state.visible { display: flex; }
+  .empty-state__illustration {
+    width: 160px; height: 160px; position: relative; margin-bottom: 24px;
+    animation: emptyFloat 3s ease-in-out infinite;
+  }
+  @keyframes emptyFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .empty-state__circle {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: rgba(255,255,255,0.03); border: 2px dashed rgba(255,255,255,0.1);
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .empty-state__mag {
+    position: absolute; font-size: 3rem; top: 20px; left: 50%;
+    transform: translateX(-50%);
+  }
+  .empty-state__dots { position: absolute; font-size: 1.2rem; }
+  .empty-state__dots:nth-child(3) { top: 10px; left: 30px; animation: dotFloat 2s ease-in-out infinite; }
+  .empty-state__dots:nth-child(4) { top: 40px; left: 110px; animation: dotFloat 2s 0.3s ease-in-out infinite; }
+  .empty-state__dots:nth-child(5) { top: 80px; left: 100px; animation: dotFloat 2s 0.6s ease-in-out infinite; }
+  .empty-state__dots:nth-child(6) { top: 100px; left: 45px; animation: dotFloat 2s 0.9s ease-in-out infinite; }
+  @keyframes dotFloat { 0%,100%{transform:translateY(0);opacity:0.3} 50%{transform:translateY(-8px);opacity:1} }
+  .empty-state__title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .empty-state__text { color: var(--muted); font-size: 0.9rem; }
+  .empty-state__btn {
+    margin-top: 20px; padding: 10px 24px; border-radius: 20px;
+    background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25);
+    color: var(--cyan); cursor: pointer; font-family: inherit; font-size: 0.85rem;
+    transition: var(--transition);
+  }
+  .empty-state__btn:hover { background: rgba(56,189,248,0.2); }
+
+  /* ── Footer ── */
+  .footer { text-align: center; padding: 20px 0 40px; color: var(--muted); font-size: 0.78rem; position: relative; z-index: 1; opacity: 0.5; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .topbar { gap: 20px; }
+    .grid--cards { grid-template-columns: 1fr; }
+    .filter-bar__inner { border-radius: 20px; }
+    .filter-btn { padding: 8px 14px; font-size: 0.8rem; }
+    .grid--list .card { flex-direction: column; }
+    .grid--list .card__body { flex-direction: column; align-items: flex-start; }
+    .controls-row { flex-direction: column; }
+    .search-wrap { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orb bg-orb--1"></div>
+<div class="bg-orb bg-orb--2"></div>
+<div class="bg-orb bg-orb--3"></div>
+
+<!-- ── Top Bar ── -->
+<header class="topbar container">
+  <div class="topbar__logo">
+    <div class="topbar__logo-icon">✦</div>
+    <span>Kivon</span>
+  </div>
+  <div class="topbar__stat">
+    <span class="topbar__stat-value">30</span>
+    <span class="topbar__stat-label">AI Otomasyon Çözümü</span>
+  </div>
+  <div class="topbar__stat">
+    <span class="topbar__stat-value">9</span>
+    <span class="topbar__stat-label">Sektör</span>
+  </div>
+  <div class="topbar__stat">
+    <span class="topbar__stat-value">%85</span>
+    <span class="topbar__stat-label">Verimlilik Artışı</span>
+  </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero container">
+  <h1 class="hero__title">KOBİ'niz İçin <span>AI Destekli</span> Otomasyon Kataloğu</h1>
+  <p class="hero__sub">İşletmenize özel, hızlıca devreye alınabilir 30 yapay zeka çözümü</p>
+</section>
+
+<!-- ── Filter Tabs ── -->
+<section class="filter-bar container" id="filters">
+  <div class="filter-bar__inner" role="tablist" aria-label="Sektör filtreleri">
+    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+      <span class="filter-btn__dot" style="background:#fff"></span> Tümü
+    </button>
+    <button class="filter-btn" data-filter="muhasebe" role="tab">
+      <span class="filter-btn__dot" style="background:#22c55e"></span> Muhasebe
+    </button>
+    <button class="filter-btn" data-filter="satis" role="tab">
+      <span class="filter-btn__dot" style="background:#f97316"></span> Satış
+    </button>
+    <button class="filter-btn" data-filter="ik" role="tab">
+      <span class="filter-btn__dot" style="background:#a855f7"></span> İK
+    </button>
+    <button class="filter-btn" data-filter="eticaret" role="tab">
+      <span class="filter-btn__dot" style="background:#e11d48"></span> E-Ticaret
+    </button>
+    <button class="filter-btn" data-filter="pazarlama" role="tab">
+      <span class="filter-btn__dot" style="background:#f59e0b"></span> Pazarlama
+    </button>
+    <button class="filter-btn" data-filter="destek" role="tab">
+      <span class="filter-btn__dot" style="background:#06b6d4"></span> Destek
+    </button>
+    <button class="filter-btn" data-filter="dokuman" role="tab">
+      <span class="filter-btn__dot" style="background:#8b5cf6"></span> Doküman
+    </button>
+    <button class="filter-btn" data-filter="proje" role="tab">
+      <span class="filter-btn__dot" style="background:#ec4899"></span> Proje
+    </button>
+    <button class="filter-btn" data-filter="teknik" role="tab">
+      <span class="filter-btn__dot" style="background:#14b8a6"></span> Teknik
+    </button>
+  </div>
+</section>
+
+<!-- ── Search & Controls ── -->
+<section class="controls-row container" id="controls">
+  <div class="search-wrap">
+    <span class="search-wrap__icon">&#128269;</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="Hizmet ara... (örn: fatura, chatbot, rapor)" autocomplete="off">
+    <button class="search-clear" id="searchClear" aria-label="Aramayı temizle">&times;</button>
+  </div>
+  <div class="view-toggle" role="radiogroup" aria-label="Görünüm">
+    <button class="view-toggle__btn active" data-view="grid" role="radio" aria-checked="true" title="Grid görünüm">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="10.5" y="1" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="10.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="10.5" y="10.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
+    </button>
+    <button class="view-toggle__btn" data-view="list" role="radio" aria-checked="false" title="Liste görünüm">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="1.5" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="7.25" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="13" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ── Counter ── -->
+<div class="counter-row container">
+  <span class="counter" id="counter">Gösterilen: <strong><span class="counter__count" id="countNumber">30</span></strong> hizmet</span>
+</div>
+
+<!-- ── Service Grid ── -->
+<main class="grid grid--cards container" id="serviceGrid" role="list" aria-label="Hizmet listesi"></main>
+
+<!-- ── Empty State ── -->
+<div class="empty-state container" id="emptyState">
+  <div class="empty-state__illustration">
+    <div class="empty-state__circle"></div>
+    <span class="empty-state__mag">&#128270;</span>
+    <span class="empty-state__dots">&#9679;</span>
+    <span class="empty-state__dots">&#9679;</span>
+    <span class="empty-state__dots">&#9679;</span>
+    <span class="empty-state__dots">&#9679;</span>
+  </div>
+  <p class="empty-state__title">Sonuç Bulunamadı</p>
+  <p class="empty-state__text">Filtreleri veya arama terimini değiştirip tekrar deneyin.</p>
+  <button class="empty-state__btn" id="resetBtn">Tümünü Göster</button>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer container">
+  &copy; 2026 Kivon &mdash; KOBİ'ler için Yapay Zeka Otomasyon Çözümleri
+</footer>
+
+<!-- ── JavaScript ── -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Service Data ── */
+  var services = [
+    /* MUHASEBE */
+    { icon:'🧾', name:'Akıllı Fatura İşleme', desc:'Yapay zeka ile fatura ve fişlerinizi otomatik tanıyın, sınıflandırın ve muhasebe kaydına dönüştürün.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'muhasebe' },
+    { icon:'🏠', name:'Kira Mutabakat', desc:'Kira sözleşmelerini analiz eden AI; artış, stopaj ve KDV hesaplamalarını otomatik yapar.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
+    { icon:'💰', name:'Harcama Takip', desc:'Şirket kartı ve banka harcamalarını kategorilere ayıran, bütçe uyarıları yapan akıllı asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
+    { icon:'📊', name:'Vergi Asistanı', desc:'Güncel mevzuata göre KDV, stopaj, muhtasar ve geçici vergi hesaplamalarınızı yapan AI danışman.', price:'₺4.500/ay', diff:'high', diffLabel:'Yüksek', sector:'muhasebe' },
+    /* SATIŞ */
+    { icon:'📱', name:'WhatsApp Satış', desc:'WhatsApp Business API ile müşteri sorularını 7/24 yanıtlayan, sipariş alan AI satış asistanı.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
+    { icon:'🎯', name:'Lead Keşif', desc:'Web sitenizi ziyaret eden firmaları tespit eden, potansiyel müşterileri skorlayan ve CRM\'e aktaran sistem.', price:'₺5.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
+    { icon:'📅', name:'Randevu Takip', desc:'Müşteri randevularını planlayan, hatırlatma gönderen ve takvimleri senkronize eden AI asistan.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'satis' },
+    { icon:'💬', name:'CRM Chat', desc:'CRM\'inize entegre olan, müşteri geçmişini analiz ederek satış ekibine öneriler sunan chatbot.', price:'₺4.000/ay', diff:'high', diffLabel:'Yüksek', sector:'satis' },
+    /* İK */
+    { icon:'📄', name:'CV Tarama', desc:'Yüzlerce CV\'yi saniyeler içinde tarayan, pozisyona uygun adayları puanlayan ve sıralayan AI sistemi.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'ik' },
+    { icon:'🤖', name:'AI Mülakat', desc:'Adaylarla ön mülakat yapan, teknik ve davranışsal sorular soran, yanıtları değerlendiren yapay zeka.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'ik' },
+    { icon:'📋', name:'Politika Chatbot', desc:'Şirket politika ve prosedürlerini öğrenen, çalışan sorularını anında yanıtlayan iç iletişim botu.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
+    { icon:'⚖️', name:'Ayrımcılık Analizi', desc:'İş ilanlarınızı ve iletişimlerinizi tarayarak ayrımcı dil veya önyargı tespit eden etik AI aracı.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
+    /* ETİCARET */
+    { icon:'🛍️', name:'Alışveriş Asistanı', desc:'Müşterilere ürün öneren, beden/renk seçiminde yardımcı olan ve sepeti yöneten AI danışman.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
+    { icon:'⭐', name:'Yorum Analizi', desc:'Ürün yorumlarını duygu analizi ile işleyen, öne çıkan konuları raporlayan müşteri içgörü sistemi.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
+    { icon:'📦', name:'Stok Takip', desc:'Satış verilerinden talep tahmini yapan, stok yenileme zamanını ve miktarını optimize eden AI.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
+    { icon:'🔄', name:'İade Otomasyon', desc:'İade taleplerini otomatik işleyen, kargo kodu oluşturan ve müşteriyle iletişimi yöneten sistem.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
+    /* PAZARLAMA */
+    { icon:'📝', name:'4 Platform İçerik', desc:'Instagram, LinkedIn, X ve TikTok için sektörünüze özel içerik üreten, hashtag öneren AI.', price:'₺4.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'✍️', name:'Marka Sesi Blog', desc:'Marka kimliğinize uygun SEO odaklı blog yazıları üreten, araştırma ve referans ekleyen motor.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'📈', name:'GA4 Rapor', desc:'Google Analytics 4 verilerinizi doğal dilde yorumlayan, aksiyon önerileri sunan raporlama asistanı.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'📅', name:'Sosyal Medya Takvim', desc:'Yapay zeka ile optimal paylaşım zamanlarını belirleyen, aylık içerik takvimi oluşturan araç.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'pazarlama' },
+    /* DESTEK */
+    { icon:'🎙️', name:'Sesli Chatbot', desc:'Telefonla arayan müşterilerle doğal konuşma yapan, sorunları çözen veya ilgili birime yönlendiren AI.', price:'₺7.500/ay', diff:'high', diffLabel:'Yüksek', sector:'destek' },
+    { icon:'🎫', name:'Bilet Sistemi', desc:'Destek taleplerini otomatik sınıflandıran, önceliklendiren ve yanıt taslağı hazırlayan akıllı yönetim.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'destek' },
+    { icon:'📧', name:'E-posta Özet', desc:'Gelen e-postaları özetleyen, aciliyete göre sıralayan ve yanıt taslağı öneren asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
+    { icon:'🤖', name:'Telegram Asistan', desc:'Telegram üzerinden müşteri desteği sağlayan, sık sorulan soruları yanıtlayan ve bilet oluşturan bot.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
+    /* DOKÜMAN */
+    { icon:'📚', name:'Bilgi Tabanı', desc:'Şirket dokümanlarınızı tarayan, sorulara anında cevap veren, referans gösteren kurumsal hafıza AI.', price:'₺5.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
+    { icon:'🏦', name:'Banka Ekstre', desc:'Banka hesap ekstrelerini PDF\'den okuyan, işlemleri kategorilendiren ve muhasebe fişi oluşturan sistem.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'dokuman' },
+    { icon:'🗄️', name:'Doğal Dil DB', desc:'Veritabanınıza SQL yazmadan, doğal dil ile sorgu yapmanızı sağlayan, sonuçları görselleştiren AI.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
+    /* PROJE */
+    { icon:'📋', name:'Toplantı Asistanı', desc:'Toplantılarınızı dinleyen, konuşma metnine çeviren, özet çıkaran ve aksiyon maddelerini atayan AI.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
+    { icon:'🚀', name:'Onboarding', desc:'Yeni çalışanların oryantasyon sürecini yöneten, eğitim materyali sunan ve soruları yanıtlayan AI rehber.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
+    /* TEKNİK */
+    { icon:'🖥️', name:'Sunucu Yönetimi', desc:'Sunucu loglarını analiz eden, anomali tespit eden, sorun giderme önerileri sunan DevOps AI asistanı.', price:'₺5.500/ay', diff:'high', diffLabel:'Yüksek', sector:'teknik' }
+  ];
+
+  /* ── Sector Labels ── */
+  var sectorLabels = {
+    muhasebe: 'Muhasebe',
+    satis: 'Satış',
+    ik: 'İK',
+    eticaret: 'E-Ticaret',
+    pazarlama: 'Pazarlama',
+    destek: 'Destek',
+    dokuman: 'Doküman',
+    proje: 'Proje',
+    teknik: 'Teknik'
+  };
+
+  /* ── DOM refs ── */
+  var grid = document.getElementById('serviceGrid');
+  var emptyState = document.getElementById('emptyState');
+  var countNumber = document.getElementById('countNumber');
+  var searchInput = document.getElementById('searchInput');
+  var searchClear = document.getElementById('searchClear');
+  var resetBtn = document.getElementById('resetBtn');
+
+  var currentFilter = 'all';
+  var currentView = 'grid';
+  var searchQuery = '';
+  var cardElements = [];
+
+  /* ── Card Factory ── */
+  function buildCard(s, idx) {
+    var diffClass = 'card__diff--' + (s.diff === 'high' ? 'high' : s.diff === 'mid' ? 'mid' : 'low');
+    return '<article class="card visible" role="listitem" data-sector="' + s.sector + '" data-index="' + idx + '" style="transition-delay:' + (idx * 0.03) + 's">' +
+      '<div class="card__icon">' + s.icon + '</div>' +
+      '<div class="card__body">' +
+        '<h3 class="card__title">' + esc(s.name) + '</h3>' +
+        '<p class="card__desc">' + esc(s.desc) + '</p>' +
+        '<div class="card__bottom">' +
+          '<span class="card__price">' + esc(s.price) + '</span>' +
+          '<span class="card__diff ' + diffClass + '"><span class="card__diff-dot"></span>' + esc(s.diffLabel) + '</span>' +
+          '<span class="card__sector">' + (sectorLabels[s.sector] || s.sector) + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function esc(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── Render All ── */
+  function renderAll() {
+    var html = '';
+    for (var i = 0; i < services.length; i++) {
+      html += buildCard(services[i], i);
+    }
+    grid.innerHTML = html;
+    cardElements = Array.from(grid.querySelectorAll('.card'));
+    applyFilter();
+  }
+
+  /* ── Apply Filter + Search ── */
+  function applyFilter() {
+    var visibleCount = 0;
+
+    for (var i = 0; i < cardElements.length; i++) {
+      var card = cardElements[i];
+      var sector = services[i].sector;
+      var text = (services[i].name + ' ' + services[i].desc + ' ' + (sectorLabels[sector]||'')).toLowerCase();
+      var matchFilter = currentFilter === 'all' || sector === currentFilter;
+      var matchSearch = !searchQuery || text.indexOf(searchQuery.toLowerCase()) !== -1;
+
+      if (matchFilter && matchSearch) {
+        card.classList.add('visible');
+        card.classList.remove('hidden');
+        card.style.transitionDelay = (visibleCount * 0.04) + 's';
+        requestAnimationFrame(function(c) { return function(){ c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }; }(card));
+        visibleCount++;
+      } else {
+        card.classList.remove('visible');
+        card.classList.add('hidden');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(16px)';
+      }
+    }
+
+    animateCount(visibleCount);
+
+    if (visibleCount === 0) {
+      emptyState.classList.add('visible');
+      grid.style.display = 'none';
+    } else {
+      emptyState.classList.remove('visible');
+      grid.style.display = '';
+    }
+  }
+
+  /* ── Animate Counter ── */
+  function animateCount(target) {
+    var current = parseInt(countNumber.textContent, 10) || 0;
+    var startTime = performance.now();
+    var duration = 300;
+
+    function step(now) {
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var val = Math.round(current + (target - current) * eased);
+      countNumber.textContent = val;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  /* ── Filter Tab Click ── */
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  function setFilter(filter) {
+    currentFilter = filter;
+    for (var i = 0; i < filterBtns.length; i++) {
+      var btn = filterBtns[i];
+      if (btn.getAttribute('data-filter') === filter) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      }
+    }
+    applyFilter();
+    updateHash();
+  }
+
+  for (var b = 0; b < filterBtns.length; b++) {
+    filterBtns[b].addEventListener('click', function () {
+      setFilter(this.getAttribute('data-filter'));
+    });
+  }
+
+  /* ── Search ── */
+  function debounce(fn, ms) {
+    var timer;
+    return function () {
+      clearTimeout(timer);
+      var args = arguments;
+      var ctx = this;
+      timer = setTimeout(function () { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  searchInput.addEventListener('input', debounce(function () {
+    searchQuery = searchInput.value.trim();
+    if (searchQuery) {
+      searchClear.classList.add('visible');
+    } else {
+      searchClear.classList.remove('visible');
+    }
+    applyFilter();
+  }, 200));
+
+  searchClear.addEventListener('click', function () {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    applyFilter();
+    searchInput.focus();
+  });
+
+  /* ── View Toggle ── */
+  var viewBtns = document.querySelectorAll('.view-toggle__btn');
+  for (var v = 0; v < viewBtns.length; v++) {
+    viewBtns[v].addEventListener('click', function () {
+      var view = this.getAttribute('data-view');
+      currentView = view;
+      for (var j = 0; j < viewBtns.length; j++) {
+        viewBtns[j].classList.remove('active');
+        viewBtns[j].setAttribute('aria-checked', 'false');
+      }
+      this.classList.add('active');
+      this.setAttribute('aria-checked', 'true');
+      if (view === 'list') {
+        grid.classList.remove('grid--cards');
+        grid.classList.add('grid--list');
+      } else {
+        grid.classList.add('grid--cards');
+        grid.classList.remove('grid--list');
+      }
+    });
+  }
+
+  /* ── Reset ── */
+  resetBtn.addEventListener('click', function () {
+    searchInput.value = '';
+    searchQuery = '';
+    searchClear.classList.remove('visible');
+    setFilter('all');
+    if (currentView === 'list') {
+      currentView = 'grid';
+      grid.classList.add('grid--cards');
+      grid.classList.remove('grid--list');
+      for (var k = 0; k < viewBtns.length; k++) {
+        viewBtns[k].classList.remove('active');
+        viewBtns[k].setAttribute('aria-checked', 'false');
+        if (viewBtns[k].getAttribute('data-view') === 'grid') {
+          viewBtns[k].classList.add('active');
+          viewBtns[k].setAttribute('aria-checked', 'true');
+        }
+      }
+    }
+  });
+
+  /* ── URL Hash Routing ── */
+  function updateHash() {
+    if (currentFilter === 'all') {
+      history.replaceState(null, '', window.location.pathname);
+    } else {
+      history.replaceState(null, '', '#' + currentFilter);
+    }
+  }
+
+  function readHash() {
+    var hash = window.location.hash.replace('#', '');
+    var valid = ['muhasebe','satis','ik','eticaret','pazarlama','destek','dokuman','proje','teknik'];
+    if (valid.indexOf(hash) !== -1) {
+      setFilter(hash);
+      document.getElementById('filters').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
+
+  window.addEventListener('hashchange', readHash);
+
+  /* ── Intersection Observer for initial animation ── */
+  // Cards animate in on render via transition-delay. Handled in applyFilter.
+
+  /* ── Initialize ── */
+  renderAll();
+  readHash();
+
+})();
+</script>
+
+</body>
+</html>

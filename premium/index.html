@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon — Yapay Zeka ile KOBİ'nizi Dönüştürün</title>
+<style>
+/* ═══════════════════════════════════════════
+   KIVON — Premium Landing Page
+   Design System | CSS Custom Properties
+   ═══════════════════════════════════════════ */
+:root {
+  --navy-deep: #050510;
+  --navy: #0a0a20;
+  --navy-light: #0f0f2a;
+  --navy-card: rgba(15, 15, 50, 0.55);
+  --navy-border: rgba(56, 189, 248, 0.12);
+  --cyan: #38bdf8;
+  --cyan-glow: rgba(56, 189, 248, 0.35);
+  --cyan-dim: rgba(56, 189, 248, 0.08);
+  --indigo: #6366f1;
+  --indigo-glow: rgba(99, 102, 241, 0.35);
+  --indigo-dim: rgba(99, 102, 241, 0.08);
+  --gold: #fbbf24;
+  --gold-glow: rgba(251, 191, 36, 0.3);
+  --white: #f1f5f9;
+  --muted: #94a3b8;
+  --muted-dim: #64748b;
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--cyan); color: var(--navy-deep); }
+
+/* ═══════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════ */
+.container { max-width: 1200px; margin:0 auto; padding:0 28px; }
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(56,189,248,0.18);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   CANVAS PARTICLES
+   ═══════════════════════════════════════════ */
+#particles {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:0;
+  opacity: 0.45;
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  z-index:1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 28px 80px;
+}
+.hero::before {
+  content:'';
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: heroPulse 6s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%,100% { opacity:0.5; transform:translate(-50%,-50%) scale(1); }
+  50% { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(251,191,36,0.1);
+  border: 1px solid rgba(251,191,36,0.2);
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  animation: fadeInDown 0.8s ease both;
+}
+.hero-badge .dot { width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); animation:dotPulse 2s ease-in-out infinite; }
+@keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s 0.1s ease both;
+}
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--muted);
+  max-width: 620px;
+  margin:0 auto 40px;
+  line-height: 1.75;
+  animation: fadeInUp 0.8s 0.2s ease both;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.3s ease both;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--cyan), var(--indigo));
+  color: #fff;
+  box-shadow: 0 0 30px var(--cyan-glow), 0 4px 20px rgba(0,0,0,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px var(--cyan-glow), 0 8px 30px rgba(0,0,0,0.4);
+}
+.btn-glass {
+  background: rgba(255,255,255,0.04);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+}
+.btn-glass:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(99,102,241,0.2);
+}
+
+/* ═══════════════════════════════════════════
+   TRUST BAR
+   ═══════════════════════════════════════════ */
+.trust-bar {
+  position:relative; z-index:1;
+  border-top: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--navy-border);
+  background: rgba(10,10,32,0.6);
+  backdrop-filter: blur(12px);
+  padding: 28px 0;
+  overflow: hidden;
+}
+.trust-track {
+  display: flex;
+  gap: 64px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: var(--transition);
+}
+.trust-item:hover { color: var(--white); }
+.trust-icon {
+  font-size: 1.3rem;
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════
+   SECTIONS (shared)
+   ═══════════════════════════════════════════ */
+section { position:relative; z-index:1; padding:100px 0; }
+.section-header { text-align:center; margin-bottom:60px; }
+.section-header .section-label { animation:fadeInUp 0.6s ease both; }
+.section-header .section-title { animation:fadeInUp 0.6s 0.1s ease both; }
+.section-header .section-subtitle { margin:0 auto; animation:fadeInUp 0.6s 0.15s ease both; }
+
+/* ═══════════════════════════════════════════
+   SERVICES
+   ═══════════════════════════════════════════ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.service-card {
+  background: var(--navy-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.service-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(56,189,248,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--cyan-dim);
+}
+.service-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--cyan-dim);
+  border: 1px solid rgba(56,189,248,0.2);
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+.service-card:hover .service-icon {
+  background: rgba(56,189,248,0.15);
+  box-shadow: 0 0 25px var(--cyan-glow);
+}
+.service-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.service-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   STATS
+   ═══════════════════════════════════════════ */
+#stats { background: var(--navy); }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  text-align: center;
+}
+.stat-item {
+  padding: 24px;
+  transition: var(--transition);
+}
+.stat-number {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--cyan), var(--indigo));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS
+   ═══════════════════════════════════════════ */
+.steps-wrapper { position:relative; }
+.steps-line {
+  position:absolute;
+  top:40px; left:calc(50% - 1px);
+  width: 2px;
+  height: calc(100% - 80px);
+  background: linear-gradient(to bottom, var(--cyan), var(--indigo), transparent);
+  opacity: 0.3;
+}
+.step {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  position: relative;
+}
+.step:last-child { margin-bottom:0; }
+.step-number {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 900;
+  border-radius: 50%;
+  background: var(--navy-card);
+  border: 2px solid var(--navy-border);
+  backdrop-filter: blur(12px);
+  transition: var(--transition);
+  position: relative;
+  z-index:2;
+}
+.step.visible .step-number {
+  border-color: var(--cyan);
+  box-shadow: 0 0 30px var(--cyan-glow);
+  background: rgba(56,189,248,0.1);
+}
+.step-content {
+  padding-top: 8px;
+}
+.step-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.step-content p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   PRICING
+   ═══════════════════════════════════════════ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+.pricing-card {
+  background: var(--navy-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(56,189,248,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.pricing-card.featured {
+  border-color: var(--cyan);
+  box-shadow: 0 0 40px var(--cyan-dim), 0 0 80px rgba(56,189,248,0.06);
+}
+.pricing-card.featured::before {
+  content:'';
+  position:absolute;
+  inset:-1px;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: linear-gradient(135deg, var(--cyan), var(--indigo), var(--gold));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--cyan), var(--indigo));
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 100px;
+  white-space: nowrap;
+  box-shadow: 0 0 20px var(--cyan-glow);
+  letter-spacing: 0.02em;
+}
+.pricing-header { text-align:center; margin-bottom:28px; }
+.pricing-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.pricing-price {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.pricing-price span { font-size:1rem; font-weight:500; color:var(--muted); }
+.pricing-features {
+  list-style: none;
+  margin-bottom: 28px;
+  flex: 1;
+}
+.pricing-features li {
+  padding: 10px 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pricing-features li::before {
+  content: '✦';
+  color: var(--cyan);
+  font-size: 0.7rem;
+}
+.pricing-card .btn { text-align:center; justify-content:center; width:100%; }
+
+/* ═══════════════════════════════════════════
+   DEMO SHOWCASE
+   ═══════════════════════════════════════════ */
+#demo { background: var(--navy); }
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.demo-card {
+  background: var(--navy-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-decoration: none;
+  color: var(--white);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.demo-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--indigo);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 30px var(--indigo-dim);
+}
+.demo-card-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  border-radius: var(--radius-sm);
+  background: var(--indigo-dim);
+  flex-shrink: 0;
+}
+.demo-card h4 { font-size:1rem; font-weight:700; margin-bottom:2px; }
+.demo-card span { font-size:0.8rem; color:var(--muted); }
+
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
+.contact-card {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--navy-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--white);
+  transition: var(--transition);
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.03);
+}
+.contact-link:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+.contact-link.whatsapp:hover { border-color: #25D366; box-shadow: 0 0 20px rgba(37,211,102,0.2); }
+.contact-link.email:hover { border-color: var(--cyan); box-shadow: 0 0 20px var(--cyan-dim); }
+.contact-link.instagram:hover { border-color: #E4405F; box-shadow: 0 0 20px rgba(228,64,95,0.2); }
+.contact-link-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.contact-link-icon.wp { background: rgba(37,211,102,0.12); }
+.contact-link-icon.em { background: var(--cyan-dim); }
+.contact-link-icon.ig { background: rgba(228,64,95,0.12); }
+.contact-link-text strong { display:block; font-size:0.9rem; }
+.contact-link-text span { font-size:0.78rem; color:var(--muted); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  position:relative; z-index:1;
+  text-align: center;
+  padding: 48px 28px;
+  border-top: 1px solid rgba(56,189,248,0.08);
+}
+footer p { font-size:0.85rem; color:var(--muted-dim); }
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero { padding:100px 20px 60px; min-height:auto; }
+  .hero-actions { flex-direction:column; align-items:center; }
+  .btn { width:100%; justify-content:center; }
+  .trust-track { gap:32px; }
+  .steps-line { left:27px; }
+  .step { flex-direction:column; gap:16px; }
+  .step-content { padding-top:0; }
+  .contact-card { grid-template-columns: 1fr; padding:28px 24px; }
+  .pricing-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">
+      <span class="dot"></span> KOBİ'ler için Yapay Zeka
+    </div>
+    <h1>
+      İşletmenizi<br>
+      <span class="gradient-text">Yapay Zeka</span> ile<br>
+      Geleceğe Taşıyın
+    </h1>
+    <p>
+      Kivon olarak, KOBİ'lerin operasyonel yükünü hafifletmek ve rekabet gücünü artırmak için özel yapay zeka çözümleri sunuyoruz.
+    </p>
+    <div class="hero-actions">
+      <a href="#demo" class="btn btn-primary">Canlı Demolar →</a>
+      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">WhatsApp ile Başla</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TRUST BAR ═══════════════ -->
+<div class="trust-bar">
+  <div class="container trust-track">
+    <div class="trust-item"><span class="trust-icon">⦿</span> 13 kişilik uzman ekip</div>
+    <div class="trust-item"><span class="trust-icon">⦿</span> Bursa merkezli</div>
+    <div class="trust-item"><span class="trust-icon">⦿</span> KOBİ odaklı</div>
+    <div class="trust-item"><span class="trust-icon">⦿</span> KVKK uyumlu</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label reveal">Hizmetlerimiz</span>
+      <h2 class="section-title reveal">İşletmenize Özel<br>AI Çözümleri</h2>
+      <p class="section-subtitle reveal">Her ölçekten KOBİ için tasarlanmış, kurulumu kolay ve etkisi yüksek yapay zeka hizmetleri.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">💬</div>
+        <h3>AI Chatbot</h3>
+        <p>Müşteri hizmetlerinizi 7/24 otomatikleştirin. Web sitenize, WhatsApp ve Instagram'a entegre, Türkçe doğal dil işleme özellikli akıllı sohbet asistanları.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📊</div>
+        <h3>Veri Analitiği</h3>
+        <p>Satış, stok ve müşteri verilerinizi anlamlandırın. Yapay zeka destekli tahminleme ve raporlama ile stratejik kararlarınızı güçlendirin.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⚙️</div>
+        <h3>Proses Otomasyonu</h3>
+        <p>Tekrarlayan iş süreçlerinizi AI ile otomatikleştirin. Muhasebe, raporlama, veri girişi gibi operasyonlarda %70'e varan zaman tasarrufu.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🧠</div>
+        <h3>AI Danışmanlık</h3>
+        <p>İşletmenizin ihtiyaçlarına özel yapay zeka yol haritası. Fizibilite analizi, teknoloji seçimi ve uygulama stratejisi ile yanınızdayız.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="724">7/24</div>
+        <div class="stat-label">Kesintisiz Hizmet</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="99.5">%99.5</div>
+        <div class="stat-label">Sistem Uptime</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="16">16+</div>
+        <div class="stat-label">Haftalık Saat Tasarrufu</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="3">3-5</div>
+        <div class="stat-label">Gün Kurulum Süresi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label reveal">Süreç</span>
+      <h2 class="section-title reveal">Nasıl Çalışır?</h2>
+      <p class="section-subtitle reveal">4 adımda işletmenize özel yapay zeka dönüşümünüzü başlatıyoruz.</p>
+    </div>
+    <div class="steps-wrapper reveal" style="max-width:600px; margin:0 auto;">
+      <div class="steps-line"></div>
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>İhtiyaç Analizi</h3>
+          <p>İşletmenizin süreçlerini analiz ediyor, AI fırsatlarını belirliyoruz.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Çözüm Tasarımı</h3>
+          <p>Size özel yapay zeka mimarisini tasarlıyor ve demo ile doğruluyoruz.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Entegrasyon & Kurulum</h3>
+          <p>3-5 iş günü içinde sistemlerinize tam entegrasyon sağlıyoruz.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Eğitim & Destek</h3>
+          <p>Ekibinize kullanım eğitimi veriyor, 7/24 teknik destek sağlıyoruz.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label reveal">Fiyatlandırma</span>
+      <h2 class="section-title reveal">Şeffaf ve Esnek<br>Fiyatlandırma</h2>
+      <p class="section-subtitle reveal">İhtiyacınıza göre ölçeklenebilir paketler. Her pakete kurulum ve 7/24 destek dahildir.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-header">
+          <div class="pricing-name">Başlangıç</div>
+          <div class="pricing-price" style="color:var(--cyan);">1.499<span>₺/ay</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>Tek kanal AI Chatbot</li>
+          <li>Aylık 2.000 mesaj</li>
+          <li>Temel analitik paneli</li>
+          <li>E-posta desteği</li>
+        </ul>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">Başla</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="pricing-badge">En Popüler</div>
+        <div class="pricing-header">
+          <div class="pricing-name">Profesyonel</div>
+          <div class="pricing-price">2.999<span>₺/ay</span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>3 kanal AI Chatbot (Web + WhatsApp + IG)</li>
+          <li>Sınırsız mesaj</li>
+          <li>Gelişmiş analitik & raporlama</li>
+          <li>Proses otomasyonu (1 süreç)</li>
+          <li>7/24 öncelikli destek</li>
+        </ul>
+        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener">Başla</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-header">
+          <div class="pricing-name">Kurumsal</div>
+          <div class="pricing-price" style="color:var(--indigo);">Özel<span></span></div>
+        </div>
+        <ul class="pricing-features">
+          <li>Sınırsız kanal desteği</li>
+          <li>Özel AI model eğitimi</li>
+          <li>Tam proses otomasyonu</li>
+          <li>Özel entegrasyonlar (ERP, CRM)</li>
+          <li>Adanmış müşteri temsilcisi</li>
+        </ul>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">İletişime Geç</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DEMO SHOWCASE ═══════════════ -->
+<section id="demo">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label reveal">Canlı Demolar</span>
+      <h2 class="section-title reveal">Çözümlerimizi<br>Deneyimleyin</h2>
+      <p class="section-subtitle reveal">Her bir demo, gerçek bir KOBİ senaryosunu canlandırır. Etkileşime geçin, farkı görün.</p>
+    </div>
+    <div class="demo-grid">
+      <a href="demo/chatbot.html" class="demo-card reveal">
+        <div class="demo-card-icon">💬</div>
+        <div>
+          <h4>AI Sohbet Asistanı</h4>
+          <span>Canlı demo →</span>
+        </div>
+      </a>
+      <a href="muhasebe.html" class="demo-card reveal">
+        <div class="demo-card-icon">📑</div>
+        <div>
+          <h4>Akıllı Muhasebe</h4>
+          <span>Canlı demo →</span>
+        </div>
+      </a>
+      <a href="servis-katalogu.html" class="demo-card reveal">
+        <div class="demo-card-icon">📋</div>
+        <div>
+          <h4>Servis Kataloğu</h4>
+          <span>Canlı demo →</span>
+        </div>
+      </a>
+      <a href="cozum-paneli.html" class="demo-card reveal">
+        <div class="demo-card-icon">📊</div>
+        <div>
+          <h4>Çözüm Paneli</h4>
+          <span>Canlı demo →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label reveal">İletişim</span>
+      <h2 class="section-title reveal">Hemen Başlayalım</h2>
+      <p class="section-subtitle reveal">Size en uygun kanaldan bize ulaşın, ilk görüşmeyi planlayalım.</p>
+    </div>
+    <div class="contact-card reveal">
+      <a href="https://wa.me/905303982712" class="contact-link whatsapp" target="_blank" rel="noopener">
+        <div class="contact-link-icon wp">💬</div>
+        <div class="contact-link-text">
+          <strong>WhatsApp</strong>
+          <span>+90 530 398 27 12</span>
+        </div>
+      </a>
+      <a href="mailto:kivon.iletisim@gmail.com" class="contact-link email">
+        <div class="contact-link-icon em">✉️</div>
+        <div class="contact-link-text">
+          <strong>E-Posta</strong>
+          <span>kivon.iletisim@gmail.com</span>
+        </div>
+      </a>
+      <a href="https://instagram.com/kivon.iletisim" class="contact-link instagram" target="_blank" rel="noopener">
+        <div class="contact-link-icon ig">📸</div>
+        <div class="contact-link-text">
+          <strong>Instagram</strong>
+          <span>@kivon.iletisim</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <p>&copy; 2026 Kivon. Tüm hakları saklıdır. KOBİ'ler için yapay zeka.</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   CANVAS PARTICLES
+   ═══════════════════════════════════════════ */
+(function() {
+  var c = document.getElementById('particles');
+  var ctx = c.getContext('2d');
+  var w, h, dots = [];
+  function resize() {
+    w = c.width = window.innerWidth;
+    h = c.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var count = Math.min(80, Math.floor(w * h / 12000));
+  for (var i = 0; i < count; i++) {
+    dots.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.8 + 0.1,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      alpha: Math.random() * 0.65 + 0.15
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      d.x += d.vx;
+      d.y += d.vy;
+      if (d.x < 0) d.x = w;
+      if (d.x > w) d.x = 0;
+      if (d.y < 0) d.y = h;
+      if (d.y > h) d.y = 0;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(56,189,248,' + d.alpha + ')';
+      ctx.fill();
+    }
+
+    // connection lines between nearby dots
+    for (var i = 0; i < dots.length; i++) {
+      for (var j = i + 1; j < dots.length; j++) {
+        var dx = dots[i].x - dots[j].x;
+        var dy = dots[i].y - dots[j].y;
+        var dist = dx * dx + dy * dy;
+        var maxDist = 15000;
+        if (dist < maxDist) {
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.strokeStyle = 'rgba(56,189,248,' + (0.06 * (1 - dist / maxDist)) + ')';
+          ctx.lineWidth = 0.4;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ═══════════════════════════════════════════
+   INTERSECTION OBSERVER — Reveal on Scroll
+   ═══════════════════════════════════════════ */
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // If it's a step element, also add visible to the step
+        if (entry.target.classList.contains('step')) {
+          // already handled by the .reveal -> .visible flow on the parent
+        }
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   COUNTER ANIMATION
+   ═══════════════════════════════════════════ */
+(function() {
+  var counterObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var prefix = el.textContent.match(/^[%₺+\-]*/)[0] || '';
+        var suffix = el.textContent.match(/[%₺+\-]*$/)[0] || '';
+        el.textContent = '';
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-number').forEach(function(el) {
+    counterObserver.observe(el);
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   NUMBER COUNTER — Smooth counting animation  
+   ═══════════════════════════════════════════ */
+(function() {
+  var countObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseFloat(el.getAttribute('data-target'));
+        var isDecimal = target % 1 !== 0;
+        var duration = 1800;
+        var start = performance.now();
+        var initialText = el.textContent;
+
+        function update(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = target * eased;
+          if (isDecimal) {
+            el.textContent = '%' + current.toFixed(1);
+          } else if (target >= 100) {
+            el.textContent = Math.floor(current) + '/24';
+          } else if (initialText.indexOf('-') !== -1) {
+            el.textContent = Math.floor(current) + '-' + (Math.floor(current) + 2);
+          } else {
+            el.textContent = Math.floor(current) + '+';
+          }
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = initialText;
+          }
+        }
+        requestAnimationFrame(update);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
+    countObserver.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>
