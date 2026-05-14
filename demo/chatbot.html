@@ -86,52 +86,124 @@ const chatInput = document.getElementById('chatInput');
 const STORAGE_KEY = 'kivon_chat_v2';
 const KB_KEY = 'kivon_bilgi_tabani';
 
-// ─── VARSAYILAN BİLGİ TABANI ───────────────────────────────────
+// ─── VARSAYILAN BİLGİ TABANI (45+ zengin yanıt) ────────────────
 const varsayilanBilgiTabani = {
-  "karsilama": "Merhaba! 👋 Ben Kivon'un muhasebe büroları için geliştirdiği AI asistanıyım. Sık sorulan sorular, fiyat bilgisi, teknik detaylar — her konuda yardımcı olabilirim. Buyurun sorun!",
-  "bilinmeyen": "Bu konuda kesin bir bilgim yok. Ancak WhatsApp'tan (+905303982712) veya Instagram'dan (@kivon.iletisim) bize ulaşabilirsiniz. Uzman ekibimiz en kısa sürede dönüş yapar. 📞",
-  "konu_disi": "Ben muhasebe, yapay zekâ ve işletme konularında yardımcı olmak için buradayım. Başka bir sorunuz varsa memnuniyetle cevaplarım. 💼",
+  "karsilama": "Merhaba! 👋 Ben Kivon'un AI asistanıyım. KOBİ'lere özel yapay zekâ çözümleri sunuyoruz — muhasebe büroları, e-ticaret işletmeleri, restoran ve kafeler için. Fiyat, teknik detay, demo talebi... Ne merak ediyorsunuz?",
+  "bilinmeyen": "Bu konuda hemen net bir cevap veremiyorum. Ancak uzman ekibimiz size özel bilgiyi sunabilir. WhatsApp (+90 530 398 27 12) veya Instagram (@kivon.iletisim) üzerinden bize yazın, en geç 24 saat içinde dönüş yapalım. 📞",
+  "konu_disi": "Ben işletmenizle ilgili konularda yardımcı olmak için buradayım — yapay zekâ, otomasyon, verimlilik, müşteri iletişimi gibi. Spor, hava durumu ya da gündelik sohbet konularında destek veremem. İşletmenizle ilgili ne sormak istersiniz? 💼",
 
   "yanitlar": {
-    "merhaba|selam|naber|iyi günler": "Merhaba! Hoş geldiniz. Size nasıl yardımcı olabilirim? Sormak istediğiniz konuyu yazabilir veya aşağıdaki butonlardan seçebilirsiniz. 😊",
 
-    "fiyat|ücret|paket|ne kadar|kaç para|kaç tl": "📦 Kivon hizmet paketlerimiz:\n\n🔹 Başlangıç: 1.200 TL/ay — 1 AI çözümü, WhatsApp entegrasyonu\n🔹 Profesyonel: 2.000 TL/ay — 2 AI çözümü, haftalık rapor\n🔹 Kurumsal: 3.500 TL/ay — Sınırsız AI çözümü, canlı dashboard\n\nİlk 5 müşterimize %20 erken katılım indirimi uyguluyoruz. Detay için hangi paketi incelemek istersiniz?",
+    // ── 1. BİZ KİMİZ & NEDEN KİVON ──────────────────────────
+    "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Bursa merkezli bir yapay zekâ danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Arkamızda 13 kişilik uzman bir ekip var: CEO, stratejist, AI mühendisi, hukuk danışmanı, mali müşavir, satış uzmanı ve kreatif direktör. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
 
-    "chatbot|bot|asistan|sanal asistan": "Chatbot'umuz müşterilerinizin sık sorduğu soruları 7/24 otomatik yanıtlar. WhatsApp, web siteniz ve Instagram üzerinden çalışır. Muhasebe büroları için özel eğitilmiştir.\n\nKurulum 3-5 iş günü sürer. Siz onay vermeden canlıya almıyoruz. Detaylı demo için WhatsApp'tan ulaşabilirsiniz.",
+    "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Bursa'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 1.200 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
 
-    "nasıl|çalışma|sistem|nasıl çalışır": "Şöyle çalışır: Mevcut muhasebe yazılımınıza (Logo, Paraşüt, LUCA vb.) bağlanırız. Sık sorulan 50-100 soruyu birlikte belirleriz. AI bu sorulara sizin onayladığınız cevapları verir. Tam kontrol sizde, biz sadece teknolojiyi sağlarız.",
+    "referans|müşteri|örnek|tecrübe|portföy": "Seçici ve butik ilerliyoruz — az müşteri, çok ilgi prensibiyle çalışıyoruz. Bu yaklaşım sayesinde her müşterimize aceleye gelmemiş, özel çözümler sunabiliyoruz. Ayrıca erken katılım döneminde avantajlı fiyatlar ve 14 gün koşulsuz çıkış hakkı tanıyoruz. Risk sıfır, çözüm size özel.",
 
-    "güvenlik|kvkk|veri|gizli": "KVKK ve GDPR uyumluyuz. Tüm müşteri verileri Türkiye'deki sunucularda şifrelenir. Hiçbir veriyi üçüncü taraflarla paylaşmayız. Hukuk danışmanımız Ege Bey tüm sözleşmeleri hazırladı. İsterseniz NDA da imzalarız. 🔒",
+    "ekip|çalışan|kadro|kimler": "13 kişilik tamamlayıcı bir ekibiz. Doruk (CEO) vizyonu çizer, İlayda stratejiyi kurgular, Mert satışı yönetir, Onur teknik mimariyi kurar, Efe AI modellerini geliştirir, Selda kreatif yönü yönetir, Lara operasyonu yürütür, Kaan finansı izler, Duru muhasebeyi denetler, Ege hukuku güvenceye alır, Naz İK'yı yapılandırır. Herkes alanının en iyisi — tek bir noktada bile zayıf halka yok.",
 
-    "randevu|takvim|görüşme": "Randevu yönetimi en büyük zaman kayıplarından biri. AI asistanımız boş takvim dilimlerinizi görür, müşteriye uygun saatleri önerir ve onaylanan randevuyu otomatik takvime ekler. Size ayda ortalama 8 saat kazandırır.",
+    "bursa|konum|nerede|adres": "Bursa merkezliyiz. Bu bizim için stratejik bir avantaj: Türkiye'nin en büyük sanayi ve ticaret şehirlerinden birindeyiz. Muhasebe büroları, e-ticaret işletmeleri, restoranlar — hedef kitlemiz tam burada. Yüz yüze görüşme, yerinde keşif, hızlı müdahale imkanımız var. Ama Türkiye'nin her yerine uzaktan hizmet de veriyoruz.",
 
-    "dekont|ödeme|havale|eft": "Müşterileriniz \"dekont nerede, ödeme ulaştı mı?\" diye sorduğunda, asistanımız anında havale/EFT kayıtlarını kontrol edip cevap verir. Size günde ortalama 45 dakika kazandırır. PDF olarak dekont da iletebilir.",
 
-    "fatura|e-fatura|e-arşiv": "Fatura sorgulama ve hatırlatma tamamen otomatik. Müşteri \"geçen ayki faturam ne kadardı?\" diye sorduğunda, sistem anında ilgili faturayı bulur ve tutarı söyler. PDF olarak da iletebilir. Ayda 20 saat kazanç.",
+    // ── 2. SEKTÖREL: MUHASEBE ────────────────────────────────
+    "muhasebe|smmm|mali müşavir|muhasebeci": "Muhasebe büroları bizim en derin uzmanlık alanımız. Sektörü tanıyoruz: beyanname dönemi yoğunluğu, tekrarlayan müşteri soruları (dekont, fatura, randevu), evrak takibi. Chatbot'umuz bu yükün %70'ini alır. Müşteriniz 'dekont nerede' diye sorduğunda cevabı chatbot verir, siz danışmanlığa odaklanırsınız. Entegrasyon: Logo, Paraşüt, LUCA, Mikro ile tam uyumlu.",
 
-    "kdv|vergi|beyanname|maliye": "Beyanname dönemlerinde müşterilerinizden gelen tekrarlayan soruları asistan karşılar. \"KDV beyannamesi ne zaman verilecek?\", \"Vergi borcum var mı?\" gibi sorulara doğru cevaplar verir. Vergi takvimi entegrasyonu ile hiçbir tarih kaçmaz.",
+    "muhasebe chatbot|muhasebeci chatbot": "Muhasebe büroları için özel eğitilmiş chatbot'umuz şunları yapar: 1) Müşteri 'dekont/fatura/ödeme' sorduğunda anında yanıtlar, 2) Randevu alır ve takvime ekler, 3) Beyanname dönemlerinde otomatik bilgilendirme yapar, 4) Sık sorulan 50-100 soruyu ezbere cevaplar, 5) Cevap veremediğini size yönlendirir. Kurulum 3-5 iş günü. Siz onay vermeden canlıya almıyoruz.",
 
-    "kobi|küçük işletme|esnaf|işletme": "Kivon tam olarak KOBİ'ler için kuruldu. Büyük şirketlerin kullandığı AI çözümlerini, sizin bütçenize uygun şekilde sunuyoruz. Karmaşık teknik konuları sizin dilinizden anlatıyoruz. Amacımız: Teknolojiyi demokratikleştirmek.",
+    "muhasebe zaman|muhasebe verimlilik": "Bir muhasebe bürosu haftada ortalama 3-5 saatini 'dekont nerede, fatura ne kadar, randevu ne zaman' sorularına harcar. Ayda 16-20 saat. Chatbot bu yükü aldığında, o saatleri yeni müşteri kazanmaya, stratejik danışmanlığa, hatta dinlenmeye ayırabilirsiniz. 1.200 TL'lik yatırımın size aylık geri dönüşü en az 3 katı.",
 
-    "muhasebe|mali müşavir|smmm|muhasebeci": "Muhasebe büroları bizim birincil hedef kitlemiz. Sektörün ihtiyaçlarını biliyoruz: tekrarlayan müşteri soruları, beyanname dönemi yoğunluğu, evrak takibi. Tüm bunları AI ile hafifletiyoruz. Size özel ücretsiz analiz için DM atın.",
+    "muhasebe guvenlik|muhasebe veri": "Muhasebe büroları için veri güvenliği kritik. Müvekkil bilgileri, mali veriler, beyanname içerikleri — hepsi KVKK ve GDPR uyumlu şekilde, Türkiye'deki sunucularda şifrelenir. Hukuk danışmanımız Ege Bey tüm sözleşmeleri hazırladı. Hiçbir müvekkil verisi üçüncü taraflarla paylaşılmaz. İsterseniz gizlilik sözleşmesi (NDA) imzalarız. Arşivleme: VUK'a uygun 10 yıl.",
 
-    "iletişim|ulaşmak|telefon|mail|whatsapp": "Bize şu kanallardan ulaşabilirsiniz:\n📞 WhatsApp: +90 530 398 27 12\n📧 E-posta: kivon.iletisim@gmail.com\n📷 Instagram: @kivon.iletisim\n🌐 Web: ahmetisikbir-code.github.io/kivon\n\nÜcretsiz keşif görüşmesi için bekleriz!",
 
-    "kimsin|kivon|şirket|firma|siz": "Kivon, Bursa merkezli bir yapay zeka danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz. Arkamızda 13 kişilik uzman bir ekip var — CEO'dan hukuk danışmanına, AI mühendisinden mali müşavire kadar. Butik çalışıyoruz: Her müşteriye özel, yüz yüze, Bursa'dan.",
+    // ── 3. SEKTÖREL: E-TİCARET ───────────────────────────────
+    "eticaret|e-ticaret|e ticaret|online mağaza": "E-ticaret işletmeleri için özel AI çözümlerimiz var. Müşteri sorularına 7/24 otomatik yanıt, sipariş durumu sorgulama, iade/değişim takibi, stok uyarıları, terk edilen sepet hatırlatmaları. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu yapıyoruz. Ayda yüzlerce müşteri sorusunu chatbot karşılar, siz operasyona odaklanırsınız.",
 
-    "referans|müşteri|örnek|tecrübe": "Seçici ve butik ilerliyoruz — az müşteri, çok ilgi prensibiyle çalışıyoruz. Bu sayede size özel, aceleye gelmemiş çözümler sunabiliyoruz. Ayrıca %20 erken katılım avantajı ve 14 gün koşulsuz çıkış hakkı tanıyoruz. Risk sıfır, kazanç sizin.",
+    "sipariş|stok|kargo|lojistik": "Sipariş ve stok takibi e-ticaretin en büyük zaman tuzağıdır. AI sistemimiz stok seviyelerini anlık izler, kritik seviyenin altına düşen ürünler için uyarı verir, tedarikçiye otomatik sipariş taslağı hazırlar. Kargo durumu sorgulamalarını chatbot karşılar. Müşteri 'siparişim nerede' diye sorduğunda anında kargo durumunu söyler. Haftada 10 saat kazanç.",
 
-    "entegrasyon|logo|paraşüt|luca|mikro": "Mevcut muhasebe yazılımınızla (Logo, Paraşüt, LUCA, Mikro ve diğerleri) entegre çalışırız. Özel yazılım kullanıyorsanız API bağlantısı kurarız. Size uyum sağlarız, sizi değiştirmeyiz. Entegrasyon 1-2 iş günü sürer.",
+    "iade|değişim|müşteri şikayet": "İade ve değişim süreçleri e-ticaretin kaçınılmaz gerçeği. Chatbot'umuz iade/değişim taleplerini alır, kuralları hatırlatır, iade kodu oluşturur, süreci başlatır. Müşteri memnuniyetsizliğini insan müdahalesi gerekmeden yönetir. Karmaşık vakaları size yönlendirir. İade işlemleri %60 azalır çünkü çoğu soru daha iadeye dönüşmeden çözülür.",
 
-    "teşekkür|sağ ol|eyvallah": "Rica ederiz! Başka bir sorunuz olursa her zaman buradayım. İsterseniz sizi ücretsiz keşif görüşmesi için yönlendirebilirim. ☺️",
+    "pazaryeri|trendyol|hepsiburada|amazon": "Trendyol, Hepsiburada, Amazon, N11 gibi pazaryerlerinde satış yapıyorsanız, chatbot'umuz sipariş ve müşteri sorularını tek panelden yönetir. Entegrasyonla birlikte tüm platformlardan gelen mesajlar tek bir yerde toplanır. Stok senkronizasyonu, fiyat güncelleme — hepsi otomasyona bağlanabilir. Proses Otomasyonu paketiyle çalışır.",
 
-    "zaman|tasarruf|verimlilik|saat": "Yaptığımız araştırmalara göre bir muhasebe bürosu haftada ortalama 3-5 saatini tekrarlayan sorulara harcıyor. Bu, ayda yaklaşık 16-20 saat demek. Chatbot'umuz bu yükü alır. 16 saat = yeni müşterilere, stratejiye, dinlenmeye ayıracağınız zaman.",
 
-    "kosgeb|hibe|teşvik|destek": "KOSGEB Geleneksel Girişimci Destek Programı'na başvuruyoruz. 65.000 TL hibe + 100.000 TL faizsiz kredi imkanı var. Başvuru sürecinde size de yardımcı olabiliriz. Eğitime bu hafta başlıyoruz. Güncel bilgi için WhatsApp'tan ulaşın.",
+    // ── 4. SEKTÖREL: RESTORAN & KAFE ─────────────────────────
+    "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler için özel AI çözümümüz var. WhatsApp'tan rezervasyon alma, müsaitlik kontrolü, menü bilgisi paylaşma, doğum günü/kutlama organizasyonu sorguları. Müşteri 'bu akşam yer var mı' diye sorduğunda chatbot anında müsaitlik durumuna bakar ve rezervasyonu oluşturur. Telefonla uğraşmazsınız, servise odaklanırsınız.",
 
-    "demo|deneme|test": "Canlı demolarımızı hemen inceleyebilirsiniz:\n💬 Muhasebe Asistanı Chatbot\n📊 Veri Analitiği Paneli\n🧪 AI Hazırlık Testi\n🧮 MCP Muhasebe Araçları\n\nHepsi web sitemizde ücretsiz: ahmetisikbir-code.github.io/kivon",
+    "rezervasyon|masa|yer": "Rezervasyon yönetimi restoranlar için en büyük zaman kaybı. Chatbot'umuz 7/24 WhatsApp'tan rezervasyon alır, takviminizdeki boş masa/saati gösterir, müşteriye uygun seçenekleri sunar, onaylanan rezervasyonu otomatik takvime ekler. İptalleri yönetir, hatırlatma mesajı gönderir. Garsonlarınız telefona bakmak yerine misafirlerinizle ilgilenir.",
 
-    "sektör|e-ticaret|restoran|mağaza": "Öncelikli hedefimiz muhasebe büroları. Ancak e-ticaret işletmeleri ve restoran/kafe gibi sektörlere de özel AI çözümlerimiz var. Sipariş takibi, stok yönetimi, rezervasyon — sektörünüze özel çözüm için ücretsiz analiz yapalım."
+    "menü|yemek listesi|fiyat listesi": "Menü bilgisi paylaşımı restoranınızın dijital vitrinidir. Chatbot güncel menüyü, fiyatları, günün spesiyalini müşteriye anında iletir. Alerjen bilgisi, vejetaryen seçenekler, çocuk menüsü gibi detayları da cevaplar. Menü değişikliğinde bilgi tabanını güncellemeniz yeterli — chatbot otomatik öğrenir.",
+
+    "paket servis|sipariş|teslimat": "Paket servis ve online sipariş için AI destekli çözüm sunuyoruz. Müşteri WhatsApp'tan sipariş verir, chatbot menüyü gösterir, seçenekleri alır, tutarı hesaplar, siparişi mutfağa iletir. Ödeme entegrasyonu da yapabiliyoruz. Telefon trafiğini azaltır, yanlış siparişleri minimuma indirir, mutfak operasyonunu rahatlatır.",
+
+
+    // ── 5. TEKNİK DETAYLAR ───────────────────────────────────
+    "chatbot|bot|asistan|sanal asistan|yapay zeka asistan": "Chatbot'umuz müşterilerinizin sorularını 7/24 yanıtlayan, randevu alan, fatura sorgulayan bir AI asistan. WhatsApp, web siteniz ve Instagram'da çalışır. Sizin belirlediğiniz sorulara, sizin onayladığınız cevapları verir. Yanıtlayamadığı soruyu anında size yönlendirir. Tam kontrol sizde, teknoloji bizde.",
+ 
+    "nasıl çalışır|sistem|çalışma şekli": "Süreç şöyle işler: 1) Mevcut yazılım ve iletişim kanallarınızı inceleriz, 2) Sık sorulan 50-100 soruyu birlikte belirleriz, 3) Her soruya sizin onayladığınız cevabı tanımlarız, 4) Chatbot'u entegre eder ve test ederiz, 5) Siz onay verdikten sonra canlıya alırız. Kurulum 3-5 iş günü. Sonrasında ihtiyaç halinde cevapları güncelleriz.",
+
+    "entegrasyon|logo|paraşüt|luca|mikro|yazılım": "Mevcut yazılımlarınızla sorunsuz entegre çalışırız. Muhasebe: Logo, Paraşüt, LUCA, Mikro. E-ticaret: Shopify, WooCommerce. Restoran: Adisyon ve POS sistemleri. Özel yazılım kullanıyorsanız API bağlantısı kurarız. Amacımız sizi değiştirmek değil, mevcut sisteminize güç katmak.",
+
+    "veri|nerede|sunucu|data|veriler nerede": "Tüm verileriniz Türkiye'deki sunucularda, KVKK uyumlu şekilde saklanır. Şifreleme ile korunur, yetkisiz erişime kapalıdır. Avrupa veya Amerika'daki sunuculara veri aktarımı yapmayız. Hukuk danışmanımız Ege Bey tüm veri işleme sözleşmelerini hazırladı. Her müşteri için ayrı veri alanı — verileriniz asla başka müşterilerle karışmaz.",
+
+    "kesinti|çalışmama|arıza|sorun": "Chatbot'unuz %99.5 uptime ile çalışır. Sistemimiz yedekli sunucularda barındırılır, olası bir kesintide otomatik olarak yedek sunucuya geçer. Mesai saatleri içinde 2 saat, mesai dışı 4 saat içinde müdahale garantisi veriyoruz. Aylık performans raporunda uptime oranınızı görürsünüz.",
+
+    "ai|yapay zeka|artificial intelligence|zeka": "Yapay zekâ bizim işimiz, ama karmaşıklaştırmak değil basitleştirmek için çalışıyoruz. Sizin AI'ın nasıl çalıştığını bilmenize gerek yok — ne işe yaradığını bilmeniz yeterli. AI sizin için angaryayı alır: tekrarlayan soruları cevaplar, evrakları sınıflandırır, raporları hazırlar. Siz işinize, uzmanlığınıza, müşterinize odaklanırsınız. AI bir araçtır, rakip değil.",
+
+
+    // ── 6. SÜREÇ & SÖZLEŞME ─────────────────────────────────
+    "kurulum|ne kadar sürer|süreç|başlangıç": "Ortalama kurulum süresi 3-5 iş günüdür. Gün 1: İhtiyaç analizi ve keşif toplantısı. Gün 2: Sık sorulan soruların belirlenmesi ve bilgi tabanının oluşturulması. Gün 3: Entegrasyon ve ilk test. Gün 4: Sizin testiniz ve geri bildiriminiz. Gün 5: Canlıya geçiş. Siz onay vermeden hiçbir adım tamamlanmaz.",
+
+    "sozlesme|sözleşme|imza|taahhüt|kontrat": "Hizmet sözleşmemiz şeffaf ve kısadır — 13 madde, anlaşılır Türkçe. Hukuk danışmanımız Ege Bey tarafından hazırlanmıştır. Sözleşmede açıkça belirtilenler: hizmet kapsamı, ücret, süre, çıkış hakkı, gizlilik, veri güvenliği. Sürpriz madde yok. İmzadan önce tüm maddeleri sizinle birlikte gözden geçiririz. Dijital imza ile de yapabiliyoruz.",
+
+    "ödeme|nasıl ödeme|tahsilat|fatura|ödeyecek": "Ödeme aylık peşin olarak, fatura karşılığında havale/EFT ile yapılır. Otomatik ödeme talimatı da verebilirsiniz. Faturanız her ayın 1'inde kesilir, son ödeme ayın 5'idir. KDV faturaya eklenir (%20). Yıllık peşin ödemede 1 ay ücretsiz (12 ay öde, 11 ay faturalandır). Şeffafız — sürpriz masraf yok.",
+
+    "destek|yardım|sorun|problem": "Her müşterimize özel bir hesap yöneticisi atanır. WhatsApp ve e-posta üzerinden doğrudan ulaşabilirsiniz. Mesai saatleri içinde 2 saatte, mesai dışı 4 saatte dönüş garantisi. Kurumsal pakette 7/24 öncelikli destek var. Ayrıca aylık check-in toplantılarıyla süreci birlikte değerlendiririz. Sorununuz çözülene kadar peşini bırakmayız.",
+
+    "iptal|cayma|çıkış|vazgeçme": "Sözleşmede 14 gün koşulsuz çıkış hakkı var. Deneyin, memnun kalmazsanız hiçbir gerekçe göstermeden çıkabilirsiniz. Devam eden sözleşmelerde, bitiş tarihinden 15 gün önce yazılı bildirimle fesih mümkün. Peşin ödenen ücretin kullanılmayan kısmı 15 gün içinde iade edilir. Çıkış süreci de giriş süreci kadar şeffaf.",
+
+
+    // ── 7. İTİRAZ KARŞILAMA ──────────────────────────────────
+    "pahalı|bütçe|maliyet|masraf": "Başlangıç paketimiz aylık 1.200 TL + KDV. Bu, bir muhasebe bürosunun aylık cirosunun sadece %2-3'ü. Üstelik sağladığı zaman tasarrufu bunun en az 3 katı — ayda 16 saat kazanırsınız, bu da en az 4.000 TL değerinde. Yani yatırımınız ilk ayda geri döner. Bütçenize uymazsa çözümü özelleştirelim.",
+
+    "işimi alır|işsiz kalır|tehlike|korku": "AI işinizi almaz, tam tersi — angaryayı alır, danışmanlığı size bırakır. Müşteriniz 'dekont nerede' diye sorduğunda cevabı chatbot verir. Siz o sırada stratejiye, yeni müşterilere, karmaşık danışmanlığa odaklanırsınız. AI sizi değersizleştirmez, tam tersi — sizi sıradan işlerden kurtarıp asıl yeteneğinize zaman açar. Dünyada muhasebe bürolarının %40'ı AI kullanıyor ve işleri büyüyor.",
+
+    "yazılımcım var|ekibim var|kendi yaparız": "Kendi ekibinizin olması harika. Biz onlarla rekabet etmek için değil, onlara destek olmak için varız. AI entegrasyonu özel bir uzmanlık alanı — biz bu işi her gün yapıyoruz, 13 kişilik ekibimizin yarısı teknik. Ekibiniz işletmenizin ana işine odaklansın, AI'yı bize bırakın. İsterseniz ekibinizle birlikte çalışır, bilgi transferi de yaparız.",
+
+    "şimdi değil|sonra|acelem yok|bekleyelim": "Anlıyorum, her yatırımın bir zamanı var. Ama şunu bilmenizi isterim: Erken adapte olan muhasebe büroları rekabette şimdiden öne geçiyor. 6 ay sonra başlamak isterseniz de kapımız açık. Bu arada sektörünüzdeki AI gelişmelerini paylaşmamı ister misiniz? Arada bilgilendirme yapabilirim, acele etmeden.",
+
+    "ihtiyacım yok|gerek yok|lazım değil": "Belki de gerçekten şu an ihtiyacınız yoktur. Ama bir soru sorayım: Haftada kaç saatiniz 'dekont, fatura, randevu, fiyat' sorularına gidiyor? Cevabınız 3 saatten fazlaysa, aslında ihtiyacınız var demektir. Ücretsiz keşif görüşmesi yapalım, ihtiyaç haritanızı birlikte çıkaralım. İhtiyaç yoksa zaten söyleriz, zorlamayız.",
+
+
+    // ── 8. FİYAT & PAKET DETAY ───────────────────────────────
+    "fiyat|ücret|paket|ne kadar|kaç para|kaç tl": "📦 Kivon paketleri:\n\n🔹 Başlangıç: 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu, aylık rapor\n🔹 Profesyonel: 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, haftalık rapor, randevu yönetimi\n🔹 Kurumsal: 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\nTüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, sözleşmede çıkış maddesi. Erken katılımda %20 indirim.",
+
+    "baslangic|başlangıç paketi": "Başlangıç paketi (1.200 TL/ay + KDV) şunları içerir: 1 adet AI çözümü seçersiniz (genelde chatbot), WhatsApp'a entegre ederiz, 7/24 müşteri sorularını yanıtlar, aylık performans raporu veririz. Kurulum dahil. Muhasebe büroları, küçük e-ticaret işletmeleri ve butik restoranlar için ideal başlangıç noktası. 14 gün deneyin, memnun kalmazsanız çıkın.",
+
+    "profesyonel|profesyonel paket": "Profesyonel paket (2.000 TL/ay + KDV) en çok tercih edilen paketimiz. 2 AI çözümü birden alırsınız — örneğin chatbot + veri analitiği veya chatbot + proses otomasyonu. WhatsApp ve web sitenizde çalışır. Haftalık rapor, randevu yönetimi, kurulum ve eğitim dahil. Orta ölçekli muhasebe büroları ve büyüyen e-ticaret işletmeleri için ideal.",
+
+    "kurumsal|kurumsal paket|sınırsız": "Kurumsal paket (3.500 TL/ay + KDV) sınırsız AI çözümü sunar. Tüm kanallarda entegrasyon, özel eğitilmiş AI modeli, canlı dashboard, 7/24 öncelikli destek, kurulum + eğitim + sürekli danışmanlık. Yüksek hacimli muhasebe büroları, zincir restoranlar, büyük e-ticaret operasyonları için. Her ay sizinle strateji toplantısı yapar, AI çözümünü işinizle birlikte büyütürüz.",
+
+    "kdv|vergi dahil|fiyat kdv": "Tüm paket fiyatlarımıza KDV dahil değildir. Güncel KDV oranı (%20) faturaya eklenir. Örneğin Başlangıç paketi: 1.200 TL + 240 TL KDV = 1.440 TL toplam. Yıllık peşin ödemede 1 ay ücretsiz avantajı var. Faturanız her ay düzenli kesilir, muhasebe kaydınıza işlenir.",
+
+
+    // ── 9. İLETİŞİM & DEMO ──────────────────────────────────
+    "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "Bize ulaşmanın en hızlı yolu WhatsApp: +90 530 398 27 12. Ayrıca e-posta (kivon.iletisim@gmail.com) ve Instagram (@kivon.iletisim) üzerinden de yazabilirsiniz. Web sitemizde canlı demolarımız var: ahmetisikbir-code.github.io/kivon. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli — en geç 24 saat içinde dönüş yaparız.",
+
+    "demo|deneme|test|gösteri": "Canlı demolarımızı hemen inceleyebilirsiniz — hepsi ücretsiz, kayıt gerekmez:\n💬 Muhasebe Asistanı Chatbot — soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — grafikleri görün\n🧪 AI Hazırlık Testi — 12 soruda işletmenizin AI seviyesini ölçün\n🧮 MCP Muhasebe Araçları — fatura kesin, KDV hesaplayın\n🧩 Çözüm Yönetim Paneli — paketleri karşılaştırın\n\nHepsi: ahmetisikbir-code.github.io/kivon",
+
+    "görüşme|toplantı|ziyaret|randevu": "Ücretsiz keşif görüşmesi için WhatsApp'tan (+90 530 398 27 12) bize ulaşın. 30 dakikalık bir toplantıda işletmenizin ihtiyaçlarını analiz eder, size özel AI yol haritası çıkarırız. Görüşme sonrası bağlayıcı hiçbir şey yok — sadece fırsatları görmüş olursunuz. Bursa'daysanız ofisinize de gelebiliriz, uzaktaysanız Google Meet.",
+
+
+    // ── 10. GENEL & DİĞER ────────────────────────────────────
+    "merhaba|selam|naber|iyi günler|günaydın": "Merhaba! Hoş geldiniz. Size nasıl yardımcı olabilirim? Sormak istediğiniz konuyu yazabilir veya aşağıdaki butonlardan seçebilirsiniz. İster muhasebe, ister e-ticaret, ister restoran — her sektöre özel çözümümüz var. 😊",
+
+    "güvenlik|kvkk|veri koruma|gizlilik|hukuk": "KVKK ve GDPR'a tam uyumluyuz. Tüm müşteri verileri Türkiye'deki sunucularda, uçtan uca şifreleme ile korunur. Erişim yetkileri rol bazlı sınırlandırılmıştır. Hiçbir veri üçüncü taraflarla paylaşılmaz, yurt dışına aktarılmaz. Hukuk danışmanımız Ege Bey KVKK aydınlatma metni, açık rıza metni, veri işleme sözleşmesi ve NDA dahil tüm hukuki altyapıyı hazırladı. Gizlilik politikamız web sitemizde yayındadır.",
+
+    "kosgeb|hibe|teşvik|destek|devlet": "KOSGEB Geleneksel Girişimci Destek Programı kapsamında hibe ve faizsiz kredi imkanlarından yararlanmanız için danışmanlık veriyoruz. 65.000 TL hibe + 100.000 TL faizsiz kredi (2 yıl vadeli) alabilirsiniz. AI yazılım, chatbot, otomasyon yatırımlarınızı bu destekle finanse edebilirsiniz. Başvuru sürecinde size rehberlik ederiz. Detaylı bilgi için WhatsApp'tan ulaşın.",
+
+    "zaman|tasarruf|verimlilik|saat kazanma": "Yaptığımız araştırmalara göre bir KOBİ haftada ortalama 8-10 saatini ana işi dışındaki tekrarlayan işlere harcıyor: müşteri soruları, evrak hazırlama, randevu takibi, sosyal medya. Bu ayda 32-40 saat demek. AI çözümlerimiz bu yükün en az yarısını alır. Kazandığınız 20 saat = işinize, ailenize, kendinize ayıracağınız zaman.",
+
+    "teşekkür|sağ ol|eyvallah|teşekkürler": "Rica ederiz, her zaman yardıma hazırız! Başka bir sorunuz olursa çekinmeden yazın. İsterseniz WhatsApp'tan (+90 530 398 27 12) ücretsiz keşif görüşmesi planlayalım. Şimdiden iyi çalışmalar! ☺️"
   }
 };
 
@@ -246,12 +318,12 @@ async function typing(ms) {
 let dialogStep = null;
 
 const paketDetay = {
-  'Başlangıç': '📦 Başlangıç Paketi — 1.200 TL/ay\n\n✅ 1 AI çözümü\n✅ WhatsApp entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Aylık rapor\n✅ Kurulum dahil\n\n14 gün ücretsiz deneme + sözleşmede çıkış maddesi.',
-  'Profesyonel': '📦 Profesyonel Paket — 2.000 TL/ay\n\n✅ 2 AI çözümü\n✅ WhatsApp + Web entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Haftalık rapor\n✅ Randevu yönetimi\n✅ Kurulum + eğitim dahil\n\nEn çok tercih edilen paket.',
-  'Kurumsal': '📦 Kurumsal Paket — 3.500 TL/ay\n\n✅ Sınırsız AI çözümü\n✅ Tüm kanallarda entegrasyon\n✅ Özel eğitilmiş model\n✅ Canlı dashboard\n✅ Öncelikli destek\n\nYüksek hacimli bürolar için ideal.'
+  'Başlangıç': '📦 Başlangıç Paketi — 1.200 TL/ay + KDV\n\n✅ 1 AI çözümü (chatbot, veri analitiği veya otomasyon)\n✅ WhatsApp entegrasyonu\n✅ 7/24 otomatik müşteri yanıtı\n✅ Aylık performans raporu\n✅ Kurulum ve 30 gün teknik destek dahil\n\nKimler için: Butik muhasebe büroları, küçük e-ticaret işletmeleri, tek şube restoranlar.\n\n14 gün koşulsuz çıkış hakkı.',
+  'Profesyonel': '📦 Profesyonel Paket — 2.000 TL/ay + KDV\n\n✅ 2 AI çözümü birden\n✅ WhatsApp + Web sitesi entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Haftalık performans raporu\n✅ Randevu ve takvim yönetimi\n✅ Kurulum + ekip eğitimi dahil\n\nKimler için: Orta ölçekli muhasebe büroları, büyüyen e-ticaret markaları, şubeli restoranlar. En çok tercih edilen paket.',
+  'Kurumsal': '📦 Kurumsal Paket — 3.500 TL/ay + KDV\n\n✅ Sınırsız AI çözümü\n✅ Tüm kanallarda entegrasyon\n✅ Özel eğitilmiş AI modeli\n✅ Canlı dashboard\n✅ 7/24 öncelikli destek\n✅ Aylık strateji toplantısı\n\nKimler için: Yüksek hacimli muhasebe büroları, büyük e-ticaret operasyonları, zincir restoranlar.'
 };
 
-const varsayilanButonlar = ['💰 Fiyat ve paketler', '💬 Chatbot nedir?', '🔒 Veri güvenliği', '📅 Randevu yönetimi', '📋 Nasıl çalışır?', '📞 İletişim'];
+const varsayilanButonlar = ['💰 Fiyat ve paketler', '💬 Chatbot nasıl çalışır?', '🏢 Muhasebe büroları', '🛒 E-ticaret çözümleri', '🍽️ Restoran & Kafe', '📞 İletişim']; 
 
 function butonlariAyarla(butonlar) {
   quickReplies.innerHTML = butonlar.map(b => `<button class="quick-btn">${b}</button>`).join('');
