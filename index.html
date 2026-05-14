@@ -53,6 +53,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-
 .btn-secondary:hover{border-color:var(--cyan);background:rgba(56,189,248,.06)}
 
 section{padding:100px 0}
+.premium-banner{background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.15);border-radius:16px;padding:14px 24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;animation:glowPulse 3s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(56,189,248,0.05)}50%{box-shadow:0 0 40px rgba(56,189,248,0.15)}}
+.premium-banner span{font-size:14px;font-weight:600;color:var(--white)}
+.premium-banner span b{color:var(--cyan)}
+.premium-banner a{background:linear-gradient(135deg,var(--cyan),#6366f1);color:var(--white);padding:8px 18px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;white-space:nowrap}
+.premium-banner a:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(56,189,248,0.3)}
 .section-label{display:inline-block;background:rgba(56,189,248,.08);color:var(--cyan);font-size:12px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
 
 #services{background:var(--dark)}
@@ -137,6 +143,10 @@ footer p{font-size:13px;color:rgba(255,255,255,.25)}
 <section id="hero">
   <div class="hero-bg"><img src="img/hero-bg.jpg" alt=""></div>
   <div class="container">
+    <div class="premium-banner reveal">
+      <span>✨ <b>Yeni:</b> Premium deneyim sayfamız yayında</span>
+      <a href="premium/index.html">Premium Sayfayı Gör →</a>
+    </div>
     <div class="hero-content" style="position:relative;z-index:2">
       <div class="hero-badge reveal">🤖 Bursa çıkışlı, KOBİ odaklı</div>
       <h1 class="hero-title reveal">Yapay <span class="accent">zekâyı</span><br>işinize getiriyoruz</h1>
