@@ -126,6 +126,10 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
       <button class="sidebar-item" onclick="showTool('beyanname')"><span class="icon">📝</span> Beyanname Taslak</button>
       <button class="sidebar-item" onclick="showTool('vergi-takvimi')"><span class="icon">📅</span> Vergi Takvimi</button>
     </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">AI Analiz (Groq)</div>
+      <button class="sidebar-item" onclick="showTool('ai-fatura-oku')"><span class="icon">🤖</span> AI Fatura Oku</button>
+    </div>
   </div>
 
   <div class="content" id="content"></div>
@@ -379,6 +383,59 @@ const araclar = {
     calistir() {
       return `<div class="empty-state"><span class="icon">💡</span><p>Fatura iptali için soldaki "Kayıtlı Faturalar"a gidin.<br>İptal etmek istediğiniz faturada "İptal" butonuna basın.</p></div>`;
     }
+  },
+
+  'ai-fatura-oku': {
+    baslik: 'AI Fatura Oku (Groq)', aciklama: 'Fatura metnini yapıştırın, AI yapılandırılmış veriye çevirsin.',
+    form: [
+      { id:'metin', label:'Fatura Metni', tip:'text', default:'Fatura No: KVN2026001\nTarih: 14.05.2026\nMüşteri: ABC Muhasebe Bürosu\nHizmet: AI Chatbot Entegrasyonu\nTutar: 1.200 TL\nKDV (%20): 240 TL\nToplam: 1.440 TL' }
+    ],
+    butonEtiket: 'AI ile Oku',
+    async calistir(form) {
+      if (!form.metin || form.metin.length < 10) return '<div style="text-align:center;padding:20px;color:var(--red)">⚠️ Lütfen fatura metnini girin</div>';
+
+      const box = document.getElementById('result');
+      box.innerHTML = '<h4>🤖 AI Analiz Ediyor...</h4><div style="text-align:center;padding:30px"><div class="typing"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px;font-size:13px">Groq AI faturayı okuyor...</p></div>';
+      box.classList.add('show');
+
+      try {
+        const proxyRes = await fetch('http://localhost:3000/api/groq', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            soru: `Su fatura metninden JSON formatinda sunlari cikar: musteri, tarih, fatura_no, aciklama, ara_toplam, kdv_orani, kdv_tutar, genel_toplam. SADECE JSON dondur, baska bir sey yazma:\n\n${form.metin}`,
+            sistem: 'Sen muhasebe asistanisin. Fatura bilgilerini hatasiz cikar. SADECE JSON dondur.'
+          })
+        });
+        const data = await proxyRes.json();
+        if (!data.cevap) throw new Error('AI cevap vermedi');
+
+        let sonuc;
+        try {
+          const jsonStr = data.cevap.replace(/```json|```/g, '').trim();
+          sonuc = JSON.parse(jsonStr);
+        } catch {
+          sonuc = { ham: data.cevap };
+        }
+
+        let html = '<h4>✅ AI Fatura Analizi</h4>';
+        if (sonuc.ham) {
+          html += `<div style="white-space:pre-wrap;font-size:14px;color:#e2e8f0;padding:10px;background:rgba(0,0,0,0.2);border-radius:10px">${sonuc.ham}</div>`;
+        } else {
+          html += `<div class="result-row"><span class="result-label">Müşteri</span><span class="result-value">${sonuc.musteri||sonuc.musteri_adi||'?'}</span></div>`;
+          html += `<div class="result-row"><span class="result-label">Fatura No</span><span class="result-value">${sonuc.fatura_no||'?'}</span></div>`;
+          html += `<div class="result-row"><span class="result-label">Açıklama</span><span class="result-value">${sonuc.aciklama||sonuc.hizmet||'?'}</span></div>`;
+          if (sonuc.ara_toplam) html += `<div class="result-row"><span class="result-label">Ara Toplam</span><span class="result-value">${sonuc.ara_toplam}</span></div>`;
+          if (sonuc.kdv_tutar) html += `<div class="result-row"><span class="result-label">KDV</span><span class="result-value">${sonuc.kdv_tutar}</span></div>`;
+          if (sonuc.genel_toplam) html += `<div class="result-row"><span class="result-label" style="font-weight:700">GENEL TOPLAM</span><span class="result-value big">${sonuc.genel_toplam}</span></div>`;
+        }
+        html += '<div style="margin-top:12px"><button class="btn btn-sm" onclick="document.getElementById(\'fatura-metin\').value=JSON.stringify(' + JSON.stringify(sonuc).replace(/"/g,'&quot;') + ');showTool(\'fatura-olustur\')" style="font-size:11px;padding:4px 12px">📄 Faturaya Dönüştür</button></div>';
+        html += '<div class="result-note">🤖 Groq AI (Llama 3.3 70B) ile analiz edildi. Ücretsiz, limitsiz.</div>';
+        return html;
+      } catch(e) {
+        return `<div style="text-align:center;padding:20px;color:var(--red)">❌ AI analizi başarısız: ${e.message}<br><span style="font-size:12px;color:var(--gray)">api-server.js çalıştığından emin olun (node api-server.js)</span></div>`;
+      }
+    }
   }
 };
 
@@ -392,31 +449,36 @@ function showTool(id) {
   renderTool(id);
 }
 
-function renderTool(id) {
+async function renderTool(id) {
   const a = araclar[id];
   if (!a) return;
+  let ilkSonuc = '';
+  if (a.form.length > 0 && !a.calistir.constructor.name.includes('Async')) {
+    ilkSonuc = a.calistir(a.form.reduce((o,f)=>{o[f.id]=f.default||'';return o},{}) || {});
+  }
   const html = `
     <h2>${a.baslik}<span> aracı</span></h2>
     <p class="subtitle">${a.aciklama}</p>
     <div class="tool-card">
       <div class="tool-header"><div class="tool-info"><h3>${a.form.length>0?'Parametreler':'Sonuç'}</h3><p>${a.form.length>0?'Değerleri doldurun':'Otomatik hesaplanır'}</p></div><span class="tool-badge">MCP Muhasebe</span></div>
       ${a.form.length>0?`<div class="form-row">${a.form.map(f=>{
+        const isTextarea = f.label === 'Fatura Metni';
         if(f.tip==='select') return `<div class="form-group"><label>${f.label}</label><select id="${f.id}">${f.options.map(o=>`<option ${o===f.default?'selected':''}>${o}</option>`).join('')}</select></div>`;
-        return `<div class="form-group"><label>${f.label}</label><input type="${f.tip}" id="${f.id}" value="${f.default||''}" placeholder="${f.label}">`;
+        return `<div class="form-group"><label>${f.label}</label>${isTextarea?`<textarea id="${f.id}" style="background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:10px 14px;color:var(--white);font-size:13px;font-family:monospace;width:100%;min-height:100px;resize:vertical">${f.default||''}</textarea>`:`<input type="${f.tip}" id="${f.id}" value="${f.default||''}" placeholder="${f.label}">`}</div>`;
       }).join('')}</div>`:''}
       ${a.butonEtiket?`<button class="btn" onclick="calistir()">▶ ${a.butonEtiket}</button>`:''}
-      <div class="result-box show" id="result"><h4>✅ Sonuç</h4>${a.calistir(a.form.reduce((o,f)=>{o[f.id]=f.default||'';return o},{}) || {})}</div>
+      <div class="result-box show" id="result"><h4>✅ Sonuç</h4>${ilkSonuc}</div>
     </div>
   `;
   document.getElementById('content').innerHTML = html;
 }
 
-function calistir() {
+async function calistir() {
   const a = araclar[aktifArac];
   const form = {};
   a.form.forEach(f => { const el=document.getElementById(f.id); form[f.id]=el?el.value:''; });
   const isKaydet = aktifArac==='fatura-olustur';
-  const html = a.calistir(form, isKaydet);
+  const html = await a.calistir(form, isKaydet);
   const box = document.getElementById('result');
   box.innerHTML = '<h4>✅ Sonuç</h4>' + html;
   box.classList.add('show');
