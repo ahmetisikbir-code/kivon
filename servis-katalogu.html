@@ -47,8 +47,8 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <div class="topbar">
   <h1><span>Kivon</span> Hizmet Kataloğu</h1>
   <div class="topbar-stats">
-    <span>Toplam: <b>30</b></span>
-    <span>Sektör: <b>9</b></span>
+    <span>Toplam: <b>10</b></span>
+    <span>Sektör: <b>6</b></span>
     <span>n8n tabanlı: <b>%100</b></span>
   </div>
 </div>
@@ -56,14 +56,11 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <div class="filter-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">Tümü</button>
   <button class="filter-btn" data-filter="muhasebe">💰 Muhasebe & Finans</button>
-  <button class="filter-btn" data-filter="satis">📊 Satış & CRM</button>
-  <button class="filter-btn" data-filter="ik">👥 İnsan Kaynakları</button>
   <button class="filter-btn" data-filter="eticaret">🛒 E-Ticaret</button>
   <button class="filter-btn" data-filter="pazarlama">📢 Pazarlama</button>
   <button class="filter-btn" data-filter="destek">🎧 Müşteri Hizmetleri</button>
   <button class="filter-btn" data-filter="dokuman">📄 Doküman & Veri</button>
   <button class="filter-btn" data-filter="proje">📋 Proje & Operasyon</button>
-  <button class="filter-btn" data-filter="teknik">⚙️ Teknik & DevOps</button>
 </div>
 
 <div class="container">
@@ -73,52 +70,26 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <script>
 const hizmetler = [
   // A. MUHASEBE & FİNANS
-  {id:1,sektor:'muhasebe',ikon:'🧾',baslik:'Akıllı Fatura İşleme Asistanı',aciklama:'PDF/taranmış faturaları otomatik okuyup yapılandırılmış veriye çevirir. Tarih, tedarikçi, kalem, KDV — hepsini ayıklar. LOGO/Paraşüt/Mikro gibi muhasebe yazılımlarına aktarır.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'LlamaParse + OpenAI + Muhasebe API'},
-  {id:2,sektor:'muhasebe',ikon:'🏢',baslik:'Kira ve Cari Mutabakat Otomasyonu',aciklama:'Banka dekontlarınızı kiracı/borçlu listenizle otomatik eşleştirir. Hangi kiracı ödedi, hangisi gecikti — anında rapor. Gayrimenkul yatırımcıları ve emlak ofisleri için.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'Excel + OpenAI + Banka API'},
-  {id:3,sektor:'muhasebe',ikon:'📧',baslik:'Gmail Harcama Takip ve Kategorizasyon',aciklama:'E-postalarınızdan fatura ve ödeme bildirimlerini otomatik ayıklar. Kategori bazlı gider takibi, KDV hesaplama, Google Sheets\'e anlık kayıt. Mikro işletmeler için muhasebe öncesi.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Gmail + OpenAI + Google Sheets'},
-  {id:4,sektor:'muhasebe',ikon:'📚',baslik:'Türk Vergi Mevzuatı AI Asistanı',aciklama:'Vergi kanunları, tebliğler, özelgeler vektör veritabanında. Muhasebeciler "şu durumda KDV istisnası var mı?" diye sorar, anında madde numarasıyla cevap alır.',zorluk:'Yüksek',fiyat:'3.000-7.500 TL',kaynak:'Qdrant + Mistral + OpenAI + RAG'},
+  {id:1,sektor:'muhasebe',ikon:'🧾',baslik:'Akıllı Fatura İşleme Asistanı',aciklama:'PDF/taranmış faturaları otomatik okuyup yapılandırılmış veriye çevirir. Tarih, tedarikçi, kalem, KDV — hepsini ayıklar. Google Sheets\'e aktarır.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'LlamaParse + OpenAI + Google Sheets'},
+  {id:2,sektor:'muhasebe',ikon:'📧',baslik:'Gmail Harcama Takip ve Kategorizasyon',aciklama:'E-postalarınızdan fatura ve ödeme bildirimlerini otomatik ayıklar. Kategori bazlı gider takibi, KDV hesaplama, Google Sheets\'e anlık kayıt. Mikro işletmeler için muhasebe öncesi.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Gmail + OpenAI + Google Sheets'},
 
-  // B. SATIŞ & CRM
-  {id:5,sektor:'satis',ikon:'💬',baslik:'WhatsApp Business AI Satış Asistanı',aciklama:'WhatsApp\'tan gelen müşteri sorularına 7/24 ürün kataloğu ve fiyat bilgisiyle yanıt verir. Sipariş alır, randevu oluşturur. Restoran, e-ticaret, hizmet sektörü için.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'WhatsApp Business API + OpenAI + Qdrant'},
-  {id:6,sektor:'satis',ikon:'🎯',baslik:'Otomatik Müşteri Adayı (Lead) Keşif',aciklama:'LinkedIn ve sosyal medyadan ideal müşteri profiline uyan kişileri tespit eder. AI ile kişiselleştirilmiş erişim e-postaları oluşturur. Outbound satışı otomatikleştirir.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'LinkedIn API + Gmail + OpenAI'},
-  {id:7,sektor:'satis',ikon:'📅',baslik:'Akıllı Randevu Takip ve SMS Follow-up',aciklama:'Randevu alan ama gelmeyen/cevap vermeyen müşterilere 3 günde bir otomatik SMS/WhatsApp takibi. Kuaför, diş hekimi, estetik klinikleri, danışmanlar için.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'Twilio + Cal.com + OpenAI + Airtable'},
-  {id:8,sektor:'satis',ikon:'🤝',baslik:'CRM AI Canlı Destek Entegrasyonu',aciklama:'Web sitenizdeki canlı sohbeti AI ile yanıtlar. Lead bilgilerini otomatik CRM\'e kaydeder. HubSpot, Salesforce veya özel CRM\'inizle çalışır.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'HubSpot + OpenAI + Airtable'},
+  // B. E-TİCARET
+  {id:3,sektor:'eticaret',ikon:'⭐',baslik:'Ürün Yorum Analizi ve İtibar Yönetimi',aciklama:'Trendyol, Hepsiburada, Google Maps yorumlarınızı toplar, duygu analizi yapar. Olumsuz yorumları anında e-posta ile bildirir. Aylık itibar raporu.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'DeepSeek + OpenAI + Google Sheets'},
 
-  // C. İNSAN KAYNAKLARI
-  {id:9,sektor:'ik',ikon:'📋',baslik:'Toplu CV Tarama ve Kısa Liste',aciklama:'Yüzlerce CV\'yi iş tanımınızla karşılaştırır, AI puanlaması yapar. En uygun adayları İK\'ya e-posta ile bildirir. İşe alım süresini %70 kısaltır.',zorluk:'Orta',fiyat:'3.000-7.500 TL',kaynak:'OpenAI + Supabase + Gmail + PDF Extract'},
-  {id:10,sektor:'ik',ikon:'🎤',baslik:'AI Mülakat Asistanı',aciklama:'Pozisyona özel dinamik sorular üretir. Aday cevaplarını değerlendirir, puanlama ve rapor oluşturur. İlk tur elemeyi otomatikleştirir.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'n8n Forms + OpenAI Agent + Airtable'},
-  {id:11,sektor:'ik',ikon:'📖',baslik:'Şirket İçi Politika Chatbot\'u',aciklama:'İzin yönetmeliği, yan haklar, disiplin prosedürü... Tüm şirket içi dokümanları öğrenir. Çalışanlar "yıllık iznim kaç gün" diye sorar, anında cevap alır.',zorluk:'Orta',fiyat:'3.000-6.000 TL',kaynak:'BambooHR + OpenAI + Pinecone + RAG'},
-  {id:12,sektor:'ik',ikon:'🔍',baslik:'İşyeri Uyum ve Ayrımcılık Analizi',aciklama:'Kurumsal iletişimleri (e-posta, Slack) tarayarak ayrımcılık, mobbing veya uyum risklerini tespit eder. 50+ çalışanlı firmalar için erken uyarı sistemi.',zorluk:'Yüksek',fiyat:'5.000-10.000 TL',kaynak:'OpenAI + Slack API + Gmail'},
+  // C. PAZARLAMA
+  {id:4,sektor:'pazarlama',ikon:'📱',baslik:'4 Platforma Tek Tıkla İçerik',aciklama:'Tek bir brief\'ten X, LinkedIn, Instagram, Facebook için optimize içerik, hashtag ve SEO anahtar kelimeleri üretir. Sosyal medya ekibine haftada 10 saat kazandırır.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'OpenAI + Google Sheets'},
+  {id:5,sektor:'pazarlama',ikon:'📈',baslik:'Google Analytics AI Raporlama',aciklama:'Haftalık GA4 verilerinizi AI analiz eder. "Geçen haftaya göre trafik %15 arttı, en çok şu sayfa tıklandı" şeklinde Türkçe özet rapor. E-postayla gelsin.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Google Analytics + OpenAI + Gmail'},
+  {id:6,sektor:'pazarlama',ikon:'📅',baslik:'Sosyal Medya İçerik Takvimi',aciklama:'Aylık içerik takvimi oluşturur. Caption\'ları AI yazar. 30 günlük içerik tek seferde — sadece marka bilginizi paylaşın.',zorluk:'Düşük',fiyat:'2.500-5.000 TL',kaynak:'OpenAI + Google Sheets + Google Calendar'},
 
-  // D. E-TİCARET
-  {id:13,sektor:'eticaret',ikon:'🛍️',baslik:'Akıllı Kişisel Alışveriş Asistanı',aciklama:'Ürün kataloğunuzu bilen, müşteriye "bu bütçeyle en iyi laptop" gibi sorularda akıllı öneri yapan chatbot. WooCommerce/Shopify entegre.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'WooCommerce + OpenAI + Google Drive + RAG'},
-  {id:14,sektor:'eticaret',ikon:'⭐',baslik:'Ürün Yorum Analizi ve İtibar Yönetimi',aciklama:'Trendyol, Hepsiburada, Google Maps yorumlarınızı toplar, duygu analizi yapar. Olumsuz yorumları anında WhatsApp\'la size bildirir. Aylık itibar raporu.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'DeepSeek + OpenAI + Google Drive + WhatsApp'},
-  {id:15,sektor:'eticaret',ikon:'📦',baslik:'Sipariş ve Stok Takip Asistanı',aciklama:'Stok seviyelerini anlık izler, kritik seviye uyarısı verir. Müşteri "siparişim nerede" diye sorduğunda kargo durumunu anında söyler.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'WooCommerce/Shopify API + OpenAI + WhatsApp'},
-  {id:16,sektor:'eticaret',ikon:'🔄',baslik:'İade ve Değişim Süreç Otomasyonu',aciklama:'İade/değişim taleplerini chatbot karşılar. Kuralları hatırlatır, iade kodu oluşturur. Karmaşık vakaları insana yönlendirir. Müşteri memnuniyetsizliğini iadeye dönüşmeden çözer.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'n8n Chat + OpenAI + CRM API'},
+  // D. MÜŞTERİ HİZMETLERİ
+  {id:7,sektor:'destek',ikon:'📬',baslik:'E-posta Özetleme ve Akıllı Yanıt',aciklama:'Yoğun e-posta alan yöneticiler için: Gelen e-postaları özetler, taslak yanıt hazırlar. Göndermeden önce size onaylatır. Human-in-the-loop.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'IMAP + OpenAI + Gmail'},
+  {id:8,sektor:'destek',ikon:'🤖',baslik:'Telegram AI Asistan',aciklama:'Telegram\'da çalışan AI asistan. SSS, ürün bilgisi, destek — hepsi Telegram\'da. Biz botu kurar, siz linki paylaşırsınız.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Telegram Bot API + OpenAI'},
 
-  // E. PAZARLAMA
-  {id:17,sektor:'pazarlama',ikon:'📱',baslik:'4 Platforma Tek Tıkla İçerik',aciklama:'Tek bir blog yazısından X, LinkedIn, Instagram, Facebook için optimize içerik, hashtag ve SEO anahtar kelimeleri üretir. Sosyal medya ekibine haftada 10 saat kazandırır.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'OpenAI + WordPress + Sosyal Medya API'},
-  {id:18,sektor:'pazarlama',ikon:'✍️',baslik:'Marka Sesiyle Otomatik Blog',aciklama:'Geçmiş içeriklerinizden marka sesinizi öğrenir. SEO odaklı blog yazıları üretir, WordPress\'te otomatik yayınlar. Haftalık 3-5 yazı.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'WordPress + OpenAI + SEO Analiz'},
-  {id:19,sektor:'pazarlama',ikon:'📈',baslik:'Google Analytics AI Raporlama',aciklama:'Haftalık GA4 verilerinizi AI analiz eder. "Geçen haftaya göre trafik %15 arttı, en çok şu sayfa tıklandı" şeklinde Türkçe özet rapor. E-postayla gelsin.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Google Analytics + OpenAI + Baserow'},
-  {id:20,sektor:'pazarlama',ikon:'📅',baslik:'Sosyal Medya İçerik Takvimi',aciklama:'Aylık içerik takvimi oluşturur. Caption\'ları AI yazar, görselleri hazırlar. Planlanan zamanda otomatik paylaşır. 30 günlük içerik tek seferde.',zorluk:'Düşük',fiyat:'2.500-5.000 TL',kaynak:'OpenAI + Instagram API + Google Calendar'},
+  // E. DOKÜMAN & VERİ
+  {id:9,sektor:'dokuman',ikon:'🏦',baslik:'Banka Ekstresi Dijitalleştirme',aciklama:'Taranmış banka ekstrelerini (PDF/görüntü) AI ile okur. Yapılandırılmış veriye çevirir, Google Sheets\'e aktarır. Gelir-gider analizi yapar.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Gemini Vision + OpenAI + Google Sheets'},
 
-  // F. MÜŞTERİ HİZMETLERİ
-  {id:21,sektor:'destek',ikon:'🎙️',baslik:'Sesli Müşteri Hizmetleri (Türkçe)',aciklama:'Telefonla arayan müşterileri Türkçe AI ses ile karşılar. SSS\'leri yanıtlar, gerekirse insana aktarır. Çağrı merkezi maliyetini %60 düşürür.',zorluk:'Yüksek',fiyat:'4.000-8.000 TL',kaynak:'ElevenLabs + OpenAI + Qdrant + Telefon API'},
-  {id:22,sektor:'destek',ikon:'🎫',baslik:'Akıllı Destek Bilet Sistemi',aciklama:'Slack/Discord/Telegram destek kanallarından gelen mesajları AI önceliklendirir. Kategorize eder, otomatik ticket açar, doğru ekibe yönlendirir.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Slack + OpenAI + Linear/Jira'},
-  {id:23,sektor:'destek',ikon:'📬',baslik:'E-posta Özetleme ve Akıllı Yanıt',aciklama:'Yoğun e-posta alan yöneticiler için: Gelen e-postaları özetler, taslak yanıt hazırlar. Göndermeden önce size onaylatır. Human-in-the-loop.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'IMAP + OpenAI + Gmail + DeepSeek'},
-  {id:24,sektor:'destek',ikon:'🤖',baslik:'Telegram AI Asistan',aciklama:'Telegram\'da çalışan, komut tabanlı veya serbest sohbet eden AI asistan. SSS, ürün bilgisi, destek — hepsi Telegram\'da.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Telegram Bot API + OpenAI'},
-
-  // G. DOKÜMAN & VERİ
-  {id:25,sektor:'dokuman',ikon:'📚',baslik:'Şirket İçi Bilgi Tabanı AI',aciklama:'Tüm şirket dokümanlarınızı, prosedürlerinizi, fiyat listelerinizi vektörleştirir. "Bu ürünün toptan fiyatı ne?" diye sorun, anında cevap.',zorluk:'Orta',fiyat:'3.000-6.000 TL',kaynak:'Google Drive + Gemini + Pinecone + RAG'},
-  {id:26,sektor:'dokuman',ikon:'🏦',baslik:'Banka Ekstresi Dijitalleştirme',aciklama:'Taranmış banka ekstrelerini (PDF/görüntü) Gemini Vision ile okur. Yapılandırılmış veriye çevirir. Gelir-gider analizi yapar.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Gemini Vision + Google Drive + OpenAI'},
-  {id:27,sektor:'dokuman',ikon:'🗄️',baslik:'Doğal Dil ile Veritabanı Sorgulama',aciklama:'Teknik bilmeseniz de "Bu ay en çok satan 5 ürün hangisi?" diye sorun. AI SQL yazıp çalıştırır, cevabı grafikle gösterir.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'PostgreSQL + OpenAI + Chart.js'},
-
-  // H. PROJE & OPERASYON
-  {id:28,sektor:'proje',ikon:'🎥',baslik:'Toplantı Asistanı: Not, Görev, Takip',aciklama:'Zoom/Teams toplantı kayıtlarını AI özetler. Aksiyon maddelerini ClickUp/Notion\'da görev açar. Katılımcılara e-posta ile özet gönderir.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'Zoom + OpenAI + ClickUp/Trello + Gmail'},
-  {id:29,sektor:'proje',ikon:'🚀',baslik:'Müşteri Onboarding Otomasyonu',aciklama:'Yeni müşteri kaydıyla birlikte hoş geldin e-postası, belge talebi, onboarding checklist\'i ve takvim daveti — hepsi otomatik.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Webhook + Gmail + Google Sheets + Calendar'},
-
-  // I. TEKNİK & DEVOPS
-  {id:30,sektor:'teknik',ikon:'🐳',baslik:'Akıllı Sunucu ve Servis Yönetimi',aciklama:'Webhook ile Docker servislerini start/stop edin. Sistem hatalarını AI kategorize edip doğru geliştiriciye atar. Log analizi ve uptime takibi.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'SSH + Docker + Linear + OpenAI'}
+  // F. PROJE & OPERASYON
+  {id:10,sektor:'proje',ikon:'🚀',baslik:'Müşteri Onboarding Otomasyonu',aciklama:'Yeni müşteri kaydıyla birlikte hoş geldin e-postası, belge talebi, onboarding checklist\'i ve takvim daveti — hepsi otomatik.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Webhook + Gmail + Google Sheets + Calendar'}
 ];
 
 const zorlukEmoji = {Düşük:'🟢',Orta:'🟡',Yüksek:'🔴'};
