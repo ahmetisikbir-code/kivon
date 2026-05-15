@@ -68,7 +68,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;displa
     <div class="chat-avatar" id="headerAvatar">K</div>
     <div class="chat-header-info">
       <div class="chat-header-name">Kivon Asistan</div>
-      <div class="chat-header-status"><span class="status-dot"></span> Çevrimiçi · API'siz</div>
+      <div class="chat-header-status"><span class="status-dot"></span> Çevrimiçi · AI Destekli</div>
     </div>
     <div class="chat-header-badge">v2.0</div>
     <button class="mobile-toggle" id="mobileToggle" style="color:var(--gray);font-size:20px;margin-left:auto;">☰</button>
@@ -89,13 +89,13 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;displa
     <input type="text" class="chat-input" id="chatInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')mesajGonder()">
     <button class="send-btn" onclick="mesajGonder()">▶</button>
   </div>
-  <div class="chat-footer-brand">Kivon · API'siz · Tamamen yerel</div>
+  <div class="chat-footer-brand">Kivon · AI Destekli</div>
   <button class="admin-toggle" onclick="adminPanelAc()" title="Bilgi tabanı">⚙️</button>
 </div>
 
 <script>
 // ================================================================
-//    KİVON ASİSTAN v2.0 — API'SIZ, TAMAMEN YEREL
+//    KİVON ASİSTAN v2.0 — AI DESTEKLİ
 //    Bilgi tabanı JSON ile yönetilir, localStorage'da saklanır.
 //    İsteyen herkes kodsuz kullanabilir.
 // ================================================================
@@ -384,23 +384,23 @@ async function mesajIsle(metin) {
     return;
   }
 
-  // Tam eşleşme ara
+  // Bilgi tabanından yanıt ara (her zaman önce yerel)
   const tamYanit = yanitBul(metin);
-  if (tamYanit) {
-    await botYaz(tamYanit);
-    butonlariAyarla(varsayilanButonlar);
-    return;
-  }
-
-  // Kısmi/akıllı eşleşme
   const enIyi = enIyiEslesme(metin);
-  if (enIyi) {
-    await botYaz(enIyi);
+  const kbYanit = tamYanit || enIyi;
+
+  if (kbYanit) {
+    await botYaz(kbYanit);
     butonlariAyarla(varsayilanButonlar);
+    // AI'yi de her zaman çalıştır
+    const groqYanit = await groqSor(metin);
+    if (groqYanit) {
+      await botYaz('🤖 AI destekli: ' + groqYanit);
+    }
     return;
   }
 
-  // Hiçbir şey bulunamadı — Groq AI devreye girer
+  // Hiçbir şey bulunamadı — Groq AI dene
   const groqYanit = await groqSor(metin);
   if (groqYanit) {
     await botYaz(groqYanit);
@@ -415,7 +415,7 @@ async function mesajIsle(metin) {
 // ─── GROQ AI FALLBACK ──────────────────────────────────────────
 const GROQ_KEY = 'GROQ_API_KEY_YAZIN'; // https://console.groq.com/keys
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // Render proxy
 const PROXY_URL = API_PROXY_URL;
 
 async function groqSor(soru) {

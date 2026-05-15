@@ -7,9 +7,24 @@
 
 const http = require('http');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const GROQ_KEY = process.env.GROQ_API_KEY;
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
+
+// Rate limiting
+const requestCounts = new Map();
+const RATE_LIMIT = 30;
+const RATE_WINDOW = 60000;
+
+function rateLimit(ip) {
+  const now = Date.now();
+  if (!requestCounts.has(ip)) requestCounts.set(ip, []);
+  const timestamps = requestCounts.get(ip).filter(t => now - t < RATE_WINDOW);
+  if (timestamps.length >= RATE_LIMIT) return false;
+  timestamps.push(now);
+  requestCounts.set(ip, timestamps);
+  return true;
+}
 
 // UCRETSIZ modeller (sirali: en iyiden)
 const MODELS = {
@@ -34,6 +49,14 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') { res.writeHead(200); res.end(); return; }
+
+  // Rate limit kontrol
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+  if (!rateLimit(clientIp)) {
+    res.writeHead(429, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ hata: 'Cok fazla istek. Limit: 30/dk. Bekleyip tekrar deneyin.' }));
+    return;
+  }
 
   // GET / -> durum
   if (req.method === 'GET' && req.url === '/') {
@@ -106,7 +129,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log('╔══════════════════════════════════════════╗');
-  console.log('║   KİVON API PROXY v2 — Port ' + PORT + '          ║');
+  console.log('║   KİVON API PROXY v2 — Port ' + PORT + '         ║');
   console.log('║   Motor: Groq + OpenRouter               ║');
   console.log('║   Varsayilan: ' + VARSAYILAN_MODEL.padEnd(28) + '║');
   console.log('║   Ucretsiz modeller: 5                   ║');

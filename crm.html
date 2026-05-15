@@ -5,132 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KIVON — CRM</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
-:root{--bg:#0a0a0f;--surface:#12121a;--card:#1a1a28;--border:#2a2a3e;--primary:#6c5ce7;--primary-glow:#6c5ce766;--accent:#00cec9;--hot:#fd79a8;--warm:#fdcb6e;--cold:#74b9ff;--converted:#00b894;--text:#e0e0ec;--text-dim:#8888a0;--radius:12px;--shadow:0 4px 30px #00000033}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-#particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0a0a0fe0;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
-.nav-brand .k{color:var(--primary)}.nav-brand .ivon{color:var(--accent)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--text-dim);text-decoration:none;font-size:14px;font-weight:500;transition:.3s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:.3s}
-.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{width:100%}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
-.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.hamburger.active span:nth-child(2){opacity:0}
-.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mobile-overlay{display:none;position:fixed;inset:0;z-index:998;background:#00000080}
-.mobile-menu{display:none;position:fixed;top:0;right:-300px;width:280px;height:100vh;z-index:999;background:var(--surface);border-left:1px solid var(--border);padding:80px 32px 32px;transition:right .3s;flex-direction:column;gap:24px}
-.mobile-menu.open{right:0}.mobile-overlay.show{display:block}
-.mobile-menu a{color:var(--text-dim);text-decoration:none;font-size:18px;font-weight:500;transition:.3s}
-.mobile-menu a:hover{color:var(--primary)}
-.container{max-width:1280px;margin:0 auto;padding:88px 24px 48px;position:relative;z-index:1}
-.hero{text-align:center;padding:48px 0 40px;opacity:0;transform:translateY(30px);transition:1s}
-.hero.show{opacity:1;transform:translateY(0)}
-.hero h1{font-size:40px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--text-dim);margin-top:12px;font-size:16px}
-.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;opacity:0;transform:translateY(30px);transition:.6s;position:relative;overflow:hidden}
-.stat-card.show{opacity:1;transform:translateY(0)}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.stat-card.hot::before{background:var(--hot)}.stat-card.warm::before{background:var(--warm)}
-.stat-card.cold::before{background:var(--cold)}.stat-card.converted::before{background:var(--converted)}
-.stat-card.total::before{background:linear-gradient(90deg,var(--primary),var(--accent))}
-.stat-card .icon{font-size:28px;margin-bottom:8px}
-.stat-card .value{font-size:32px;font-weight:800;margin-bottom:4px}
-.stat-card .label{font-size:13px;color:var(--text-dim)}
-.section-title{font-size:24px;font-weight:700;margin:40px 0 20px;opacity:0;transform:translateY(20px);transition:.6s}
-.section-title.show{opacity:1;transform:translateY(0)}
-.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;opacity:0;transform:translateY(20px);transition:.6s}
-.filters.show{opacity:1;transform:translateY(0)}
-.filters select,.filters button{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;transition:.3s}
-.filters select:focus{outline:none;border-color:var(--primary)}
-.filters button{background:var(--primary);border-color:var(--primary);font-weight:600}
-.filters button:hover{background:#5a4bd1;box-shadow:0 0 20px var(--primary-glow)}
-.btn-add{background:var(--accent);border:1px solid var(--accent);color:#0a0a0f;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:.3s;margin-left:auto}
-.btn-add:hover{box-shadow:0 0 20px #00cec980}
-
-.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);opacity:0;transform:translateY(30px);transition:.6s}
-.table-wrap.show{opacity:1;transform:translateY(0)}
-table{width:100%;border-collapse:collapse;background:var(--card);min-width:700px}
-th{background:var(--surface);padding:14px 16px;text-align:left;font-size:13px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr{transition:.2s}tr:hover{background:#ffffff08}
-.status-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
-.status-hot{background:#fd79a820;color:var(--hot)}.status-warm{background:#fdcb6e20;color:var(--warm)}
-.status-cold{background:#74b9ff20;color:var(--cold)}.status-converted{background:#00b89420;color:var(--converted)}
-.sector-badge{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;background:var(--surface);color:var(--text-dim);border:1px solid var(--border)}
-.action-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:16px;padding:4px 8px;border-radius:6px;transition:.3s}
-.action-btn:hover{color:var(--hot);background:#fd79a815}
-.empty-state{text-align:center;padding:48px 16px;color:var(--text-dim);font-size:15px}
-
-.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:#00000080;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
-.modal-overlay.show{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:modalIn .3s}
-@keyframes modalIn{from{transform:scale(.95)translateY(20px);opacity:0}to{transform:scale(1)translateY(0);opacity:1}}
-.modal h2{font-size:22px;margin-bottom:24px}
-.form-group{margin-bottom:18px}
-.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text-dim);margin-bottom:6px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;transition:.3s;resize:vertical}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow)}
-.form-group textarea{min-height:80px}
-.form-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}
-.form-actions button{padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;border:1px solid var(--border)}
-.form-actions .btn-cancel{background:transparent;color:var(--text-dim)}
-.form-actions .btn-cancel:hover{background:var(--card)}
-.form-actions .btn-submit{background:var(--primary);border-color:var(--primary);color:#fff}
-.form-actions .btn-submit:hover{box-shadow:0 0 20px var(--primary-glow)}
-
-.toast{position:fixed;bottom:24px;right:24px;z-index:3000;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 22px;font-size:14px;box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:.4s;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
-
-@media(max-width:768px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .mobile-menu,.mobile-overlay{display:block}
-  .hero h1{font-size:28px}
-  .dashboard-grid{grid-template-columns:repeat(2,1fr)}
-  .container{padding:80px 16px 32px}
-  .filters .btn-add{margin-left:0;width:100%}
-  .filters select{flex:1;min-width:0}
-  .modal{padding:24px 20px}
-  .stat-card{padding:18px}
-  .stat-card .value{font-size:26px}
-}
-@media(max-width:480px){
-  .dashboard-grid{grid-template-columns:1fr}
-  .hero h1{font-size:22px}
-}
+:root{--navy:#050510;--navy2:#0a0a1a;--cyan:#38bdf8;--indigo:#6366f1;--gold:#fbbf24;--white:#f1f5f9;--muted:#94a3b8;--hot:#fd79a8;--warm:#fdcb6e;--cold:#74b9ff;--converted:#00b894;--tr:0.4s cubic-bezier(0.4,0,0.2,1)}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,'Segoe UI','Inter',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}#particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(56,189,248,0.06)}.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px;height:64px}.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:3px;text-decoration:none;color:var(--white)}.nav-logo span{color:var(--cyan)}.nav-links{display:flex;gap:32px;list-style:none;font-size:13px;font-weight:500}.nav-links a{color:rgba(255,255,255,0.5);text-decoration:none;transition:var(--tr)}.nav-links a:hover{color:var(--white)}.nav-cta{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#fff;padding:8px 22px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:var(--tr)}.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(56,189,248,0.3)}.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}.hamburger span{width:26px;height:2px;background:var(--white);border-radius:2px;transition:.3s}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}.mobile-overlay{display:none;position:fixed;inset:0;z-index:998;background:#00000080}.mobile-menu{display:none;position:fixed;top:0;right:-300px;width:280px;height:100vh;z-index:999;background:var(--navy2);border-left:1px solid rgba(56,189,248,0.06);padding:80px 32px 32px;transition:right .3s;flex-direction:column;gap:24px}.mobile-menu.open{right:0}.mobile-overlay.show{display:block}.mobile-menu a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:18px;font-weight:500;transition:.3s}.mobile-menu a:hover{color:var(--white)}main{position:relative;z-index:1;padding-top:64px}.container{max-width:1280px;margin:0 auto;padding:0 24px 48px;position:relative;z-index:1}.hero{text-align:center;padding:48px 0 40px;opacity:0;transform:translateY(30px);transition:1s}.hero.show{opacity:1;transform:translateY(0)}.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.04em;background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero p{color:var(--muted);margin-top:8px;font-size:14px}.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:24px}.stat-card{background:rgba(15,15,40,0.4);backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,0.06);border-radius:16px;padding:22px;text-align:center;opacity:0;transform:translateY(30px);transition:.6s;position:relative;overflow:hidden}.stat-card.show{opacity:1;transform:translateY(0)}.stat-card:hover{border-color:rgba(56,189,248,0.15);transform:translateY(-3px)}.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}.stat-card.hot::before{background:var(--hot)}.stat-card.warm::before{background:var(--warm)}.stat-card.cold::before{background:var(--cold)}.stat-card.converted::before{background:var(--converted)}.stat-card.total::before{background:linear-gradient(90deg,var(--cyan),var(--indigo))}.stat-card .icon{font-size:28px;margin-bottom:6px}.stat-card .value{font-size:30px;font-weight:900;margin-bottom:2px}.stat-card .label{font-size:12px;color:var(--muted)}.section-title{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;letter-spacing:-0.03em;margin:32px 0 16px;opacity:0;transform:translateY(20px);transition:.6s}.section-title.show{opacity:1;transform:translateY(0)}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;opacity:0;transform:translateY(20px);transition:.6s}.filters.show{opacity:1;transform:translateY(0)}.filters select,.filters button{padding:10px 16px;border-radius:8px;border:1px solid rgba(56,189,248,0.1);background:rgba(15,15,40,0.4);color:var(--white);font-size:13px;cursor:pointer;transition:.3s}.filters select:focus{outline:none;border-color:var(--cyan)}.filters button{background:linear-gradient(135deg,var(--cyan),var(--indigo));border:none;font-weight:700}.filters button:hover{box-shadow:0 0 20px rgba(56,189,248,0.3)}.btn-add{background:linear-gradient(135deg,var(--cyan),var(--indigo));border:none;color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:.3s;margin-left:auto}.btn-add:hover{box-shadow:0 0 20px rgba(56,189,248,0.3)}.table-wrap{overflow-x:auto;border-radius:16px;border:1px solid rgba(56,189,248,0.06);opacity:0;transform:translateY(30px);transition:.6s}.table-wrap.show{opacity:1;transform:translateY(0)}table{width:100%;border-collapse:collapse;background:rgba(15,15,40,0.4);min-width:750px}th{background:var(--navy2);padding:14px 16px;text-align:left;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(56,189,248,0.06);white-space:nowrap}td{padding:12px 16px;border-bottom:1px solid rgba(56,189,248,0.04);font-size:13px;vertical-align:middle}tr:last-child td{border-bottom:none}tr{transition:.2s}tr:hover{background:rgba(255,255,255,0.02)}.status-badge{display:inline-block;padding:3px 12px;border-radius:100px;font-size:11px;font-weight:600}.status-hot{background:rgba(253,121,168,0.12);color:var(--hot)}.status-warm{background:rgba(253,203,110,0.12);color:var(--warm)}.status-cold{background:rgba(116,185,255,0.12);color:var(--cold)}.status-converted{background:rgba(0,184,148,0.12);color:var(--converted)}.sector-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid rgba(255,255,255,0.06)}.action-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px;transition:.3s}.action-btn:hover{color:var(--hot);background:rgba(253,121,168,0.1)}.msg-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px 8px;border-radius:6px;transition:.3s}.msg-btn:hover{color:#25d366;background:rgba(37,211,102,0.1)}.last-contact{font-size:11px;color:var(--muted)}.empty-state{text-align:center;padding:48px 16px;color:var(--muted);font-size:14px}.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:#00000080;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}.modal-overlay.show{display:flex}.modal{background:var(--navy2);border:1px solid rgba(56,189,248,0.1);border-radius:20px;padding:28px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:modalIn .3s}@keyframes modalIn{from{transform:scale(.95)translateY(20px);opacity:0}to{transform:scale(1)translateY(0);opacity:1}}.modal h2{font-size:20px;font-weight:800;margin-bottom:20px}.form-group{margin-bottom:16px}.form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border-radius:8px;border:1px solid rgba(56,189,248,0.1);background:rgba(15,15,40,0.4);color:var(--white);font-size:13px;transition:.3s;resize:vertical}.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,0.15)}.form-group textarea{min-height:70px}.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.form-actions button{padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.3s;border:1px solid rgba(56,189,248,0.1)}.form-actions .btn-cancel{background:transparent;color:var(--muted)}.form-actions .btn-cancel:hover{background:rgba(255,255,255,0.04)}.form-actions .btn-submit{background:linear-gradient(135deg,var(--cyan),var(--indigo));border:none;color:#fff}.form-actions .btn-submit:hover{box-shadow:0 0 20px rgba(56,189,248,0.3)}.toast{position:fixed;bottom:24px;right:24px;z-index:3000;background:rgba(15,15,40,0.9);backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,0.1);border-radius:12px;padding:14px 22px;font-size:13px;box-shadow:0 4px 30px rgba(0,0,0,0.3);transform:translateY(80px);opacity:0;transition:.4s;pointer-events:none}.toast.show{transform:translateY(0);opacity:1;pointer-events:auto}.history-list{max-height:300px;overflow-y:auto;margin-bottom:16px}.history-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(56,189,248,0.04)}.history-item:last-child{border-bottom:none}.history-icon{font-size:18px;flex-shrink:0;margin-top:2px}.history-content{flex:1}.history-content .h-date{font-size:11px;color:var(--muted)}.history-content .h-msg{font-size:13px;margin-top:2px}.history-content .h-type{display:inline-block;font-size:10px;padding:1px 8px;border-radius:100px;background:rgba(56,189,248,0.1);color:var(--cyan);margin-top:4px}.history-empty{text-align:center;padding:24px;color:var(--muted);font-size:13px}.badge-new{display:inline-block;background:var(--hot);color:#fff;font-size:9px;padding:1px 6px;border-radius:100px;font-weight:700;vertical-align:top}footer{text-align:center;padding:40px 24px;border-top:1px solid rgba(56,189,248,0.04)}footer p{font-size:12px;color:rgba(255,255,255,0.12)}@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.mobile-menu,.mobile-overlay{display:block}.hero h1{font-size:1.5rem}.dashboard-grid{grid-template-columns:repeat(2,1fr)}.container{padding:0 16px 32px}.filters .btn-add{margin-left:0;width:100%}.filters select{flex:1;min-width:0}.modal{padding:20px 16px}.stat-card{padding:16px}.stat-card .value{font-size:24px}}@media(max-width:480px){.dashboard-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <canvas id="particles-canvas"></canvas>
 
-<nav class="navbar">
-  <div class="nav-brand"><span class="k">K</span><span class="ivon">IVON</span></div>
-  <ul class="nav-links">
-    <li><a href="#dashboard" onclick="scrollToSection('dashboard')">Pano</a></li>
-    <li><a href="#customers" onclick="scrollToSection('customers')">Müşteriler</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>KIVON</span></a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Pano</a></li>
+      <li><a href="crm.html" style="color:var(--white)">CRM</a></li>
+      <li><a href="onboarding.html">Onboarding</a></li>
+      <li><a href="muhasebe.html">Muhasebe</a></li>
+      <li><a href="eticaret.html">E-Ticaret</a></li>
+      <li><a href="restoran.html">Restoran</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#dashboard" onclick="closeMobileMenu();scrollToSection('dashboard')">Pano</a>
-  <a href="#customers" onclick="closeMobileMenu();scrollToSection('customers')">Müşteriler</a>
+  <a href="dashboard.html" onclick="closeMobileMenu()">Pano</a>
+  <a href="crm.html" onclick="closeMobileMenu()">CRM</a>
+  <a href="onboarding.html" onclick="closeMobileMenu()">Onboarding</a>
+  <a href="muhasebe.html" onclick="closeMobileMenu()">Muhasebe</a>
+  <a href="eticaret.html" onclick="closeMobileMenu()">E-Ticaret</a>
+  <a href="restoran.html" onclick="closeMobileMenu()">Restoran</a>
 </div>
 
+<main>
 <div class="container">
   <div class="hero" id="hero">
     <h1>Müşteri Takip Paneli</h1>
-    <p>KIVON CRM ile müşterilerini yönet, dönüşümleri takip et.</p>
+    <p>KIVON CRM ile müşterilerini yönet, dönüşümleri takip et, sıcak müşterilere anında mesaj gönder.</p>
   </div>
 
   <div class="dashboard-grid" id="dashboard">
@@ -176,13 +89,17 @@ tr{transition:.2s}tr:hover{background:#ffffff08}
 
   <div class="table-wrap" id="tableWrap">
     <table>
-      <thead><tr><th>İsim</th><th>Firma</th><th>Sektör</th><th>Durum</th><th>İletişim Tarihi</th><th>Not</th><th style="width:50px">İşlem</th></tr></thead>
+      <thead><tr><th>İsim</th><th>Firma</th><th>Sektör</th><th>Durum</th><th>Son İletişim</th><th>Not</th><th style="width:90px">İşlem</th></tr></thead>
       <tbody id="customerTableBody"></tbody>
     </table>
     <div class="empty-state" id="emptyState" style="display:none">Henüz müşteri kaydı bulunmuyor.</div>
   </div>
 </div>
+</main>
 
+<footer><p>© 2026 Kivon · Bursa · kivontr.com · CRM</p></footer>
+
+<!-- New Customer / Edit Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 id="modalTitle">Yeni Müşteri Ekle</h2>
@@ -214,27 +131,41 @@ tr{transition:.2s}tr:hover{background:#ffffff08}
   </div>
 </div>
 
+<!-- Message History Modal -->
+<div class="modal-overlay" id="historyOverlay">
+  <div class="modal">
+    <h2 id="historyTitle">Mesaj Geçmişi</h2>
+    <div class="history-list" id="historyList">
+      <div class="history-empty">Henüz mesaj kaydı yok.</div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-cancel" id="btnHistoryClose">Kapat</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // ---- DATA ----
 const DEFAULT_CUSTOMERS = [
-  {id:1,name:'Ahmet Yılmaz',company:'Mali Mühür',sector:'muhasebe',status:'sıcak',date:'2026-05-14',note:'Yıllık mali müşavirlik sözleşmesi için görüşüldü.'},
-  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Ş.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.'},
-  {id:3,name:'Mehmet Demir',company:'Vergi Uzmanları Derneği',sector:'muhasebe',status:'soğuk',date:'2026-04-28',note:'Toplantı talebine henüz dönüş yapılmadı.'},
-  {id:4,name:'Ayşe Çelik',company':'Hızlı Sepet',sector:'eticaret',status:'sıcak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandı, sözleşme imzalanacak.'},
-  {id:5,name:'Can Öztürk',company:'ModaMart',sector:'eticaret',status:'dönüştü',date:'2026-05-01',note:'Site kurulumu tamamlandı, ödeme alındı.'},
-  {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'ılık',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapıldı, fiyat teklifi beklentisi.'},
-  {id:7,name:'Burak Şahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.'},
-  {id:8,name:'Derya Koç',company:'Kebapçı Emmi',sector:'restoran',status:'ılık',date:'2026-05-08',note:'Masa rezervasyon modülü ilgisini çekti, tanıtım yapılacak.'},
-  {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soğuk',date:'2026-04-20',note:'Bütçe nedeniyle erteleme talep edildi.'},
-  {id:10,name:'Gizem Yıldız',company:'Bütçe Muhasebe',sector:'muhasebe',status:'dönüştü',date:'2026-04-25',note:'Kurumsal lisans satın alındı.'},
-  {id:11,name:'Hakan Aydın',company:'TrendyShop',sector:'eticaret',status:'soğuk',date:'2026-04-15',note:'Rakiplerinin teklifini değerlendiriyor.'},
-  {id:12,name:'Işıl Eren',company:'Şehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.'}
+  {id:1,name:'Ahmet Yılmaz',company:'Mali Mühür',sector:'muhasebe',status:'sıcak',date:'2026-05-14',note:'Yıllık mali müşavirlik sözleşmesi için görüşüldü.',lastContact:'2026-05-14'},
+  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Ş.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.',lastContact:'2026-05-10'},
+  {id:3,name:'Mehmet Demir',company:'Vergi Uzmanları Derneği',sector:'muhasebe',status:'soğuk',date:'2026-04-28',note:'Toplantı talebine henüz dönüş yapılmadı.',lastContact:'2026-04-28'},
+  {id:4,name:'Ayşe Çelik',company:'Hızlı Sepet',sector:'eticaret',status:'sıcak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandı, sözleşme imzalanacak.',lastContact:'2026-05-15'},
+  {id:5,name:'Can Öztürk',company:'ModaMart',sector:'eticaret',status:'dönüştü',date:'2026-05-01',note:'Site kurulumu tamamlandı, ödeme alındı.',lastContact:'2026-05-01'},
+  {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'ılık',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapıldı, fiyat teklifi beklentisi.',lastContact:'2026-05-12'},
+  {id:7,name:'Burak Şahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.',lastContact:'2026-05-15'},
+  {id:8,name:'Derya Koç',company:'Kebapçı Emmi',sector:'restoran',status:'ılık',date:'2026-05-08',note:'Masa rezervasyon modülü ilgisini çekti, tanıtım yapılacak.',lastContact:'2026-05-08'},
+  {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soğuk',date:'2026-04-20',note:'Bütçe nedeniyle erteleme talep edildi.',lastContact:'2026-04-20'},
+  {id:10,name:'Gizem Yıldız',company:'Bütçe Muhasebe',sector:'muhasebe',status:'dönüştü',date:'2026-04-25',note:'Kurumsal lisans satın alındı.',lastContact:'2026-04-25'},
+  {id:11,name:'Hakan Aydın',company:'TrendyShop',sector:'eticaret',status:'soğuk',date:'2026-04-15',note:'Rakiplerinin teklifini değerlendiriyor.',lastContact:'2026-04-15'},
+  {id:12,name:'Işıl Eren',company:'Şehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.',lastContact:'2026-05-05'}
 ];
 
 let customers = [];
 let editingId = null;
+let messageHistory = [];
 
 // ---- LOCAL STORAGE ----
 function loadData(){
@@ -244,9 +175,97 @@ function loadData(){
   }catch(e){}
   customers = JSON.parse(JSON.stringify(DEFAULT_CUSTOMERS));
   saveData();
+  loadMessageHistory();
 }
 function saveData(){
   localStorage.setItem('kivon_crm_customers',JSON.stringify(customers));
+}
+function loadMessageHistory(){
+  try{
+    const d = localStorage.getItem('kivon_crm_messages');
+    if(d){messageHistory=JSON.parse(d);return}
+  }catch(e){}
+  messageHistory = [];
+  saveMessageHistory();
+}
+function saveMessageHistory(){
+  localStorage.setItem('kivon_crm_messages',JSON.stringify(messageHistory));
+}
+function todayStr(){
+  const d=new Date(); const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+day;
+}
+
+// ---- WHATSAPP ----
+function sendWhatsApp(customer){
+  if(!customer || !customer.phone){
+    showToast('Bu müşteri için telefon numarası bulunmuyor.');
+    return;
+  }
+  const msg = encodeURIComponent('Merhaba ' + customer.name + ', KIVON olarak size özel fırsatlarımız var. Detaylı bilgi için görüşmek isteriz.');
+  const url = 'https://wa.me/' + customer.phone.replace(/[^0-9]/g,'') + '?text=' + msg;
+  messageHistory.push({
+    id: Date.now(),
+    customerId: customer.id,
+    customerName: customer.name,
+    date: todayStr(),
+    message: 'WhatsApp mesajı gönderildi (otomatik)',
+    type: 'whatsapp'
+  });
+  saveMessageHistory();
+  customer.lastContact = todayStr();
+  saveData();
+  renderTable();
+  window.open(url, '_blank');
+  showToast('WhatsApp mesajı gönderildi: ' + customer.name);
+}
+function editAndSend(customer){
+  if(!customer || !customer.phone){
+    showToast('Bu müşteri için telefon numarası bulunmuyor. Önce müşteriyi düzenleyip telefon ekleyin.');
+    return;
+  }
+  const msg = prompt('WhatsApp mesajınız:', 'Merhaba ' + customer.name + ', KIVON olarak size özel fırsatlarımız var. Detaylı bilgi için görüşmek isteriz.');
+  if(!msg) return;
+  const encoded = encodeURIComponent(msg);
+  const url = 'https://wa.me/' + customer.phone.replace(/[^0-9]/g,'') + '?text=' + encoded;
+  messageHistory.push({
+    id: Date.now(),
+    customerId: customer.id,
+    customerName: customer.name,
+    date: todayStr(),
+    message: msg.length > 80 ? msg.substring(0,80)+'...' : msg,
+    type: 'whatsapp'
+  });
+  saveMessageHistory();
+  customer.lastContact = todayStr();
+  saveData();
+  renderTable();
+  window.open(url, '_blank');
+  showToast('WhatsApp mesajı gönderildi: ' + customer.name);
+}
+
+// ---- MESSAGE HISTORY ----
+function showHistory(customer){
+  const msgs = messageHistory.filter(m => m.customerId === customer.id);
+  const list = document.getElementById('historyList');
+  document.getElementById('historyTitle').textContent = 'Mesaj Geçmişi — ' + customer.name;
+  if(msgs.length === 0){
+    list.innerHTML = '<div class="history-empty">Henüz mesaj kaydı yok.</div>';
+  } else {
+    list.innerHTML = msgs.slice().reverse().map(m => `
+      <div class="history-item">
+        <div class="history-icon">${m.type === 'whatsapp' ? '📱' : '📝'}</div>
+        <div class="history-content">
+          <div class="h-date">${m.date}</div>
+          <div class="h-msg">${escapeHtml(m.message)}</div>
+          <span class="h-type">${m.type === 'whatsapp' ? 'WhatsApp' : 'Not'}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('historyOverlay').classList.add('show');
 }
 
 // ---- RENDER ----
@@ -266,14 +285,21 @@ function renderTable(){
     empty.style.display='none';
     filtered.forEach(c=>{
       const tr = document.createElement('tr');
+      const isHot = c.status === 'sıcak';
+      const lc = c.lastContact || c.date || '';
       tr.innerHTML = `
         <td><strong>${escapeHtml(c.name)}</strong></td>
         <td>${escapeHtml(c.company)}</td>
         <td><span class="sector-badge">${sectorLabel(c.sector)}</span></td>
         <td><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></td>
-        <td>${c.date}</td>
-        <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
-        <td><button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">✕</button></td>
+        <td><span class="last-contact">${lc}</span></td>
+        <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
+        <td style="white-space:nowrap">
+          <button class="action-btn" onclick="openModalForEdit(${c.id})" title="Düzenle">✎</button>
+          ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj Gönder">📱</button>` : ''}
+          <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj Geçmişi">📋</button>
+          <button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">✕</button>
+        </td>
       `;
       tbody.appendChild(tr);
     });
@@ -300,6 +326,7 @@ function renderStats(){
 function sectorLabel(s){const m={muhasebe:'Muhasebe',eticaret:'E-Ticaret',restoran:'Restoran'};return m[s]||s}
 function statusLabel(s){const m={sıcak:'Sıcak',ılık:'Ilık',soğuk:'Soğuk',dönüştü:'Dönüştü'};return m[s]||s}
 function escapeHtml(t){const d=document.createElement('div');d.appendChild(document.createTextNode(t));return d.innerHTML}
+function findCustomer(id){return customers.find(c=>c.id===id)}
 
 // ---- CRUD ----
 function openModal(customer){
@@ -314,12 +341,14 @@ function openModal(customer){
   document.getElementById('modalOverlay').classList.add('show');
   document.getElementById('inputName').focus();
 }
-
+function openModalForEdit(id){
+  const customer = customers.find(c=>c.id===id);
+  if(customer) openModal(customer);
+}
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('show');
   editingId=null;
 }
-
 function saveCustomer(){
   const name = document.getElementById('inputName').value.trim();
   const company = document.getElementById('inputCompany').value.trim();
@@ -327,23 +356,34 @@ function saveCustomer(){
   const status = document.getElementById('inputStatus').value;
   const note = document.getElementById('inputNote').value.trim();
   if(!name||!company){showToast('İsim ve firma alanları zorunludur.');return}
-
+  const today = todayStr();
   if(editingId){
     const idx = customers.findIndex(c=>c.id===editingId);
     if(idx!==-1){
-      customers[idx]={...customers[idx],name,company,sector,status,note};
+      const old = customers[idx];
+      customers[idx]={...old,name,company,sector,status,note,lastContact:today};
+      if(note !== old.note){
+        messageHistory.push({
+          id: Date.now(),
+          customerId: old.id,
+          customerName: old.name,
+          date: today,
+          message: 'Not güncellendi: ' + (note ? (note.length>80 ? note.substring(0,80)+'...' : note) : '(boş)'),
+          type: 'note'
+        });
+        saveMessageHistory();
+      }
     }
     showToast('Müşteri güncellendi.');
   }else{
     const id = Date.now();
-    customers.push({id,name,company,sector,status,date:todayStr(),note});
+    customers.push({id,name,company,sector,status,date:today,note,lastContact:today});
     showToast('Müşteri eklendi.');
   }
   saveData();
   renderAll();
   closeModal();
 }
-
 function deleteCustomer(id){
   if(!confirm('Bu müşteriyi silmek istediğinize emin misiniz?'))return;
   customers = customers.filter(c=>c.id!==id);
@@ -351,15 +391,6 @@ function deleteCustomer(id){
   renderAll();
   showToast('Müşteri silindi.');
 }
-
-function todayStr(){
-  const d=new Date();
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,'0');
-  const day=String(d.getDate()).padStart(2,'0');
-  return y+'-'+m+'-'+day;
-}
-
 function renderAll(){renderStats();renderTable()}
 
 // ---- TOAST ----
@@ -381,12 +412,6 @@ function observeSections(){
   },{threshold:.15});
   document.querySelectorAll('.hero,.stat-card,.section-title,.filters,.table-wrap').forEach(el=>observer.observe(el));
 }
-
-function scrollToSection(id){
-  const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 function closeMobileMenu(){
   document.getElementById('mobileMenu').classList.remove('open');
   document.getElementById('mobileOverlay').classList.remove('show');
@@ -398,114 +423,51 @@ function initParticles(){
   const canvas = document.getElementById('particles-canvas');
   const ctx = canvas.getContext('2d');
   let w,h;
-  function resize(){
-    w=canvas.width=window.innerWidth;
-    h=canvas.height=window.innerHeight;
-  }
+  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
   resize();
   window.addEventListener('resize',resize);
-
-  const PARTICLE_COUNT = 80;
-  const CONNECTION_DIST = 140;
-  const MOUSE_RADIUS = 150;
-
-  const particles = [];
-  for(let i=0;i<PARTICLE_COUNT;i++){
+  const particles=[];
+  const count=Math.min(100,Math.floor(w*h/10000));
+  for(let i=0;i<count;i++){
     particles.push({
-      x:Math.random()*w,y:Math.random()*h,z:Math.random()*400-200,
-      vx:(Math.random()-0.5)*.6,vy:(Math.random()-0.5)*.6,vz:(Math.random()-0.5)*.3
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,
+      r:Math.random()*1.5+0.3,alpha:Math.random()*0.4+0.1
     });
   }
-
-  const centerX = w/2, centerY = h/2;
-  let mouseX = centerX, mouseY = centerY, mouseMoved = false;
-  document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;mouseMoved=true});
-
-  function rotateX(p,angle){
-    const cos=Math.cos(angle),sin=Math.sin(angle);
-    const y=p.y*cos-p.z*sin,z=p.y*sin+p.z*cos;
-    return {x:p.x,y,z};
-  }
-  function rotateY(p,angle){
-    const cos=Math.cos(angle),sin=Math.sin(angle);
-    const x=p.x*cos+p.z*sin,z=-p.x*sin+p.z*cos;
-    return {x,y:p.y,z};
-  }
-
-  let angle=0;
+  let mouse={x:0,y:0};
+  document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
   function animate(){
     ctx.clearRect(0,0,w,h);
-    angle+=0.003;
-    const rotateAngle = angle;
-
-    // adjust mouse influence
-    let mx = centerX, my = centerY;
-    if(mouseMoved){
-      mx += (mouseX - centerX) * 0.3;
-      my += (mouseY - centerY) * 0.3;
-    }
-
-    // update
     for(const p of particles){
-      // drift toward mouse
-      const dx = p.x - mx, dy = p.y - my;
-      const dist = Math.sqrt(dx*dx+dy*dy);
-      if(dist<MOUSE_RADIUS && dist>0){
-        const force = (1-dist/MOUSE_RADIUS)*0.3;
-        p.vx -= (dx/dist)*force;
-        p.vy -= (dy/dist)*force;
-      }
-
-      p.x+=p.vx; p.y+=p.vy; p.z+=p.vz;
-      // dampen
-      p.vx*=0.99; p.vy*=0.99; p.vz*=0.99;
-
-      // wrap
-      if(p.x<-100)p.x=w+100;if(p.x>w+100)p.x=-100;
-      if(p.y<-100)p.y=h+100;if(p.y>h+100)p.y=-100;
-      if(p.z<-200)p.z=200;if(p.z>200)p.z=-200;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+      if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+      const dx=mouse.x-p.x,dy=mouse.y-p.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<200){p.vx+=dx*0.00005;p.vy+=dy*0.00005}
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(56,189,248,'+p.alpha+')';
+      ctx.fill();
     }
-
-    // project 3d to 2d
-    const focal = 400;
-    const projected = particles.map(p=>{
-      let rp = rotateY(p,rotateAngle);
-      rp = rotateX(rp,rotateAngle*0.5);
-      const scale = focal/(focal+rp.z);
-      return {x:rp.x*scale+centerX, y:rp.y*scale+centerY, scale, z:rp.z};
-    });
-
-    // connections
-    ctx.strokeStyle='rgba(108,92,231,0.08)';
-    ctx.lineWidth=1;
-    for(let i=0;i<projected.length;i++){
-      for(let j=i+1;j<projected.length;j++){
-        const dx=projected[i].x-projected[j].x, dy=projected[i].y-projected[j].y;
-        const dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<CONNECTION_DIST){
-          const alpha=(1-dist/CONNECTION_DIST)*0.5*Math.min(projected[i].scale,projected[j].scale);
-          ctx.strokeStyle=`rgba(108,92,231,${alpha*0.15})`;
-          ctx.beginPath();ctx.moveTo(projected[i].x,projected[i].y);ctx.lineTo(projected[j].x,projected[j].y);ctx.stroke();
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const dist=dx*dx+dy*dy;
+        const maxDist=12000;
+        if(dist<maxDist){
+          const alpha=0.04*(1-dist/maxDist);
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(56,189,248,'+alpha+')';
+          ctx.lineWidth=0.5;
+          ctx.stroke();
         }
       }
     }
-
-    // draw particles
-    for(let i=0;i<projected.length;i++){
-      const p = projected[i];
-      const size = 2.5 * p.scale;
-      const alpha = Math.min(1,p.scale*0.8);
-      const gradient = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,size*3);
-      gradient.addColorStop(0,`rgba(108,92,231,${alpha*0.6})`);
-      gradient.addColorStop(0.5,`rgba(0,206,201,${alpha*0.3})`);
-      gradient.addColorStop(1,'rgba(108,92,231,0)');
-      ctx.fillStyle=gradient;
-      ctx.beginPath();ctx.arc(p.x,p.y,size*3,0,Math.PI*2);ctx.fill();
-
-      ctx.fillStyle=`rgba(255,255,255,${alpha*0.5})`;
-      ctx.beginPath();ctx.arc(p.x,p.y,size*0.6,0,Math.PI*2);ctx.fill();
-    }
-
     requestAnimationFrame(animate);
   }
   animate();
@@ -517,11 +479,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderAll();
   observeSections();
   initParticles();
-
-  // trigger hero animation
   setTimeout(()=>document.getElementById('hero').classList.add('show'),100);
-
-  // stagger stat cards
   document.querySelectorAll('.stat-card').forEach(el=>{
     const delay = parseInt(el.dataset.delay)||0;
     setTimeout(()=>el.classList.add('show'),200+delay);
@@ -531,26 +489,25 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.querySelector('.filters')?.classList.add('show');
     document.querySelector('.table-wrap')?.classList.add('show');
   },800);
-
-  // hamburger
   document.getElementById('hamburger').addEventListener('click',()=>{
     document.getElementById('hamburger').classList.toggle('active');
     document.getElementById('mobileMenu').classList.toggle('open');
     document.getElementById('mobileOverlay').classList.toggle('show');
   });
   document.getElementById('mobileOverlay').addEventListener('click',closeMobileMenu);
-
-  // modal
   document.getElementById('btnAdd').addEventListener('click',()=>openModal(null));
   document.getElementById('btnCancel').addEventListener('click',closeModal);
   document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('modalOverlay'))closeModal()});
   document.getElementById('btnSubmit').addEventListener('click',saveCustomer);
-
-  // filters
+  document.getElementById('btnHistoryClose').addEventListener('click',()=>{
+    document.getElementById('historyOverlay').classList.remove('show');
+  });
+  document.getElementById('historyOverlay').addEventListener('click',e=>{
+    if(e.target===document.getElementById('historyOverlay'))
+      document.getElementById('historyOverlay').classList.remove('show');
+  });
   document.getElementById('filterSector').addEventListener('change',renderTable);
   document.getElementById('filterStatus').addEventListener('change',renderTable);
-
-  // enter key in modal
   document.querySelectorAll('.modal input,.modal textarea,.modal select').forEach(el=>{
     el.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();saveCustomer()}});
   });

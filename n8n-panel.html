@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON — n8n Workflow Yönetimi</title>
+<style>
+:root{--navy:#050510;--navy2:#0a0a1a;--navy3:#101834;--cyan:#38bdf8;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24;--green:#10b981;--red:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.08)}
+.navbar .logo{font-size:22px;font-weight:800;color:var(--cyan);text-decoration:none}
+.navbar .logo span{color:var(--white)}
+.navbar nav a{color:var(--gray);text-decoration:none;font-size:13px;margin-left:24px;transition:0.3s}
+.navbar nav a:hover{color:var(--cyan)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:100px 20px 60px;position:relative;z-index:1}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;text-align:center;margin-bottom:10px;background:linear-gradient(135deg,var(--cyan),var(--ice));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--gray);text-align:center;font-size:clamp(14px,2vw,18px);max-width:600px;margin-bottom:32px}
+.filtreler{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px;max-width:900px}
+.filtre-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.12);color:var(--gray);font-size:12px;padding:7px 16px;border-radius:100px;cursor:pointer;transition:all .3s;font-family:inherit}
+.filtre-btn:hover,.filtre-btn.active{background:rgba(56,189,248,0.1);border-color:var(--cyan);color:var(--cyan)}
+.workflow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:1100px;width:100%}
+.wf-card{background:rgba(255,255,255,0.02);border:1px solid rgba(56,189,248,0.08);border-radius:16px;padding:18px;transition:all .3s;position:relative;overflow:hidden}
+.wf-card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,0.25);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+.wf-card .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 10px;border-radius:100px;background:rgba(56,189,248,0.1);color:var(--cyan);margin-bottom:8px;letter-spacing:0.5px}
+.wf-card h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.wf-card .meta{font-size:12px;color:var(--gray);display:flex;gap:12px;margin-bottom:12px}
+.wf-card .meta span{display:flex;align-items:center;gap:4px}
+.wf-card .status{font-size:13px;margin-bottom:12px}
+.wf-card .calistir{background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);color:var(--cyan);font-size:12px;font-weight:600;padding:6px 16px;border-radius:8px;cursor:pointer;transition:all .3s;font-family:inherit}
+.wf-card .calistir:hover{background:var(--cyan);color:var(--navy);box-shadow:0 0 20px rgba(56,189,248,0.2)}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:200;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--green);padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;backdrop-filter:blur(12px);opacity:0;transition:opacity .4s;pointer-events:none}
+.toast.show{opacity:1}
+.footer{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.15);font-size:12px;position:relative;z-index:1}
+.mobile-toggle{display:none;background:none;border:none;color:var(--white);font-size:24px;cursor:pointer;padding:4px}
+@media(max-width:768px){
+  .navbar{padding:12px 16px}
+  .navbar nav a{display:none}
+  .mobile-toggle{display:block}
+  .hero{padding:80px 16px 40px}
+  .workflow-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="index.html" class="logo">KIVON <span>| n8n</span></a>
+  <nav>
+    <a href="index.html">Ana Sayfa</a>
+    <a href="demo/chatbot.html">Chatbot</a>
+  </nav>
+  <button class="mobile-toggle" id="mobToggle">☰</button>
+</div>
+
+<div class="hero">
+  <h1>n8n Workflow Yönetimi</h1>
+  <p>30 otomasyon iş akışını yönetin, çalıştırın ve izleyin</p>
+
+  <div class="filtreler" id="filtreler"></div>
+
+  <div class="workflow-grid" id="workflowGrid"></div>
+</div>
+
+<div class="footer">KIVON n8n Otomasyon Paneli &copy; 2026</div>
+<div class="toast" id="toast">✅ Workflow başlatıldı</div>
+
+<script>
+var workflows = [
+  // Muhasebe
+  {id:1,ad:'Fatura Otomasyonu',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:2,ad:'Beyanname Hatırlatıcı',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:3,ad:'Müşteri Hesap Mutabakatı',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
+  {id:4,ad:'KDV Hesaplama Raporu',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:false},
+  {id:5,ad:'Ödeme Takip Sistemi',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
+  // Satış
+  {id:6,ad:'Müşteri Adayı Skorlama',sektor:'Satış',tetikleyici:'Webhook',durum:true},
+  {id:7,ad:'Teklif Oluşturma',sektor:'Satış',tetikleyici:'Form',durum:true},
+  {id:8,ad:'Sözleşme İmza Takibi',sektor:'Satış',tetikleyici:'Webhook',durum:false},
+  // İK
+  {id:9,ad:'İş Başvurusu Yönetimi',sektor:'İK',tetikleyici:'Form',durum:true},
+  {id:10,ad:'Personel İzin Takibi',sektor:'İK',tetikleyici:'Form',durum:true},
+  {id:11,ad:'Performans Değerlendirme',sektor:'İK',tetikleyici:'Zamanlayıcı',durum:false},
+  // E-Ticaret
+  {id:12,ad:'Sipariş Yönetimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:13,ad:'Stok Uyarı Sistemi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:14,ad:'İade Süreç Yönetimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:15,ad:'Sepet Hatırlatma',sektor:'E-Ticaret',tetikleyici:'Zamanlayıcı',durum:false},
+  // Pazarlama
+  {id:16,ad:'Sosyal Medya Planlayıcı',sektor:'Pazarlama',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:17,ad:'E-posta Kampanya',sektor:'Pazarlama',tetikleyici:'Webhook',durum:true},
+  {id:18,ad:'Müşteri Segmentasyonu',sektor:'Pazarlama',tetikleyici:'Zamanlayıcı',durum:false},
+  // Destek
+  {id:19,ad:'Ticket Oluşturma',sektor:'Destek',tetikleyici:'Form',durum:true},
+  {id:20,ad:'Müşteri Memnuniyet Anketi',sektor:'Destek',tetikleyici:'Webhook',durum:true},
+  {id:21,ad:'WhatsApp Otomatik Yanıt',sektor:'Destek',tetikleyici:'Webhook',durum:true},
+  {id:22,ad:'Sık Sorulan Sorular',sektor:'Destek',tetikleyici:'Form',durum:false},
+  // Doküman
+  {id:23,ad:'Fatura Arşivleme',sektor:'Doküman',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:24,ad:'Sözleşme Yönetimi',sektor:'Doküman',tetikleyici:'Webhook',durum:true},
+  {id:25,ad:'Rapor Üretme',sektor:'Doküman',tetikleyici:'Zamanlayıcı',durum:true},
+  // Proje
+  {id:26,ad:'Görev Atama',sektor:'Proje',tetikleyici:'Webhook',durum:true},
+  {id:27,ad:'Zaman Takibi',sektor:'Proje',tetikleyici:'Zamanlayıcı',durum:false},
+  {id:28,ad:'Proje Raporlama',sektor:'Proje',tetikleyici:'Zamanlayıcı',durum:true},
+  // Teknik
+  {id:29,ad:'Sunucu İzleme',sektor:'Teknik',tetikleyici:'Webhook',durum:true},
+  {id:30,ad:'Log Analizi',sektor:'Teknik',tetikleyici:'Zamanlayıcı',durum:false}
+];
+
+var sektorler = [...new Set(workflows.map(function(w){return w.sektor}))];
+
+function kartlariGoster(sektor) {
+  var grid = document.getElementById('workflowGrid');
+  var filtered = sektor ? workflows.filter(function(w){return w.sektor===sektor}) : workflows;
+  grid.innerHTML = filtered.map(function(w){
+    var durumIcon = w.durum ? '✅' : '⏸️';
+    var durumText = w.durum ? 'Aktif' : 'Pasif';
+    return '<div class="wf-card">' +
+      '<span class="badge">' + w.sektor + '</span>' +
+      '<h3>' + w.ad + '</h3>' +
+      '<div class="meta"><span>⚡' + w.tetikleyici + '</span></div>' +
+      '<div class="status">' + durumIcon + ' ' + durumText + '</div>' +
+      '<button class="calistir" onclick="workflowCalistir(' + w.id + ')">▶ Çalıştır</button>' +
+    '</div>';
+  }).join('');
+}
+
+function workflowCalistir(id) {
+  var wf = workflows.find(function(w){return w.id===id});
+  var toast = document.getElementById('toast');
+  toast.textContent = '✅ ' + wf.ad + ' başlatıldı';
+  toast.classList.add('show');
+  setTimeout(function(){toast.classList.remove('show')},3000);
+  fetch('/api/n8n/calistir',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({workflowId:id})}).catch(function(){});
+}
+
+function filtreleriOlustur() {
+  var container = document.getElementById('filtreler');
+  var html = '<button class="filtre-btn active" data-sektor="">Tümü</button>';
+  sektorler.forEach(function(s){
+    html += '<button class="filtre-btn" data-sektor="' + s + '">' + s + '</button>';
+  });
+  container.innerHTML = html;
+  container.querySelectorAll('.filtre-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      container.querySelectorAll('.filtre-btn').forEach(function(b){b.classList.remove('active')});
+      this.classList.add('active');
+      kartlariGoster(this.getAttribute('data-sektor'));
+    });
+  });
+}
+
+// 3D particle background
+var canvas = document.createElement('canvas');
+canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0';
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+document.body.insertBefore(canvas, document.body.firstChild);
+var ctx = canvas.getContext('2d');
+var prt = [];
+var pCount = Math.min(80, Math.floor(window.innerWidth / 15));
+for(var i=0;i<pCount;i++){
+  prt.push({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height,z:Math.random()*300+50,
+    size:Math.random()*3+1,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,
+    alpha:Math.random()*0.3+0.05
+  });
+}
+function anim(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  var cx=canvas.width/2,cy=canvas.height/2;
+  for(var i=0;i<prt.length;i++){
+    var p=prt[i];
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<-50)p.x=canvas.width+50;if(p.x>canvas.width+50)p.x=-50;
+    if(p.y<-50)p.y=canvas.height+50;if(p.y>canvas.height+50)p.y=-50;
+    var scale=500/(500+p.z);
+    var px=(p.x-cx)*scale+cx,py=(p.y-cy)*scale+cy;
+    ctx.beginPath();
+    ctx.arc(px,py,p.size*scale,0,Math.PI*2);
+    ctx.fillStyle='rgba(56,189,248,'+p.alpha*scale+')';
+    ctx.fill();
+  }
+  requestAnimationFrame(anim);
+}
+anim();
+window.addEventListener('resize',function(){canvas.width=window.innerWidth;canvas.height=window.innerHeight});
+
+filtreleriOlustur();
+kartlariGoster('');
+
+// Mobile menu
+document.getElementById('mobToggle').addEventListener('click',function(){
+  var nav=document.querySelector('.navbar nav');
+  nav.style.display=nav.style.display==='flex'?'none':'flex';
+  nav.style.flexDirection='column';nav.style.position='absolute';
+  nav.style.top='100%';nav.style.left='0';nav.style.right='0';
+  nav.style.background='rgba(5,5,16,0.95)';nav.style.padding='16px';
+  nav.style.backdropFilter='blur(16px)';nav.style.gap='12px';
+  nav.querySelectorAll('a').forEach(function(a){a.style.marginLeft='0'});
+});
+</script>
+</body>
+</html>
