@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kivon — AI Otomasyon Kataloğu</title>
+<title>Kivon â€” AI Otomasyon KataloÄŸu</title>
 <style>
   :root {
     --bg-deep: #050510;
@@ -40,7 +40,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Animated Background ── */
+  /* â”€â”€ Animated Background â”€â”€ */
   .bg-orb {
     position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.12;
     pointer-events: none; z-index: 0;
@@ -53,10 +53,10 @@
   @keyframes float2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-70px,-50px)} 66%{transform:translate(50px,-90px)} }
   @keyframes float3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.4)} }
 
-  /* ── Layout ── */
+  /* â”€â”€ Layout â”€â”€ */
   .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
-  /* ── Top Bar ── */
+  /* â”€â”€ Top Bar â”€â”€ */
   .topbar {
     padding: 32px 0 16px;
     display: flex; align-items: center; justify-content: center; gap: 48px;
@@ -80,13 +80,13 @@
   .topbar__stat-value { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--cyan), var(--indigo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .topbar__stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em; margin-top: 2px; }
 
-  /* ── Hero ── */
+  /* â”€â”€ Hero â”€â”€ */
   .hero { text-align: center; padding: 20px 0 36px; position: relative; z-index: 1; }
   .hero__title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
   .hero__title span { background: linear-gradient(135deg, var(--cyan), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero__sub { color: var(--muted); margin-top: 8px; font-size: 1rem; }
 
-  /* ── Filter Bar ── */
+  /* â”€â”€ Filter Bar â”€â”€ */
   .filter-bar { position: relative; z-index: 1; padding: 0 0 8px; }
   .filter-bar__inner {
     display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
@@ -109,7 +109,7 @@
   .filter-btn__dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: middle; position: relative; top: -1px; opacity: 0.5; transition: opacity var(--transition); }
   .filter-btn.active .filter-btn__dot { opacity: 1; }
 
-  /* ── Search & Controls ── */
+  /* â”€â”€ Search & Controls â”€â”€ */
   .controls-row {
     display: flex; gap: 14px; align-items: center; justify-content: center;
     padding: 16px 0; flex-wrap: wrap; position: relative; z-index: 1;
@@ -154,7 +154,7 @@
   .view-toggle__btn:hover { color: #fff; }
   .view-toggle__btn.active { background: rgba(56,189,248,0.2); color: var(--cyan); }
 
-  /* ── Counter ── */
+  /* â”€â”€ Counter â”€â”€ */
   .counter-row { display: flex; justify-content: center; padding: 8px 0 20px; position: relative; z-index: 1; }
   .counter {
     font-size: 0.85rem; color: var(--muted);
@@ -165,7 +165,7 @@
   .counter strong { color: var(--cyan); font-weight: 700; }
   .counter__count { display: inline-block; min-width: 24px; text-align: center; }
 
-  /* ── Service Grid ── */
+  /* â”€â”€ Service Grid â”€â”€ */
   .grid { display: grid; gap: 18px; position: relative; z-index: 1; padding-bottom: 60px; }
   .grid--cards { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
   .grid--list { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
@@ -223,7 +223,7 @@
     border: 1px solid rgba(99,102,241,0.2);
   }
 
-  /* ── Empty State ── */
+  /* â”€â”€ Empty State â”€â”€ */
   .empty-state {
     display: none; flex-direction: column; align-items: center; justify-content: center;
     padding: 60px 20px; text-align: center; position: relative; z-index: 1;
@@ -259,15 +259,15 @@
   }
   .empty-state__btn:hover { background: rgba(56,189,248,0.2); }
 
-  /* ── Footer ── */
+  /* â”€â”€ Footer â”€â”€ */
   .footer { text-align: center; padding: 20px 0 40px; color: var(--muted); font-size: 0.78rem; position: relative; z-index: 1; opacity: 0.5; }
 
-  /* ── Scrollbar ── */
+  /* â”€â”€ Scrollbar â”€â”€ */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 
-  /* ── Responsive ── */
+  /* â”€â”€ Responsive â”€â”€ */
   @media (max-width: 768px) {
     .topbar { gap: 20px; }
     .grid--cards { grid-template-columns: 1fr; }
@@ -286,46 +286,46 @@
 <div class="bg-orb bg-orb--2"></div>
 <div class="bg-orb bg-orb--3"></div>
 
-<!-- ── Top Bar ── -->
+<!-- â”€â”€ Top Bar â”€â”€ -->
 <header class="topbar container">
   <div class="topbar__logo">
-    <div class="topbar__logo-icon">✦</div>
+    <div class="topbar__logo-icon">âœ¦</div>
     <span>Kivon</span>
   </div>
   <div class="topbar__stat">
     <span class="topbar__stat-value">30</span>
-    <span class="topbar__stat-label">AI Otomasyon Çözümü</span>
+    <span class="topbar__stat-label">AI Otomasyon Ã‡Ã¶zÃ¼mÃ¼</span>
   </div>
   <div class="topbar__stat">
     <span class="topbar__stat-value">9</span>
-    <span class="topbar__stat-label">Sektör</span>
+    <span class="topbar__stat-label">SektÃ¶r</span>
   </div>
   <div class="topbar__stat">
     <span class="topbar__stat-value">%85</span>
-    <span class="topbar__stat-label">Verimlilik Artışı</span>
+    <span class="topbar__stat-label">Verimlilik ArtÄ±ÅŸÄ±</span>
   </div>
 </header>
 
-<!-- ── Hero ── -->
+<!-- â”€â”€ Hero â”€â”€ -->
 <section class="hero container">
-  <h1 class="hero__title">KOBİ'niz İçin <span>AI Destekli</span> Otomasyon Kataloğu</h1>
-  <p class="hero__sub">İşletmenize özel, hızlıca devreye alınabilir 30 yapay zeka çözümü</p>
+  <h1 class="hero__title">KOBÄ°'niz Ä°Ã§in <span>AI Destekli</span> Otomasyon KataloÄŸu</h1>
+  <p class="hero__sub">Ä°ÅŸletmenize Ã¶zel, hÄ±zlÄ±ca devreye alÄ±nabilir 30 yapay zeka Ã§Ã¶zÃ¼mÃ¼</p>
 </section>
 
-<!-- ── Filter Tabs ── -->
+<!-- â”€â”€ Filter Tabs â”€â”€ -->
 <section class="filter-bar container" id="filters">
-  <div class="filter-bar__inner" role="tablist" aria-label="Sektör filtreleri">
+  <div class="filter-bar__inner" role="tablist" aria-label="SektÃ¶r filtreleri">
     <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
-      <span class="filter-btn__dot" style="background:#fff"></span> Tümü
+      <span class="filter-btn__dot" style="background:#fff"></span> TÃ¼mÃ¼
     </button>
     <button class="filter-btn" data-filter="muhasebe" role="tab">
       <span class="filter-btn__dot" style="background:#22c55e"></span> Muhasebe
     </button>
     <button class="filter-btn" data-filter="satis" role="tab">
-      <span class="filter-btn__dot" style="background:#f97316"></span> Satış
+      <span class="filter-btn__dot" style="background:#f97316"></span> SatÄ±ÅŸ
     </button>
     <button class="filter-btn" data-filter="ik" role="tab">
-      <span class="filter-btn__dot" style="background:#a855f7"></span> İK
+      <span class="filter-btn__dot" style="background:#a855f7"></span> Ä°K
     </button>
     <button class="filter-btn" data-filter="eticaret" role="tab">
       <span class="filter-btn__dot" style="background:#e11d48"></span> E-Ticaret
@@ -337,7 +337,7 @@
       <span class="filter-btn__dot" style="background:#06b6d4"></span> Destek
     </button>
     <button class="filter-btn" data-filter="dokuman" role="tab">
-      <span class="filter-btn__dot" style="background:#8b5cf6"></span> Doküman
+      <span class="filter-btn__dot" style="background:#8b5cf6"></span> DokÃ¼man
     </button>
     <button class="filter-btn" data-filter="proje" role="tab">
       <span class="filter-btn__dot" style="background:#ec4899"></span> Proje
@@ -348,32 +348,32 @@
   </div>
 </section>
 
-<!-- ── Search & Controls ── -->
+<!-- â”€â”€ Search & Controls â”€â”€ -->
 <section class="controls-row container" id="controls">
   <div class="search-wrap">
     <span class="search-wrap__icon">&#128269;</span>
-    <input type="text" class="search-input" id="searchInput" placeholder="Hizmet ara... (örn: fatura, chatbot, rapor)" autocomplete="off">
-    <button class="search-clear" id="searchClear" aria-label="Aramayı temizle">&times;</button>
+    <input type="text" class="search-input" id="searchInput" placeholder="Hizmet ara... (Ã¶rn: fatura, chatbot, rapor)" autocomplete="off">
+    <button class="search-clear" id="searchClear" aria-label="AramayÄ± temizle">&times;</button>
   </div>
-  <div class="view-toggle" role="radiogroup" aria-label="Görünüm">
-    <button class="view-toggle__btn active" data-view="grid" role="radio" aria-checked="true" title="Grid görünüm">
+  <div class="view-toggle" role="radiogroup" aria-label="GÃ¶rÃ¼nÃ¼m">
+    <button class="view-toggle__btn active" data-view="grid" role="radio" aria-checked="true" title="Grid gÃ¶rÃ¼nÃ¼m">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="10.5" y="1" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="10.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="10.5" y="10.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
     </button>
-    <button class="view-toggle__btn" data-view="list" role="radio" aria-checked="false" title="Liste görünüm">
+    <button class="view-toggle__btn" data-view="list" role="radio" aria-checked="false" title="Liste gÃ¶rÃ¼nÃ¼m">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="1.5" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="7.25" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="13" width="14" height="3.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
     </button>
   </div>
 </section>
 
-<!-- ── Counter ── -->
+<!-- â”€â”€ Counter â”€â”€ -->
 <div class="counter-row container">
-  <span class="counter" id="counter">Gösterilen: <strong><span class="counter__count" id="countNumber">30</span></strong> hizmet</span>
+  <span class="counter" id="counter">GÃ¶sterilen: <strong><span class="counter__count" id="countNumber">30</span></strong> hizmet</span>
 </div>
 
-<!-- ── Service Grid ── -->
+<!-- â”€â”€ Service Grid â”€â”€ -->
 <main class="grid grid--cards container" id="serviceGrid" role="list" aria-label="Hizmet listesi"></main>
 
-<!-- ── Empty State ── -->
+<!-- â”€â”€ Empty State â”€â”€ -->
 <div class="empty-state container" id="emptyState">
   <div class="empty-state__illustration">
     <div class="empty-state__circle"></div>
@@ -383,78 +383,78 @@
     <span class="empty-state__dots">&#9679;</span>
     <span class="empty-state__dots">&#9679;</span>
   </div>
-  <p class="empty-state__title">Sonuç Bulunamadı</p>
-  <p class="empty-state__text">Filtreleri veya arama terimini değiştirip tekrar deneyin.</p>
-  <button class="empty-state__btn" id="resetBtn">Tümünü Göster</button>
+  <p class="empty-state__title">SonuÃ§ BulunamadÄ±</p>
+  <p class="empty-state__text">Filtreleri veya arama terimini deÄŸiÅŸtirip tekrar deneyin.</p>
+  <button class="empty-state__btn" id="resetBtn">TÃ¼mÃ¼nÃ¼ GÃ¶ster</button>
 </div>
 
-<!-- ── Footer ── -->
+<!-- â”€â”€ Footer â”€â”€ -->
 <footer class="footer container">
-  &copy; 2026 Kivon &mdash; KOBİ'ler için Yapay Zeka Otomasyon Çözümleri
+  &copy; 2026 Kivon &mdash; KOBÄ°'ler iÃ§in Yapay Zeka Otomasyon Ã‡Ã¶zÃ¼mleri
 </footer>
 
-<!-- ── JavaScript ── -->
+<!-- â”€â”€ JavaScript â”€â”€ -->
 <script>
 (function () {
   'use strict';
 
-  /* ── Service Data ── */
+  /* â”€â”€ Service Data â”€â”€ */
   var services = [
     /* MUHASEBE */
-    { icon:'🧾', name:'Akıllı Fatura İşleme', desc:'Yapay zeka ile fatura ve fişlerinizi otomatik tanıyın, sınıflandırın ve muhasebe kaydına dönüştürün.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'muhasebe' },
-    { icon:'🏠', name:'Kira Mutabakat', desc:'Kira sözleşmelerini analiz eden AI; artış, stopaj ve KDV hesaplamalarını otomatik yapar.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
-    { icon:'💰', name:'Harcama Takip', desc:'Şirket kartı ve banka harcamalarını kategorilere ayıran, bütçe uyarıları yapan akıllı asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
-    { icon:'📊', name:'Vergi Asistanı', desc:'Güncel mevzuata göre KDV, stopaj, muhtasar ve geçici vergi hesaplamalarınızı yapan AI danışman.', price:'₺4.500/ay', diff:'high', diffLabel:'Yüksek', sector:'muhasebe' },
-    /* SATIŞ */
-    { icon:'📱', name:'WhatsApp Satış', desc:'WhatsApp Business API ile müşteri sorularını 7/24 yanıtlayan, sipariş alan AI satış asistanı.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
-    { icon:'🎯', name:'Lead Keşif', desc:'Web sitenizi ziyaret eden firmaları tespit eden, potansiyel müşterileri skorlayan ve CRM\'e aktaran sistem.', price:'₺5.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
-    { icon:'📅', name:'Randevu Takip', desc:'Müşteri randevularını planlayan, hatırlatma gönderen ve takvimleri senkronize eden AI asistan.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'satis' },
-    { icon:'💬', name:'CRM Chat', desc:'CRM\'inize entegre olan, müşteri geçmişini analiz ederek satış ekibine öneriler sunan chatbot.', price:'₺4.000/ay', diff:'high', diffLabel:'Yüksek', sector:'satis' },
-    /* İK */
-    { icon:'📄', name:'CV Tarama', desc:'Yüzlerce CV\'yi saniyeler içinde tarayan, pozisyona uygun adayları puanlayan ve sıralayan AI sistemi.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'ik' },
-    { icon:'🤖', name:'AI Mülakat', desc:'Adaylarla ön mülakat yapan, teknik ve davranışsal sorular soran, yanıtları değerlendiren yapay zeka.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'ik' },
-    { icon:'📋', name:'Politika Chatbot', desc:'Şirket politika ve prosedürlerini öğrenen, çalışan sorularını anında yanıtlayan iç iletişim botu.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
-    { icon:'⚖️', name:'Ayrımcılık Analizi', desc:'İş ilanlarınızı ve iletişimlerinizi tarayarak ayrımcı dil veya önyargı tespit eden etik AI aracı.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
-    /* ETİCARET */
-    { icon:'🛍️', name:'Alışveriş Asistanı', desc:'Müşterilere ürün öneren, beden/renk seçiminde yardımcı olan ve sepeti yöneten AI danışman.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
-    { icon:'⭐', name:'Yorum Analizi', desc:'Ürün yorumlarını duygu analizi ile işleyen, öne çıkan konuları raporlayan müşteri içgörü sistemi.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
-    { icon:'📦', name:'Stok Takip', desc:'Satış verilerinden talep tahmini yapan, stok yenileme zamanını ve miktarını optimize eden AI.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
-    { icon:'🔄', name:'İade Otomasyon', desc:'İade taleplerini otomatik işleyen, kargo kodu oluşturan ve müşteriyle iletişimi yöneten sistem.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
+    { icon:'ğŸ§¾', name:'AkÄ±llÄ± Fatura Ä°ÅŸleme', desc:'Yapay zeka ile fatura ve fiÅŸlerinizi otomatik tanÄ±yÄ±n, sÄ±nÄ±flandÄ±rÄ±n ve muhasebe kaydÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.', price:'â‚º3.500/ay', diff:'mid', diffLabel:'Orta', sector:'muhasebe' },
+    { icon:'ğŸ ', name:'Kira Mutabakat', desc:'Kira sÃ¶zleÅŸmelerini analiz eden AI; artÄ±ÅŸ, stopaj ve KDV hesaplamalarÄ±nÄ± otomatik yapar.', price:'â‚º2.500/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'muhasebe' },
+    { icon:'ğŸ’°', name:'Harcama Takip', desc:'Åirket kartÄ± ve banka harcamalarÄ±nÄ± kategorilere ayÄ±ran, bÃ¼tÃ§e uyarÄ±larÄ± yapan akÄ±llÄ± asistan.', price:'â‚º2.000/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'muhasebe' },
+    { icon:'ğŸ“Š', name:'Vergi AsistanÄ±', desc:'GÃ¼ncel mevzuata gÃ¶re KDV, stopaj, muhtasar ve geÃ§ici vergi hesaplamalarÄ±nÄ±zÄ± yapan AI danÄ±ÅŸman.', price:'â‚º4.500/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'muhasebe' },
+    /* SATIÅ */
+    { icon:'ğŸ“±', name:'WhatsApp SatÄ±ÅŸ', desc:'WhatsApp Business API ile mÃ¼ÅŸteri sorularÄ±nÄ± 7/24 yanÄ±tlayan, sipariÅŸ alan AI satÄ±ÅŸ asistanÄ±.', price:'â‚º3.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
+    { icon:'ğŸ¯', name:'Lead KeÅŸif', desc:'Web sitenizi ziyaret eden firmalarÄ± tespit eden, potansiyel mÃ¼ÅŸterileri skorlayan ve CRM\'e aktaran sistem.', price:'â‚º5.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
+    { icon:'ğŸ“…', name:'Randevu Takip', desc:'MÃ¼ÅŸteri randevularÄ±nÄ± planlayan, hatÄ±rlatma gÃ¶nderen ve takvimleri senkronize eden AI asistan.', price:'â‚º1.500/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'satis' },
+    { icon:'ğŸ’¬', name:'CRM Chat', desc:'CRM\'inize entegre olan, mÃ¼ÅŸteri geÃ§miÅŸini analiz ederek satÄ±ÅŸ ekibine Ã¶neriler sunan chatbot.', price:'â‚º4.000/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'satis' },
+    /* Ä°K */
+    { icon:'ğŸ“„', name:'CV Tarama', desc:'YÃ¼zlerce CV\'yi saniyeler iÃ§inde tarayan, pozisyona uygun adaylarÄ± puanlayan ve sÄ±ralayan AI sistemi.', price:'â‚º3.500/ay', diff:'mid', diffLabel:'Orta', sector:'ik' },
+    { icon:'ğŸ¤–', name:'AI MÃ¼lakat', desc:'Adaylarla Ã¶n mÃ¼lakat yapan, teknik ve davranÄ±ÅŸsal sorular soran, yanÄ±tlarÄ± deÄŸerlendiren yapay zeka.', price:'â‚º6.000/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'ik' },
+    { icon:'ğŸ“‹', name:'Politika Chatbot', desc:'Åirket politika ve prosedÃ¼rlerini Ã¶ÄŸrenen, Ã§alÄ±ÅŸan sorularÄ±nÄ± anÄ±nda yanÄ±tlayan iÃ§ iletiÅŸim botu.', price:'â‚º2.500/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'ik' },
+    { icon:'âš–ï¸', name:'AyrÄ±mcÄ±lÄ±k Analizi', desc:'Ä°ÅŸ ilanlarÄ±nÄ±zÄ± ve iletiÅŸimlerinizi tarayarak ayrÄ±mcÄ± dil veya Ã¶nyargÄ± tespit eden etik AI aracÄ±.', price:'â‚º2.000/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'ik' },
+    /* ETÄ°CARET */
+    { icon:'ğŸ›ï¸', name:'AlÄ±ÅŸveriÅŸ AsistanÄ±', desc:'MÃ¼ÅŸterilere Ã¼rÃ¼n Ã¶neren, beden/renk seÃ§iminde yardÄ±mcÄ± olan ve sepeti yÃ¶neten AI danÄ±ÅŸman.', price:'â‚º4.000/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
+    { icon:'â­', name:'Yorum Analizi', desc:'ÃœrÃ¼n yorumlarÄ±nÄ± duygu analizi ile iÅŸleyen, Ã¶ne Ã§Ä±kan konularÄ± raporlayan mÃ¼ÅŸteri iÃ§gÃ¶rÃ¼ sistemi.', price:'â‚º2.500/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'eticaret' },
+    { icon:'ğŸ“¦', name:'Stok Takip', desc:'SatÄ±ÅŸ verilerinden talep tahmini yapan, stok yenileme zamanÄ±nÄ± ve miktarÄ±nÄ± optimize eden AI.', price:'â‚º3.500/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
+    { icon:'ğŸ”„', name:'Ä°ade Otomasyon', desc:'Ä°ade taleplerini otomatik iÅŸleyen, kargo kodu oluÅŸturan ve mÃ¼ÅŸteriyle iletiÅŸimi yÃ¶neten sistem.', price:'â‚º2.000/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'eticaret' },
     /* PAZARLAMA */
-    { icon:'📝', name:'4 Platform İçerik', desc:'Instagram, LinkedIn, X ve TikTok için sektörünüze özel içerik üreten, hashtag öneren AI.', price:'₺4.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
-    { icon:'✍️', name:'Marka Sesi Blog', desc:'Marka kimliğinize uygun SEO odaklı blog yazıları üreten, araştırma ve referans ekleyen motor.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
-    { icon:'📈', name:'GA4 Rapor', desc:'Google Analytics 4 verilerinizi doğal dilde yorumlayan, aksiyon önerileri sunan raporlama asistanı.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
-    { icon:'📅', name:'Sosyal Medya Takvim', desc:'Yapay zeka ile optimal paylaşım zamanlarını belirleyen, aylık içerik takvimi oluşturan araç.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'pazarlama' },
+    { icon:'ğŸ“', name:'4 Platform Ä°Ã§erik', desc:'Instagram, LinkedIn, X ve TikTok iÃ§in sektÃ¶rÃ¼nÃ¼ze Ã¶zel iÃ§erik Ã¼reten, hashtag Ã¶neren AI.', price:'â‚º4.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'âœï¸', name:'Marka Sesi Blog', desc:'Marka kimliÄŸinize uygun SEO odaklÄ± blog yazÄ±larÄ± Ã¼reten, araÅŸtÄ±rma ve referans ekleyen motor.', price:'â‚º3.000/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'ğŸ“ˆ', name:'GA4 Rapor', desc:'Google Analytics 4 verilerinizi doÄŸal dilde yorumlayan, aksiyon Ã¶nerileri sunan raporlama asistanÄ±.', price:'â‚º3.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'ğŸ“…', name:'Sosyal Medya Takvim', desc:'Yapay zeka ile optimal paylaÅŸÄ±m zamanlarÄ±nÄ± belirleyen, aylÄ±k iÃ§erik takvimi oluÅŸturan araÃ§.', price:'â‚º2.000/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'pazarlama' },
     /* DESTEK */
-    { icon:'🎙️', name:'Sesli Chatbot', desc:'Telefonla arayan müşterilerle doğal konuşma yapan, sorunları çözen veya ilgili birime yönlendiren AI.', price:'₺7.500/ay', diff:'high', diffLabel:'Yüksek', sector:'destek' },
-    { icon:'🎫', name:'Bilet Sistemi', desc:'Destek taleplerini otomatik sınıflandıran, önceliklendiren ve yanıt taslağı hazırlayan akıllı yönetim.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'destek' },
-    { icon:'📧', name:'E-posta Özet', desc:'Gelen e-postaları özetleyen, aciliyete göre sıralayan ve yanıt taslağı öneren asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
-    { icon:'🤖', name:'Telegram Asistan', desc:'Telegram üzerinden müşteri desteği sağlayan, sık sorulan soruları yanıtlayan ve bilet oluşturan bot.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
-    /* DOKÜMAN */
-    { icon:'📚', name:'Bilgi Tabanı', desc:'Şirket dokümanlarınızı tarayan, sorulara anında cevap veren, referans gösteren kurumsal hafıza AI.', price:'₺5.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
-    { icon:'🏦', name:'Banka Ekstre', desc:'Banka hesap ekstrelerini PDF\'den okuyan, işlemleri kategorilendiren ve muhasebe fişi oluşturan sistem.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'dokuman' },
-    { icon:'🗄️', name:'Doğal Dil DB', desc:'Veritabanınıza SQL yazmadan, doğal dil ile sorgu yapmanızı sağlayan, sonuçları görselleştiren AI.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
+    { icon:'ğŸ™ï¸', name:'Sesli Chatbot', desc:'Telefonla arayan mÃ¼ÅŸterilerle doÄŸal konuÅŸma yapan, sorunlarÄ± Ã§Ã¶zen veya ilgili birime yÃ¶nlendiren AI.', price:'â‚º7.500/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'destek' },
+    { icon:'ğŸ«', name:'Bilet Sistemi', desc:'Destek taleplerini otomatik sÄ±nÄ±flandÄ±ran, Ã¶nceliklendiren ve yanÄ±t taslaÄŸÄ± hazÄ±rlayan akÄ±llÄ± yÃ¶netim.', price:'â‚º3.000/ay', diff:'mid', diffLabel:'Orta', sector:'destek' },
+    { icon:'ğŸ“§', name:'E-posta Ã–zet', desc:'Gelen e-postalarÄ± Ã¶zetleyen, aciliyete gÃ¶re sÄ±ralayan ve yanÄ±t taslaÄŸÄ± Ã¶neren asistan.', price:'â‚º2.000/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'destek' },
+    { icon:'ğŸ¤–', name:'Telegram Asistan', desc:'Telegram Ã¼zerinden mÃ¼ÅŸteri desteÄŸi saÄŸlayan, sÄ±k sorulan sorularÄ± yanÄ±tlayan ve bilet oluÅŸturan bot.', price:'â‚º1.500/ay', diff:'low', diffLabel:'DÃ¼ÅŸÃ¼k', sector:'destek' },
+    /* DOKÃœMAN */
+    { icon:'ğŸ“š', name:'Bilgi TabanÄ±', desc:'Åirket dokÃ¼manlarÄ±nÄ±zÄ± tarayan, sorulara anÄ±nda cevap veren, referans gÃ¶steren kurumsal hafÄ±za AI.', price:'â‚º5.000/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'dokuman' },
+    { icon:'ğŸ¦', name:'Banka Ekstre', desc:'Banka hesap ekstrelerini PDF\'den okuyan, iÅŸlemleri kategorilendiren ve muhasebe fiÅŸi oluÅŸturan sistem.', price:'â‚º3.000/ay', diff:'mid', diffLabel:'Orta', sector:'dokuman' },
+    { icon:'ğŸ—„ï¸', name:'DoÄŸal Dil DB', desc:'VeritabanÄ±nÄ±za SQL yazmadan, doÄŸal dil ile sorgu yapmanÄ±zÄ± saÄŸlayan, sonuÃ§larÄ± gÃ¶rselleÅŸtiren AI.', price:'â‚º6.000/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'dokuman' },
     /* PROJE */
-    { icon:'📋', name:'Toplantı Asistanı', desc:'Toplantılarınızı dinleyen, konuşma metnine çeviren, özet çıkaran ve aksiyon maddelerini atayan AI.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
-    { icon:'🚀', name:'Onboarding', desc:'Yeni çalışanların oryantasyon sürecini yöneten, eğitim materyali sunan ve soruları yanıtlayan AI rehber.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
-    /* TEKNİK */
-    { icon:'🖥️', name:'Sunucu Yönetimi', desc:'Sunucu loglarını analiz eden, anomali tespit eden, sorun giderme önerileri sunan DevOps AI asistanı.', price:'₺5.500/ay', diff:'high', diffLabel:'Yüksek', sector:'teknik' }
+    { icon:'ğŸ“‹', name:'ToplantÄ± AsistanÄ±', desc:'ToplantÄ±larÄ±nÄ±zÄ± dinleyen, konuÅŸma metnine Ã§eviren, Ã¶zet Ã§Ä±karan ve aksiyon maddelerini atayan AI.', price:'â‚º4.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
+    { icon:'ğŸš€', name:'Onboarding', desc:'Yeni Ã§alÄ±ÅŸanlarÄ±n oryantasyon sÃ¼recini yÃ¶neten, eÄŸitim materyali sunan ve sorularÄ± yanÄ±tlayan AI rehber.', price:'â‚º3.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
+    /* TEKNÄ°K */
+    { icon:'ğŸ–¥ï¸', name:'Sunucu YÃ¶netimi', desc:'Sunucu loglarÄ±nÄ± analiz eden, anomali tespit eden, sorun giderme Ã¶nerileri sunan DevOps AI asistanÄ±.', price:'â‚º5.500/ay', diff:'high', diffLabel:'YÃ¼ksek', sector:'teknik' }
   ];
 
-  /* ── Sector Labels ── */
+  /* â”€â”€ Sector Labels â”€â”€ */
   var sectorLabels = {
     muhasebe: 'Muhasebe',
-    satis: 'Satış',
-    ik: 'İK',
+    satis: 'SatÄ±ÅŸ',
+    ik: 'Ä°K',
     eticaret: 'E-Ticaret',
     pazarlama: 'Pazarlama',
     destek: 'Destek',
-    dokuman: 'Doküman',
+    dokuman: 'DokÃ¼man',
     proje: 'Proje',
     teknik: 'Teknik'
   };
 
-  /* ── DOM refs ── */
+  /* â”€â”€ DOM refs â”€â”€ */
   var grid = document.getElementById('serviceGrid');
   var emptyState = document.getElementById('emptyState');
   var countNumber = document.getElementById('countNumber');
@@ -467,7 +467,7 @@
   var searchQuery = '';
   var cardElements = [];
 
-  /* ── Card Factory ── */
+  /* â”€â”€ Card Factory â”€â”€ */
   function buildCard(s, idx) {
     var diffClass = 'card__diff--' + (s.diff === 'high' ? 'high' : s.diff === 'mid' ? 'mid' : 'low');
     return '<article class="card visible" role="listitem" data-sector="' + s.sector + '" data-index="' + idx + '" style="transition-delay:' + (idx * 0.03) + 's">' +
@@ -488,7 +488,7 @@
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  /* ── Render All ── */
+  /* â”€â”€ Render All â”€â”€ */
   function renderAll() {
     var html = '';
     for (var i = 0; i < services.length; i++) {
@@ -499,7 +499,7 @@
     applyFilter();
   }
 
-  /* ── Apply Filter + Search ── */
+  /* â”€â”€ Apply Filter + Search â”€â”€ */
   function applyFilter() {
     var visibleCount = 0;
 
@@ -535,7 +535,7 @@
     }
   }
 
-  /* ── Animate Counter ── */
+  /* â”€â”€ Animate Counter â”€â”€ */
   function animateCount(target) {
     var current = parseInt(countNumber.textContent, 10) || 0;
     var startTime = performance.now();
@@ -553,7 +553,7 @@
     requestAnimationFrame(step);
   }
 
-  /* ── Filter Tab Click ── */
+  /* â”€â”€ Filter Tab Click â”€â”€ */
   var filterBtns = document.querySelectorAll('.filter-btn');
   function setFilter(filter) {
     currentFilter = filter;
@@ -577,7 +577,7 @@
     });
   }
 
-  /* ── Search ── */
+  /* â”€â”€ Search â”€â”€ */
   function debounce(fn, ms) {
     var timer;
     return function () {
@@ -606,7 +606,7 @@
     searchInput.focus();
   });
 
-  /* ── View Toggle ── */
+  /* â”€â”€ View Toggle â”€â”€ */
   var viewBtns = document.querySelectorAll('.view-toggle__btn');
   for (var v = 0; v < viewBtns.length; v++) {
     viewBtns[v].addEventListener('click', function () {
@@ -628,7 +628,7 @@
     });
   }
 
-  /* ── Reset ── */
+  /* â”€â”€ Reset â”€â”€ */
   resetBtn.addEventListener('click', function () {
     searchInput.value = '';
     searchQuery = '';
@@ -649,7 +649,7 @@
     }
   });
 
-  /* ── URL Hash Routing ── */
+  /* â”€â”€ URL Hash Routing â”€â”€ */
   function updateHash() {
     if (currentFilter === 'all') {
       history.replaceState(null, '', window.location.pathname);
@@ -669,15 +669,15 @@
 
   window.addEventListener('hashchange', readHash);
 
-  /* ── Intersection Observer for initial animation ── */
+  /* â”€â”€ Intersection Observer for initial animation â”€â”€ */
   // Cards animate in on render via transition-delay. Handled in applyFilter.
 
-  /* ── Initialize ── */
+  /* â”€â”€ Initialize â”€â”€ */
   renderAll();
   readHash();
 
 })();
 </script>
 
-</body>
+<div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(10,10,26,0.9);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1)">← Ana Sayfa</a></div></body>
 </html>
