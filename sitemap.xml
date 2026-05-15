@@ -30,5 +30,9 @@
   <url><loc>https://kivontr.com/demo/fiyat-hesapla.html</loc><priority>0.6</priority></url>
   <url><loc>https://kivontr.com/demo/ai-hazirlik-testi.html</loc><priority>0.6</priority></url>
   <url><loc>https://kivontr.com/demo/roi-hesapla.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/neden-kivon.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/30-cozum.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kivontr.com/api-durum.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/blog.html</loc><priority>0.6</priority></url>
   <url><loc>https://kivontr.com/admin/index.html</loc><priority>0.3</priority></url>
 </urlset>
