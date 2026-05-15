@@ -432,7 +432,7 @@ async function groqSor(soru) {
     }
   } catch(e) {
     // Proxy yoksa direkt API'yi dene
-    if (GROQ_KEY !== 'GROQ_API_KEY_YAZIN') {
+    if (GROQ_KEY) {
       try {
         let res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
@@ -522,4 +522,5 @@ window.onload = async () => {
 <div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(5,5,16,0.8);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1);transition:0.3s" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#94a3b8'">â† Ana Sayfa</a></div>
 </body>
 </html>
+
 
