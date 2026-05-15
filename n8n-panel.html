@@ -1,9 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — n8n Workflow Yönetimi</title>
+<title>KIVON â€” n8n Workflow YÃ¶netimi</title>
+<meta name="description" content="KIVON n8n workflow yÃ¶netimi">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
+<meta property="og:title" content="KIVON â€” n8n Workflow YÃ¶netimi">
+<meta property="og:description" content="KIVON n8n workflow yÃ¶netimi">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kivontr.com/n8n-panel.html">
 <style>
 :root{--navy:#050510;--navy2:#0a0a1a;--navy3:#101834;--cyan:#38bdf8;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24;--green:#10b981;--red:#ef4444}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -40,7 +46,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
   .hero{padding:80px 16px 40px}
   .workflow-grid{grid-template-columns:1fr}
 }
-</style>
+@media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}</style>
 </head>
 <body>
 
@@ -49,13 +55,13 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
   <nav>
     <a href="index.html">Ana Sayfa</a>
     <a href="demo/chatbot.html">Chatbot</a>
-  </nav>
-  <button class="mobile-toggle" id="mobToggle">☰</button>
+  <button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button><div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button></nav>
+  <button class="mobile-toggle" id="mobToggle">â˜°</button>
 </div>
 
 <div class="hero">
-  <h1>n8n Workflow Yönetimi</h1>
-  <p>30 otomasyon iş akışını yönetin, çalıştırın ve izleyin</p>
+  <h1>n8n Workflow YÃ¶netimi</h1>
+  <p>30 otomasyon iÅŸ akÄ±ÅŸÄ±nÄ± yÃ¶netin, Ã§alÄ±ÅŸtÄ±rÄ±n ve izleyin</p>
 
   <div class="filtreler" id="filtreler"></div>
 
@@ -63,49 +69,49 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
 <div class="footer">KIVON n8n Otomasyon Paneli &copy; 2026</div>
-<div class="toast" id="toast">✅ Workflow başlatıldı</div>
+<div class="toast" id="toast">âœ… Workflow baÅŸlatÄ±ldÄ±</div>
 
 <script>
 var workflows = [
   // Muhasebe
-  {id:1,ad:'Fatura Otomasyonu',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:true},
-  {id:2,ad:'Beyanname Hatırlatıcı',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:true},
-  {id:3,ad:'Müşteri Hesap Mutabakatı',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
-  {id:4,ad:'KDV Hesaplama Raporu',sektor:'Muhasebe',tetikleyici:'Zamanlayıcı',durum:false},
-  {id:5,ad:'Ödeme Takip Sistemi',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
-  // Satış
-  {id:6,ad:'Müşteri Adayı Skorlama',sektor:'Satış',tetikleyici:'Webhook',durum:true},
-  {id:7,ad:'Teklif Oluşturma',sektor:'Satış',tetikleyici:'Form',durum:true},
-  {id:8,ad:'Sözleşme İmza Takibi',sektor:'Satış',tetikleyici:'Webhook',durum:false},
-  // İK
-  {id:9,ad:'İş Başvurusu Yönetimi',sektor:'İK',tetikleyici:'Form',durum:true},
-  {id:10,ad:'Personel İzin Takibi',sektor:'İK',tetikleyici:'Form',durum:true},
-  {id:11,ad:'Performans Değerlendirme',sektor:'İK',tetikleyici:'Zamanlayıcı',durum:false},
+  {id:1,ad:'Fatura Otomasyonu',sektor:'Muhasebe',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
+  {id:2,ad:'Beyanname HatÄ±rlatÄ±cÄ±',sektor:'Muhasebe',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
+  {id:3,ad:'MÃ¼ÅŸteri Hesap MutabakatÄ±',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
+  {id:4,ad:'KDV Hesaplama Raporu',sektor:'Muhasebe',tetikleyici:'ZamanlayÄ±cÄ±',durum:false},
+  {id:5,ad:'Ã–deme Takip Sistemi',sektor:'Muhasebe',tetikleyici:'Webhook',durum:true},
+  // SatÄ±ÅŸ
+  {id:6,ad:'MÃ¼ÅŸteri AdayÄ± Skorlama',sektor:'SatÄ±ÅŸ',tetikleyici:'Webhook',durum:true},
+  {id:7,ad:'Teklif OluÅŸturma',sektor:'SatÄ±ÅŸ',tetikleyici:'Form',durum:true},
+  {id:8,ad:'SÃ¶zleÅŸme Ä°mza Takibi',sektor:'SatÄ±ÅŸ',tetikleyici:'Webhook',durum:false},
+  // Ä°K
+  {id:9,ad:'Ä°ÅŸ BaÅŸvurusu YÃ¶netimi',sektor:'Ä°K',tetikleyici:'Form',durum:true},
+  {id:10,ad:'Personel Ä°zin Takibi',sektor:'Ä°K',tetikleyici:'Form',durum:true},
+  {id:11,ad:'Performans DeÄŸerlendirme',sektor:'Ä°K',tetikleyici:'ZamanlayÄ±cÄ±',durum:false},
   // E-Ticaret
-  {id:12,ad:'Sipariş Yönetimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
-  {id:13,ad:'Stok Uyarı Sistemi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
-  {id:14,ad:'İade Süreç Yönetimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
-  {id:15,ad:'Sepet Hatırlatma',sektor:'E-Ticaret',tetikleyici:'Zamanlayıcı',durum:false},
+  {id:12,ad:'SipariÅŸ YÃ¶netimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:13,ad:'Stok UyarÄ± Sistemi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:14,ad:'Ä°ade SÃ¼reÃ§ YÃ¶netimi',sektor:'E-Ticaret',tetikleyici:'Webhook',durum:true},
+  {id:15,ad:'Sepet HatÄ±rlatma',sektor:'E-Ticaret',tetikleyici:'ZamanlayÄ±cÄ±',durum:false},
   // Pazarlama
-  {id:16,ad:'Sosyal Medya Planlayıcı',sektor:'Pazarlama',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:16,ad:'Sosyal Medya PlanlayÄ±cÄ±',sektor:'Pazarlama',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
   {id:17,ad:'E-posta Kampanya',sektor:'Pazarlama',tetikleyici:'Webhook',durum:true},
-  {id:18,ad:'Müşteri Segmentasyonu',sektor:'Pazarlama',tetikleyici:'Zamanlayıcı',durum:false},
+  {id:18,ad:'MÃ¼ÅŸteri Segmentasyonu',sektor:'Pazarlama',tetikleyici:'ZamanlayÄ±cÄ±',durum:false},
   // Destek
-  {id:19,ad:'Ticket Oluşturma',sektor:'Destek',tetikleyici:'Form',durum:true},
-  {id:20,ad:'Müşteri Memnuniyet Anketi',sektor:'Destek',tetikleyici:'Webhook',durum:true},
-  {id:21,ad:'WhatsApp Otomatik Yanıt',sektor:'Destek',tetikleyici:'Webhook',durum:true},
-  {id:22,ad:'Sık Sorulan Sorular',sektor:'Destek',tetikleyici:'Form',durum:false},
-  // Doküman
-  {id:23,ad:'Fatura Arşivleme',sektor:'Doküman',tetikleyici:'Zamanlayıcı',durum:true},
-  {id:24,ad:'Sözleşme Yönetimi',sektor:'Doküman',tetikleyici:'Webhook',durum:true},
-  {id:25,ad:'Rapor Üretme',sektor:'Doküman',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:19,ad:'Ticket OluÅŸturma',sektor:'Destek',tetikleyici:'Form',durum:true},
+  {id:20,ad:'MÃ¼ÅŸteri Memnuniyet Anketi',sektor:'Destek',tetikleyici:'Webhook',durum:true},
+  {id:21,ad:'WhatsApp Otomatik YanÄ±t',sektor:'Destek',tetikleyici:'Webhook',durum:true},
+  {id:22,ad:'SÄ±k Sorulan Sorular',sektor:'Destek',tetikleyici:'Form',durum:false},
+  // DokÃ¼man
+  {id:23,ad:'Fatura ArÅŸivleme',sektor:'DokÃ¼man',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
+  {id:24,ad:'SÃ¶zleÅŸme YÃ¶netimi',sektor:'DokÃ¼man',tetikleyici:'Webhook',durum:true},
+  {id:25,ad:'Rapor Ãœretme',sektor:'DokÃ¼man',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
   // Proje
-  {id:26,ad:'Görev Atama',sektor:'Proje',tetikleyici:'Webhook',durum:true},
-  {id:27,ad:'Zaman Takibi',sektor:'Proje',tetikleyici:'Zamanlayıcı',durum:false},
-  {id:28,ad:'Proje Raporlama',sektor:'Proje',tetikleyici:'Zamanlayıcı',durum:true},
+  {id:26,ad:'GÃ¶rev Atama',sektor:'Proje',tetikleyici:'Webhook',durum:true},
+  {id:27,ad:'Zaman Takibi',sektor:'Proje',tetikleyici:'ZamanlayÄ±cÄ±',durum:false},
+  {id:28,ad:'Proje Raporlama',sektor:'Proje',tetikleyici:'ZamanlayÄ±cÄ±',durum:true},
   // Teknik
-  {id:29,ad:'Sunucu İzleme',sektor:'Teknik',tetikleyici:'Webhook',durum:true},
-  {id:30,ad:'Log Analizi',sektor:'Teknik',tetikleyici:'Zamanlayıcı',durum:false}
+  {id:29,ad:'Sunucu Ä°zleme',sektor:'Teknik',tetikleyici:'Webhook',durum:true},
+  {id:30,ad:'Log Analizi',sektor:'Teknik',tetikleyici:'ZamanlayÄ±cÄ±',durum:false}
 ];
 
 var sektorler = [...new Set(workflows.map(function(w){return w.sektor}))];
@@ -114,14 +120,14 @@ function kartlariGoster(sektor) {
   var grid = document.getElementById('workflowGrid');
   var filtered = sektor ? workflows.filter(function(w){return w.sektor===sektor}) : workflows;
   grid.innerHTML = filtered.map(function(w){
-    var durumIcon = w.durum ? '✅' : '⏸️';
+    var durumIcon = w.durum ? 'âœ…' : 'â¸ï¸';
     var durumText = w.durum ? 'Aktif' : 'Pasif';
     return '<div class="wf-card">' +
       '<span class="badge">' + w.sektor + '</span>' +
       '<h3>' + w.ad + '</h3>' +
-      '<div class="meta"><span>⚡' + w.tetikleyici + '</span></div>' +
+      '<div class="meta"><span>âš¡' + w.tetikleyici + '</span></div>' +
       '<div class="status">' + durumIcon + ' ' + durumText + '</div>' +
-      '<button class="calistir" onclick="workflowCalistir(' + w.id + ')">▶ Çalıştır</button>' +
+      '<button class="calistir" onclick="workflowCalistir(' + w.id + ')">â–¶ Ã‡alÄ±ÅŸtÄ±r</button>' +
     '</div>';
   }).join('');
 }
@@ -129,7 +135,7 @@ function kartlariGoster(sektor) {
 function workflowCalistir(id) {
   var wf = workflows.find(function(w){return w.id===id});
   var toast = document.getElementById('toast');
-  toast.textContent = '✅ ' + wf.ad + ' başlatıldı';
+  toast.textContent = 'âœ… ' + wf.ad + ' baÅŸlatÄ±ldÄ±';
   toast.classList.add('show');
   setTimeout(function(){toast.classList.remove('show')},3000);
   fetch('/api/n8n/calistir',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({workflowId:id})}).catch(function(){});
@@ -137,7 +143,7 @@ function workflowCalistir(id) {
 
 function filtreleriOlustur() {
   var container = document.getElementById('filtreler');
-  var html = '<button class="filtre-btn active" data-sektor="">Tümü</button>';
+  var html = '<button class="filtre-btn active" data-sektor="">TÃ¼mÃ¼</button>';
   sektorler.forEach(function(s){
     html += '<button class="filtre-btn" data-sektor="' + s + '">' + s + '</button>';
   });
@@ -201,5 +207,6 @@ document.getElementById('mobToggle').addEventListener('click',function(){
   nav.querySelectorAll('a').forEach(function(a){a.style.marginLeft='0'});
 });
 </script>
-</body>
+<script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script></body>
 </html>
+

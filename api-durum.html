@@ -1,25 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>KIVON — API Durum</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>KIVON â€” API Durum</title>
+<meta name="description" content="KIVON API canlÄ± durum kontrolÃ¼">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
+<meta property="og:title" content="KIVON â€” API Durum">
+<meta property="og:description" content="KIVON API canlÄ± durum kontrolÃ¼">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kivontr.com/api-durum.html">
 <style>:root{--navy:#050510;--cyan:#38bdf8;--green:#10b981;--red:#ef4444;--muted:#94a3b8}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'Segoe UI','Inter',sans-serif;background:var(--navy);color:#fff;padding:40px 24px;min-height:100vh;display:flex;align-items:center;justify-content:center}.card{max-width:600px;width:100%;background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.08);border-radius:24px;padding:40px 32px;text-align:center}h1{font-size:28px;font-weight:900;margin-bottom:4px}.sub{color:var(--muted);font-size:14px;margin-bottom:32px}.status{display:flex;align-items:center;justify-content:center;gap:12px;padding:20px;border-radius:16px;margin-bottom:24px;font-size:18px;font-weight:700}.online{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);color:var(--green)}.offline{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:var(--red)}.dot{width:12px;height:12px;border-radius:50%;display:inline-block}.dot-green{background:var(--green);box-shadow:0 0 12px rgba(16,185,129,0.4)}.dot-red{background:var(--red);box-shadow:0 0 12px rgba(239,68,68,0.4)}.info{text-align:left;background:rgba(255,255,255,0.02);border-radius:12px;padding:20px}.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px}.info-row:last-child{border:none}.label{color:var(--muted)}.value{color:#fff;font-weight:500}.btn{margin-top:24px;display:inline-block;padding:12px 28px;border-radius:100px;background:linear-gradient(135deg,var(--cyan));color:#fff;text-decoration:none;font-weight:700;font-size:14px;background:linear-gradient(135deg,#38bdf8,#6366f1)}.btn:hover{opacity:0.9}small{color:rgba(255,255,255,0.15);font-size:12px;margin-top:16px;display:block}
-</style>
+@media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}</style>
 </head>
 <body>
 <div class="card">
-<h1>🔌 KIVON API</h1>
-<p class="sub">Gerçek zamanlı durum kontrolü</p>
-<div class="status online" id="statusBox"><span class="dot dot-green" id="statusDot"></span><span id="statusText">Bağlanıyor...</span></div>
+<h1>ğŸ”Œ KIVON API</h1>
+<p class="sub">GerÃ§ek zamanlÄ± durum kontrolÃ¼</p>
+<div class="status online" id="statusBox"><span class="dot dot-green" id="statusDot"></span><span id="statusText">BaÄŸlanÄ±yor...</span></div>
 <div class="info" id="infoBox">
-<div class="info-row"><span class="label">Sunucu</span><span class="value" id="server">—</span></div>
-<div class="info-row"><span class="label">Varsayılan Model</span><span class="value" id="model">—</span></div>
-<div class="info-row"><span class="label">Motorlar</span><span class="value" id="motor">—</span></div>
-<div class="info-row"><span class="label">Durum</span><span class="value" id="durum">—</span></div>
+<div class="info-row"><span class="label">Sunucu</span><span class="value" id="server">â€”</span></div>
+<div class="info-row"><span class="label">VarsayÄ±lan Model</span><span class="value" id="model">â€”</span></div>
+<div class="info-row"><span class="label">Motorlar</span><span class="value" id="motor">â€”</span></div>
+<div class="info-row"><span class="label">Durum</span><span class="value" id="durum">â€”</span></div>
 </div>
-<a href="api-dokuman.html" class="btn">API Dökümantasyonu →</a>
-<small>Son kontrol: <span id="time">—</span></small>
+<a href="api-dokuman.html" class="btn">API DÃ¶kÃ¼mantasyonu â†’</a>
+<small>Son kontrol: <span id="time">â€”</span></small>
 </div>
 <script>
-(async function(){try{var r=await fetch('https://kivon-3.onrender.com/',{signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('HTTP '+r.status);var d=await r.json();document.getElementById('statusText').textContent='Çevrimiçi';document.getElementById('server').textContent=d.sunucu;document.getElementById('model').textContent=d.varsayilan;document.getElementById('motor').textContent=d.motorlar.join(', ');document.getElementById('durum').textContent='✅ Çalışıyor'}catch(e){document.getElementById('statusBox').className='status offline';document.getElementById('statusDot').className='dot dot-red';document.getElementById('statusText').textContent='Çevrimdışı';document.getElementById('durum').textContent='❌ Hata: '+e.message}document.getElementById('time').textContent=new Date().toLocaleTimeString('tr-TR')})();
+(async function(){try{var r=await fetch('https://kivon-3.onrender.com/',{signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('HTTP '+r.status);var d=await r.json();document.getElementById('statusText').textContent='Ã‡evrimiÃ§i';document.getElementById('server').textContent=d.sunucu;document.getElementById('model').textContent=d.varsayilan;document.getElementById('motor').textContent=d.motorlar.join(', ');document.getElementById('durum').textContent='âœ… Ã‡alÄ±ÅŸÄ±yor'}catch(e){document.getElementById('statusBox').className='status offline';document.getElementById('statusDot').className='dot dot-red';document.getElementById('statusText').textContent='Ã‡evrimdÄ±ÅŸÄ±';document.getElementById('durum').textContent='âŒ Hata: '+e.message}document.getElementById('time').textContent=new Date().toLocaleTimeString('tr-TR')})();
 </script>
-</body>
+<script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script></body>
 </html>
+

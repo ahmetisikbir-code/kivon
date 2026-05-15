@@ -1,9 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — Admin Paneli</title>
+<title>KIVON â€” Admin Paneli</title>
+<meta name="description" content="KIVON admin paneli">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
+<meta property="og:title" content="KIVON â€” Admin Paneli">
+<meta property="og:description" content="KIVON admin paneli">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kivontr.com/admin/index.html">
 <style>
 :root {
   --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
@@ -18,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── LOGIN ─── */
+/* â”€â”€â”€ LOGIN â”€â”€â”€ */
 .login-page {
   min-height:100vh; display:flex; align-items:center; justify-content:center;
   background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06), transparent 60%);
@@ -44,7 +50,7 @@ body {
 .login-box .btn { width:100%; margin-top:8px; }
 .login-error { color:var(--red); font-size:12px; margin-top:8px; display:none; }
 
-/* ─── DASHBOARD ─── */
+/* â”€â”€â”€ DASHBOARD â”€â”€â”€ */
 .dashboard { display:none; }
 .dash-header {
   display:flex; align-items:center; justify-content:space-between;
@@ -65,7 +71,7 @@ body {
 
 .dash-body { max-width:1200px; margin:0 auto; padding:32px 24px; }
 
-/* ─── STATS ─── */
+/* â”€â”€â”€ STATS â”€â”€â”€ */
 .dash-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:32px; }
 .dash-stat {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -74,7 +80,7 @@ body {
 .dash-stat .num { font-size:32px; font-weight:900; color:var(--cyan); }
 .dash-stat .label { font-size:11px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
 
-/* ─── GRID ─── */
+/* â”€â”€â”€ GRID â”€â”€â”€ */
 .dash-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
 .dash-card {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -87,7 +93,7 @@ body {
 .status-dot.up { background:var(--green); box-shadow:0 0 8px rgba(34,197,94,0.3); }
 .status-dot.down { background:var(--red); box-shadow:0 0 8px rgba(239,68,68,0.3); }
 
-/* ─── ACTIONS ─── */
+/* â”€â”€â”€ ACTIONS â”€â”€â”€ */
 .quick-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 .qaction {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -99,7 +105,7 @@ body {
 .qaction .name { font-size:13px; font-weight:600; }
 .qaction .desc { font-size:11px; color:rgba(255,255,255,0.25); margin-top:2px; }
 
-/* ─── BTN ─── */
+/* â”€â”€â”€ BTN â”€â”€â”€ */
 .btn {
   display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
   border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
@@ -108,18 +114,18 @@ body {
 .btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 30px rgba(56,189,248,0.2); }
 .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(56,189,248,0.3); }
 
-/* ─── RESPONSIVE ─── */
+/* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
 @media (max-width:600px) {
   .dash-grid { grid-template-columns:1fr; }
   .quick-actions { grid-template-columns:1fr; }
 }
 .fade-in { animation: fadeUp 0.5s ease both; }
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-</style>
+@media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}</style>
 </head>
 <body>
 
-<!-- ═══ LOGIN ═══ -->
+<!-- â•â•â• LOGIN â•â•â• -->
 <div class="login-page" id="loginPage">
   <div class="login-box fade-in">
     <h1><span>KIVON</span> ADMIN</h1>
@@ -131,7 +137,7 @@ body {
   </div>
 </div>
 
-<!-- ═══ DASHBOARD ═══ -->
+<!-- â•â•â• DASHBOARD â•â•â• -->
 <div class="dashboard" id="dashboard">
   <div class="dash-header">
     <h1><span>KIVON</span> ADMIN</h1>
@@ -148,14 +154,14 @@ body {
     <!-- Grid: Visitor + System -->
     <div class="dash-grid">
       <div class="dash-card fade-in">
-        <h3>📊 Visitor Stats</h3>
-        <div class="status-row"><span>Today</span><span id="visitorToday">—</span></div>
-        <div class="status-row"><span>This Week</span><span id="visitorWeek">—</span></div>
-        <div class="status-row"><span>This Month</span><span id="visitorMonth">—</span></div>
-        <div class="status-row"><span>All Time</span><span id="visitorAll">—</span></div>
+        <h3>ğŸ“Š Visitor Stats</h3>
+        <div class="status-row"><span>Today</span><span id="visitorToday">â€”</span></div>
+        <div class="status-row"><span>This Week</span><span id="visitorWeek">â€”</span></div>
+        <div class="status-row"><span>This Month</span><span id="visitorMonth">â€”</span></div>
+        <div class="status-row"><span>All Time</span><span id="visitorAll">â€”</span></div>
       </div>
       <div class="dash-card fade-in">
-        <h3>🔧 System Status</h3>
+        <h3>ğŸ”§ System Status</h3>
         <div class="status-row"><span class="status-dot up"></span>All 29 MCPs</div>
         <div class="status-row"><span class="status-dot up"></span>API Gateway</div>
         <div class="status-row"><span class="status-dot up"></span>Render Hosting</div>
@@ -165,20 +171,20 @@ body {
     </div>
 
     <!-- Quick Actions -->
-    <h3 style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">⚡ Quick Actions</h3>
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">âš¡ Quick Actions</h3>
     <div class="quick-actions">
       <a class="qaction fade-in" href="https://github.com/ahmetisikbir-code/kivon" target="_blank">
-        <span class="icon">📦</span>
+        <span class="icon">ğŸ“¦</span>
         <div class="name">GitHub Push</div>
         <div class="desc">Deploy latest code</div>
       </a>
       <a class="qaction fade-in" href="https://dashboard.render.com" target="_blank">
-        <span class="icon">🚀</span>
+        <span class="icon">ğŸš€</span>
         <div class="name">Render Deploy</div>
         <div class="desc">Redeploy API server</div>
       </a>
       <a class="qaction fade-in" href="https://wa.me/905303982712" target="_blank">
-        <span class="icon">📢</span>
+        <span class="icon">ğŸ“¢</span>
         <div class="name">WhatsApp Broadcast</div>
         <div class="desc">Send bulk message</div>
       </a>
@@ -187,11 +193,11 @@ body {
 </div>
 
 <script>
-/* ─── CREDENTIALS ─── */
+/* â”€â”€â”€ CREDENTIALS â”€â”€â”€ */
 const VALID_USER = 'admin';
 const VALID_PASS = 'kivon2026';
 
-/* ─── LOGIN ─── */
+/* â”€â”€â”€ LOGIN â”€â”€â”€ */
 function login() {
   var u = document.getElementById('username').value;
   var p = document.getElementById('password').value;
@@ -204,7 +210,7 @@ function login() {
   }
 }
 
-/* ─── LOGOUT ─── */
+/* â”€â”€â”€ LOGOUT â”€â”€â”€ */
 function logout() {
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('loginPage').style.display = 'flex';
@@ -213,7 +219,7 @@ function logout() {
   document.getElementById('loginError').style.display = 'none';
 }
 
-/* ─── KEYBOARD ─── */
+/* â”€â”€â”€ KEYBOARD â”€â”€â”€ */
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
     var dp = document.getElementById('dashboard');
@@ -221,7 +227,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-/* ─── DASHBOARD ─── */
+/* â”€â”€â”€ DASHBOARD â”€â”€â”€ */
 function initDashboard() {
   var stats = [
     { num: 29, label: 'MCP Tools' },
@@ -262,5 +268,6 @@ function initDashboard() {
   });
 }
 </script>
-</body>
+<script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script></body>
 </html>
+

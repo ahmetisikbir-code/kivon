@@ -38,7 +38,7 @@ const MODELS = {
 const VARSAYILAN_MODEL = 'openrouter/deepseek-v4-flash'; // En iyi ucretsiz
 
 const server = http.createServer(async (req, res) => {
-  const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'null'];
+  const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'https://ahmetisikbir-code.github.io', 'http://localhost', 'null'];
   const origin = req.headers.origin;
   if (IZINLI_ORIGINLER.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
