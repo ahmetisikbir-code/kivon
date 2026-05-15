@@ -38,8 +38,16 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 .empty-state .icon{font-size:48px;margin-bottom:12px;display:block}
 .sector-section{margin-bottom:32px}
 .sector-title{font-size:15px;font-weight:700;color:var(--cyan);margin-bottom:14px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:1px}
-.sector-title::after{content:'';flex:1;height:1px;background:rgba(56,189,248,0.1)}
-@media(max-width:768px){.services-grid{grid-template-columns:1fr}.topbar-stats{display:none}.filter-bar{gap:4px}}
+  .sector-title::after{content:'';flex:1;height:1px;background:rgba(56,189,248,0.1)}
+  .sector-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:20px 28px;max-width:1300px;margin:0 auto;width:100%}
+  .sector-card{background:linear-gradient(135deg,rgba(16,24,52,0.8),rgba(10,10,26,0.9));border:1px solid rgba(56,189,248,0.12);border-radius:16px;padding:24px 20px;text-align:center;text-decoration:none;color:var(--white);transition:all .3s;position:relative;overflow:hidden}
+  .sector-card:hover{border-color:rgba(56,189,248,0.4);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+  .sector-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+  .sector-card:hover::before{opacity:1}
+  .sector-card-icon{font-size:40px;display:block;margin-bottom:10px}
+  .sector-card-title{font-size:18px;font-weight:700;margin-bottom:4px}
+  .sector-card-sub{font-size:12px;color:var(--gray)}
+  @media(max-width:768px){.services-grid{grid-template-columns:1fr}.topbar-stats{display:none}.filter-bar{gap:4px}.sector-nav{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -51,6 +59,24 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
     <span>Sektör: <b>6</b></span>
     <span>n8n tabanlı: <b>%100</b></span>
   </div>
+</div>
+
+<div class="sector-nav">
+  <a href="muhasebe.html" class="sector-card">
+    <span class="sector-card-icon">📑</span>
+    <div class="sector-card-title">Muhasebe</div>
+    <div class="sector-card-sub">Finansal otomasyon çözümleri</div>
+  </a>
+  <a href="eticaret.html" class="sector-card">
+    <span class="sector-card-icon">🛒</span>
+    <div class="sector-card-title">E-Ticaret</div>
+    <div class="sector-card-sub">Online satış ve operasyon araçları</div>
+  </a>
+  <a href="restoran.html" class="sector-card">
+    <span class="sector-card-icon">🍽</span>
+    <div class="sector-card-title">Restoran &amp; Kafe</div>
+    <div class="sector-card-sub">Yiyecek-içecek işletmeleri için otomasyon</div>
+  </a>
 </div>
 
 <div class="filter-bar" id="filterBar">
