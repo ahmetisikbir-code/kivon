@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — AI Hazırlık Testi</title>
-<meta name="description" content="KIVON AI Hazırlık Testi - İşletmenizin yapay zekaya ne kadar hazır olduğunu ölçün. 5 dakikalık test ile AI olgunluk seviyenizi keşfedin.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI hazırlık testi, Bursa, AI olgunluk, dijital dönüşüm">
+<title>KIVON â€” AI HazÄ±rlÄ±k Testi</title>
+<meta name="description" content="KIVON AI HazÄ±rlÄ±k Testi - Ä°ÅŸletmenizin yapay zekaya ne kadar hazÄ±r olduÄŸunu Ã¶lÃ§Ã¼n. 5 dakikalÄ±k test ile AI olgunluk seviyenizi keÅŸfedin.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, AI hazÄ±rlÄ±k testi, Bursa, AI olgunluk, dijital dÃ¶nÃ¼ÅŸÃ¼m">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - AI Hazırlık Testi">
-<meta property="og:description" content="KIVON AI Hazırlık Testi - İşletmenizin yapay zekaya ne kadar hazır olduğunu ölçün. 5 dakikalık test ile AI olgunluk seviyenizi keşfedin.">
+<meta property="og:title" content="KIVON - AI HazÄ±rlÄ±k Testi">
+<meta property="og:description" content="KIVON AI HazÄ±rlÄ±k Testi - Ä°ÅŸletmenizin yapay zekaya ne kadar hazÄ±r olduÄŸunu Ã¶lÃ§Ã¼n. 5 dakikalÄ±k test ile AI olgunluk seviyenizi keÅŸfedin.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kivontr.com/demo/ai-hazirlik-testi.html">
 <link rel="canonical" href="https://kivontr.com/demo/ai-hazirlik-testi.html">
@@ -179,29 +179,29 @@ nav {
       <li><a href="/">Ana Sayfa</a></li>
       <li><a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a></li>
       <li><a href="../demo/roi-hesapla.html">ROI</a></li>
-      <li><a href="https://wa.me/905303982712">İletişim</a></li>
+      <li><a href="https://wa.me/905303982712">Ä°letiÅŸim</a></li>
     </ul>
     <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">WhatsApp</a>
-    <button class="mobile-toggle" id="mobileToggle">☰</button>
+    <button class="mobile-toggle" id="mobileToggle">â˜°</button>
   </div>
 </nav>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">✕</button>
+  <button class="mobile-close" id="mobileClose">âœ•</button>
   <a href="/">Ana Sayfa</a>
   <a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a>
   <a href="../demo/roi-hesapla.html">ROI</a>
-  <a href="https://wa.me/905303982712">İletişim</a>
+  <a href="https://wa.me/905303982712">Ä°letiÅŸim</a>
 </div>
 
 <div class="page">
   <div class="container">
 
-    <a href="/" class="back-link slide-in">← Ana Sayfa</a>
+    <a href="/" class="back-link slide-in">â† Ana Sayfa</a>
 
     <div class="page-title slide-in">
-      <h1>AI Hazırlık <span>Testi</span></h1>
-      <p>İşletmenizin yapay zekaya ne kadar hazır olduğunu keşfedin</p>
+      <h1>AI HazÄ±rlÄ±k <span>Testi</span></h1>
+      <p>Ä°ÅŸletmenizin yapay zekaya ne kadar hazÄ±r olduÄŸunu keÅŸfedin</p>
     </div>
 
     <div class="quiz-screen" id="quizScreen">
@@ -211,7 +211,7 @@ nav {
       </div>
       <div id="questionsContainer"></div>
       <div class="submit-wrap">
-        <button class="btn-primary" id="submitBtn" disabled>Sonuçları Gör</button>
+        <button class="btn-primary" id="submitBtn" disabled>SonuÃ§larÄ± GÃ¶r</button>
       </div>
     </div>
 
@@ -224,14 +224,14 @@ nav {
           </svg>
           <div class="score-num"><span id="scoreNum">0</span></div>
         </div>
-        <div class="score-label">Hazırlık Skoru</div>
+        <div class="score-label">HazÄ±rlÄ±k Skoru</div>
         <div class="result-title" id="resultTitle">AI Ready</div>
-        <div class="result-sub" id="resultSub">İşletmeniz yapay zeka entegrasyonu için hazır</div>
+        <div class="result-sub" id="resultSub">Ä°ÅŸletmeniz yapay zeka entegrasyonu iÃ§in hazÄ±r</div>
       </div>
       <div id="recommendations"></div>
       <div class="result-actions">
         <button class="restart-btn" id="restartBtn">Testi Tekrarla</button>
-        <a href="https://wa.me/905303982712" class="btn-primary" target="_blank">WhatsApp ile Görüş</a>
+        <a href="https://wa.me/905303982712" class="btn-primary" target="_blank">WhatsApp ile GÃ¶rÃ¼ÅŸ</a>
       </div>
     </div>
 
@@ -294,18 +294,18 @@ nav {
 
 (function() {
   var questions = [
-    { id: 1, text: 'Müşteri hizmetlerinizde günlük 50+ talep alıyor musunuz?', cat: 'musteri' },
-    { id: 2, text: 'Müşteri taleplerini kayıt altına alan bir sistem kullanıyor musunuz?', cat: 'musteri' },
-    { id: 3, text: 'Fatura, makbuz gibi belgeleriniz dijital ortamda mı?', cat: 'dijitallesme' },
-    { id: 4, text: 'Muhasebe işlemlerinizde bir yazılım kullanıyor musunuz?', cat: 'dijitallesme' },
-    { id: 5, text: 'İşletmenizin aktif bir web sitesi var mı?', cat: 'dijital_varlik' },
-    { id: 6, text: 'Sosyal medyada (Instagram/WhatsApp) düzenli paylaşım yapıyor musunuz?', cat: 'dijital_varlik' },
-    { id: 7, text: 'Gün içinde tekrarlayan veri girişi işlemleri yapıyor musunuz?', cat: 'tekrarlayan' },
-    { id: 8, text: 'Stok veya envanter takibi yapıyor musunuz?', cat: 'tekrarlayan' },
-    { id: 9, text: 'Randevu veya rezervasyon sistemi kullanıyor musunuz?', cat: 'tekrarlayan' },
-    { id: 10, text: 'E-posta yanıtlama gibi iletişim görevleriniz otomatik mi?', cat: 'otomasyon' },
-    { id: 11, text: 'Satış raporlarınızı düzenli olarak analiz ediyor musunuz?', cat: 'analitik' },
-    { id: 12, text: 'Personel görev takibi için bir araç kullanıyor musunuz?', cat: 'otomasyon' }
+    { id: 1, text: 'MÃ¼ÅŸteri hizmetlerinizde gÃ¼nlÃ¼k 50+ talep alÄ±yor musunuz?', cat: 'musteri' },
+    { id: 2, text: 'MÃ¼ÅŸteri taleplerini kayÄ±t altÄ±na alan bir sistem kullanÄ±yor musunuz?', cat: 'musteri' },
+    { id: 3, text: 'Fatura, makbuz gibi belgeleriniz dijital ortamda mÄ±?', cat: 'dijitallesme' },
+    { id: 4, text: 'Muhasebe iÅŸlemlerinizde bir yazÄ±lÄ±m kullanÄ±yor musunuz?', cat: 'dijitallesme' },
+    { id: 5, text: 'Ä°ÅŸletmenizin aktif bir web sitesi var mÄ±?', cat: 'dijital_varlik' },
+    { id: 6, text: 'Sosyal medyada (Instagram/WhatsApp) dÃ¼zenli paylaÅŸÄ±m yapÄ±yor musunuz?', cat: 'dijital_varlik' },
+    { id: 7, text: 'GÃ¼n iÃ§inde tekrarlayan veri giriÅŸi iÅŸlemleri yapÄ±yor musunuz?', cat: 'tekrarlayan' },
+    { id: 8, text: 'Stok veya envanter takibi yapÄ±yor musunuz?', cat: 'tekrarlayan' },
+    { id: 9, text: 'Randevu veya rezervasyon sistemi kullanÄ±yor musunuz?', cat: 'tekrarlayan' },
+    { id: 10, text: 'E-posta yanÄ±tlama gibi iletiÅŸim gÃ¶revleriniz otomatik mi?', cat: 'otomasyon' },
+    { id: 11, text: 'SatÄ±ÅŸ raporlarÄ±nÄ±zÄ± dÃ¼zenli olarak analiz ediyor musunuz?', cat: 'analitik' },
+    { id: 12, text: 'Personel gÃ¶rev takibi iÃ§in bir araÃ§ kullanÄ±yor musunuz?', cat: 'otomasyon' }
   ];
 
   var answers = {};
@@ -337,7 +337,7 @@ nav {
     var yesBtn = document.createElement('button');
     yesBtn.className = 'q-btn yes'; yesBtn.textContent = 'Evet';
     var noBtn = document.createElement('button');
-    noBtn.className = 'q-btn no'; noBtn.textContent = 'Hayır';
+    noBtn.className = 'q-btn no'; noBtn.textContent = 'HayÄ±r';
 
     yesBtn.addEventListener('click', function() {
       answers[q.id] = true;
@@ -392,15 +392,15 @@ nav {
     if (pct >= 75) {
       badge.classList.add('level-ai-ready');
       title.textContent = 'AI Ready';
-      sub.textContent = 'İşletmeniz yapay zeka entegrasyonu için hazır! Hemen başlayabilirsiniz.';
+      sub.textContent = 'Ä°ÅŸletmeniz yapay zeka entegrasyonu iÃ§in hazÄ±r! Hemen baÅŸlayabilirsiniz.';
     } else if (pct >= 45) {
       badge.classList.add('level-getting-there');
       title.textContent = 'Yolda';
-      sub.textContent = 'İyi bir temeliniz var. Birkaç adımda AI\'a hazır hale gelebilirsiniz.';
+      sub.textContent = 'Ä°yi bir temeliniz var. BirkaÃ§ adÄ±mda AI\'a hazÄ±r hale gelebilirsiniz.';
     } else {
       badge.classList.add('level-need-foundation');
       title.textContent = 'Temel Gerekli';
-      sub.textContent = 'Öncelikle dijital altyapınızı güçlendirmeniz önerilir.';
+      sub.textContent = 'Ã–ncelikle dijital altyapÄ±nÄ±zÄ± gÃ¼Ã§lendirmeniz Ã¶nerilir.';
     }
 
     var anim = setInterval(function() {
@@ -416,16 +416,16 @@ nav {
 
     var recommendations = [];
     if (pct < 75) {
-      if (!answers[3] || !answers[4]) recommendations.push({ icon: '📄', title: 'Dijital Dönüşüm', text: 'Belge ve muhasebe işlemlerinizi dijitalleştirerek zamandan tasarruf edin.' });
-      if (!answers[5] || !answers[6]) recommendations.push({ icon: '🌐', title: 'Dijital Varlık Oluşturun', text: 'Web sitesi ve sosyal medya varlığınızı güçlendirin. Müşterileriniz sizi çevrimiçi bulsun.' });
-      if (!answers[7] || !answers[8] || !answers[9]) recommendations.push({ icon: '⚡', title: 'Tekrarlayan İşleri Otomatize Edin', text: 'Veri girişi, stok takibi ve randevu yönetimini AI ile otomatikleştirin.' });
-      if (!answers[1] || !answers[2]) recommendations.push({ icon: '💬', title: 'Müşteri Hizmetlerini AI ile Güçlendirin', text: 'AI chatbot ile 7/24 müşteri desteği sağlayarak memnuniyeti artırın.' });
-      if (!answers[10] || !answers[11]) recommendations.push({ icon: '📊', title: 'Veri Analitiğine Yatırım Yapın', text: 'Satış ve operasyon verilerinizi analiz ederek bilinçli kararlar alın.' });
-      if (!answers[12]) recommendations.push({ icon: '👥', title: 'Personel Takibini Dijitalleştirin', text: 'Görev takibi ve performans analizi için dijital araçlar kullanın.' });
+      if (!answers[3] || !answers[4]) recommendations.push({ icon: 'ğŸ“„', title: 'Dijital DÃ¶nÃ¼ÅŸÃ¼m', text: 'Belge ve muhasebe iÅŸlemlerinizi dijitalleÅŸtirerek zamandan tasarruf edin.' });
+      if (!answers[5] || !answers[6]) recommendations.push({ icon: 'ğŸŒ', title: 'Dijital VarlÄ±k OluÅŸturun', text: 'Web sitesi ve sosyal medya varlÄ±ÄŸÄ±nÄ±zÄ± gÃ¼Ã§lendirin. MÃ¼ÅŸterileriniz sizi Ã§evrimiÃ§i bulsun.' });
+      if (!answers[7] || !answers[8] || !answers[9]) recommendations.push({ icon: 'âš¡', title: 'Tekrarlayan Ä°ÅŸleri Otomatize Edin', text: 'Veri giriÅŸi, stok takibi ve randevu yÃ¶netimini AI ile otomatikleÅŸtirin.' });
+      if (!answers[1] || !answers[2]) recommendations.push({ icon: 'ğŸ’¬', title: 'MÃ¼ÅŸteri Hizmetlerini AI ile GÃ¼Ã§lendirin', text: 'AI chatbot ile 7/24 mÃ¼ÅŸteri desteÄŸi saÄŸlayarak memnuniyeti artÄ±rÄ±n.' });
+      if (!answers[10] || !answers[11]) recommendations.push({ icon: 'ğŸ“Š', title: 'Veri AnalitiÄŸine YatÄ±rÄ±m YapÄ±n', text: 'SatÄ±ÅŸ ve operasyon verilerinizi analiz ederek bilinÃ§li kararlar alÄ±n.' });
+      if (!answers[12]) recommendations.push({ icon: 'ğŸ‘¥', title: 'Personel Takibini DijitalleÅŸtirin', text: 'GÃ¶rev takibi ve performans analizi iÃ§in dijital araÃ§lar kullanÄ±n.' });
     }
     if (recommendations.length === 0) {
-      recommendations.push({ icon: '🚀', title: 'Profesyonel Pakete Geçin', text: 'KIVON Kurumsal paket ile tüm AI çözümlerinden sınırsız yararlanın.' });
-      recommendations.push({ icon: '📞', title: 'Ücretsiz Danışmanlık Alın', text: 'Uzman ekibimizle görüşerek AI yol haritanızı belirleyin.' });
+      recommendations.push({ icon: 'ğŸš€', title: 'Profesyonel Pakete GeÃ§in', text: 'KIVON Kurumsal paket ile tÃ¼m AI Ã§Ã¶zÃ¼mlerinden sÄ±nÄ±rsÄ±z yararlanÄ±n.' });
+      recommendations.push({ icon: 'ğŸ“', title: 'Ãœcretsiz DanÄ±ÅŸmanlÄ±k AlÄ±n', text: 'Uzman ekibimizle gÃ¶rÃ¼ÅŸerek AI yol haritanÄ±zÄ± belirleyin.' });
     }
 
     reco.innerHTML = recommendations.slice(0, 4).map(function(r) {
@@ -452,3 +452,4 @@ nav {
 </script>
 </body>
 </html>
+

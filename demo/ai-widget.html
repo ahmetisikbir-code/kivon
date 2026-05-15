@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — AI Widget</title>
-<meta name="description" content="KIVON AI Widget - Web sitenize entegre edebileceğiniz yapay zeka sohbet widget'ı. Müşterilerinize 7/24 AI destek.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI widget, Bursa, chatbot, web entegrasyon">
+<title>KIVON â€” AI Widget</title>
+<meta name="description" content="KIVON AI Widget - Web sitenize entegre edebileceÄŸiniz yapay zeka sohbet widget'Ä±. MÃ¼ÅŸterilerinize 7/24 AI destek.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, AI widget, Bursa, chatbot, web entegrasyon">
 <meta name="author" content="KIVON">
 <meta property="og:title" content="KIVON - AI Widget">
-<meta property="og:description" content="KIVON AI Widget - Web sitenize entegre edebileceğiniz yapay zeka sohbet widget'ı. Müşterilerinize 7/24 AI destek.">
+<meta property="og:description" content="KIVON AI Widget - Web sitenize entegre edebileceÄŸiniz yapay zeka sohbet widget'Ä±. MÃ¼ÅŸterilerinize 7/24 AI destek.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kivontr.com/demo/ai-widget.html">
 <link rel="canonical" href="https://kivontr.com/demo/ai-widget.html">
@@ -58,32 +58,32 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
 </head>
 <body>
 
-<button class="mobile-toggle" id="mobileToggle" style="position:fixed;top:16px;right:20px;z-index:10000;">☰</button>
+<button class="mobile-toggle" id="mobileToggle" style="position:fixed;top:16px;right:20px;z-index:10000;">â˜°</button>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">✕</button>
+  <button class="mobile-close" id="mobileClose">âœ•</button>
   <a href="../index.html">Ana Sayfa</a>
 </div>
 
-<button class="fab" id="fab" onclick="togglePanel()" title="Kivon AI'a sor">💬</button>
+<button class="fab" id="fab" onclick="togglePanel()" title="Kivon AI'a sor">ğŸ’¬</button>
 
 <div class="panel" id="panel">
   <div class="panel-header">
     <div class="panel-avatar">K</div>
-    <div><div class="panel-title">Kivon AI</div><div class="panel-sub">Groq · Ücretsiz</div></div>
-    <button class="panel-close" onclick="togglePanel()">✕</button>
+    <div><div class="panel-title">Kivon AI</div><div class="panel-sub">Groq Â· Ãœcretsiz</div></div>
+    <button class="panel-close" onclick="togglePanel()">âœ•</button>
   </div>
   <div class="panel-body" id="panelBody"></div>
   <div class="quick-btns" id="quickBtns"></div>
-  <div class="status" id="status">Hazır</div>
+  <div class="status" id="status">HazÄ±r</div>
   <div class="panel-input">
-    <input type="text" id="panelInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')gonder()">
-    <button onclick="gonder()">▶</button>
+    <input type="text" id="panelInput" placeholder="Sorunuzu yazÄ±n..." onkeydown="if(event.key==='Enter')gonder()">
+    <button onclick="gonder()">â–¶</button>
   </div>
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayÄ± deÄŸiÅŸtir
 const PROXY = API_PROXY_URL;
 const body = document.getElementById('panelBody');
 const input = document.getElementById('panelInput');
@@ -125,7 +125,7 @@ function hideTyping() {
 
 async function aiSor(soru) {
   showTyping();
-  status.textContent = 'Düşünüyor...';
+  status.textContent = 'DÃ¼ÅŸÃ¼nÃ¼yor...';
   status.className = 'status';
   try {
     const res = await fetch(PROXY, {
@@ -136,17 +136,17 @@ async function aiSor(soru) {
     hideTyping();
     if (data.cevap) {
       addMsg(data.cevap, 'ai');
-      status.textContent = 'Groq AI · Ücretsiz';
+      status.textContent = 'Groq AI Â· Ãœcretsiz';
       status.className = 'status on';
     } else {
-      addMsg('Üzgünüm, şu an cevap veremiyorum. Lütfen tekrar deneyin.', 'ai');
+      addMsg('ÃœzgÃ¼nÃ¼m, ÅŸu an cevap veremiyorum. LÃ¼tfen tekrar deneyin.', 'ai');
       status.textContent = 'Hata';
       status.className = 'status';
     }
   } catch(e) {
     hideTyping();
-    addMsg('Bağlantı hatası. api-server.js çalıştığından emin olun.\nKomut: node api-server.js', 'ai');
-    status.textContent = 'Proxy kapalı';
+    addMsg('BaÄŸlantÄ± hatasÄ±. api-server.js Ã§alÄ±ÅŸtÄ±ÄŸÄ±ndan emin olun.\nKomut: node api-server.js', 'ai');
+    status.textContent = 'Proxy kapalÄ±';
     status.className = 'status';
   }
 }
@@ -160,7 +160,7 @@ function gonder() {
 }
 
 function baslangic() {
-  const btns = ['Fiyatlarınız nedir?', 'Chatbot nasıl çalışır?', 'Hangi sektörlerdesiniz?', 'Verilerim güvende mi?'];
+  const btns = ['FiyatlarÄ±nÄ±z nedir?', 'Chatbot nasÄ±l Ã§alÄ±ÅŸÄ±r?', 'Hangi sektÃ¶rlerdesiniz?', 'Verilerim gÃ¼vende mi?'];
   quickBtns.innerHTML = btns.map(b => `<button>${b}</button>`).join('');
   quickBtns.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -168,7 +168,7 @@ function baslangic() {
       aiSor(this.textContent);
     });
   });
-  addMsg('Merhaba! 👋 Ben Kivon AI. Size nasıl yardımcı olabilirim?', 'ai');
+  addMsg('Merhaba! ğŸ‘‹ Ben Kivon AI. Size nasÄ±l yardÄ±mcÄ± olabilirim?', 'ai');
 }
 </script>
 
@@ -177,3 +177,4 @@ function baslangic() {
 </script>
 </body>
 </html>
+
