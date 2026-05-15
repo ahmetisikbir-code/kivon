@@ -210,6 +210,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 @media (max-width:768px) {
   .grid-3, .grid-4, .pricing-grid { grid-template-columns:1fr; }
   .container > div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr!important; }
+  footer div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns:1fr 1fr!important; }
   .card-wide { grid-column:span 1; }
   .hero h1 { font-size:2.5rem; }
   .stats-bar { gap:32px; }
@@ -517,7 +518,35 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
-<footer><p>© 2026 Kivon · Bursa · kivontr.com</p></footer>
+<footer>
+  <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:left;margin-bottom:24px">
+    <div>
+      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">KIVON</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.25);line-height:1.6">Bursa merkezli AI entegrasyon danışmanlığı. KOBİ'lere özel yapay zeka çözümleri.</p>
+    </div>
+    <div>
+      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Çözümler</h4>
+      <a href="muhasebe.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Muhasebe</a>
+      <a href="eticaret.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">E-Ticaret</a>
+      <a href="restoran.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Restoran</a>
+      <a href="servis-katalogu.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Tüm Çözümler</a>
+    </div>
+    <div>
+      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Araçlar</h4>
+      <a href="dashboard.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Dashboard</a>
+      <a href="crm.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">CRM</a>
+      <a href="kosgeb.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">KOSGEB Rehber</a>
+      <a href="api-dokuman.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">API</a>
+    </div>
+    <div>
+      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Kurumsal</h4>
+      <a href="hakkimizda.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Hakkımızda</a>
+      <a href="referanslar.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Referanslar</a>
+      <a href="en/index.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">English</a>
+    </div>
+  </div>
+  <p>© 2026 Kivon · Bursa · kivontr.com · <a href="https://wa.me/905303982712" style="color:rgba(255,255,255,0.2)">WhatsApp</a> · <a href="mailto:kivon.iletisim@gmail.com" style="color:rgba(255,255,255,0.2)">E-Posta</a></p>
+</footer>
 
 <!-- ═══ 3D BACKGROUND ═══ -->
 <script>
