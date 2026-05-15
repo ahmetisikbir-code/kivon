@@ -307,6 +307,7 @@
 </div>
 
 <script>
+  const API_PROXY_URL = 'http://localhost:3000/api/groq'; // ← Render URL gelince burayı değiştir
   const STORAGE_KEY = 'kivon_stok_urunler';
   const DEMO_URUNLER = [
     { ad: 'Kablosuz Kulaklık MX-200',     stok: 2,  min: 10 },
@@ -454,7 +455,7 @@
 
   async function aiSor(soru, sistem) {
     try {
-      if (window.KIVON_AI_KULLAN && !window.KIVON_AI_KULLAN()) return null; const res = await fetch(\"http://localhost:3000/api/groq\"', {
+      if (window.KIVON_AI_KULLAN && !window.KIVON_AI_KULLAN()) return null; const res = await fetch(API_PROXY_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ soru, sistem })

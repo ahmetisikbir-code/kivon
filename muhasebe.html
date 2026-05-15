@@ -136,6 +136,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
 <script>
+const API_PROXY_URL = 'http://localhost:3000/api/groq'; // ← Render URL gelince burayı değiştir
 // ================================================================
 //    KİVON MUHASEBE — VERİTABANI (localStorage)
 // ================================================================
@@ -399,7 +400,7 @@ const araclar = {
       box.classList.add('show');
 
       try {
-        const proxyRes = await fetch('http://localhost:3000/api/groq', {
+        const proxyRes = await fetch(API_PROXY_URL, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
@@ -418,9 +419,10 @@ const araclar = {
           sonuc = { ham: data.cevap };
         }
 
+        function esc(t) { var d = document.createElement('div'); d.textContent = t||''; return d.innerHTML; }
         let html = '<h4>✅ AI Fatura Analizi</h4>';
         if (sonuc.ham) {
-          html += `<div style="white-space:pre-wrap;font-size:14px;color:#e2e8f0;padding:10px;background:rgba(0,0,0,0.2);border-radius:10px">${sonuc.ham}</div>`;
+          html += `<div style="white-space:pre-wrap;font-size:14px;color:#e2e8f0;padding:10px;background:rgba(0,0,0,0.2);border-radius:10px">${esc(sonuc.ham)}</div>`;
         } else {
           html += `<div class="result-row"><span class="result-label">Müşteri</span><span class="result-value">${sonuc.musteri||sonuc.musteri_adi||'?'}</span></div>`;
           html += `<div class="result-row"><span class="result-label">Fatura No</span><span class="result-value">${sonuc.fatura_no||'?'}</span></div>`;

@@ -373,7 +373,7 @@
       <button class="btn small" onclick="saveKey()">Kaydet</button>
     </div>
     <p style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">
-      Proxy: <code>http://localhost:3000/api/groq</code> çalışıyorsa anahtara gerek yoktur.
+      Proxy: <code>API_PROXY_URL</code> çalışıyorsa anahtara gerek yoktur.
     </p>
   </div>
 
@@ -502,10 +502,11 @@
 </div>
 
 <script>
+const API_PROXY_URL = 'http://localhost:3000/api/groq'; // ← Render URL gelince burayı değiştir
 // ═══════════════════════════════════════
 //  GLOBAL STATE
 // ═══════════════════════════════════════
-const PROXY_URL = 'http://localhost:3000/api/groq';
+const PROXY_URL = API_PROXY_URL;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const MODEL = 'llama-3.3-70b-versatile';
 let userApiKey = localStorage.getItem('kivon_groq_key') || '';
@@ -871,9 +872,10 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
       const result = results[i];
       const status = result.status === 'fulfilled';
       const content = status ? result.value : 'Hata: ' + result.reason.message;
+      function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
       html += `<div class="mini-card">
         <h4>${status ? '✅' : '❌'} ${t.title}</h4>
-        <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.5;">${content}</div>
+        <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.5;">${esc(content)}</div>
       </div>`;
     });
     allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--cyan);font-weight:600;">✨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
