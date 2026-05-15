@@ -34,5 +34,11 @@
   <url><loc>https://kivontr.com/30-cozum.html</loc><priority>0.8</priority></url>
   <url><loc>https://kivontr.com/api-durum.html</loc><priority>0.5</priority></url>
   <url><loc>https://kivontr.com/blog.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/baslangic.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/onboarding.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/n8n-panel.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/linkedin-plan.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/ortaklar.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/kvkk-bildirim.html</loc><priority>0.5</priority></url>
   <url><loc>https://kivontr.com/admin/index.html</loc><priority>0.3</priority></url>
 </urlset>
