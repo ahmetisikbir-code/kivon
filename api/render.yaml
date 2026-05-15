@@ -1,0 +1,9 @@
+﻿services:
+  - type: web
+    name: kivon-api
+    env: node
+    buildCommand: npm install
+    startCommand: node api-server.js
+    repo: https://github.com/ahmetisikbir-code/kivon.git
+    branch: main
+    healthCheckPath: /

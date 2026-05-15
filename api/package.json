@@ -1,0 +1,25 @@
+{
+  "name": "kivon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@21st-dev/magic": "^0.1.0",
+    "@browsermcp/mcp": "^0.1.3",
+    "@modelcontextprotocol/server-github": "^2025.4.8",
+    "@modelcontextprotocol/server-memory": "^2026.1.26",
+    "aibus-goo-mcp": "^1.0.3",
+    "groq-sdk": "^1.2.0",
+    "mcp-sqlite": "^1.0.9",
+    "puppeteer": "^24.43.1",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.34.7"
+  }
+}
