@@ -204,6 +204,16 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   .stats-bar { gap:32px; }
   .nav-links { display:none; }
 }
+.mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
+.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+.mobile-overlay.open { display:flex; }
+.mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
+.mobile-overlay a:hover { color:#38bdf8; }
+.mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
+@media (max-width:768px) {
+  .mobile-toggle { display:block; }
+  .nav-links { display:none!important; }
+}
 </style>
 </head>
 <body>
@@ -226,8 +236,18 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <li><a href="ai-araclar.html">AI Araçlar</a></li>
     </ul>
     <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
   </div>
 </nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="index.html">Ana Sayfa</a>
+  <a href="index.html#cozumler">Çözümler</a>
+  <a href="eticaret.html">E-Ticaret</a>
+  <a href="muhasebe.html">Muhasebe</a>
+  <a href="ai-araclar.html">AI Araçlar</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
@@ -485,5 +505,8 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 })();
 </script>
 
+<script>
+(function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
+</script>
 </body>
 </html>

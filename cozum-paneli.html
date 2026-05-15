@@ -56,6 +56,12 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 .izin-davranis{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
 .txt-green{color:var(--green)}.txt-red{color:var(--red)}.txt-yellow{color:var(--gold)}
 footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:12px}
+.mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
+.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+.mobile-overlay.open { display:flex; }
+.mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
+.mobile-overlay a:hover { color:#38bdf8; }
+.mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -70,7 +76,13 @@ footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:12px
       <button class="paket-btn" data-paket="profesyonel">Profesyonel</button>
       <button class="paket-btn" data-paket="kurumsal">Kurumsal</button>
     </div>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
   </div>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="index.html">Ana Sayfa</a>
+</div>
 
   <div class="stats" id="stats"></div>
 
@@ -219,6 +231,10 @@ document.querySelectorAll('.paket-btn').forEach(btn => {
 });
 
 render();
+</script>
+
+<script>
+(function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
 </body>
 </html>
