@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — Muhasebe için AI Çözümleri</title>
-<meta name="description" content="KIVON Muhasebe - KOBİ'ler için yapay zeka destekli muhasebe çözümleri. Fatura oluşturma, KDV hesaplama, beyanname takibi ve AI fatura okuma.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, muhasebe, Bursa, AI danışmanlık, fatura, KDV">
+<title>KIVON â€” Muhasebe iÃ§in AI Ã‡Ã¶zÃ¼mleri</title>
+<meta name="description" content="KIVON Muhasebe - KOBÄ°'ler iÃ§in yapay zeka destekli muhasebe Ã§Ã¶zÃ¼mleri. Fatura oluÅŸturma, KDV hesaplama, beyanname takibi ve AI fatura okuma.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, muhasebe, Bursa, AI danÄ±ÅŸmanlÄ±k, fatura, KDV">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - Muhasebe AI Çözümleri">
-<meta property="og:description" content="KIVON Muhasebe - KOBİ'ler için yapay zeka destekli muhasebe çözümleri. Fatura oluşturma, KDV hesaplama, beyanname takibi ve AI fatura okuma.">
+<meta property="og:title" content="KIVON - Muhasebe AI Ã‡Ã¶zÃ¼mleri">
+<meta property="og:description" content="KIVON Muhasebe - KOBÄ°'ler iÃ§in yapay zeka destekli muhasebe Ã§Ã¶zÃ¼mleri. Fatura oluÅŸturma, KDV hesaplama, beyanname takibi ve AI fatura okuma.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kivontr.com/muhasebe.html">
 <link rel="canonical" href="https://kivontr.com/muhasebe.html">
@@ -115,14 +115,14 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <div class="topbar">
   <div class="topbar-left">
     <div class="topbar-logo">K</div>
-    <div class="topbar-title">Kivon Muhasebe<span>MCP Araçları v1.0</span></div>
+    <div class="topbar-title">Kivon Muhasebe<span>MCP AraÃ§larÄ± v1.0</span></div>
   </div>
-  <div class="topbar-status"><span class="status-dot"></span> <span id="faturaSayisi">0 fatura</span> kayıtlı</div>
-  <button class="mobile-toggle" id="mobileToggle">☰</button>
+  <div class="topbar-status"><span class="status-dot"></span> <span id="faturaSayisi">0 fatura</span> kayÄ±tlÄ±</div>
+  <button class="mobile-toggle" id="mobileToggle">â˜°</button>
 </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">✕</button>
+  <button class="mobile-close" id="mobileClose">âœ•</button>
   <a href="index.html">Ana Sayfa</a>
 </div>
 
@@ -130,25 +130,25 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Fatura</div>
-      <button class="sidebar-item active" onclick="showTool('fatura-olustur')"><span class="icon">📄</span> Fatura Oluştur</button>
-      <button class="sidebar-item" onclick="showTool('fatura-sorgula')"><span class="icon">🔍</span> Fatura Sorgula</button>
-      <button class="sidebar-item" onclick="showTool('fatura-iptal')"><span class="icon">❌</span> Fatura İptal</button>
+      <button class="sidebar-item active" onclick="showTool('fatura-olustur')"><span class="icon">ğŸ“„</span> Fatura OluÅŸtur</button>
+      <button class="sidebar-item" onclick="showTool('fatura-sorgula')"><span class="icon">ğŸ”</span> Fatura Sorgula</button>
+      <button class="sidebar-item" onclick="showTool('fatura-iptal')"><span class="icon">âŒ</span> Fatura Ä°ptal</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Mizan</div>
-      <button class="sidebar-item" onclick="showTool('mizan-al')"><span class="icon">📊</span> Mizan Al</button>
-      <button class="sidebar-item" onclick="showTool('hesap-ozeti')"><span class="icon">📋</span> Hesap Özeti</button>
-      <button class="sidebar-item" onclick="showTool('karsilastir')"><span class="icon">📈</span> Karşılaştır</button>
+      <button class="sidebar-item" onclick="showTool('mizan-al')"><span class="icon">ğŸ“Š</span> Mizan Al</button>
+      <button class="sidebar-item" onclick="showTool('hesap-ozeti')"><span class="icon">ğŸ“‹</span> Hesap Ã–zeti</button>
+      <button class="sidebar-item" onclick="showTool('karsilastir')"><span class="icon">ğŸ“ˆ</span> KarÅŸÄ±laÅŸtÄ±r</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">KDV & Vergi</div>
-      <button class="sidebar-item" onclick="showTool('kdv-hesapla')"><span class="icon">💰</span> KDV Hesapla</button>
-      <button class="sidebar-item" onclick="showTool('beyanname')"><span class="icon">📝</span> Beyanname Taslak</button>
-      <button class="sidebar-item" onclick="showTool('vergi-takvimi')"><span class="icon">📅</span> Vergi Takvimi</button>
+      <button class="sidebar-item" onclick="showTool('kdv-hesapla')"><span class="icon">ğŸ’°</span> KDV Hesapla</button>
+      <button class="sidebar-item" onclick="showTool('beyanname')"><span class="icon">ğŸ“</span> Beyanname Taslak</button>
+      <button class="sidebar-item" onclick="showTool('vergi-takvimi')"><span class="icon">ğŸ“…</span> Vergi Takvimi</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">AI Analiz (Groq)</div>
-      <button class="sidebar-item" onclick="showTool('ai-fatura-oku')"><span class="icon">🤖</span> AI Fatura Oku</button>
+      <button class="sidebar-item" onclick="showTool('ai-fatura-oku')"><span class="icon">ğŸ¤–</span> AI Fatura Oku</button>
     </div>
   </div>
 
@@ -156,9 +156,9 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayÄ± deÄŸiÅŸtir
 // ================================================================
-//    KİVON MUHASEBE — VERİTABANI (localStorage)
+//    KÄ°VON MUHASEBE â€” VERÄ°TABANI (localStorage)
 // ================================================================
 const DB_KEY = 'kivon_muhasebe';
 
@@ -185,21 +185,21 @@ function guncelleSayac() {
 }
 
 // ================================================================
-//    ARAÇ TANIMLARI
+//    ARAÃ‡ TANIMLARI
 // ================================================================
 const araclar = {
   'fatura-olustur': {
-    baslik: 'Fatura Oluştur', aciklama: 'Yeni fatura gir, kaydet. KDV otomatik hesaplanır.',
+    baslik: 'Fatura OluÅŸtur', aciklama: 'Yeni fatura gir, kaydet. KDV otomatik hesaplanÄ±r.',
     form: [
-      { id:'musteri', label:'Müşteri Adı', tip:'text', default:'' },
-      { id:'tutar', label:'Tutar (TL, KDV hariç)', tip:'number', default:'' },
-      { id:'kdv', label:'KDV Oranı', tip:'select', options:['20','10','1'], default:'20' },
-      { id:'aciklama', label:'Açıklama', tip:'text', default:'' }
+      { id:'musteri', label:'MÃ¼ÅŸteri AdÄ±', tip:'text', default:'' },
+      { id:'tutar', label:'Tutar (TL, KDV hariÃ§)', tip:'number', default:'' },
+      { id:'kdv', label:'KDV OranÄ±', tip:'select', options:['20','10','1'], default:'20' },
+      { id:'aciklama', label:'AÃ§Ä±klama', tip:'text', default:'' }
     ],
     butonEtiket: 'Kaydet',
     calistir(form, kaydet) {
       const t=parseFloat(form.tutar)||0, kdv=parseFloat(form.kdv)/100, kdvT=Math.round(t*kdv*100)/100, top=t+kdvT;
-      if (!form.musteri || !t) return '<div style="text-align:center;padding:20px;color:var(--red)">⚠️ Müşteri adı ve tutar zorunludur</div>';
+      if (!form.musteri || !t) return '<div style="text-align:center;padding:20px;color:var(--red)">âš ï¸ MÃ¼ÅŸteri adÄ± ve tutar zorunludur</div>';
 
       if (kaydet) {
         const faturaNo = 'KVN'+Date.now().toString().slice(-10);
@@ -208,11 +208,11 @@ const araclar = {
           musteri: form.musteri, aciklama: form.aciklama || 'Hizmet Bedeli',
           anaTutar: t, kdvOrani: parseInt(form.kdv), kdvTutar: kdvT, toplam: top, durum: 'aktif'
         });
-        return `<div style="text-align:center;padding:20px"><div style="font-size:48px;margin-bottom:8px">✅</div><div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:4px">Fatura Kaydedildi</div><div style="color:var(--gray);font-size:14px">${faturaNo} — ${form.musteri}</div><div style="font-size:22px;font-weight:800;color:var(--cyan);margin-top:8px">${top.toFixed(2)} TL</div><div style="margin-top:12px;font-size:12px;color:var(--gray)">Ara toplam ${t.toFixed(2)} + KDV ${kdvT.toFixed(2)}</div></div>`;
+        return `<div style="text-align:center;padding:20px"><div style="font-size:48px;margin-bottom:8px">âœ…</div><div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:4px">Fatura Kaydedildi</div><div style="color:var(--gray);font-size:14px">${faturaNo} â€” ${form.musteri}</div><div style="font-size:22px;font-weight:800;color:var(--cyan);margin-top:8px">${top.toFixed(2)} TL</div><div style="margin-top:12px;font-size:12px;color:var(--gray)">Ara toplam ${t.toFixed(2)} + KDV ${kdvT.toFixed(2)}</div></div>`;
       }
 
       return `
-        <div class="result-row"><span class="result-label">Müşteri</span><span class="result-value">${form.musteri}</span></div>
+        <div class="result-row"><span class="result-label">MÃ¼ÅŸteri</span><span class="result-value">${form.musteri}</span></div>
         <div class="result-row"><span class="result-label">Ara Toplam</span><span class="result-value">${t.toFixed(2)} TL</span></div>
         <div class="result-row"><span class="result-label">KDV (%${form.kdv})</span><span class="result-value">${kdvT.toFixed(2)} TL</span></div>
         <div class="result-row"><span class="result-label" style="font-weight:700;font-size:16px">GENEL TOPLAM</span><span class="result-value big">${top.toFixed(2)} TL</span></div>`;
@@ -220,12 +220,12 @@ const araclar = {
   },
 
   'fatura-sorgula': {
-    baslik: 'Kayıtlı Faturalar', aciklama: 'Tüm faturalar. İptal edilenler de listede görünür.',
+    baslik: 'KayÄ±tlÄ± Faturalar', aciklama: 'TÃ¼m faturalar. Ä°ptal edilenler de listede gÃ¶rÃ¼nÃ¼r.',
     form: [],
     butonEtiket: null,
     calistir() {
       const liste = tumFaturalar();
-      if (liste.length===0) return `<div class="empty-state"><span class="icon">📭</span><p>Henüz fatura kaydı yok.<br>Soldaki "Fatura Oluştur"dan ilk faturanı gir.</p></div>`;
+      if (liste.length===0) return `<div class="empty-state"><span class="icon">ğŸ“­</span><p>HenÃ¼z fatura kaydÄ± yok.<br>Soldaki "Fatura OluÅŸtur"dan ilk faturanÄ± gir.</p></div>`;
 
       const toplamAktif = liste.filter(f=>f.durum!=='iptal').reduce((s,f)=>s+f.toplam,0);
       const toplamIptal = liste.filter(f=>f.durum==='iptal').reduce((s,f)=>s+f.toplam,0);
@@ -233,19 +233,19 @@ const araclar = {
       let html = `<div class="summary-stats">
         <div class="summary-stat"><div class="summary-num">${liste.length}</div><div class="summary-label">Toplam Fatura</div></div>
         <div class="summary-stat"><div class="summary-num">${toplamAktif.toFixed(0)} TL</div><div class="summary-label">Aktif Toplam</div></div>
-        <div class="summary-stat"><div class="summary-num" style="color:var(--red)">${toplamIptal.toFixed(0)} TL</div><div class="summary-label">İptal Edilen</div></div>
+        <div class="summary-stat"><div class="summary-num" style="color:var(--red)">${toplamIptal.toFixed(0)} TL</div><div class="summary-label">Ä°ptal Edilen</div></div>
         <div class="summary-stat"><div class="summary-num" style="color:var(--green)">${liste.filter(f=>f.durum!=='iptal').length}</div><div class="summary-label">Aktif Fatura</div></div>
       </div>`;
 
-      html += '<table class="fatura-tablo"><thead><tr><th>No</th><th>Tarih</th><th>Müşteri</th><th>Açıklama</th><th>Tutar</th><th>KDV</th><th>Toplam</th><th>Durum</th><th></th></tr></thead><tbody>';
+      html += '<table class="fatura-tablo"><thead><tr><th>No</th><th>Tarih</th><th>MÃ¼ÅŸteri</th><th>AÃ§Ä±klama</th><th>Tutar</th><th>KDV</th><th>Toplam</th><th>Durum</th><th></th></tr></thead><tbody>';
       liste.sort((a,b)=>b.faturaNo.localeCompare(a.faturaNo)).forEach(f=>{
         html += `<tr>
           <td style="color:var(--cyan);font-family:monospace;font-size:12px">${f.faturaNo}</td>
           <td>${f.tarih}</td><td>${f.musteri}</td><td style="color:var(--gray);font-size:12px">${f.aciklama}</td>
           <td>${f.anaTutar.toFixed(0)} TL</td><td>${f.kdvTutar.toFixed(0)} TL</td>
           <td style="font-weight:700">${f.toplam.toFixed(0)} TL</td>
-          <td><span class="badge-durum ${f.durum==='iptal'?'badge-iptal':'badge-aktif'}">${f.durum==='iptal'?'İPTAL':'AKTİF'}</span></td>
-          <td>${f.durum!=='iptal'?`<button class="btn btn-sm btn-red" onclick="iptalEt('${f.faturaNo}')">İptal</button>`:`<button class="btn btn-sm btn-outline" onclick="sil('${f.faturaNo}')">Sil</button>`}</td>
+          <td><span class="badge-durum ${f.durum==='iptal'?'badge-iptal':'badge-aktif'}">${f.durum==='iptal'?'Ä°PTAL':'AKTÄ°F'}</span></td>
+          <td>${f.durum!=='iptal'?`<button class="btn btn-sm btn-red" onclick="iptalEt('${f.faturaNo}')">Ä°ptal</button>`:`<button class="btn btn-sm btn-outline" onclick="sil('${f.faturaNo}')">Sil</button>`}</td>
         </tr>`;
       });
       html += '</tbody></table>';
@@ -254,39 +254,39 @@ const araclar = {
   },
 
   'mizan-al': {
-    baslik: 'Mizan', aciklama: 'Aylık gelir-gider. Kayıtlı faturalardan otomatik hesaplanır.',
+    baslik: 'Mizan', aciklama: 'AylÄ±k gelir-gider. KayÄ±tlÄ± faturalardan otomatik hesaplanÄ±r.',
     form: [
-      { id:'donem', label:'Dönem (AA/YYYY)', tip:'text', default:'05/2026' }
+      { id:'donem', label:'DÃ¶nem (AA/YYYY)', tip:'text', default:'05/2026' }
     ],
     butonEtiket: 'Hesapla',
     calistir(form) {
       const [a,y]=form.donem.split('/').map(Number);
       const flar = donemFaturalari(a,y);
-      if (flar.length===0) return `<div class="empty-state"><span class="icon">📊</span><p>${form.donem} döneminde fatura yok.<br>Önce fatura girişi yapın.</p></div>`;
+      if (flar.length===0) return `<div class="empty-state"><span class="icon">ğŸ“Š</span><p>${form.donem} dÃ¶neminde fatura yok.<br>Ã–nce fatura giriÅŸi yapÄ±n.</p></div>`;
 
       const gelir=flar.reduce((s,f)=>s+f.anaTutar,0);
       const kdv=flar.reduce((s,f)=>s+f.kdvTutar,0);
       return `
         <div class="summary-stats">
-          <div class="summary-stat"><div class="summary-num">${flar.length}</div><div class="summary-label">Fatura Sayısı</div></div>
+          <div class="summary-stat"><div class="summary-num">${flar.length}</div><div class="summary-label">Fatura SayÄ±sÄ±</div></div>
           <div class="summary-stat"><div class="summary-num">${gelir.toFixed(0)} TL</div><div class="summary-label">Net Gelir (600)</div></div>
           <div class="summary-stat"><div class="summary-num">${kdv.toFixed(0)} TL</div><div class="summary-label">KDV (391)</div></div>
-          <div class="summary-stat"><div class="summary-num">${(gelir+kdv).toFixed(0)} TL</div><div class="summary-label">Brüt Alacak (120)</div></div>
+          <div class="summary-stat"><div class="summary-num">${(gelir+kdv).toFixed(0)} TL</div><div class="summary-label">BrÃ¼t Alacak (120)</div></div>
         </div>
-        <div class="result-row"><span class="result-label">Dönem</span><span class="result-value">${form.donem}</span></div>
-        <div class="result-row"><span class="result-label">600 — Yurtiçi Satışlar</span><span class="result-value green">${gelir.toFixed(2)} TL</span></div>
-        <div class="result-row"><span class="result-label">391 — Hesaplanan KDV</span><span class="result-value gold">${kdv.toFixed(2)} TL</span></div>
-        <div class="result-row"><span class="result-label">120 — Alıcılar</span><span class="result-value">${(gelir+kdv).toFixed(2)} TL</span></div>
-        <div class="result-note">✅ ${flar.length} faturadan otomatik hesaplandı. Gerçek muhasebe kaydı için Duru onayı gerekir.</div>`;
+        <div class="result-row"><span class="result-label">DÃ¶nem</span><span class="result-value">${form.donem}</span></div>
+        <div class="result-row"><span class="result-label">600 â€” YurtiÃ§i SatÄ±ÅŸlar</span><span class="result-value green">${gelir.toFixed(2)} TL</span></div>
+        <div class="result-row"><span class="result-label">391 â€” Hesaplanan KDV</span><span class="result-value gold">${kdv.toFixed(2)} TL</span></div>
+        <div class="result-row"><span class="result-label">120 â€” AlÄ±cÄ±lar</span><span class="result-value">${(gelir+kdv).toFixed(2)} TL</span></div>
+        <div class="result-note">âœ… ${flar.length} faturadan otomatik hesaplandÄ±. GerÃ§ek muhasebe kaydÄ± iÃ§in Duru onayÄ± gerekir.</div>`;
     }
   },
 
   'kdv-hesapla': {
-    baslik: 'KDV Hesapla', aciklama: 'Hariç/dahil KDV. Kayıtlı fatura KDV toplamı da gösterilir.',
+    baslik: 'KDV Hesapla', aciklama: 'HariÃ§/dahil KDV. KayÄ±tlÄ± fatura KDV toplamÄ± da gÃ¶sterilir.',
     form: [
       { id:'tutar', label:'Tutar (TL)', tip:'number', default:'1200' },
-      { id:'kdv', label:'KDV Oranı', tip:'select', options:['20','10','1'], default:'20' },
-      { id:'tip', label:'Hesaplama Tipi', tip:'select', options:['KDV Hariç','KDV Dahil'], default:'KDV Hariç' }
+      { id:'kdv', label:'KDV OranÄ±', tip:'select', options:['20','10','1'], default:'20' },
+      { id:'tip', label:'Hesaplama Tipi', tip:'select', options:['KDV HariÃ§','KDV Dahil'], default:'KDV HariÃ§' }
     ],
     butonEtiket: 'Hesapla',
     calistir(form) {
@@ -300,19 +300,19 @@ const araclar = {
 
       return `
         <div class="kdv-highlight">
-          <div class="kdv-main"><div class="kdv-big">${top.toFixed(2)} <span>TL</span></div><div style="color:var(--gray);font-size:13px">${dahil?'Fatura Toplamı':'Genel Toplam'}</div></div>
+          <div class="kdv-main"><div class="kdv-big">${top.toFixed(2)} <span>TL</span></div><div style="color:var(--gray);font-size:13px">${dahil?'Fatura ToplamÄ±':'Genel Toplam'}</div></div>
           <div class="kdv-side"><div class="kdv-side-num">${ana.toFixed(2)} TL</div><div class="kdv-side-label">Ana Tutar</div><div class="kdv-side-num" style="margin-top:6px">${kdvT.toFixed(2)} TL</div><div class="kdv-side-label">KDV</div></div>
         </div>
-        ${tumKdv>0?`<div style="margin-top:14px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:14px 18px"><div style="font-size:12px;color:var(--gold);margin-bottom:4px">📊 KAYITLI FATURA TOPLAMLARI</div><div class="fr"><span style="color:var(--gray)">Toplam gelir (matrah)</span><span style="font-weight:700">${tumGelir.toFixed(0)} TL</span></div><div class="fr" style="margin-top:4px"><span style="color:var(--gray)">Toplam KDV</span><span style="font-weight:700;color:var(--gold)">${tumKdv.toFixed(0)} TL</span></div></div>`:''}
-        <div style="margin-top:10px;font-size:12px;color:var(--gray)">Formül: ${dahil?`${t} / (1 + %${form.kdv}) = ${ana.toFixed(2)} TL`:`${t} × %${form.kdv} = ${kdvT.toFixed(2)} TL`}</div>`;
+        ${tumKdv>0?`<div style="margin-top:14px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:14px 18px"><div style="font-size:12px;color:var(--gold);margin-bottom:4px">ğŸ“Š KAYITLI FATURA TOPLAMLARI</div><div class="fr"><span style="color:var(--gray)">Toplam gelir (matrah)</span><span style="font-weight:700">${tumGelir.toFixed(0)} TL</span></div><div class="fr" style="margin-top:4px"><span style="color:var(--gray)">Toplam KDV</span><span style="font-weight:700;color:var(--gold)">${tumKdv.toFixed(0)} TL</span></div></div>`:''}
+        <div style="margin-top:10px;font-size:12px;color:var(--gray)">FormÃ¼l: ${dahil?`${t} / (1 + %${form.kdv}) = ${ana.toFixed(2)} TL`:`${t} Ã— %${form.kdv} = ${kdvT.toFixed(2)} TL`}</div>`;
     }
   },
 
   'beyanname': {
-    baslik: 'KDV Beyanname Taslağı', aciklama: 'Kayıtlı faturalardan otomatik hesaplanır.',
+    baslik: 'KDV Beyanname TaslaÄŸÄ±', aciklama: 'KayÄ±tlÄ± faturalardan otomatik hesaplanÄ±r.',
     form: [
-      { id:'donem', label:'Dönem (AA/YYYY)', tip:'text', default:'05/2026' },
-      { id:'indKdv', label:'İndirilecek KDV (TL, manuel)', tip:'number', default:'0' }
+      { id:'donem', label:'DÃ¶nem (AA/YYYY)', tip:'text', default:'05/2026' },
+      { id:'indKdv', label:'Ä°ndirilecek KDV (TL, manuel)', tip:'number', default:'0' }
     ],
     butonEtiket: 'Hesapla',
     calistir(form) {
@@ -326,37 +326,37 @@ const araclar = {
       return `
         <div class="summary-stats">
           <div class="summary-stat"><div class="summary-num">${hesKdv.toFixed(0)} TL</div><div class="summary-label">Hesaplanan KDV (${flar.length} fatura)</div></div>
-          <div class="summary-stat"><div class="summary-num">${indKdv.toFixed(0)} TL</div><div class="summary-label">İndirilecek KDV</div></div>
-          <div class="summary-stat"><div class="summary-num" style="color:${odenen>0?'var(--red)':'var(--green)'}">${odenen>0?odenen.toFixed(0)+' TL':'0 TL'}</div><div class="summary-label">${odenen>0?'ÖDENECEK':'Ödenecek Yok'}</div></div>
+          <div class="summary-stat"><div class="summary-num">${indKdv.toFixed(0)} TL</div><div class="summary-label">Ä°ndirilecek KDV</div></div>
+          <div class="summary-stat"><div class="summary-num" style="color:${odenen>0?'var(--red)':'var(--green)'}">${odenen>0?odenen.toFixed(0)+' TL':'0 TL'}</div><div class="summary-label">${odenen>0?'Ã–DENECEK':'Ã–denecek Yok'}</div></div>
           <div class="summary-stat"><div class="summary-num" style="color:var(--gold)">${devreden>0?devreden.toFixed(0)+' TL':'0 TL'}</div><div class="summary-label">Devreden KDV</div></div>
         </div>
-        <div class="result-row"><span class="result-label">Dönem</span><span class="result-value">${form.donem} — ${flar.length} fatura</span></div>
+        <div class="result-row"><span class="result-label">DÃ¶nem</span><span class="result-value">${form.donem} â€” ${flar.length} fatura</span></div>
         <div class="result-row"><span class="result-label">Son Verme</span><span class="result-value gold">24/${String(sonAy).padStart(2,'0')}/${sonYil}</span></div>
-        <div class="result-note">⚠️ Bu bir taslaktır. Resmi beyanname GİB üzerinden verilmelidir. Duru onayı beklenir.</div>`;
+        <div class="result-note">âš ï¸ Bu bir taslaktÄ±r. Resmi beyanname GÄ°B Ã¼zerinden verilmelidir. Duru onayÄ± beklenir.</div>`;
     }
   },
 
   'vergi-takvimi': {
-    baslik: 'Vergi Takvimi', aciklama: 'Bu ayki tüm beyanname ve ödeme tarihleri.',
+    baslik: 'Vergi Takvimi', aciklama: 'Bu ayki tÃ¼m beyanname ve Ã¶deme tarihleri.',
     form: [{ id:'ay', label:'Ay', tip:'select', options:['1','2','3','4','5','6','7','8','9','10','11','12'], default:'5' }],
     butonEtiket: 'Goster',
     calistir(form) {
       const aylik={1:{muhtasar:26,kdv1:28,bagkur:31},2:{muhtasar:26,kdv1:28,bagkur:28},3:{muhtasar:26,kdv1:28,bagkur:31,geciciVergi:17},4:{muhtasar:26,kdv1:28,bagkur:30},5:{muhtasar:26,kdv1:28,bagkur:31},6:{muhtasar:26,kdv1:28,bagkur:30,geciciVergi:17},7:{muhtasar:26,kdv1:28,bagkur:31},8:{muhtasar:26,kdv1:28,bagkur:31},9:{muhtasar:26,kdv1:28,bagkur:30,geciciVergi:17},10:{muhtasar:26,kdv1:28,bagkur:31},11:{muhtasar:26,kdv1:28,bagkur:30},12:{muhtasar:26,kdv1:28,bagkur:31,geciciVergi:17}};
-      const t=aylik[form.ay]||{}; const adlar={muhtasar:'Muhtasar',kdv1:'KDV1',bagkur:'Bağ-Kur',geciciVergi:'Geçici Vergi'};
+      const t=aylik[form.ay]||{}; const adlar={muhtasar:'Muhtasar',kdv1:'KDV1',bagkur:'BaÄŸ-Kur',geciciVergi:'GeÃ§ici Vergi'};
       const simdi=new Date();
       const kartlar=Object.entries(t).map(([k,gun])=>{
         const tarih=new Date(2026,parseInt(form.ay)-1,gun); const kalan=Math.ceil((tarih-simdi)/(86400000));
-        return `<div class="takvim-card ${kalan<0?'overdue':kalan<=7?'warning':''}"><div class="takvim-dot ${kalan<0?'dot-red':kalan<=7?'dot-gold':'dot-cyan'}"></div><div class="takvim-name">${adlar[k]}</div><div class="takvim-date">${tarih.toISOString().slice(0,10)}<br><span class="takvim-days">${kalan<0?Math.abs(kalan)+' gün geçti':kalan+' gün kaldı'}</span></div></div>`;
+        return `<div class="takvim-card ${kalan<0?'overdue':kalan<=7?'warning':''}"><div class="takvim-dot ${kalan<0?'dot-red':kalan<=7?'dot-gold':'dot-cyan'}"></div><div class="takvim-name">${adlar[k]}</div><div class="takvim-date">${tarih.toISOString().slice(0,10)}<br><span class="takvim-days">${kalan<0?Math.abs(kalan)+' gÃ¼n geÃ§ti':kalan+' gÃ¼n kaldÄ±'}</span></div></div>`;
       });
       return `<div class="takvim-grid">${kartlar.join('')}</div>`;
     }
   },
 
   'hesap-ozeti': {
-    baslik: 'Hesap Özeti', aciklama: 'Tek hesap kodunun dönem hareketleri.',
+    baslik: 'Hesap Ã–zeti', aciklama: 'Tek hesap kodunun dÃ¶nem hareketleri.',
     form: [
-      { id:'hesap', label:'Hesap Kodu', tip:'select', options:['120 - Alıcılar','600 - Yurtiçi Satışlar','391 - Hesaplanan KDV'], default:'120 - Alıcılar' },
-      { id:'donem', label:'Dönem', tip:'text', default:'05/2026' }
+      { id:'hesap', label:'Hesap Kodu', tip:'select', options:['120 - AlÄ±cÄ±lar','600 - YurtiÃ§i SatÄ±ÅŸlar','391 - Hesaplanan KDV'], default:'120 - AlÄ±cÄ±lar' },
+      { id:'donem', label:'DÃ¶nem', tip:'text', default:'05/2026' }
     ],
     butonEtiket: 'Hesapla',
     calistir(form) {
@@ -367,20 +367,20 @@ const araclar = {
       else if (kod==='391') tutar=flar.reduce((s,f)=>s+f.kdvTutar,0);
       else if (kod==='120') tutar=flar.reduce((s,f)=>s+f.toplam,0);
       return `
-        <div class="result-row"><span class="result-label">Hesap</span><span class="result-value">${kod} — ${ad}</span></div>
-        <div class="result-row"><span class="result-label">Dönem</span><span class="result-value">${form.donem}</span></div>
-        <div class="result-row"><span class="result-label">Fatura Sayısı</span><span class="result-value">${flar.length}</span></div>
-        <div class="result-row"><span class="result-label" style="font-weight:700">Dönem Toplamı</span><span class="result-value big">${tutar.toFixed(2)} TL</span></div>
+        <div class="result-row"><span class="result-label">Hesap</span><span class="result-value">${kod} â€” ${ad}</span></div>
+        <div class="result-row"><span class="result-label">DÃ¶nem</span><span class="result-value">${form.donem}</span></div>
+        <div class="result-row"><span class="result-label">Fatura SayÄ±sÄ±</span><span class="result-value">${flar.length}</span></div>
+        <div class="result-row"><span class="result-label" style="font-weight:700">DÃ¶nem ToplamÄ±</span><span class="result-value big">${tutar.toFixed(2)} TL</span></div>
         ${flar.length>0?`<div style="margin-top:12px">${flar.map(f=>`<div class="result-row"><span class="result-label" style="font-size:12px">${f.faturaNo}</span><span class="result-value">${(kod==='600'?f.anaTutar:kod==='391'?f.kdvTutar:f.toplam).toFixed(0)} TL</span></div>`).join('')}</div>`:''}
-        <div class="result-note">Hesap planı VUK ve TFRS uyumludur.</div>`;
+        <div class="result-note">Hesap planÄ± VUK ve TFRS uyumludur.</div>`;
     }
   },
 
   'karsilastir': {
-    baslik: 'Dönem Karşılaştırma', aciklama: 'İki dönem arası fatura karşılaştırması.',
+    baslik: 'DÃ¶nem KarÅŸÄ±laÅŸtÄ±rma', aciklama: 'Ä°ki dÃ¶nem arasÄ± fatura karÅŸÄ±laÅŸtÄ±rmasÄ±.',
     form: [
-      { id:'d1', label:'1. Dönem (AA/YYYY)', tip:'text', default:'05/2026' },
-      { id:'d2', label:'2. Dönem (AA/YYYY)', tip:'text', default:'04/2026' }
+      { id:'d1', label:'1. DÃ¶nem (AA/YYYY)', tip:'text', default:'05/2026' },
+      { id:'d2', label:'2. DÃ¶nem (AA/YYYY)', tip:'text', default:'04/2026' }
     ],
     butonEtiket: 'Karsilastir',
     calistir(form) {
@@ -392,31 +392,31 @@ const araclar = {
         <div class="summary-stats">
           <div class="summary-stat"><div class="summary-num">${g1.toFixed(0)} TL</div><div class="summary-label">${form.d1} (${f1.length} fatura)</div></div>
           <div class="summary-stat"><div class="summary-num">${g2.toFixed(0)} TL</div><div class="summary-label">${form.d2} (${f2.length} fatura)</div></div>
-          <div class="summary-stat"><div class="summary-num" style="color:${deg>=0?'var(--green)':'var(--red)'}">${deg>=0?'+'+deg:'-'+Math.abs(deg)}%</div><div class="summary-label">Değişim</div></div>
+          <div class="summary-stat"><div class="summary-num" style="color:${deg>=0?'var(--green)':'var(--red)'}">${deg>=0?'+'+deg:'-'+Math.abs(deg)}%</div><div class="summary-label">DeÄŸiÅŸim</div></div>
         </div>`;
     }
   },
 
   'fatura-iptal': {
-    baslik: 'Fatura İptal', aciklama: 'Fatura listesinden iptal edilir. Buradan manuel girişe gerek yok.',
+    baslik: 'Fatura Ä°ptal', aciklama: 'Fatura listesinden iptal edilir. Buradan manuel giriÅŸe gerek yok.',
     form: [],
     butonEtiket: null,
     calistir() {
-      return `<div class="empty-state"><span class="icon">💡</span><p>Fatura iptali için soldaki "Kayıtlı Faturalar"a gidin.<br>İptal etmek istediğiniz faturada "İptal" butonuna basın.</p></div>`;
+      return `<div class="empty-state"><span class="icon">ğŸ’¡</span><p>Fatura iptali iÃ§in soldaki "KayÄ±tlÄ± Faturalar"a gidin.<br>Ä°ptal etmek istediÄŸiniz faturada "Ä°ptal" butonuna basÄ±n.</p></div>`;
     }
   },
 
   'ai-fatura-oku': {
-    baslik: 'AI Fatura Oku (Groq)', aciklama: 'Fatura metnini yapıştırın, AI yapılandırılmış veriye çevirsin.',
+    baslik: 'AI Fatura Oku (Groq)', aciklama: 'Fatura metnini yapÄ±ÅŸtÄ±rÄ±n, AI yapÄ±landÄ±rÄ±lmÄ±ÅŸ veriye Ã§evirsin.',
     form: [
-      { id:'metin', label:'Fatura Metni', tip:'text', default:'Fatura No: KVN2026001\nTarih: 14.05.2026\nMüşteri: ABC Muhasebe Bürosu\nHizmet: AI Chatbot Entegrasyonu\nTutar: 1.200 TL\nKDV (%20): 240 TL\nToplam: 1.440 TL' }
+      { id:'metin', label:'Fatura Metni', tip:'text', default:'Fatura No: KVN2026001\nTarih: 14.05.2026\nMÃ¼ÅŸteri: ABC Muhasebe BÃ¼rosu\nHizmet: AI Chatbot Entegrasyonu\nTutar: 1.200 TL\nKDV (%20): 240 TL\nToplam: 1.440 TL' }
     ],
     butonEtiket: 'AI ile Oku',
     async calistir(form) {
-      if (!form.metin || form.metin.length < 10) return '<div style="text-align:center;padding:20px;color:var(--red)">⚠️ Lütfen fatura metnini girin</div>';
+      if (!form.metin || form.metin.length < 10) return '<div style="text-align:center;padding:20px;color:var(--red)">âš ï¸ LÃ¼tfen fatura metnini girin</div>';
 
       const box = document.getElementById('result');
-      box.innerHTML = '<h4>🤖 AI Analiz Ediyor...</h4><div style="text-align:center;padding:30px"><div class="typing"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px;font-size:13px">Groq AI faturayı okuyor...</p></div>';
+      box.innerHTML = '<h4>ğŸ¤– AI Analiz Ediyor...</h4><div style="text-align:center;padding:30px"><div class="typing"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px;font-size:13px">Groq AI faturayÄ± okuyor...</p></div>';
       box.classList.add('show');
 
       try {
@@ -440,22 +440,22 @@ const araclar = {
         }
 
         function esc(t) { var d = document.createElement('div'); d.textContent = t||''; return d.innerHTML; }
-        let html = '<h4>✅ AI Fatura Analizi</h4>';
+        let html = '<h4>âœ… AI Fatura Analizi</h4>';
         if (sonuc.ham) {
           html += `<div style="white-space:pre-wrap;font-size:14px;color:#e2e8f0;padding:10px;background:rgba(0,0,0,0.2);border-radius:10px">${esc(sonuc.ham)}</div>`;
         } else {
-          html += `<div class="result-row"><span class="result-label">Müşteri</span><span class="result-value">${sonuc.musteri||sonuc.musteri_adi||'?'}</span></div>`;
+          html += `<div class="result-row"><span class="result-label">MÃ¼ÅŸteri</span><span class="result-value">${sonuc.musteri||sonuc.musteri_adi||'?'}</span></div>`;
           html += `<div class="result-row"><span class="result-label">Fatura No</span><span class="result-value">${sonuc.fatura_no||'?'}</span></div>`;
-          html += `<div class="result-row"><span class="result-label">Açıklama</span><span class="result-value">${sonuc.aciklama||sonuc.hizmet||'?'}</span></div>`;
+          html += `<div class="result-row"><span class="result-label">AÃ§Ä±klama</span><span class="result-value">${sonuc.aciklama||sonuc.hizmet||'?'}</span></div>`;
           if (sonuc.ara_toplam) html += `<div class="result-row"><span class="result-label">Ara Toplam</span><span class="result-value">${sonuc.ara_toplam}</span></div>`;
           if (sonuc.kdv_tutar) html += `<div class="result-row"><span class="result-label">KDV</span><span class="result-value">${sonuc.kdv_tutar}</span></div>`;
           if (sonuc.genel_toplam) html += `<div class="result-row"><span class="result-label" style="font-weight:700">GENEL TOPLAM</span><span class="result-value big">${sonuc.genel_toplam}</span></div>`;
         }
-        html += '<div style="margin-top:12px"><button class="btn btn-sm" onclick="document.getElementById(\'fatura-metin\').value=JSON.stringify(' + JSON.stringify(sonuc).replace(/"/g,'&quot;') + ');showTool(\'fatura-olustur\')" style="font-size:11px;padding:4px 12px">📄 Faturaya Dönüştür</button></div>';
-        html += '<div class="result-note">🤖 Groq AI (Llama 3.3 70B) ile analiz edildi. Ücretsiz, limitsiz.</div>';
+        html += '<div style="margin-top:12px"><button class="btn btn-sm" onclick="document.getElementById(\'fatura-metin\').value=JSON.stringify(' + JSON.stringify(sonuc).replace(/"/g,'&quot;') + ');showTool(\'fatura-olustur\')" style="font-size:11px;padding:4px 12px">ğŸ“„ Faturaya DÃ¶nÃ¼ÅŸtÃ¼r</button></div>';
+        html += '<div class="result-note">ğŸ¤– Groq AI (Llama 3.3 70B) ile analiz edildi. Ãœcretsiz, limitsiz.</div>';
         return html;
       } catch(e) {
-        return `<div style="text-align:center;padding:20px;color:var(--red)">❌ AI analizi başarısız: ${e.message}<br><span style="font-size:12px;color:var(--gray)">api-server.js çalıştığından emin olun (node api-server.js)</span></div>`;
+        return `<div style="text-align:center;padding:20px;color:var(--red)">âŒ AI analizi baÅŸarÄ±sÄ±z: ${e.message}<br><span style="font-size:12px;color:var(--gray)">api-server.js Ã§alÄ±ÅŸtÄ±ÄŸÄ±ndan emin olun (node api-server.js)</span></div>`;
       }
     }
   }
@@ -479,17 +479,17 @@ async function renderTool(id) {
     ilkSonuc = a.calistir(a.form.reduce((o,f)=>{o[f.id]=f.default||'';return o},{}) || {});
   }
   const html = `
-    <h2>${a.baslik}<span> aracı</span></h2>
+    <h2>${a.baslik}<span> aracÄ±</span></h2>
     <p class="subtitle">${a.aciklama}</p>
     <div class="tool-card">
-      <div class="tool-header"><div class="tool-info"><h3>${a.form.length>0?'Parametreler':'Sonuç'}</h3><p>${a.form.length>0?'Değerleri doldurun':'Otomatik hesaplanır'}</p></div><span class="tool-badge">MCP Muhasebe</span></div>
+      <div class="tool-header"><div class="tool-info"><h3>${a.form.length>0?'Parametreler':'SonuÃ§'}</h3><p>${a.form.length>0?'DeÄŸerleri doldurun':'Otomatik hesaplanÄ±r'}</p></div><span class="tool-badge">MCP Muhasebe</span></div>
       ${a.form.length>0?`<div class="form-row">${a.form.map(f=>{
         const isTextarea = f.label === 'Fatura Metni';
         if(f.tip==='select') return `<div class="form-group"><label>${f.label}</label><select id="${f.id}">${f.options.map(o=>`<option ${o===f.default?'selected':''}>${o}</option>`).join('')}</select></div>`;
         return `<div class="form-group"><label>${f.label}</label>${isTextarea?`<textarea id="${f.id}" style="background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:10px 14px;color:var(--white);font-size:13px;font-family:monospace;width:100%;min-height:100px;resize:vertical">${f.default||''}</textarea>`:`<input type="${f.tip}" id="${f.id}" value="${f.default||''}" placeholder="${f.label}">`}</div>`;
       }).join('')}</div>`:''}
-      ${a.butonEtiket?`<button class="btn" onclick="calistir()">▶ ${a.butonEtiket}</button>`:''}
-      <div class="result-box show" id="result"><h4>✅ Sonuç</h4>${ilkSonuc}</div>
+      ${a.butonEtiket?`<button class="btn" onclick="calistir()">â–¶ ${a.butonEtiket}</button>`:''}
+      <div class="result-box show" id="result"><h4>âœ… SonuÃ§</h4>${ilkSonuc}</div>
     </div>
   `;
   document.getElementById('content').innerHTML = html;
@@ -502,7 +502,7 @@ async function calistir() {
   const isKaydet = aktifArac==='fatura-olustur';
   const html = await a.calistir(form, isKaydet);
   const box = document.getElementById('result');
-  box.innerHTML = '<h4>✅ Sonuç</h4>' + html;
+  box.innerHTML = '<h4>âœ… SonuÃ§</h4>' + html;
   box.classList.add('show');
   if (isKaydet) {
     setTimeout(()=>{ document.querySelectorAll('#fatura-olustur input').forEach(el=>{ if(el.type!=='hidden') el.value=''; }); }, 500);
@@ -518,10 +518,11 @@ showTool('fatura-olustur');
 </script>
 
 <footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1">
-  <p style="font-size:12px;color:rgba(255,255,255,0.12)">© 2026 Kivon · Bursa · kivontr.com · <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a> · <a href="eticaret.html" style="color:rgba(255,255,255,0.2)">E-Ticaret</a> · <a href="restoran.html" style="color:rgba(255,255,255,0.2)">Restoran</a></p>
+  <p style="font-size:12px;color:rgba(255,255,255,0.12)">Â© 2026 Kivon Â· Bursa Â· kivontr.com Â· <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a> Â· <a href="eticaret.html" style="color:rgba(255,255,255,0.2)">E-Ticaret</a> Â· <a href="restoran.html" style="color:rgba(255,255,255,0.2)">Restoran</a></p>
 </footer>
 <script>
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
 </body>
 </html>
+

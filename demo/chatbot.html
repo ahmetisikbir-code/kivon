@@ -488,6 +488,10 @@ function bilgiTabaniniKaydet() {
   }
 }
 
+// ─── SEKTÖR ALGILAMA ─────────────────────────────────────────────
+var sektorMsg = { muhasebe:'📑 Muhasebe çözümlerimiz hakkında bilgi almak için "muhasebe" yazabilirsiniz.', eticaret:'🛒 E-ticaret çözümlerimiz için "eticaret" yazmanız yeterli.', restoran:'🍽️ Restoran çözümlerimizi keşfetmek için "restoran" yazın.' };
+var sektorParam = (window.location.search.match(/sektor=([^&]*)/)||[])[1];
+
 // ─── BAŞLANGIÇ ──────────────────────────────────────────────────
 window.onload = async () => {
   const avatarUrl = location.hostname === 'localhost' || location.protocol === 'file:'
@@ -506,6 +510,7 @@ window.onload = async () => {
     await typing(800);
     await botYaz(bilgiTabani.karsilama);
     await typing(500);
+    if (sektorParam && sektorMsg[sektorParam]) { await botYaz(sektorMsg[sektorParam]); }
     await botYaz('Aşağıdan bir konu seçin veya sorunuzu yazın ⤵');
   }
 };
