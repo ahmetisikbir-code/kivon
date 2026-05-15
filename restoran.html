@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON · Restoran & Kafe Çözümleri</title>
+<style>
+:root {
+  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --white: #f1f5f9; --muted: #94a3b8;
+  --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: -apple-system,'Segoe UI','Inter',sans-serif;
+  background: var(--navy); color: var(--white);
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+
+#canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(56,189,248,0.06);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1200px; margin:0 auto; padding:0 24px; height:64px;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; letter-spacing:3px; text-decoration:none; color:var(--white); }
+.nav-logo svg { width:28px; height:28px; }
+.nav-logo span { color:var(--cyan); }
+.nav-links { display:flex; gap:32px; list-style:none; font-size:13px; font-weight:500; }
+.nav-links a { color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--tr); }
+.nav-links a:hover { color:var(--white); }
+.nav-links a.active { color:var(--cyan); }
+.nav-cta {
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
+  padding:8px 22px; border-radius:100px; font-size:13px; font-weight:700; text-decoration:none;
+  transition:var(--tr);
+}
+.nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
+
+.hero {
+  position:relative; z-index:1; min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:120px 24px 60px;
+}
+.hero h1 {
+  font-size:clamp(2.8rem,8vw,5.5rem); font-weight:900; letter-spacing:-0.04em; line-height:1.1;
+  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 30%,var(--gold) 60%,var(--cyan) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  margin-bottom:16px;
+}
+.hero h1 .gold { -webkit-text-fill-color:var(--gold); color:var(--gold); }
+.hero h1 .cyan { -webkit-text-fill-color:var(--cyan); color:var(--cyan); }
+.hero p {
+  font-size:clamp(1rem,2vw,1.2rem); color:rgba(255,255,255,0.4);
+  max-width:480px; margin:0 auto 32px; line-height:1.6;
+  font-weight:300; letter-spacing:0.02em;
+}
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-visual {
+  position:absolute; bottom:0; left:0; right:0; height:200px;
+  background:linear-gradient(transparent, rgba(5,5,16,0.8));
+  pointer-events:none;
+}
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
+  border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
+  transition:var(--tr); border:none; cursor:pointer;
+}
+.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 30px rgba(56,189,248,0.2); }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.3); }
+.btn-glass { background:rgba(255,255,255,0.04); color:var(--white); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(12px); }
+.btn-glass:hover { background:rgba(255,255,255,0.08); transform:translateY(-3px); }
+.btn-gold { background:linear-gradient(135deg,var(--gold),#f59e0b); color:#0a0a1a; box-shadow:0 0 30px rgba(251,191,36,0.2); }
+.btn-gold:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(251,191,36,0.3); }
+
+.stats-bar {
+  display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
+  padding:40px 0; position:relative; z-index:1;
+}
+.stat-item { text-align:center; }
+.stat-num { font-size:40px; font-weight:900; color:var(--gold); letter-spacing:-0.03em; }
+.stat-label { font-size:12px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
+
+section { position:relative; z-index:1; padding:100px 0; }
+.container { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+.section-label {
+  font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:12px; display:block; text-align:center;
+}
+.section-title {
+  font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.03em;
+  text-align:center; margin-bottom:12px;
+  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.section-title span { color:var(--cyan); -webkit-text-fill-color:var(--cyan); }
+.section-title .gold { color:var(--gold); -webkit-text-fill-color:var(--gold); }
+.section-sub {
+  font-size:13px; color:rgba(255,255,255,0.25);
+  text-align:center; margin-bottom:40px;
+}
+
+.feature-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.feature-card {
+  position:relative; overflow:hidden;
+  background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.06);
+  border-radius:20px; padding:36px 28px;
+  transition:var(--tr); cursor:default;
+}
+.feature-card:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-6px); }
+.feature-card .card-glow {
+  position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.06), transparent 60%);
+  pointer-events:none; transition:opacity 0.3s;
+  opacity:0;
+}
+.feature-card:hover .card-glow { opacity:1; }
+.feature-card .card-icon { font-size:40px; margin-bottom:16px; display:block; }
+.feature-card h3 { font-size:17px; font-weight:700; margin-bottom:6px; }
+.feature-card p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.6; }
+.feature-card .card-tag {
+  display:inline-block; margin-top:14px;
+  font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  color:var(--cyan);
+}
+
+.integration-grid {
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center;
+  margin-top:32px;
+}
+.integration-chip {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 24px; border-radius:16px;
+  background:rgba(15,15,40,0.3); border:1px solid rgba(56,189,248,0.06);
+  transition:var(--tr);
+  font-size:14px; font-weight:600; color:rgba(255,255,255,0.5); cursor:default;
+}
+.integration-chip:hover { border-color:rgba(56,189,248,0.2); transform:translateY(-4px); background:rgba(15,15,40,0.5); }
+.integration-chip .chip-icon { font-size:24px; }
+
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.pricing-card {
+  background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.06); border-radius:20px;
+  padding:36px 28px; transition:var(--tr); position:relative;
+}
+.pricing-card:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-4px); }
+.pricing-card.featured { border-color:var(--gold); box-shadow:0 0 40px rgba(251,191,36,0.06); }
+.pricing-badge {
+  position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--gold),#f59e0b); color:#0a0a1a;
+  font-size:10px; font-weight:700; padding:4px 14px; border-radius:100px; white-space:nowrap;
+}
+.pricing-name { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:8px; }
+.pricing-price { font-size:36px; font-weight:900; letter-spacing:-0.03em; margin-bottom:16px; }
+.pricing-price span { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); }
+.pricing-features { list-style:none; margin-bottom:20px; }
+.pricing-features li { padding:6px 0; font-size:13px; color:rgba(255,255,255,0.3); display:flex; align-items:center; gap:8px; }
+.pricing-features li::before { content:'\2726'; color:var(--gold); font-size:9px; }
+.pricing-card .btn { width:100%; justify-content:center; }
+
+.contact-section {
+  position:relative; z-index:1; padding:100px 0;
+  background:rgba(10,10,26,0.3);
+}
+.contact-grid {
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+  margin-top:32px;
+}
+.contact-card {
+  display:flex; align-items:center; gap:14px;
+  padding:18px 28px; border-radius:16px;
+  background:rgba(15,15,40,0.3); border:1px solid rgba(56,189,248,0.06);
+  text-decoration:none; color:var(--white);
+  transition:var(--tr);
+  font-size:14px; font-weight:500;
+}
+.contact-card:hover { border-color:rgba(56,189,248,0.2); transform:translateY(-4px); }
+.contact-card .contact-icon { font-size:24px; }
+
+.hero-marquee {
+  position:absolute; bottom:40px; left:0; right:0; overflow:hidden;
+  padding:16px 0;
+}
+.marquee-track {
+  display:flex; gap:48px; animation: scroll 30s linear infinite;
+  width: max-content;
+}
+.marquee-track span { font-size:13px; color:rgba(255,255,255,0.12); white-space:nowrap; letter-spacing:1px; }
+@keyframes scroll {
+  0% { transform:translateX(0%); }
+  100% { transform:translateX(-50%); }
+}
+
+footer { text-align:center; padding:40px 24px; position:relative; z-index:1; border-top:1px solid rgba(56,189,248,0.04); }
+footer p { font-size:12px; color:rgba(255,255,255,0.12); }
+.footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:12px; }
+.footer-links a { color:rgba(255,255,255,0.2); text-decoration:none; font-size:12px; transition:var(--tr); }
+.footer-links a:hover { color:var(--cyan); }
+
+@media (max-width:768px) {
+  .feature-grid, .pricing-grid { grid-template-columns:1fr; }
+  .hero h1 { font-size:2.2rem; }
+  .stats-bar { gap:32px; }
+  .nav-links { display:none; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas3d"></canvas>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>KIVON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="index.html#cozumler">Çözümler</a></li>
+      <li><a href="eticaret.html">E-Ticaret</a></li>
+      <li><a href="muhasebe.html">Muhasebe</a></li>
+      <li><a href="restoran.html" class="active">Restoran</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div>
+    <h1>Restoran &<br><span class="gold">Kafe</span> için <span class="cyan">AI</span></h1>
+    <p>İşletmenizi 7/24 yönetin. Rezervasyondan paket servise,<br>dijital menüden müşteri memnuniyetine kadar her şey AI ile.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/905303982712" class="btn btn-gold" target="_blank">Ücretsiz Demo</a>
+      <a href="#cozumler" class="btn btn-glass">Çözümler</a>
+    </div>
+  </div>
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>WhatsApp Rezervasyon</span><span>·</span><span>Dijital Menü</span><span>·</span><span>Paket Servis Otomasyonu</span><span>·</span><span>AI Sipariş Alma</span><span>·</span><span>Müşteri Memnuniyeti</span><span>·</span><span>POS Entegrasyonu</span><span>·</span><span>Adisyon</span><span>·</span><span>WhatsApp Rezervasyon</span><span>·</span><span>Dijital Menü</span><span>·</span><span>Paket Servis Otomasyonu</span><span>·</span><span>AI Sipariş Alma</span><span>·</span><span>Müşteri Memnuniyeti</span><span>·</span><span>POS Entegrasyonu</span><span>·</span><span>Adisyon</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-bar container">
+  <div class="stat-item"><div class="stat-num">%60</div><div class="stat-label">Personel Yükü Azalması</div></div>
+  <div class="stat-item"><div class="stat-num">7/24</div><div class="stat-label">Kesintisiz Sipariş</div></div>
+  <div class="stat-item"><div class="stat-num">%40</div><div class="stat-label">Müşteri Memnuniyeti</div></div>
+  <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Entegrasyon</div></div>
+</div>
+
+<!-- ═══ ÇÖZÜMLER ═══ -->
+<section id="cozumler" class="container">
+  <span class="section-label">Çözümler</span>
+  <h2 class="section-title">Restoranınıza Özel <span>4 AI Çözümü</span></h2>
+  <p class="section-sub">Operasyonunuzu AI ile dönüştürün, misafirlerinizi etkileyin.</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="card-glow"></div>
+      <span class="card-icon">📱</span>
+      <h3>WhatsApp Rezervasyon</h3>
+      <p>7/24 otomatik masa ayırtma. Misafirleriniz WhatsApp üzerinden anında rezervasyon yapabilir, müsait masa durumunu görebilir ve onay alabilir.</p>
+      <span class="card-tag">7/24 Otomatik</span>
+    </div>
+    <div class="feature-card">
+      <div class="card-glow"></div>
+      <span class="card-icon">🍽️</span>
+      <h3>Dijital Menü</h3>
+      <p>WhatsApp'tan menü paylaşımı. QR kod ile anında menü erişimi, görsel destekli ürün gösterimi ve dil seçeneği.</p>
+      <span class="card-tag">QR & WhatsApp</span>
+    </div>
+    <div class="feature-card">
+      <div class="card-glow"></div>
+      <span class="card-icon">🚀</span>
+      <h3>Paket Servis Otomasyonu</h3>
+      <p>AI sipariş alma asistanı. WhatsApp üzerinden sipariş alımı, otomatik onay, hazırlık süresi tahmini ve teslimat takibi.</p>
+      <span class="card-tag">AI Destekli</span>
+    </div>
+    <div class="feature-card">
+      <div class="card-glow"></div>
+      <span class="card-icon">⭐</span>
+      <h3>Müşteri Memnuniyeti</h3>
+      <p>Otomatik geri bildirim toplama ve analizi. Yemek sonrası anket, puanlama takibi ve şikayet yönetimi.</p>
+      <span class="card-tag">Otomatik Analiz</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTEGRASYONLAR ═══ -->
+<section style="background:rgba(10,10,26,0.3);">
+  <div class="container" style="text-align:center">
+    <span class="section-label">Entegrasyon</span>
+    <h2 class="section-title">Mevcut Sistemlerinizle <span>Uyumlu</span></h2>
+    <p class="section-sub">POS, adisyon ve ödeme sistemlerinizle tam entegre çalışır.</p>
+    <div class="integration-grid">
+      <div class="integration-chip"><span class="chip-icon">💳</span> Yemek Sepeti POS</div>
+      <div class="integration-chip"><span class="chip-icon">🧾</span> Adisyon Pro</div>
+      <div class="integration-chip"><span class="chip-icon">📋</span> Sipay POS</div>
+      <div class="integration-chip"><span class="chip-icon">🖨️</span> Mutfak Yazıcı</div>
+      <div class="integration-chip"><span class="chip-icon">📊</span> Restoran Muhasebe</div>
+      <div class="integration-chip"><span class="chip-icon">🗂️</span> Stok Takip</div>
+      <div class="integration-chip"><span class="chip-icon">🔗</span> API Bağlantısı</div>
+      <div class="integration-chip"><span class="chip-icon">📈</span> Raporlama Paneli</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="fiyat" class="container">
+  <span class="section-label">Fiyat</span>
+  <h2 class="section-title">Restoranınıza Uygun <span class="gold">Paket</span></h2>
+  <p class="section-sub">Her büyüklükteki işletme için esnek planlar.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Başlangıç</div>
+      <div class="pricing-price" style="color:var(--cyan);">1.500<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>WhatsApp rezervasyon</li>
+        <li>Dijital menü (QR)</li>
+        <li>Aylık rapor</li>
+        <li>E-posta desteği</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Başla</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Popüler</div>
+      <div class="pricing-name">Profesyonel</div>
+      <div class="pricing-price" style="color:var(--gold);">2.500<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>Tüm Başlangıç özellikleri</li>
+        <li>Paket servis otomasyonu</li>
+        <li>AI sipariş alma</li>
+        <li>WhatsApp + Web panel</li>
+        <li>Haftalık rapor</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-gold" target="_blank">Başla</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-name">Kurumsal</div>
+      <div class="pricing-price" style="color:#818cf8;">4.000<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>Tüm Profesyonel özellikleri</li>
+        <li>Müşteri memnuniyeti analizi</li>
+        <li>POS & adisyon entegrasyonu</li>
+        <li>Özel AI model</li>
+        <li>7/24 öncelikli destek</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">İletişim</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="contact-section">
+  <div class="container" style="text-align:center">
+    <span class="section-label">İletişim</span>
+    <h2 class="section-title">Restoranınızı <span>Dönüştürün</span></h2>
+    <p class="section-sub">Ücretsiz demo ve danışmanlık için bize ulaşın.</p>
+    <div class="contact-grid">
+      <a href="https://wa.me/905303982712" class="contact-card" target="_blank">
+        <span class="contact-icon">💬</span> WhatsApp
+      </a>
+      <a href="mailto:kivon.iletisim@gmail.com" class="contact-card">
+        <span class="contact-icon">✉️</span> E-Posta
+      </a>
+      <a href="https://instagram.com/kivon.iletisim" class="contact-card" target="_blank">
+        <span class="contact-icon">📸</span> Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="eticaret.html">E-Ticaret</a>
+    <a href="muhasebe.html">Muhasebe</a>
+    <a href="restoran.html">Restoran</a>
+  </div>
+  <p>© 2026 Kivon · Bursa · kivontr.com</p>
+</footer>
+
+<!-- ═══ 3D BACKGROUND ═══ -->
+<script>
+(function() {
+  var c = document.getElementById('canvas3d');
+  var ctx = c.getContext('2d');
+  var w, h, particles = [];
+  var mouse = { x: 0, y: 0 };
+
+  function resize() {
+    w = c.width = window.innerWidth;
+    h = c.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  var count = Math.min(120, Math.floor(w * h / 8000));
+  for (var i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+
+      var dx = mouse.x - p.x, dy = mouse.y - p.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200) {
+        p.vx += dx * 0.00005;
+        p.vy += dy * 0.00005;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(56,189,248,' + p.alpha + ')';
+      ctx.fill();
+    }
+
+    for (var i = 0; i < particles.length; i++) {
+      for (var j = i + 1; j < particles.length; j++) {
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = dx * dx + dy * dy;
+        var maxDist = 12000;
+        if (dist < maxDist) {
+          var alpha = 0.04 * (1 - dist / maxDist);
+          if (mouse.x > 0) {
+            var mx = (particles[i].x + particles[j].x) / 2 - mouse.x;
+            var my = (particles[i].y + particles[j].y) / 2 - mouse.y;
+            var md = Math.sqrt(mx * mx + my * my);
+            if (md < 300) alpha += 0.06 * (1 - md / 300);
+          }
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+<!-- ═══ SCROLL REVEAL ═══ -->
+<script>
+(function() {
+  var els = document.querySelectorAll('.feature-card, .pricing-card, .integration-chip, .stat-item, .contact-card');
+  var o = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        o.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  els.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    o.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
