@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Hazırlık Testi — KIVON</title>
+<meta name="description" content="KIVON AI Hazırlık Testi - İşletmenizin yapay zekaya ne kadar hazır olduğunu ölçün. 5 dakikalık test ile AI olgunluk seviyenizi keşfedin.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI hazırlık testi, Bursa, AI olgunluk, dijital dönüşüm">
+<meta name="author" content="KIVON">
+<meta property="og:title" content="KIVON - AI Hazırlık Testi">
+<meta property="og:description" content="KIVON AI Hazırlık Testi - İşletmenizin yapay zekaya ne kadar hazır olduğunu ölçün. 5 dakikalık test ile AI olgunluk seviyenizi keşfedin.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kivontr.com/demo/ai-hazirlik-testi.html">
+<link rel="canonical" href="https://kivontr.com/demo/ai-hazirlik-testi.html">
+<style>
+:root {
+  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --white: #f1f5f9; --muted: #94a3b8;
+  --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: -apple-system,'Segoe UI','Inter',sans-serif;
+  background: var(--navy); color: var(--white);
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+#canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(56,189,248,0.06);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1200px; margin:0 auto; padding:0 24px; height:64px;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; letter-spacing:3px; text-decoration:none; color:var(--white); }
+.nav-logo svg { width:28px; height:28px; }
+.nav-logo span { color:var(--cyan); }
+.nav-links { display:flex; gap:32px; list-style:none; font-size:13px; font-weight:500; }
+.nav-links a { color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--tr); }
+.nav-links a:hover { color:var(--white); }
+.nav-cta {
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
+  padding:8px 22px; border-radius:100px; font-size:13px; font-weight:700; text-decoration:none;
+  transition:var(--tr);
+}
+.nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
+.mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
+.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+.mobile-overlay.open { display:flex; }
+.mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
+.mobile-overlay a:hover { color:#38bdf8; }
+.mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
+@media (max-width:768px) {
+  .mobile-toggle { display:block; }
+  .nav-links { display:none!important; }
+}
+.page { position:relative; z-index:1; padding-top:80px; min-height:100vh; }
+.container { max-width:800px; margin:0 auto; padding:24px; }
+.page-title { text-align:center; padding:40px 0 20px; }
+.page-title h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:900; letter-spacing:-0.03em; }
+.page-title h1 span { background:linear-gradient(135deg,var(--cyan),var(--indigo)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.page-title p { color:rgba(255,255,255,0.4); margin-top:8px; font-size:14px; }
+.back-link { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.3); text-decoration:none; font-size:13px; transition:var(--tr); margin-bottom:20px; }
+.back-link:hover { color:var(--cyan); }
+
+.question-card {
+  background:rgba(15,15,40,0.5); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.08); border-radius:20px;
+  padding:28px; margin-bottom:16px;
+  transition:var(--tr);
+}
+.question-card:hover { border-color:rgba(56,189,248,0.15); }
+.q-number {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:28px; height:28px; border-radius:50%;
+  background:rgba(56,189,248,0.1); color:var(--cyan);
+  font-size:12px; font-weight:700; margin-right:10px;
+}
+.q-text { font-size:15px; font-weight:600; display:inline; }
+.q-actions { display:flex; gap:10px; margin-top:14px; }
+.q-btn {
+  padding:8px 24px; border-radius:100px; font-size:13px; font-weight:600;
+  border:1px solid rgba(255,255,255,0.08); cursor:pointer; transition:var(--tr);
+  background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.5); font-family:inherit;
+}
+.q-btn:hover { border-color:rgba(255,255,255,0.15); color:var(--white); }
+.q-btn.yes.active { background:rgba(56,189,248,0.15); border-color:var(--cyan); color:var(--cyan); }
+.q-btn.no.active { background:rgba(248,113,113,0.15); border-color:#f87171; color:#f87171; }
+.q-btn:disabled { opacity:0.4; cursor:not-allowed; }
+
+.progress-wrap {
+  background:rgba(255,255,255,0.04); border-radius:100px; height:4px;
+  margin-bottom:32px; overflow:hidden; position:relative;
+}
+.progress-fill {
+  height:100%; width:0%; border-radius:100px;
+  background:linear-gradient(90deg,var(--cyan),var(--indigo));
+  transition:width 0.5s ease;
+}
+.progress-label { font-size:11px; color:rgba(255,255,255,0.3); text-align:center; margin-top:6px; letter-spacing:1px; }
+
+.submit-wrap { text-align:center; margin-top:24px; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px; padding:16px 40px;
+  border-radius:100px; font-weight:700; font-size:15px; text-decoration:none;
+  transition:var(--tr); border:none; cursor:pointer; font-family:inherit;
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
+  box-shadow:0 0 30px rgba(56,189,248,0.2);
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.3); }
+.btn-primary:disabled { opacity:0.3; cursor:not-allowed; transform:none; }
+
+.result-screen { display:none; }
+.result-screen.visible { display:block; animation: fadeIn 0.8s ease; }
+.quiz-screen.hidden { display:none; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.result-badge {
+  text-align:center; padding:48px 24px; margin-bottom:24px;
+  border-radius:24px; border:1px solid rgba(56,189,248,0.1);
+  background:rgba(15,15,40,0.5); backdrop-filter:blur(12px);
+}
+.result-badge .score-ring { position:relative; width:140px; height:140px; margin:0 auto 16px; }
+.result-badge .score-ring svg { transform:rotate(-90deg); }
+.result-badge .score-ring .bg { fill:none; stroke:rgba(255,255,255,0.04); stroke-width:6; }
+.result-badge .score-ring .fg { fill:none; stroke:var(--cyan); stroke-width:6; stroke-linecap:round; stroke-dasharray:377; stroke-dashoffset:377; transition:stroke-dashoffset 1.5s ease; }
+.result-badge .score-num { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:36px; font-weight:900; color:var(--white); }
+.result-badge .score-label { font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:2px; text-transform:uppercase; }
+.result-badge .result-title { font-size:28px; font-weight:900; margin:12px 0 4px; }
+.result-badge .result-sub { font-size:13px; color:rgba(255,255,255,0.4); }
+
+.reco-card {
+  background:rgba(15,15,40,0.3); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.06); border-radius:16px;
+  padding:20px 24px; margin-bottom:12px;
+  display:flex; align-items:flex-start; gap:14px;
+  transition:var(--tr);
+}
+.reco-card:hover { border-color:rgba(56,189,248,0.12); }
+.reco-icon { font-size:24px; flex-shrink:0; }
+.reco-text h4 { font-size:14px; font-weight:700; margin-bottom:2px; }
+.reco-text p { font-size:12px; color:rgba(255,255,255,0.4); line-height:1.5; }
+.restart-btn {
+  display:inline-flex; align-items:center; gap:8px; padding:12px 28px;
+  border-radius:100px; font-weight:600; font-size:13px;
+  border:1px solid rgba(255,255,255,0.08); cursor:pointer; transition:var(--tr);
+  background:rgba(255,255,255,0.03); color:var(--white); font-family:inherit;
+  margin-top:16px;
+}
+.restart-btn:hover { border-color:rgba(56,189,248,0.2); color:var(--cyan); }
+.result-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:24px; }
+
+.level-ai-ready .result-title { color:var(--cyan); }
+.level-getting-there .result-title { color:var(--gold); }
+.level-need-foundation .result-title { color:#f87171; }
+
+.slide-in { animation: slideUp 0.6s ease both; }
+@keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.delay-1 { animation-delay:0.1s; }
+.delay-2 { animation-delay:0.2s; }
+.delay-3 { animation-delay:0.3s; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas3d"></canvas>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>KIVON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Ana Sayfa</a></li>
+      <li><a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a></li>
+      <li><a href="../demo/roi-hesapla.html">ROI</a></li>
+      <li><a href="https://wa.me/905303982712">İletişim</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">WhatsApp</a>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="/">Ana Sayfa</a>
+  <a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a>
+  <a href="../demo/roi-hesapla.html">ROI</a>
+  <a href="https://wa.me/905303982712">İletişim</a>
+</div>
+
+<div class="page">
+  <div class="container">
+
+    <a href="/" class="back-link slide-in">← Ana Sayfa</a>
+
+    <div class="page-title slide-in">
+      <h1>AI Hazırlık <span>Testi</span></h1>
+      <p>İşletmenizin yapay zekaya ne kadar hazır olduğunu keşfedin</p>
+    </div>
+
+    <div class="quiz-screen" id="quizScreen">
+      <div class="progress-wrap">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-label" id="progressLabel">0 / 12</div>
+      </div>
+      <div id="questionsContainer"></div>
+      <div class="submit-wrap">
+        <button class="btn-primary" id="submitBtn" disabled>Sonuçları Gör</button>
+      </div>
+    </div>
+
+    <div class="result-screen" id="resultScreen">
+      <div class="result-badge" id="resultBadge">
+        <div class="score-ring">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle class="bg" cx="70" cy="70" r="60"/>
+            <circle class="fg" id="scoreArc" cx="70" cy="70" r="60"/>
+          </svg>
+          <div class="score-num"><span id="scoreNum">0</span></div>
+        </div>
+        <div class="score-label">Hazırlık Skoru</div>
+        <div class="result-title" id="resultTitle">AI Ready</div>
+        <div class="result-sub" id="resultSub">İşletmeniz yapay zeka entegrasyonu için hazır</div>
+      </div>
+      <div id="recommendations"></div>
+      <div class="result-actions">
+        <button class="restart-btn" id="restartBtn">Testi Tekrarla</button>
+        <a href="https://wa.me/905303982712" class="btn-primary" target="_blank">WhatsApp ile Görüş</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var c = document.getElementById('canvas3d');
+  var ctx = c.getContext('2d');
+  var w, h, particles = [];
+  var mouse = { x: 0, y: 0 };
+  function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  var count = Math.min(120, Math.floor(w * h / 8000));
+  for (var i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i]; p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+      var dx = mouse.x - p.x, dy = mouse.y - p.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200) { p.vx += dx * 0.00005; p.vy += dy * 0.00005; }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(56,189,248,' + p.alpha + ')'; ctx.fill();
+    }
+    for (var i = 0; i < particles.length; i++) {
+      for (var j = i + 1; j < particles.length; j++) {
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = dx * dx + dy * dy;
+        if (dist < 12000) {
+          var alpha = 0.04 * (1 - dist / 12000);
+          if (mouse.x > 0) {
+            var mx = (particles[i].x + particles[j].x) / 2 - mouse.x;
+            var my = (particles[i].y + particles[j].y) / 2 - mouse.y;
+            var md = Math.sqrt(mx * mx + my * my);
+            if (md < 300) alpha += 0.06 * (1 - md / 300);
+          }
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')'; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function() {
+  var questions = [
+    { id: 1, text: 'Müşteri hizmetlerinizde günlük 50+ talep alıyor musunuz?', cat: 'musteri' },
+    { id: 2, text: 'Müşteri taleplerini kayıt altına alan bir sistem kullanıyor musunuz?', cat: 'musteri' },
+    { id: 3, text: 'Fatura, makbuz gibi belgeleriniz dijital ortamda mı?', cat: 'dijitallesme' },
+    { id: 4, text: 'Muhasebe işlemlerinizde bir yazılım kullanıyor musunuz?', cat: 'dijitallesme' },
+    { id: 5, text: 'İşletmenizin aktif bir web sitesi var mı?', cat: 'dijital_varlik' },
+    { id: 6, text: 'Sosyal medyada (Instagram/WhatsApp) düzenli paylaşım yapıyor musunuz?', cat: 'dijital_varlik' },
+    { id: 7, text: 'Gün içinde tekrarlayan veri girişi işlemleri yapıyor musunuz?', cat: 'tekrarlayan' },
+    { id: 8, text: 'Stok veya envanter takibi yapıyor musunuz?', cat: 'tekrarlayan' },
+    { id: 9, text: 'Randevu veya rezervasyon sistemi kullanıyor musunuz?', cat: 'tekrarlayan' },
+    { id: 10, text: 'E-posta yanıtlama gibi iletişim görevleriniz otomatik mi?', cat: 'otomasyon' },
+    { id: 11, text: 'Satış raporlarınızı düzenli olarak analiz ediyor musunuz?', cat: 'analitik' },
+    { id: 12, text: 'Personel görev takibi için bir araç kullanıyor musunuz?', cat: 'otomasyon' }
+  ];
+
+  var answers = {};
+  var questionsContainer = document.getElementById('questionsContainer');
+  var progressFill = document.getElementById('progressFill');
+  var progressLabel = document.getElementById('progressLabel');
+  var submitBtn = document.getElementById('submitBtn');
+  var quizScreen = document.getElementById('quizScreen');
+  var resultScreen = document.getElementById('resultScreen');
+
+  questions.forEach(function(q, idx) {
+    var card = document.createElement('div');
+    card.className = 'question-card slide-in delay-' + ((idx % 4) + 1);
+    card.dataset.qid = q.id;
+
+    var header = document.createElement('div');
+    var num = document.createElement('span');
+    num.className = 'q-number'; num.textContent = q.id;
+    header.appendChild(num);
+
+    var textSpan = document.createElement('span');
+    textSpan.className = 'q-text'; textSpan.textContent = q.text;
+    header.appendChild(textSpan);
+    card.appendChild(header);
+
+    var actions = document.createElement('div');
+    actions.className = 'q-actions';
+
+    var yesBtn = document.createElement('button');
+    yesBtn.className = 'q-btn yes'; yesBtn.textContent = 'Evet';
+    var noBtn = document.createElement('button');
+    noBtn.className = 'q-btn no'; noBtn.textContent = 'Hayır';
+
+    yesBtn.addEventListener('click', function() {
+      answers[q.id] = true;
+      yesBtn.classList.add('active'); noBtn.classList.remove('active');
+      updateProgress();
+    });
+    noBtn.addEventListener('click', function() {
+      answers[q.id] = false;
+      noBtn.classList.add('active'); yesBtn.classList.remove('active');
+      updateProgress();
+    });
+
+    actions.appendChild(yesBtn); actions.appendChild(noBtn);
+    card.appendChild(actions);
+    questionsContainer.appendChild(card);
+  });
+
+  function updateProgress() {
+    var answered = Object.keys(answers).length;
+    var pct = (answered / questions.length) * 100;
+    progressFill.style.width = pct + '%';
+    progressLabel.textContent = answered + ' / ' + questions.length;
+    submitBtn.disabled = answered < questions.length;
+  }
+  updateProgress();
+
+  submitBtn.addEventListener('click', function() {
+    var score = 0;
+    questions.forEach(function(q) {
+      if (answers[q.id] === true) score++;
+    });
+    var pct = Math.round((score / questions.length) * 100);
+    showResults(pct);
+  });
+
+  function showResults(pct) {
+    quizScreen.classList.add('hidden');
+    resultScreen.classList.add('visible');
+
+    var arc = document.getElementById('scoreArc');
+    var circumference = 2 * Math.PI * 60;
+    var offset = circumference - (pct / 100) * circumference;
+    setTimeout(function() { arc.style.strokeDashoffset = offset; }, 100);
+
+    var scoreNum = document.getElementById('scoreNum');
+    var badge = document.getElementById('resultBadge');
+    var title = document.getElementById('resultTitle');
+    var sub = document.getElementById('resultSub');
+    var reco = document.getElementById('recommendations');
+
+    badge.className = 'result-badge';
+    if (pct >= 75) {
+      badge.classList.add('level-ai-ready');
+      title.textContent = 'AI Ready';
+      sub.textContent = 'İşletmeniz yapay zeka entegrasyonu için hazır! Hemen başlayabilirsiniz.';
+    } else if (pct >= 45) {
+      badge.classList.add('level-getting-there');
+      title.textContent = 'Yolda';
+      sub.textContent = 'İyi bir temeliniz var. Birkaç adımda AI\'a hazır hale gelebilirsiniz.';
+    } else {
+      badge.classList.add('level-need-foundation');
+      title.textContent = 'Temel Gerekli';
+      sub.textContent = 'Öncelikle dijital altyapınızı güçlendirmeniz önerilir.';
+    }
+
+    var anim = setInterval(function() {
+      var current = parseInt(scoreNum.textContent);
+      var step = Math.ceil((pct - current) / 15);
+      if (step < 1) step = 1;
+      if (current < pct) {
+        scoreNum.textContent = Math.min(current + step, pct);
+      } else {
+        clearInterval(anim);
+      }
+    }, 30);
+
+    var recommendations = [];
+    if (pct < 75) {
+      if (!answers[3] || !answers[4]) recommendations.push({ icon: '📄', title: 'Dijital Dönüşüm', text: 'Belge ve muhasebe işlemlerinizi dijitalleştirerek zamandan tasarruf edin.' });
+      if (!answers[5] || !answers[6]) recommendations.push({ icon: '🌐', title: 'Dijital Varlık Oluşturun', text: 'Web sitesi ve sosyal medya varlığınızı güçlendirin. Müşterileriniz sizi çevrimiçi bulsun.' });
+      if (!answers[7] || !answers[8] || !answers[9]) recommendations.push({ icon: '⚡', title: 'Tekrarlayan İşleri Otomatize Edin', text: 'Veri girişi, stok takibi ve randevu yönetimini AI ile otomatikleştirin.' });
+      if (!answers[1] || !answers[2]) recommendations.push({ icon: '💬', title: 'Müşteri Hizmetlerini AI ile Güçlendirin', text: 'AI chatbot ile 7/24 müşteri desteği sağlayarak memnuniyeti artırın.' });
+      if (!answers[10] || !answers[11]) recommendations.push({ icon: '📊', title: 'Veri Analitiğine Yatırım Yapın', text: 'Satış ve operasyon verilerinizi analiz ederek bilinçli kararlar alın.' });
+      if (!answers[12]) recommendations.push({ icon: '👥', title: 'Personel Takibini Dijitalleştirin', text: 'Görev takibi ve performans analizi için dijital araçlar kullanın.' });
+    }
+    if (recommendations.length === 0) {
+      recommendations.push({ icon: '🚀', title: 'Profesyonel Pakete Geçin', text: 'KIVON Kurumsal paket ile tüm AI çözümlerinden sınırsız yararlanın.' });
+      recommendations.push({ icon: '📞', title: 'Ücretsiz Danışmanlık Alın', text: 'Uzman ekibimizle görüşerek AI yol haritanızı belirleyin.' });
+    }
+
+    reco.innerHTML = recommendations.slice(0, 4).map(function(r) {
+      return '<div class="reco-card slide-in"><div class="reco-icon">' + r.icon + '</div><div class="reco-text"><h4>' + r.title + '</h4><p>' + r.text + '</p></div></div>';
+    }).join('');
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', function() {
+    answers = {};
+    resultScreen.classList.remove('visible');
+    quizScreen.classList.remove('hidden');
+    document.querySelectorAll('.q-btn').forEach(function(b) { b.classList.remove('active'); });
+    updateProgress();
+    document.getElementById('scoreNum').textContent = '0';
+    var arc = document.getElementById('scoreArc');
+    arc.style.strokeDashoffset = 2 * Math.PI * 60;
+  });
+})();
+
+(function(){
+  var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');
+  if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}
+})();
+</script>
+</body>
+</html>

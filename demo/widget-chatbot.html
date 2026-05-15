@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON Asistan Widget</title>
+<style>
+:root{--navy:#0a0a1a;--navy2:#101834;--cyan:#38bdf8;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
+
+/* ─── FLOATING BUTTON ─── */
+#kivon-widget-btn{position:fixed;bottom:24px;right:24px;z-index:999998;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0a0a1a,#101834);border:2px solid rgba(56,189,248,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.5),0 0 30px rgba(56,189,248,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);user-select:none}
+#kivon-widget-btn:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(0,0,0,0.6),0 0 40px rgba(56,189,248,0.25)}
+#kivon-widget-btn:active{transform:scale(.95)}
+#kivon-widget-btn svg{width:28px;height:28px}
+#kivon-widget-btn .badge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;background:#10b981;border-radius:50%;font-size:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #0a0a1a;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.6)}50%{box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+
+/* ─── CHAT PANEL ─── */
+#kivon-chat-panel{position:fixed;bottom:90px;right:24px;z-index:999999;width:380px;height:600px;max-height:calc(100vh - 120px);background:var(--navy);border-radius:20px;border:1px solid rgba(56,189,248,0.15);box-shadow:0 20px 60px rgba(0,0,0,0.6);display:flex;flex-direction:column;overflow:hidden;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.22,1,.36,1)}
+#kivon-chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
+
+/* ─── HEADER ─── */
+.kivon-chat-header{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(56,189,248,0.12);flex-shrink:0}
+.kivon-chat-avatar{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 2px rgba(56,189,248,0.4);background:var(--navy2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--cyan)}
+.kivon-chat-avatar svg{width:20px;height:20px}
+.kivon-chat-header-info{flex:1;min-width:0}
+.kivon-chat-header-name{font-size:14px;font-weight:700;color:var(--white)}
+.kivon-chat-header-status{font-size:11px;color:var(--cyan);display:flex;align-items:center;gap:5px}
+.kivon-status-dot{width:6px;height:6px;background:#10b981;border-radius:50%;animation:kivon-pulse 2s infinite}
+@keyframes kivon-pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.7)}50%{box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+.kivon-close-btn{background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;padding:2px;line-height:1;transition:color .2s;flex-shrink:0}
+.kivon-close-btn:hover{color:var(--white)}
+
+/* ─── BODY ─── */
+.kivon-chat-body{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.kivon-chat-body::-webkit-scrollbar{width:3px}
+.kivon-chat-body::-webkit-scrollbar-thumb{background:rgba(56,189,248,0.15);border-radius:2px}
+.kivon-msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.45;animation:kivon-fadeIn .3s ease;white-space:pre-wrap;word-break:break-word}
+.kivon-msg.bot{background:rgba(56,189,248,0.08);color:#e2e8f0;align-self:flex-start;border-bottom-left-radius:3px;border:1px solid rgba(56,189,248,0.14)}
+.kivon-msg.user{background:var(--cyan);color:var(--navy);align-self:flex-end;border-bottom-right-radius:3px;font-weight:500}
+@keyframes kivon-fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── TYPING ─── */
+.kivon-typing{display:flex;gap:4px;padding:9px 13px;align-self:flex-start;background:rgba(56,189,248,0.08);border-radius:14px;border-bottom-left-radius:3px;border:1px solid rgba(56,189,248,0.14);animation:kivon-fadeIn .2s ease}
+.kivon-typing span{width:5px;height:5px;background:var(--cyan);border-radius:50%;animation:kivon-bounce 1.2s infinite}
+.kivon-typing span:nth-child(2){animation-delay:.2s}
+.kivon-typing span:nth-child(3){animation-delay:.4s}
+@keyframes kivon-bounce{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+/* ─── QUICK REPLIES ─── */
+.kivon-quick-replies{display:flex;flex-wrap:wrap;gap:5px;padding:4px 14px 8px;flex-shrink:0}
+.kivon-quick-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.16);color:var(--gray);font-size:11px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.kivon-quick-btn:hover{background:rgba(56,189,248,0.1);color:var(--white)}
+
+/* ─── INPUT AREA ─── */
+.kivon-chat-input-area{padding:6px 14px 10px;border-top:1px solid rgba(56,189,248,0.08);display:flex;gap:8px;flex-shrink:0}
+.kivon-chat-input{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.15);border-radius:18px;padding:9px 14px;color:var(--white);font-size:12px;font-family:inherit;outline:none;transition:all .2s}
+.kivon-chat-input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,0.08)}
+.kivon-chat-input::placeholder{color:rgba(255,255,255,0.2)}
+.kivon-send-btn{background:var(--cyan);color:var(--navy);border:none;width:35px;height:35px;border-radius:50%;cursor:pointer;font-size:14px;font-weight:700;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.kivon-send-btn:hover{background:var(--ice);box-shadow:0 0 16px rgba(56,189,248,0.25)}
+
+/* ─── FOOTER ─── */
+.kivon-chat-footer{font-size:8px;color:rgba(255,255,255,0.12);text-align:center;padding:0 14px 6px;flex-shrink:0}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:480px){
+#kivon-chat-panel{bottom:84px;right:8px;left:8px;width:auto;max-height:calc(100vh - 100px);border-radius:16px}
+#kivon-widget-btn{bottom:16px;right:16px;width:50px;height:50px}
+#kivon-widget-btn svg{width:24px;height:24px}
+.kivon-chat-header{padding:12px 14px}
+.kivon-chat-avatar{width:34px;height:34px}
+.kivon-chat-header-name{font-size:13px}
+.kivon-msg{max-width:92%;font-size:12px;padding:8px 12px}
+.kivon-chat-input-area{padding:5px 12px 8px}
+.kivon-quick-replies{padding:3px 12px 6px}
+.kivon-quick-btn{font-size:10px;padding:4px 9px}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── FLOATING BUTTON ─── -->
+<div id="kivon-widget-btn" onclick="kivonToggleChat()" title="KIVON Asistan" role="button" tabindex="0" aria-label="KIVON Asistan">
+  <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <div class="badge">1</div>
+</div>
+
+<!-- ─── CHAT PANEL ─── -->
+<div id="kivon-chat-panel">
+  <div class="kivon-chat-header">
+    <div class="kivon-chat-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9 10a.5.5 0 0 0 0 1m6 0a.5.5 0 0 0 0-1m-5.5 4c.7 1 2 1.6 3.5 1.6s2.8-.6 3.5-1.6"/>
+      </svg>
+    </div>
+    <div class="kivon-chat-header-info">
+      <div class="kivon-chat-header-name">KIVON Asistan</div>
+      <div class="kivon-chat-header-status"><span class="kivon-status-dot"></span> Çevrimiçi</div>
+    </div>
+    <button class="kivon-close-btn" onclick="kivonToggleChat()" aria-label="Kapat">✕</button>
+  </div>
+  <div class="kivon-chat-body" id="kivonChatBody"></div>
+  <div class="kivon-quick-replies" id="kivonQuickReplies"></div>
+  <div class="kivon-chat-input-area">
+    <input type="text" class="kivon-chat-input" id="kivonChatInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')kivonSendMsg()">
+    <button class="kivon-send-btn" onclick="kivonSendMsg()">▶</button>
+  </div>
+  <div class="kivon-chat-footer">KIVON · AI Asistan</div>
+</div>
+
+<script>
+(function(){
+
+// ─── BILGI TABANI ───
+const KB = {
+  karsilama: "Merhaba! 👋 Ben KIVON'un AI asistanıyım. KOBİ'lere özel yapay zekâ çözümleri sunuyoruz. Fiyat, çözümler, demo veya iletişim — size nasıl yardımcı olabilirim?",
+  bilinmeyen: "Detaylı bilgi için WhatsApp'tan bize ulaşın: +90 530 398 27 12. En geç 24 saat içinde dönüş yaparız. 📞",
+  yanitlar: {
+    "fiyat|ücret|paket|kaç para|kaç tl|ne kadar": "📦 **KIVON Paketleri**\n\n🔹 **Başlangıç:** 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu\n🔹 **Profesyonel:** 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, randevu yönetimi\n🔹 **Kurumsal:** 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\n*Tüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, koşulsuz çıkış hakkı.*",
+    "çözüm|hizmet|ne yapıyor|nedir|ürün": "KOBİ'ler için 3 ana alanda çözüm sunuyoruz:\n\n📋 **Muhasebe büroları** — Müşteri sorgularını yanıtlama, randevu yönetimi, evrak takibi\n🛒 **E-ticaret** — 7/24 müşteri desteği, sipariş takibi, stok yönetimi\n🍽️ **Restoran & Kafe** — WhatsApp'tan rezervasyon, menü bilgisi, paket servis yönetimi\n\n*Hepsi mevcut yazılımınızla entegre çalışır.*",
+    "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "📞 **Bize Ulaşın**\n\n💬 **WhatsApp:** +90 530 398 27 12\n📧 **E-posta:** kivon.iletisim@gmail.com\n📸 **Instagram:** @kivon.iletisim\n\n*En geç 24 saat içinde dönüş yaparız. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli!*",
+    "demo|deneme|test|gösteri": "🎯 **Canlı Demolarımız**\n\n💬 AI Chatbot — Soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — Grafikleri inceleyin\n🧪 AI Hazırlık Testi — İşletmenizin AI seviyesini ölçün\n🧮 Muhasebe Araçları — Fatura, KDV hesaplama\n\n*Tümü ücretsiz, kayıt gerekmez.*",
+    "muhasebe|smmm|mali müşavir|muhasebeci": "Muhasebe büroları için chatbot'umuz, tekrarlayan müşteri sorularının %70'ini alır. Dekont, fatura, randevu sorgularını otomatik yanıtlar. Logo, Paraşüt, LUCA, Mikro ile tam uyumlu. Ayda 16+ saat zaman kazancı.",
+    "eticaret|e-ticaret|e ticaret|online mağaza": "E-ticaret işletmeleri için 7/24 otomatik müşteri desteği, sipariş/iade takibi, stok uyarıları, terk edilen sepet hatırlatmaları. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu.",
+    "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler için WhatsApp üzerinden rezervasyon alma, müsaitlik kontrolü, menü bilgisi paylaşma, paket servis yönetimi. Telefon trafiğini azaltır, servise odaklanmanızı sağlar.",
+    "merhaba|selam|naber|iyi günler|günaydın": "Merhaba! 👋 Size nasıl yardımcı olabilirim? Aşağıdaki butonlardan bir konu seçebilir veya sorunuzu doğrudan yazabilirsiniz."
+  }
+};
+
+// ─── DOM ───
+const body = document.getElementById('kivonChatBody');
+const quick = document.getElementById('kivonQuickReplies');
+const input = document.getElementById('kivonChatInput');
+
+let isOpen = false;
+
+window.kivonToggleChat = function() {
+  const panel = document.getElementById('kivon-chat-panel');
+  const btn = document.getElementById('kivon-widget-btn');
+  isOpen = !isOpen;
+  panel.classList.toggle('open', isOpen);
+  if (isOpen) {
+    btn.querySelector('.badge').style.display = 'none';
+    input.focus();
+    body.scrollTop = body.scrollHeight;
+  }
+};
+
+// ─── MESSAGES ───
+function kivonAddMsg(text, type) {
+  const div = document.createElement('div');
+  div.className = 'kivon-msg ' + type;
+  div.textContent = text;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function kivonTyping(ms) {
+  return new Promise(resolve => {
+    const div = document.createElement('div');
+    div.className = 'kivon-typing';
+    div.id = 'kivonTypingIndicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    setTimeout(() => { const el = document.getElementById('kivonTypingIndicator'); if (el) el.remove(); resolve(); }, ms);
+  });
+}
+
+async function kivonBotReply(text) {
+  await kivonTyping(600 + Math.random() * 500);
+  kivonAddMsg(text, 'bot');
+  kivonSetButtons(varsayilanButonlar);
+}
+
+function kivonFindAnswer(metin) {
+  const lower = metin.toLowerCase().trim();
+  if (!lower) return null;
+  for (const [anahtar, yanit] of Object.entries(KB.yanitlar)) {
+    const kelimeler = anahtar.split('|');
+    for (const k of kelimeler) {
+      if (lower.includes(k.trim())) return yanit;
+    }
+  }
+  return null;
+}
+
+// ─── BUTTONS ───
+const varsayilanButonlar = ['💰 Fiyat', '🔧 Çözümler', '📞 İletişim', '🎯 Demolar'];
+
+function kivonSetButtons(butonlar) {
+  quick.innerHTML = butonlar.map(b => `<button class="kivon-quick-btn">${b}</button>`).join('');
+  quick.querySelectorAll('.kivon-quick-btn').forEach(btn => {
+    btn.addEventListener('click', function() { kivonHandleMsg(this.textContent); });
+  });
+}
+
+async function kivonHandleMsg(metin) {
+  input.value = '';
+  kivonAddMsg(metin, 'user');
+
+  const lower = metin.toLowerCase();
+
+  if (lower.includes('fiyat') || lower.includes('💰')) {
+    await kivonBotReply(KB.yanitlar["fiyat|ücret|paket|kaç para|kaç tl|ne kadar"]);
+    return;
+  }
+  if (lower.includes('çözüm') || lower.includes('hizmet') || lower.includes('🔧')) {
+    await kivonBotReply(KB.yanitlar["çözüm|hizmet|ne yapıyor|nedir|ürün"]);
+    return;
+  }
+  if (lower.includes('iletişim') || lower.includes('ulaşmak') || lower.includes('telefon') || lower.includes('📞')) {
+    await kivonBotReply(KB.yanitlar["iletişim|ulaşmak|telefon|mail|whatsapp|instagram"]);
+    return;
+  }
+  if (lower.includes('demo') || lower.includes('deneme') || lower.includes('🎯')) {
+    await kivonBotReply(KB.yanitlar["demo|deneme|test|gösteri"]);
+    return;
+  }
+  const yanit = kivonFindAnswer(metin);
+  if (yanit) {
+    await kivonBotReply(yanit);
+    return;
+  }
+  await kivonBotReply(KB.bilinmeyen);
+}
+
+window.kivonSendMsg = function() {
+  const text = input.value.trim();
+  if (!text) return;
+  kivonHandleMsg(text);
+};
+
+// ─── INIT ───
+setTimeout(async () => {
+  await kivonTyping(700);
+  kivonAddMsg(KB.karsilama, 'bot');
+  kivonSetButtons(varsayilanButonlar);
+}, 300);
+
+})();
+</script>
+
+<!--
+
+╔══════════════════════════════════════════════════════════════╗
+║                    KIVON WIDGET EMBED                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+─ YÖNTEM 1: iframe (basit, izole) ─
+<iframe src="https://kivontr.com/demo/widget-chatbot.html"
+  style="position:fixed;bottom:0;right:0;width:460px;height:700px;border:none;z-index:999999;pointer-events:none;background:transparent"
+  title="KIVON Asistan" id="kivon-iframe"
+  onload="this.style.pointerEvents='all'"></iframe>
+
+─ YÖNTEM 2: Script tag (gelişmiş, özelleştirilebilir) ─
+<script>
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://kivontr.com/demo/widget-chatbot.js';
+  s.async = true;
+  s.onload = function() { KivonWidget.init({ position: 'bottom-right' }); };
+  document.head.appendChild(s);
+})();
+</script>
+
+─ YÖNTEM 3: HTML snippet (doğrudan sayfaya gömme) ─
+<style>.kivon-widget-container{position:fixed;bottom:0;right:0;z-index:999999}</style>
+<script>
+(function(w){
+  var d = w.document, c = 'kivon-widget-container';
+  if (d.getElementById(c)) return;
+  var div = d.createElement('div'); div.id = c;
+  var ifr = d.createElement('iframe');
+  ifr.src = 'https://kivontr.com/demo/widget-chatbot.html';
+  ifr.style.cssText = 'width:460px;height:700px;border:none;background:transparent;pointer-events:none';
+  ifr.onload = function(){ ifr.style.pointerEvents = 'all'; };
+  ifr.title = 'KIVON Asistan';
+  div.appendChild(ifr);
+  d.body.appendChild(div);
+})(window);
+</script>
+
+-->
+</body>
+</html>

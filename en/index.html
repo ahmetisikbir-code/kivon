@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kivon</title>
-<meta name="description" content="KIVON - Bursa merkezli yapay zeka danışmanlık şirketi. KOBİ'lere özel AI çözümleri, chatbot, veri analitiği ve otomasyon hizmetleri.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI danışmanlık, Bursa, dijital dönüşüm, chatbot">
+<meta name="description" content="KIVON - Bursa-based AI integration consultancy. AI solutions for SMBs: chatbot, data analytics, automation.">
+<meta name="keywords" content="KIVON, AI, SMB, consultancy, Bursa, digital transformation, chatbot">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - Yapay Zeka ile İşletmenizi Dönüştürün">
-<meta property="og:description" content="KIVON - Bursa merkezli yapay zeka danışmanlık şirketi. KOBİ'lere özel AI çözümleri, chatbot, veri analitiği ve otomasyon hizmetleri.">
+<meta property="og:title" content="KIVON - Transform Your Business with AI">
+<meta property="og:description" content="KIVON - Bursa-based AI integration consultancy. AI solutions for SMBs: chatbot, data analytics, automation.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kivontr.com/">
-<link rel="canonical" href="https://kivontr.com/">
+<meta property="og:url" content="https://kivontr.com/en/">
+<link rel="canonical" href="https://kivontr.com/en/">
 <style>
 :root {
   --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
@@ -25,11 +25,7 @@ body {
   background: var(--navy); color: var(--white);
   overflow-x: hidden; -webkit-font-smoothing: antialiased;
 }
-
-/* ─── 3D CANVAS ─── */
 #canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-
-/* ─── NAV ─── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
@@ -57,8 +53,6 @@ nav {
   transition:var(--tr);
 }
 .nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
-
-/* ─── HERO ─── */
 .hero {
   position:relative; z-index:1; min-height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -85,7 +79,6 @@ nav {
 .btn-primary:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.3); }
 .btn-glass { background:rgba(255,255,255,0.04); color:var(--white); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(12px); }
 .btn-glass:hover { background:rgba(255,255,255,0.08); transform:translateY(-3px); }
-
 .hero-marquee {
   position:absolute; bottom:40px; left:0; right:0; overflow:hidden;
   padding:16px 0;
@@ -99,12 +92,8 @@ nav {
   0% { transform:translateX(0); }
   100% { transform:translateX(-50%); }
 }
-
-/* ─── SECTIONS ─── */
 section { position:relative; z-index:1; padding:100px 0; }
 .container { max-width:1200px; margin:0 auto; padding:0 24px; }
-
-/* ─── STATS BAR ─── */
 .stats-bar {
   display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
   padding:40px 0; position:relative; z-index:1;
@@ -112,8 +101,6 @@ section { position:relative; z-index:1; padding:100px 0; }
 .stat-item { text-align:center; }
 .stat-num { font-size:40px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; }
 .stat-label { font-size:12px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
-
-/* ─── GRID CARDS ─── */
 .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
 .card {
@@ -135,8 +122,6 @@ section { position:relative; z-index:1; padding:100px 0; }
 .card h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
 .card p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.6; }
 .card-wide { grid-column:span 2; }
-
-/* ─── MCP SHOWCASE ─── */
 .mcp-showcase {
   display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
   padding:20px 0;
@@ -148,8 +133,6 @@ section { position:relative; z-index:1; padding:100px 0; }
   transition:var(--tr); cursor:default;
 }
 .mcp-chip:hover { background:rgba(56,189,248,0.1); color:var(--cyan); border-color:rgba(56,189,248,0.2); transform:translateY(-2px); }
-
-/* ─── SECTION HEADERS ─── */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
   color:var(--cyan); margin-bottom:12px; display:block; text-align:center;
@@ -161,8 +144,6 @@ section { position:relative; z-index:1; padding:100px 0; }
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
 .section-title span { color:var(--cyan); -webkit-text-fill-color:var(--cyan); }
-
-/* ─── TEAMS ─── */
 .team-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 .team-pill {
   display:flex; align-items:center; gap:10px;
@@ -179,8 +160,6 @@ section { position:relative; z-index:1; padding:100px 0; }
 .team-info { }
 .team-name { font-size:13px; font-weight:600; }
 .team-role { font-size:10px; color:rgba(255,255,255,0.3); }
-
-/* ─── PRICING ─── */
 .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .pricing-card {
   background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
@@ -201,12 +180,8 @@ section { position:relative; z-index:1; padding:100px 0; }
 .pricing-features li { padding:6px 0; font-size:13px; color:rgba(255,255,255,0.3); display:flex; align-items:center; gap:8px; }
 .pricing-features li::before { content:'\2726'; color:var(--cyan); font-size:9px; }
 .pricing-card .btn { width:100%; justify-content:center; }
-
-/* ─── FOOTER ─── */
 footer { text-align:center; padding:40px 24px; position:relative; z-index:1; border-top:1px solid rgba(56,189,248,0.04); }
 footer p { font-size:12px; color:rgba(255,255,255,0.12); }
-
-/* ─── RESPONSIVE ─── */
 @media (max-width:768px) {
   .grid-3, .grid-4, .pricing-grid { grid-template-columns:1fr; }
   .container > div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr!important; }
@@ -229,7 +204,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 </head>
 <body>
 
-<!-- 3D Canvas -->
 <canvas id="canvas3d"></canvas>
 
 <!-- ═══ NAV ═══ -->
@@ -240,111 +214,111 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <span>KIVON</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#cozumler">Çözümler</a></li>
-      <li><a href="muhasebe.html">Muhasebe</a></li>
-      <li><a href="eticaret.html">E-Ticaret</a></li>
-      <li><a href="restoran.html">Restoran</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="muhasebe.html">Accounting</a></li>
+      <li><a href="eticaret.html">E-Commerce</a></li>
+      <li><a href="restoran.html">Restaurant</a></li>
       <li><a href="#mcp">MCP</a></li>
-      <li><a href="#ekip">Ekip</a></li>
-      <li><a href="/en/" class="lang-switch">EN</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="/" class="lang-switch">TR</a></li>
     </ul>
-    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">Contact</a>
     <button class="mobile-toggle" id="mobileToggle">☰</button>
   </div>
 </nav>
 
 <div class="mobile-overlay" id="mobileOverlay">
   <button class="mobile-close" id="mobileClose">✕</button>
-  <a href="#cozumler">Çözümler</a>
-  <a href="muhasebe.html">Muhasebe</a>
-  <a href="eticaret.html">E-Ticaret</a>
-  <a href="restoran.html">Restoran</a>
+  <a href="#solutions">Solutions</a>
+  <a href="muhasebe.html">Accounting</a>
+  <a href="eticaret.html">E-Commerce</a>
+  <a href="restoran.html">Restaurant</a>
   <a href="#mcp">MCP</a>
-  <a href="#ekip">Ekip</a>
-  <a href="/en/">EN → English</a>
+  <a href="#team">Team</a>
+  <a href="/">TR → Türkçe</a>
 </div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div>
     <h1>KIVON</h1>
-    <p>Yapay zeka ile işletmenizi dönüştürün.<br>Bursa merkezli, Türkiye geneli.</p>
+    <p>Transform Your Business with AI.<br>AI integration consultancy for SMBs. Bursa-based, Turkey-wide.</p>
     <div class="hero-actions">
-      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Ücretsiz Görüşme</a>
-      <a href="#cozumler" class="btn btn-glass">Çözümler</a>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Free Consultation</a>
+      <a href="#solutions" class="btn btn-glass">Solutions</a>
     </div>
   </div>
   <div class="hero-marquee">
     <div class="marquee-track">
-      <span>29 MCP Araç</span><span>·</span><span>30 AI Çözümü</span><span>·</span><span>16 Uzman</span><span>·</span><span>4 Takım</span><span>·</span><span>Bursa</span><span>·</span><span>Muhasebe</span><span>·</span><span>E-Ticaret</span><span>·</span><span>Restoran</span><span>·</span><span>29 MCP Araç</span><span>·</span><span>30 AI Çözümü</span><span>·</span><span>16 Uzman</span><span>·</span><span>4 Takım</span><span>·</span><span>Bursa</span><span>·</span><span>Muhasebe</span><span>·</span><span>E-Ticaret</span><span>·</span><span>Restoran</span>
+      <span>29 MCP Tools</span><span>·</span><span>30 AI Solutions</span><span>·</span><span>16 Experts</span><span>·</span><span>4 Teams</span><span>·</span><span>Bursa</span><span>·</span><span>Accounting</span><span>·</span><span>E-Commerce</span><span>·</span><span>Restaurant</span><span>·</span><span>29 MCP Tools</span><span>·</span><span>30 AI Solutions</span><span>·</span><span>16 Experts</span><span>·</span><span>4 Teams</span><span>·</span><span>Bursa</span><span>·</span><span>Accounting</span><span>·</span><span>E-Commerce</span><span>·</span><span>Restaurant</span>
     </div>
   </div>
 </section>
 
-<!-- ═══ SEKTÖRLER ═══ -->
+<!-- ═══ SECTORS ═══ -->
 <div class="container" style="position:relative;z-index:1;padding:40px 24px">
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
     <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);transition:var(--tr);display:block">
       <span style="font-size:48px;display:block;margin-bottom:12px">📑</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Muhasebe</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Fatura, beyanname, müşteri takibi</p>
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Accounting</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Invoices, filings, client tracking</p>
     </a>
     <a href="eticaret.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(251,191,36,0.08));border:1px solid rgba(99,102,241,0.1);transition:var(--tr);display:block">
       <span style="font-size:48px;display:block;margin-bottom:12px">🛒</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">E-Ticaret</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Sipariş, stok, müşteri hizmetleri</p>
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">E-Commerce</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Orders, inventory, customer support</p>
     </a>
     <a href="restoran.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(56,189,248,0.08));border:1px solid rgba(251,191,36,0.1);transition:var(--tr);display:block">
       <span style="font-size:48px;display:block;margin-bottom:12px">🍽️</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Restoran & Kafe</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Rezervasyon, menü, paket servis</p>
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Restaurant & Cafe</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Reservations, menu, takeout</p>
     </a>
   </div>
 </div>
 
 <!-- ═══ STATS ═══ -->
 <div class="stats-bar container">
-  <div class="stat-item"><div class="stat-num">29</div><div class="stat-label">MCP Araç</div></div>
-  <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">AI Çözümü</div></div>
-  <div class="stat-item"><div class="stat-num">16</div><div class="stat-label">Uzman Ekip</div></div>
-  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Takım</div></div>
-  <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Kategori</div></div>
+  <div class="stat-item"><div class="stat-num">29</div><div class="stat-label">MCP Tools</div></div>
+  <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">AI Solutions</div></div>
+  <div class="stat-item"><div class="stat-num">16</div><div class="stat-label">Experts</div></div>
+  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Teams</div></div>
+  <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Sectors</div></div>
 </div>
 
-<!-- ═══ ÇÖZÜMLER ═══ -->
-<section id="cozumler" class="container">
-  <span class="section-label">Çözümler</span>
-  <h2 class="section-title">İşletmenize Özel <span>AI</span></h2>
+<!-- ═══ SOLUTIONS ═══ -->
+<section id="solutions" class="container">
+  <span class="section-label">Solutions</span>
+  <h2 class="section-title">AI Tailored for Your <span>Business</span></h2>
   <div class="grid-3">
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">💬</span>
       <h3>AI Chatbot</h3>
-      <p>7/24 müşteri hizmetleri. WhatsApp, web, Instagram.</p>
+      <p>24/7 customer service. WhatsApp, web, Instagram.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">📊</span>
-      <h3>Veri Analitiği</h3>
-      <p>Satış, stok, müşteri verileri. AI tahminleme.</p>
+      <h3>Data Analytics</h3>
+      <p>Sales, inventory, customer data. AI-powered forecasting.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">⚡</span>
-      <h3>Proses Otomasyonu</h3>
-      <p>%70 zaman tasarrufu. Fatura, stok, e-posta.</p>
+      <h3>Process Automation</h3>
+      <p>70% time savings. Invoices, inventory, email.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">🧠</span>
-      <h3>AI Danışmanlık</h3>
-      <p>Özel AI yol haritası. Fizibilite + uygulama.</p>
+      <h3>AI Consulting</h3>
+      <p>Custom AI roadmap. Feasibility + implementation.</p>
     </div>
     <div class="card card-wide">
       <div class="card-glow"></div>
       <span class="card-icon">⚙️</span>
-      <h3>Teknik Altyapı</h3>
-      <p>5 AI model (DeepSeek V4, Llama 3.3, Qwen3, Nemotron). n8n otomasyon. 29 MCP araç. Render API.</p>
+      <h3>Technical Infrastructure</h3>
+      <p>5 AI models (DeepSeek V4, Llama 3.3, Qwen3, Nemotron). n8n automation. 29 MCP tools. Render API.</p>
     </div>
   </div>
 </section>
@@ -352,8 +326,8 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 <!-- ═══ MCP ═══ -->
 <section id="mcp" style="background:rgba(10,10,26,0.3);">
   <div class="container">
-    <span class="section-label">Altyapı</span>
-    <h2 class="section-title">29 <span>MCP</span> Araç</h2>
+    <span class="section-label">Infrastructure</span>
+    <h2 class="section-title">29 <span>MCP</span> Tools</h2>
     <div class="mcp-showcase">
       <span class="mcp-chip">BrowserMCP</span><span class="mcp-chip">Playwright</span><span class="mcp-chip">Chrome DevTools</span>
       <span class="mcp-chip">Tavily</span><span class="mcp-chip">Exa</span><span class="mcp-chip">Jina AI</span>
@@ -364,122 +338,122 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <span class="mcp-chip">HubSpot</span><span class="mcp-chip">Railway</span><span class="mcp-chip">Slack</span>
       <span class="mcp-chip">Figma</span><span class="mcp-chip">Google</span><span class="mcp-chip">Maps</span>
       <span class="mcp-chip">Mapbox</span><span class="mcp-chip">Context7</span><span class="mcp-chip">Magic</span>
-      <span class="mcp-chip">Sequential Thinking</span><span class="mcp-chip">Kivon Muhasebe</span>
+      <span class="mcp-chip">Sequential Thinking</span><span class="mcp-chip">Kivon Accounting</span>
     </div>
   </div>
 </section>
 
-<!-- ═══ EKİP ═══ -->
-<section id="ekip" class="container">
-  <span class="section-label">Ekip</span>
-  <h2 class="section-title">16 Kişi · 4 <span>Takım</span></h2>
+<!-- ═══ TEAM ═══ -->
+<section id="team" class="container">
+  <span class="section-label">Team</span>
+  <h2 class="section-title">16 People · 4 <span>Teams</span></h2>
   <div class="team-row">
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#6366f1,#38bdf8)">D</div>
-      <div class="team-info"><div class="team-name">Doruk</div><div class="team-role">CEO — 14 yıl</div></div>
+      <div class="team-info"><div class="team-name">Doruk</div><div class="team-role">CEO — 14 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#38bdf8)">İ</div>
-      <div class="team-info"><div class="team-name">İlayda</div><div class="team-role">Strateji — 8 yıl</div></div>
+      <div class="team-info"><div class="team-name">İlayda</div><div class="team-role">Strategy — 8 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#10b981,#38bdf8)">C</div>
-      <div class="team-info"><div class="team-name">Can</div><div class="team-role">Danışman — 15 yıl</div></div>
+      <div class="team-info"><div class="team-name">Can</div><div class="team-role">Consultant — 15 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#38bdf8,#818cf8)">O</div>
-      <div class="team-info"><div class="team-name">Onur</div><div class="team-role">Teknik Lider — 9 yıl</div></div>
+      <div class="team-info"><div class="team-name">Onur</div><div class="team-role">Tech Lead — 9 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#38bdf8,#f472b6)">E</div>
-      <div class="team-info"><div class="team-name">Efe</div><div class="team-role">AI Müh. — 7 yıl</div></div>
+      <div class="team-info"><div class="team-name">Efe</div><div class="team-role">AI Eng. — 7 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#a855f7,#38bdf8)">A</div>
-      <div class="team-info"><div class="team-name">Ali</div><div class="team-role">Frontend — 12 yıl</div></div>
+      <div class="team-info"><div class="team-name">Ali</div><div class="team-role">Frontend — 12 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#06b6d4,#38bdf8)">Z</div>
-      <div class="team-info"><div class="team-name">Zeynep</div><div class="team-role">Backend — 14 yıl</div></div>
+      <div class="team-info"><div class="team-name">Zeynep</div><div class="team-role">Backend — 14 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#f43f5e,#38bdf8)">B</div>
-      <div class="team-info"><div class="team-name">Bora</div><div class="team-role">Yazılım — 11 yıl</div></div>
+      <div class="team-info"><div class="team-name">Bora</div><div class="team-role">Software — 11 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#eab308,#38bdf8)">S</div>
-      <div class="team-info"><div class="team-name">Selda</div><div class="team-role">Kreatif — 20 yıl</div></div>
+      <div class="team-info"><div class="team-name">Selda</div><div class="team-role">Creative — 20 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#d946ef,#38bdf8)">P</div>
-      <div class="team-info"><div class="team-name">Pelin</div><div class="team-role">Tasarım — 5 yıl</div></div>
+      <div class="team-info"><div class="team-name">Pelin</div><div class="team-role">Design — 5 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#14b8a6,#38bdf8)">M</div>
-      <div class="team-info"><div class="team-name">Mert</div><div class="team-role">Satış — 8 yıl</div></div>
+      <div class="team-info"><div class="team-name">Mert</div><div class="team-role">Sales — 8 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#8b5cf6,#38bdf8)">L</div>
-      <div class="team-info"><div class="team-name">Lara</div><div class="team-role">Operasyon — 7 yıl</div></div>
+      <div class="team-info"><div class="team-name">Lara</div><div class="team-role">Operations — 7 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)">K</div>
-      <div class="team-info"><div class="team-name">Kaan</div><div class="team-role">Finans — 9 yıl</div></div>
+      <div class="team-info"><div class="team-name">Kaan</div><div class="team-role">Finance — 9 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#84cc16,#38bdf8)">D</div>
-      <div class="team-info"><div class="team-name">Duru</div><div class="team-role">Muhasebe — 10 yıl</div></div>
+      <div class="team-info"><div class="team-name">Duru</div><div class="team-role">Accounting — 10 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#38bdf8)">N</div>
-      <div class="team-info"><div class="team-name">Naz</div><div class="team-role">İK — 6 yıl</div></div>
+      <div class="team-info"><div class="team-name">Naz</div><div class="team-role">HR — 6 yrs</div></div>
     </div>
     <div class="team-pill">
       <div class="team-avatar" style="background:linear-gradient(135deg,#f97316,#38bdf8)">E</div>
-      <div class="team-info"><div class="team-name">Ege</div><div class="team-role">Hukuk — 12 yıl</div></div>
+      <div class="team-info"><div class="team-name">Ege</div><div class="team-role">Legal — 12 yrs</div></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section id="fiyat" style="background:rgba(10,10,26,0.3);">
+<section id="pricing" style="background:rgba(10,10,26,0.3);">
   <div class="container">
-    <span class="section-label">Fiyat</span>
-    <h2 class="section-title">Her Bütçeye <span>Uygun</span></h2>
+    <span class="section-label">Pricing</span>
+    <h2 class="section-title">For Every <span>Budget</span></h2>
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="pricing-name">Başlangıç</div>
-        <div class="pricing-price" style="color:var(--cyan);">1.200<span> ₺/ay</span></div>
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price" style="color:var(--cyan);">$45<span>/mo</span></div>
         <ul class="pricing-features">
-          <li>1 AI çözümü</li>
-          <li>WhatsApp entegrasyonu</li>
-          <li>7/24 otomatik yanıt</li>
-          <li>Aylık rapor</li>
+          <li>1 AI solution</li>
+          <li>WhatsApp integration</li>
+          <li>24/7 auto-reply</li>
+          <li>Monthly report</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Start</a>
       </div>
       <div class="pricing-card featured">
-        <div class="pricing-badge">Popüler</div>
-        <div class="pricing-name">Profesyonel</div>
-        <div class="pricing-price">2.000<span> ₺/ay</span></div>
+        <div class="pricing-badge">Popular</div>
+        <div class="pricing-name">Professional</div>
+        <div class="pricing-price">$70<span>/mo</span></div>
         <ul class="pricing-features">
-          <li>2 AI çözümü</li>
+          <li>2 AI solutions</li>
           <li>WhatsApp + Web</li>
-          <li>Haftalık rapor</li>
-          <li>Randevu yönetimi</li>
+          <li>Weekly report</li>
+          <li>Appointment management</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Start</a>
       </div>
       <div class="pricing-card">
-        <div class="pricing-name">Kurumsal</div>
-        <div class="pricing-price" style="color:#818cf8;">3.500<span> ₺/ay</span></div>
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price" style="color:#818cf8;">$125<span>/mo</span></div>
         <ul class="pricing-features">
-          <li>Sınırsız çözüm</li>
-          <li>Tüm kanallar</li>
-          <li>Özel AI model</li>
-          <li>7/24 öncelikli</li>
+          <li>Unlimited solutions</li>
+          <li>All channels</li>
+          <li>Custom AI model</li>
+          <li>24/7 priority support</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">İletişim</a>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Contact</a>
       </div>
     </div>
   </div>
@@ -488,28 +462,28 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 <!-- ═══ DEMOS ═══ -->
 <section class="container">
   <span class="section-label">Demo</span>
-  <h2 class="section-title">Canlı <span>Deneyin</span></h2>
+  <h2 class="section-title">Try It <span>Live</span></h2>
   <div class="grid-3">
     <a href="demo/chatbot.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">💬</span><h3>AI Sohbet</h3><p>Canlı chatbot demo</p>
+      <div class="card-glow"></div><span class="card-icon">💬</span><h3>AI Chat</h3><p>Live chatbot demo</p>
     </a>
     <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">📑</span><h3>Muhasebe</h3><p>AI fatura okuyucu</p>
+      <div class="card-glow"></div><span class="card-icon">📑</span><h3>Accounting</h3><p>AI invoice reader</p>
     </a>
     <a href="cozum-paneli.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">📊</span><h3>Panel</h3><p>Çözüm yönetim paneli</p>
+      <div class="card-glow"></div><span class="card-icon">📊</span><h3>Dashboard</h3><p>Solution management panel</p>
     </a>
   </div>
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="iletisim" style="background:rgba(10,10,26,0.3);">
+<section id="contact" style="background:rgba(10,10,26,0.3);">
   <div class="container" style="text-align:center">
-    <span class="section-label">İletişim</span>
-    <h2 class="section-title">Bize <span>Ulaşın</span></h2>
+    <span class="section-label">Contact</span>
+    <h2 class="section-title">Get In <span>Touch</span></h2>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">WhatsApp</a>
-      <a href="mailto:kivon.iletisim@gmail.com" class="btn btn-glass">E-Posta</a>
+      <a href="mailto:kivon.iletisim@gmail.com" class="btn btn-glass">Email</a>
       <a href="https://instagram.com/kivon.iletisim" class="btn btn-glass" target="_blank">Instagram</a>
     </div>
   </div>
@@ -594,7 +568,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 })();
 </script>
 
-<!-- ═══ SCROLL REVEAL ═══ -->
 <script>
 (function() {
   var els = document.querySelectorAll('.card, .pricing-card, .team-pill, .mcp-chip, .stat-item');

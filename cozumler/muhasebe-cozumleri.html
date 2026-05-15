@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON · E-Ticaret Çözümleri</title>
-<meta name="description" content="KIVON E-Ticaret - Yapay zeka ile e-ticaret işletmenizi büyütün. Akıllı sipariş yönetimi, stok takibi ve müşteri hizmetleri otomasyonu.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, e-ticaret, Bursa, AI danışmanlık, sipariş yönetimi, stok takibi">
+<title>KIVON · Muhasebe AI Çözümleri</title>
+<meta name="description" content="KIVON Muhasebe Çözümleri - KOBİ'ler için yapay zeka destekli muhasebe otomasyonu. Fatura yönetimi, vergi takvimi, AI analiz.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, muhasebe çözümleri, Bursa, AI muhasebe, fatura yönetimi">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - E-Ticaret AI Çözümleri">
-<meta property="og:description" content="KIVON E-Ticaret - Yapay zeka ile e-ticaret işletmenizi büyütün. Akıllı sipariş yönetimi, stok takibi ve müşteri hizmetleri otomasyonu.">
+<meta property="og:title" content="KIVON - Muhasebe Çözümleri">
+<meta property="og:description" content="KIVON Muhasebe Çözümleri - KOBİ'ler için yapay zeka destekli muhasebe otomasyonu. Fatura yönetimi, vergi takvimi, AI analiz.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kivontr.com/eticaret.html">
-<link rel="canonical" href="https://kivontr.com/eticaret.html">
+<meta property="og:url" content="https://kivontr.com/cozumler/muhasebe-cozumleri.html">
+<link rel="canonical" href="https://kivontr.com/cozumler/muhasebe-cozumleri.html">
 <style>
 :root {
   --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
@@ -25,11 +25,7 @@ body {
   background: var(--navy); color: var(--white);
   overflow-x: hidden; -webkit-font-smoothing: antialiased;
 }
-
-/* ─── 3D CANVAS ─── */
 #canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-
-/* ─── NAV ─── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
@@ -52,8 +48,6 @@ nav {
   transition:var(--tr);
 }
 .nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
-
-/* ─── HERO ─── */
 .hero {
   position:relative; z-index:1; min-height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -65,13 +59,26 @@ nav {
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   margin-bottom:16px;
 }
-.hero h1 .gold { -webkit-text-fill-color:var(--gold); color:var(--gold); }
+.hero h1 .cyan { -webkit-text-fill-color:var(--cyan); color:var(--cyan); }
 .hero p {
   font-size:clamp(1rem,2vw,1.2rem); color:rgba(255,255,255,0.4);
-  max-width:480px; margin:0 auto 32px; line-height:1.6;
+  max-width:520px; margin:0 auto 32px; line-height:1.6;
   font-weight:300; letter-spacing:0.02em;
 }
 .hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-marquee {
+  position:absolute; bottom:40px; left:0; right:0; overflow:hidden;
+  padding:16px 0;
+}
+.marquee-track {
+  display:flex; gap:48px; animation: scroll 30s linear infinite;
+  width: max-content;
+}
+.marquee-track span { font-size:13px; color:rgba(255,255,255,0.12); white-space:nowrap; letter-spacing:1px; }
+@keyframes scroll {
+  0% { transform:translateX(0%); }
+  100% { transform:translateX(-50%); }
+}
 .btn {
   display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
   border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
@@ -83,8 +90,6 @@ nav {
 .btn-glass:hover { background:rgba(255,255,255,0.08); transform:translateY(-3px); }
 .btn-gold { background:linear-gradient(135deg,var(--gold),#f59e0b); color:#0a0a1a; box-shadow:0 0 30px rgba(251,191,36,0.2); }
 .btn-gold:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(251,191,36,0.3); }
-
-/* ─── STATS BAR ─── */
 .stats-bar {
   display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
   padding:40px 0; position:relative; z-index:1;
@@ -92,31 +97,30 @@ nav {
 .stat-item { text-align:center; }
 .stat-num { font-size:40px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; }
 .stat-label { font-size:12px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
-
-/* ─── SECTION ─── */
 section { position:relative; z-index:1; padding:100px 0; }
 .container { max-width:1200px; margin:0 auto; padding:0 24px; }
-
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
   color:var(--cyan); margin-bottom:12px; display:block; text-align:center;
 }
 .section-title {
   font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.03em;
-  text-align:center; margin-bottom:40px;
+  text-align:center; margin-bottom:12px;
   background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
 .section-title span { color:var(--cyan); -webkit-text-fill-color:var(--cyan); }
 .section-title .gold { color:var(--gold); -webkit-text-fill-color:var(--gold); }
-
-/* ─── FEATURE CARDS ─── */
-.feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.section-sub {
+  font-size:13px; color:rgba(255,255,255,0.25);
+  text-align:center; margin-bottom:40px;
+}
+.feature-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
 .feature-card {
   position:relative; overflow:hidden;
   background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
   border:1px solid rgba(56,189,248,0.06);
-  border-radius:20px; padding:32px 28px;
+  border-radius:20px; padding:36px 28px;
   transition:var(--tr); cursor:default;
 }
 .feature-card:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-6px); }
@@ -127,33 +131,34 @@ section { position:relative; z-index:1; padding:100px 0; }
   opacity:0;
 }
 .feature-card:hover .card-glow { opacity:1; }
-.feature-card .card-icon { font-size:36px; margin-bottom:16px; display:block; }
-.feature-card h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
+.feature-card .card-icon { font-size:40px; margin-bottom:16px; display:block; }
+.feature-card h3 { font-size:17px; font-weight:700; margin-bottom:6px; }
 .feature-card p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.6; }
 .feature-card .card-tag {
-  display:inline-block; margin-top:12px;
+  display:inline-block; margin-top:14px;
   font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
   color:var(--cyan);
 }
-.feature-card-wide { grid-column:span 2; }
-
-/* ─── INTEGRATION LOGOS ─── */
-.integration-section { position:relative; z-index:1; padding:80px 0; text-align:center; }
+.feature-card .card-price {
+  display:block; margin-top:16px;
+  font-size:20px; font-weight:800; color:var(--gold); letter-spacing:-0.02em;
+}
+.feature-card .card-price span { font-size:12px; font-weight:500; color:rgba(255,255,255,0.3); }
 .integration-grid {
-  display:flex; flex-wrap:wrap; gap:16px; justify-content:center; align-items:center;
-  margin-top:40px;
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center;
+  margin-top:32px;
 }
 .integration-chip {
   display:flex; align-items:center; gap:10px;
-  padding:14px 24px; border-radius:16px;
+  padding:16px 28px; border-radius:16px;
   background:rgba(15,15,40,0.3); border:1px solid rgba(56,189,248,0.06);
   transition:var(--tr);
   font-size:14px; font-weight:600; color:rgba(255,255,255,0.5); cursor:default;
 }
 .integration-chip:hover { border-color:rgba(56,189,248,0.2); transform:translateY(-4px); background:rgba(15,15,40,0.5); }
-.integration-chip .chip-icon { font-size:24px; }
-
-/* ─── PRICING ─── */
+.integration-chip .chip-icon { font-size:28px; }
+.integration-chip .chip-label { font-size:15px; font-weight:700; }
+.integration-chip .chip-sub { font-size:10px; color:rgba(255,255,255,0.25); }
 .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .pricing-card {
   background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
@@ -161,10 +166,10 @@ section { position:relative; z-index:1; padding:100px 0; }
   padding:36px 28px; transition:var(--tr); position:relative;
 }
 .pricing-card:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-4px); }
-.pricing-card.featured { border-color:var(--gold); box-shadow:0 0 40px rgba(251,191,36,0.06); }
+.pricing-card.featured { border-color:var(--cyan); box-shadow:0 0 40px rgba(56,189,248,0.08); }
 .pricing-badge {
   position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-  background:linear-gradient(135deg,var(--gold),#f59e0b); color:#0a0a1a;
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
   font-size:10px; font-weight:700; padding:4px 14px; border-radius:100px; white-space:nowrap;
 }
 .pricing-name { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:8px; }
@@ -174,8 +179,6 @@ section { position:relative; z-index:1; padding:100px 0; }
 .pricing-features li { padding:6px 0; font-size:13px; color:rgba(255,255,255,0.3); display:flex; align-items:center; gap:8px; }
 .pricing-features li::before { content:'\2726'; color:var(--cyan); font-size:9px; }
 .pricing-card .btn { width:100%; justify-content:center; }
-
-/* ─── CONTACT ─── */
 .contact-section {
   position:relative; z-index:1; padding:100px 0;
   background:rgba(10,10,26,0.3);
@@ -194,20 +197,13 @@ section { position:relative; z-index:1; padding:100px 0; }
 }
 .contact-card:hover { border-color:rgba(56,189,248,0.2); transform:translateY(-4px); }
 .contact-card .contact-icon { font-size:24px; }
-
-.subtitle {
-  font-size:13px; color:rgba(255,255,255,0.25);
-  text-align:center; margin-top:-28px; margin-bottom:40px;
-}
-
-/* ─── FOOTER ─── */
 footer { text-align:center; padding:40px 24px; position:relative; z-index:1; border-top:1px solid rgba(56,189,248,0.04); }
 footer p { font-size:12px; color:rgba(255,255,255,0.12); }
-
-/* ─── RESPONSIVE ─── */
+.footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:12px; }
+.footer-links a { color:rgba(255,255,255,0.2); text-decoration:none; font-size:12px; transition:var(--tr); }
+.footer-links a:hover { color:var(--cyan); }
 @media (max-width:768px) {
   .feature-grid, .pricing-grid { grid-template-columns:1fr; }
-  .feature-card-wide { grid-column:span 1; }
   .hero h1 { font-size:2.2rem; }
   .stats-bar { gap:32px; }
   .nav-links { display:none; }
@@ -226,22 +222,21 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 </head>
 <body>
 
-<!-- 3D Canvas -->
 <canvas id="canvas3d"></canvas>
 
-<!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
+    <a href="../index.html" class="nav-logo">
       <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span>KIVON</span>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html">Ana Sayfa</a></li>
-      <li><a href="index.html#cozumler">Çözümler</a></li>
-      <li><a href="eticaret.html" class="active">E-Ticaret</a></li>
-      <li><a href="muhasebe.html">Muhasebe</a></li>
-      <li><a href="ai-araclar.html">AI Araçlar</a></li>
+      <li><a href="../index.html">Ana Sayfa</a></li>
+      <li><a href="../index.html#cozumler">Çözümler</a></li>
+      <li><a href="muhasebe-cozumleri.html" class="active">Muhasebe</a></li>
+      <li><a href="eticaret-cozumleri.html">E-Ticaret</a></li>
+      <li><a href="restoran-cozumleri.html">Restoran</a></li>
+      <li><a href="pazarlama-cozumleri.html">Pazarlama</a></li>
     </ul>
     <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
     <button class="mobile-toggle" id="mobileToggle">☰</button>
@@ -250,169 +245,185 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
 <div class="mobile-overlay" id="mobileOverlay">
   <button class="mobile-close" id="mobileClose">✕</button>
-  <a href="index.html">Ana Sayfa</a>
-  <a href="index.html#cozumler">Çözümler</a>
-  <a href="eticaret.html">E-Ticaret</a>
-  <a href="muhasebe.html">Muhasebe</a>
-  <a href="ai-araclar.html">AI Araçlar</a>
+  <a href="../index.html">Ana Sayfa</a>
+  <a href="../index.html#cozumler">Çözümler</a>
+  <a href="muhasebe-cozumleri.html">Muhasebe</a>
+  <a href="eticaret-cozumleri.html">E-Ticaret</a>
+  <a href="restoran-cozumleri.html">Restoran</a>
+  <a href="pazarlama-cozumleri.html">Pazarlama</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
 <section class="hero">
   <div>
-    <h1>E-Ticaretinize<br><span class="gold">AI</span> Gücü</h1>
-    <p>Dönüşümü artırın, maliyetleri düşürün.<br>Türkiye'nin önde gelen pazaryerleriyle tam uyumlu.</p>
+    <h1>Muhasebe Büroları<br>için <span class="cyan">AI</span></h1>
+    <p>Belge işlemeden beyannameye, kira mutabakatından harcama takibine kadar tüm süreçlerinizi yapay zeka ile otomatikleştirin.</p>
     <div class="hero-actions">
-      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Hemen Başlayın</a>
-      <a href="#cozumler" class="btn btn-glass">Çözümleri İncele</a>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Ücretsiz Görüşme</a>
+      <a href="#urunler" class="btn btn-glass">Ürünleri İncele</a>
+    </div>
+  </div>
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>Akıllı Fatura İşleme</span><span>·</span><span>Kira Mutabakat Otomasyonu</span><span>·</span><span>Harcama Takip Asistanı</span><span>·</span><span>Vergi Asistanı</span><span>·</span><span>Logo Entegrasyon</span><span>·</span><span>Paraşüt</span><span>·</span><span>LUCA</span><span>·</span><span>Mikro</span><span>·</span><span>Akıllı Fatura İşleme</span><span>·</span><span>Kira Mutabakat Otomasyonu</span><span>·</span><span>Harcama Takip Asistanı</span><span>·</span><span>Vergi Asistanı</span>
     </div>
   </div>
 </section>
 
-<!-- ═══ STATS ═══ -->
 <div class="stats-bar container">
-  <div class="stat-item"><div class="stat-num">%40</div><div class="stat-label">Dönüşüm Artışı</div></div>
-  <div class="stat-item"><div class="stat-num">%70</div><div class="stat-label">Zaman Tasarrufu</div></div>
-  <div class="stat-item"><div class="stat-num">7/24</div><div class="stat-label">Kesintisiz Hizmet</div></div>
-  <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Pazaryeri</div></div>
+  <div class="stat-item"><div class="stat-num">%90</div><div class="stat-label">Zaman Tasarrufu</div></div>
+  <div class="stat-item"><div class="stat-num">%99</div><div class="stat-label">Doğruluk Oranı</div></div>
+  <div class="stat-item"><div class="stat-num">7/24</div><div class="stat-label">Kesintisiz Çalışma</div></div>
+  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">AI Modül</div></div>
 </div>
 
-<!-- ═══ E-TICARET ÇÖZÜMLER ═══ -->
-<section id="cozumler" class="container">
-  <span class="section-label">E-Ticaret Çözümleri</span>
-  <h2 class="section-title">Satışınızı <span>Katlayın</span></h2>
-  <p class="subtitle">AI destekli 5 modül, tek platform</p>
+<section id="urunler" class="container">
+  <span class="section-label">Ürünler</span>
+  <h2 class="section-title">Muhasebeniz İçin <span>4 AI Çözümü</span></h2>
+  <p class="section-sub">Her büyüklükteki muhasebe bürosuna özel, entegre ve ölçeklenebilir.</p>
   <div class="feature-grid">
     <div class="feature-card">
       <div class="card-glow"></div>
-      <span class="card-icon">🛍️</span>
-      <h3>AI Alışveriş Asistanı</h3>
-      <p>7/24 müşteri hizmetleri. Ürün önerisi, sipariş takibi, iade süreci. WhatsApp ve web sitenizde.</p>
-      <span class="card-tag">Dönüşüm +%40</span>
+      <span class="card-icon">📄</span>
+      <h3>Akıllı Fatura İşleme</h3>
+      <p>Faturaları AI ile otomatik okuyun, sınıflandırın ve muhasebe kaydına dönüştürün. PDF, görsel, e-arşiv dahil tüm formatlar desteklenir. OCR + AI kombinasyonu ile %99 doğruluk.</p>
+      <span class="card-tag">OCR · AI · Otomatik Kayıt</span>
+      <span class="card-price">1.500 - 4.500<span> ₺/ay</span></span>
     </div>
     <div class="feature-card">
       <div class="card-glow"></div>
-      <span class="card-icon">⭐</span>
-      <h3>Yorum Analizi</h3>
-      <p>Binlerce müşteri yorumunu anlık analiz et. Duygu durumu, trendler, rakip karşılaştırması.</p>
-      <span class="card-tag">İçgörü +%60</span>
+      <span class="card-icon">🔑</span>
+      <h3>Kira Mutabakat Otomasyonu</h3>
+      <p>Kiracı ve kiralayan arasındaki kira ödemelerini otomatik eşleştirin. Gecikme uyarıları, stopaj hesaplama, yıllık mutabakat raporları. Birden çok mülk ve kiracıyı aynı anda yönetin.</p>
+      <span class="card-tag">Mutabakat · Stopaj · Uyarı</span>
+      <span class="card-price">2.000 - 6.000<span> ₺/ay</span></span>
     </div>
     <div class="feature-card">
       <div class="card-glow"></div>
-      <span class="card-icon">📦</span>
-      <h3>Akıllı Stok Takibi</h3>
-      <p>AI tahminleme ile stok yönetimi. Talep tahmini, kritik stok uyarıları, otomatik sipariş.</p>
-      <span class="card-tag">Stok Hatası -%90</span>
+      <span class="card-icon">💳</span>
+      <h3>Harcama Takip Asistanı</h3>
+      <p>Şirket harcamalarını AI ile kategorize edin, bütçe ihlallerini tespit edin. Kredi kartı ekstreleri, banka dekontları ve fişleri otomatik işleyin. Gerçek zamanlı bütçe takibi.</p>
+      <span class="card-tag">Kategorizasyon · Bütçe · Rapor</span>
+      <span class="card-price">1.200 - 3.500<span> ₺/ay</span></span>
     </div>
     <div class="feature-card">
       <div class="card-glow"></div>
-      <span class="card-icon">🔄</span>
-      <h3>İade Otomasyonu</h3>
-      <p>İade sürecini full otomatize et. Müşteri bildirimi, kargo takibi, kalite kontrol, geri ödeme.</p>
-      <span class="card-tag">İade Süresi -%70</span>
-    </div>
-    <div class="feature-card feature-card-wide">
-      <div class="card-glow"></div>
-      <span class="card-icon">🔗</span>
-      <h3>Çapraz Platform Entegrasyonu</h3>
-      <p>Tüm pazaryerlerinizi tek panoda yönetin. Stok, fiyat, sipariş senkronizasyonu. Trendyol, Hepsiburada, Shopier, Amazon Türkiye ve kendi web siteniz.</p>
-      <span class="card-tag">Tek Panel · Tam Uyum</span>
+      <span class="card-icon">📊</span>
+      <h3>Vergi Asistanı</h3>
+      <p>KDV, muhtasar ve gelir vergisi beyannamelerinizi AI ile hazırlayın. Vergi takvimi hatırlatmaları, teşvik ve istisna kontrolleri. GİB uyumlu çıktı formatı.</p>
+      <span class="card-tag">KDV · Muhtasar · Beyanname</span>
+      <span class="card-price">1.500 - 5.000<span> ₺/ay</span></span>
     </div>
   </div>
 </section>
 
-<!-- ═══ INTEGRASYONLAR ═══ -->
-<div class="container" style="position:relative;z-index:1;padding:60px 24px;text-align:center;">
-  <span class="section-label">Entegrasyonlar</span>
-  <h2 class="section-title">Tüm Platformlarla <span>Uyumlu</span></h2>
-  <div class="integration-grid">
-    <div class="integration-chip"><span class="chip-icon">🔵</span> Trendyol</div>
-    <div class="integration-chip"><span class="chip-icon">🟢</span> Hepsiburada</div>
-    <div class="integration-chip"><span class="chip-icon">🟣</span> Shopier</div>
-    <div class="integration-chip"><span class="chip-icon">🟠</span> Amazon Türkiye</div>
-    <div class="integration-chip"><span class="chip-icon">⚪</span> Kendi Siteniz</div>
-    <div class="integration-chip"><span class="chip-icon">🟢</span> WhatsApp Business</div>
-    <div class="integration-chip"><span class="chip-icon">🔵</span> Instagram Shop</div>
-    <div class="integration-chip"><span class="chip-icon">⚫</span> Shopify</div>
-  </div>
-</div>
-
-<!-- ═══ PRICING ═══ -->
 <section style="background:rgba(10,10,26,0.3);">
-  <div class="container">
-    <span class="section-label">Fiyatlandırma</span>
-    <h2 class="section-title">E-Ticaret <span>Paketleri</span></h2>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-name">Başlangıç</div>
-        <div class="pricing-price" style="color:var(--cyan);">1.500<span> ₺/ay</span></div>
-        <ul class="pricing-features">
-          <li>1 pazaryeri entegrasyonu</li>
-          <li>AI alışveriş asistanı</li>
-          <li>Temel stok takibi</li>
-          <li>WhatsApp desteği</li>
-          <li>Aylık rapor</li>
-        </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Başla</a>
+  <div class="container" style="text-align:center">
+    <span class="section-label">Entegrasyon</span>
+    <h2 class="section-title">Kullandığınız <span>Programlarla</span> Uyumlu</h2>
+    <p class="section-sub">Türkiye'nin en yaygın muhasebe yazılımlarıyla tam entegre çalışır.</p>
+    <div class="integration-grid">
+      <div class="integration-chip">
+        <span class="chip-icon">🟦</span>
+        <div><div class="chip-label">Logo</div><div class="chip-sub">Logo GO · Tiger · Enterprise</div></div>
       </div>
-      <div class="pricing-card featured">
-        <div class="pricing-badge">Popüler</div>
-        <div class="pricing-name">Profesyonel</div>
-        <div class="pricing-price" style="color:var(--gold);">3.000<span> ₺/ay</span></div>
-        <ul class="pricing-features">
-          <li>3 pazaryeri entegrasyonu</li>
-          <li>AI alışveriş asistanı</li>
-          <li>Gelişmiş stok + talep tahmini</li>
-          <li>Yorum analizi</li>
-          <li>İade otomasyonu</li>
-          <li>Haftalık rapor + içgörü</li>
-        </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-gold" target="_blank">Başla</a>
+      <div class="integration-chip">
+        <span class="chip-icon">🟩</span>
+        <div><div class="chip-label">Paraşüt</div><div class="chip-sub">Bulut muhasebe</div></div>
       </div>
-      <div class="pricing-card">
-        <div class="pricing-name">Kurumsal</div>
-        <div class="pricing-price" style="color:#818cf8;">5.000<span> ₺/ay</span></div>
-        <ul class="pricing-features">
-          <li>Sınırsız pazaryeri</li>
-          <li>Tüm AI modülleri</li>
-          <li>Özel AI model eğitimi</li>
-          <li>API erişimi</li>
-          <li>7/24 öncelikli destek</li>
-          <li>Özel raporlama</li>
-        </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">İletişim</a>
+      <div class="integration-chip">
+        <span class="chip-icon">🟪</span>
+        <div><div class="chip-label">LUCA</div><div class="chip-sub">Dijital muhasebe</div></div>
+      </div>
+      <div class="integration-chip">
+        <span class="chip-icon">🟧</span>
+        <div><div class="chip-label">Mikro</div><div class="chip-sub">Mikro ERP · Mikro Sekiz</div></div>
+      </div>
+      <div class="integration-chip">
+        <span class="chip-icon">📋</span>
+        <div><div class="chip-label">Excel / Google Sheets</div><div class="chip-sub">CSV · API · E-Tablo</div></div>
+      </div>
+      <div class="integration-chip">
+        <span class="chip-icon">🔗</span>
+        <div><div class="chip-label">API</div><div class="chip-sub">Özel entegrasyon</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
-<div class="contact-section">
+<section id="fiyat" class="container">
+  <span class="section-label">Fiyat</span>
+  <h2 class="section-title">Büronuza Özel <span>Paketler</span></h2>
+  <p class="section-sub">Müşteri sayınıza ve ihtiyacınıza göre esnek planlar.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Temel</div>
+      <div class="pricing-price" style="color:var(--cyan);">1.500<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>1 AI modülü</li>
+        <li>1 program entegrasyonu</li>
+        <li>Aylık rapor</li>
+        <li>E-posta desteği</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Başla</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Popüler</div>
+      <div class="pricing-name">Profesyonel</div>
+      <div class="pricing-price" style="color:var(--gold);">3.500<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>2 AI modülü</li>
+        <li>Sınırsız entegrasyon</li>
+        <li>Haftalık rapor</li>
+        <li>WhatsApp desteği</li>
+        <li>Öncelikli destek</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-gold" target="_blank">Başla</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-name">Kurumsal</div>
+      <div class="pricing-price" style="color:#818cf8;">6.000<span> ₺/ay</span></div>
+      <ul class="pricing-features">
+        <li>Tüm AI modülleri</li>
+        <li>Sınırsız entegrasyon</li>
+        <li>Özel AI modeli</li>
+        <li>API erişimi</li>
+        <li>7/24 öncelikli destek</li>
+      </ul>
+      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">İletişim</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section">
   <div class="container" style="text-align:center">
     <span class="section-label">İletişim</span>
-    <h2 class="section-title">E-Ticaretinizi <span>Dönüştürün</span></h2>
-    <p class="subtitle">30 dakikalık ücretsiz danışmanlık için bize ulaşın</p>
+    <h2 class="section-title">Muhasebenizi <span>Dönüştürün</span></h2>
+    <p class="section-sub">30 dakikalık ücretsiz danışmanlık için bize ulaşın.</p>
     <div class="contact-grid">
       <a href="https://wa.me/905303982712" class="contact-card" target="_blank">
-        <span class="contact-icon">💬</span>
-        <span>WhatsApp</span>
+        <span class="contact-icon">💬</span> WhatsApp
       </a>
       <a href="mailto:kivon.iletisim@gmail.com" class="contact-card">
-        <span class="contact-icon">✉️</span>
-        <span>E-Posta</span>
+        <span class="contact-icon">✉️</span> E-Posta
       </a>
       <a href="https://instagram.com/kivon.iletisim" class="contact-card" target="_blank">
-        <span class="contact-icon">📸</span>
-        <span>Instagram</span>
+        <span class="contact-icon">📸</span> Instagram
       </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer><p>&copy; 2026 Kivon &middot; Bursa &middot; AI Destekli E-Ticaret Çözümleri</p></footer>
+<footer>
+  <div class="footer-links">
+    <a href="../index.html">Ana Sayfa</a>
+    <a href="muhasebe-cozumleri.html">Muhasebe</a>
+    <a href="eticaret-cozumleri.html">E-Ticaret</a>
+    <a href="restoran-cozumleri.html">Restoran</a>
+    <a href="pazarlama-cozumleri.html">Pazarlama</a>
+  </div>
+  <p>© 2026 Kivon · Bursa · kivontr.com</p>
+</footer>
 
-<!-- ═══ 3D BACKGROUND ═══ -->
 <script>
 (function() {
   var c = document.getElementById('canvas3d');
@@ -442,26 +453,19 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
-
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
       if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-
       var dx = mouse.x - p.x, dy = mouse.y - p.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 200) {
-        p.vx += dx * 0.00005;
-        p.vy += dy * 0.00005;
-      }
-
+      if (dist < 200) { p.vx += dx * 0.00005; p.vy += dy * 0.00005; }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(' + p.color + ',' + p.alpha + ')';
       ctx.fill();
     }
-
     for (var i = 0; i < particles.length; i++) {
       for (var j = i + 1; j < particles.length; j++) {
         var dx = particles[i].x - particles[j].x;
@@ -491,10 +495,9 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 })();
 </script>
 
-<!-- ═══ SCROLL REVEAL ═══ -->
 <script>
 (function() {
-  var els = document.querySelectorAll('.feature-card, .pricing-card, .integration-chip, .contact-card, .stat-item');
+  var els = document.querySelectorAll('.feature-card, .pricing-card, .integration-chip, .stat-item, .contact-card');
   var o = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {

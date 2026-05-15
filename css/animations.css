@@ -1,0 +1,255 @@
+/* =============================================
+   KIVON Animasyon Kütüphanesi
+   Tema: Koyu / Mor tabanlı
+   Versiyon: 1.0
+   ============================================= */
+
+/* --------------------
+   Keyframe Tanımlamaları
+   -------------------- */
+
+/* Fade In Up - Aşağıdan yukarıya doğru açılma */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Down - Yukarıdan aşağıya doğru açılma */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Left - Soldan sağa doğru açılma */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fade In Right - Sağdan sola doğru açılma */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale In - Küçükten büyüğe açılma */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Slide Up - Kayarak yukarı çıkma */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Glow - Mor parlama efekti */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(124, 92, 252, 0.4),
+                    0 0 10px rgba(124, 92, 252, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(124, 92, 252, 0.8),
+                    0 0 40px rgba(124, 92, 252, 0.4);
+    }
+}
+
+/* Pulse - Nabız atar gibi büyüyüp küçülme */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Float - Havada yüzme efekti (Y ekseninde hafif hareket) */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Shimmer - Akışkan ışık kayması (buton/card border'ları için) */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* --------------------
+   Utility Sınıfları
+   -------------------- */
+
+.anim-fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Scroll tetikleyicisi - görünür olana kadar gizle */
+.anim-on-scroll {
+    opacity: 0;
+    animation: none;
+}
+
+.anim-on-scroll.anim-visible {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.anim-fade-in-down {
+    animation: fadeInDown 0.6s ease forwards;
+}
+
+.anim-fade-in-left {
+    animation: fadeInLeft 0.6s ease forwards;
+}
+
+.anim-fade-in-right {
+    animation: fadeInRight 0.6s ease forwards;
+}
+
+.anim-scale {
+    animation: scaleIn 0.6s ease forwards;
+}
+
+.anim-slide-up {
+    animation: slideUp 0.6s ease forwards;
+}
+
+.anim-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.anim-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.anim-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.anim-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(124, 92, 252, 0.15) 25%,
+        rgba(124, 92, 252, 0.3) 50%,
+        rgba(124, 92, 252, 0.15) 75%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+}
+
+/* --------------------
+   Gecikme Sınıfları (100ms adımlarla)
+   -------------------- */
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* --------------------
+   Süre Sınıfları
+   -------------------- */
+
+.dur-fast { animation-duration: 0.3s; }
+.dur-normal { animation-duration: 0.6s; }
+.dur-slow { animation-duration: 1s; }
+
+/* --------------------
+   Hareket Azaltma Desteği (Erişilebilirlik)
+   -------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .anim-on-scroll {
+        opacity: 1 !important;
+    }
+}
+
+/* --------------------
+   Mobil Dostu
+   -------------------- */
+
+@media (max-width: 768px) {
+    .anim-fade-in,
+    .anim-fade-in-down,
+    .anim-fade-in-left,
+    .anim-fade-in-right,
+    .anim-scale,
+    .anim-slide-up {
+        animation-duration: 0.5s;
+    }
+
+    .delay-1, .delay-2, .delay-3,
+    .delay-4, .delay-5, .delay-6 {
+        animation-delay: 0s;
+    }
+}
+
+/* --------------------
+   IntersectionObserver İçin JS Yardımcısı
+   Kullanım:
+   document.querySelectorAll('.anim-on-scroll').forEach(el => {
+       const obs = new IntersectionObserver(entries => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.classList.add('anim-visible');
+                   obs.unobserve(entry.target);
+               }
+           });
+       }, { threshold: 0.1 });
+       obs.observe(el);
+   });
+   -------------------- */

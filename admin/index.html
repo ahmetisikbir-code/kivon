@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON Admin</title>
+<style>
+:root {
+  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --white: #f1f5f9; --muted: #94a3b8; --red: #ef4444; --green: #22c55e;
+  --tr: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
+body {
+  font-family: -apple-system,'Segoe UI','Inter',sans-serif;
+  background: var(--navy); color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── LOGIN ─── */
+.login-page {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06), transparent 60%);
+  padding:24px;
+}
+.login-box {
+  width:100%; max-width:400px;
+  background:rgba(15,15,40,0.5); backdrop-filter:blur(20px);
+  border:1px solid rgba(56,189,248,0.08);
+  border-radius:24px; padding:48px 32px;
+  text-align:center;
+}
+.login-box h1 { font-size:28px; font-weight:900; letter-spacing:4px; margin-bottom:4px; }
+.login-box h1 span { color:var(--cyan); }
+.login-box p { font-size:12px; color:rgba(255,255,255,0.25); margin-bottom:32px; }
+.login-box .field {
+  width:100%; padding:14px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.03); color:#fff; font-size:14px; margin-bottom:12px;
+  outline:none; transition:var(--tr);
+}
+.login-box .field:focus { border-color:var(--cyan); box-shadow:0 0 20px rgba(56,189,248,0.06); }
+.login-box .field::placeholder { color:rgba(255,255,255,0.15); }
+.login-box .btn { width:100%; margin-top:8px; }
+.login-error { color:var(--red); font-size:12px; margin-top:8px; display:none; }
+
+/* ─── DASHBOARD ─── */
+.dashboard { display:none; }
+.dash-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px; border-bottom:1px solid rgba(56,189,248,0.06);
+  background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
+  position:sticky; top:0; z-index:100;
+}
+.dash-header h1 { font-size:18px; font-weight:800; letter-spacing:3px; }
+.dash-header h1 span { color:var(--cyan); }
+.dash-header .dash-right { display:flex; align-items:center; gap:16px; }
+.dash-header .dash-right span { font-size:12px; color:rgba(255,255,255,0.3); }
+.dash-header .logout-btn {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  color:var(--white); padding:6px 16px; border-radius:100px; font-size:12px; font-weight:600;
+  cursor:pointer; transition:var(--tr);
+}
+.dash-header .logout-btn:hover { background:rgba(239,68,68,0.15); border-color:var(--red); color:var(--red); }
+
+.dash-body { max-width:1200px; margin:0 auto; padding:32px 24px; }
+
+/* ─── STATS ─── */
+.dash-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:32px; }
+.dash-stat {
+  background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
+  border-radius:16px; padding:24px; text-align:center;
+}
+.dash-stat .num { font-size:32px; font-weight:900; color:var(--cyan); }
+.dash-stat .label { font-size:11px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
+
+/* ─── GRID ─── */
+.dash-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
+.dash-card {
+  background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
+  border-radius:16px; padding:24px;
+}
+.dash-card h3 { font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:16px; }
+.dash-card .status-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03); font-size:13px; }
+.dash-card .status-row:last-child { border:none; }
+.status-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:8px; }
+.status-dot.up { background:var(--green); box-shadow:0 0 8px rgba(34,197,94,0.3); }
+.status-dot.down { background:var(--red); box-shadow:0 0 8px rgba(239,68,68,0.3); }
+
+/* ─── ACTIONS ─── */
+.quick-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.qaction {
+  background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
+  border-radius:14px; padding:20px; text-align:center; cursor:pointer;
+  transition:var(--tr); text-decoration:none; color:var(--white);
+}
+.qaction:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-2px); }
+.qaction .icon { font-size:28px; margin-bottom:8px; display:block; }
+.qaction .name { font-size:13px; font-weight:600; }
+.qaction .desc { font-size:11px; color:rgba(255,255,255,0.25); margin-top:2px; }
+
+/* ─── BTN ─── */
+.btn {
+  display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
+  border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
+  transition:var(--tr); border:none; cursor:pointer;
+}
+.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 30px rgba(56,189,248,0.2); }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(56,189,248,0.3); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:600px) {
+  .dash-grid { grid-template-columns:1fr; }
+  .quick-actions { grid-template-columns:1fr; }
+}
+.fade-in { animation: fadeUp 0.5s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div class="login-page" id="loginPage">
+  <div class="login-box fade-in">
+    <h1><span>KIVON</span> ADMIN</h1>
+    <p>Authorized personnel only</p>
+    <input class="field" type="text" id="username" placeholder="Username" autocomplete="off">
+    <input class="field" type="password" id="password" placeholder="Password">
+    <button class="btn btn-primary" onclick="login()">Sign In</button>
+    <div class="login-error" id="loginError">Invalid credentials. Try again.</div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <h1><span>KIVON</span> ADMIN</h1>
+    <div class="dash-right">
+      <span id="dashTime"></span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <!-- Quick Stats -->
+    <div class="dash-stats" id="dashStats"></div>
+
+    <!-- Grid: Visitor + System -->
+    <div class="dash-grid">
+      <div class="dash-card fade-in">
+        <h3>📊 Visitor Stats</h3>
+        <div class="status-row"><span>Today</span><span id="visitorToday">—</span></div>
+        <div class="status-row"><span>This Week</span><span id="visitorWeek">—</span></div>
+        <div class="status-row"><span>This Month</span><span id="visitorMonth">—</span></div>
+        <div class="status-row"><span>All Time</span><span id="visitorAll">—</span></div>
+      </div>
+      <div class="dash-card fade-in">
+        <h3>🔧 System Status</h3>
+        <div class="status-row"><span class="status-dot up"></span>All 29 MCPs</div>
+        <div class="status-row"><span class="status-dot up"></span>API Gateway</div>
+        <div class="status-row"><span class="status-dot up"></span>Render Hosting</div>
+        <div class="status-row"><span class="status-dot up"></span>n8n Workflows</div>
+        <div class="status-row"><span class="status-dot up"></span>GitHub Pages</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">⚡ Quick Actions</h3>
+    <div class="quick-actions">
+      <a class="qaction fade-in" href="https://github.com/ahmetisikbir-code/kivon" target="_blank">
+        <span class="icon">📦</span>
+        <div class="name">GitHub Push</div>
+        <div class="desc">Deploy latest code</div>
+      </a>
+      <a class="qaction fade-in" href="https://dashboard.render.com" target="_blank">
+        <span class="icon">🚀</span>
+        <div class="name">Render Deploy</div>
+        <div class="desc">Redeploy API server</div>
+      </a>
+      <a class="qaction fade-in" href="https://wa.me/905303982712" target="_blank">
+        <span class="icon">📢</span>
+        <div class="name">WhatsApp Broadcast</div>
+        <div class="desc">Send bulk message</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── CREDENTIALS ─── */
+const VALID_USER = 'admin';
+const VALID_PASS = 'kivon2026';
+
+/* ─── LOGIN ─── */
+function login() {
+  var u = document.getElementById('username').value;
+  var p = document.getElementById('password').value;
+  if (u === VALID_USER && p === VALID_PASS) {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    initDashboard();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+/* ─── LOGOUT ─── */
+function logout() {
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+/* ─── KEYBOARD ─── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    var dp = document.getElementById('dashboard');
+    if (!dp || dp.style.display !== 'block') login();
+  }
+});
+
+/* ─── DASHBOARD ─── */
+function initDashboard() {
+  var stats = [
+    { num: 29, label: 'MCP Tools' },
+    { num: 30, label: 'AI Solutions' },
+    { num: 16, label: 'Experts' },
+    { num: 4, label: 'Teams' },
+    { num: 3, label: 'Sectors' }
+  ];
+  var html = '';
+  stats.forEach(function(s) {
+    html += '<div class="dash-stat fade-in"><div class="num">' + s.num + '</div><div class="label">' + s.label + '</div></div>';
+  });
+  document.getElementById('dashStats').innerHTML = html;
+
+  /* Simulated visitors */
+  var today = Math.floor(Math.random() * 80 + 20);
+  var week = Math.floor(Math.random() * 400 + 100);
+  var month = Math.floor(Math.random() * 2000 + 500);
+  var all = Math.floor(Math.random() * 15000 + 5000);
+  document.getElementById('visitorToday').textContent = today;
+  document.getElementById('visitorWeek').textContent = week;
+  document.getElementById('visitorMonth').textContent = month;
+  document.getElementById('visitorAll').textContent = all;
+
+  /* Clock */
+  function tick() {
+    var d = new Date();
+    document.getElementById('dashTime').textContent = d.toLocaleString('en-TR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* re-trigger animations */
+  document.querySelectorAll('.dash-stat, .dash-card, .qaction').forEach(function(el, i) {
+    el.style.animation = 'none';
+    void el.offsetHeight;
+    el.style.animation = 'fadeUp 0.5s ease ' + (i * 0.05) + 's both';
+  });
+}
+</script>
+</body>
+</html>

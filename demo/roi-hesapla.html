@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI Hesapla — KIVON</title>
+<meta name="description" content="KIVON ROI Hesaplama - AI yatırımınızın geri dönüşünü hesaplayın. İşletmenize özel maliyet analizi ve tasarruf tahminleri.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, ROI hesapla, Bursa, AI yatırım, maliyet analizi">
+<meta name="author" content="KIVON">
+<meta property="og:title" content="KIVON - ROI Hesapla">
+<meta property="og:description" content="KIVON ROI Hesaplama - AI yatırımınızın geri dönüşünü hesaplayın. İşletmenize özel maliyet analizi ve tasarruf tahminleri.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kivontr.com/demo/roi-hesapla.html">
+<link rel="canonical" href="https://kivontr.com/demo/roi-hesapla.html">
+<style>
+:root {
+  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --white: #f1f5f9; --muted: #94a3b8;
+  --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: -apple-system,'Segoe UI','Inter',sans-serif;
+  background: var(--navy); color: var(--white);
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+#canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(56,189,248,0.06);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1200px; margin:0 auto; padding:0 24px; height:64px;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; letter-spacing:3px; text-decoration:none; color:var(--white); }
+.nav-logo svg { width:28px; height:28px; }
+.nav-logo span { color:var(--cyan); }
+.nav-links { display:flex; gap:32px; list-style:none; font-size:13px; font-weight:500; }
+.nav-links a { color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--tr); }
+.nav-links a:hover { color:var(--white); }
+.nav-cta {
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
+  padding:8px 22px; border-radius:100px; font-size:13px; font-weight:700; text-decoration:none;
+  transition:var(--tr);
+}
+.nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
+.mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
+.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+.mobile-overlay.open { display:flex; }
+.mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
+.mobile-overlay a:hover { color:#38bdf8; }
+.mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
+@media (max-width:768px) {
+  .mobile-toggle { display:block; }
+  .nav-links { display:none!important; }
+}
+.page { position:relative; z-index:1; padding-top:80px; min-height:100vh; }
+.container { max-width:900px; margin:0 auto; padding:24px; }
+.page-title { text-align:center; padding:40px 0 20px; }
+.page-title h1 { font-size:clamp(2rem,5vw,3.2rem); font-weight:900; letter-spacing:-0.03em; }
+.page-title h1 span { background:linear-gradient(135deg,var(--cyan),var(--indigo)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.page-title p { color:rgba(255,255,255,0.4); margin-top:8px; font-size:14px; }
+.back-link { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.3); text-decoration:none; font-size:13px; transition:var(--tr); margin-bottom:20px; }
+.back-link:hover { color:var(--cyan); }
+
+.input-card {
+  background:rgba(15,15,40,0.5); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.08); border-radius:24px;
+  padding:32px; margin-bottom:16px;
+  transition:var(--tr);
+}
+.input-card:hover { border-color:rgba(56,189,248,0.15); }
+.form-label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--cyan); margin-bottom:6px; display:block; }
+.form-label i { font-style:normal; margin-right:4px; }
+.input-group { margin-bottom:20px; }
+.input-group:last-child { margin-bottom:0; }
+.input-field {
+  width:100%; padding:14px 18px; border-radius:14px; border:1px solid rgba(56,189,248,0.08);
+  background:rgba(56,189,248,0.03); color:var(--white); font-size:16px; font-weight:600;
+  transition:var(--tr); font-family:inherit; outline:none;
+}
+.input-field:focus { border-color:var(--cyan); box-shadow:0 0 20px rgba(56,189,248,0.06); }
+.input-field::placeholder { color:rgba(255,255,255,0.15); font-weight:400; }
+.input-hint { font-size:11px; color:rgba(255,255,255,0.2); margin-top:4px; }
+.input-prefix { position:relative; }
+.input-prefix .input-field { padding-left:36px; }
+.input-prefix .prefix { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.2); font-weight:600; font-size:16px; }
+
+.btn-calc {
+  display:inline-flex; align-items:center; gap:8px; padding:16px 40px;
+  border-radius:100px; font-weight:700; font-size:15px; text-decoration:none;
+  transition:var(--tr); border:none; cursor:pointer; font-family:inherit;
+  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
+  box-shadow:0 0 30px rgba(56,189,248,0.2); width:100%; justify-content:center;
+}
+.btn-calc:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.3); }
+
+.result-card {
+  background:rgba(15,15,40,0.5); backdrop-filter:blur(12px);
+  border:1px solid rgba(56,189,248,0.08); border-radius:24px;
+  padding:32px; margin-top:24px; display:none;
+}
+.result-card.visible { display:block; animation: fadeUp 0.8s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+.roi-header { text-align:center; margin-bottom:28px; }
+.roi-header .roi-badge {
+  display:inline-block; padding:8px 24px; border-radius:100px;
+  font-size:clamp(2rem,5vw,3.5rem); font-weight:900;
+}
+.roi-badge.positive { color:#4ade80; }
+.roi-badge.negative { color:#f87171; }
+.roi-badge .pct { font-size:clamp(0.8rem,2vw,1rem); color:rgba(255,255,255,0.3); }
+.roi-header .roi-label { font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
+
+.comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.comp-card {
+  padding:20px; border-radius:16px; text-align:center;
+  transition:var(--tr);
+}
+.comp-card.before { background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.1); }
+.comp-card.after { background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.1); }
+.comp-card .comp-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+.comp-card.before .comp-label { color:rgba(248,113,113,0.5); }
+.comp-card.after .comp-label { color:rgba(74,222,128,0.5); }
+.comp-card .comp-val { font-size:28px; font-weight:900; margin-bottom:2px; }
+.comp-card.before .comp-val { color:#f87171; }
+.comp-card.after .comp-val { color:#4ade80; }
+.comp-card .comp-sub { font-size:11px; color:rgba(255,255,255,0.3); }
+
+.detail-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
+.detail-item {
+  padding:16px; border-radius:14px; text-align:center;
+  background:rgba(56,189,248,0.03); border:1px solid rgba(56,189,248,0.06);
+}
+.detail-item .d-val { font-size:22px; font-weight:900; color:var(--cyan); }
+.detail-item .d-lbl { font-size:10px; color:rgba(255,255,255,0.3); letter-spacing:1px; margin-top:2px; text-transform:uppercase; }
+
+.whatsapp-btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:#25D366; color:#fff;
+  padding:16px 36px; border-radius:100px; font-size:15px; font-weight:700; text-decoration:none;
+  transition:var(--tr); border:none; cursor:pointer; font-family:inherit; width:100%;
+}
+.whatsapp-btn:hover { transform:scale(1.02); box-shadow:0 0 40px rgba(37,211,102,0.3); }
+
+.slide-in { animation: slideUp 0.6s ease both; }
+@keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.delay-1 { animation-delay:0.1s; }
+.delay-2 { animation-delay:0.2s; }
+.delay-3 { animation-delay:0.3s; }
+
+@media (max-width:600px) {
+  .comparison-grid { grid-template-columns:1fr; }
+  .detail-grid { grid-template-columns:1fr; }
+  .input-card { padding:20px; }
+  .result-card { padding:20px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas3d"></canvas>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>KIVON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Ana Sayfa</a></li>
+      <li><a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a></li>
+      <li><a href="../demo/ai-hazirlik-testi.html">AI Testi</a></li>
+      <li><a href="https://wa.me/905303982712">İletişim</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">WhatsApp</a>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="/">Ana Sayfa</a>
+  <a href="../demo/fiyat-hesapla.html">Fiyat Hesapla</a>
+  <a href="../demo/ai-hazirlik-testi.html">AI Testi</a>
+  <a href="https://wa.me/905303982712">İletişim</a>
+</div>
+
+<div class="page">
+  <div class="container">
+
+    <a href="/" class="back-link slide-in">← Ana Sayfa</a>
+
+    <div class="page-title slide-in">
+      <h1>ROI <span>Hesapla</span></h1>
+      <p>AI yatırımınızın size ne kadar kazandıracağını görün</p>
+    </div>
+
+    <div class="input-card slide-in delay-1">
+      <div class="input-group">
+        <span class="form-label">Aylık İşgücü Maliyeti</span>
+        <div class="input-prefix">
+          <span class="prefix">₺</span>
+          <input class="input-field" id="laborCost" type="number" placeholder="50.000" value="50000">
+        </div>
+        <div class="input-hint">Tüm çalışanların toplam aylık maliyeti (maaş + yan haklar)</div>
+      </div>
+    </div>
+
+    <div class="input-card slide-in delay-2">
+      <div class="input-group">
+        <span class="form-label">Tekrarlayan İşlere Harcanan Süre</span>
+        <div class="input-prefix">
+          <span class="prefix">⏱</span>
+          <input class="input-field" id="repetitiveHours" type="number" placeholder="80" value="80">
+        </div>
+        <div class="input-hint">Her çalışanın aylık tekrarlayan işlere harcadığı ortalama saat</div>
+      </div>
+    </div>
+
+    <div class="input-card slide-in delay-3">
+      <div class="input-group">
+        <span class="form-label">Çalışan Sayısı</span>
+        <div class="input-prefix">
+          <span class="prefix">👥</span>
+          <input class="input-field" id="employeeCount" type="number" placeholder="5" value="5">
+        </div>
+        <div class="input-hint">İşletmenizde çalışan toplam kişi sayısı</div>
+      </div>
+    </div>
+
+    <button class="btn-calc slide-in delay-4" id="calcBtn">ROI Hesapla</button>
+
+    <div class="result-card" id="resultCard">
+      <div class="roi-header">
+        <div class="roi-badge" id="roiBadge">%<span id="roiPct">240</span></div>
+        <div class="roi-label">Yıllık Yatırım Getirisi (ROI)</div>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="comp-card before">
+          <div class="comp-label">AI Öncesi</div>
+          <div class="comp-val" id="beforeCost">₺600.000</div>
+          <div class="comp-sub">Yıllık işgücü maliyeti</div>
+        </div>
+        <div class="comp-card after">
+          <div class="comp-label">AI Sonrası</div>
+          <div class="comp-val" id="afterCost">₺180.000</div>
+          <div class="comp-sub">Yıllık işgücü maliyeti</div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-item"><div class="d-val"><span id="hoursSaved">3.360</span></div><div class="d-lbl">Saat Tasarrufu / Yıl</div></div>
+        <div class="detail-item"><div class="d-val"><span id="savingsAmount">₺420.000</span></div><div class="d-lbl">Yıllık Tasarruf</div></div>
+        <div class="detail-item"><div class="d-val"><span id="efficiencyPct">70</span>%</div><div class="d-lbl">Verimlilik Artışı</div></div>
+      </div>
+
+      <a href="https://wa.me/905303982712" class="whatsapp-btn" id="roiWhatsapp" target="_blank">💬 Sonuçları WhatsApp ile Paylaş</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var c = document.getElementById('canvas3d');
+  var ctx = c.getContext('2d');
+  var w, h, particles = [];
+  var mouse = { x: 0, y: 0 };
+  function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  var count = Math.min(120, Math.floor(w * h / 8000));
+  for (var i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i]; p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+      var dx = mouse.x - p.x, dy = mouse.y - p.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 200) { p.vx += dx * 0.00005; p.vy += dy * 0.00005; }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(56,189,248,' + p.alpha + ')'; ctx.fill();
+    }
+    for (var i = 0; i < particles.length; i++) {
+      for (var j = i + 1; j < particles.length; j++) {
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var dist = dx * dx + dy * dy;
+        if (dist < 12000) {
+          var alpha = 0.04 * (1 - dist / 12000);
+          if (mouse.x > 0) {
+            var mx = (particles[i].x + particles[j].x) / 2 - mouse.x;
+            var my = (particles[i].y + particles[j].y) / 2 - mouse.y;
+            var md = Math.sqrt(mx * mx + my * my);
+            if (md < 300) alpha += 0.06 * (1 - md / 300);
+          }
+          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')'; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function() {
+  var calcBtn = document.getElementById('calcBtn');
+  var resultCard = document.getElementById('resultCard');
+  var laborInput = document.getElementById('laborCost');
+  var hoursInput = document.getElementById('repetitiveHours');
+  var empInput = document.getElementById('employeeCount');
+
+  function animateNum(el, target, suffix) {
+    suffix = suffix || '';
+    var current = 0;
+    var steps = 40;
+    var increment = target / steps;
+    var timer = setInterval(function() {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      if (typeof target === 'number' && target > 1000) {
+        el.textContent = Math.round(current).toLocaleString('tr-TR') + suffix;
+      } else {
+        el.textContent = Math.round(current) + suffix;
+      }
+    }, 20);
+  }
+
+  calcBtn.addEventListener('click', function() {
+    var labor = parseFloat(laborInput.value) || 0;
+    var hours = parseFloat(hoursInput.value) || 0;
+    var emp = parseFloat(empInput.value) || 1;
+
+    var monthlyTotalLabor = labor;
+    var hourlyRate = monthlyTotalLabor / 160;
+    var aiSaveRate = 0.7;
+    var monthlyHoursTotal = hours * emp;
+    var monthlySavingsHours = monthlyHoursTotal * aiSaveRate;
+    var monthlySavingsAmount = monthlySavingsHours * hourlyRate;
+
+    var annualSavings = monthlySavingsAmount * 12;
+    var annualHoursSaved = monthlySavingsHours * 12;
+
+    var beforeAnnual = monthlyTotalLabor * 12;
+    var afterAnnual = beforeAnnual - annualSavings;
+
+    var aiInvestment = monthlyTotalLabor * 2;
+    var roi = ((annualSavings - aiInvestment) / aiInvestment) * 100;
+
+    if (roi < 0) {
+      document.getElementById('roiBadge').className = 'roi-badge negative';
+    } else {
+      document.getElementById('roiBadge').className = 'roi-badge positive';
+    }
+
+    document.getElementById('roiPct').textContent = Math.round(roi);
+    document.getElementById('beforeCost').textContent = '₺' + Math.round(beforeAnnual).toLocaleString('tr-TR');
+    document.getElementById('afterCost').textContent = '₺' + Math.round(Math.max(afterAnnual, 0)).toLocaleString('tr-TR');
+
+    animateNum(document.getElementById('hoursSaved'), Math.round(annualHoursSaved));
+    document.getElementById('savingsAmount').textContent = '₺' + Math.round(annualSavings).toLocaleString('tr-TR');
+    document.getElementById('efficiencyPct').textContent = Math.round(aiSaveRate * 100);
+
+    var msg = 'KIVON%20ROI%20Hesaplama%20Sonucum:%0A';
+    msg += '%E2%97%8F%20Y%C4%B1ll%C4%B1k%20ROI:%20' + Math.round(roi) + '%25%0A';
+    msg += '%E2%97%8F%20Y%C4%B1ll%C4%B1k%20Tasarruf:%20' + Math.round(annualSavings).toLocaleString('tr-TR') + '%20%E2%82%BA%0A';
+    msg += '%E2%97%8F%20Y%C4%B1ll%C4%B1k%20Saat%20Tasarrufu:%20' + Math.round(annualHoursSaved).toLocaleString('tr-TR') + '%20saat%0A';
+    msg += '%E2%97%8F%20Verimlilik%20Art%C4%B1%C5%9F%C4%B1:%20' + Math.round(aiSaveRate * 100) + '%25%0A';
+    document.getElementById('roiWhatsapp').href = 'https://wa.me/905303982712?text=' + msg;
+
+    resultCard.classList.add('visible');
+    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  calcBtn.click();
+})();
+
+(function(){
+  var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');
+  if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}
+})();
+</script>
+</body>
+</html>

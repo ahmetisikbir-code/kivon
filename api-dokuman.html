@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIVON API Docs</title>
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --text-primary: #e8e8f0;
+            --text-secondary: #a0a0b8;
+            --accent: #7c5cfc;
+            --accent-light: #9b7fff;
+            --accent-gradient: linear-gradient(135deg, #7c5cfc, #ff6b9d);
+            --border: #2a2a3e;
+            --success: #4ade80;
+            --error: #f87171;
+            --warning: #fbbf24;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 3D Particles Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .navbar-links a:hover,
+        .navbar-links a.active {
+            color: var(--text-primary);
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s;
+        }
+
+        .navbar-links a:hover::after,
+        .navbar-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero .base-url {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            color: var(--accent-light);
+            letter-spacing: 0.3px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* Endpoint Card */
+        .endpoint {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .endpoint-header:hover {
+            background: rgba(124, 92, 252, 0.04);
+        }
+
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            min-width: 52px;
+            text-align: center;
+        }
+
+        .method-get {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+        }
+
+        .method-post {
+            background: rgba(124, 92, 252, 0.15);
+            color: var(--accent-light);
+        }
+
+        .endpoint-path {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .endpoint-desc {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .endpoint-toggle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .endpoint-body {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .endpoint.open .endpoint-body {
+            max-height: 5000px;
+            padding: 24px;
+        }
+
+        .endpoint.open .endpoint-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Section headings inside cards */
+        .endpoint-body h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            margin-top: 24px;
+        }
+
+        .endpoint-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .endpoint-body p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        /* Parameter table */
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .param-table th {
+            text-align: left;
+            padding: 10px 14px;
+            background: rgba(124, 92, 252, 0.08);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .param-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(42, 42, 62, 0.5);
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .param-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .param-table .optional {
+            color: var(--warning);
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .param-table .required {
+            color: var(--error);
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .param-table code {
+            background: rgba(124, 92, 252, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--accent-light);
+        }
+
+        /* Model tags */
+        .model-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .model-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(124, 92, 252, 0.1);
+            border: 1px solid rgba(124, 92, 252, 0.2);
+            border-radius: 6px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--accent-light);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #0d0d1a;
+            border-radius: 8px;
+            padding: 18px 20px;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            border: 1px solid rgba(42, 42, 62, 0.5);
+            position: relative;
+        }
+
+        .code-block .comment {
+            color: #6a6a8a;
+        }
+
+        .code-block .keyword {
+            color: #ff6b9d;
+        }
+
+        .code-block .string {
+            color: #4ade80;
+        }
+
+        .code-block .function {
+            color: #7c5cfc;
+        }
+
+        .code-block .number {
+            color: #fbbf24;
+        }
+
+        .code-block .property {
+            color: #60a5fa;
+        }
+
+        .code-block .punctuation {
+            color: #a0a0b8;
+        }
+
+        .code-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .code-tab {
+            padding: 6px 16px;
+            border-radius: 6px 6px 0 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: rgba(42, 42, 62, 0.3);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .code-tab.active {
+            background: #0d0d1a;
+            color: var(--text-primary);
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .info-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .info-card .value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        /* Error table */
+        .error-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .error-table th {
+            text-align: left;
+            padding: 10px 14px;
+            background: rgba(248, 113, 113, 0.08);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .error-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(42, 42, 62, 0.5);
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .error-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .error-code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--error);
+            font-weight: 700;
+        }
+
+        /* Rate limit */
+        .rate-limit-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(42, 42, 62, 0.5);
+            font-size: 14px;
+        }
+
+        .rate-limit-item:last-child {
+            border-bottom: none;
+        }
+
+        .rate-limit-item .label {
+            color: var(--text-secondary);
+        }
+
+        .rate-limit-item .value {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar anim-fade-in">
+            <span class="navbar-logo">KIVON</span>
+            <ul class="navbar-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#" class="active">API Docs</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero anim-fade-in">
+            <h1>KIVON API</h1>
+            <p>Güçlü AI tamamlama API'si. Modern, hızlı ve kolay entegrasyon.</p>
+            <div class="base-url">https://kivon-3.onrender.com</div>
+        </section>
+
+        <div class="container">
+            <!-- Info Cards -->
+            <div class="info-grid anim-fade-in delay-1">
+                <div class="info-card">
+                    <h4>Auth</h4>
+                    <div class="value">Bearer Token</div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Çevre değişkenleri ile yönetilir</p>
+                </div>
+                <div class="info-card">
+                    <h4>Rate Limit</h4>
+                    <div class="value">60 req / dk</div>
+                </div>
+                <div class="info-card">
+                    <h4>Format</h4>
+                    <div class="value">JSON</div>
+                </div>
+            </div>
+
+            <!-- Endpoint 1: GET / -->
+            <div class="endpoint open anim-fade-in delay-2">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method method-get">GET</span>
+                    <span class="endpoint-path">/</span>
+                    <span class="endpoint-desc">Durum kontrolü</span>
+                    <span class="endpoint-toggle">&#9660;</span>
+                </div>
+                <div class="endpoint-body">
+                    <h3>Açıklama</h3>
+                    <p>Sunucu durumu, model listesi ve genel bilgileri döndürür.</p>
+
+                    <h3>Örnek Yanıt</h3>
+                    <div class="code-block">
+                        <span class="punctuation">{</span><br>
+                        <span class="property">  "status"</span>: <span class="string">"online"</span><span class="punctuation">,</span><br>
+                        <span class="property">  "models"</span>: <span class="punctuation">[</span><br>
+                        <span class="string">    "openrouter/deepseek-v4-flash"</span><span class="punctuation">,</span><br>
+                        <span class="string">    "openrouter/qwen3-next"</span><span class="punctuation">,</span><br>
+                        <span class="string">    "openrouter/llama-3.3-70b"</span><br>
+                        <span class="string">    "groq/llama-3.3-70b"</span><br>
+                        <span class="punctuation">  ]</span><span class="punctuation">,</span><br>
+                        <span class="property">  "uptime"</span>: <span class="number">3600</span><br>
+                        <span class="punctuation">}</span>
+                    </div>
+
+                    <h3>curl</h3>
+                    <div class="code-block">
+                        <span class="comment"># Status kontrolü</span><br>
+                        curl https://kivon-3.onrender.com
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoint 2: POST /api/groq -->
+            <div class="endpoint anim-fade-in delay-3">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method method-post">POST</span>
+                    <span class="endpoint-path">/api/groq</span>
+                    <span class="endpoint-desc">AI Chat tamamlama</span>
+                    <span class="endpoint-toggle">&#9660;</span>
+                </div>
+                <div class="endpoint-body">
+                    <h3>Açıklama</h3>
+                    <p>Belirtilen modele AI sohbet tamamlama isteği gönderir. Tüm modeller OpenRouter ve Groq üzerinden sunulur.</p>
+
+                    <h3>Parameters</h3>
+                    <table class="param-table">
+                        <thead>
+                            <tr>
+                                <th>Parametre</th>
+                                <th>Tip</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>soru</code> <span class="required">required</span></td>
+                                <td>string</td>
+                                <td>AI'ye gönderilecek mesaj</td>
+                            </tr>
+                            <tr>
+                                <td><code>sistem</code> <span class="optional">optional</span></td>
+                                <td>string</td>
+                                <td>Sistem promptu (varsayılan: "Sen yardımsever bir asistansın.")</td>
+                            </tr>
+                            <tr>
+                                <td><code>model</code> <span class="optional">optional</span></td>
+                                <td>string</td>
+                                <td>Model ID (varsayılan: openrouter/deepseek-v4-flash)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Kullanılabilir Modeller</h3>
+                    <div class="model-tags">
+                        <span class="model-tag">openrouter/deepseek-v4-flash</span>
+                        <span class="model-tag">openrouter/qwen3-next</span>
+                        <span class="model-tag">openrouter/llama-3.3-70b</span>
+                        <span class="model-tag">groq/llama-3.3-70b</span>
+                    </div>
+
+                    <h3>İstek Örneği</h3>
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="switchCodeTab(this, 'fetch')">JavaScript (fetch)</button>
+                        <button class="code-tab" onclick="switchCodeTab(this, 'curl')">cURL</button>
+                    </div>
+
+                    <div id="code-fetch" class="code-block">
+                        <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">"https://kivon-3.onrender.com/api/groq"</span><span class="punctuation">,</span> <span class="punctuation">{</span><br>
+                        <span class="property">  method</span>: <span class="string">"POST"</span><span class="punctuation">,</span><br>
+                        <span class="property">  headers</span>: <span class="punctuation">{</span><br>
+                        <span class="string">    "Content-Type"</span>: <span class="string">"application/json"</span><span class="punctuation">,</span><br>
+                        <span class="string">    "Authorization"</span>: <span class="string">"Bearer KIVON_API_KEY"</span><br>
+                        <span class="punctuation">  },</span><br>
+                        <span class="property">  body</span>: <span class="function">JSON</span>.<span class="function">stringify</span>(<span class="punctuation">{</span><br>
+                        <span class="string">    "soru"</span>: <span class="string">"Merhaba, bugün nasılsın?"</span><span class="punctuation">,</span><br>
+                        <span class="string">    "sistem"</span>: <span class="string">"Sen yardımsever bir asistansın."</span><span class="punctuation">,</span><br>
+                        <span class="string">    "model"</span>: <span class="string">"openrouter/deepseek-v4-flash"</span><br>
+                        <span class="punctuation">  })</span><br>
+                        <span class="punctuation">});</span><br><br>
+                        <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>()<span class="punctuation">;</span><br>
+                        <span class="built_in">console</span>.<span class="function">log</span>(data);
+                    </div>
+
+                    <div id="code-curl" class="code-block" style="display: none;">
+                        curl -X POST https://kivon-3.onrender.com/api/groq \<br>
+                        -H <span class="string">"Content-Type: application/json"</span> \<br>
+                        -H <span class="string">"Authorization: Bearer KIVON_API_KEY"</span> \<br>
+                        -d <span class="string">'{</span><br>
+                        <span class="string">  "soru": "Merhaba, bugün nasılsın?",</span><br>
+                        <span class="string">  "sistem": "Sen yardımsever bir asistansın.",</span><br>
+                        <span class="string">  "model": "openrouter/deepseek-v4-flash"</span><br>
+                        <span class="string">}'</span>
+                    </div>
+
+                    <h3>Örnek Yanıt</h3>
+                    <div class="code-block">
+                        <span class="punctuation">{</span><br>
+                        <span class="property">  "success"</span>: <span class="keyword">true</span><span class="punctuation">,</span><br>
+                        <span class="property">  "response"</span>: <span class="string">"Merhaba! Ben harikayım, teşekkür ederim. Size nasıl yardımcı olabilirim?"</span><span class="punctuation">,</span><br>
+                        <span class="property">  "model"</span>: <span class="string">"openrouter/deepseek-v4-flash"</span><br>
+                        <span class="punctuation">}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoint 3: Error Codes -->
+            <div class="endpoint anim-fade-in delay-4">
+                <div class="endpoint-header" onclick="toggleEndpoint(this)">
+                    <span class="method" style="background: rgba(248,113,113,0.15); color: var(--error);">ERR</span>
+                    <span class="endpoint-path">Hata Kodları</span>
+                    <span class="endpoint-desc">API hata referansı</span>
+                    <span class="endpoint-toggle">&#9660;</span>
+                </div>
+                <div class="endpoint-body">
+                    <h3>Hata Kodları</h3>
+                    <table class="error-table">
+                        <thead>
+                            <tr>
+                                <th>Kod</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="error-code">400</td>
+                                <td>Geçersiz istek — zorunlu parametreler eksik</td>
+                            </tr>
+                            <tr>
+                                <td class="error-code">401</td>
+                                <td>Yetkisiz — geçersiz veya eksik API anahtarı</td>
+                            </tr>
+                            <tr>
+                                <td class="error-code">429</td>
+                                <td>Çok fazla istek — rate limit aşıldı</td>
+                            </tr>
+                            <tr>
+                                <td class="error-code">500</td>
+                                <td>Sunucu hatası — geçici bir sorun oluştu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Örnek Hata Yanıtı</h3>
+                    <div class="code-block">
+                        <span class="punctuation">{</span><br>
+                        <span class="property">  "success"</span>: <span class="keyword">false</span><span class="punctuation">,</span><br>
+                        <span class="property">  "error"</span>: <span class="string">"soru parametresi zorunludur"</span><br>
+                        <span class="punctuation">}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rate Limits -->
+            <div class="endpoint open anim-fade-in delay-5">
+                <div class="endpoint-header">
+                    <span class="method" style="background: rgba(251,191,36,0.15); color: var(--warning);">RATE</span>
+                    <span class="endpoint-path">Rate Limitler</span>
+                </div>
+                <div class="endpoint-body" style="max-height: none; padding: 24px;">
+                    <div class="rate-limit-item">
+                        <span class="label">İstek Limiti</span>
+                        <span class="value">60 requests / dakika</span>
+                    </div>
+                    <div class="rate-limit-item">
+                        <span class="label">Limit Başlığı</span>
+                        <span class="value"><code>X-RateLimit-Limit</code></span>
+                    </div>
+                    <div class="rate-limit-item">
+                        <span class="label">Kalan</span>
+                        <span class="value"><code>X-RateLimit-Remaining</code></span>
+                    </div>
+                    <div class="rate-limit-item">
+                        <span class="label">Sıfırlanma</span>
+                        <span class="value"><code>X-RateLimit-Reset</code></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auth -->
+            <div class="endpoint open anim-fade-in delay-6">
+                <div class="endpoint-header">
+                    <span class="method" style="background: rgba(96,165,250,0.15); color: #60a5fa;">AUTH</span>
+                    <span class="endpoint-path">Kimlik Doğrulama</span>
+                </div>
+                <div class="endpoint-body" style="max-height: none; padding: 24px;">
+                    <p>Tüm API istekleri <code>Authorization: Bearer</code> başlığı gerektirir. API anahtarı sunucu ortam değişkenleri (<code>KIVON_API_KEY</code>) ile yönetilir.</p>
+                    <div class="code-block">
+                        <span class="comment"># İstek başlığı</span><br>
+                        Authorization: Bearer &lt;api_anahtarınız&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle endpoint expand/collapse
+        function toggleEndpoint(header) {
+            const card = header.closest('.endpoint');
+            card.classList.toggle('open');
+        }
+
+        // Code tab switching
+        function switchCodeTab(btn, lang) {
+            const card = btn.closest('.endpoint-body');
+            card.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            card.querySelectorAll('.code-block').forEach(b => b.style.display = 'none');
+            const target = card.querySelector('#code-' + lang);
+            if (target) target.style.display = 'block';
+        }
+
+        // 3D Particles
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: 0, y: 0 };
+            let mouseMoved = false;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = document.documentElement.scrollHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            document.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                mouseMoved = true;
+            });
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.z = Math.random() * 1000 + 200;
+                    this.size = Math.random() * 2.5 + 0.8;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.speedZ = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.z += this.speedZ;
+
+                    if (this.z < 100) this.z = 1000;
+                    if (this.z > 1200) this.z = 100;
+                    if (this.x < -50) this.x = canvas.width + 50;
+                    if (this.x > canvas.width + 50) this.x = -50;
+                    if (this.y < -50) this.y = canvas.height + 50;
+                    if (this.y > canvas.height + 50) this.y = -50;
+
+                    if (mouseMoved) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 200) {
+                            const force = (200 - dist) / 200 * 0.3;
+                            this.speedX -= (dx / dist) * force;
+                            this.speedY -= (dy / dist) * force;
+                        }
+                    }
+                }
+
+                draw() {
+                    const scale = 400 / this.z;
+                    const x2d = (this.x - canvas.width / 2) * scale + canvas.width / 2;
+                    const y2d = (this.y - canvas.height / 2) * scale + canvas.height / 2;
+                    const size2d = this.size * scale;
+
+                    if (x2d < -20 || x2d > canvas.width + 20 || y2d < -20 || y2d > canvas.height + 20) return;
+
+                    const depthOpacity = Math.max(0.15, 1 - (this.z / 1200));
+                    ctx.beginPath();
+                    ctx.arc(x2d, y2d, size2d, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(124, 92, 252, ${this.opacity * depthOpacity})`;
+                    ctx.fill();
+
+                    if (size2d > 1.5) {
+                        ctx.beginPath();
+                        ctx.arc(x2d, y2d, size2d * 2, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(124, 92, 252, ${this.opacity * depthOpacity * 0.15})`;
+                        ctx.fill();
+                    }
+                }
+            }
+
+            const particleCount = Math.min(120, Math.floor(canvas.width * canvas.height / 8000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                resize();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                // Mouse inertia decay
+                mouseMoved = false;
+
+                requestAnimationFrame(animate);
+            }
+
+            // Recalculate height on scroll
+            window.addEventListener('scroll', resize);
+            animate();
+        })();
+    </script>
+</body>
+</html>

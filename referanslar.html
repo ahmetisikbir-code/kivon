@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon | Müşteri Hikayeleri</title>
+<meta name="description" content="KIVON referansları - Müşterilerimizin AI dönüşüm hikayeleri. Bursa Muhasebe, ModaMart, Lezzet Durağı ve daha fazlası.">
+<meta name="keywords" content="KIVON, referanslar, müşteri hikayeleri, Bursa, yapay zeka, vaka çalışması, KOBİ">
+<meta name="author" content="KIVON">
+<meta property="og:title" content="KIVON - Müşteri Hikayeleri">
+<meta property="og:description" content="KIVON referansları - Müşterilerimizin AI dönüşüm hikayeleri.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kivontr.com/referanslar.html">
+<link rel="canonical" href="https://kivontr.com/referanslar.html">
+<style>
+:root{--navy:#050510;--navy2:#0a0a1a;--cyan:#38bdf8;--indigo:#6366f1;--gold:#fbbf24;--white:#f1f5f9;--muted:#94a3b8;--green:#10b981;--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,'Segoe UI','Inter',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+#canvas3d{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(56,189,248,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 24px;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:3px;text-decoration:none;color:var(--white)}
+.nav-logo svg{width:28px;height:28px}
+.nav-logo span{color:var(--cyan)}
+.nav-links{display:flex;gap:32px;list-style:none;font-size:13px;font-weight:500}
+.nav-links a{color:rgba(255,255,255,0.5);text-decoration:none;transition:var(--tr)}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#fff;padding:8px 22px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:var(--tr)}
+.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(56,189,248,0.3)}
+.hero{position:relative;z-index:1;min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 24px 60px}
+.hero h1{font-size:clamp(2.8rem,8vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.1;background:linear-gradient(135deg,#fff 0%,var(--cyan) 50%,var(--indigo) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:20px}
+.hero p{font-size:clamp(1rem,1.8vw,1.2rem);color:rgba(255,255,255,0.4);max-width:500px;margin:0 auto;line-height:1.7;font-weight:300}
+section{position:relative;z-index:1;padding:80px 0}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:block;text-align:center}
+.section-title{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-0.03em;text-align:center;margin-bottom:48px;background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-title span{color:var(--cyan);-webkit-text-fill-color:var(--cyan)}
+.case-grid{display:grid;grid-template-columns:1fr;gap:24px;max-width:900px;margin:0 auto}
+.case-card{background:rgba(15,15,40,0.35);border:1px solid rgba(56,189,248,0.06);border-radius:24px;padding:0;overflow:hidden;transition:var(--tr);backdrop-filter:blur(8px)}
+.case-card:hover{border-color:rgba(56,189,248,0.15);transform:translateY(-4px)}
+.case-body{padding:32px 32px 28px}
+.case-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.case-company{display:flex;align-items:center;gap:14px}
+.case-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.case-name{font-size:18px;font-weight:800}
+.case-sector{font-size:12px;color:rgba(255,255,255,0.3);font-weight:500}
+.case-badge{font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;background:rgba(16,185,129,0.12);color:var(--green);border:1px solid rgba(16,185,129,0.15);white-space:nowrap}
+.case-desc{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:20px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.metric{background:rgba(5,5,16,0.4);border:1px solid rgba(56,189,248,0.05);border-radius:14px;padding:16px;text-align:center}
+.metric-num{font-size:24px;font-weight:900;color:var(--cyan);letter-spacing:-0.03em}
+.metric-label{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px;text-transform:uppercase;letter-spacing:1px}
+.metric.after .metric-num{color:var(--gold)}
+.case-solution{background:rgba(56,189,248,0.03);border:1px solid rgba(56,189,248,0.06);border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.case-solution h4{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px}
+.case-solution p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6}
+.case-quote{position:relative;padding:16px 20px;border-left:2px solid var(--cyan);margin-top:4px}
+.case-quote p{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic}
+.case-quote cite{display:block;font-size:12px;color:rgba(255,255,255,0.2);font-style:normal;margin-top:6px}
+.cta-section{text-align:center;padding:60px 20px}
+.cta-section p{font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;transition:var(--tr);border:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#fff;box-shadow:0 0 30px rgba(56,189,248,0.2)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(56,189,248,0.3)}
+.btn-glass{background:rgba(255,255,255,0.04);color:var(--white);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(12px)}
+.btn-glass:hover{background:rgba(255,255,255,0.08);transform:translateY(-3px)}
+footer{text-align:center;padding:40px 24px;position:relative;z-index:1;border-top:1px solid rgba(56,189,248,0.04)}
+footer p{font-size:12px;color:rgba(255,255,255,0.12)}
+.mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px}
+.mobile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{color:#fff;font-size:20px;font-weight:600;text-decoration:none;transition:0.3s}
+.mobile-overlay a:hover{color:#38bdf8}
+.mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+@media(max-width:768px){
+  .metrics{grid-template-columns:1fr}
+  .case-body{padding:24px 20px}
+  .case-header{flex-direction:column}
+  .nav-links{display:none!important}
+  .mobile-toggle{display:block}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas3d"></canvas>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>KIVON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Ana Sayfa</a></li>
+      <li><a href="hakkimizda.html">Hakkımızda</a></li>
+      <li><a href="referanslar.html">Referanslar</a></li>
+      <li><a href="hakkimizda.html#ekip">Ekip</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="/">Ana Sayfa</a>
+  <a href="hakkimizda.html">Hakkımızda</a>
+  <a href="referanslar.html">Referanslar</a>
+  <a href="hakkimizda.html#ekip">Ekip</a>
+</div>
+
+<section class="hero">
+  <div>
+    <h1>Müşteri Hikayeleri</h1>
+    <p>KOBİ'lerin AI ile dönüşüm yolculuğu. Gerçek senaryolar, ölçülebilir sonuçlar.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-label">Vaka Çalışmaları</span>
+    <h2 class="section-title">Dönüşüm <span>Hikayeleri</span></h2>
+
+    <div class="case-grid">
+
+      <div class="case-card">
+        <div class="case-body">
+          <div class="case-header">
+            <div class="case-company">
+              <div class="case-icon" style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(56,189,248,0.15));border:1px solid rgba(99,102,241,0.15)">📑</div>
+              <div><div class="case-name">Bursa Muhasebe</div><div class="case-sector">Muhasebe Bürosu · 12 çalışan</div></div>
+            </div>
+            <span class="case-badge">%70 Zaman Tasarrufu</span>
+          </div>
+          <p class="case-desc">Bursa merkezli muhasebe bürosu, günlük müşteri soruları ve fatura işlemleriyle boğuşuyordu. AI chatbot ve fatura otomasyonu çözümümüzle süreçleri tamamen dijitalleştirdik.</p>
+          <div class="metrics">
+            <div class="metric"><div class="metric-num">4 saat/gün</div><div class="metric-label">ÖNCE · Telefon trafiği</div></div>
+            <div class="metric"><div class="metric-num">30 dk/gün</div><div class="metric-label">SONRA · Chatbot süresi</div></div>
+            <div class="metric after"><div class="metric-num">%70</div><div class="metric-label">Zaman Tasarrufu</div></div>
+          </div>
+          <div class="case-solution">
+            <h4>Çözüm</h4>
+            <p>WhatsApp tabanlı AI chatbot ile müşteri sorularına anında yanıt, otomatik fatura okuma ve kayıt sistemi. n8n ile muhasebe yazılımına otomatik veri akışı. Müşteri portalı ile 7/24 belge paylaşımı.</p>
+          </div>
+          <div class="case-quote">
+            <p>"Eskiden günde 40-50 telefon alıyorduk, şimdi chatbot akıllıca yanıtlıyor. Biz sadece onaylıyoruz. Çalışanlarımız gerçek muhasebeye odaklanabiliyor."</p>
+            <cite>— Ali Rıza Bey, Firma Sahibi</cite>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-body">
+          <div class="case-header">
+            <div class="case-company">
+              <div class="case-icon" style="background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(99,102,241,0.15));border:1px solid rgba(251,191,36,0.15)">🛒</div>
+              <div><div class="case-name">ModaMart</div><div class="case-sector">E-Ticaret · 8 çalışan</div></div>
+            </div>
+            <span class="case-badge">%40 Dönüşüm Artışı</span>
+          </div>
+          <p class="case-desc">Kadın giyim üzerine online mağaza. Ziyaretçiler ürün bulmakta zorlanıyor, sepet terk oranı yüksekti. AI alışveriş asistanı ile müşteri deneyimini baştan aşağı yeniledik.</p>
+          <div class="metrics">
+            <div class="metric"><div class="metric-num">%1.8</div><div class="metric-label">ÖNCE · Dönüşüm oranı</div></div>
+            <div class="metric"><div class="metric-num">%2.5</div><div class="metric-label">SONRA · Dönüşüm oranı</div></div>
+            <div class="metric after"><div class="metric-num">%40</div><div class="metric-label">Dönüşüm Artışı</div></div>
+          </div>
+          <div class="case-solution">
+            <h4>Çözüm</h4>
+            <p>Web sitesine entegre AI alışveriş asistanı. Ürün önerileri, beden tavsiyesi, stok sorgulama. Sepete ekleme ve ödeme adımlarında akıllı yönlendirme. Instagram DM entegrasyonu ile sosyal medyadan satış.</p>
+          </div>
+          <div class="case-quote">
+            <p>"AI asistan sayesinde müşteriler doğru ürünü buluyor, biz de daha az iade alıyoruz. Instagram'dan gelen siparişler iki katına çıktı."</p>
+            <cite>— Elif Hanım, Kurucu</cite>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-body">
+          <div class="case-header">
+            <div class="case-company">
+              <div class="case-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(56,189,248,0.15));border:1px solid rgba(16,185,129,0.15)">🍽️</div>
+              <div><div class="case-name">Lezzet Durağı</div><div class="case-sector">Restoran Zinciri · 3 şube</div></div>
+            </div>
+            <span class="case-badge">%60 Telefon Azalması</span>
+          </div>
+          <p class="case-desc">Bursa'da 3 şubeli restoran zinciri. Yoğun saatlerde telefonlar yetişmiyor, rezervasyon karışıklıkları yaşanıyor, paket servis siparişleri kaçıyordu.</p>
+          <div class="metrics">
+            <div class="metric"><div class="metric-num">80 çağrı/gün</div><div class="metric-label">ÖNCE · Telefon trafiği</div></div>
+            <div class="metric"><div class="metric-num">32 çağrı/gün</div><div class="metric-label">SONRA · Telefon trafiği</div></div>
+            <div class="metric after"><div class="metric-num">%60</div><div class="metric-label">Azalma</div></div>
+          </div>
+          <div class="case-solution">
+            <h4>Çözüm</h4>
+            <p>WhatsApp AI asistan ile otomatik rezervasyon, menü sorgulama, paket servis siparişi. Tüm şubeler için ortak numara, anlık müsaitlik kontrolü. Masa ve sipariş verileri için anlık raporlama paneli.</p>
+          </div>
+          <div class="case-quote">
+            <p>"Cumartesi akşamları 3 telefon birden çalıyordu, yetişemiyorduk. Şimdi WhatsApp asistan rezervasyon alıyor, biz sadece masaları hazırlıyoruz. Müşteri memnuniyeti gözle görülür arttı."</p>
+            <cite>— Mehmet Usta, İşletme Sahibi</cite>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta-section">
+      <p>Sizin işletmeniz de AI ile dönüşmeye hazır mı? Ücretsiz görüşme ile ihtiyaçlarınızı analiz edelim.</p>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Ücretsiz Görüşme</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 Kivon · Bursa · kivontr.com</p></footer>
+
+<script>
+(function(){var c=document.getElementById('canvas3d'),ctx=c.getContext('2d');var w,h,particles=[],mouse={x:0,y:0};function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}resize();window.addEventListener('resize',resize);window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY});var count=Math.min(120,Math.floor(w*h/8000));for(var i=0;i<count;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,r:Math.random()*1.5+0.3,alpha:Math.random()*0.4+0.1})}function draw(){ctx.clearRect(0,0,w,h);for(var i=0;i<particles.length;i++){var p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;var dx=mouse.x-p.x,dy=mouse.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<200){p.vx+=dx*0.00005;p.vy+=dy*0.00005}ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(56,189,248,'+p.alpha+')';ctx.fill()}for(var i=0;i<particles.length;i++){for(var j=i+1;j<particles.length;j++){var dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=dx*dx+dy*dy,maxDist=12000;if(dist<maxDist){var alpha=0.04*(1-dist/maxDist);if(mouse.x>0){var mx=(particles[i].x+particles[j].x)/2-mouse.x,my=(particles[i].y+particles[j].y)/2-mouse.y,md=Math.sqrt(mx*mx+my*my);if(md<300)alpha+=0.06*(1-md/300)}ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(56,189,248,'+alpha+')';ctx.lineWidth=0.5;ctx.stroke()}}}requestAnimationFrame(draw)}draw()})();
+</script>
+
+<script>
+(function(){var els=document.querySelectorAll('.case-card,.metric,.cta-section');var o=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';o.unobserve(e.target)}})},{threshold:0.05});els.forEach(function(el){el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.7s ease, transform 0.7s ease';o.observe(el)})})();
+</script>
+
+<script>
+(function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
+</script>
+</body>
+</html>
