@@ -94,7 +94,8 @@ const server = http.createServer(async (req, res) => {
         }));
       } catch(e) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ hata: e.message }));
+        const keys = { groqVar: !!process.env.GROQ_API_KEY, openrouterVar: !!process.env.OPENROUTER_API_KEY };
+        res.end(JSON.stringify({ hata: e.message, stack: e.stack, env: keys }));
       }
     });
     return;
