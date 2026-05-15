@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>KIVON — Ücretsiz Keşif Görüşmesi</title>
+<style>:root{--navy:#050510;--navy2:#0a0a1a;--cyan:#38bdf8;--indigo:#6366f1;--gold:#fbbf24;--white:#f1f5f9;--muted:#94a3b8}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'Segoe UI','Inter',sans-serif;background:var(--navy);color:var(--white);line-height:1.6}.container{max-width:700px;margin:0 auto;padding:0 24px}nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px}.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px}.nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:var(--white)}.nav-logo span{color:var(--cyan)}.hero{padding:120px 0 40px;text-align:center}.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:12px}.hero h1 span{background:linear-gradient(135deg,var(--cyan),var(--indigo));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero p{color:var(--muted);font-size:15px}.form-card{background:rgba(15,15,40,0.4);backdrop-filter:blur(12px);border:1px solid rgba(56,189,248,0.06);border-radius:20px;padding:32px 28px;margin-bottom:20px}label{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:4px}input,select,textarea{width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(56,189,248,0.1);background:rgba(255,255,255,0.03);color:var(--white);font-size:14px;font-family:inherit;transition:0.3s;margin-bottom:16px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,0.08)}select option{background:var(--navy);color:var(--white)}textarea{height:100px;resize:vertical}.btn{display:inline-block;padding:14px 32px;border-radius:100px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:0.3s;width:100%;background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#fff}.btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(56,189,248,0.2)}.success{display:none;text-align:center;padding:40px}.success h2{color:var(--cyan);margin-bottom:8px}.approved{color:rgba(255,255,255,0.3);font-size:12px;text-align:center;margin-top:12px}footer{text-align:center;padding:40px 24px;border-top:1px solid rgba(56,189,248,0.04);margin-top:40px}footer p{font-size:12px;color:rgba(255,255,255,0.12)}
+@media(max-width:768px){.hero h1{font-size:1.5rem}.form-card{padding:20px 16px}}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="nav-logo"><span>KIVON</span></a></div></nav>
+
+<section class="hero container"><h1><span>Ücretsiz</span> Keşif Görüşmesi</h1><p>30 dakikada işletmenize özel AI yol haritası çıkaralım.</p></section>
+
+<section class="container">
+<div class="form-card" id="formCard">
+<form id="basvuruForm" onsubmit="return gonder(event)">
+<label>Ad Soyad *</label><input type="text" id="ad" required placeholder="Adınız ve soyadınız">
+
+<label>Firma Adı *</label><input type="text" id="firma" required placeholder="Firma adı">
+
+<label>Telefon *</label><input type="tel" id="telefon" required placeholder="05XX XXX XX XX">
+
+<label>E-posta</label><input type="email" id="email" placeholder="ornek@firma.com">
+
+<label>Sektör *</label>
+<select id="sektor" required>
+<option value="">Seçiniz</option>
+<option value="muhasebe">Muhasebe Bürosu</option>
+<option value="eticaret">E-Ticaret</option>
+<option value="restoran">Restoran / Kafe</option>
+<option value="diger">Diğer</option>
+</select>
+
+<label>İlgi Alanı</label>
+<select id="ilgi">
+<option value="">Seçiniz</option>
+<option value="chatbot">AI Chatbot</option>
+<option value="veri">Veri Analitiği</option>
+<option value="otomasyon">Proses Otomasyonu</option>
+<option value="danismanlik">AI Danışmanlık</option>
+</select>
+
+<label>Eklemek istedikleriniz</label>
+<textarea id="not" placeholder="İşletmenizden, ihtiyaçlarınızdan kısaca bahseder misiniz?"></textarea>
+
+<button type="submit" class="btn">Gönder →</button>
+</form>
+<div style="font-size:12px;color:rgba(255,255,255,0.15);text-align:center;margin-top:16px">✓ KVKK uyumlu · Bilgileriniz 3. taraflarla paylaşılmaz</div>
+</div>
+
+<div class="success" id="successCard">
+<h2>✅ Başvurunuz Alındı</h2>
+<p style="color:var(--muted);margin-bottom:20px">En geç 24 saat içinde size dönüş yapacağız.</p>
+<a href="index.html" style="color:var(--cyan)">Ana Sayfaya Dön</a>
+</div>
+</section>
+
+<footer><p>© 2026 Kivon · Bursa · kivontr.com</p></footer>
+
+<script>function gonder(e){e.preventDefault();var d={ad:document.getElementById('ad').value,firma:document.getElementById('firma').value,telefon:document.getElementById('telefon').value,email:document.getElementById('email').value,sektor:document.getElementById('sektor').value,ilgi:document.getElementById('ilgi').value,not:document.getElementById('not').value};localStorage.setItem('kivon_basvuru',JSON.stringify(d));document.getElementById('formCard').style.display='none';document.getElementById('successCard').style.display='block';return false}</script>
+</body>
+</html>
