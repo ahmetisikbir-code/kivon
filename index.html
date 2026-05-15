@@ -3,1051 +3,539 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kivon — Yapay Zeka ile KOBİ'nizi Dönüştürün</title>
+<title>Kivon — KOBİ'nizi Yapay Zeka ile Geleceğe Taşıyın</title>
 <style>
-/* ═══════════════════════════════════════════
-   KIVON — Premium Landing Page
-   Design System | CSS Custom Properties
-   ═══════════════════════════════════════════ */
 :root {
-  --navy-deep: #050510;
-  --navy: #0a0a20;
-  --navy-light: #0f0f2a;
-  --navy-card: rgba(15, 15, 50, 0.55);
-  --navy-border: rgba(56, 189, 248, 0.12);
-  --cyan: #38bdf8;
-  --cyan-glow: rgba(56, 189, 248, 0.35);
-  --cyan-dim: rgba(56, 189, 248, 0.08);
-  --indigo: #6366f1;
-  --indigo-glow: rgba(99, 102, 241, 0.35);
-  --indigo-dim: rgba(99, 102, 241, 0.08);
-  --gold: #fbbf24;
-  --gold-glow: rgba(251, 191, 36, 0.3);
-  --white: #f1f5f9;
-  --muted: #94a3b8;
-  --muted-dim: #64748b;
-  --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
-  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --navy-deep: #050510; --navy: #0a0a1a; --navy-light: #101830;
+  --navy-card: rgba(15,15,50,0.55); --navy-border: rgba(56,189,248,0.10);
+  --cyan: #38bdf8; --cyan-glow: rgba(56,189,248,0.3); --cyan-dim: rgba(56,189,248,0.06);
+  --indigo: #6366f1; --gold: #fbbf24; --white: #f1f5f9; --muted: #94a3b8;
+  --rad: 12px; --rad-lg: 20px; --rad-xl: 28px;
+  --tr: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
-  background: var(--navy-deep);
-  color: var(--white);
-  line-height: 1.6;
-  overflow-x: hidden;
+  font-family: -apple-system, 'Segoe UI', 'Inter', sans-serif;
+  background: var(--navy-deep); color: var(--white);
+  line-height: 1.6; overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 ::selection { background: var(--cyan); color: var(--navy-deep); }
+.container { max-width: 1200px; margin:0 auto; padding:0 24px; }
 
-/* ═══════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════ */
-.container { max-width: 1200px; margin:0 auto; padding:0 28px; }
-.section-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cyan);
-  background: var(--cyan-dim);
-  padding: 6px 16px;
-  border-radius: 100px;
-  border: 1px solid rgba(56,189,248,0.18);
-  margin-bottom: 16px;
+/* ─── NAV ─── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  background: rgba(5,5,16,0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(56,189,248,0.06);
 }
-.section-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; max-width: 1200px; margin:0 auto; padding:0 24px;
 }
-.section-subtitle {
-  font-size: 1.1rem;
-  color: var(--muted);
-  max-width: 560px;
-  line-height: 1.7;
-}
+.nav-logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; letter-spacing:2px; text-decoration:none; color:var(--white); }
+.nav-logo svg { width:32px; height:32px; }
+.nav-logo span { color:var(--cyan); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; font-size:14px; font-weight:500; }
+.nav-links a { color:var(--muted); text-decoration:none; transition:var(--tr); }
+.nav-links a:hover { color:var(--white); }
+.nav-cta { background: linear-gradient(135deg, var(--cyan), var(--indigo)); color:#fff; padding:8px 20px; border-radius:100px; font-weight:700; font-size:13px; text-decoration:none; transition:var(--tr); }
+.nav-cta:hover { transform:translateY(-1px); box-shadow:0 0 24px var(--cyan-glow); }
 
-/* ═══════════════════════════════════════════
-   CANVAS PARTICLES
-   ═══════════════════════════════════════════ */
-#particles {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  pointer-events:none;
-  z-index:0;
-  opacity: 0.45;
-}
-
-/* ═══════════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════════ */
+/* ─── HERO ─── */
 .hero {
-  position: relative;
-  z-index:1;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 28px 80px;
+  min-height: 100vh; display:flex; align-items:center; position:relative; overflow:hidden;
+  padding: 120px 24px 80px;
 }
-.hero::before {
-  content:'';
-  position:absolute;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
-  pointer-events: none;
-  animation: heroPulse 6s ease-in-out infinite;
+.hero-gradient {
+  position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56,189,248,0.12) 0%, transparent 70%);
 }
-@keyframes heroPulse {
-  0%,100% { opacity:0.5; transform:translate(-50%,-50%) scale(1); }
-  50% { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image: linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
+.hero-content { position:relative; z-index:2; max-width: 900px; }
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gold);
-  background: rgba(251,191,36,0.1);
-  border: 1px solid rgba(251,191,36,0.2);
-  padding: 8px 20px;
-  border-radius: 100px;
-  margin-bottom: 32px;
-  animation: fadeInDown 0.8s ease both;
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15);
+  padding:6px 16px; border-radius:100px; font-size:13px; color:var(--cyan); margin-bottom:28px;
 }
-.hero-badge .dot { width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); animation:dotPulse 2s ease-in-out infinite; }
-@keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
 .hero h1 {
-  font-size: clamp(2.8rem, 8vw, 5.2rem);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin-bottom: 24px;
-  animation: fadeInUp 0.8s 0.1s ease both;
+  font-size: clamp(2.8rem,7vw,5rem); font-weight:900; line-height:1.05; letter-spacing:-0.03em;
+  margin-bottom:20px;
 }
-.hero h1 .gradient-text {
-  background: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 50%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero p {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--muted);
-  max-width: 620px;
-  margin:0 auto 40px;
-  line-height: 1.75;
-  animation: fadeInUp 0.8s 0.2s ease both;
-}
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeInUp 0.8s 0.3s ease both;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: var(--transition);
-  cursor: pointer;
-  border: none;
-  position: relative;
-  overflow: hidden;
-}
-.btn-primary {
-  background: linear-gradient(135deg, var(--cyan), var(--indigo));
-  color: #fff;
-  box-shadow: 0 0 30px var(--cyan-glow), 0 4px 20px rgba(0,0,0,0.3);
-}
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 50px var(--cyan-glow), 0 8px 30px rgba(0,0,0,0.4);
-}
-.btn-glass {
-  background: rgba(255,255,255,0.04);
-  color: var(--white);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-}
-.btn-glass:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.25);
-  transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(99,102,241,0.2);
-}
+.hero h1 .hl { background: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 50%, var(--gold) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero p { font-size: clamp(1rem,2vw,1.2rem); color:var(--muted); max-width:600px; line-height:1.7; margin-bottom:32px; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; gap:8px; padding:12px 28px; border-radius:100px; font-weight:700; font-size:15px; text-decoration:none; transition:var(--tr); border:none; cursor:pointer; }
+.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 24px var(--cyan-glow); }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 40px var(--cyan-glow); }
+.btn-ghost { background:rgba(255,255,255,0.04); color:var(--white); border:1px solid rgba(255,255,255,0.10); }
+.btn-ghost:hover { background:rgba(255,255,255,0.08); transform:translateY(-2px); }
+.hero-stats { display:flex; gap:40px; margin-top:48px; flex-wrap:wrap; }
+.hero-stat { }
+.hero-stat-num { font-size:28px; font-weight:800; color:var(--cyan); }
+.hero-stat-label { font-size:13px; color:var(--muted); margin-top:2px; }
 
-/* ═══════════════════════════════════════════
-   TRUST BAR
-   ═══════════════════════════════════════════ */
+/* ─── TRUST BAR ─── */
 .trust-bar {
-  position:relative; z-index:1;
-  border-top: 1px solid var(--navy-border);
-  border-bottom: 1px solid var(--navy-border);
-  background: rgba(10,10,32,0.6);
-  backdrop-filter: blur(12px);
-  padding: 28px 0;
-  overflow: hidden;
+  border-top:1px solid var(--navy-border); border-bottom:1px solid var(--navy-border);
+  padding:20px 0; background:rgba(10,10,26,0.5);
 }
-.trust-track {
-  display: flex;
-  gap: 64px;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--muted);
-  transition: var(--transition);
-}
-.trust-item:hover { color: var(--white); }
-.trust-icon {
-  font-size: 1.3rem;
-  opacity: 0.7;
-}
+.trust-track { display:flex; justify-content:center; gap:48px; flex-wrap:wrap; align-items:center; }
+.trust-item { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--muted); font-weight:500; }
+.trust-item svg { width:16px; height:16px; flex-shrink:0; }
 
-/* ═══════════════════════════════════════════
-   SECTIONS (shared)
-   ═══════════════════════════════════════════ */
-section { position:relative; z-index:1; padding:100px 0; }
-.section-header { text-align:center; margin-bottom:60px; }
-.section-header .section-label { animation:fadeInUp 0.6s ease both; }
-.section-header .section-title { animation:fadeInUp 0.6s 0.1s ease both; }
-.section-header .section-subtitle { margin:0 auto; animation:fadeInUp 0.6s 0.15s ease both; }
+/* ─── SECTIONS ─── */
+section { padding:100px 0; position:relative; }
+.section-header { text-align:center; margin-bottom:56px; }
+.section-label {
+  display:inline-block; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:var(--cyan); background:var(--cyan-dim); border:1px solid rgba(56,189,248,0.12);
+  padding:4px 14px; border-radius:100px; margin-bottom:16px;
+}
+.section-title { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.03em; line-height:1.15; margin-bottom:12px; }
+.section-subtitle { font-size:1.05rem; color:var(--muted); max-width:540px; margin:0 auto; line-height:1.7; }
 
-/* ═══════════════════════════════════════════
-   SERVICES
-   ═══════════════════════════════════════════ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+/* ─── BENTO GRID ─── */
+.bento { display:grid; grid-template-columns:repeat(6,1fr); gap:16px; }
+.bento-card {
+  background:var(--navy-card); backdrop-filter:blur(12px); border:1px solid var(--navy-border);
+  border-radius:var(--rad-lg); padding:28px 24px; transition:var(--tr); cursor:default;
+  position:relative; overflow:hidden;
 }
-.service-card {
-  background: var(--navy-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--navy-border);
-  border-radius: var(--radius-lg);
-  padding: 36px 28px;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-}
-.service-card::before {
-  content:'';
-  position:absolute; top:0; left:0; right:0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-  opacity: 0;
-  transition: var(--transition);
-}
-.service-card:hover::before { opacity: 1; }
-.service-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(56,189,248,0.3);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--cyan-dim);
-}
-.service-icon {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem;
-  border-radius: var(--radius-sm);
-  background: var(--cyan-dim);
-  border: 1px solid rgba(56,189,248,0.2);
-  margin-bottom: 20px;
-  transition: var(--transition);
-}
-.service-card:hover .service-icon {
-  background: rgba(56,189,248,0.15);
-  box-shadow: 0 0 25px var(--cyan-glow);
-}
-.service-card h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-.service-card p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
+.bento-card:hover { transform:translateY(-4px); border-color:rgba(56,189,248,0.2); box-shadow:0 16px 48px rgba(0,0,0,0.3); }
+.bento-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:0; transition:var(--tr); }
+.bento-card:hover::before { opacity:1; }
+.bento-card.col-2 { grid-column:span 2; }
+.bento-card.col-3 { grid-column:span 3; }
+.bento-card.col-4 { grid-column:span 4; }
+.bento-card.col-6 { grid-column:span 6; }
+.bento-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:var(--rad); background:var(--cyan-dim); border:1px solid rgba(56,189,248,0.12); font-size:20px; margin-bottom:16px; }
+.bento-card h3 { font-size:16px; font-weight:700; margin-bottom:6px; }
+.bento-card p { font-size:13px; color:var(--muted); line-height:1.6; }
+.bento-card .num { font-size:36px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; line-height:1; margin-bottom:4px; }
+.bento-card .label { font-size:13px; color:var(--muted); }
+.bento-tag { display:inline-block; font-size:11px; padding:2px 10px; border-radius:20px; background:rgba(56,189,248,0.06); color:var(--cyan); border:1px solid rgba(56,189,248,0.10); margin:2px; }
 
-/* ═══════════════════════════════════════════
-   STATS
-   ═══════════════════════════════════════════ */
-#stats { background: var(--navy); }
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 32px;
-  text-align: center;
+/* ─── MCP SHOWCASE ─── */
+.mcp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; }
+.mcp-chip {
+  display:flex; align-items:center; gap:8px; padding:10px 14px;
+  background:var(--navy-card); border:1px solid var(--navy-border); border-radius:var(--rad);
+  font-size:13px; transition:var(--tr); cursor:default;
 }
-.stat-item {
-  padding: 24px;
-  transition: var(--transition);
-}
-.stat-number {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--cyan), var(--indigo));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 4px;
-}
-.stat-label {
-  font-size: 0.9rem;
-  color: var(--muted);
-  font-weight: 500;
-}
+.mcp-chip:hover { border-color:rgba(56,189,248,0.25); transform:translateY(-2px); }
+.mcp-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
 
-/* ═══════════════════════════════════════════
-   HOW IT WORKS
-   ═══════════════════════════════════════════ */
-.steps-wrapper { position:relative; }
-.steps-line {
-  position:absolute;
-  top:40px; left:calc(50% - 1px);
-  width: 2px;
-  height: calc(100% - 80px);
-  background: linear-gradient(to bottom, var(--cyan), var(--indigo), transparent);
-  opacity: 0.3;
+/* ─── TEAMS ─── */
+.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+.team-card {
+  background:var(--navy-card); border:1px solid var(--navy-border); border-radius:var(--rad-lg);
+  padding:24px 20px; transition:var(--tr);
 }
-.step {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-  margin-bottom: 40px;
-  position: relative;
-}
-.step:last-child { margin-bottom:0; }
-.step-number {
-  flex-shrink: 0;
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  font-weight: 900;
-  border-radius: 50%;
-  background: var(--navy-card);
-  border: 2px solid var(--navy-border);
-  backdrop-filter: blur(12px);
-  transition: var(--transition);
-  position: relative;
-  z-index:2;
-}
-.step.visible .step-number {
-  border-color: var(--cyan);
-  box-shadow: 0 0 30px var(--cyan-glow);
-  background: rgba(56,189,248,0.1);
-}
-.step-content {
-  padding-top: 8px;
-}
-.step-content h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  letter-spacing: -0.02em;
-}
-.step-content p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
+.team-card:hover { border-color:rgba(56,189,248,0.2); transform:translateY(-3px); }
+.team-card h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
+.team-card .lead { font-size:12px; color:var(--gold); margin-bottom:10px; }
+.team-card .members { font-size:13px; color:var(--muted); line-height:1.7; }
 
-/* ═══════════════════════════════════════════
-   PRICING
-   ═══════════════════════════════════════════ */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
-  align-items: stretch;
+/* ─── MCP TOOLS SECTION ─── */
+.mcp-full-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
+.mcp-item {
+  padding:8px 12px; border-radius:8px; background:var(--navy-card);
+  border:1px solid var(--navy-border); font-size:12px; color:var(--muted);
+  display:flex; align-items:center; gap:6px; transition:var(--tr);
 }
+.mcp-item:hover { border-color:rgba(56,189,248,0.2); color:var(--white); }
+
+/* ─── PRICING ─── */
+.pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
 .pricing-card {
-  background: var(--navy-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--navy-border);
-  border-radius: var(--radius-lg);
-  padding: 40px 32px;
-  transition: var(--transition);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.pricing-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(56,189,248,0.2);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  background:var(--navy-card); backdrop-filter:blur(12px); border:1px solid var(--navy-border);
+  border-radius:var(--rad-xl); padding:36px 28px; transition:var(--tr); display:flex; flex-direction:column;
 }
 .pricing-card.featured {
-  border-color: var(--cyan);
-  box-shadow: 0 0 40px var(--cyan-dim), 0 0 80px rgba(56,189,248,0.06);
+  border-color:var(--cyan); box-shadow:0 0 40px var(--cyan-dim);
+  position:relative;
 }
-.pricing-card.featured::before {
-  content:'';
-  position:absolute;
-  inset:-1px;
-  border-radius: var(--radius-lg);
-  padding: 1px;
-  background: linear-gradient(135deg, var(--cyan), var(--indigo), var(--gold));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-.pricing-badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--cyan), var(--indigo));
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 6px 20px;
-  border-radius: 100px;
-  white-space: nowrap;
-  box-shadow: 0 0 20px var(--cyan-glow);
-  letter-spacing: 0.02em;
-}
-.pricing-header { text-align:center; margin-bottom:28px; }
-.pricing-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.pricing-price {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-}
-.pricing-price span { font-size:1rem; font-weight:500; color:var(--muted); }
-.pricing-features {
-  list-style: none;
-  margin-bottom: 28px;
-  flex: 1;
-}
-.pricing-features li {
-  padding: 10px 0;
-  font-size: 0.9rem;
-  color: var(--muted);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.pricing-features li::before {
-  content: '✦';
-  color: var(--cyan);
-  font-size: 0.7rem;
-}
-.pricing-card .btn { text-align:center; justify-content:center; width:100%; }
+.pricing-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; font-size:11px; font-weight:700; padding:4px 16px; border-radius:100px; white-space:nowrap; }
+.pricing-name { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.pricing-price { font-size:40px; font-weight:900; letter-spacing:-0.03em; margin-bottom:20px; }
+.pricing-price span { font-size:14px; font-weight:500; color:var(--muted); }
+.pricing-features { list-style:none; margin-bottom:24px; flex:1; }
+.pricing-features li { padding:8px 0; font-size:14px; color:var(--muted); border-bottom:1px solid rgba(255,255,255,0.03); display:flex; align-items:center; gap:8px; }
+.pricing-features li::before { content:'\2726'; color:var(--cyan); font-size:10px; }
+.pricing-card .btn { justify-content:center; width:100%; margin-top:auto; }
 
-/* ═══════════════════════════════════════════
-   DEMO SHOWCASE
-   ═══════════════════════════════════════════ */
-#demo { background: var(--navy); }
-.demo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-}
-.demo-card {
-  background: var(--navy-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--navy-border);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  text-decoration: none;
-  color: var(--white);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.demo-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--indigo);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 30px var(--indigo-dim);
-}
-.demo-card-icon {
-  width: 48px; height: 48px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  border-radius: var(--radius-sm);
-  background: var(--indigo-dim);
-  flex-shrink: 0;
-}
-.demo-card h4 { font-size:1rem; font-weight:700; margin-bottom:2px; }
-.demo-card span { font-size:0.8rem; color:var(--muted); }
+/* ─── CONTACT ─── */
+.contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; max-width:700px; margin:0 auto; }
+.contact-card { display:flex; align-items:center; gap:12px; padding:16px 20px; background:var(--navy-card); border:1px solid var(--navy-border); border-radius:var(--rad); text-decoration:none; color:var(--white); transition:var(--tr); }
+.contact-card:hover { transform:translateY(-3px); border-color:rgba(56,189,248,0.2); }
+.contact-icon { width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:18px; flex-shrink:0; }
+.contact-text strong { display:block; font-size:14px; }
+.contact-text span { font-size:12px; color:var(--muted); }
 
-/* ═══════════════════════════════════════════
-   CONTACT
-   ═══════════════════════════════════════════ */
-.contact-card {
-  max-width: 680px;
-  margin: 0 auto;
-  background: var(--navy-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--navy-border);
-  border-radius: var(--radius-xl);
-  padding: 48px 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
-}
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
-  border-radius: var(--radius);
-  text-decoration: none;
-  color: var(--white);
-  transition: var(--transition);
-  border: 1px solid transparent;
-  background: rgba(255,255,255,0.03);
-}
-.contact-link:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.1);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-}
-.contact-link.whatsapp:hover { border-color: #25D366; box-shadow: 0 0 20px rgba(37,211,102,0.2); }
-.contact-link.email:hover { border-color: var(--cyan); box-shadow: 0 0 20px var(--cyan-dim); }
-.contact-link.instagram:hover { border-color: #E4405F; box-shadow: 0 0 20px rgba(228,64,95,0.2); }
-.contact-link-icon {
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-}
-.contact-link-icon.wp { background: rgba(37,211,102,0.12); }
-.contact-link-icon.em { background: var(--cyan-dim); }
-.contact-link-icon.ig { background: rgba(228,64,95,0.12); }
-.contact-link-text strong { display:block; font-size:0.9rem; }
-.contact-link-text span { font-size:0.78rem; color:var(--muted); }
+/* ─── FOOTER ─── */
+footer { text-align:center; padding:40px 24px; border-top:1px solid var(--navy-border); }
+footer p { font-size:13px; color:rgba(255,255,255,0.2); }
 
-/* ═══════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════ */
-footer {
-  position:relative; z-index:1;
-  text-align: center;
-  padding: 48px 28px;
-  border-top: 1px solid rgba(56,189,248,0.08);
-}
-footer p { font-size:0.85rem; color:var(--muted-dim); }
-
-/* ═══════════════════════════════════════════
-   ANIMATIONS
-   ═══════════════════════════════════════════ */
-@keyframes fadeInUp {
-  from { opacity:0; transform:translateY(30px); }
-  to { opacity:1; transform:translateY(0); }
-}
-@keyframes fadeInDown {
-  from { opacity:0; transform:translateY(-20px); }
-  to { opacity:1; transform:translateY(0); }
-}
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity var(--transition-slow), transform var(--transition-slow);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .hero { padding:100px 20px 60px; min-height:auto; }
-  .hero-actions { flex-direction:column; align-items:center; }
-  .btn { width:100%; justify-content:center; }
-  .trust-track { gap:32px; }
-  .steps-line { left:27px; }
-  .step { flex-direction:column; gap:16px; }
-  .step-content { padding-top:0; }
-  .contact-card { grid-template-columns: 1fr; padding:28px 24px; }
-  .pricing-grid { grid-template-columns:1fr; }
+/* ─── RESPONSIVE ─── */
+@media (max-width:768px) {
+  .bento { grid-template-columns:1fr; }
+  .bento-card.col-2,.bento-card.col-3,.bento-card.col-4,.bento-card.col-6 { grid-column:span 1; }
+  .hero h1 { font-size:2rem; }
+  .hero-stats { gap:20px; }
+  .trust-track { gap:20px; }
+  .nav-links { display:none; }
+  .mcp-grid { grid-template-columns:repeat(2,1fr); }
+  .mcp-full-grid { grid-template-columns:repeat(2,1fr); }
 }
 </style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none"><rect x="1" y="1" width="30" height="30" rx="8" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="10" cy="11" r="2.5" fill="#38bdf8"/><circle cx="22" cy="9" r="2.5" fill="#38bdf8"/><circle cx="16" cy="21" r="2.5" fill="#38bdf8"/><line x1="12.5" y1="11" x2="19.5" y2="9" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13.5" x2="14" y2="18.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="11.5" x2="18" y2="18.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>KIVON</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#cozumler">Çözümler</a></li>
+      <li><a href="#mcp">MCP Araçlar</a></li>
+      <li><a href="#ekip">Ekip</a></li>
+      <li><a href="#fiyat">Fiyat</a></li>
+      <li><a href="https://kivon-3.onrender.com" target="_blank">API</a></li>
+    </ul>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">WhatsApp</a>
+  </div>
+</nav>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div>
-    <div class="hero-badge">
-      <span class="dot"></span> KOBİ'ler için Yapay Zeka
-    </div>
-    <h1>
-      İşletmenizi<br>
-      <span class="gradient-text">Yapay Zeka</span> ile<br>
-      Geleceğe Taşıyın
-    </h1>
-    <p>
-      Kivon olarak, KOBİ'lerin operasyonel yükünü hafifletmek ve rekabet gücünü artırmak için özel yapay zeka çözümleri sunuyoruz.
-    </p>
+  <div class="hero-gradient"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content container">
+    <div class="hero-badge"><span class="hero-badge-dot"></span> KOBİ'ler için Yapay Zeka — Bursa merkezli</div>
+    <h1>İşletmenizi<br><span class="hl">Yapay Zeka</span> ile<br>Dönüştürün</h1>
+    <p>Kivon, KOBİ'lerin operasyonel yükünü hafifletmek için 29 MCP araç, 30 AI çözümü ve 16 kişilik uzman ekibiyle yanınızda. Muhasebeden e-ticarete, restorandan müşteri hizmetlerine.</p>
     <div class="hero-actions">
-      <a href="#demo" class="btn btn-primary">Canlı Demolar →</a>
-      <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">WhatsApp ile Başla</a>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Ücretsiz Keşif Görüşmesi</a>
+      <a href="#cozumler" class="btn btn-ghost">Çözümleri İncele →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">29</div><div class="hero-stat-label">MCP Araç</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">30</div><div class="hero-stat-label">AI Çözümü</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">16</div><div class="hero-stat-label">Uzman Ekip</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Takım</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ TRUST BAR ═══════════════ -->
+<!-- ═══ TRUST BAR ═══ -->
 <div class="trust-bar">
-  <div class="container trust-track">
-    <div class="trust-item"><span class="trust-icon">⦿</span> 13 kişilik uzman ekip</div>
-    <div class="trust-item"><span class="trust-icon">⦿</span> Bursa merkezli</div>
-    <div class="trust-item"><span class="trust-icon">⦿</span> KOBİ odaklı</div>
-    <div class="trust-item"><span class="trust-icon">⦿</span> KVKK uyumlu</div>
+  <div class="trust-track container">
+    <div class="trust-item"><svg viewBox="0 0 16 16" fill="none" stroke="#38bdf8" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M5 8l2 2 4-4"/></svg> 16 kişilik uzman ekip</div>
+    <div class="trust-item"><svg viewBox="0 0 16 16" fill="none" stroke="#38bdf8" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M5 8l2 2 4-4"/></svg> Bursa merkezli, Türkiye geneli</div>
+    <div class="trust-item"><svg viewBox="0 0 16 16" fill="none" stroke="#38bdf8" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M5 8l2 2 4-4"/></svg> KVKK & GDPR uyumlu</div>
+    <div class="trust-item"><svg viewBox="0 0 16 16" fill="none" stroke="#38bdf8" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M5 8l2 2 4-4"/></svg> AI destekli 29 MCP araç</div>
   </div>
 </div>
 
-<!-- ═══════════════ SERVICES ═══════════════ -->
-<section id="services">
+<!-- ═══ ÇÖZÜMLER ═══ -->
+<section id="cozumler">
   <div class="container">
     <div class="section-header">
-      <span class="section-label reveal">Hizmetlerimiz</span>
-      <h2 class="section-title reveal">İşletmenize Özel<br>AI Çözümleri</h2>
-      <p class="section-subtitle reveal">Her ölçekten KOBİ için tasarlanmış, kurulumu kolay ve etkisi yüksek yapay zeka hizmetleri.</p>
+      <span class="section-label">Çözümler</span>
+      <h2 class="section-title">İşletmenize Özel AI<br>Çözüm Paketleri</h2>
+      <p class="section-subtitle">30 AI çözümü, 8 kategoride. Her pakete kurulum ve 7/24 destek dahil.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon">💬</div>
+    <div class="bento">
+      <div class="bento-card col-3">
+        <div class="bento-icon">💬</div>
         <h3>AI Chatbot</h3>
-        <p>Müşteri hizmetlerinizi 7/24 otomatikleştirin. Web sitenize, WhatsApp ve Instagram'a entegre, Türkçe doğal dil işleme özellikli akıllı sohbet asistanları.</p>
+        <p>Müşteri hizmetlerinizi 7/24 otomatikleştirin. WhatsApp, web ve Instagram'da çalışan akıllı asistan. Muhasebe, e-ticaret, restoran sektörlerine özel eğitim.</p>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📊</div>
+      <div class="bento-card col-3">
+        <div class="bento-icon">📊</div>
         <h3>Veri Analitiği</h3>
-        <p>Satış, stok ve müşteri verilerinizi anlamlandırın. Yapay zeka destekli tahminleme ve raporlama ile stratejik kararlarınızı güçlendirin.</p>
+        <p>Satış, stok ve müşteri verilerinizi anlamlandırın. AI destekli tahminleme, anlık dashboard ve otomatik raporlama ile stratejik kararlarınızı güçlendirin.</p>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">⚙️</div>
+      <div class="bento-card col-3">
+        <div class="bento-icon">⚡</div>
         <h3>Proses Otomasyonu</h3>
-        <p>Tekrarlayan iş süreçlerinizi AI ile otomatikleştirin. Muhasebe, raporlama, veri girişi gibi operasyonlarda %70'e varan zaman tasarrufu.</p>
+        <p>Tekrarlayan işleri makinelere devredin. E-posta, fatura, stok, randevu yönetimi — %70'e varan zaman tasarrufu.</p>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🧠</div>
+      <div class="bento-card col-3">
+        <div class="bento-icon">🧠</div>
         <h3>AI Danışmanlık</h3>
-        <p>İşletmenizin ihtiyaçlarına özel yapay zeka yol haritası. Fizibilite analizi, teknoloji seçimi ve uygulama stratejisi ile yanınızdayız.</p>
+        <p>İşletmenize özel AI yol haritası. Fizibilite, teknoloji seçimi ve uygulama stratejisi ile yanınızdayız. 29 MCP araç ile hızlı entegrasyon.</p>
+      </div>
+      <div class="bento-card col-4">
+        <div class="bento-icon">⚙️</div>
+        <h3>Teknik Altyapı</h3>
+        <p>API Proxy (Groq + OpenRouter, 5 ücretsiz model), n8n workflow otomasyonu (30 hazır iş akışı), Playwright test altyapısı, MCP muhasebe sunucusu, GitHub Pages hosting.</p>
+        <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+          <span class="bento-tag">DeepSeek V4 Flash</span>
+          <span class="bento-tag">Llama 3.3 70B</span>
+          <span class="bento-tag">n8n</span>
+          <span class="bento-tag">Playwright</span>
+          <span class="bento-tag">Render</span>
+        </div>
+      </div>
+      <div class="bento-card col-2">
+        <div class="num">30</div>
+        <div class="label">AI Çözümü</div>
+        <p style="margin-top:8px;font-size:13px;color:var(--muted);">Muhasebe, satış, İK, e-ticaret, pazarlama, müşteri desteği, doküman ve teknik kategorilerinde.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ STATS ═══════════════ -->
-<section id="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="724">7/24</div>
-        <div class="stat-label">Kesintisiz Hizmet</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="99.5">%99.5</div>
-        <div class="stat-label">Sistem Uptime</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="16">16+</div>
-        <div class="stat-label">Haftalık Saat Tasarrufu</div>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-number" data-target="3">3-5</div>
-        <div class="stat-label">Gün Kurulum Süresi</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
-<section id="how">
+<!-- ═══ MCP ARAÇLAR ═══ -->
+<section id="mcp" style="background:var(--navy);">
   <div class="container">
     <div class="section-header">
-      <span class="section-label reveal">Süreç</span>
-      <h2 class="section-title reveal">Nasıl Çalışır?</h2>
-      <p class="section-subtitle reveal">4 adımda işletmenize özel yapay zeka dönüşümünüzü başlatıyoruz.</p>
+      <span class="section-label">Altyapı</span>
+      <h2 class="section-title">29 MCP Araç ile<br>Güçlü Entegrasyon</h2>
+      <p class="section-subtitle">Model Context Protocol ile AI asistanınız her araca bağlanır. Tek dil, sınırsız yetenek.</p>
     </div>
-    <div class="steps-wrapper reveal" style="max-width:600px; margin:0 auto;">
-      <div class="steps-line"></div>
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h3>İhtiyaç Analizi</h3>
-          <p>İşletmenizin süreçlerini analiz ediyor, AI fırsatlarını belirliyoruz.</p>
-        </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-bottom:40px">
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>BrowserMCP</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Tavily Search</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Exa Search</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Firecrawl</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Apify</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Playwright</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Chrome DevTools</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Sequential Thinking</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Filesystem</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Memory</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>SQLite</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Supabase</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Notion</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>GitHub</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>n8n MCP</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Google (aibus)</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Google Maps</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Mapbox</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Magic (21st.dev)</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Figma</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Mermaid</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Context7</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Sentry</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>HubSpot</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Railway</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Slack</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Jina AI</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Reddit</div>
+      <div class="mcp-item"><span style="color:var(--cyan)">●</span>Kivon Muhasebe</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      <div class="bento-card" style="border-radius:var(--rad-lg)">
+        <div class="bento-icon" style="background:rgba(99,102,241,0.08);border-color:rgba(99,102,241,0.12)">🔍</div>
+        <h3>Arama & Veri</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8">Tavily Search · Exa Search · Jina AI · Firecrawl · Apify · Context7 · Reddit</p>
       </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h3>Çözüm Tasarımı</h3>
-          <p>Size özel yapay zeka mimarisini tasarlıyor ve demo ile doğruluyoruz.</p>
-        </div>
+      <div class="bento-card" style="border-radius:var(--rad-lg)">
+        <div class="bento-icon" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.12)">🌐</div>
+        <h3>Tarayıcı & Web</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8">BrowserMCP · Playwright · Chrome DevTools · Magic</p>
       </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h3>Entegrasyon & Kurulum</h3>
-          <p>3-5 iş günü içinde sistemlerinize tam entegrasyon sağlıyoruz.</p>
-        </div>
+      <div class="bento-card" style="border-radius:var(--rad-lg)">
+        <div class="bento-icon" style="background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.12)">💾</div>
+        <h3>Dosya & Veritabanı</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8">Filesystem · Memory · SQLite · Supabase · Mermaid · Notion</p>
       </div>
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <h3>Eğitim & Destek</h3>
-          <p>Ekibinize kullanım eğitimi veriyor, 7/24 teknik destek sağlıyoruz.</p>
-        </div>
+      <div class="bento-card" style="border-radius:var(--rad-lg)">
+        <div class="bento-icon" style="background:rgba(236,72,153,0.08);border-color:rgba(236,72,153,0.12)">☁️</div>
+        <h3>Bulut & İletişim</h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8">GitHub · n8n · Sentry · HubSpot · Railway · Slack · Figma · Google</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ PRICING ═══════════════ -->
-<section id="pricing">
+<!-- ═══ EKİP ═══ -->
+<section id="ekip">
   <div class="container">
     <div class="section-header">
-      <span class="section-label reveal">Fiyatlandırma</span>
-      <h2 class="section-title reveal">Şeffaf ve Esnek<br>Fiyatlandırma</h2>
-      <p class="section-subtitle reveal">İhtiyacınıza göre ölçeklenebilir paketler. Her pakete kurulum ve 7/24 destek dahildir.</p>
+      <span class="section-label">Ekip</span>
+      <h2 class="section-title">16 Kişi, 4 Takım,<br>Tek Hedef</h2>
+      <p class="section-subtitle">Her takım kendi alanında bağımsız karar alır, birlikte çalışır.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <h3>🏢 Yönetim Ekibi</h3>
+        <div class="lead">Lider: Doruk (CEO, 14 yıl)</div>
+        <div class="members">İlayda (Strateji, 8 yıl) · Can (Danışman, 15 yıl)</div>
+      </div>
+      <div class="team-card">
+        <h3>💻 Teknik Ekip</h3>
+        <div class="lead">Lider: Onur (9 yıl)</div>
+        <div class="members">Efe (AI Müh., 7 yıl) · Ali (Frontend, 12 yıl) · Zeynep (Backend, 14 yıl) · Bora (Yazılım, 11 yıl)</div>
+      </div>
+      <div class="team-card">
+        <h3>🎨 Kreatif & Pazarlama</h3>
+        <div class="lead">Lider: Selda (20 yıl)</div>
+        <div class="members">Pelin (Tasarım, 5 yıl) · Mert (Satış, 8 yıl)</div>
+      </div>
+      <div class="team-card">
+        <h3>📋 Operasyon & Finans</h3>
+        <div class="lead">Lider: Lara (7 yıl)</div>
+        <div class="members">Kaan (Finans, 9 yıl) · Duru (Muhasebe, 10 yıl) · Naz (İK, 6 yıl) · Ege (Hukuk, 12 yıl)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="fiyat" style="background:var(--navy);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Fiyatlandırma</span>
+      <h2 class="section-title">Şeffaf ve Esnek Paketler</h2>
+      <p class="section-subtitle">Her pakete kurulum, eğitim ve 7/24 destek dahildir.<br>14 gün koşulsuz iade garantisi.</p>
     </div>
     <div class="pricing-grid">
-      <div class="pricing-card reveal">
-        <div class="pricing-header">
-          <div class="pricing-name">Başlangıç</div>
-          <div class="pricing-price" style="color:var(--cyan);">1.499<span>₺/ay</span></div>
-        </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Başlangıç</div>
+        <div class="pricing-price" style="color:var(--cyan);">1.200<span>₺/ay</span></div>
         <ul class="pricing-features">
-          <li>Tek kanal AI Chatbot</li>
-          <li>Aylık 2.000 mesaj</li>
-          <li>Temel analitik paneli</li>
-          <li>E-posta desteği</li>
+          <li>1 AI çözümü (chatbot vb.)</li>
+          <li>WhatsApp entegrasyonu</li>
+          <li>7/24 müşteri yanıtlama</li>
+          <li>Aylık performans raporu</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-ghost" target="_blank">Başla</a>
       </div>
-      <div class="pricing-card featured reveal">
+      <div class="pricing-card featured">
         <div class="pricing-badge">En Popüler</div>
-        <div class="pricing-header">
-          <div class="pricing-name">Profesyonel</div>
-          <div class="pricing-price">2.999<span>₺/ay</span></div>
-        </div>
+        <div class="pricing-name">Profesyonel</div>
+        <div class="pricing-price">2.000<span>₺/ay</span></div>
         <ul class="pricing-features">
-          <li>3 kanal AI Chatbot (Web + WhatsApp + IG)</li>
-          <li>Sınırsız mesaj</li>
-          <li>Gelişmiş analitik & raporlama</li>
-          <li>Proses otomasyonu (1 süreç)</li>
+          <li>2 AI çözümü</li>
+          <li>WhatsApp + Web entegrasyonu</li>
+          <li>Haftalık rapor</li>
+          <li>Randevu yönetimi</li>
           <li>7/24 öncelikli destek</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Başla</a>
       </div>
-      <div class="pricing-card reveal">
-        <div class="pricing-header">
-          <div class="pricing-name">Kurumsal</div>
-          <div class="pricing-price" style="color:var(--indigo);">Özel<span></span></div>
-        </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Kurumsal</div>
+        <div class="pricing-price" style="color:var(--indigo);">3.500<span>₺/ay</span></div>
         <ul class="pricing-features">
-          <li>Sınırsız kanal desteği</li>
+          <li>Sınırsız AI çözümü</li>
+          <li>Tüm kanallarda entegrasyon</li>
+          <li>Canlı dashboard</li>
           <li>Özel AI model eğitimi</li>
-          <li>Tam proses otomasyonu</li>
-          <li>Özel entegrasyonlar (ERP, CRM)</li>
-          <li>Adanmış müşteri temsilcisi</li>
+          <li>7/24 öncelikli destek</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener">İletişime Geç</a>
+        <a href="https://wa.me/905303982712" class="btn btn-ghost" target="_blank">İletişime Geç</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ DEMO SHOWCASE ═══════════════ -->
+<!-- ═══ DEMO ═══ -->
 <section id="demo">
   <div class="container">
     <div class="section-header">
-      <span class="section-label reveal">Canlı Demolar</span>
-      <h2 class="section-title reveal">Çözümlerimizi<br>Deneyimleyin</h2>
-      <p class="section-subtitle reveal">Her bir demo, gerçek bir KOBİ senaryosunu canlandırır. Etkileşime geçin, farkı görün.</p>
+      <span class="section-label">Canlı Demolar</span>
+      <h2 class="section-title">Çözümlerimizi<br>Deneyimleyin</h2>
+      <p class="section-subtitle">Her demo gerçek bir KOBİ senaryosunu canlandırır. API anahtarı gerekmez, hemen dene.</p>
     </div>
-    <div class="demo-grid">
-      <a href="demo/chatbot.html" class="demo-card reveal">
-        <div class="demo-card-icon">💬</div>
-        <div>
-          <h4>AI Sohbet Asistanı</h4>
-          <span>Canlı demo →</span>
-        </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+      <a href="demo/chatbot.html" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">💬</span>
+        <div><strong style="font-size:15px">AI Sohbet Asistanı</strong><br><span style="font-size:12px;color:var(--muted)">Canlı demo →</span></div>
       </a>
-      <a href="muhasebe.html" class="demo-card reveal">
-        <div class="demo-card-icon">📑</div>
-        <div>
-          <h4>Akıllı Muhasebe</h4>
-          <span>Canlı demo →</span>
-        </div>
+      <a href="muhasebe.html" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">📑</span>
+        <div><strong style="font-size:15px">Akıllı Muhasebe</strong><br><span style="font-size:12px;color:var(--muted)">Canlı demo →</span></div>
       </a>
-      <a href="servis-katalogu.html" class="demo-card reveal">
-        <div class="demo-card-icon">📋</div>
-        <div>
-          <h4>Servis Kataloğu</h4>
-          <span>Canlı demo →</span>
-        </div>
+      <a href="servis-katalogu.html" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">📋</span>
+        <div><strong style="font-size:15px">Servis Kataloğu</strong><br><span style="font-size:12px;color:var(--muted)">30 AI çözümü →</span></div>
       </a>
-      <a href="cozum-paneli.html" class="demo-card reveal">
-        <div class="demo-card-icon">📊</div>
-        <div>
-          <h4>Çözüm Paneli</h4>
-          <span>Canlı demo →</span>
-        </div>
+      <a href="cozum-paneli.html" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">📊</span>
+        <div><strong style="font-size:15px">Çözüm Paneli</strong><br><span style="font-size:12px;color:var(--muted)">Paket karşılaştırma →</span></div>
       </a>
-      <a href="ai-araclar.html" class="demo-card reveal">
-        <div class="demo-card-icon">🤖</div>
-        <div>
-          <h4>AI Araçları</h4>
-          <span>E-posta · İçerik · Satış →</span>
-        </div>
+      <a href="ai-araclar.html" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">🤖</span>
+        <div><strong style="font-size:15px">AI Araçları</strong><br><span style="font-size:12px;color:var(--muted)">E-posta · İçerik · Satış →</span></div>
+      </a>
+      <a href="premium/" class="bento-card" style="text-decoration:none;color:var(--white);border-radius:var(--rad-lg);display:flex;align-items:center;gap:12px;padding:20px">
+        <span style="font-size:28px">⭐</span>
+        <div><strong style="font-size:15px">Premium Sayfalar</strong><br><span style="font-size:12px;color:var(--muted)">Katalog + Landing →</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ CONTACT ═══════════════ -->
-<section id="contact">
+<!-- ═══ CONTACT ═══ -->
+<section id="iletisim" style="background:var(--navy);">
   <div class="container">
     <div class="section-header">
-      <span class="section-label reveal">İletişim</span>
-      <h2 class="section-title reveal">Hemen Başlayalım</h2>
-      <p class="section-subtitle reveal">Size en uygun kanaldan bize ulaşın, ilk görüşmeyi planlayalım.</p>
+      <span class="section-label">İletişim</span>
+      <h2 class="section-title">Hemen Başlayalım</h2>
+      <p class="section-subtitle">Size en uygun kanaldan bize ulaşın, 24 saat içinde dönüş yapalım.</p>
     </div>
-    <div class="contact-card reveal">
-      <a href="https://wa.me/905303982712" class="contact-link whatsapp" target="_blank" rel="noopener">
-        <div class="contact-link-icon wp">💬</div>
-        <div class="contact-link-text">
-          <strong>WhatsApp</strong>
-          <span>+90 530 398 27 12</span>
-        </div>
+    <div class="contact-grid">
+      <a href="https://wa.me/905303982712" class="contact-card" target="_blank">
+        <div class="contact-icon" style="background:rgba(37,211,102,0.12)">💬</div>
+        <div class="contact-text"><strong>WhatsApp</strong><span>+90 530 398 27 12</span></div>
       </a>
-      <a href="mailto:kivon.iletisim@gmail.com" class="contact-link email">
-        <div class="contact-link-icon em">✉️</div>
-        <div class="contact-link-text">
-          <strong>E-Posta</strong>
-          <span>kivon.iletisim@gmail.com</span>
-        </div>
+      <a href="mailto:kivon.iletisim@gmail.com" class="contact-card">
+        <div class="contact-icon" style="background:var(--cyan-dim)">✉️</div>
+        <div class="contact-text"><strong>E-Posta</strong><span>kivon.iletisim@gmail.com</span></div>
       </a>
-      <a href="https://instagram.com/kivon.iletisim" class="contact-link instagram" target="_blank" rel="noopener">
-        <div class="contact-link-icon ig">📸</div>
-        <div class="contact-link-text">
-          <strong>Instagram</strong>
-          <span>@kivon.iletisim</span>
-        </div>
+      <a href="https://instagram.com/kivon.iletisim" class="contact-card" target="_blank">
+        <div class="contact-icon" style="background:rgba(228,64,95,0.12)">📸</div>
+        <div class="contact-text"><strong>Instagram</strong><span>@kivon.iletisim</span></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
-  <p>&copy; 2026 Kivon. Tüm hakları saklıdır. KOBİ'ler için yapay zeka.</p>
+  <div class="container">
+    <p>© 2026 Kivon · Bursa merkezli AI entegrasyon danışmanlığı · Tüm hakları saklıdır</p>
+    <p style="margin-top:4px;font-size:11px;color:rgba(255,255,255,0.12)">29 MCP · 30 Çözüm · 16 Uzman · 4 Takım · kivontr.com</p>
+  </div>
 </footer>
 
+<!-- ═══ SCROLL REVEAL ═══ -->
 <script>
-/* ═══════════════════════════════════════════
-   CANVAS PARTICLES
-   ═══════════════════════════════════════════ */
 (function() {
-  var c = document.getElementById('particles');
-  var ctx = c.getContext('2d');
-  var w, h, dots = [];
-  function resize() {
-    w = c.width = window.innerWidth;
-    h = c.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var count = Math.min(80, Math.floor(w * h / 12000));
-  for (var i = 0; i < count; i++) {
-    dots.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.8 + 0.1,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      alpha: Math.random() * 0.65 + 0.15
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (var i = 0; i < dots.length; i++) {
-      var d = dots[i];
-      d.x += d.vx;
-      d.y += d.vy;
-      if (d.x < 0) d.x = w;
-      if (d.x > w) d.x = 0;
-      if (d.y < 0) d.y = h;
-      if (d.y > h) d.y = 0;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(56,189,248,' + d.alpha + ')';
-      ctx.fill();
-    }
-
-    // connection lines between nearby dots
-    for (var i = 0; i < dots.length; i++) {
-      for (var j = i + 1; j < dots.length; j++) {
-        var dx = dots[i].x - dots[j].x;
-        var dy = dots[i].y - dots[j].y;
-        var dist = dx * dx + dy * dy;
-        var maxDist = 15000;
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(dots[i].x, dots[i].y);
-          ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.strokeStyle = 'rgba(56,189,248,' + (0.06 * (1 - dist / maxDist)) + ')';
-          ctx.lineWidth = 0.4;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ═══════════════════════════════════════════
-   INTERSECTION OBSERVER — Reveal on Scroll
-   ═══════════════════════════════════════════ */
-(function() {
+  var sections = document.querySelectorAll('section, .bento-card, .pricing-card, .team-card, .contact-card, .mcp-item');
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // If it's a step element, also add visible to the step
-        if (entry.target.classList.contains('step')) {
-          // already handled by the .reveal -> .visible flow on the parent
-        }
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(function(el) {
+  }, { threshold: 0.05 });
+  sections.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
   });
 })();
-
-/* ═══════════════════════════════════════════
-   COUNTER ANIMATION
-   ═══════════════════════════════════════════ */
-(function() {
-  var counterObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        var prefix = el.textContent.match(/^[%₺+\-]*/)[0] || '';
-        var suffix = el.textContent.match(/[%₺+\-]*$/)[0] || '';
-        el.textContent = '';
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.stat-number').forEach(function(el) {
-    counterObserver.observe(el);
-  });
-})();
-
-/* ═══════════════════════════════════════════
-   NUMBER COUNTER — Smooth counting animation  
-   ═══════════════════════════════════════════ */
-(function() {
-  var countObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var el = entry.target;
-        var target = parseFloat(el.getAttribute('data-target'));
-        var isDecimal = target % 1 !== 0;
-        var duration = 1800;
-        var start = performance.now();
-        var initialText = el.textContent;
-
-        function update(now) {
-          var elapsed = now - start;
-          var progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic
-          var eased = 1 - Math.pow(1 - progress, 3);
-          var current = target * eased;
-          if (isDecimal) {
-            el.textContent = '%' + current.toFixed(1);
-          } else if (target >= 100) {
-            el.textContent = Math.floor(current) + '/24';
-          } else if (initialText.indexOf('-') !== -1) {
-            el.textContent = Math.floor(current) + '-' + (Math.floor(current) + 2);
-          } else {
-            el.textContent = Math.floor(current) + '+';
-          }
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            el.textContent = initialText;
-          }
-        }
-        requestAnimationFrame(update);
-        countObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
-    countObserver.observe(el);
-  });
-})();
 </script>
-
 </body>
 </html>
