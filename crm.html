@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON CRM - Müşteri Takip Paneli</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+:root{--bg:#0a0a0f;--surface:#12121a;--card:#1a1a28;--border:#2a2a3e;--primary:#6c5ce7;--primary-glow:#6c5ce766;--accent:#00cec9;--hot:#fd79a8;--warm:#fdcb6e;--cold:#74b9ff;--converted:#00b894;--text:#e0e0ec;--text-dim:#8888a0;--radius:12px;--shadow:0 4px 30px #00000033}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+#particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:#0a0a0fe0;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.nav-brand .k{color:var(--primary)}.nav-brand .ivon{color:var(--accent)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text-dim);text-decoration:none;font-size:14px;font-weight:500;transition:.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:.3s}
+.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-overlay{display:none;position:fixed;inset:0;z-index:998;background:#00000080}
+.mobile-menu{display:none;position:fixed;top:0;right:-300px;width:280px;height:100vh;z-index:999;background:var(--surface);border-left:1px solid var(--border);padding:80px 32px 32px;transition:right .3s;flex-direction:column;gap:24px}
+.mobile-menu.open{right:0}.mobile-overlay.show{display:block}
+.mobile-menu a{color:var(--text-dim);text-decoration:none;font-size:18px;font-weight:500;transition:.3s}
+.mobile-menu a:hover{color:var(--primary)}
+.container{max-width:1280px;margin:0 auto;padding:88px 24px 48px;position:relative;z-index:1}
+.hero{text-align:center;padding:48px 0 40px;opacity:0;transform:translateY(30px);transition:1s}
+.hero.show{opacity:1;transform:translateY(0)}
+.hero h1{font-size:40px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-dim);margin-top:12px;font-size:16px}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;opacity:0;transform:translateY(30px);transition:.6s;position:relative;overflow:hidden}
+.stat-card.show{opacity:1;transform:translateY(0)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.hot::before{background:var(--hot)}.stat-card.warm::before{background:var(--warm)}
+.stat-card.cold::before{background:var(--cold)}.stat-card.converted::before{background:var(--converted)}
+.stat-card.total::before{background:linear-gradient(90deg,var(--primary),var(--accent))}
+.stat-card .icon{font-size:28px;margin-bottom:8px}
+.stat-card .value{font-size:32px;font-weight:800;margin-bottom:4px}
+.stat-card .label{font-size:13px;color:var(--text-dim)}
+.section-title{font-size:24px;font-weight:700;margin:40px 0 20px;opacity:0;transform:translateY(20px);transition:.6s}
+.section-title.show{opacity:1;transform:translateY(0)}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;opacity:0;transform:translateY(20px);transition:.6s}
+.filters.show{opacity:1;transform:translateY(0)}
+.filters select,.filters button{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;transition:.3s}
+.filters select:focus{outline:none;border-color:var(--primary)}
+.filters button{background:var(--primary);border-color:var(--primary);font-weight:600}
+.filters button:hover{background:#5a4bd1;box-shadow:0 0 20px var(--primary-glow)}
+.btn-add{background:var(--accent);border:1px solid var(--accent);color:#0a0a0f;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:.3s;margin-left:auto}
+.btn-add:hover{box-shadow:0 0 20px #00cec980}
+
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);opacity:0;transform:translateY(30px);transition:.6s}
+.table-wrap.show{opacity:1;transform:translateY(0)}
+table{width:100%;border-collapse:collapse;background:var(--card);min-width:700px}
+th{background:var(--surface);padding:14px 16px;text-align:left;font-size:13px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr{transition:.2s}tr:hover{background:#ffffff08}
+.status-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.status-hot{background:#fd79a820;color:var(--hot)}.status-warm{background:#fdcb6e20;color:var(--warm)}
+.status-cold{background:#74b9ff20;color:var(--cold)}.status-converted{background:#00b89420;color:var(--converted)}
+.sector-badge{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;background:var(--surface);color:var(--text-dim);border:1px solid var(--border)}
+.action-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:16px;padding:4px 8px;border-radius:6px;transition:.3s}
+.action-btn:hover{color:var(--hot);background:#fd79a815}
+.empty-state{text-align:center;padding:48px 16px;color:var(--text-dim);font-size:15px}
+
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:#00000080;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:modalIn .3s}
+@keyframes modalIn{from{transform:scale(.95)translateY(20px);opacity:0}to{transform:scale(1)translateY(0);opacity:1}}
+.modal h2{font-size:22px;margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text-dim);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;transition:.3s;resize:vertical}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow)}
+.form-group textarea{min-height:80px}
+.form-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}
+.form-actions button{padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;border:1px solid var(--border)}
+.form-actions .btn-cancel{background:transparent;color:var(--text-dim)}
+.form-actions .btn-cancel:hover{background:var(--card)}
+.form-actions .btn-submit{background:var(--primary);border-color:var(--primary);color:#fff}
+.form-actions .btn-submit:hover{box-shadow:0 0 20px var(--primary-glow)}
+
+.toast{position:fixed;bottom:24px;right:24px;z-index:3000;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 22px;font-size:14px;box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:.4s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu,.mobile-overlay{display:block}
+  .hero h1{font-size:28px}
+  .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+  .container{padding:80px 16px 32px}
+  .filters .btn-add{margin-left:0;width:100%}
+  .filters select{flex:1;min-width:0}
+  .modal{padding:24px 20px}
+  .stat-card{padding:18px}
+  .stat-card .value{font-size:26px}
+}
+@media(max-width:480px){
+  .dashboard-grid{grid-template-columns:1fr}
+  .hero h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<nav class="navbar">
+  <div class="nav-brand"><span class="k">K</span><span class="ivon">IVON</span></div>
+  <ul class="nav-links">
+    <li><a href="#dashboard" onclick="scrollToSection('dashboard')">Pano</a></li>
+    <li><a href="#customers" onclick="scrollToSection('customers')">Müşteriler</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#dashboard" onclick="closeMobileMenu();scrollToSection('dashboard')">Pano</a>
+  <a href="#customers" onclick="closeMobileMenu();scrollToSection('customers')">Müşteriler</a>
+</div>
+
+<div class="container">
+  <div class="hero" id="hero">
+    <h1>Müşteri Takip Paneli</h1>
+    <p>KIVON CRM ile müşterilerini yönet, dönüşümleri takip et.</p>
+  </div>
+
+  <div class="dashboard-grid" id="dashboard">
+    <div class="stat-card total" data-delay="0">
+      <div class="icon">📊</div>
+      <div class="value" id="statTotal">0</div>
+      <div class="label">Toplam Müşteri</div>
+    </div>
+    <div class="stat-card hot" data-delay="100">
+      <div class="icon">🔥</div>
+      <div class="value" id="statHot">0</div>
+      <div class="label">Sıcak Müşteri</div>
+    </div>
+    <div class="stat-card warm" data-delay="200">
+      <div class="icon">💛</div>
+      <div class="value" id="statWarm">0</div>
+      <div class="label">Ilık Müşteri</div>
+    </div>
+    <div class="stat-card cold" data-delay="300">
+      <div class="icon">💙</div>
+      <div class="value" id="statCold">0</div>
+      <div class="label">Soğuk Müşteri</div>
+    </div>
+    <div class="stat-card converted" data-delay="400">
+      <div class="icon">✅</div>
+      <div class="value" id="statConverted">0</div>
+      <div class="label">Dönüşüm</div>
+    </div>
+    <div class="stat-card total" data-delay="500">
+      <div class="icon">📈</div>
+      <div class="value" id="statConversionRate">%0</div>
+      <div class="label">Dönüşüm Oranı</div>
+    </div>
+  </div>
+
+  <h2 class="section-title" id="customers">Müşteriler</h2>
+
+  <div class="filters" id="filters">
+    <select id="filterSector"><option value="">Tüm Sektörler</option><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
+    <select id="filterStatus"><option value="">Tüm Durumlar</option><option value="sıcak">Sıcak</option><option value="ılık">Ilık</option><option value="soğuk">Soğuk</option><option value="dönüştü">Dönüştü</option></select>
+    <button id="btnAdd" class="btn-add">+ Yeni Müşteri</button>
+  </div>
+
+  <div class="table-wrap" id="tableWrap">
+    <table>
+      <thead><tr><th>İsim</th><th>Firma</th><th>Sektör</th><th>Durum</th><th>İletişim Tarihi</th><th>Not</th><th style="width:50px">İşlem</th></tr></thead>
+      <tbody id="customerTableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none">Henüz müşteri kaydı bulunmuyor.</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">Yeni Müşteri Ekle</h2>
+    <div class="form-group">
+      <label for="inputName">İsim Soyisim</label>
+      <input type="text" id="inputName" placeholder="örn. Ahmet Yılmaz">
+    </div>
+    <div class="form-group">
+      <label for="inputCompany">Firma</label>
+      <input type="text" id="inputCompany" placeholder="örn. KIVON Teknoloji">
+    </div>
+    <div class="form-group">
+      <label for="inputSector">Sektör</label>
+      <select id="inputSector"><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
+    </div>
+    <div class="form-group">
+      <label for="inputStatus">Durum</label>
+      <select id="inputStatus"><option value="sıcak">Sıcak</option><option value="ılık">Ilık</option><option value="soğuk">Soğuk</option><option value="dönüştü">Dönüştü</option></select>
+    </div>
+    <div class="form-group">
+      <label for="inputNote">Not</label>
+      <textarea id="inputNote" placeholder="Müşteri hakkında notlar..."></textarea>
+    </div>
+    <input type="hidden" id="editId">
+    <div class="form-actions">
+      <button class="btn-cancel" id="btnCancel">İptal</button>
+      <button class="btn-submit" id="btnSubmit">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- DATA ----
+const DEFAULT_CUSTOMERS = [
+  {id:1,name:'Ahmet Yılmaz',company:'Mali Mühür',sector:'muhasebe',status:'sıcak',date:'2026-05-14',note:'Yıllık mali müşavirlik sözleşmesi için görüşüldü.'},
+  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Ş.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.'},
+  {id:3,name:'Mehmet Demir',company:'Vergi Uzmanları Derneği',sector:'muhasebe',status:'soğuk',date:'2026-04-28',note:'Toplantı talebine henüz dönüş yapılmadı.'},
+  {id:4,name:'Ayşe Çelik',company':'Hızlı Sepet',sector:'eticaret',status:'sıcak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandı, sözleşme imzalanacak.'},
+  {id:5,name:'Can Öztürk',company:'ModaMart',sector:'eticaret',status:'dönüştü',date:'2026-05-01',note:'Site kurulumu tamamlandı, ödeme alındı.'},
+  {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'ılık',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapıldı, fiyat teklifi beklentisi.'},
+  {id:7,name:'Burak Şahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.'},
+  {id:8,name:'Derya Koç',company:'Kebapçı Emmi',sector:'restoran',status:'ılık',date:'2026-05-08',note:'Masa rezervasyon modülü ilgisini çekti, tanıtım yapılacak.'},
+  {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soğuk',date:'2026-04-20',note:'Bütçe nedeniyle erteleme talep edildi.'},
+  {id:10,name:'Gizem Yıldız',company:'Bütçe Muhasebe',sector:'muhasebe',status:'dönüştü',date:'2026-04-25',note:'Kurumsal lisans satın alındı.'},
+  {id:11,name:'Hakan Aydın',company:'TrendyShop',sector:'eticaret',status:'soğuk',date:'2026-04-15',note:'Rakiplerinin teklifini değerlendiriyor.'},
+  {id:12,name:'Işıl Eren',company:'Şehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.'}
+];
+
+let customers = [];
+let editingId = null;
+
+// ---- LOCAL STORAGE ----
+function loadData(){
+  try{
+    const d = localStorage.getItem('kivon_crm_customers');
+    if(d){customers=JSON.parse(d);return}
+  }catch(e){}
+  customers = JSON.parse(JSON.stringify(DEFAULT_CUSTOMERS));
+  saveData();
+}
+function saveData(){
+  localStorage.setItem('kivon_crm_customers',JSON.stringify(customers));
+}
+
+// ---- RENDER ----
+function renderTable(){
+  const sector = document.getElementById('filterSector').value;
+  const status = document.getElementById('filterStatus').value;
+  let filtered = customers;
+  if(sector) filtered = filtered.filter(c=>c.sector===sector);
+  if(status) filtered = filtered.filter(c=>c.status===status);
+
+  const tbody = document.getElementById('customerTableBody');
+  const empty = document.getElementById('emptyState');
+  tbody.innerHTML = '';
+  if(filtered.length===0){
+    empty.style.display='block';
+  }else{
+    empty.style.display='none';
+    filtered.forEach(c=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${escapeHtml(c.name)}</strong></td>
+        <td>${escapeHtml(c.company)}</td>
+        <td><span class="sector-badge">${sectorLabel(c.sector)}</span></td>
+        <td><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></td>
+        <td>${c.date}</td>
+        <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
+        <td><button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+function renderStats(){
+  let h=0,w=0,cold=0,conv=0;
+  customers.forEach(c=>{
+    if(c.status==='sıcak')h++;
+    else if(c.status==='ılık')w++;
+    else if(c.status==='soğuk')cold++;
+    else if(c.status==='dönüştü')conv++;
+  });
+  document.getElementById('statTotal').textContent=customers.length;
+  document.getElementById('statHot').textContent=h;
+  document.getElementById('statWarm').textContent=w;
+  document.getElementById('statCold').textContent=cold;
+  document.getElementById('statConverted').textContent=conv;
+  const rate = customers.length>0 ? Math.round(conv/customers.length*100) : 0;
+  document.getElementById('statConversionRate').textContent='%'+rate;
+}
+
+function sectorLabel(s){const m={muhasebe:'Muhasebe',eticaret:'E-Ticaret',restoran:'Restoran'};return m[s]||s}
+function statusLabel(s){const m={sıcak:'Sıcak',ılık:'Ilık',soğuk:'Soğuk',dönüştü:'Dönüştü'};return m[s]||s}
+function escapeHtml(t){const d=document.createElement('div');d.appendChild(document.createTextNode(t));return d.innerHTML}
+
+// ---- CRUD ----
+function openModal(customer){
+  editingId = customer ? customer.id : null;
+  document.getElementById('modalTitle').textContent = customer ? 'Müşteri Düzenle' : 'Yeni Müşteri Ekle';
+  document.getElementById('inputName').value = customer ? customer.name : '';
+  document.getElementById('inputCompany').value = customer ? customer.company : '';
+  document.getElementById('inputSector').value = customer ? customer.sector : 'muhasebe';
+  document.getElementById('inputStatus').value = customer ? customer.status : 'ılık';
+  document.getElementById('inputNote').value = customer ? customer.note : '';
+  document.getElementById('editId').value = customer ? customer.id : '';
+  document.getElementById('modalOverlay').classList.add('show');
+  document.getElementById('inputName').focus();
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  editingId=null;
+}
+
+function saveCustomer(){
+  const name = document.getElementById('inputName').value.trim();
+  const company = document.getElementById('inputCompany').value.trim();
+  const sector = document.getElementById('inputSector').value;
+  const status = document.getElementById('inputStatus').value;
+  const note = document.getElementById('inputNote').value.trim();
+  if(!name||!company){showToast('İsim ve firma alanları zorunludur.');return}
+
+  if(editingId){
+    const idx = customers.findIndex(c=>c.id===editingId);
+    if(idx!==-1){
+      customers[idx]={...customers[idx],name,company,sector,status,note};
+    }
+    showToast('Müşteri güncellendi.');
+  }else{
+    const id = Date.now();
+    customers.push({id,name,company,sector,status,date:todayStr(),note});
+    showToast('Müşteri eklendi.');
+  }
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function deleteCustomer(id){
+  if(!confirm('Bu müşteriyi silmek istediğinize emin misiniz?'))return;
+  customers = customers.filter(c=>c.id!==id);
+  saveData();
+  renderAll();
+  showToast('Müşteri silindi.');
+}
+
+function todayStr(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+day;
+}
+
+function renderAll(){renderStats();renderTable()}
+
+// ---- TOAST ----
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ---- SCROLL ANIMATIONS ----
+function observeSections(){
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('show');observer.unobserve(e.target)}
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.hero,.stat-card,.section-title,.filters,.table-wrap').forEach(el=>observer.observe(el));
+}
+
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('show');
+  document.getElementById('hamburger').classList.remove('active');
+}
+
+// ---- 3D PARTICLES ----
+function initParticles(){
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let w,h;
+  function resize(){
+    w=canvas.width=window.innerWidth;
+    h=canvas.height=window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  const PARTICLE_COUNT = 80;
+  const CONNECTION_DIST = 140;
+  const MOUSE_RADIUS = 150;
+
+  const particles = [];
+  for(let i=0;i<PARTICLE_COUNT;i++){
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,z:Math.random()*400-200,
+      vx:(Math.random()-0.5)*.6,vy:(Math.random()-0.5)*.6,vz:(Math.random()-0.5)*.3
+    });
+  }
+
+  const centerX = w/2, centerY = h/2;
+  let mouseX = centerX, mouseY = centerY, mouseMoved = false;
+  document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;mouseMoved=true});
+
+  function rotateX(p,angle){
+    const cos=Math.cos(angle),sin=Math.sin(angle);
+    const y=p.y*cos-p.z*sin,z=p.y*sin+p.z*cos;
+    return {x:p.x,y,z};
+  }
+  function rotateY(p,angle){
+    const cos=Math.cos(angle),sin=Math.sin(angle);
+    const x=p.x*cos+p.z*sin,z=-p.x*sin+p.z*cos;
+    return {x,y:p.y,z};
+  }
+
+  let angle=0;
+  function animate(){
+    ctx.clearRect(0,0,w,h);
+    angle+=0.003;
+    const rotateAngle = angle;
+
+    // adjust mouse influence
+    let mx = centerX, my = centerY;
+    if(mouseMoved){
+      mx += (mouseX - centerX) * 0.3;
+      my += (mouseY - centerY) * 0.3;
+    }
+
+    // update
+    for(const p of particles){
+      // drift toward mouse
+      const dx = p.x - mx, dy = p.y - my;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist<MOUSE_RADIUS && dist>0){
+        const force = (1-dist/MOUSE_RADIUS)*0.3;
+        p.vx -= (dx/dist)*force;
+        p.vy -= (dy/dist)*force;
+      }
+
+      p.x+=p.vx; p.y+=p.vy; p.z+=p.vz;
+      // dampen
+      p.vx*=0.99; p.vy*=0.99; p.vz*=0.99;
+
+      // wrap
+      if(p.x<-100)p.x=w+100;if(p.x>w+100)p.x=-100;
+      if(p.y<-100)p.y=h+100;if(p.y>h+100)p.y=-100;
+      if(p.z<-200)p.z=200;if(p.z>200)p.z=-200;
+    }
+
+    // project 3d to 2d
+    const focal = 400;
+    const projected = particles.map(p=>{
+      let rp = rotateY(p,rotateAngle);
+      rp = rotateX(rp,rotateAngle*0.5);
+      const scale = focal/(focal+rp.z);
+      return {x:rp.x*scale+centerX, y:rp.y*scale+centerY, scale, z:rp.z};
+    });
+
+    // connections
+    ctx.strokeStyle='rgba(108,92,231,0.08)';
+    ctx.lineWidth=1;
+    for(let i=0;i<projected.length;i++){
+      for(let j=i+1;j<projected.length;j++){
+        const dx=projected[i].x-projected[j].x, dy=projected[i].y-projected[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<CONNECTION_DIST){
+          const alpha=(1-dist/CONNECTION_DIST)*0.5*Math.min(projected[i].scale,projected[j].scale);
+          ctx.strokeStyle=`rgba(108,92,231,${alpha*0.15})`;
+          ctx.beginPath();ctx.moveTo(projected[i].x,projected[i].y);ctx.lineTo(projected[j].x,projected[j].y);ctx.stroke();
+        }
+      }
+    }
+
+    // draw particles
+    for(let i=0;i<projected.length;i++){
+      const p = projected[i];
+      const size = 2.5 * p.scale;
+      const alpha = Math.min(1,p.scale*0.8);
+      const gradient = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,size*3);
+      gradient.addColorStop(0,`rgba(108,92,231,${alpha*0.6})`);
+      gradient.addColorStop(0.5,`rgba(0,206,201,${alpha*0.3})`);
+      gradient.addColorStop(1,'rgba(108,92,231,0)');
+      ctx.fillStyle=gradient;
+      ctx.beginPath();ctx.arc(p.x,p.y,size*3,0,Math.PI*2);ctx.fill();
+
+      ctx.fillStyle=`rgba(255,255,255,${alpha*0.5})`;
+      ctx.beginPath();ctx.arc(p.x,p.y,size*0.6,0,Math.PI*2);ctx.fill();
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ---- INIT ----
+document.addEventListener('DOMContentLoaded',()=>{
+  loadData();
+  renderAll();
+  observeSections();
+  initParticles();
+
+  // trigger hero animation
+  setTimeout(()=>document.getElementById('hero').classList.add('show'),100);
+
+  // stagger stat cards
+  document.querySelectorAll('.stat-card').forEach(el=>{
+    const delay = parseInt(el.dataset.delay)||0;
+    setTimeout(()=>el.classList.add('show'),200+delay);
+  });
+  setTimeout(()=>{
+    document.querySelector('.section-title')?.classList.add('show');
+    document.querySelector('.filters')?.classList.add('show');
+    document.querySelector('.table-wrap')?.classList.add('show');
+  },800);
+
+  // hamburger
+  document.getElementById('hamburger').addEventListener('click',()=>{
+    document.getElementById('hamburger').classList.toggle('active');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('show');
+  });
+  document.getElementById('mobileOverlay').addEventListener('click',closeMobileMenu);
+
+  // modal
+  document.getElementById('btnAdd').addEventListener('click',()=>openModal(null));
+  document.getElementById('btnCancel').addEventListener('click',closeModal);
+  document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('modalOverlay'))closeModal()});
+  document.getElementById('btnSubmit').addEventListener('click',saveCustomer);
+
+  // filters
+  document.getElementById('filterSector').addEventListener('change',renderTable);
+  document.getElementById('filterStatus').addEventListener('change',renderTable);
+
+  // enter key in modal
+  document.querySelectorAll('.modal input,.modal textarea,.modal select').forEach(el=>{
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();saveCustomer()}});
+  });
+});
+</script>
+</body>
+</html>
