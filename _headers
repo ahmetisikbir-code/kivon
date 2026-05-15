@@ -1,0 +1,25 @@
+# KIVON — GitHub Pages Headers
+# Daha hızlı yükleme için cache ve güvenlik başlıkları
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+*.css
+  Cache-Control: public, max-age=86400
+
+*.js
+  Cache-Control: public, max-age=86400
+
+*.png
+  Cache-Control: public, max-age=604800
+
+*.jpg
+  Cache-Control: public, max-age=604800
+
+*.svg
+  Cache-Control: public, max-age=86400
