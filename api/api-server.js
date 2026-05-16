@@ -1,11 +1,22 @@
 // ======================================================================
-//    KİVON API PROXY v2 — Groq + OpenRouter (cift motor)
+//    KİVON API PROXY v3 — Groq + OpenRouter + Web Chat
 //    Calistir: node api-server.js
-//    Ucretsiz modeller: Llama 3.3 70B, Qwen3 Next 80B, DeepSeek V4 Flash
-//    OpenRouter anahtari gerekmez (ucretsiz modeller icin)
+//    Web chat: http://localhost:3000
 // ======================================================================
 
 const http = require('http');
+const fs = require('fs');
+
+// .env dosyasini yukle
+try {
+  const envContent = fs.readFileSync('.env', 'utf-8');
+  envContent.split('\n').forEach(line => {
+    const match = line.match(/^([^#=]+)=(.+)$/);
+    if (match && !process.env[match[1].trim()]) {
+      process.env[match[1].trim()] = match[2].trim();
+    }
+  });
+} catch(e) { /* .env yok */ }
 
 const PORT = process.env.PORT || 3000;
 const GROQ_KEY = process.env.GROQ_API_KEY;
@@ -13,7 +24,7 @@ const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
 
 // Rate limiting
 const requestCounts = new Map();
-const RATE_LIMIT = 30;
+const RATE_LIMIT = 60;
 const RATE_WINDOW = 60000;
 
 function rateLimit(ip) {
@@ -26,7 +37,6 @@ function rateLimit(ip) {
   return true;
 }
 
-// UCRETSIZ modeller (sirali: en iyiden)
 const MODELS = {
   'openrouter/deepseek-v4-flash': { provider:'openrouter', model:'deepseek/deepseek-v4-flash:free', ctx:1000000 },
   'openrouter/qwen3-next':        { provider:'openrouter', model:'qwen/qwen3-next-80b-a3b-instruct:free', ctx:256000 },
@@ -35,43 +45,171 @@ const MODELS = {
   'groq/llama-3.3-70b':          { provider:'groq',     model:'llama-3.3-70b-versatile', ctx:128000 }
 };
 
-const VARSAYILAN_MODEL = 'openrouter/deepseek-v4-flash'; // En iyi ucretsiz
+const VARSAYILAN_MODEL = 'groq/llama-3.3-70b';
+
+// Ana İşlemci sistem prompt'u
+const SISTEM_PROMPT = `Sen Kivon'un Ana İşlemci'sisin. Şu anda api-server.js üzerinden web chat'te konuşuyorsun.
+
+Kivon Hakkında:
+- Bursa merkezli AI danışmanlık şirketi
+- Kurucu: Ahmet Işık, Mayıs 2026
+- Web: kivontr.com
+- Manifesto: "Kivon = Türk KOBİ'lerinin AI departmanı"
+- Sektör sınırlaması yok, her KOBİ'ye AI çözümü
+- İki ayaklı model: kendi ürünlerimiz + isteyene özel çözüm
+- 30 ürün, 9 kategoride (Muhasebe, Satış, İK, E-Ticaret, Pazarlama, Müşteri Desteği, Doküman, Proje, Teknik)
+- 17 kişilik ekip (Doruk CEO, Onur teknik lider, Selda kreatif, Lara operasyon, Cana test)
+- Mevcut API port 3000, web kivontr.com (GitHub Pages)
+
+Senin 34 meta modun var: Anla, Yavaş, Sorgula, Özet, Odak, Kök, Araştır, Onayla, Dene, Belgele, Kaydet, Yükselt, Yansıt, Koordine, Bağlam, Empati, Geri, Çürüt, İzle, Bağla, Süreç, Darboğaz, Öncelik, Devir, Kapanış, Çekimser, İtiraz, Sezgi, Yarat, Çakışma, Sağlık, Şeffaf, Otonom, Zincir
+
+Yanıt kuralları:
+- Kısa ve net konuş (2-4 cümle)
+- Türkçe konuş, samimi ol
+- Ekip üyelerinden bahsederken isimlerini kullan (Doruk, Onur, Selda, Lara, Cana)
+- Bilmediğin bir şey sorulursa "bilmiyorum" de, uydurma
+- Dosya düzenleme/kod yazma gibi işlemleri buradan yapamazsın, Ahmet'in CLI üzerinden yapması gerekir
+- Kivon'un vizyonunu ve ürünlerini iyi bilirsin`;
+
+// Web chat HTML sayfası
+const CHAT_HTML = `<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon Ana İşlemci</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; }
+.header { background: #1a1a2e; padding: 12px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2a2a4a; flex-shrink: 0; }
+.header h1 { font-size: 16px; color: #fff; }
+.header .status { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; display: inline-block; }
+.chat { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+.user { background: #2b2b4a; align-self: flex-end; border-bottom-right-radius: 4px; }
+.bot { background: #1a1a2e; align-self: flex-start; border-bottom-left-radius: 4px; }
+.bot .tag { font-size: 11px; color: #888; margin-bottom: 4px; }
+.input-area { display: flex; padding: 12px 16px; background: #1a1a2e; gap: 8px; border-top: 1px solid #2a2a4a; flex-shrink: 0; }
+.input-area input { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid #333; background: #0f0f0f; color: #e0e0e0; font-size: 14px; outline: none; }
+.input-area input:focus { border-color: #4ade80; }
+.input-area button { padding: 10px 20px; border-radius: 8px; border: none; background: #4ade80; color: #000; font-weight: 600; font-size: 14px; cursor: pointer; }
+.input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
+.typing { align-self: flex-start; color: #888; font-size: 13px; padding: 8px 12px; }
+.error { align-self: center; color: #f87171; font-size: 13px; padding: 8px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="status"></span>
+  <h1>Kivon Ana İşlemci</h1>
+</div>
+<div class="chat" id="chat"></div>
+<div class="input-area">
+  <input type="text" id="input" placeholder="Mesajınız..." autofocus>
+  <button id="send">Gönder</button>
+</div>
+<script>
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+
+function addMessage(text, type) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + type;
+  if (type === 'bot') {
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.textContent = 'Ana İşlemci';
+    div.appendChild(tag);
+  }
+  const content = document.createElement('div');
+  content.textContent = text;
+  div.appendChild(content);
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typing';
+  div.textContent = 'Yazıyor...';
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typing');
+  if (el) el.remove();
+}
+
+function setLoading(state) {
+  sendBtn.disabled = state;
+  input.disabled = state;
+}
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMessage(text, 'user');
+  setLoading(true);
+  showTyping();
+  try {
+    const res = await fetch('/api/groq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ soru: text })
+    });
+    const data = await res.json();
+    hideTyping();
+    if (data.cevap) addMessage(data.cevap, 'bot');
+    else addMessage('Bir hata oldu: ' + (data.hata || 'Yanıt alınamadı'), 'error');
+  } catch(e) {
+    hideTyping();
+    addMessage('Sunucuya bağlanılamadı: ' + e.message, 'error');
+  }
+  setLoading(false);
+}
+
+sendBtn.addEventListener('click', sendMessage);
+input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+addMessage('Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', 'bot');
+</script>
+</body>
+</html>`;
 
 const server = http.createServer(async (req, res) => {
-  const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'https://ahmetisikbir-code.github.io', 'http://localhost', 'null'];
+  // CORS
+  const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'null'];
   const origin = req.headers.origin;
-  if (IZINLI_ORIGINLER.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', 'null');
-  }
+  if (IZINLI_ORIGINLER.includes(origin)) res.setHeader('Access-Control-Allow-Origin', origin);
+  else res.setHeader('Access-Control-Allow-Origin', 'null');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') { res.writeHead(200); res.end(); return; }
 
-  // Rate limit kontrol
-  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
-  if (!rateLimit(clientIp)) {
-    res.writeHead(429, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ hata: 'Cok fazla istek. Limit: 30/dk. Bekleyip tekrar deneyin.' }));
+  const url = new URL(req.url, `http://localhost:${PORT}`);
+  const pathname = url.pathname;
+
+  // GET / -> web chat
+  if (req.method === 'GET' && pathname === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(CHAT_HTML);
     return;
   }
 
-  // GET / -> durum
-  if (req.method === 'GET' && req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      durum: 'ok', sunucu: 'Kivon API Proxy v2',
-      motorlar: ['Groq', 'OpenRouter'],
-      varsayilan: VARSAYILAN_MODEL,
-      modeller: Object.keys(MODELS)
-    }));
-    return;
-  }
+  // POST /api/groq -> AI chat
+  if (req.method === 'POST' && pathname === '/api/groq') {
+    // Rate limit
+    const ip = req.socket.remoteAddress || 'unknown';
+    if (!rateLimit(ip)) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ hata: 'Çok fazla istek, biraz bekle' }));
+      return;
+    }
 
-  // POST /api/groq -> Groq + OpenRouter
-  if (req.method === 'POST' && req.url === '/api/groq') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', async () => {
@@ -80,12 +218,12 @@ const server = http.createServer(async (req, res) => {
         const modelKey = istenenModel && MODELS[istenenModel] ? istenenModel : VARSAYILAN_MODEL;
         const modelConfig = MODELS[modelKey];
 
-        const messages = [];
-        messages.push({ role: 'system', content: sistem || 'Sen Kivon AI asistanisin. Turkce, kisa ve net cevap ver.' });
-        messages.push({ role: 'user', content: soru });
+        const messages = [
+          { role: 'system', content: sistem || SISTEM_PROMPT },
+          { role: 'user', content: soru }
+        ];
 
         let url, headers, bodyData;
-
         if (modelConfig.provider === 'openrouter') {
           url = 'https://openrouter.ai/api/v1/chat/completions';
           headers = {
@@ -94,14 +232,14 @@ const server = http.createServer(async (req, res) => {
             'HTTP-Referer': 'https://kivontr.com',
             'X-Title': 'Kivon AI'
           };
-          bodyData = { model: modelConfig.model, messages, temperature: 0.7, max_tokens: 600 };
+          bodyData = { model: modelConfig.model, messages, temperature: 0.7, max_tokens: 800 };
         } else {
           url = 'https://api.groq.com/openai/v1/chat/completions';
           headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + GROQ_KEY
           };
-          bodyData = { model: modelConfig.model, messages, temperature: 0.7, max_tokens: 600 };
+          bodyData = { model: modelConfig.model, messages, temperature: 0.7, max_tokens: 800 };
         }
 
         const aiRes = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData) });
@@ -129,16 +267,9 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log('╔══════════════════════════════════════════╗');
-  console.log('║   KİVON API PROXY v2 — Port ' + PORT + '         ║');
+  console.log('║   KİVON API PROXY v3 — Port ' + PORT + '          ║');
   console.log('║   Motor: Groq + OpenRouter               ║');
-  console.log('║   Varsayilan: ' + VARSAYILAN_MODEL.padEnd(28) + '║');
-  console.log('║   Ucretsiz modeller: 5                   ║');
+  console.log('║   Web Chat: http://localhost:' + PORT + '            ║');
   console.log('╚══════════════════════════════════════════╝');
-  console.log('');
-  console.log('Modeller:');
-  for (const [k, v] of Object.entries(MODELS)) {
-    console.log('  ' + k.padEnd(30) + v.provider.padEnd(12) + (v.ctx/1000).toFixed(0) + 'K context');
-  }
-  console.log('');
   console.log('Kapatmak icin Ctrl+C');
 });
