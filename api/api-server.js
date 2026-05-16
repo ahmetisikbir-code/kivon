@@ -73,6 +73,7 @@ Yanıt kuralları:
 
 // Chat Bridge depolama
 const BRIDGE_STORE = 'chat-bridge-store.json';
+const sseClients = [];
 
 function bridgeInit() {
   if (!fs.existsSync(BRIDGE_STORE)) {
@@ -83,6 +84,13 @@ function bridgeInit() {
 
 function bridgeOku() { return JSON.parse(fs.readFileSync(BRIDGE_STORE, 'utf-8')); }
 function bridgeYaz(data) { fs.writeFileSync(BRIDGE_STORE, JSON.stringify(data, null, 2)); }
+
+function sseBildir(olay, veri) {
+  const msg = `event: ${olay}\ndata: ${JSON.stringify(veri)}\n\n`;
+  sseClients.forEach(c => {
+    try { c.res.write(msg); } catch(e) { /* client koptu */ }
+  });
+}
 
 // Web chat HTML sayfası
 const CHAT_HTML = `<!DOCTYPE html>
@@ -331,6 +339,7 @@ const server = http.createServer(async (req, res) => {
         const id = store.nextId++;
         store.messages.push({ id, role: 'user', text: text.trim(), ts: new Date().toISOString() });
         bridgeYaz(store);
+        sseBildir('yeni-mesaj', { id, text: text.trim() });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, id }));
       } catch(e) {
@@ -348,6 +357,24 @@ const server = http.createServer(async (req, res) => {
     const yeni = store.messages.filter(m => m.id > afterId);
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ messages: yeni }));
+    return;
+  }
+
+  // GET /api/bridge/events -> SSE anlik bildirim
+  if (req.method === 'GET' && pathname === '/api/bridge/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write(`event: baglanti\ndata: {"durum":"OK"}\n\n`);
+    const client = { id: Date.now(), res };
+    sseClients.push(client);
+    req.on('close', () => {
+      const idx = sseClients.indexOf(client);
+      if (idx > -1) sseClients.splice(idx, 1);
+    });
     return;
   }
 
