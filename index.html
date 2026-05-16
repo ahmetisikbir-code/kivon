@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON â€” KOBÄ°'nizi Yapay Zeka ile DÃ¶nÃ¼ÅŸtÃ¼rÃ¼n</title>
+<title>KIVON — KOBİ'nizi Yapay Zeka ile Dönüştürün</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <meta name="description" content="KIVON - Bursa merkezli yapay zeka danÄ±ÅŸmanlÄ±k ÅŸirketi. KOBÄ°'lere Ã¶zel AI Ã§Ã¶zÃ¼mleri, chatbot, veri analitiÄŸi ve otomasyon hizmetleri.">
 <meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, AI danÄ±ÅŸmanlÄ±k, Bursa, dijital dÃ¶nÃ¼ÅŸÃ¼m, chatbot">
 <meta name="author" content="KIVON">
@@ -99,6 +100,7 @@ nav {
   0% { transform:translateX(0); }
   100% { transform:translateX(-50%); }
 }
+@keyframes fi{to{opacity:1}}
 
 /* â”€â”€â”€ SECTIONS â”€â”€â”€ */
 section { position:relative; z-index:1; padding:100px 0; }
@@ -230,9 +232,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 </head>
 <body>
 
-<!-- 3D Canvas -->
-<canvas id="canvas3d"></canvas>
-
 <!-- â•â•â• NAV â•â•â• -->
 <nav>
   <div class="nav-inner">
@@ -275,19 +274,27 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <a href="/en/">EN → English</a>
 </div>
 
-<!-- â•â•â• HERO â•â•â• -->
-<section class="hero">
-  <div>
-    <h1>KIVON</h1>
-    <p>Yapay zeka ile iÅŸletmenizi dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.<br>Bursa merkezli, TÃ¼rkiye geneli.</p>
-    <div class="hero-actions">
-      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Ãœcretsiz GÃ¶rÃ¼ÅŸme</a>
-      <a href="#cozumler" class="btn btn-glass">Ã‡Ã¶zÃ¼mler</a>
+<!-- â•â•â• 3D HELIX HERO â•â•â• -->
+<section class="hero" id="hero3d" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden">
+  <div id="c" style="position:absolute;inset:0;z-index:0;pointer-events:none"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;padding:0 20px">
+    <svg viewBox="0 0 72 72" fill="none" style="width:64px;height:64px;margin-bottom:12px;opacity:0;animation:fi 1.5s 0.5s forwards;filter:drop-shadow(0 0 20px rgba(56,189,248,0.3))"><rect x="2" y="2" width="68" height="68" rx="16" fill="#0a0a1a" stroke="#38bdf8" stroke-width="2"/><circle cx="22" cy="24" r="5.5" fill="#38bdf8"/><circle cx="50" cy="20" r="5.5" fill="#38bdf8"/><circle cx="36" cy="48" r="5.5" fill="#38bdf8"/><line x1="28" y1="24" x2="44" y2="20" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><line x1="22" y1="30" x2="30" y2="37" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="26" x2="42" y2="37" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <h1 style="font-size:clamp(3rem,10vw,7rem);font-weight:900;letter-spacing:-0.04em;line-height:1;opacity:0;animation:fi 1.5s 0.8s forwards;background:linear-gradient(135deg,#38bdf8,#6366f1,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">KIVON</h1>
+    <p style="color:rgba(255,255,255,0.2);font-size:clamp(0.7rem,1.5vw,1rem);letter-spacing:8px;text-transform:uppercase;margin-top:8px;opacity:0;animation:fi 1.5s 1.2s forwards">KOBÄ°'nizi Yapay Zeka ile DÃ¶nÃ¼ÅŸtÃ¼rÃ¼n</p>
+    <div style="display:flex;gap:32px;justify-content:center;margin-top:24px;opacity:0;animation:fi 1.5s 1.8s forwards;flex-wrap:wrap">
+      <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#38bdf8">29</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">MCP</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">30</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">Ã‡Ã¶zÃ¼m</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#fbbf24">17</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">Uzman</div></div>
+      <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#7dd3fc">3</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">SektÃ¶r</div></div>
     </div>
-  </div>
-  <div class="hero-marquee">
-    <div class="marquee-track">
-      <span>28 MCP AraÃ§</span><span>Â·</span><span>30 AI Ã‡Ã¶zÃ¼mÃ¼</span><span>Â·</span><span>16 Uzman</span><span>Â·</span><span>4 TakÄ±m</span><span>Â·</span><span>Bursa</span><span>Â·</span><span>Muhasebe</span><span>Â·</span><span>E-Ticaret</span><span>Â·</span><span>Restoran</span><span>Â·</span><span>28 MCP AraÃ§</span><span>Â·</span><span>30 AI Ã‡Ã¶zÃ¼mÃ¼</span><span>Â·</span><span>16 Uzman</span><span>Â·</span><span>4 TakÄ±m</span><span>Â·</span><span>Bursa</span><span>Â·</span><span>Muhasebe</span><span>Â·</span><span>E-Ticaret</span><span>Â·</span><span>Restoran</span>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;opacity:0;animation:fi 1.5s 2.5s forwards;flex-wrap:wrap">
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);color:#38bdf8">ðŸ“‘ Muhasebe</span>
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);color:#6366f1">ðŸ›’ E-Ticaret</span>
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);color:#fbbf24">ðŸ½ï¸ Restoran</span>
+    </div>
+    <div class="hero-actions" style="justify-content:center;margin-top:20px;opacity:0;animation:fi 1.5s 3s forwards">
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" style="pointer-events:auto">Ãœcretsiz GÃ¶rÃ¼ÅŸme</a>
+      <a href="#cozumler" class="btn btn-glass" style="pointer-events:auto">Ã‡Ã¶zÃ¼mler</a>
     </div>
   </div>
 </section>
@@ -563,81 +570,96 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <p style="font-size:10px;color:rgba(255,255,255,0.08);margin-top:8px">Son gÃ¼ncelleme: 16 MayÄ±s 2026</p>
 </footer>
 
-<!-- â•â•â• 3D BACKGROUND â•â•â• -->
-<script>
-(function() {
-  var c = document.getElementById('canvas3d');
-  var ctx = c.getContext('2d');
-  var w, h, particles = [], connections = [];
-  var mouse = { x: 0, y: 0 };
+<!-- â•â•â• 3D HELIX â•â•â• -->
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-  function resize() {
-    w = c.width = window.innerWidth;
-    h = c.height = window.innerHeight;
+const isMobile=innerWidth<768,isTablet=innerWidth<1024;
+const N=isMobile?2000:isTablet?5000:8000;
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,1000);
+camera.position.set(0,1,14);
+
+const renderer=new THREE.WebGLRenderer({antialias:!isMobile,alpha:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1:2));
+document.getElementById('c').appendChild(renderer.domElement);
+
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),isMobile?0.15:0.25,0.4,0.1));
+
+const controls=new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=0.05;controls.autoRotate=true;
+controls.autoRotateSpeed=1;controls.enableZoom=false;controls.enablePan=false;
+controls.maxPolarAngle=Math.PI/2;controls.minPolarAngle=0;
+
+const pos=new Float32Array(N*3),col=new Float32Array(N*3);
+const src=new Float32Array(N*3),dst=new Float32Array(N*3);
+const c1=new THREE.Color('#38bdf8'),c2=new THREE.Color('#6366f1'),c3=new THREE.Color('#fbbf24'),c4=new THREE.Color('#7dd3fc');
+
+for(let i=0;i<N;i++){
+  const t=i/N,angle=t*Math.PI*12,r=2.5+Math.sin(t*Math.PI*5)*1;
+  src[i*3]=Math.cos(angle)*r;src[i*3+1]=(t-0.5)*6+Math.sin(t*Math.PI*8)*0.2;src[i*3+2]=Math.sin(angle)*r;
+  const rad=5+Math.random()*8,theta=Math.random()*Math.PI*2,phi=Math.acos(2*Math.random()-1);
+  dst[i*3]=Math.sin(phi)*Math.cos(theta)*rad;dst[i*3+1]=Math.sin(phi)*Math.sin(theta)*rad;dst[i*3+2]=Math.cos(phi)*rad;
+  pos[i*3]=src[i*3];pos[i*3+1]=src[i*3+1];pos[i*3+2]=src[i*3+2];
+  const ci=i%4===0?c1:i%4===1?c2:i%4===2?c3:c4;
+  col[i*3]=ci.r;col[i*3+1]=ci.g;col[i*3+2]=ci.b;
+}
+
+const geo=new THREE.BufferGeometry();
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+const pts=new THREE.Points(geo,new THREE.PointsMaterial({
+  size:isMobile?0.05:0.07,vertexColors:true,transparent:true,opacity:0.85,
+  blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true
+}));
+scene.add(pts);
+
+const rm=new THREE.MeshBasicMaterial({color:'#38bdf8',transparent:true,opacity:0.1});
+const r1=new THREE.Mesh(new THREE.TorusGeometry(1.8,0.02,16,64),rm);
+r1.rotation.x=Math.PI/3;scene.add(r1);
+const r2=new THREE.Mesh(new THREE.TorusGeometry(2.2,0.015,16,64),rm);
+r2.rotation.x=-Math.PI/4;r2.rotation.y=0.5;scene.add(r2);
+
+let progress=0,dir=1;
+const p=pts.geometry.attributes.position.array;
+
+function anim(){
+  requestAnimationFrame(anim);
+  progress+=0.002*dir;
+  if(progress>=1||progress<=0)dir*=-1;
+  const e=progress<0.5?2*progress*progress:1-Math.pow(-2*progress+2,2)/2;
+  for(let i=0;i<N;i++){
+    p[i*3]=src[i*3]+(dst[i*3]-src[i*3])*e;
+    p[i*3+1]=src[i*3+1]+(dst[i*3+1]-src[i*3+1])*e;
+    p[i*3+2]=src[i*3+2]+(dst[i*3+2]-src[i*3+2])*e;
   }
-  resize();
-  window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  pts.geometry.attributes.position.needsUpdate=true;
+  r1.rotation.z+=0.005;r2.rotation.x+=0.003;r2.rotation.y+=0.004;
+  controls.update();
+  composer.render();
+}
+anim();
 
-  var count = Math.min(120, Math.floor(w * h / 8000));
-  for (var i = 0; i < count; i++) {
-    particles.push({
-      x: Math.random() * w, y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
-      r: Math.random() * 1.5 + 0.3,
-      alpha: Math.random() * 0.4 + 0.1
-    });
-  }
+renderer.domElement.addEventListener('click',()=>{dir*=-1});
 
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY/(window.innerHeight*2);
+  if(s<0.05){dir=1;return}
+  dir=-1;
+});
 
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-
-      var dx = mouse.x - p.x, dy = mouse.y - p.y;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 200) {
-        p.vx += dx * 0.00005;
-        p.vy += dy * 0.00005;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(56,189,248,' + p.alpha + ')';
-      ctx.fill();
-    }
-
-    for (var i = 0; i < particles.length; i++) {
-      for (var j = i + 1; j < particles.length; j++) {
-        var dx = particles[i].x - particles[j].x;
-        var dy = particles[i].y - particles[j].y;
-        var dist = dx * dx + dy * dy;
-        var maxDist = 12000;
-        if (dist < maxDist) {
-          var alpha = 0.04 * (1 - dist / maxDist);
-          if (mouse.x > 0) {
-            var mx = (particles[i].x + particles[j].x) / 2 - mouse.x;
-            var my = (particles[i].y + particles[j].y) / 2 - mouse.y;
-            var md = Math.sqrt(mx * mx + my * my);
-            if (md < 300) alpha += 0.06 * (1 - md / 300);
-          }
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')';
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+window.addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);
+});
 </script>
 
 <!-- â•â•â• SCROLL REVEAL â•â•â• -->
