@@ -96,7 +96,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
     <div class="sector-card-sub">Online satış ve operasyon araçları</div>
   </a>
   <a href="restoran.html" class="sector-card">
-    <span class="sector-card-icon">ğŸ½</span>
+    <span class="sector-card-icon">🍽️</span>
     <div class="sector-card-title">Restoran &amp; Kafe</div>
     <div class="sector-card-sub">Yiyecek-içecek işletmeleri için otomasyon</div>
   </a>
@@ -107,7 +107,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
   <button class="filter-btn" data-filter="muhasebe">💰 Muhasebe & Finans</button>
   <button class="filter-btn" data-filter="eticaret">🛒 E-Ticaret</button>
   <button class="filter-btn" data-filter="pazarlama">📢 Pazarlama</button>
-  <button class="filter-btn" data-filter="destek">ğŸ§ Müşteri Hizmetleri</button>
+  <button class="filter-btn" data-filter="destek">🎧 Müşteri Hizmetleri</button>
   <button class="filter-btn" data-filter="dokuman">📄 Doküman & Veri</button>
   <button class="filter-btn" data-filter="proje">📋 Proje & Operasyon</button>
 </div>
@@ -123,19 +123,19 @@ const hizmetler = [
   {id:2,sektor:'muhasebe',ikon:'📧',baslik:'Gmail Harcama Takip ve Kategorizasyon',aciklama:'E-postalarınızdan fatura ve ödeme bildirimlerini otomatik ayıklar. Kategori bazlı gider takibi, KDV hesaplama, Google Sheets\'e anlık kayıt. Mikro işletmeler için muhasebe öncesi.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Gmail + OpenAI + Google Sheets'},
 
   // B. E-TİCARET
-  {id:3,sektor:'eticaret',ikon:'â­',baslik:'Ürün Yorum Analizi ve İtibar Yönetimi',aciklama:'Trendyol, Hepsiburada, Google Maps yorumlarınızı toplar, duygu analizi yapar. Olumsuz yorumları anında e-posta ile bildirir. Aylık itibar raporu.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'DeepSeek + OpenAI + Google Sheets'},
+  {id:3,sektor:'eticaret',ikon:'⭐',baslik:'Ürün Yorum Analizi ve İtibar Yönetimi',aciklama:'Trendyol, Hepsiburada, Google Maps yorumlarınızı toplar, duygu analizi yapar. Olumsuz yorumları anında e-posta ile bildirir. Aylık itibar raporu.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'DeepSeek + OpenAI + Google Sheets'},
 
   // C. PAZARLAMA
   {id:4,sektor:'pazarlama',ikon:'📱',baslik:'4 Platforma Tek Tıkla İçerik',aciklama:'Tek bir brief\'ten X, LinkedIn, Instagram, Facebook için optimize içerik, hashtag ve SEO anahtar kelimeleri üretir. Sosyal medya ekibine haftada 10 saat kazandırır.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'OpenAI + Google Sheets'},
   {id:5,sektor:'pazarlama',ikon:'📈',baslik:'Google Analytics AI Raporlama',aciklama:'Haftalık GA4 verilerinizi AI analiz eder. "Geçen haftaya göre trafik %15 arttı, en çok şu sayfa tıklandı" şeklinde Türkçe özet rapor. E-postayla gelsin.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Google Analytics + OpenAI + Gmail'},
   {id:6,sektor:'pazarlama',ikon:'📅',baslik:'Sosyal Medya İçerik Takvimi',aciklama:'Aylık içerik takvimi oluşturur. Caption\'ları AI yazar. 30 günlük içerik tek seferde — sadece marka bilginizi paylaşın.',zorluk:'Düşük',fiyat:'2.500-5.000 TL',kaynak:'OpenAI + Google Sheets + Google Calendar'},
 
-  // D. MÜÅTERİ HİZMETLERİ
+  // D. MÜŞTERİ HİZMETLERİ
   {id:7,sektor:'destek',ikon:'📬',baslik:'E-posta Özetleme ve Akıllı Yanıt',aciklama:'Yoğun e-posta alan yöneticiler için: Gelen e-postaları özetler, taslak yanıt hazırlar. Göndermeden önce size onaylatır. Human-in-the-loop.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'IMAP + OpenAI + Gmail'},
   {id:8,sektor:'destek',ikon:'💬',baslik:'WhatsApp AI Asistan',aciklama:'Mevcut WhatsApp numaranıza bağlanır. Müşteri mesajlarına 7/24 AI ile Türkçe yanıt verir. SSS, randevu, ürün bilgisi — hepsi otomatik. Biz kurarız, siz sadece QR tarayın.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'whatsapp-web.js + OpenAI + Groq'},
 
   // E. DOKÜMAN & VERİ
-  {id:9,sektor:'dokuman',ikon:'ğŸ¦',baslik:'Banka Ekstresi Dijitalleştirme',aciklama:'Taranmış banka ekstrelerini (PDF/görüntü) AI ile okur. Yapılandırılmış veriye çevirir, Google Sheets\'e aktarır. Gelir-gider analizi yapar.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Gemini Vision + OpenAI + Google Sheets'},
+  {id:9,sektor:'dokuman',ikon:'🏦',baslik:'Banka Ekstresi Dijitalleştirme',aciklama:'Taranmış banka ekstrelerini (PDF/görüntü) AI ile okur. Yapılandırılmış veriye çevirir, Google Sheets\'e aktarır. Gelir-gider analizi yapar.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Gemini Vision + OpenAI + Google Sheets'},
 
   // F. PROJE & OPERASYON
   {id:10,sektor:'proje',ikon:'🚀',baslik:'Müşteri Onboarding Otomasyonu',aciklama:'Yeni müşteri kaydıyla birlikte hoş geldin e-postası, belge talebi, onboarding checklist\'i ve takvim daveti — hepsi otomatik.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Webhook + Gmail + Google Sheets + Calendar'}
@@ -198,4 +198,3 @@ render('all');
 <footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>
-

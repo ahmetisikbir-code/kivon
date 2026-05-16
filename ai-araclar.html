@@ -462,7 +462,7 @@
         <button class="chip" data-itiraz="AI çözümleri çok pahalı">AI pahalı</button>
         <button class="chip" data-itiraz="Yapay zeka işimizi alır, insanları işsiz bırakır">İşimi alır</button>
         <button class="chip" data-itiraz="Zaten yazılımcımız var, dışarıdan hizmete gerek yok">Yazılımcım var</button>
-        <button class="chip" data-itiraz="Åu an doğru zaman değil, sonra bakarız">Åimdi değil</button>
+        <button class="chip" data-itiraz="Şu an doğru zaman değil, sonra bakarız">Şimdi değil</button>
         <button class="chip" data-itiraz="Bizim ihtiyacımız yok, mevcut sistemle devam">İhtiyacım yok</button>
       </div>
       <label for="itirazCustom">Veya kendi itirazınızı yazın:</label>
@@ -751,7 +751,7 @@ Kurallar:
 }
 
 // ═══════════════════════════════════════
-//  TAB 2: İTİRAZ KARÅILAMA
+//  TAB 2: İTİRAZ KARŞILAMA
 // ═══════════════════════════════════════
 async function runItiraz() {
   const custom = document.getElementById('itirazCustom').value.trim();
@@ -809,12 +809,12 @@ Sektör: ${sektor}
 Paket: ${paket}
 
 Teklif şu başlıkları içermelidir:
-1. GİRİÅ - ${musteri} için kişiselleştirilmiş açılış
+1. GİRİŞ - ${musteri} için kişiselleştirilmiş açılış
 2. KAPSAM - ${paket} paketinde ${ihtiyac} için neler sunuluyor
 3. FİYATLANDIRMA - ${paket} seviyesine uygun fiyat aralığı (aylık)
 4. SÜREÇ - İşe başlama ve teslim takvimi (2-4 hafta)
-5. İLETİÅİM - info@kivon.com.tr | +90 (224) xxx xx xx
-6. KAPANIÅ - Teşekkür ve sonraki adım
+5. İLETİŞİM - info@kivon.com.tr | +90 (224) xxx xx xx
+6. KAPANIŞ - Teşekkür ve sonraki adım
 
 Profesyonel, güven veren ve ${sektor} sektörüne özel ifadeler kullan.
 Türkçe yaz.`;
@@ -902,7 +902,7 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
     allResults.innerHTML = `<span style="color:#f87171;">&#10060; Toplu işlem hatası: ${e.message}</span>`;
   } finally {
     hepsiBtn.disabled = false;
-    hepsiBtn.textContent = 'ğŸŒ Hepsi — Tüm araçları örnek verilerle çalıştır';
+    hepsiBtn.textContent = '🚀 Hepsi — Tüm araçları örnek verilerle çalıştır';
   }
 }
 </script>
@@ -913,4 +913,3 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
 <footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>
-

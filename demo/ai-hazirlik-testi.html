@@ -417,7 +417,7 @@ nav {
     var recommendations = [];
     if (pct < 75) {
       if (!answers[3] || !answers[4]) recommendations.push({ icon: '📄', title: 'Dijital Dönüşüm', text: 'Belge ve muhasebe işlemlerinizi dijitalleştirerek zamandan tasarruf edin.' });
-      if (!answers[5] || !answers[6]) recommendations.push({ icon: 'ğŸŒ', title: 'Dijital Varlık Oluşturun', text: 'Web sitesi ve sosyal medya varlığınızı güçlendirin. Müşterileriniz sizi çevrimiçi bulsun.' });
+      if (!answers[5] || !answers[6]) recommendations.push({ icon: '🌐', title: 'Dijital Varlık Oluşturun', text: 'Web sitesi ve sosyal medya varlığınızı güçlendirin. Müşterileriniz sizi çevrimiçi bulsun.' });
       if (!answers[7] || !answers[8] || !answers[9]) recommendations.push({ icon: '⚡', title: 'Tekrarlayan İşleri Otomatize Edin', text: 'Veri girişi, stok takibi ve randevu yönetimini AI ile otomatikleştirin.' });
       if (!answers[1] || !answers[2]) recommendations.push({ icon: '💬', title: 'Müşteri Hizmetlerini AI ile Güçlendirin', text: 'AI chatbot ile 7/24 müşteri desteği sağlayarak memnuniyeti artırın.' });
       if (!answers[10] || !answers[11]) recommendations.push({ icon: '📊', title: 'Veri Analitiğine Yatırım Yapın', text: 'Satış ve operasyon verilerinizi analiz ederek bilinçli kararlar alın.' });
@@ -425,7 +425,7 @@ nav {
     }
     if (recommendations.length === 0) {
       recommendations.push({ icon: '🚀', title: 'Profesyonel Pakete Geçin', text: 'KIVON Kurumsal paket ile tüm AI çözümlerinden sınırsız yararlanın.' });
-      recommendations.push({ icon: 'ğŸ“', title: 'Ücretsiz Danışmanlık Alın', text: 'Uzman ekibimizle görüşerek AI yol haritanızı belirleyin.' });
+      recommendations.push({ icon: '📞', title: 'Ücretsiz Danışmanlık Alın', text: 'Uzman ekibimizle görüşerek AI yol haritanızı belirleyin.' });
     }
 
     reco.innerHTML = recommendations.slice(0, 4).map(function(r) {
@@ -453,4 +453,3 @@ nav {
 <footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>
-

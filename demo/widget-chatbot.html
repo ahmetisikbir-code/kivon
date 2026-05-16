@@ -129,12 +129,12 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
 // ─── BILGI TABANI ───
 const KB = {
   karsilama: "Merhaba! 👋 Ben KIVON'un AI asistanıyım. KOBİ'lere özel yapay zekÃ¢ çözümleri sunuyoruz. Fiyat, çözümler, demo veya iletişim — size nasıl yardımcı olabilirim?",
-  bilinmeyen: "Detaylı bilgi için WhatsApp'tan bize ulaşın: +90 530 398 27 12. En geç 24 saat içinde dönüş yaparız. ğŸ“",
+  bilinmeyen: "Detaylı bilgi için WhatsApp'tan bize ulaşın: +90 530 398 27 12. En geç 24 saat içinde dönüş yaparız. 📞",
   yanitlar: {
     "fiyat|ücret|paket|kaç para|kaç tl|ne kadar": "📦 **KIVON Paketleri**\n\n🔹 **Başlangıç:** 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu\n🔹 **Profesyonel:** 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, randevu yönetimi\n🔹 **Kurumsal:** 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\n*Tüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, koşulsuz çıkış hakkı.*",
     "çözüm|hizmet|ne yapıyor|nedir|ürün": "KOBİ'ler için 3 ana alanda çözüm sunuyoruz:\n\n📋 **Muhasebe büroları** — Müşteri sorgularını yanıtlama, randevu yönetimi, evrak takibi\n🛒 **E-ticaret** — 7/24 müşteri desteği, sipariş takibi, stok yönetimi\n🍽️ **Restoran & Kafe** — WhatsApp'tan rezervasyon, menü bilgisi, paket servis yönetimi\n\n*Hepsi mevcut yazılımınızla entegre çalışır.*",
-    "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "ğŸ“ **Bize Ulaşın**\n\n💬 **WhatsApp:** +90 530 398 27 12\n📧 **E-posta:** kivon.iletisim@gmail.com\n📸 **Instagram:** @kivon.iletisim\n\n*En geç 24 saat içinde dönüş yaparız. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli!*",
-    "demo|deneme|test|gösteri": "ğŸ¯ **Canlı Demolarımız**\n\n💬 AI Chatbot — Soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — Grafikleri inceleyin\n🧪 AI Hazırlık Testi — İşletmenizin AI seviyesini ölçün\n🧮 Muhasebe Araçları — Fatura, KDV hesaplama\n\n*Tümü ücretsiz, kayıt gerekmez.*",
+    "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "📞 **Bize Ulaşın**\n\n💬 **WhatsApp:** +90 530 398 27 12\n📧 **E-posta:** kivon.iletisim@gmail.com\n📸 **Instagram:** @kivon.iletisim\n\n*En geç 24 saat içinde dönüş yaparız. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli!*",
+    "demo|deneme|test|gösteri": "🖥️ **Canlı Demolarımız**\n\n💬 AI Chatbot — Soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — Grafikleri inceleyin\n🧪 AI Hazırlık Testi — İşletmenizin AI seviyesini ölçün\n🧮 Muhasebe Araçları — Fatura, KDV hesaplama\n\n*Tümü ücretsiz, kayıt gerekmez.*",
     "muhasebe|smmm|mali müşavir|muhasebeci": "Muhasebe büroları için chatbot'umuz, tekrarlayan müşteri sorularının %70'ini alır. Dekont, fatura, randevu sorgularını otomatik yanıtlar. Logo, Paraşüt, LUCA, Mikro ile tam uyumlu. Ayda 16+ saat zaman kazancı.",
     "eticaret|e-ticaret|e ticaret|online mağaza": "E-ticaret işletmeleri için 7/24 otomatik müşteri desteği, sipariş/iade takibi, stok uyarıları, terk edilen sepet hatırlatmaları. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu.",
     "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler için WhatsApp üzerinden rezervasyon alma, müsaitlik kontrolü, menü bilgisi paylaşma, paket servis yönetimi. Telefon trafiğini azaltır, servise odaklanmanızı sağlar.",
@@ -201,7 +201,7 @@ function kivonFindAnswer(metin) {
 }
 
 // ─── BUTTONS ───
-const varsayilanButonlar = ['💰 Fiyat', '🔧 Çözümler', 'ğŸ“ İletişim', 'ğŸ¯ Demolar'];
+const varsayilanButonlar = ['💰 Fiyat', '🔧 Çözümler', '📞 İletişim', '🖥️ Demolar'];
 
 function kivonSetButtons(butonlar) {
   quick.innerHTML = butonlar.map(b => `<button class="kivon-quick-btn">${b}</button>`).join('');
@@ -224,11 +224,11 @@ async function kivonHandleMsg(metin) {
     await kivonBotReply(KB.yanitlar["çözüm|hizmet|ne yapıyor|nedir|ürün"]);
     return;
   }
-  if (lower.includes('iletişim') || lower.includes('ulaşmak') || lower.includes('telefon') || lower.includes('ğŸ“')) {
+  if (lower.includes('iletişim') || lower.includes('ulaşmak') || lower.includes('telefon') || lower.includes('📞')) {
     await kivonBotReply(KB.yanitlar["iletişim|ulaşmak|telefon|mail|whatsapp|instagram"]);
     return;
   }
-  if (lower.includes('demo') || lower.includes('deneme') || lower.includes('ğŸ¯')) {
+  if (lower.includes('demo') || lower.includes('deneme') || lower.includes('🖥️')) {
     await kivonBotReply(KB.yanitlar["demo|deneme|test|gösteri"]);
     return;
   }
@@ -301,5 +301,3 @@ setTimeout(async () => {
 <div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(5,5,16,0.8);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1)">← Ana Sayfa</a></div><script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script>
 </body>
 </html>
-
-

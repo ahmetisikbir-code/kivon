@@ -408,43 +408,43 @@
   var services = [
     /* MUHASEBE */
     { icon:'🧾', name:'Akıllı Fatura İşleme', desc:'Yapay zeka ile fatura ve fişlerinizi otomatik tanıyın, sınıflandırın ve muhasebe kaydına dönüştürün.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'muhasebe' },
-    { icon:'ğŸ ', name:'Kira Mutabakat', desc:'Kira sözleşmelerini analiz eden AI; artış, stopaj ve KDV hesaplamalarını otomatik yapar.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
-    { icon:'💰', name:'Harcama Takip', desc:'Åirket kartı ve banka harcamalarını kategorilere ayıran, bütçe uyarıları yapan akıllı asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
+    { icon:'📋', name:'Kira Mutabakat', desc:'Kira sözleşmelerini analiz eden AI; artış, stopaj ve KDV hesaplamalarını otomatik yapar.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
+    { icon:'💰', name:'Harcama Takip', desc:'Şirket kartı ve banka harcamalarını kategorilere ayıran, bütçe uyarıları yapan akıllı asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'muhasebe' },
     { icon:'📊', name:'Vergi Asistanı', desc:'Güncel mevzuata göre KDV, stopaj, muhtasar ve geçici vergi hesaplamalarınızı yapan AI danışman.', price:'₺4.500/ay', diff:'high', diffLabel:'Yüksek', sector:'muhasebe' },
-    /* SATIÅ */
+    /* SATIŞ */
     { icon:'📱', name:'WhatsApp Satış', desc:'WhatsApp Business API ile müşteri sorularını 7/24 yanıtlayan, sipariş alan AI satış asistanı.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
-    { icon:'ğŸ¯', name:'Lead Keşif', desc:'Web sitenizi ziyaret eden firmaları tespit eden, potansiyel müşterileri skorlayan ve CRM\'e aktaran sistem.', price:'₺5.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
+    { icon:'🔍', name:'Lead Keşif', desc:'Web sitenizi ziyaret eden firmaları tespit eden, potansiyel müşterileri skorlayan ve CRM\'e aktaran sistem.', price:'₺5.000/ay', diff:'mid', diffLabel:'Orta', sector:'satis' },
     { icon:'📅', name:'Randevu Takip', desc:'Müşteri randevularını planlayan, hatırlatma gönderen ve takvimleri senkronize eden AI asistan.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'satis' },
     { icon:'💬', name:'CRM Chat', desc:'CRM\'inize entegre olan, müşteri geçmişini analiz ederek satış ekibine öneriler sunan chatbot.', price:'₺4.000/ay', diff:'high', diffLabel:'Yüksek', sector:'satis' },
     /* İK */
     { icon:'📄', name:'CV Tarama', desc:'Yüzlerce CV\'yi saniyeler içinde tarayan, pozisyona uygun adayları puanlayan ve sıralayan AI sistemi.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'ik' },
     { icon:'🤖', name:'AI Mülakat', desc:'Adaylarla ön mülakat yapan, teknik ve davranışsal sorular soran, yanıtları değerlendiren yapay zeka.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'ik' },
-    { icon:'📋', name:'Politika Chatbot', desc:'Åirket politika ve prosedürlerini öğrenen, çalışan sorularını anında yanıtlayan iç iletişim botu.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
+    { icon:'📋', name:'Politika Chatbot', desc:'Şirket politika ve prosedürlerini öğrenen, çalışan sorularını anında yanıtlayan iç iletişim botu.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
     { icon:'âš–ï¸', name:'Ayrımcılık Analizi', desc:'İş ilanlarınızı ve iletişimlerinizi tarayarak ayrımcı dil veya önyargı tespit eden etik AI aracı.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'ik' },
     /* ETİCARET */
-    { icon:'ğŸ›ï¸', name:'Alışveriş Asistanı', desc:'Müşterilere ürün öneren, beden/renk seçiminde yardımcı olan ve sepeti yöneten AI danışman.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
-    { icon:'â­', name:'Yorum Analizi', desc:'Ürün yorumlarını duygu analizi ile işleyen, öne çıkan konuları raporlayan müşteri içgörü sistemi.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
+    { icon:'🛒', name:'Alışveriş Asistanı', desc:'Müşterilere ürün öneren, beden/renk seçiminde yardımcı olan ve sepeti yöneten AI danışman.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
+    { icon:'⭐', name:'Yorum Analizi', desc:'Ürün yorumlarını duygu analizi ile işleyen, öne çıkan konuları raporlayan müşteri içgörü sistemi.', price:'₺2.500/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
     { icon:'📦', name:'Stok Takip', desc:'Satış verilerinden talep tahmini yapan, stok yenileme zamanını ve miktarını optimize eden AI.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'eticaret' },
     { icon:'🔄', name:'İade Otomasyon', desc:'İade taleplerini otomatik işleyen, kargo kodu oluşturan ve müşteriyle iletişimi yöneten sistem.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'eticaret' },
     /* PAZARLAMA */
-    { icon:'ğŸ“', name:'4 Platform İçerik', desc:'Instagram, LinkedIn, X ve TikTok için sektörünüze özel içerik üreten, hashtag öneren AI.', price:'₺4.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
+    { icon:'📱', name:'4 Platform İçerik', desc:'Instagram, LinkedIn, X ve TikTok için sektörünüze özel içerik üreten, hashtag öneren AI.', price:'₺4.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
     { icon:'âœï¸', name:'Marka Sesi Blog', desc:'Marka kimliğinize uygun SEO odaklı blog yazıları üreten, araştırma ve referans ekleyen motor.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
     { icon:'📈', name:'GA4 Rapor', desc:'Google Analytics 4 verilerinizi doğal dilde yorumlayan, aksiyon önerileri sunan raporlama asistanı.', price:'₺3.500/ay', diff:'mid', diffLabel:'Orta', sector:'pazarlama' },
     { icon:'📅', name:'Sosyal Medya Takvim', desc:'Yapay zeka ile optimal paylaşım zamanlarını belirleyen, aylık içerik takvimi oluşturan araç.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'pazarlama' },
     /* DESTEK */
-    { icon:'ğŸ™ï¸', name:'Sesli Chatbot', desc:'Telefonla arayan müşterilerle doğal konuşma yapan, sorunları çözen veya ilgili birime yönlendiren AI.', price:'₺7.500/ay', diff:'high', diffLabel:'Yüksek', sector:'destek' },
-    { icon:'ğŸ«', name:'Bilet Sistemi', desc:'Destek taleplerini otomatik sınıflandıran, önceliklendiren ve yanıt taslağı hazırlayan akıllı yönetim.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'destek' },
+    { icon:'🎧', name:'Sesli Chatbot', desc:'Telefonla arayan müşterilerle doğal konuşma yapan, sorunları çözen veya ilgili birime yönlendiren AI.', price:'₺7.500/ay', diff:'high', diffLabel:'Yüksek', sector:'destek' },
+    { icon:'🎫', name:'Bilet Sistemi', desc:'Destek taleplerini otomatik sınıflandıran, önceliklendiren ve yanıt taslağı hazırlayan akıllı yönetim.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'destek' },
     { icon:'📧', name:'E-posta Özet', desc:'Gelen e-postaları özetleyen, aciliyete göre sıralayan ve yanıt taslağı öneren asistan.', price:'₺2.000/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
     { icon:'🤖', name:'Telegram Asistan', desc:'Telegram üzerinden müşteri desteği sağlayan, sık sorulan soruları yanıtlayan ve bilet oluşturan bot.', price:'₺1.500/ay', diff:'low', diffLabel:'Düşük', sector:'destek' },
     /* DOKÜMAN */
-    { icon:'📚', name:'Bilgi Tabanı', desc:'Åirket dokümanlarınızı tarayan, sorulara anında cevap veren, referans gösteren kurumsal hafıza AI.', price:'₺5.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
-    { icon:'ğŸ¦', name:'Banka Ekstre', desc:'Banka hesap ekstrelerini PDF\'den okuyan, işlemleri kategorilendiren ve muhasebe fişi oluşturan sistem.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'dokuman' },
-    { icon:'ğŸ—„ï¸', name:'Doğal Dil DB', desc:'Veritabanınıza SQL yazmadan, doğal dil ile sorgu yapmanızı sağlayan, sonuçları görselleştiren AI.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
+    { icon:'📚', name:'Bilgi Tabanı', desc:'Şirket dokümanlarınızı tarayan, sorulara anında cevap veren, referans gösteren kurumsal hafıza AI.', price:'₺5.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
+    { icon:'🏦', name:'Banka Ekstre', desc:'Banka hesap ekstrelerini PDF\'den okuyan, işlemleri kategorilendiren ve muhasebe fişi oluşturan sistem.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'dokuman' },
+    { icon:'🗄️', name:'Doğal Dil DB', desc:'Veritabanınıza SQL yazmadan, doğal dil ile sorgu yapmanızı sağlayan, sonuçları görselleştiren AI.', price:'₺6.000/ay', diff:'high', diffLabel:'Yüksek', sector:'dokuman' },
     /* PROJE */
     { icon:'📋', name:'Toplantı Asistanı', desc:'Toplantılarınızı dinleyen, konuşma metnine çeviren, özet çıkaran ve aksiyon maddelerini atayan AI.', price:'₺4.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
     { icon:'🚀', name:'Onboarding', desc:'Yeni çalışanların oryantasyon sürecini yöneten, eğitim materyali sunan ve soruları yanıtlayan AI rehber.', price:'₺3.000/ay', diff:'mid', diffLabel:'Orta', sector:'proje' },
     /* TEKNİK */
-    { icon:'ğŸ–¥ï¸', name:'Sunucu Yönetimi', desc:'Sunucu loglarını analiz eden, anomali tespit eden, sorun giderme önerileri sunan DevOps AI asistanı.', price:'₺5.500/ay', diff:'high', diffLabel:'Yüksek', sector:'teknik' }
+    { icon:'🖥️', name:'Sunucu Yönetimi', desc:'Sunucu loglarını analiz eden, anomali tespit eden, sorun giderme önerileri sunan DevOps AI asistanı.', price:'₺5.500/ay', diff:'high', diffLabel:'Yüksek', sector:'teknik' }
   ];
 
   /* ── Sector Labels ── */
