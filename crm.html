@@ -156,17 +156,17 @@
 // ---- DATA ----
 const DEFAULT_CUSTOMERS = [
   {id:1,name:'Ahmet Yılmaz',company:'Mali Mühür',sector:'muhasebe',status:'sıcak',date:'2026-05-14',note:'Yıllık mali müşavirlik sözleşmesi için görüşüldü.',lastContact:'2026-05-14'},
-  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Å.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.',lastContact:'2026-05-10'},
+  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Ş.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.',lastContact:'2026-05-10'},
   {id:3,name:'Mehmet Demir',company:'Vergi Uzmanları Derneği',sector:'muhasebe',status:'soğuk',date:'2026-04-28',note:'Toplantı talebine henüz dönüş yapılmadı.',lastContact:'2026-04-28'},
   {id:4,name:'Ayşe Çelik',company:'Hızlı Sepet',sector:'eticaret',status:'sıcak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandı, sözleşme imzalanacak.',lastContact:'2026-05-15'},
   {id:5,name:'Can Öztürk',company:'ModaMart',sector:'eticaret',status:'dönüştü',date:'2026-05-01',note:'Site kurulumu tamamlandı, ödeme alındı.',lastContact:'2026-05-01'},
   {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'ılık',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapıldı, fiyat teklifi beklentisi.',lastContact:'2026-05-12'},
-  {id:7,name:'Burak Åahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.',lastContact:'2026-05-15'},
+  {id:7,name:'Burak Şahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.',lastContact:'2026-05-15'},
   {id:8,name:'Derya Koç',company:'Kebapçı Emmi',sector:'restoran',status:'ılık',date:'2026-05-08',note:'Masa rezervasyon modülü ilgisini çekti, tanıtım yapılacak.',lastContact:'2026-05-08'},
   {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soğuk',date:'2026-04-20',note:'Bütçe nedeniyle erteleme talep edildi.',lastContact:'2026-04-20'},
   {id:10,name:'Gizem Yıldız',company:'Bütçe Muhasebe',sector:'muhasebe',status:'dönüştü',date:'2026-04-25',note:'Kurumsal lisans satın alındı.',lastContact:'2026-04-25'},
   {id:11,name:'Hakan Aydın',company:'TrendyShop',sector:'eticaret',status:'soğuk',date:'2026-04-15',note:'Rakiplerinin teklifini değerlendiriyor.',lastContact:'2026-04-15'},
-  {id:12,name:'Işıl Eren',company:'Åehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.',lastContact:'2026-05-05'}
+  {id:12,name:'Işıl Eren',company:'Şehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.',lastContact:'2026-05-05'}
 ];
 
 let customers = [];
@@ -262,7 +262,7 @@ function showHistory(customer){
   } else {
     list.innerHTML = msgs.slice().reverse().map(m => `
       <div class="history-item">
-        <div class="history-icon">${m.type === 'whatsapp' ? '📱' : 'ğŸ“'}</div>
+        <div class="history-icon">${m.type === 'whatsapp' ? '📱' : '📝'}</div>
         <div class="history-content">
           <div class="h-date">${m.date}</div>
           <div class="h-msg">${escapeHtml(m.message)}</div>
@@ -301,7 +301,7 @@ function renderTable(){
         <td><span class="last-contact">${lc}</span></td>
         <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
         <td style="white-space:nowrap">
-          <button class="action-btn" onclick="openModalForEdit(${c.id})" title="Düzenle">âœ</button>
+          <button class="action-btn" onclick="openModalForEdit(${c.id})" title="Düzenle">✏️</button>
           ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj Gönder">📱</button>` : ''}
           <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj Geçmişi">📋</button>
           <button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">✕</button>

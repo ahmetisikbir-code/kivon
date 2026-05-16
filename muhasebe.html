@@ -115,7 +115,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <div class="topbar">
   <div class="topbar-left">
     <div class="topbar-logo">K</div>
-    <div class="topbar-title">Kivon Muhasebe<span>MCP Araçları v1.0</span></div>
+    <div class="topbar-title">Kivon Muhasebe<span>v1.0</span></div>
   </div>
   <div class="topbar-status"><span class="status-dot"></span> <span id="faturaSayisi">0 fatura</span> kayıtlı</div>
   <button class="mobile-toggle" id="mobileToggle">☰</button>
@@ -131,8 +131,8 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
     <div class="sidebar-section">
       <div class="sidebar-label">Fatura</div>
       <button class="sidebar-item active" onclick="showTool('fatura-olustur')"><span class="icon">📄</span> Fatura Oluştur</button>
-      <button class="sidebar-item" onclick="showTool('fatura-sorgula')"><span class="icon">ğŸ”</span> Fatura Sorgula</button>
-      <button class="sidebar-item" onclick="showTool('fatura-iptal')"><span class="icon">âŒ</span> Fatura İptal</button>
+      <button class="sidebar-item" onclick="showTool('fatura-sorgula')"><span class="icon">🔍</span> Fatura Sorgula</button>
+      <button class="sidebar-item" onclick="showTool('fatura-iptal')"><span class="icon">❌</span> Fatura İptal</button>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-label">Mizan</div>
@@ -143,7 +143,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
     <div class="sidebar-section">
       <div class="sidebar-label">KDV & Vergi</div>
       <button class="sidebar-item" onclick="showTool('kdv-hesapla')"><span class="icon">💰</span> KDV Hesapla</button>
-      <button class="sidebar-item" onclick="showTool('beyanname')"><span class="icon">ğŸ“</span> Beyanname Taslak</button>
+      <button class="sidebar-item" onclick="showTool('beyanname')"><span class="icon">📝</span> Beyanname Taslak</button>
       <button class="sidebar-item" onclick="showTool('vergi-takvimi')"><span class="icon">📅</span> Vergi Takvimi</button>
     </div>
     <div class="sidebar-section">
@@ -199,7 +199,7 @@ const araclar = {
     butonEtiket: 'Kaydet',
     calistir(form, kaydet) {
       const t=parseFloat(form.tutar)||0, kdv=parseFloat(form.kdv)/100, kdvT=Math.round(t*kdv*100)/100, top=t+kdvT;
-      if (!form.musteri || !t) return '<div style="text-align:center;padding:20px;color:var(--red)">âš ï¸ Müşteri adı ve tutar zorunludur</div>';
+      if (!form.musteri || !t) return '<div style="text-align:center;padding:20px;color:var(--red)">⚠️ Müşteri adı ve tutar zorunludur</div>';
 
       if (kaydet) {
         const faturaNo = 'KVN'+Date.now().toString().slice(-10);
@@ -304,7 +304,7 @@ const araclar = {
           <div class="kdv-side"><div class="kdv-side-num">${ana.toFixed(2)} TL</div><div class="kdv-side-label">Ana Tutar</div><div class="kdv-side-num" style="margin-top:6px">${kdvT.toFixed(2)} TL</div><div class="kdv-side-label">KDV</div></div>
         </div>
         ${tumKdv>0?`<div style="margin-top:14px;background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:14px 18px"><div style="font-size:12px;color:var(--gold);margin-bottom:4px">📊 KAYITLI FATURA TOPLAMLARI</div><div class="fr"><span style="color:var(--gray)">Toplam gelir (matrah)</span><span style="font-weight:700">${tumGelir.toFixed(0)} TL</span></div><div class="fr" style="margin-top:4px"><span style="color:var(--gray)">Toplam KDV</span><span style="font-weight:700;color:var(--gold)">${tumKdv.toFixed(0)} TL</span></div></div>`:''}
-        <div style="margin-top:10px;font-size:12px;color:var(--gray)">Formül: ${dahil?`${t} / (1 + %${form.kdv}) = ${ana.toFixed(2)} TL`:`${t} Ã— %${form.kdv} = ${kdvT.toFixed(2)} TL`}</div>`;
+        <div style="margin-top:10px;font-size:12px;color:var(--gray)">Formül: ${dahil?`${t} / (1 + %${form.kdv}) = ${ana.toFixed(2)} TL`:`${t} × %${form.kdv} = ${kdvT.toFixed(2)} TL`}</div>`;
     }
   },
 
@@ -332,7 +332,7 @@ const araclar = {
         </div>
         <div class="result-row"><span class="result-label">Dönem</span><span class="result-value">${form.donem} — ${flar.length} fatura</span></div>
         <div class="result-row"><span class="result-label">Son Verme</span><span class="result-value gold">24/${String(sonAy).padStart(2,'0')}/${sonYil}</span></div>
-        <div class="result-note">âš ï¸ Bu bir taslaktır. Resmi beyanname GİB üzerinden verilmelidir. Duru onayı beklenir.</div>`;
+        <div class="result-note">⚠️ Bu bir taslaktır. Resmi beyanname GİB üzerinden verilmelidir. Duru onayı beklenir.</div>`;
     }
   },
 
@@ -413,7 +413,7 @@ const araclar = {
     ],
     butonEtiket: 'AI ile Oku',
     async calistir(form) {
-      if (!form.metin || form.metin.length < 10) return '<div style="text-align:center;padding:20px;color:var(--red)">âš ï¸ Lütfen fatura metnini girin</div>';
+      if (!form.metin || form.metin.length < 10) return '<div style="text-align:center;padding:20px;color:var(--red)">⚠️ Lütfen fatura metnini girin</div>';
 
       const box = document.getElementById('result');
       box.innerHTML = '<h4>🤖 AI Analiz Ediyor...</h4><div style="text-align:center;padding:30px"><div class="typing"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px;font-size:13px">Groq AI faturayı okuyor...</p></div>';
@@ -455,7 +455,7 @@ const araclar = {
         html += '<div class="result-note">🤖 Groq AI (Llama 3.3 70B) ile analiz edildi. Ücretsiz, limitsiz.</div>';
         return html;
       } catch(e) {
-        return `<div style="text-align:center;padding:20px;color:var(--red)">âŒ AI analizi başarısız: ${e.message}<br><span style="font-size:12px;color:var(--gray)">api-server.js çalıştığından emin olun (node api-server.js)</span></div>`;
+        return `<div style="text-align:center;padding:20px;color:var(--red)">❌ AI analizi başarısız: ${e.message}<br><span style="font-size:12px;color:var(--gray)">api-server.js çalıştığından emin olun (node api-server.js)</span></div>`;
       }
     }
   }
@@ -482,7 +482,7 @@ async function renderTool(id) {
     <h2>${a.baslik}<span> aracı</span></h2>
     <p class="subtitle">${a.aciklama}</p>
     <div class="tool-card">
-      <div class="tool-header"><div class="tool-info"><h3>${a.form.length>0?'Parametreler':'Sonuç'}</h3><p>${a.form.length>0?'Değerleri doldurun':'Otomatik hesaplanır'}</p></div><span class="tool-badge">MCP Muhasebe</span></div>
+      <div class="tool-header"><div class="tool-info"><h3>${a.form.length>0?'Parametreler':'Sonuç'}</h3><p>${a.form.length>0?'Değerleri doldurun':'Otomatik hesaplanır'}</p></div><span class="tool-badge">Muhasebe</span></div>
       ${a.form.length>0?`<div class="form-row">${a.form.map(f=>{
         const isTextarea = f.label === 'Fatura Metni';
         if(f.tip==='select') return `<div class="form-group"><label>${f.label}</label><select id="${f.id}">${f.options.map(o=>`<option ${o===f.default?'selected':''}>${o}</option>`).join('')}</select></div>`;

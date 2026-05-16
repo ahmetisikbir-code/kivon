@@ -116,21 +116,6 @@ main { position:relative; z-index:1; padding-top:64px; }
 .progress-fill.gold { background:linear-gradient(90deg,#fbbf24,#f59e0b); }
 .progress-fill.purple { background:linear-gradient(90deg,#a855f7,var(--indigo)); }
 
-/* ─── MCP HEALTH ─── */
-.mcp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:6px; }
-.mcp-item {
-  display:flex; align-items:center; gap:8px;
-  padding:8px 12px; border-radius:10px;
-  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04);
-  font-size:12px; transition:var(--tr);
-}
-.mcp-item:hover { background:rgba(56,189,248,0.04); border-color:rgba(56,189,248,0.1); }
-.status-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-.status-dot.green { background:#22c55e; box-shadow:0 0 8px rgba(34,197,94,0.3); }
-.status-dot.red { background:#ef4444; box-shadow:0 0 8px rgba(239,68,68,0.3); }
-.mcp-name { color:rgba(255,255,255,0.6); }
-.mcp-name.offline { color:rgba(255,255,255,0.2); text-decoration:line-through; }
-
 /* ─── API STATUS ─── */
 .api-list { }
 .api-row {
@@ -181,7 +166,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   .grid-2, .grid-3 { grid-template-columns:1fr; }
   .nav-links { display:none; }
   .stats-row { grid-template-columns:repeat(2,1fr); }
-  .mcp-grid { grid-template-columns:repeat(2,1fr); }
+
   .quick-grid { grid-template-columns:1fr 1fr; }
 }
 @media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}
@@ -296,50 +281,14 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
   </div>
 
-  <!-- ═══ MCP HEALTH ═══ -->
-  <div class="container" style="margin-bottom:32px">
-    <div class="card">
-      <h3>MCP Sağlık Durumu <span class="count">29</span></h3>
-      <div class="mcp-grid">
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">BrowserMCP</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Playwright</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Chrome DevTools</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Tavily</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Exa</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Jina AI</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Firecrawl</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Apify</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Reddit</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Filesystem</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Memory</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">SQLite</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Supabase</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Notion</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Mermaid</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">GitHub</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">n8n</span></div>
-        <div class="mcp-item"><span class="status-dot red"></span><span class="mcp-name offline">Sentry</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">HubSpot</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Railway</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Slack</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Figma</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Google</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Maps</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Mapbox</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Context7</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Magic</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Seq. Thinking</span></div>
-        <div class="mcp-item"><span class="status-dot green"></span><span class="mcp-name">Kivon Muhasebe</span></div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- ═══ QUICK ACTIONS ═══ -->
   <div class="container" style="margin-bottom:32px">
     <span class="section-label">Hızlı Eylemler</span>
     <div class="quick-grid">
       <a href="https://wa.me/905303982712" class="quick-btn wa" target="_blank">💬 WhatsApp</a>
-      <a href="mailto:kivon.iletisim@gmail.com" class="quick-btn mail" target="_blank">âœ‰ï¸ E-Posta</a>
+      <a href="mailto:kivon.iletisim@gmail.com" class="quick-btn mail" target="_blank">✉️ E-Posta</a>
       <a href="https://instagram.com/kivon.iletisim" class="quick-btn ig" target="_blank">📸 Instagram</a>
       <a href="https://github.com/ahmetisikbir-code" class="quick-btn gh" target="_blank">ğŸ™ GitHub</a>
     </div>
@@ -422,7 +371,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 <!-- ═══ SCROLL REVEAL ═══ -->
 <script>
 (function() {
-  var els = document.querySelectorAll('.stat-card, .card, .quick-btn, .mcp-item, .api-row');
+  var els = document.querySelectorAll('.stat-card, .card, .quick-btn, .api-row');
   var o = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {

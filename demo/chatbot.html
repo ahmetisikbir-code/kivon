@@ -115,13 +115,13 @@ const varsayilanBilgiTabani = {
   "yanitlar": {
 
     // ── 1. BİZ KİMİZ & NEDEN KİVON ──────────────────────────
-    "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Bursa merkezli bir yapay zekÃ¢ danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Arkamızda 13 kişilik uzman bir ekip var: CEO, stratejist, AI mühendisi, hukuk danışmanı, mali müşavir, satış uzmanı ve kreatif direktör. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
+    "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Bursa merkezli bir yapay zeka danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
 
     "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Bursa'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 1.200 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
 
     "referans|müşteri|örnek|tecrübe|portföy": "Seçici ve butik ilerliyoruz — az müşteri, çok ilgi prensibiyle çalışıyoruz. Bu yaklaşım sayesinde her müşterimize aceleye gelmemiş, özel çözümler sunabiliyoruz. Ayrıca erken katılım döneminde avantajlı fiyatlar ve 14 gün koşulsuz çıkış hakkı tanıyoruz. Risk sıfır, çözüm size özel.",
 
-    "ekip|çalışan|kadro|kimler": "13 kişilik tamamlayıcı bir ekibiz. Doruk (CEO) vizyonu çizer, İlayda stratejiyi kurgular, Mert satışı yönetir, Onur teknik mimariyi kurar, Efe AI modellerini geliştirir, Selda kreatif yönü yönetir, Lara operasyonu yürütür, Kaan finansı izler, Duru muhasebeyi denetler, Ege hukuku güvenceye alır, Naz İK'yı yapılandırır. Herkes alanının en iyisi — tek bir noktada bile zayıf halka yok.",
+    "ekip|çalışan|kadro|kimler": "Kivon, Bursa merkezli bir AI danışmanlık şirketi. Muhasebe, E-Ticaret ve Restoran sektörlerine anahtar teslim AI çözümleri sunuyoruz.",
 
     "bursa|konum|nerede|adres": "Bursa merkezliyiz. Bu bizim için stratejik bir avantaj: Türkiye'nin en büyük sanayi ve ticaret şehirlerinden birindeyiz. Muhasebe büroları, e-ticaret işletmeleri, restoranlar — hedef kitlemiz tam burada. Yüz yüze görüşme, yerinde keşif, hızlı müdahale imkanımız var. Ama Türkiye'nin her yerine uzaktan hizmet de veriyoruz.",
 
@@ -187,7 +187,7 @@ const varsayilanBilgiTabani = {
 
     "işimi alır|işsiz kalır|tehlike|korku": "AI işinizi almaz, tam tersi — angaryayı alır, danışmanlığı size bırakır. Müşteriniz 'dekont nerede' diye sorduğunda cevabı chatbot verir. Siz o sırada stratejiye, yeni müşterilere, karmaşık danışmanlığa odaklanırsınız. AI sizi değersizleştirmez, tam tersi — sizi sıradan işlerden kurtarıp asıl yeteneğinize zaman açar. Dünyada muhasebe bürolarının %40'ı AI kullanıyor ve işleri büyüyor.",
 
-    "yazılımcım var|ekibim var|kendi yaparız": "Kendi ekibinizin olması harika. Biz onlarla rekabet etmek için değil, onlara destek olmak için varız. AI entegrasyonu özel bir uzmanlık alanı — biz bu işi her gün yapıyoruz, 13 kişilik ekibimizin yarısı teknik. Ekibiniz işletmenizin ana işine odaklansın, AI'yı bize bırakın. İsterseniz ekibinizle birlikte çalışır, bilgi transferi de yaparız.",
+    "yazılımcım var|ekibim var|kendi yaparız": "Kendi ekibinizin olması harika. AI entegrasyonu özel bir uzmanlık alanı — biz bu işi her gün yapıyoruz. Ekibiniz işletmenizin ana işine odaklansın, AI'yı bize bırakın. İsterseniz ekibinizle birlikte çalışır, bilgi transferi de yaparız.",
 
     "şimdi değil|sonra|acelem yok|bekleyelim": "Anlıyorum, her yatırımın bir zamanı var. Ama şunu bilmenizi isterim: Erken adapte olan muhasebe büroları rekabette şimdiden öne geçiyor. 6 ay sonra başlamak isterseniz de kapımız açık. Bu arada sektörünüzdeki AI gelişmelerini paylaşmamı ister misiniz? Arada bilgilendirme yapabilirim, acele etmeden.",
 
@@ -440,7 +440,7 @@ async function groqSor(soru) {
           body: JSON.stringify({
             model: GROQ_MODEL,
             messages: [
-              { role: 'system', content: 'Sen Kivon\'un AI asistanisin. Kivon, Bursa merkezli, KOBİ\'lere AI cozumleri sunan bir teknoloji danismanligidir. 13 kisilik ekip. Paketler: Baslangic 1.200 TL, Profesyonel 2.000 TL, Kurumsal 3.500 TL. 3 sektor: muhasebe, e-ticaret, restoran/kafe. Turkce, kisa ve net cevap ver. Max 3-4 cumle.' },
+              { role: 'system', content: 'Sen Kivon\'un AI asistanisin. Kivon, Bursa merkezli, KOBİ\'lere AI cozumleri sunan bir teknoloji danismanligidir. Paketler: Baslangic 1.200 TL, Profesyonel 2.000 TL, Kurumsal 3.500 TL. 3 sektor: muhasebe, e-ticaret, restoran/kafe. Turkce, kisa ve net cevap ver. Max 3-4 cumle.' },
               { role: 'user', content: soru }
             ],
             temperature: 0.7, max_tokens: 300
