@@ -11,8 +11,8 @@
 @media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}</style>
 </head>
 <body><canvas id="canvas3d"></canvas><script>(function(){var c=document.getElementById("canvas3d"),ctx=c.getContext("2d"),w,h,ps=[],mx={x:0,y:0};function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener("resize",rs);window.addEventListener("mousemove",function(e){mx.x=e.clientX;mx.y=e.clientY});for(var i=0;i<80;i++){ps.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2})}function dr(){ctx.clearRect(0,0,w,h);for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;var dx=mx.x-p.x,dy=mx.y-p.y;if(Math.sqrt(dx*dx+dy*dy)<200){p.vx+=dx*5e-5;p.vy+=dy*5e-5}ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle="rgba(56,189,248,0.15)";ctx.fill()}for(var i=0;i<ps.length;i++){for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=dx*dx+dy*dy;if(d<15000){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle="rgba(56,189,248,"+(0.03*(1-d/15000))+")";ctx.lineWidth=0.3;ctx.stroke()}}}requestAnimationFrame(dr)}dr()})();</script>
-<nav><div class="nav-inner"><a href="index.html" class="nav-logo"><span>KIVON</span> — 30 AI Çözümü</a></div><button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button><div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button></nav>
-<section class="hero container"><h1>🚀 30 AI Çözümü</h1><p>8 kategoride, 9 sektörde. Her bütçeye uygun.</p></section>
+<nav><div class="nav-inner"><a href="index.html" class="nav-logo"><span>KIVON</span> — AI Çözümler</a></div><button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button><div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button></nav>
+<section class="hero container"><h1>🚀 AI Çözümlerimiz</h1><p>Anahtar teslim, yazılımı hazır. Hemen kullanıma hazır.</p></section>
 
 <section class="container">
 <div class="filters" id="filters"></div>
@@ -24,35 +24,12 @@
 <script>
 var products = [
 {kod:"KIVN-MUH-001",ad:"Akıllı Fatura İşleme",sektor:"Muhasebe",fiyat:"1.500–4.500 TL/ay",aciklama:"Faturaları otomatik okur, sınıflandırır ve muhasebe sisteminize işler.",etiket:["Logo","Paraşüt","LUCA"]},
-{kod:"KIVN-MUH-002",ad:"Kira Mutabakat Otomasyonu",sektor:"Muhasebe",fiyat:"2.000–6.000 TL/ay",aciklama:"Kira ödemelerini takip eder, mutabakat sağlar, gecikme uyarısı verir.",etiket:["Otomasyon"]},
-{kod:"KIVN-MUH-003",ad:"Harcama Takip Asistanı",sektor:"Muhasebe",fiyat:"1.200–3.500 TL/ay",aciklama:"Şirket harcamalarını kategorize eder, bütçe takibi yapar.",etiket:["Raporlama"]},
 {kod:"KIVN-MUH-004",ad:"Vergi Asistanı",sektor:"Muhasebe",fiyat:"1.500–5.000 TL/ay",aciklama:"Vergi dönemlerinde beyanname hazırlığı ve hatırlatmaları.",etiket:["Vergi","Beyanname"]},
 {kod:"KIVN-SAT-001",ad:"WhatsApp Satış Asistanı",sektor:"Satış",fiyat:"2.500–8.000 TL/ay",aciklama:"WhatsApp üzerinden 7/24 satış yapan AI asistan.",etiket:["WhatsApp"]},
-{kod:"KIVN-SAT-002",ad:"Lead Keşif Asistanı",sektor:"Satış",fiyat:"2.000–6.000 TL/ay",aciklama:"Potansiyel müşterileri otomatik keşfeder ve sınıflandırır.",etiket:["CRM"]},
-{kod:"KIVN-SAT-003",ad:"Randevu Takip Asistanı",sektor:"Satış",fiyat:"1.000–3.500 TL/ay",aciklama:"Müşteri randevularını yönetir, hatırlatma gönderir.",etiket:["Randevu"]},
 {kod:"KIVN-SAT-004",ad:"CRM Chat Asistanı",sektor:"Satış",fiyat:"2.000–6.000 TL/ay",aciklama:"CRM verilerine doğal dille sorgulama yapmanızı sağlar.",etiket:["CRM","AI"]},
-{kod:"KIVN-IK-001",ad:"CV Tarama Asistanı",sektor:"İK",fiyat:"1.500–9.000 TL/ay",aciklama:"Yüzlerce CV'yi saniyeler içinde tarar ve eşleştirir.",etiket:["İşe Alım"]},
-{kod:"KIVN-IK-002",ad:"AI Mülakat Platformu",sektor:"İK",fiyat:"2.500–15.000 TL/ay",aciklama:"AI destekli ön mülakat ve değerlendirme.",etiket:["Mülakat"]},
-{kod:"KIVN-IK-003",ad:"Politika Chatbot",sektor:"İK",fiyat:"1.500–7.500 TL/ay",aciklama:"Şirket politikaları hakkında 7/24 bilgi veren chatbot.",etiket:["İK","Chatbot"]},
-{kod:"KIVN-IK-004",ad:"Ayrımcılık Analiz Asistanı",sektor:"İK",fiyat:"3.000–12.000 TL/ay",aciklama:"İşe alım süreçlerinde ayrımcılık riskini analiz eder.",etiket:["Analiz"]},
 {kod:"ETC-013",ad:"Alışveriş Asistanı",sektor:"E-Ticaret",fiyat:"2.500–7.500 TL/ay",aciklama:"Müşterilere 7/24 alışveriş desteği, ürün önerisi.",etiket:["Chatbot","E-Ticaret"]},
-{kod:"ETC-014",ad:"Yorum Analizi",sektor:"E-Ticaret",fiyat:"1.500–5.000 TL/ay",aciklama:"Müşteri yorumlarını analiz eder, duygu durumu raporlar.",etiket:["Analiz"]},
-{kod:"ETC-015",ad:"Stok Takip",sektor:"E-Ticaret",fiyat:"2.000–6.000 TL/ay",aciklama:"Stok seviyelerini anlık izler, kritik uyarı verir.",etiket:["Stok"]},
-{kod:"ETC-016",ad:"İade Otomasyonu",sektor:"E-Ticaret",fiyat:"1.500–4.500 TL/ay",aciklama:"İade sürecini otomatik yönetir, müşteriyi bilgilendirir.",etiket:["İade"]},
-{kod:"PAZ-017",ad:"Dört Platform İçerik",sektor:"Pazarlama",fiyat:"1.000–3.500 TL/ay",aciklama:"Instagram, LinkedIn, Facebook, Twitter için içerik üretir.",etiket:["Sosyal Medya"]},
-{kod:"PAZ-018",ad:"Marka Sesi Blog",sektor:"Pazarlama",fiyat:"1.500–4.000 TL/ay",aciklama:"Markanızın sesiyle blog yazıları üretir.",etiket:["Blog"]},
-{kod:"PAZ-019",ad:"GA4 Rapor",sektor:"Pazarlama",fiyat:"750–2.500 TL/ay",aciklama:"Google Analytics verilerini doğal dille sorgular.",etiket:["GA4","Analiz"]},
-{kod:"PAZ-020",ad:"Sosyal Medya Takvim",sektor:"Pazarlama",fiyat:"1.500–4.500 TL/ay",aciklama:"Sosyal medya takviminizi AI ile planlar.",etiket:["Planlama"]},
-{kod:"DST-021",ad:"Sesli Chatbot",sektor:"Destek",fiyat:"3.500–12.000 TL/ay",aciklama:"Telefonla arayan müşterilerinize AI yanıt verir.",etiket:["Ses","Telefon"]},
-{kod:"DST-022",ad:"Bilet Sistemi",sektor:"Destek",fiyat:"1.000–4.000 TL/ay",aciklama:"Destek taleplerini otomatik sınıflandırır ve yönlendirir.",etiket:["Destek"]},
-{kod:"DST-023",ad:"E-Posta Özet",sektor:"Destek",fiyat:"750–3.000 TL/ay",aciklama:"Gelen e-postaları özetler ve önceliklendirir.",etiket:["E-posta"]},
-{kod:"DST-024",ad:"Telegram Asistan",sektor:"Destek",fiyat:"500–2.000 TL/ay",aciklama:"Telegram üzerinden müşteri desteği sağlar.",etiket:["Telegram"]},
 {kod:"DOKUMAN-25",ad:"Bilgi Tabanı Chatbot",sektor:"Doküman",fiyat:"12k-20k + 1.500/ay",aciklama:"Şirket dokümanlarınıza göre eğitilmiş RAG chatbot.",etiket:["RAG","Doküman"]},
-{kod:"DOKUMAN-26",ad:"Banka Ekstre Dijitalleştirme",sektor:"Doküman",fiyat:"8k-15k + 1.000/ay",aciklama:"Banka ekstrelerini dijitalleştirir, kategorize eder.",etiket:["Finans"]},
-{kod:"DOKUMAN-27",ad:"Doğal Dil DB Sorgu",sektor:"Doküman",fiyat:"Özel",aciklama:"Veritabanınıza doğal dille soru sormanızı sağlar.",etiket:["Veritabanı"]},
-{kod:"PROJE-28",ad:"Toplantı Asistanı",sektor:"Proje",fiyat:"6k-12k + 1.000/ay",aciklama:"Zoom toplantılarını özetler, aksiyon maddelerini çıkarır.",etiket:["Zoom","Toplantı"]},
 {kod:"PROJE-29",ad:"Müşteri Onboarding",sektor:"Proje",fiyat:"8k-15k + 1.000/ay",aciklama:"Yeni müşterilerin onboarding sürecini otomatikleştirir.",etiket:["Onboarding"]},
-{kod:"TEKNIK-30",ad:"Sunucu Yönetimi",sektor:"Teknik",fiyat:"8k-14k + 750/ay",aciklama:"Sunucu sağlığını izler, arıza durumunda bildirim gönderir.",etiket:["DevOps"]},
 ];
 
 var sectors = [...new Set(products.map(p=>p.sektor))];
