@@ -110,17 +110,17 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
     </div>
     <div class="kivon-chat-header-info">
       <div class="kivon-chat-header-name">KIVON Asistan</div>
-      <div class="kivon-chat-header-status"><span class="kivon-status-dot"></span> Ã‡evrimiÃ§i</div>
+      <div class="kivon-chat-header-status"><span class="kivon-status-dot"></span> Çevrimiçi</div>
     </div>
     <button class="kivon-close-btn" onclick="kivonToggleChat()" aria-label="Kapat">âœ•</button>
   </div>
   <div class="kivon-chat-body" id="kivonChatBody"></div>
   <div class="kivon-quick-replies" id="kivonQuickReplies"></div>
   <div class="kivon-chat-input-area">
-    <input type="text" class="kivon-chat-input" id="kivonChatInput" placeholder="Sorunuzu yazÄ±n..." onkeydown="if(event.key==='Enter')kivonSendMsg()">
+    <input type="text" class="kivon-chat-input" id="kivonChatInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')kivonSendMsg()">
     <button class="kivon-send-btn" onclick="kivonSendMsg()">â–¶</button>
   </div>
-  <div class="kivon-chat-footer">KIVON Â· AI Asistan</div>
+  <div class="kivon-chat-footer">KIVON · AI Asistan</div>
 </div>
 
 <script>
@@ -128,17 +128,17 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
 
 // â”€â”€â”€ BILGI TABANI â”€â”€â”€
 const KB = {
-  karsilama: "Merhaba! ğŸ‘‹ Ben KIVON'un AI asistanÄ±yÄ±m. KOBÄ°'lere Ã¶zel yapay zekÃ¢ Ã§Ã¶zÃ¼mleri sunuyoruz. Fiyat, Ã§Ã¶zÃ¼mler, demo veya iletiÅŸim â€” size nasÄ±l yardÄ±mcÄ± olabilirim?",
-  bilinmeyen: "DetaylÄ± bilgi iÃ§in WhatsApp'tan bize ulaÅŸÄ±n: +90 530 398 27 12. En geÃ§ 24 saat iÃ§inde dÃ¶nÃ¼ÅŸ yaparÄ±z. ğŸ“",
+  karsilama: "Merhaba! ğŸ‘‹ Ben KIVON'un AI asistanıyım. KOBİ'lere özel yapay zekÃ¢ çözümleri sunuyoruz. Fiyat, çözümler, demo veya iletişim — size nasıl yardımcı olabilirim?",
+  bilinmeyen: "Detaylı bilgi için WhatsApp'tan bize ulaşın: +90 530 398 27 12. En geç 24 saat içinde dönüş yaparız. ğŸ“",
   yanitlar: {
-    "fiyat|Ã¼cret|paket|kaÃ§ para|kaÃ§ tl|ne kadar": "ğŸ“¦ **KIVON Paketleri**\n\nğŸ”¹ **BaÅŸlangÄ±Ã§:** 1.200 TL/ay + KDV â€” 1 AI Ã§Ã¶zÃ¼mÃ¼, WhatsApp entegrasyonu\nğŸ”¹ **Profesyonel:** 2.000 TL/ay + KDV â€” 2 AI Ã§Ã¶zÃ¼mÃ¼, WhatsApp+Web, randevu yÃ¶netimi\nğŸ”¹ **Kurumsal:** 3.500 TL/ay + KDV â€” SÄ±nÄ±rsÄ±z AI, canlÄ± dashboard, 7/24 Ã¶ncelikli destek\n\n*TÃ¼m paketlerde: Kurulum dahil, 14 gÃ¼n Ã¼cretsiz deneme, koÅŸulsuz Ã§Ä±kÄ±ÅŸ hakkÄ±.*",
-    "Ã§Ã¶zÃ¼m|hizmet|ne yapÄ±yor|nedir|Ã¼rÃ¼n": "KOBÄ°'ler iÃ§in 3 ana alanda Ã§Ã¶zÃ¼m sunuyoruz:\n\nğŸ“‹ **Muhasebe bÃ¼rolarÄ±** â€” MÃ¼ÅŸteri sorgularÄ±nÄ± yanÄ±tlama, randevu yÃ¶netimi, evrak takibi\nğŸ›’ **E-ticaret** â€” 7/24 mÃ¼ÅŸteri desteÄŸi, sipariÅŸ takibi, stok yÃ¶netimi\nğŸ½ï¸ **Restoran & Kafe** â€” WhatsApp'tan rezervasyon, menÃ¼ bilgisi, paket servis yÃ¶netimi\n\n*Hepsi mevcut yazÄ±lÄ±mÄ±nÄ±zla entegre Ã§alÄ±ÅŸÄ±r.*",
-    "iletiÅŸim|ulaÅŸmak|telefon|mail|whatsapp|instagram": "ğŸ“ **Bize UlaÅŸÄ±n**\n\nğŸ’¬ **WhatsApp:** +90 530 398 27 12\nğŸ“§ **E-posta:** kivon.iletisim@gmail.com\nğŸ“¸ **Instagram:** @kivon.iletisim\n\n*En geÃ§ 24 saat iÃ§inde dÃ¶nÃ¼ÅŸ yaparÄ±z. Ãœcretsiz keÅŸif gÃ¶rÃ¼ÅŸmesi iÃ§in mesaj atmanÄ±z yeterli!*",
-    "demo|deneme|test|gÃ¶steri": "ğŸ¯ **CanlÄ± DemolarÄ±mÄ±z**\n\nğŸ’¬ AI Chatbot â€” Soru sorun, cevap alsÄ±n\nğŸ“Š Veri AnalitiÄŸi Paneli â€” Grafikleri inceleyin\nğŸ§ª AI HazÄ±rlÄ±k Testi â€” Ä°ÅŸletmenizin AI seviyesini Ã¶lÃ§Ã¼n\nğŸ§® Muhasebe AraÃ§larÄ± â€” Fatura, KDV hesaplama\n\n*TÃ¼mÃ¼ Ã¼cretsiz, kayÄ±t gerekmez.*",
-    "muhasebe|smmm|mali mÃ¼ÅŸavir|muhasebeci": "Muhasebe bÃ¼rolarÄ± iÃ§in chatbot'umuz, tekrarlayan mÃ¼ÅŸteri sorularÄ±nÄ±n %70'ini alÄ±r. Dekont, fatura, randevu sorgularÄ±nÄ± otomatik yanÄ±tlar. Logo, ParaÅŸÃ¼t, LUCA, Mikro ile tam uyumlu. Ayda 16+ saat zaman kazancÄ±.",
-    "eticaret|e-ticaret|e ticaret|online maÄŸaza": "E-ticaret iÅŸletmeleri iÃ§in 7/24 otomatik mÃ¼ÅŸteri desteÄŸi, sipariÅŸ/iade takibi, stok uyarÄ±larÄ±, terk edilen sepet hatÄ±rlatmalarÄ±. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu.",
-    "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler iÃ§in WhatsApp Ã¼zerinden rezervasyon alma, mÃ¼saitlik kontrolÃ¼, menÃ¼ bilgisi paylaÅŸma, paket servis yÃ¶netimi. Telefon trafiÄŸini azaltÄ±r, servise odaklanmanÄ±zÄ± saÄŸlar.",
-    "merhaba|selam|naber|iyi gÃ¼nler|gÃ¼naydÄ±n": "Merhaba! ğŸ‘‹ Size nasÄ±l yardÄ±mcÄ± olabilirim? AÅŸaÄŸÄ±daki butonlardan bir konu seÃ§ebilir veya sorunuzu doÄŸrudan yazabilirsiniz."
+    "fiyat|ücret|paket|kaç para|kaç tl|ne kadar": "ğŸ“¦ **KIVON Paketleri**\n\nğŸ”¹ **Başlangıç:** 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu\nğŸ”¹ **Profesyonel:** 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, randevu yönetimi\nğŸ”¹ **Kurumsal:** 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\n*Tüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, koşulsuz çıkış hakkı.*",
+    "çözüm|hizmet|ne yapıyor|nedir|ürün": "KOBİ'ler için 3 ana alanda çözüm sunuyoruz:\n\nğŸ“‹ **Muhasebe büroları** — Müşteri sorgularını yanıtlama, randevu yönetimi, evrak takibi\nğŸ›’ **E-ticaret** — 7/24 müşteri desteği, sipariş takibi, stok yönetimi\nğŸ½ï¸ **Restoran & Kafe** — WhatsApp'tan rezervasyon, menü bilgisi, paket servis yönetimi\n\n*Hepsi mevcut yazılımınızla entegre çalışır.*",
+    "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "ğŸ“ **Bize Ulaşın**\n\nğŸ’¬ **WhatsApp:** +90 530 398 27 12\nğŸ“§ **E-posta:** kivon.iletisim@gmail.com\nğŸ“¸ **Instagram:** @kivon.iletisim\n\n*En geç 24 saat içinde dönüş yaparız. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli!*",
+    "demo|deneme|test|gösteri": "ğŸ¯ **Canlı Demolarımız**\n\nğŸ’¬ AI Chatbot — Soru sorun, cevap alsın\nğŸ“Š Veri Analitiği Paneli — Grafikleri inceleyin\nğŸ§ª AI Hazırlık Testi — İşletmenizin AI seviyesini ölçün\nğŸ§® Muhasebe Araçları — Fatura, KDV hesaplama\n\n*Tümü ücretsiz, kayıt gerekmez.*",
+    "muhasebe|smmm|mali müşavir|muhasebeci": "Muhasebe büroları için chatbot'umuz, tekrarlayan müşteri sorularının %70'ini alır. Dekont, fatura, randevu sorgularını otomatik yanıtlar. Logo, Paraşüt, LUCA, Mikro ile tam uyumlu. Ayda 16+ saat zaman kazancı.",
+    "eticaret|e-ticaret|e ticaret|online mağaza": "E-ticaret işletmeleri için 7/24 otomatik müşteri desteği, sipariş/iade takibi, stok uyarıları, terk edilen sepet hatırlatmaları. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu.",
+    "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler için WhatsApp üzerinden rezervasyon alma, müsaitlik kontrolü, menü bilgisi paylaşma, paket servis yönetimi. Telefon trafiğini azaltır, servise odaklanmanızı sağlar.",
+    "merhaba|selam|naber|iyi günler|günaydın": "Merhaba! ğŸ‘‹ Size nasıl yardımcı olabilirim? Aşağıdaki butonlardan bir konu seçebilir veya sorunuzu doğrudan yazabilirsiniz."
   }
 };
 
@@ -201,7 +201,7 @@ function kivonFindAnswer(metin) {
 }
 
 // â”€â”€â”€ BUTTONS â”€â”€â”€
-const varsayilanButonlar = ['ğŸ’° Fiyat', 'ğŸ”§ Ã‡Ã¶zÃ¼mler', 'ğŸ“ Ä°letiÅŸim', 'ğŸ¯ Demolar'];
+const varsayilanButonlar = ['ğŸ’° Fiyat', 'ğŸ”§ Çözümler', 'ğŸ“ İletişim', 'ğŸ¯ Demolar'];
 
 function kivonSetButtons(butonlar) {
   quick.innerHTML = butonlar.map(b => `<button class="kivon-quick-btn">${b}</button>`).join('');
@@ -217,19 +217,19 @@ async function kivonHandleMsg(metin) {
   const lower = metin.toLowerCase();
 
   if (lower.includes('fiyat') || lower.includes('ğŸ’°')) {
-    await kivonBotReply(KB.yanitlar["fiyat|Ã¼cret|paket|kaÃ§ para|kaÃ§ tl|ne kadar"]);
+    await kivonBotReply(KB.yanitlar["fiyat|ücret|paket|kaç para|kaç tl|ne kadar"]);
     return;
   }
-  if (lower.includes('Ã§Ã¶zÃ¼m') || lower.includes('hizmet') || lower.includes('ğŸ”§')) {
-    await kivonBotReply(KB.yanitlar["Ã§Ã¶zÃ¼m|hizmet|ne yapÄ±yor|nedir|Ã¼rÃ¼n"]);
+  if (lower.includes('çözüm') || lower.includes('hizmet') || lower.includes('ğŸ”§')) {
+    await kivonBotReply(KB.yanitlar["çözüm|hizmet|ne yapıyor|nedir|ürün"]);
     return;
   }
-  if (lower.includes('iletiÅŸim') || lower.includes('ulaÅŸmak') || lower.includes('telefon') || lower.includes('ğŸ“')) {
-    await kivonBotReply(KB.yanitlar["iletiÅŸim|ulaÅŸmak|telefon|mail|whatsapp|instagram"]);
+  if (lower.includes('iletişim') || lower.includes('ulaşmak') || lower.includes('telefon') || lower.includes('ğŸ“')) {
+    await kivonBotReply(KB.yanitlar["iletişim|ulaşmak|telefon|mail|whatsapp|instagram"]);
     return;
   }
   if (lower.includes('demo') || lower.includes('deneme') || lower.includes('ğŸ¯')) {
-    await kivonBotReply(KB.yanitlar["demo|deneme|test|gÃ¶steri"]);
+    await kivonBotReply(KB.yanitlar["demo|deneme|test|gösteri"]);
     return;
   }
   const yanit = kivonFindAnswer(metin);
@@ -262,13 +262,13 @@ setTimeout(async () => {
 â•‘                    KIVON WIDGET EMBED                       â•‘
 â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-â”€ YÃ–NTEM 1: iframe (basit, izole) â”€
+â”€ YÖNTEM 1: iframe (basit, izole) â”€
 <iframe src="https://kivontr.com/demo/widget-chatbot.html"
   style="position:fixed;bottom:0;right:0;width:460px;height:700px;border:none;z-index:999999;pointer-events:none;background:transparent"
   title="KIVON Asistan" id="kivon-iframe"
   onload="this.style.pointerEvents='all'"></iframe>
 
-â”€ YÃ–NTEM 2: Script tag (geliÅŸmiÅŸ, Ã¶zelleÅŸtirilebilir) â”€
+â”€ YÖNTEM 2: Script tag (gelişmiş, özelleştirilebilir) â”€
 <script>
 (function() {
   var s = document.createElement('script');
@@ -279,7 +279,7 @@ setTimeout(async () => {
 })();
 </script>
 
-â”€ YÃ–NTEM 3: HTML snippet (doÄŸrudan sayfaya gÃ¶mme) â”€
+â”€ YÖNTEM 3: HTML snippet (doğrudan sayfaya gömme) â”€
 <style>.kivon-widget-container{position:fixed;bottom:0;right:0;z-index:999999}@media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}
 </style>
 <script>

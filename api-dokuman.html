@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIVON â€” API DÃ¶kÃ¼mantasyonu</title>
-<meta name="description" content="KIVON API dÃ¶kÃ¼mantasyonu">
-<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
-<meta property="og:title" content="KIVON â€” API DÃ¶kÃ¼mantasyonu">
-<meta property="og:description" content="KIVON API dÃ¶kÃ¼mantasyonu">
+    <title>KIVON — API Dökümantasyonu</title>
+<meta name="description" content="KIVON API dökümantasyonu">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, Bursa, AI danışmanlık">
+<meta property="og:title" content="KIVON — API Dökümantasyonu">
+<meta property="og:description" content="KIVON API dökümantasyonu">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://kivontr.com/api-dokuman.html">
     <link rel="stylesheet" href="css/animations.css">
@@ -503,7 +503,7 @@
         <!-- Hero -->
         <section class="hero anim-fade-in">
             <h1>KIVON API</h1>
-            <p>GÃ¼Ã§lÃ¼ AI tamamlama API'si. Modern, hÄ±zlÄ± ve kolay entegrasyon.</p>
+            <p>Güçlü AI tamamlama API'si. Modern, hızlı ve kolay entegrasyon.</p>
             <div class="base-url">https://kivon-3.onrender.com</div>
         </section>
 
@@ -513,7 +513,7 @@
                 <div class="info-card">
                     <h4>Auth</h4>
                     <div class="value">Bearer Token</div>
-                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Ã‡evre deÄŸiÅŸkenleri ile yÃ¶netilir</p>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Çevre değişkenleri ile yönetilir</p>
                 </div>
                 <div class="info-card">
                     <h4>Rate Limit</h4>
@@ -530,14 +530,14 @@
                 <div class="endpoint-header" onclick="toggleEndpoint(this)">
                     <span class="method method-get">GET</span>
                     <span class="endpoint-path">/</span>
-                    <span class="endpoint-desc">Durum kontrolÃ¼</span>
+                    <span class="endpoint-desc">Durum kontrolü</span>
                     <span class="endpoint-toggle">&#9660;</span>
                 </div>
                 <div class="endpoint-body">
-                    <h3>AÃ§Ä±klama</h3>
-                    <p>Sunucu durumu, model listesi ve genel bilgileri dÃ¶ndÃ¼rÃ¼r.</p>
+                    <h3>Açıklama</h3>
+                    <p>Sunucu durumu, model listesi ve genel bilgileri döndürür.</p>
 
-                    <h3>Ã–rnek YanÄ±t</h3>
+                    <h3>Örnek Yanıt</h3>
                     <div class="code-block">
                         <span class="punctuation">{</span><br>
                         <span class="property">  "status"</span>: <span class="string">"online"</span><span class="punctuation">,</span><br>
@@ -553,7 +553,7 @@
 
                     <h3>curl</h3>
                     <div class="code-block">
-                        <span class="comment"># Status kontrolÃ¼</span><br>
+                        <span class="comment"># Status kontrolü</span><br>
                         curl https://kivon-3.onrender.com
                     </div>
                 </div>
@@ -568,8 +568,8 @@
                     <span class="endpoint-toggle">&#9660;</span>
                 </div>
                 <div class="endpoint-body">
-                    <h3>AÃ§Ä±klama</h3>
-                    <p>Belirtilen modele AI sohbet tamamlama isteÄŸi gÃ¶nderir. TÃ¼m modeller OpenRouter ve Groq Ã¼zerinden sunulur.</p>
+                    <h3>Açıklama</h3>
+                    <p>Belirtilen modele AI sohbet tamamlama isteği gönderir. Tüm modeller OpenRouter ve Groq üzerinden sunulur.</p>
 
                     <h3>Parameters</h3>
                     <table class="param-table">
@@ -577,29 +577,29 @@
                             <tr>
                                 <th>Parametre</th>
                                 <th>Tip</th>
-                                <th>AÃ§Ä±klama</th>
+                                <th>Açıklama</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><code>soru</code> <span class="required">required</span></td>
                                 <td>string</td>
-                                <td>AI'ye gÃ¶nderilecek mesaj</td>
+                                <td>AI'ye gönderilecek mesaj</td>
                             </tr>
                             <tr>
                                 <td><code>sistem</code> <span class="optional">optional</span></td>
                                 <td>string</td>
-                                <td>Sistem promptu (varsayÄ±lan: "Sen yardÄ±msever bir asistansÄ±n.")</td>
+                                <td>Sistem promptu (varsayılan: "Sen yardımsever bir asistansın.")</td>
                             </tr>
                             <tr>
                                 <td><code>model</code> <span class="optional">optional</span></td>
                                 <td>string</td>
-                                <td>Model ID (varsayÄ±lan: openrouter/deepseek-v4-flash)</td>
+                                <td>Model ID (varsayılan: openrouter/deepseek-v4-flash)</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <h3>KullanÄ±labilir Modeller</h3>
+                    <h3>Kullanılabilir Modeller</h3>
                     <div class="model-tags">
                         <span class="model-tag">openrouter/deepseek-v4-flash</span>
                         <span class="model-tag">openrouter/qwen3-next</span>
@@ -607,7 +607,7 @@
                         <span class="model-tag">groq/llama-3.3-70b</span>
                     </div>
 
-                    <h3>Ä°stek Ã–rneÄŸi</h3>
+                    <h3>İstek Örneği</h3>
                     <div class="code-tabs">
                         <button class="code-tab active" onclick="switchCodeTab(this, 'fetch')">JavaScript (fetch)</button>
                         <button class="code-tab" onclick="switchCodeTab(this, 'curl')">cURL</button>
@@ -621,8 +621,8 @@
                         <span class="string">    "Authorization"</span>: <span class="string">"Bearer KIVON_API_KEY"</span><br>
                         <span class="punctuation">  },</span><br>
                         <span class="property">  body</span>: <span class="function">JSON</span>.<span class="function">stringify</span>(<span class="punctuation">{</span><br>
-                        <span class="string">    "soru"</span>: <span class="string">"Merhaba, bugÃ¼n nasÄ±lsÄ±n?"</span><span class="punctuation">,</span><br>
-                        <span class="string">    "sistem"</span>: <span class="string">"Sen yardÄ±msever bir asistansÄ±n."</span><span class="punctuation">,</span><br>
+                        <span class="string">    "soru"</span>: <span class="string">"Merhaba, bugün nasılsın?"</span><span class="punctuation">,</span><br>
+                        <span class="string">    "sistem"</span>: <span class="string">"Sen yardımsever bir asistansın."</span><span class="punctuation">,</span><br>
                         <span class="string">    "model"</span>: <span class="string">"openrouter/deepseek-v4-flash"</span><br>
                         <span class="punctuation">  })</span><br>
                         <span class="punctuation">});</span><br><br>
@@ -635,17 +635,17 @@
                         -H <span class="string">"Content-Type: application/json"</span> \<br>
                         -H <span class="string">"Authorization: Bearer KIVON_API_KEY"</span> \<br>
                         -d <span class="string">'{</span><br>
-                        <span class="string">  "soru": "Merhaba, bugÃ¼n nasÄ±lsÄ±n?",</span><br>
-                        <span class="string">  "sistem": "Sen yardÄ±msever bir asistansÄ±n.",</span><br>
+                        <span class="string">  "soru": "Merhaba, bugün nasılsın?",</span><br>
+                        <span class="string">  "sistem": "Sen yardımsever bir asistansın.",</span><br>
                         <span class="string">  "model": "openrouter/deepseek-v4-flash"</span><br>
                         <span class="string">}'</span>
                     </div>
 
-                    <h3>Ã–rnek YanÄ±t</h3>
+                    <h3>Örnek Yanıt</h3>
                     <div class="code-block">
                         <span class="punctuation">{</span><br>
                         <span class="property">  "success"</span>: <span class="keyword">true</span><span class="punctuation">,</span><br>
-                        <span class="property">  "response"</span>: <span class="string">"Merhaba! Ben harikayÄ±m, teÅŸekkÃ¼r ederim. Size nasÄ±l yardÄ±mcÄ± olabilirim?"</span><span class="punctuation">,</span><br>
+                        <span class="property">  "response"</span>: <span class="string">"Merhaba! Ben harikayım, teşekkür ederim. Size nasıl yardımcı olabilirim?"</span><span class="punctuation">,</span><br>
                         <span class="property">  "model"</span>: <span class="string">"openrouter/deepseek-v4-flash"</span><br>
                         <span class="punctuation">}</span>
                     </div>
@@ -656,40 +656,40 @@
             <div class="endpoint anim-fade-in delay-4">
                 <div class="endpoint-header" onclick="toggleEndpoint(this)">
                     <span class="method" style="background: rgba(248,113,113,0.15); color: var(--error);">ERR</span>
-                    <span class="endpoint-path">Hata KodlarÄ±</span>
-                    <span class="endpoint-desc">API hata referansÄ±</span>
+                    <span class="endpoint-path">Hata Kodları</span>
+                    <span class="endpoint-desc">API hata referansı</span>
                     <span class="endpoint-toggle">&#9660;</span>
                 </div>
                 <div class="endpoint-body">
-                    <h3>Hata KodlarÄ±</h3>
+                    <h3>Hata Kodları</h3>
                     <table class="error-table">
                         <thead>
                             <tr>
                                 <th>Kod</th>
-                                <th>AÃ§Ä±klama</th>
+                                <th>Açıklama</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="error-code">400</td>
-                                <td>GeÃ§ersiz istek â€” zorunlu parametreler eksik</td>
+                                <td>Geçersiz istek — zorunlu parametreler eksik</td>
                             </tr>
                             <tr>
                                 <td class="error-code">401</td>
-                                <td>Yetkisiz â€” geÃ§ersiz veya eksik API anahtarÄ±</td>
+                                <td>Yetkisiz — geçersiz veya eksik API anahtarı</td>
                             </tr>
                             <tr>
                                 <td class="error-code">429</td>
-                                <td>Ã‡ok fazla istek â€” rate limit aÅŸÄ±ldÄ±</td>
+                                <td>Çok fazla istek — rate limit aşıldı</td>
                             </tr>
                             <tr>
                                 <td class="error-code">500</td>
-                                <td>Sunucu hatasÄ± â€” geÃ§ici bir sorun oluÅŸtu</td>
+                                <td>Sunucu hatası — geçici bir sorun oluştu</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <h3>Ã–rnek Hata YanÄ±tÄ±</h3>
+                    <h3>Örnek Hata Yanıtı</h3>
                     <div class="code-block">
                         <span class="punctuation">{</span><br>
                         <span class="property">  "success"</span>: <span class="keyword">false</span><span class="punctuation">,</span><br>
@@ -707,11 +707,11 @@
                 </div>
                 <div class="endpoint-body" style="max-height: none; padding: 24px;">
                     <div class="rate-limit-item">
-                        <span class="label">Ä°stek Limiti</span>
+                        <span class="label">İstek Limiti</span>
                         <span class="value">60 requests / dakika</span>
                     </div>
                     <div class="rate-limit-item">
-                        <span class="label">Limit BaÅŸlÄ±ÄŸÄ±</span>
+                        <span class="label">Limit Başlığı</span>
                         <span class="value"><code>X-RateLimit-Limit</code></span>
                     </div>
                     <div class="rate-limit-item">
@@ -719,7 +719,7 @@
                         <span class="value"><code>X-RateLimit-Remaining</code></span>
                     </div>
                     <div class="rate-limit-item">
-                        <span class="label">SÄ±fÄ±rlanma</span>
+                        <span class="label">Sıfırlanma</span>
                         <span class="value"><code>X-RateLimit-Reset</code></span>
                     </div>
                 </div>
@@ -729,13 +729,13 @@
             <div class="endpoint open anim-fade-in delay-6">
                 <div class="endpoint-header">
                     <span class="method" style="background: rgba(96,165,250,0.15); color: #60a5fa;">AUTH</span>
-                    <span class="endpoint-path">Kimlik DoÄŸrulama</span>
+                    <span class="endpoint-path">Kimlik Doğrulama</span>
                 </div>
                 <div class="endpoint-body" style="max-height: none; padding: 24px;">
-                    <p>TÃ¼m API istekleri <code>Authorization: Bearer</code> baÅŸlÄ±ÄŸÄ± gerektirir. API anahtarÄ± sunucu ortam deÄŸiÅŸkenleri (<code>KIVON_API_KEY</code>) ile yÃ¶netilir.</p>
+                    <p>Tüm API istekleri <code>Authorization: Bearer</code> başlığı gerektirir. API anahtarı sunucu ortam değişkenleri (<code>KIVON_API_KEY</code>) ile yönetilir.</p>
                     <div class="code-block">
-                        <span class="comment"># Ä°stek baÅŸlÄ±ÄŸÄ±</span><br>
-                        Authorization: Bearer &lt;api_anahtarÄ±nÄ±z&gt;
+                        <span class="comment"># İstek başlığı</span><br>
+                        Authorization: Bearer &lt;api_anahtarınız&gt;
                     </div>
                 </div>
             </div>

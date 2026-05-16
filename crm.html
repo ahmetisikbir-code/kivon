@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON â€” CRM</title>
-<meta name="description" content="KIVON mÃ¼ÅŸteri takip CRM">
-<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
-<meta property="og:title" content="KIVON â€” CRM">
-<meta property="og:description" content="KIVON mÃ¼ÅŸteri takip CRM">
+<title>KIVON — CRM</title>
+<meta name="description" content="KIVON müşteri takip CRM">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, Bursa, AI danışmanlık">
+<meta property="og:title" content="KIVON — CRM">
+<meta property="og:description" content="KIVON müşteri takip CRM">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://kivontr.com/crm.html">
 <style>
@@ -29,8 +29,8 @@
       <li><a href="eticaret.html">E-Ticaret</a></li>
       <li><a href="restoran.html">Restoran</a></li>
     </ul>
-    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">Ä°letiÅŸim</a>
-    <button class="hamburger" id="hamburger" aria-label="MenÃ¼">
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -48,90 +48,90 @@
 <main>
 <div class="container">
   <div class="hero" id="hero">
-    <h1>MÃ¼ÅŸteri Takip Paneli</h1>
-    <p>KIVON CRM ile mÃ¼ÅŸterilerini yÃ¶net, dÃ¶nÃ¼ÅŸÃ¼mleri takip et, sÄ±cak mÃ¼ÅŸterilere anÄ±nda mesaj gÃ¶nder.</p>
+    <h1>Müşteri Takip Paneli</h1>
+    <p>KIVON CRM ile müşterilerini yönet, dönüşümleri takip et, sıcak müşterilere anında mesaj gönder.</p>
   </div>
 
   <div class="dashboard-grid" id="dashboard">
     <div class="stat-card total" data-delay="0">
       <div class="icon">ğŸ“Š</div>
       <div class="value" id="statTotal">0</div>
-      <div class="label">Toplam MÃ¼ÅŸteri</div>
+      <div class="label">Toplam Müşteri</div>
     </div>
     <div class="stat-card hot" data-delay="100">
       <div class="icon">ğŸ”¥</div>
       <div class="value" id="statHot">0</div>
-      <div class="label">SÄ±cak MÃ¼ÅŸteri</div>
+      <div class="label">Sıcak Müşteri</div>
     </div>
     <div class="stat-card warm" data-delay="200">
       <div class="icon">ğŸ’›</div>
       <div class="value" id="statWarm">0</div>
-      <div class="label">IlÄ±k MÃ¼ÅŸteri</div>
+      <div class="label">Ilık Müşteri</div>
     </div>
     <div class="stat-card cold" data-delay="300">
       <div class="icon">ğŸ’™</div>
       <div class="value" id="statCold">0</div>
-      <div class="label">SoÄŸuk MÃ¼ÅŸteri</div>
+      <div class="label">Soğuk Müşteri</div>
     </div>
     <div class="stat-card converted" data-delay="400">
       <div class="icon">âœ…</div>
       <div class="value" id="statConverted">0</div>
-      <div class="label">DÃ¶nÃ¼ÅŸÃ¼m</div>
+      <div class="label">Dönüşüm</div>
     </div>
     <div class="stat-card total" data-delay="500">
       <div class="icon">ğŸ“ˆ</div>
       <div class="value" id="statConversionRate">%0</div>
-      <div class="label">DÃ¶nÃ¼ÅŸÃ¼m OranÄ±</div>
+      <div class="label">Dönüşüm Oranı</div>
     </div>
   </div>
 
-  <h2 class="section-title" id="customers">MÃ¼ÅŸteriler</h2>
+  <h2 class="section-title" id="customers">Müşteriler</h2>
 
   <div class="filters" id="filters">
-    <select id="filterSector"><option value="">TÃ¼m SektÃ¶rler</option><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
-    <select id="filterStatus"><option value="">TÃ¼m Durumlar</option><option value="sÄ±cak">SÄ±cak</option><option value="Ä±lÄ±k">IlÄ±k</option><option value="soÄŸuk">SoÄŸuk</option><option value="dÃ¶nÃ¼ÅŸtÃ¼">DÃ¶nÃ¼ÅŸtÃ¼</option></select>
-    <button id="btnAdd" class="btn-add">+ Yeni MÃ¼ÅŸteri</button>
+    <select id="filterSector"><option value="">Tüm Sektörler</option><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
+    <select id="filterStatus"><option value="">Tüm Durumlar</option><option value="sıcak">Sıcak</option><option value="ılık">Ilık</option><option value="soğuk">Soğuk</option><option value="dönüştü">Dönüştü</option></select>
+    <button id="btnAdd" class="btn-add">+ Yeni Müşteri</button>
   </div>
 
   <div class="table-wrap" id="tableWrap">
     <table>
-      <thead><tr><th>Ä°sim</th><th>Firma</th><th>SektÃ¶r</th><th>Durum</th><th>Son Ä°letiÅŸim</th><th>Not</th><th style="width:90px">Ä°ÅŸlem</th></tr></thead>
+      <thead><tr><th>İsim</th><th>Firma</th><th>Sektör</th><th>Durum</th><th>Son İletişim</th><th>Not</th><th style="width:90px">İşlem</th></tr></thead>
       <tbody id="customerTableBody"></tbody>
     </table>
-    <div class="empty-state" id="emptyState" style="display:none">HenÃ¼z mÃ¼ÅŸteri kaydÄ± bulunmuyor.</div>
+    <div class="empty-state" id="emptyState" style="display:none">Henüz müşteri kaydı bulunmuyor.</div>
   </div>
 </div>
 </main>
 
-<footer><p>Â© 2026 Kivon Â· Bursa Â· kivontr.com Â· CRM</p>· <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></footer>
+<footer><p>© 2026 Kivon · Bursa · kivontr.com · CRM</p>· <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></footer>
 
 <!-- New Customer / Edit Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h2 id="modalTitle">Yeni MÃ¼ÅŸteri Ekle</h2>
+    <h2 id="modalTitle">Yeni Müşteri Ekle</h2>
     <div class="form-group">
-      <label for="inputName">Ä°sim Soyisim</label>
-      <input type="text" id="inputName" placeholder="Ã¶rn. Ahmet YÄ±lmaz">
+      <label for="inputName">İsim Soyisim</label>
+      <input type="text" id="inputName" placeholder="örn. Ahmet Yılmaz">
     </div>
     <div class="form-group">
       <label for="inputCompany">Firma</label>
-      <input type="text" id="inputCompany" placeholder="Ã¶rn. KIVON Teknoloji">
+      <input type="text" id="inputCompany" placeholder="örn. KIVON Teknoloji">
     </div>
     <div class="form-group">
-      <label for="inputSector">SektÃ¶r</label>
+      <label for="inputSector">Sektör</label>
       <select id="inputSector"><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
     </div>
     <div class="form-group">
       <label for="inputStatus">Durum</label>
-      <select id="inputStatus"><option value="sÄ±cak">SÄ±cak</option><option value="Ä±lÄ±k">IlÄ±k</option><option value="soÄŸuk">SoÄŸuk</option><option value="dÃ¶nÃ¼ÅŸtÃ¼">DÃ¶nÃ¼ÅŸtÃ¼</option></select>
+      <select id="inputStatus"><option value="sıcak">Sıcak</option><option value="ılık">Ilık</option><option value="soğuk">Soğuk</option><option value="dönüştü">Dönüştü</option></select>
     </div>
     <div class="form-group">
       <label for="inputNote">Not</label>
-      <textarea id="inputNote" placeholder="MÃ¼ÅŸteri hakkÄ±nda notlar..."></textarea>
+      <textarea id="inputNote" placeholder="Müşteri hakkında notlar..."></textarea>
     </div>
     <input type="hidden" id="editId">
     <div class="form-actions">
-      <button class="btn-cancel" id="btnCancel">Ä°ptal</button>
+      <button class="btn-cancel" id="btnCancel">İptal</button>
       <button class="btn-submit" id="btnSubmit">Kaydet</button>
     </div>
   </div>
@@ -140,9 +140,9 @@
 <!-- Message History Modal -->
 <div class="modal-overlay" id="historyOverlay">
   <div class="modal">
-    <h2 id="historyTitle">Mesaj GeÃ§miÅŸi</h2>
+    <h2 id="historyTitle">Mesaj Geçmişi</h2>
     <div class="history-list" id="historyList">
-      <div class="history-empty">HenÃ¼z mesaj kaydÄ± yok.</div>
+      <div class="history-empty">Henüz mesaj kaydı yok.</div>
     </div>
     <div class="form-actions">
       <button class="btn-cancel" id="btnHistoryClose">Kapat</button>
@@ -155,18 +155,18 @@
 <script>
 // ---- DATA ----
 const DEFAULT_CUSTOMERS = [
-  {id:1,name:'Ahmet YÄ±lmaz',company:'Mali MÃ¼hÃ¼r',sector:'muhasebe',status:'sÄ±cak',date:'2026-05-14',note:'YÄ±llÄ±k mali mÃ¼ÅŸavirlik sÃ¶zleÅŸmesi iÃ§in gÃ¶rÃ¼ÅŸÃ¼ldÃ¼.',lastContact:'2026-05-14'},
-  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Å.',sector:'muhasebe',status:'Ä±lÄ±k',date:'2026-05-10',note:'Online defter tutma yazÄ±lÄ±mÄ± tanÄ±tÄ±ldÄ±, karar aÅŸamasÄ±nda.',lastContact:'2026-05-10'},
-  {id:3,name:'Mehmet Demir',company:'Vergi UzmanlarÄ± DerneÄŸi',sector:'muhasebe',status:'soÄŸuk',date:'2026-04-28',note:'ToplantÄ± talebine henÃ¼z dÃ¶nÃ¼ÅŸ yapÄ±lmadÄ±.',lastContact:'2026-04-28'},
-  {id:4,name:'AyÅŸe Ã‡elik',company:'HÄ±zlÄ± Sepet',sector:'eticaret',status:'sÄ±cak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandÄ±, sÃ¶zleÅŸme imzalanacak.',lastContact:'2026-05-15'},
-  {id:5,name:'Can Ã–ztÃ¼rk',company:'ModaMart',sector:'eticaret',status:'dÃ¶nÃ¼ÅŸtÃ¼',date:'2026-05-01',note:'Site kurulumu tamamlandÄ±, Ã¶deme alÄ±ndÄ±.',lastContact:'2026-05-01'},
-  {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'Ä±lÄ±k',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapÄ±ldÄ±, fiyat teklifi beklentisi.',lastContact:'2026-05-12'},
-  {id:7,name:'Burak Åahin',company:'Lezzet NoktasÄ±',sector:'restoran',status:'sÄ±cak',date:'2026-05-15',note:'Online sipariÅŸ sistemi iÃ§in anlaÅŸma saÄŸlandÄ±.',lastContact:'2026-05-15'},
-  {id:8,name:'Derya KoÃ§',company:'KebapÃ§Ä± Emmi',sector:'restoran',status:'Ä±lÄ±k',date:'2026-05-08',note:'Masa rezervasyon modÃ¼lÃ¼ ilgisini Ã§ekti, tanÄ±tÄ±m yapÄ±lacak.',lastContact:'2026-05-08'},
-  {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soÄŸuk',date:'2026-04-20',note:'BÃ¼tÃ§e nedeniyle erteleme talep edildi.',lastContact:'2026-04-20'},
-  {id:10,name:'Gizem YÄ±ldÄ±z',company:'BÃ¼tÃ§e Muhasebe',sector:'muhasebe',status:'dÃ¶nÃ¼ÅŸtÃ¼',date:'2026-04-25',note:'Kurumsal lisans satÄ±n alÄ±ndÄ±.',lastContact:'2026-04-25'},
-  {id:11,name:'Hakan AydÄ±n',company:'TrendyShop',sector:'eticaret',status:'soÄŸuk',date:'2026-04-15',note:'Rakiplerinin teklifini deÄŸerlendiriyor.',lastContact:'2026-04-15'},
-  {id:12,name:'IÅŸÄ±l Eren',company:'Åehirli Restoran',sector:'restoran',status:'dÃ¶nÃ¼ÅŸtÃ¼',date:'2026-05-05',note:'POS entegrasyonu ve sipariÅŸ paneli aktif.',lastContact:'2026-05-05'}
+  {id:1,name:'Ahmet Yılmaz',company:'Mali Mühür',sector:'muhasebe',status:'sıcak',date:'2026-05-14',note:'Yıllık mali müşavirlik sözleşmesi için görüşüldü.',lastContact:'2026-05-14'},
+  {id:2,name:'Zeynep Kaya',company:'NetDefter A.Å.',sector:'muhasebe',status:'ılık',date:'2026-05-10',note:'Online defter tutma yazılımı tanıtıldı, karar aşamasında.',lastContact:'2026-05-10'},
+  {id:3,name:'Mehmet Demir',company:'Vergi Uzmanları Derneği',sector:'muhasebe',status:'soğuk',date:'2026-04-28',note:'Toplantı talebine henüz dönüş yapılmadı.',lastContact:'2026-04-28'},
+  {id:4,name:'Ayşe Çelik',company:'Hızlı Sepet',sector:'eticaret',status:'sıcak',date:'2026-05-15',note:'Entegrasyon testleri tamamlandı, sözleşme imzalanacak.',lastContact:'2026-05-15'},
+  {id:5,name:'Can Öztürk',company:'ModaMart',sector:'eticaret',status:'dönüştü',date:'2026-05-01',note:'Site kurulumu tamamlandı, ödeme alındı.',lastContact:'2026-05-01'},
+  {id:6,name:'Elif Arslan',company:'Dijital Pazar',sector:'eticaret',status:'ılık',date:'2026-05-12',note:'Pazarlama otomasyonu demo yapıldı, fiyat teklifi beklentisi.',lastContact:'2026-05-12'},
+  {id:7,name:'Burak Åahin',company:'Lezzet Noktası',sector:'restoran',status:'sıcak',date:'2026-05-15',note:'Online sipariş sistemi için anlaşma sağlandı.',lastContact:'2026-05-15'},
+  {id:8,name:'Derya Koç',company:'Kebapçı Emmi',sector:'restoran',status:'ılık',date:'2026-05-08',note:'Masa rezervasyon modülü ilgisini çekti, tanıtım yapılacak.',lastContact:'2026-05-08'},
+  {id:9,name:'Fatih Polat',company:'Gurme Cafe',sector:'restoran',status:'soğuk',date:'2026-04-20',note:'Bütçe nedeniyle erteleme talep edildi.',lastContact:'2026-04-20'},
+  {id:10,name:'Gizem Yıldız',company:'Bütçe Muhasebe',sector:'muhasebe',status:'dönüştü',date:'2026-04-25',note:'Kurumsal lisans satın alındı.',lastContact:'2026-04-25'},
+  {id:11,name:'Hakan Aydın',company:'TrendyShop',sector:'eticaret',status:'soğuk',date:'2026-04-15',note:'Rakiplerinin teklifini değerlendiriyor.',lastContact:'2026-04-15'},
+  {id:12,name:'Işıl Eren',company:'Åehirli Restoran',sector:'restoran',status:'dönüştü',date:'2026-05-05',note:'POS entegrasyonu ve sipariş paneli aktif.',lastContact:'2026-05-05'}
 ];
 
 let customers = [];
@@ -207,17 +207,17 @@ function todayStr(){
 // ---- WHATSAPP ----
 function sendWhatsApp(customer){
   if(!customer || !customer.phone){
-    showToast('Bu mÃ¼ÅŸteri iÃ§in telefon numarasÄ± bulunmuyor.');
+    showToast('Bu müşteri için telefon numarası bulunmuyor.');
     return;
   }
-  const msg = encodeURIComponent('Merhaba ' + customer.name + ', KIVON olarak size Ã¶zel fÄ±rsatlarÄ±mÄ±z var. DetaylÄ± bilgi iÃ§in gÃ¶rÃ¼ÅŸmek isteriz.');
+  const msg = encodeURIComponent('Merhaba ' + customer.name + ', KIVON olarak size özel fırsatlarımız var. Detaylı bilgi için görüşmek isteriz.');
   const url = 'https://wa.me/' + customer.phone.replace(/[^0-9]/g,'') + '?text=' + msg;
   messageHistory.push({
     id: Date.now(),
     customerId: customer.id,
     customerName: customer.name,
     date: todayStr(),
-    message: 'WhatsApp mesajÄ± gÃ¶nderildi (otomatik)',
+    message: 'WhatsApp mesajı gönderildi (otomatik)',
     type: 'whatsapp'
   });
   saveMessageHistory();
@@ -225,14 +225,14 @@ function sendWhatsApp(customer){
   saveData();
   renderTable();
   window.open(url, '_blank');
-  showToast('WhatsApp mesajÄ± gÃ¶nderildi: ' + customer.name);
+  showToast('WhatsApp mesajı gönderildi: ' + customer.name);
 }
 function editAndSend(customer){
   if(!customer || !customer.phone){
-    showToast('Bu mÃ¼ÅŸteri iÃ§in telefon numarasÄ± bulunmuyor. Ã–nce mÃ¼ÅŸteriyi dÃ¼zenleyip telefon ekleyin.');
+    showToast('Bu müşteri için telefon numarası bulunmuyor. Önce müşteriyi düzenleyip telefon ekleyin.');
     return;
   }
-  const msg = prompt('WhatsApp mesajÄ±nÄ±z:', 'Merhaba ' + customer.name + ', KIVON olarak size Ã¶zel fÄ±rsatlarÄ±mÄ±z var. DetaylÄ± bilgi iÃ§in gÃ¶rÃ¼ÅŸmek isteriz.');
+  const msg = prompt('WhatsApp mesajınız:', 'Merhaba ' + customer.name + ', KIVON olarak size özel fırsatlarımız var. Detaylı bilgi için görüşmek isteriz.');
   if(!msg) return;
   const encoded = encodeURIComponent(msg);
   const url = 'https://wa.me/' + customer.phone.replace(/[^0-9]/g,'') + '?text=' + encoded;
@@ -249,16 +249,16 @@ function editAndSend(customer){
   saveData();
   renderTable();
   window.open(url, '_blank');
-  showToast('WhatsApp mesajÄ± gÃ¶nderildi: ' + customer.name);
+  showToast('WhatsApp mesajı gönderildi: ' + customer.name);
 }
 
 // ---- MESSAGE HISTORY ----
 function showHistory(customer){
   const msgs = messageHistory.filter(m => m.customerId === customer.id);
   const list = document.getElementById('historyList');
-  document.getElementById('historyTitle').textContent = 'Mesaj GeÃ§miÅŸi â€” ' + customer.name;
+  document.getElementById('historyTitle').textContent = 'Mesaj Geçmişi — ' + customer.name;
   if(msgs.length === 0){
-    list.innerHTML = '<div class="history-empty">HenÃ¼z mesaj kaydÄ± yok.</div>';
+    list.innerHTML = '<div class="history-empty">Henüz mesaj kaydı yok.</div>';
   } else {
     list.innerHTML = msgs.slice().reverse().map(m => `
       <div class="history-item">
@@ -291,7 +291,7 @@ function renderTable(){
     empty.style.display='none';
     filtered.forEach(c=>{
       const tr = document.createElement('tr');
-      const isHot = c.status === 'sÄ±cak';
+      const isHot = c.status === 'sıcak';
       const lc = c.lastContact || c.date || '';
       tr.innerHTML = `
         <td><strong>${escapeHtml(c.name)}</strong></td>
@@ -301,9 +301,9 @@ function renderTable(){
         <td><span class="last-contact">${lc}</span></td>
         <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
         <td style="white-space:nowrap">
-          <button class="action-btn" onclick="openModalForEdit(${c.id})" title="DÃ¼zenle">âœ</button>
-          ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj GÃ¶nder">ğŸ“±</button>` : ''}
-          <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj GeÃ§miÅŸi">ğŸ“‹</button>
+          <button class="action-btn" onclick="openModalForEdit(${c.id})" title="Düzenle">âœ</button>
+          ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj Gönder">ğŸ“±</button>` : ''}
+          <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj Geçmişi">ğŸ“‹</button>
           <button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">âœ•</button>
         </td>
       `;
@@ -315,10 +315,10 @@ function renderTable(){
 function renderStats(){
   let h=0,w=0,cold=0,conv=0;
   customers.forEach(c=>{
-    if(c.status==='sÄ±cak')h++;
-    else if(c.status==='Ä±lÄ±k')w++;
-    else if(c.status==='soÄŸuk')cold++;
-    else if(c.status==='dÃ¶nÃ¼ÅŸtÃ¼')conv++;
+    if(c.status==='sıcak')h++;
+    else if(c.status==='ılık')w++;
+    else if(c.status==='soğuk')cold++;
+    else if(c.status==='dönüştü')conv++;
   });
   document.getElementById('statTotal').textContent=customers.length;
   document.getElementById('statHot').textContent=h;
@@ -330,18 +330,18 @@ function renderStats(){
 }
 
 function sectorLabel(s){const m={muhasebe:'Muhasebe',eticaret:'E-Ticaret',restoran:'Restoran'};return m[s]||s}
-function statusLabel(s){const m={sÄ±cak:'SÄ±cak',Ä±lÄ±k:'IlÄ±k',soÄŸuk:'SoÄŸuk',dÃ¶nÃ¼ÅŸtÃ¼:'DÃ¶nÃ¼ÅŸtÃ¼'};return m[s]||s}
+function statusLabel(s){const m={sıcak:'Sıcak',ılık:'Ilık',soğuk:'Soğuk',dönüştü:'Dönüştü'};return m[s]||s}
 function escapeHtml(t){const d=document.createElement('div');d.appendChild(document.createTextNode(t));return d.innerHTML}
 function findCustomer(id){return customers.find(c=>c.id===id)}
 
 // ---- CRUD ----
 function openModal(customer){
   editingId = customer ? customer.id : null;
-  document.getElementById('modalTitle').textContent = customer ? 'MÃ¼ÅŸteri DÃ¼zenle' : 'Yeni MÃ¼ÅŸteri Ekle';
+  document.getElementById('modalTitle').textContent = customer ? 'Müşteri Düzenle' : 'Yeni Müşteri Ekle';
   document.getElementById('inputName').value = customer ? customer.name : '';
   document.getElementById('inputCompany').value = customer ? customer.company : '';
   document.getElementById('inputSector').value = customer ? customer.sector : 'muhasebe';
-  document.getElementById('inputStatus').value = customer ? customer.status : 'Ä±lÄ±k';
+  document.getElementById('inputStatus').value = customer ? customer.status : 'ılık';
   document.getElementById('inputNote').value = customer ? customer.note : '';
   document.getElementById('editId').value = customer ? customer.id : '';
   document.getElementById('modalOverlay').classList.add('show');
@@ -361,7 +361,7 @@ function saveCustomer(){
   const sector = document.getElementById('inputSector').value;
   const status = document.getElementById('inputStatus').value;
   const note = document.getElementById('inputNote').value.trim();
-  if(!name||!company){showToast('Ä°sim ve firma alanlarÄ± zorunludur.');return}
+  if(!name||!company){showToast('İsim ve firma alanları zorunludur.');return}
   const today = todayStr();
   if(editingId){
     const idx = customers.findIndex(c=>c.id===editingId);
@@ -374,28 +374,28 @@ function saveCustomer(){
           customerId: old.id,
           customerName: old.name,
           date: today,
-          message: 'Not gÃ¼ncellendi: ' + (note ? (note.length>80 ? note.substring(0,80)+'...' : note) : '(boÅŸ)'),
+          message: 'Not güncellendi: ' + (note ? (note.length>80 ? note.substring(0,80)+'...' : note) : '(boş)'),
           type: 'note'
         });
         saveMessageHistory();
       }
     }
-    showToast('MÃ¼ÅŸteri gÃ¼ncellendi.');
+    showToast('Müşteri güncellendi.');
   }else{
     const id = Date.now();
     customers.push({id,name,company,sector,status,date:today,note,lastContact:today});
-    showToast('MÃ¼ÅŸteri eklendi.');
+    showToast('Müşteri eklendi.');
   }
   saveData();
   renderAll();
   closeModal();
 }
 function deleteCustomer(id){
-  if(!confirm('Bu mÃ¼ÅŸteriyi silmek istediÄŸinize emin misiniz?'))return;
+  if(!confirm('Bu müşteriyi silmek istediğinize emin misiniz?'))return;
   customers = customers.filter(c=>c.id!==id);
   saveData();
   renderAll();
-  showToast('MÃ¼ÅŸteri silindi.');
+  showToast('Müşteri silindi.');
 }
 function renderAll(){renderStats();renderTable()}
 

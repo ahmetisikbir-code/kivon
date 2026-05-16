@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON â€” AI TanÄ±</title>
-<meta name="description" content="KIVON AI TanÄ± - Ä°ÅŸletmenize en uygun yapay zeka Ã§Ã¶zÃ¼mÃ¼nÃ¼ bulun. SektÃ¶r ve ihtiyaÃ§larÄ±nÄ±za gÃ¶re Ã¶zel AI Ã¶nerileri.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, AI tanÄ±, Bursa, AI danÄ±ÅŸmanlÄ±k, Ã§Ã¶zÃ¼m bul">
+<title>KIVON — AI Tanı</title>
+<meta name="description" content="KIVON AI Tanı - İşletmenize en uygun yapay zeka çözümünü bulun. Sektör ve ihtiyaçlarınıza göre özel AI önerileri.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI tanı, Bursa, AI danışmanlık, çözüm bul">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - Ä°ÅŸletmene Ã–zel AI Ã‡Ã¶zÃ¼mÃ¼ Bul">
-<meta property="og:description" content="KIVON AI TanÄ± - Ä°ÅŸletmenize en uygun yapay zeka Ã§Ã¶zÃ¼mÃ¼nÃ¼ bulun. SektÃ¶r ve ihtiyaÃ§larÄ±nÄ±za gÃ¶re Ã¶zel AI Ã¶nerileri.">
+<meta property="og:title" content="KIVON - İşletmene Özel AI Çözümü Bul">
+<meta property="og:description" content="KIVON AI Tanı - İşletmenize en uygun yapay zeka çözümünü bulun. Sektör ve ihtiyaçlarınıza göre özel AI önerileri.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kivontr.com/ai-tani.html">
 <link rel="canonical" href="https://kivontr.com/ai-tani.html">
@@ -56,8 +56,8 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
   <div class="header" style="position:relative;">
     <button class="mobile-toggle" id="mobileToggle" style="position:absolute;top:0;right:0;">â˜°</button>
     <div class="steps"><div class="step active" id="step1"></div><div class="step" id="step2"></div></div>
-    <h1>Ä°ÅŸletmene Ã–zel <span>AI Ã‡Ã¶zÃ¼mÃ¼</span></h1>
-    <p>30 saniyede doldur, Groq AI sana en uygun Kivon hizmetlerini Ã¶nersin.</p>
+    <h1>İşletmene Özel <span>AI Çözümü</span></h1>
+    <p>30 saniyede doldur, Groq AI sana en uygun Kivon hizmetlerini önersin.</p>
   </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
@@ -66,23 +66,23 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
   <div class="form-card">
-    <div class="form-group"><label>SektÃ¶rÃ¼nÃ¼z</label>
+    <div class="form-group"><label>Sektörünüz</label>
       <select id="sektor">
-        <option value="">SeÃ§iniz...</option>
-        <option>Muhasebe / Mali MÃ¼ÅŸavirlik</option>
-        <option>E-Ticaret / Online SatÄ±ÅŸ</option>
+        <option value="">Seçiniz...</option>
+        <option>Muhasebe / Mali Müşavirlik</option>
+        <option>E-Ticaret / Online Satış</option>
         <option>Restoran / Kafe / Yemek</option>
-        <option>Perakende / MaÄŸaza</option>
-        <option>SaÄŸlÄ±k / Klinik / Muayenehane</option>
-        <option>Hukuk / AvukatlÄ±k</option>
-        <option>Ä°nÅŸaat / Gayrimenkul</option>
-        <option>EÄŸitim / Kurs</option>
-        <option>YazÄ±lÄ±m / Teknoloji</option>
-        <option>DiÄŸer</option>
+        <option>Perakende / Mağaza</option>
+        <option>Sağlık / Klinik / Muayenehane</option>
+        <option>Hukuk / Avukatlık</option>
+        <option>İnşaat / Gayrimenkul</option>
+        <option>Eğitim / Kurs</option>
+        <option>Yazılım / Teknoloji</option>
+        <option>Diğer</option>
       </select>
     </div>
-    <div class="form-group"><label>En bÃ¼yÃ¼k zaman kaybÄ±nÄ±z ne?</label>
-      <textarea id="sorun" placeholder="Ã–rn: MÃ¼ÅŸteriler sÃ¼rekli aynÄ± sorularÄ± soruyor, fatura ve evrak iÅŸleri Ã§ok vakit alÄ±yor, randevularÄ± takip edemiyorum..."></textarea>
+    <div class="form-group"><label>En büyük zaman kaybınız ne?</label>
+      <textarea id="sorun" placeholder="Örn: Müşteriler sürekli aynı soruları soruyor, fatura ve evrak işleri çok vakit alıyor, randevuları takip edemiyorum..."></textarea>
     </div>
     <button class="btn" id="btn" onclick="analizEt()">ğŸ” AI Analiz Et</button>
 
@@ -91,14 +91,14 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayÄ± deÄŸiÅŸtir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayı değiştir
 const PROXY = API_PROXY_URL;
 
 async function analizEt() {
   const sektor = document.getElementById('sektor').value;
   const sorun = document.getElementById('sorun').value.trim();
-  if (!sektor) { alert('LÃ¼tfen sektÃ¶rÃ¼nÃ¼zÃ¼ seÃ§in'); return; }
-  if (sorun.length < 10) { alert('LÃ¼tfen en bÃ¼yÃ¼k zaman kaybÄ±nÄ±zÄ± yazÄ±n (en az 10 karakter)'); return; }
+  if (!sektor) { alert('Lütfen sektörünüzü seçin'); return; }
+  if (sorun.length < 10) { alert('Lütfen en büyük zaman kaybınızı yazın (en az 10 karakter)'); return; }
 
   const btn = document.getElementById('btn');
   btn.disabled = true;
@@ -106,7 +106,7 @@ async function analizEt() {
   document.getElementById('step2').classList.add('active');
 
   const result = document.getElementById('result');
-  result.innerHTML = '<div style="text-align:center;padding:30px"><div class="typing-dots"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px">AI iÅŸletmenizi analiz ediyor...</p></div>';
+  result.innerHTML = '<div style="text-align:center;padding:30px"><div class="typing-dots"><span></span><span></span><span></span></div><p style="color:var(--gray);margin-top:12px">AI işletmenizi analiz ediyor...</p></div>';
   result.classList.add('show');
 
   try {
@@ -114,14 +114,14 @@ async function analizEt() {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         soru: `Isletme profili:\nSektor: ${sektor}\nEn buyuk zaman kaybi: ${sorun}\n\nBu isletme icin Kivon'un hangi 3 AI cozumu en uygun olur? Her birini 2-3 cumleyle, neden faydali olacagini anlatarak oner. En uygun paketi de belirt (Baslangic 1.200 TL, Profesyonel 2.000 TL, Kurumsal 3.500 TL). Sonuna "WhatsApp +905303982712" ve "14 gun ucretsiz deneme" hatirlatmasi ekle.`,
-        sistem: 'Sen Kivon\'un AI cozum danismanisin. Kivon KOBÄ°\'lere chatbot, veri analitigi, proses otomasyonu ve AI danismanlik sunar. 30 farkli AI otomasyon hizmeti var. Profesyonel, samimi, Turkce cevap ver.'
+        sistem: 'Sen Kivon\'un AI cozum danismanisin. Kivon KOBİ\'lere chatbot, veri analitigi, proses otomasyonu ve AI danismanlik sunar. 30 farkli AI otomasyon hizmeti var. Profesyonel, samimi, Turkce cevap ver.'
       })
     });
     const data = await res.json();
-    result.innerHTML = `<div class="result-card"><h3>ğŸ¯ ${sektor} Ä°Ã§in Ã–nerilen Ã‡Ã¶zÃ¼mler</h3><p>${data.cevap || 'Analiz tamamlandÄ± ancak detay alÄ±namadÄ±.'}</p></div>
-    <div class="result-cta"><a href="https://wa.me/905303982712">ğŸ’¬ Ãœcretsiz KeÅŸif GÃ¶rÃ¼ÅŸmesi</a></div>`;
+    result.innerHTML = `<div class="result-card"><h3>ğŸ¯ ${sektor} İçin Önerilen Çözümler</h3><p>${data.cevap || 'Analiz tamamlandı ancak detay alınamadı.'}</p></div>
+    <div class="result-cta"><a href="https://wa.me/905303982712">ğŸ’¬ Ücretsiz Keşif Görüşmesi</a></div>`;
   } catch(e) {
-    result.innerHTML = `<div class="result-card"><h3>âŒ BaÄŸlantÄ± HatasÄ±</h3><p>API proxy Ã§alÄ±ÅŸmÄ±yor. LÃ¼tfen ÅŸu komutu Ã§alÄ±ÅŸtÄ±rÄ±n:<br><code style="background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px">node api-server.js</code></p></div>`;
+    result.innerHTML = `<div class="result-card"><h3>âŒ Bağlantı Hatası</h3><p>API proxy çalışmıyor. Lütfen şu komutu çalıştırın:<br><code style="background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px">node api-server.js</code></p></div>`;
   }
 
   btn.disabled = false;

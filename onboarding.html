@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON â€” Onboarding Takip</title>
-<meta name="description" content="KIVON mÃ¼ÅŸteri onboarding takip">
-<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Bursa, AI danÄ±ÅŸmanlÄ±k">
-<meta property="og:title" content="KIVON â€” Onboarding Takip">
-<meta property="og:description" content="KIVON mÃ¼ÅŸteri onboarding takip">
+<title>KIVON — Onboarding Takip</title>
+<meta name="description" content="KIVON müşteri onboarding takip">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, Bursa, AI danışmanlık">
+<meta property="og:title" content="KIVON — Onboarding Takip">
+<meta property="og:description" content="KIVON müşteri onboarding takip">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://kivontr.com/onboarding.html">
 <style>
@@ -29,8 +29,8 @@
       <li><a href="eticaret.html">E-Ticaret</a></li>
       <li><a href="restoran.html">Restoran</a></li>
     </ul>
-    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">Ä°letiÅŸim</a>
-    <button class="hamburger" id="hamburger" aria-label="MenÃ¼">
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -48,47 +48,47 @@
 <main>
 <div class="container">
   <div class="hero" id="hero">
-    <h1>MÃ¼ÅŸteri Onboarding Takip</h1>
-    <p>KIVON ile mÃ¼ÅŸteri onboarding sÃ¼reÃ§lerini 6 aÅŸamada takip edin.</p>
+    <h1>Müşteri Onboarding Takip</h1>
+    <p>KIVON ile müşteri onboarding süreçlerini 6 aşamada takip edin.</p>
   </div>
 
-  <h2 class="section-title" id="listTitle">Onboarding KayÄ±tlarÄ±</h2>
+  <h2 class="section-title" id="listTitle">Onboarding Kayıtları</h2>
 
   <div class="filters" id="filters">
-    <select id="filterStatus"><option value="">TÃ¼m Durumlar</option><option value="active">Devam Eden</option><option value="done">Tamamlanan</option><option value="pending">Bekleyen</option></select>
+    <select id="filterStatus"><option value="">Tüm Durumlar</option><option value="active">Devam Eden</option><option value="done">Tamamlanan</option><option value="pending">Bekleyen</option></select>
     <button id="btnAdd" class="filters-btn">+ Yeni Onboarding</button>
   </div>
 
   <div class="onboarding-grid" id="onboardingGrid">
-    <div class="empty-state" id="emptyState">HenÃ¼z onboarding kaydÄ± bulunmuyor.</div>
+    <div class="empty-state" id="emptyState">Henüz onboarding kaydı bulunmuyor.</div>
   </div>
 </div>
 </main>
 
-<footer><p>Â© 2026 Kivon Â· Bursa Â· kivontr.com Â· Onboarding</p>· <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></footer>
+<footer><p>© 2026 Kivon · Bursa · kivontr.com · Onboarding</p>· <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></footer>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 id="modalTitle">Yeni Onboarding</h2>
     <div class="form-group">
-      <label for="inputCompany">Firma AdÄ±</label>
-      <input type="text" id="inputCompany" placeholder="Ã¶rn. Bursa Muhasebe">
+      <label for="inputCompany">Firma Adı</label>
+      <input type="text" id="inputCompany" placeholder="örn. Bursa Muhasebe">
     </div>
     <div class="form-group">
-      <label for="inputContact">Yetkili Ä°sim</label>
-      <input type="text" id="inputContact" placeholder="Ã¶rn. Ahmet YÄ±lmaz">
+      <label for="inputContact">Yetkili İsim</label>
+      <input type="text" id="inputContact" placeholder="örn. Ahmet Yılmaz">
     </div>
     <div class="form-group">
-      <label for="inputSector">SektÃ¶r</label>
+      <label for="inputSector">Sektör</label>
       <select id="inputSector"><option value="muhasebe">Muhasebe</option><option value="eticaret">E-Ticaret</option><option value="restoran">Restoran</option></select>
     </div>
     <div class="form-group">
       <label for="inputPhone">Telefon</label>
-      <input type="text" id="inputPhone" placeholder="Ã¶rn. 9053xxxxxx">
+      <input type="text" id="inputPhone" placeholder="örn. 9053xxxxxx">
     </div>
     <div class="form-group">
-      <label>AÅŸama DurumlarÄ±</label>
+      <label>Aşama Durumları</label>
       <div id="stageInputs"></div>
     </div>
     <div class="form-group">
@@ -97,7 +97,7 @@
     </div>
     <input type="hidden" id="editId">
     <div class="form-actions">
-      <button class="btn-cancel" id="btnCancel">Ä°ptal</button>
+      <button class="btn-cancel" id="btnCancel">İptal</button>
       <button class="btn-submit" id="btnSubmit">Kaydet</button>
     </div>
   </div>
@@ -106,22 +106,22 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const STAGE_NAMES = ['Ä°lk Temas','KeÅŸif GÃ¶rÃ¼ÅŸmesi','Teklif AÅŸamasÄ±','Kurulum','EÄŸitim','CanlÄ±ya GeÃ§iÅŸ'];
+const STAGE_NAMES = ['İlk Temas','Keşif Görüşmesi','Teklif Aşaması','Kurulum','Eğitim','Canlıya Geçiş'];
 const DEFAULT_ONBOARDINGS = [
   {
-    id:1, company:'Bursa Muhasebe', contact:'Ahmet YÄ±lmaz', sector:'muhasebe', phone:'905303982712',
-    stages:[{done:true,date:'2026-05-10',note:'Ä°lk telefon gÃ¶rÃ¼ÅŸmesi yapÄ±ldÄ±.'},{done:true,date:'2026-05-12',note:'Ä°htiyaÃ§ analizi tamamlandÄ±.'},{done:true,date:'2026-05-14',note:'Teklif sunuldu, kabul edildi.'},{done:true,date:'2026-05-15',note:'Saha keÅŸfi yapÄ±ldÄ±.'},{done:true,date:'2026-05-16',note:'EÄŸitim planlandÄ±.'},{done:false,date:'',note:'CanlÄ±ya geÃ§iÅŸ iÃ§in hazÄ±rlÄ±k sÃ¼rÃ¼yor.'}],
-    status:'active', note:'SÃ¼reÃ§ hÄ±zlÄ± ilerliyor, mÃ¼ÅŸteri memnun.',created:'2026-05-10'
+    id:1, company:'Bursa Muhasebe', contact:'Ahmet Yılmaz', sector:'muhasebe', phone:'905303982712',
+    stages:[{done:true,date:'2026-05-10',note:'İlk telefon görüşmesi yapıldı.'},{done:true,date:'2026-05-12',note:'İhtiyaç analizi tamamlandı.'},{done:true,date:'2026-05-14',note:'Teklif sunuldu, kabul edildi.'},{done:true,date:'2026-05-15',note:'Saha keşfi yapıldı.'},{done:true,date:'2026-05-16',note:'Eğitim planlandı.'},{done:false,date:'',note:'Canlıya geçiş için hazırlık sürüyor.'}],
+    status:'active', note:'Süreç hızlı ilerliyor, müşteri memnun.',created:'2026-05-10'
   },
   {
-    id:2, company:'ModaMart', contact:'Can Ã–ztÃ¼rk', sector:'eticaret', phone:'905321234567',
-    stages:[{done:true,date:'2026-04-20',note:'Mail yoluyla ilk temas.'},{done:true,date:'2026-04-25',note:'Zoom ile keÅŸif.'},{done:true,date:'2026-04-28',note:'Teklif gÃ¶nderildi.'},{done:true,date:'2026-05-02',note:'Kurulum tamamlandÄ±.'},{done:true,date:'2026-05-05',note:'Ekip eÄŸitimi verildi.'},{done:true,date:'2026-05-08',note:'Sistem canlÄ±ya alÄ±ndÄ±.'}],
-    status:'done', note:'TÃ¼m aÅŸamalar tamamlandÄ±, mÃ¼ÅŸteri aktif kullanÄ±yor.',created:'2026-04-20'
+    id:2, company:'ModaMart', contact:'Can Öztürk', sector:'eticaret', phone:'905321234567',
+    stages:[{done:true,date:'2026-04-20',note:'Mail yoluyla ilk temas.'},{done:true,date:'2026-04-25',note:'Zoom ile keşif.'},{done:true,date:'2026-04-28',note:'Teklif gönderildi.'},{done:true,date:'2026-05-02',note:'Kurulum tamamlandı.'},{done:true,date:'2026-05-05',note:'Ekip eğitimi verildi.'},{done:true,date:'2026-05-08',note:'Sistem canlıya alındı.'}],
+    status:'done', note:'Tüm aşamalar tamamlandı, müşteri aktif kullanıyor.',created:'2026-04-20'
   },
   {
-    id:3, company:'Lezzet DuraÄŸÄ±', contact:'Burak Åahin', sector:'restoran', phone:'905312223344',
-    stages:[{done:true,date:'2026-05-14',note:'Referans ile geldi.'},{done:false,date:'',note:'KeÅŸif iÃ§in randevu beklentisi.'},{done:false,date:'',note:''},{done:false,date:'',note:''},{done:false,date:'',note:''},{done:false,date:'',note:''}],
-    status:'pending', note:'HenÃ¼z erken aÅŸamada.',created:'2026-05-14'
+    id:3, company:'Lezzet Durağı', contact:'Burak Åahin', sector:'restoran', phone:'905312223344',
+    stages:[{done:true,date:'2026-05-14',note:'Referans ile geldi.'},{done:false,date:'',note:'Keşif için randevu beklentisi.'},{done:false,date:'',note:''},{done:false,date:'',note:''},{done:false,date:'',note:''},{done:false,date:'',note:''}],
+    status:'pending', note:'Henüz erken aşamada.',created:'2026-05-14'
   }
 ];
 
@@ -154,7 +154,7 @@ function getOverallStatus(o){
   return 'pending';
 }
 function statusLabel(s){
-  return s==='done'?'TamamlandÄ±':s==='active'?'Devam Ediyor':'Bekliyor';
+  return s==='done'?'Tamamlandı':s==='active'?'Devam Ediyor':'Bekliyor';
 }
 
 function renderGrid(){
@@ -185,20 +185,20 @@ function renderGrid(){
         <div class="stage-labels">${STAGE_NAMES.map((n,i)=>`<span>${i+1}.${n}</span>`).join('')}</div>
         <div class="stage-progress">
           ${o.stages.map((s,i)=>`
-            <div class="stage-dot ${s.done?'done':s.date?'active':''}" onclick="toggleStage(${o.id},${i})" title="${STAGE_NAMES[i]}: ${s.done?'TamamlandÄ±':s.date?'Devam ediyor':'Bekliyor'}">
+            <div class="stage-dot ${s.done?'done':s.date?'active':''}" onclick="toggleStage(${o.id},${i})" title="${STAGE_NAMES[i]}: ${s.done?'Tamamlandı':s.date?'Devam ediyor':'Bekliyor'}">
               ${s.done?'âœ“':i+1}
-              <span class="tooltip">${STAGE_NAMES[i]}: ${s.done?'TamamlandÄ±':s.date?'Devam':'Bekliyor'}${s.date?' ('+s.date+')':''}</span>
+              <span class="tooltip">${STAGE_NAMES[i]}: ${s.done?'Tamamlandı':s.date?'Devam':'Bekliyor'}${s.date?' ('+s.date+')':''}</span>
             </div>
           `).join('')}
         </div>
         <div class="onboard-meta">
           <span>ğŸ“… ${sectorLabel(o.sector)}</span>
-          <span>âœ… ${doneCount}/6 aÅŸama</span>
+          <span>âœ… ${doneCount}/6 aşama</span>
           <span>ğŸ“† ${o.created||'-'}</span>
         </div>
         ${o.note ? `<div class="onboard-note">${escapeHtml(o.note)}</div>` : ''}
         <div class="onboard-actions">
-          <button onclick="editOnboarding(${o.id})">âœ DÃ¼zenle</button>
+          <button onclick="editOnboarding(${o.id})">âœ Düzenle</button>
           <button onclick="sendWA('${escapeHtml(o.company)}','${escapeHtml(o.contact)}','${o.phone||''}','${doneCount}','${os}')" class="btn-wa" ${o.phone?'':'disabled'}>ğŸ“± WhatsApp</button>
           <button onclick="deleteOnboarding(${o.id})" style="color:rgba(239,68,68,0.6)">âœ• Sil</button>
         </div>
@@ -222,18 +222,18 @@ function toggleStage(id, idx){
 }
 
 function sendWA(company, contact, phone, doneCount, status){
-  if(!phone){showToast('Telefon numarasÄ± bulunmuyor.');return}
+  if(!phone){showToast('Telefon numarası bulunmuyor.');return}
   const msg = encodeURIComponent(
-    'Merhaba ' + contact + ', KIVON onboarding sÃ¼reciniz hakkÄ±nda bilgi vermek isteriz.\n' +
-    'Firma: ' + company + '\nÄ°lerleme: ' + doneCount + '/6 aÅŸama\nDurum: ' + statusLabel(status) + '\n\nDetaylar iÃ§in gÃ¶rÃ¼ÅŸmek ister misiniz?'
+    'Merhaba ' + contact + ', KIVON onboarding süreciniz hakkında bilgi vermek isteriz.\n' +
+    'Firma: ' + company + '\nİlerleme: ' + doneCount + '/6 aşama\nDurum: ' + statusLabel(status) + '\n\nDetaylar için görüşmek ister misiniz?'
   );
   window.open('https://wa.me/'+phone.replace(/[^0-9]/g,'')+'?text='+msg,'_blank');
-  showToast('WhatsApp mesajÄ± hazÄ±rlandÄ±.');
+  showToast('WhatsApp mesajı hazırlandı.');
 }
 
 function openModal(onboarding){
   editingId = onboarding ? onboarding.id : null;
-  document.getElementById('modalTitle').textContent = onboarding ? 'Onboarding DÃ¼zenle' : 'Yeni Onboarding';
+  document.getElementById('modalTitle').textContent = onboarding ? 'Onboarding Düzenle' : 'Yeni Onboarding';
   document.getElementById('inputCompany').value = onboarding ? onboarding.company : '';
   document.getElementById('inputContact').value = onboarding ? onboarding.contact : '';
   document.getElementById('inputSector').value = onboarding ? onboarding.sector : 'muhasebe';
@@ -282,7 +282,7 @@ function saveOnboarding(){
     if(idx!==-1){
       onboardings[idx]={...onboardings[idx],company,contact,sector,phone,stages,note};
     }
-    showToast('Onboarding gÃ¼ncellendi.');
+    showToast('Onboarding güncellendi.');
   }else{
     onboardings.push({id:Date.now(),company,contact,sector,phone,stages,note,created:todayStr()});
     showToast('Onboarding eklendi.');
@@ -296,7 +296,7 @@ function editOnboarding(id){
   if(o) openModal(o);
 }
 function deleteOnboarding(id){
-  if(!confirm('Bu onboarding kaydÄ±nÄ± silmek istediÄŸinize emin misiniz?'))return;
+  if(!confirm('Bu onboarding kaydını silmek istediğinize emin misiniz?'))return;
   onboardings = onboardings.filter(o=>o.id!==id);
   saveData();
   renderGrid();
