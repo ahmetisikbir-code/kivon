@@ -42,7 +42,7 @@
 
     .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-    /* â”€â”€ Header â”€â”€ */
+    /* ── Header ── */
     .header {
       text-align: center;
       padding: 48px 20px 24px;
@@ -67,7 +67,7 @@
       font-size: 0.95rem;
     }
 
-    /* â”€â”€ Notice bar â”€â”€ */
+    /* ── Notice bar ── */
     .notice {
       background: rgba(56, 189, 248, 0.08);
       border: 1px solid var(--border);
@@ -82,7 +82,7 @@
     }
     .notice .icon { font-size: 1.1rem; flex-shrink: 0; }
 
-    /* â”€â”€ Settings â”€â”€ */
+    /* ── Settings ── */
     .settings-toggle {
       display: inline-flex;
       align-items: center;
@@ -123,7 +123,7 @@
     }
     .settings-panel input[type="text"]:focus { outline: none; border-color: var(--cyan); }
 
-    /* â”€â”€ Buttons â”€â”€ */
+    /* ── Buttons ── */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -152,7 +152,7 @@
     .btn.small { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
-    /* â”€â”€ Tabs â”€â”€ */
+    /* ── Tabs ── */
     .tabs {
       display: flex;
       gap: 4px;
@@ -183,7 +183,7 @@
     }
     .tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.03); }
 
-    /* â”€â”€ Cards â”€â”€ */
+    /* ── Cards ── */
     .card {
       background: var(--bg-card);
       backdrop-filter: blur(20px);
@@ -232,7 +232,7 @@
 
     .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
-    /* â”€â”€ Output â”€â”€ */
+    /* ── Output ── */
     .output {
       background: rgba(0,0,0,0.35);
       border: 1px solid var(--border);
@@ -257,7 +257,7 @@
     }
     .output-header span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* â”€â”€ Loading â”€â”€ */
+    /* ── Loading ── */
     .loading-dots {
       display: flex;
       align-items: center;
@@ -275,7 +275,7 @@
     .dot:nth-child(2) { animation-delay: 0.2s; }
     .dot:nth-child(3) { animation-delay: 0.4s; }
 
-    /* â”€â”€ Objection chips â”€â”€ */
+    /* ── Objection chips ── */
     .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
     .chip {
       padding: 7px 16px;
@@ -294,7 +294,7 @@
       color: var(--cyan);
     }
 
-    /* â”€â”€ Blank state â”€â”€ */
+    /* ── Blank state ── */
     .blank-state {
       text-align: center;
       padding: 48px 20px;
@@ -302,7 +302,7 @@
     }
     .blank-state .icon { font-size: 2.5rem; margin-bottom: 10px; opacity: 0.5; }
 
-    /* â”€â”€ Animate â”€â”€ */
+    /* ── Animate ── */
     @keyframes fadeSlide {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -316,11 +316,11 @@
       50% { box-shadow: 0 0 20px var(--cyan-glow); }
     }
 
-    /* â”€â”€ Tab content â”€â”€ */
+    /* ── Tab content ── */
     .tab-panel { display: none; animation: fadeSlide 0.3s ease; }
     .tab-panel.active { display: block; }
 
-    /* â”€â”€ Responsive â”€â”€ */
+    /* ── Responsive ── */
     @media (max-width: 600px) {
       .tabs { flex-direction: column; }
       .tab-btn { min-width: unset; }
@@ -328,7 +328,7 @@
       .btn { width: 100%; }
     }
 
-    /* â”€â”€ "Hepsi" results â”€â”€ */
+    /* ── "Hepsi" results ── */
     .all-results { margin-top: 24px; }
     .all-results .mini-card {
       background: rgba(0,0,0,0.25);
@@ -363,26 +363,26 @@
 <body>
 <div class="container">
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• HEADER â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ HEADER ═══════════ -->
   <div class="header">
     <div class="logo">KIVON</div>
     <h1>AI Araçları</h1>
     <p>Yapay zeka destekli iş asistanları — tek platformda</p>
-    <button class="mobile-toggle" id="mobileToggle" style="position:absolute;top:16px;right:20px;">â˜°</button>
+    <button class="mobile-toggle" id="mobileToggle" style="position:absolute;top:16px;right:20px;">☰</button>
   </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="index.html">Ana Sayfa</a>
 </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• NOTICE â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ NOTICE ═══════════ -->
   <div class="notice">
     <span class="icon">&#9888;</span>
     <span>Groq API anahtarı gereklidir. <code>api-server.js</code>'i çalıştırın veya kendi anahtarınızı aşağıdan girin.</span>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• SETTINGS â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ SETTINGS ═══════════ -->
   <button class="settings-toggle" onclick="toggleSettings()" id="settingsToggle">
     &#9881; API Ayarları
   </button>
@@ -397,7 +397,7 @@
     </p>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• TABS â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ TABS ═══════════ -->
   <div class="tabs">
     <button class="tab-btn active" data-tab="0">&#128231; E-posta Asistanı</button>
     <button class="tab-btn" data-tab="1">&#128241; İçerik Üretici</button>
@@ -405,7 +405,7 @@
     <button class="tab-btn" data-tab="3">&#128203; Teklif Hazırlama</button>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• TAB 0: E-posta Asistanı â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ TAB 0: E-posta Asistanı ═══════════ -->
   <div class="tab-panel active" data-panel="0">
     <div class="card">
       <h3>&#128231; E-posta Asistanı</h3>
@@ -423,7 +423,7 @@
     </div>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• TAB 1: İçerik Üretici â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ TAB 1: İçerik Üretici ═══════════ -->
   <div class="tab-panel" data-panel="1">
     <div class="card">
       <h3>&#128241; İçerik Üretici</h3>
@@ -453,7 +453,7 @@
     </div>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• TAB 2: İtiraz Karşılama â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ TAB 2: İtiraz Karşılama ═══════════ -->
   <div class="tab-panel" data-panel="2">
     <div class="card">
       <h3>&#128737; İtiraz Karşılama</h3>
@@ -477,7 +477,7 @@
     </div>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• TAB 3: Teklif Hazırlama â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ TAB 3: Teklif Hazırlama ═══════════ -->
   <div class="tab-panel" data-panel="3">
     <div class="card">
       <h3>&#128203; Teklif Hazırlama</h3>
@@ -511,7 +511,7 @@
     </div>
   </div>
 
-  <!-- â•â•â•â•â•â•â•â•â•â•â• HEPSI BUTTON â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══════════ HEPSI BUTTON ═══════════ -->
   <div style="text-align:center;margin-top:12px;margin-bottom:40px;">
     <button class="btn primary" onclick="runHepsi()" id="hepsiBtn" style="padding:14px 40px;font-size:1rem;">
       &#127760; Hepsi — Tüm araçları örnek verilerle çalıştır
@@ -522,10 +522,10 @@
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayı değiştir
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
+// ═══════════════════════════════════════
 //  GLOBAL STATE
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 const PROXY_URL = API_PROXY_URL;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const MODEL = 'llama-3.3-70b-versatile';
@@ -533,9 +533,9 @@ let userApiKey = localStorage.getItem('kivon_groq_key') || '';
 let activeItiraz = '';
 let activeTab = 0;
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  API CALL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function aiSor(soru, sistemPrompt) {
   const key = userApiKey || '';
 
@@ -592,9 +592,9 @@ async function aiSor(soru, sistemPrompt) {
   return data.choices?.[0]?.message?.content || '';
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  KIVON SYSTEM CONTEXT
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 function kivonContext() {
   return `Sen Kivon adında, Bursa merkezli bir yapay zeka ve yazılım ajansının AI asistanısın.
 Kivon hakkında bilgiler:
@@ -608,9 +608,9 @@ Kivon hakkında bilgiler:
 - İletişim: info@kivon.com.tr | +90 (224) xxx xx xx`;
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  SETTINGS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 function toggleSettings() {
   document.getElementById('settingsPanel').classList.toggle('active');
 }
@@ -619,7 +619,7 @@ function saveKey() {
   userApiKey = val;
   localStorage.setItem('kivon_groq_key', val);
   const btn = document.querySelector('.settings-panel .btn.small');
-  btn.textContent = 'Kaydedildi âœ“';
+  btn.textContent = 'Kaydedildi ✓';
   btn.style.color = '#34d399';
   btn.style.borderColor = '#34d399';
   setTimeout(() => { btn.textContent = 'Kaydet'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
@@ -630,9 +630,9 @@ function saveKey() {
   if (userApiKey) document.getElementById('groqKey').value = userApiKey;
 })();
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  TABS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     const tabIdx = parseInt(this.dataset.tab);
@@ -645,9 +645,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  ITIRAZ CHIP SELECTION
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 document.querySelectorAll('#itirazChips .chip').forEach(chip => {
   chip.addEventListener('click', function() {
     document.querySelectorAll('#itirazChips .chip').forEach(c => c.classList.remove('selected'));
@@ -657,9 +657,9 @@ document.querySelectorAll('#itirazChips .chip').forEach(chip => {
   });
 });
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  UTILS
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 function setLoading(id) {
   document.getElementById(id).innerHTML = '<div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
 }
@@ -686,9 +686,9 @@ function copyOutput(panelId) {
   });
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  TAB 0: E-POSTA ASISTANI
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function runEmail(action) {
   const email = document.getElementById('emailInput').value.trim();
   if (!email) { alert('Lütfen e-posta içeriğini girin.'); return; }
@@ -715,9 +715,9 @@ async function runEmail(action) {
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  TAB 1: İÇERİK ÜRETİCİ
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function runIcerik() {
   const platform = document.getElementById('platformSelect').value;
   const sektor = document.getElementById('sektorSelect').value;
@@ -751,9 +751,9 @@ Kurallar:
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  TAB 2: İTİRAZ KARÅILAMA
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function runItiraz() {
   const custom = document.getElementById('itirazCustom').value.trim();
   const itiraz = custom || activeItiraz;
@@ -786,9 +786,9 @@ Türkçe, sıcak ve ikna edici bir dille yaz.`;
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  TAB 3: TEKLIF HAZIRLAMA
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function runTeklif() {
   const sektor = document.getElementById('teklifSektor').value;
   const ihtiyac = document.getElementById('teklifIhtiyac').value;
@@ -828,9 +828,9 @@ Türkçe yaz.`;
   }
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 //  HEPSI
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════
 async function runHepsi() {
   const hepsiBtn = document.getElementById('hepsiBtn');
   const allResults = document.getElementById('allResults');
@@ -894,11 +894,11 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
       const content = status ? result.value : 'Hata: ' + result.reason.message;
       function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
       html += `<div class="mini-card">
-        <h4>${status ? 'âœ…' : 'âŒ'} ${t.title}</h4>
+        <h4>${status ? '✅' : 'âŒ'} ${t.title}</h4>
         <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.5;">${esc(content)}</div>
       </div>`;
     });
-    allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--cyan);font-weight:600;">âœ¨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
+    allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--cyan);font-weight:600;">✨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
   } catch (e) {
     allResults.innerHTML = `<span style="color:#f87171;">&#10060; Toplu işlem hatası: ${e.message}</span>`;
   } finally {

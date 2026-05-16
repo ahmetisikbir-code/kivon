@@ -58,32 +58,32 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:transparent}
 </head>
 <body>
 
-<button class="mobile-toggle" id="mobileToggle" style="position:fixed;top:16px;right:20px;z-index:10000;">â˜°</button>
+<button class="mobile-toggle" id="mobileToggle" style="position:fixed;top:16px;right:20px;z-index:10000;">☰</button>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="../index.html">Ana Sayfa</a>
 </div>
 
-<button class="fab" id="fab" onclick="togglePanel()" title="Kivon AI'a sor">ğŸ’¬</button>
+<button class="fab" id="fab" onclick="togglePanel()" title="Kivon AI'a sor">💬</button>
 
 <div class="panel" id="panel">
   <div class="panel-header">
     <div class="panel-avatar">K</div>
     <div><div class="panel-title">Kivon AI</div><div class="panel-sub">Groq · Ücretsiz</div></div>
-    <button class="panel-close" onclick="togglePanel()">âœ•</button>
+    <button class="panel-close" onclick="togglePanel()">✕</button>
   </div>
   <div class="panel-body" id="panelBody"></div>
   <div class="quick-btns" id="quickBtns"></div>
   <div class="status" id="status">Hazır</div>
   <div class="panel-input">
     <input type="text" id="panelInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')gonder()">
-    <button onclick="gonder()">â–¶</button>
+    <button onclick="gonder()">▶</button>
   </div>
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayı değiştir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
 const PROXY = API_PROXY_URL;
 const body = document.getElementById('panelBody');
 const input = document.getElementById('panelInput');
@@ -168,7 +168,7 @@ function baslangic() {
       aiSor(this.textContent);
     });
   });
-  addMsg('Merhaba! ğŸ‘‹ Ben Kivon AI. Size nasıl yardımcı olabilirim?', 'ai');
+  addMsg('Merhaba! 👋 Ben Kivon AI. Size nasıl yardımcı olabilirim?', 'ai');
 }
 </script>
 

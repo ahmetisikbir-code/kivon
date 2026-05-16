@@ -27,7 +27,7 @@ body {
 }
 #canvas3d { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-/* â”€â”€â”€ NAV â”€â”€â”€ */
+/* ─── NAV ─── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
@@ -50,11 +50,11 @@ nav {
 }
 .nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
 
-/* â”€â”€â”€ LAYOUT â”€â”€â”€ */
+/* ─── LAYOUT ─── */
 main { position:relative; z-index:1; padding-top:64px; }
 .container { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-/* â”€â”€â”€ HERO â”€â”€â”€ */
+/* ─── HERO ─── */
 .dash-hero {
   padding:60px 24px 32px; text-align:center;
 }
@@ -74,7 +74,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .live-dot { width:6px; height:6px; border-radius:50%; background:#22c55e; animation:pulse-dot 1.5s infinite; }
 @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* â”€â”€â”€ STATS ROW â”€â”€â”€ */
+/* ─── STATS ROW ─── */
 .stats-row {
   display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
   gap:12px; margin-bottom:32px;
@@ -88,11 +88,11 @@ main { position:relative; z-index:1; padding-top:64px; }
 .stat-num { font-size:32px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; line-height:1; }
 .stat-label { font-size:11px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1.5px; margin-top:4px; }
 
-/* â”€â”€â”€ GRID â”€â”€â”€ */
+/* ─── GRID ─── */
 .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 
-/* â”€â”€â”€ CARDS â”€â”€â”€ */
+/* ─── CARDS ─── */
 .card {
   position:relative; overflow:hidden;
   background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
@@ -103,7 +103,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .card h3 { font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
 .card h3 .count { color:var(--white); background:rgba(56,189,248,0.1); padding:2px 8px; border-radius:100px; font-size:11px; }
 
-/* â”€â”€â”€ PROGRESS BAR â”€â”€â”€ */
+/* ─── PROGRESS BAR ─── */
 .sector-item { margin-bottom:16px; }
 .sector-item:last-child { margin-bottom:0; }
 .sector-header { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
@@ -116,7 +116,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .progress-fill.gold { background:linear-gradient(90deg,#fbbf24,#f59e0b); }
 .progress-fill.purple { background:linear-gradient(90deg,#a855f7,var(--indigo)); }
 
-/* â”€â”€â”€ MCP HEALTH â”€â”€â”€ */
+/* ─── MCP HEALTH ─── */
 .mcp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:6px; }
 .mcp-item {
   display:flex; align-items:center; gap:8px;
@@ -131,7 +131,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .mcp-name { color:rgba(255,255,255,0.6); }
 .mcp-name.offline { color:rgba(255,255,255,0.2); text-decoration:line-through; }
 
-/* â”€â”€â”€ API STATUS â”€â”€â”€ */
+/* ─── API STATUS ─── */
 .api-list { }
 .api-row {
   display:flex; align-items:center; justify-content:space-between;
@@ -145,7 +145,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .api-row .status.down { color:#ef4444; }
 .latency { font-size:11px; color:rgba(255,255,255,0.2); }
 
-/* â”€â”€â”€ QUICK ACTIONS â”€â”€â”€ */
+/* ─── QUICK ACTIONS ─── */
 .quick-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .quick-btn {
   display:flex; align-items:center; justify-content:center; gap:8px;
@@ -162,7 +162,7 @@ main { position:relative; z-index:1; padding-top:64px; }
 .quick-btn.gh { background:rgba(255,255,255,0.04); color:var(--white); }
 .quick-btn.gh:hover { background:rgba(255,255,255,0.08); }
 
-/* â”€â”€â”€ SECTION TITLES â”€â”€â”€ */
+/* ─── SECTION TITLES ─── */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
   color:var(--cyan); margin-bottom:16px; display:block;
@@ -172,11 +172,11 @@ main { position:relative; z-index:1; padding-top:64px; }
   margin-bottom:20px;
 }
 
-/* â”€â”€â”€ FOOTER â”€â”€â”€ */
+/* ─── FOOTER ─── */
 footer { text-align:center; padding:40px 24px; border-top:1px solid rgba(56,189,248,0.04); }
 footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
-/* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+/* ─── RESPONSIVE ─── */
 @media (max-width:768px) {
   .grid-2, .grid-3 { grid-template-columns:1fr; }
   .nav-links { display:none; }
@@ -193,7 +193,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
 <canvas id="canvas3d"></canvas>
 
-<!-- â•â•â• NAV â•â•â• -->
+<!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -214,14 +214,14 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
 <main>
 
-  <!-- â•â•â• HERO â•â•â• -->
+  <!-- ═══ HERO ═══ -->
   <div class="dash-hero container">
     <div class="live-badge"><span class="live-dot"></span> CANLI</div>
     <h1>KIVON Dashboard</h1>
     <p>Gerçek zamanlı sistem durumu · MCP sağlığı · Sektör performansı</p>
   </div>
 
-  <!-- â•â•â• STATS ROW â•â•â• -->
+  <!-- ═══ STATS ROW ═══ -->
   <div class="container">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-num">29</div><div class="stat-label">MCP Tools</div></div>
@@ -233,7 +233,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     </div>
   </div>
 
-  <!-- â•â•â• SECTOR PERFORMANCE + API STATUS â•â•â• -->
+  <!-- ═══ SECTOR PERFORMANCE + API STATUS ═══ -->
   <div class="container grid-2" style="margin-bottom:32px">
 
     <!-- Sector Performance -->
@@ -241,21 +241,21 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <h3>Sektör Performansı</h3>
       <div class="sector-item">
         <div class="sector-header">
-          <span class="sector-name"><span class="icon">ğŸ“‘</span>Muhasebe</span>
+          <span class="sector-name"><span class="icon">📑</span>Muhasebe</span>
           <span class="sector-pct">92%</span>
         </div>
         <div class="progress-track"><div class="progress-fill cyan" style="width:92%"></div></div>
       </div>
       <div class="sector-item">
         <div class="sector-header">
-          <span class="sector-name"><span class="icon">ğŸ›’</span>E-Ticaret</span>
+          <span class="sector-name"><span class="icon">🛒</span>E-Ticaret</span>
           <span class="sector-pct">78%</span>
         </div>
         <div class="progress-track"><div class="progress-fill gold" style="width:78%"></div></div>
       </div>
       <div class="sector-item">
         <div class="sector-header">
-          <span class="sector-name"><span class="icon">ğŸ½ï¸</span>Restoran</span>
+          <span class="sector-name"><span class="icon">🍽️</span>Restoran</span>
           <span class="sector-pct">64%</span>
         </div>
         <div class="progress-track"><div class="progress-fill purple" style="width:64%"></div></div>
@@ -296,7 +296,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
   </div>
 
-  <!-- â•â•â• MCP HEALTH â•â•â• -->
+  <!-- ═══ MCP HEALTH ═══ -->
   <div class="container" style="margin-bottom:32px">
     <div class="card">
       <h3>MCP Sağlık Durumu <span class="count">29</span></h3>
@@ -334,13 +334,13 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     </div>
   </div>
 
-  <!-- â•â•â• QUICK ACTIONS â•â•â• -->
+  <!-- ═══ QUICK ACTIONS ═══ -->
   <div class="container" style="margin-bottom:32px">
     <span class="section-label">Hızlı Eylemler</span>
     <div class="quick-grid">
-      <a href="https://wa.me/905303982712" class="quick-btn wa" target="_blank">ğŸ’¬ WhatsApp</a>
+      <a href="https://wa.me/905303982712" class="quick-btn wa" target="_blank">💬 WhatsApp</a>
       <a href="mailto:kivon.iletisim@gmail.com" class="quick-btn mail" target="_blank">âœ‰ï¸ E-Posta</a>
-      <a href="https://instagram.com/kivon.iletisim" class="quick-btn ig" target="_blank">ğŸ“¸ Instagram</a>
+      <a href="https://instagram.com/kivon.iletisim" class="quick-btn ig" target="_blank">📸 Instagram</a>
       <a href="https://github.com/ahmetisikbir-code" class="quick-btn gh" target="_blank">ğŸ™ GitHub</a>
     </div>
   </div>
@@ -349,7 +349,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
 <footer><p>© 2026 Kivon · Bursa · kivontr.com · Dashboard</p></footer>
 
-<!-- â•â•â• 3D BACKGROUND â•â•â• -->
+<!-- ═══ 3D BACKGROUND ═══ -->
 <script>
 (function() {
   var c = document.getElementById('canvas3d');
@@ -419,7 +419,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 })();
 </script>
 
-<!-- â•â•â• SCROLL REVEAL â•â•â• -->
+<!-- ═══ SCROLL REVEAL ═══ -->
 <script>
 (function() {
   var els = document.querySelectorAll('.stat-card, .card, .quick-btn, .mcp-item, .api-row');

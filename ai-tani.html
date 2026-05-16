@@ -54,14 +54,14 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <body>
 <div class="container">
   <div class="header" style="position:relative;">
-    <button class="mobile-toggle" id="mobileToggle" style="position:absolute;top:0;right:0;">â˜°</button>
+    <button class="mobile-toggle" id="mobileToggle" style="position:absolute;top:0;right:0;">☰</button>
     <div class="steps"><div class="step active" id="step1"></div><div class="step" id="step2"></div></div>
     <h1>İşletmene Özel <span>AI Çözümü</span></h1>
     <p>30 saniyede doldur, Groq AI sana en uygun Kivon hizmetlerini önersin.</p>
   </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="index.html">Ana Sayfa</a>
 </div>
 
@@ -91,7 +91,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 </div>
 
 <script>
-const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // â† Render URL gelince burayı değiştir
+const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // ← Render URL gelince burayı değiştir
 const PROXY = API_PROXY_URL;
 
 async function analizEt() {
@@ -119,13 +119,13 @@ async function analizEt() {
     });
     const data = await res.json();
     result.innerHTML = `<div class="result-card"><h3>ğŸ¯ ${sektor} İçin Önerilen Çözümler</h3><p>${data.cevap || 'Analiz tamamlandı ancak detay alınamadı.'}</p></div>
-    <div class="result-cta"><a href="https://wa.me/905303982712">ğŸ’¬ Ücretsiz Keşif Görüşmesi</a></div>`;
+    <div class="result-cta"><a href="https://wa.me/905303982712">💬 Ücretsiz Keşif Görüşmesi</a></div>`;
   } catch(e) {
     result.innerHTML = `<div class="result-card"><h3>âŒ Bağlantı Hatası</h3><p>API proxy çalışmıyor. Lütfen şu komutu çalıştırın:<br><code style="background:rgba(0,0,0,0.3);padding:4px 8px;border-radius:4px">node api-server.js</code></p></div>`;
   }
 
   btn.disabled = false;
-  btn.textContent = 'ğŸ”„ Tekrar Analiz Et';
+  btn.textContent = '🔄 Tekrar Analiz Et';
 }
 </script>
 

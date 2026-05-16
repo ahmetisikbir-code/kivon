@@ -71,26 +71,26 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;displa
       <div class="chat-header-status"><span class="status-dot"></span> Çevrimiçi · AI Destekli</div>
     </div>
     <div class="chat-header-badge">v2.0</div>
-    <button class="mobile-toggle" id="mobileToggle" style="color:var(--gray);font-size:20px;margin-left:auto;">â˜°</button>
+    <button class="mobile-toggle" id="mobileToggle" style="color:var(--gray);font-size:20px;margin-left:auto;">☰</button>
   </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="../index.html">Ana Sayfa</a>
 </div>
   <div class="chat-body" id="chatBody"></div>
   <div class="quick-replies" id="quickReplies"></div>
   <div class="admin-panel" id="adminPanel">
-    <h4>âš™ï¸ Bilgi Tabanı Düzenle (JSON)</h4>
+    <h4>⚙️ Bilgi Tabanı Düzenle (JSON)</h4>
     <textarea id="kbEditor"></textarea>
     <button onclick="bilgiTabaniniKaydet()">Kaydet ve Uygula</button>
   </div>
   <div class="chat-input-area">
     <input type="text" class="chat-input" id="chatInput" placeholder="Sorunuzu yazın..." onkeydown="if(event.key==='Enter')mesajGonder()">
-    <button class="send-btn" onclick="mesajGonder()">â–¶</button>
+    <button class="send-btn" onclick="mesajGonder()">▶</button>
   </div>
   <div class="chat-footer-brand">Kivon · AI Destekli</div>
-  <button class="admin-toggle" onclick="adminPanelAc()" title="Bilgi tabanı">âš™ï¸</button>
+  <button class="admin-toggle" onclick="adminPanelAc()" title="Bilgi tabanı">⚙️</button>
 </div>
 
 <script>
@@ -106,15 +106,15 @@ const chatInput = document.getElementById('chatInput');
 const STORAGE_KEY = 'kivon_chat_v2';
 const KB_KEY = 'kivon_bilgi_tabani';
 
-// â”€â”€â”€ VARSAYILAN BİLGİ TABANI (45+ zengin yanıt) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── VARSAYILAN BİLGİ TABANI (45+ zengin yanıt) ────────────────
 const varsayilanBilgiTabani = {
-  "karsilama": "Merhaba! ğŸ‘‹ Ben Kivon'un AI asistanıyım. KOBİ'lere özel yapay zekÃ¢ çözümleri sunuyoruz — muhasebe büroları, e-ticaret işletmeleri, restoran ve kafeler için. Fiyat, teknik detay, demo talebi... Ne merak ediyorsunuz?",
+  "karsilama": "Merhaba! 👋 Ben Kivon'un AI asistanıyım. KOBİ'lere özel yapay zekÃ¢ çözümleri sunuyoruz — muhasebe büroları, e-ticaret işletmeleri, restoran ve kafeler için. Fiyat, teknik detay, demo talebi... Ne merak ediyorsunuz?",
   "bilinmeyen": "Bu konuda hemen net bir cevap veremiyorum. Ancak uzman ekibimiz size özel bilgiyi sunabilir. WhatsApp (+90 530 398 27 12) veya Instagram (@kivon.iletisim) üzerinden bize yazın, en geç 24 saat içinde dönüş yapalım. ğŸ“",
-  "konu_disi": "Ben işletmenizle ilgili konularda yardımcı olmak için buradayım — yapay zekÃ¢, otomasyon, verimlilik, müşteri iletişimi gibi. Spor, hava durumu ya da gündelik sohbet konularında destek veremem. İşletmenizle ilgili ne sormak istersiniz? ğŸ’¼",
+  "konu_disi": "Ben işletmenizle ilgili konularda yardımcı olmak için buradayım — yapay zekÃ¢, otomasyon, verimlilik, müşteri iletişimi gibi. Spor, hava durumu ya da gündelik sohbet konularında destek veremem. İşletmenizle ilgili ne sormak istersiniz? 💼",
 
   "yanitlar": {
 
-    // â”€â”€ 1. BİZ KİMİZ & NEDEN KİVON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 1. BİZ KİMİZ & NEDEN KİVON ──────────────────────────
     "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Bursa merkezli bir yapay zekÃ¢ danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Arkamızda 13 kişilik uzman bir ekip var: CEO, stratejist, AI mühendisi, hukuk danışmanı, mali müşavir, satış uzmanı ve kreatif direktör. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
 
     "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Bursa'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 1.200 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
@@ -126,7 +126,7 @@ const varsayilanBilgiTabani = {
     "bursa|konum|nerede|adres": "Bursa merkezliyiz. Bu bizim için stratejik bir avantaj: Türkiye'nin en büyük sanayi ve ticaret şehirlerinden birindeyiz. Muhasebe büroları, e-ticaret işletmeleri, restoranlar — hedef kitlemiz tam burada. Yüz yüze görüşme, yerinde keşif, hızlı müdahale imkanımız var. Ama Türkiye'nin her yerine uzaktan hizmet de veriyoruz.",
 
 
-    // â”€â”€ 2. SEKTÖREL: MUHASEBE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 2. SEKTÖREL: MUHASEBE ────────────────────────────────
     "muhasebe|smmm|mali müşavir|muhasebeci": "Muhasebe büroları bizim en derin uzmanlık alanımız. Sektörü tanıyoruz: beyanname dönemi yoğunluğu, tekrarlayan müşteri soruları (dekont, fatura, randevu), evrak takibi. Chatbot'umuz bu yükün %70'ini alır. Müşteriniz 'dekont nerede' diye sorduğunda cevabı chatbot verir, siz danışmanlığa odaklanırsınız. Entegrasyon: Logo, Paraşüt, LUCA, Mikro ile tam uyumlu.",
 
     "muhasebe chatbot|muhasebeci chatbot": "Muhasebe büroları için özel eğitilmiş chatbot'umuz şunları yapar: 1) Müşteri 'dekont/fatura/ödeme' sorduğunda anında yanıtlar, 2) Randevu alır ve takvime ekler, 3) Beyanname dönemlerinde otomatik bilgilendirme yapar, 4) Sık sorulan 50-100 soruyu ezbere cevaplar, 5) Cevap veremediğini size yönlendirir. Kurulum 3-5 iş günü. Siz onay vermeden canlıya almıyoruz.",
@@ -136,7 +136,7 @@ const varsayilanBilgiTabani = {
     "muhasebe guvenlik|muhasebe veri": "Muhasebe büroları için veri güvenliği kritik. Müvekkil bilgileri, mali veriler, beyanname içerikleri — hepsi KVKK ve GDPR uyumlu şekilde, Türkiye'deki sunucularda şifrelenir. Hukuk danışmanımız Ege Bey tüm sözleşmeleri hazırladı. Hiçbir müvekkil verisi üçüncü taraflarla paylaşılmaz. İsterseniz gizlilik sözleşmesi (NDA) imzalarız. Arşivleme: VUK'a uygun 10 yıl.",
 
 
-    // â”€â”€ 3. SEKTÖREL: E-TİCARET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 3. SEKTÖREL: E-TİCARET ───────────────────────────────
     "eticaret|e-ticaret|e ticaret|online mağaza": "E-ticaret işletmeleri için özel AI çözümlerimiz var. Müşteri sorularına 7/24 otomatik yanıt, sipariş durumu sorgulama, iade/değişim takibi, stok uyarıları, terk edilen sepet hatırlatmaları. Shopify, WooCommerce, Trendyol, Hepsiburada entegrasyonu yapıyoruz. Ayda yüzlerce müşteri sorusunu chatbot karşılar, siz operasyona odaklanırsınız.",
 
     "sipariş|stok|kargo|lojistik": "Sipariş ve stok takibi e-ticaretin en büyük zaman tuzağıdır. AI sistemimiz stok seviyelerini anlık izler, kritik seviyenin altına düşen ürünler için uyarı verir, tedarikçiye otomatik sipariş taslağı hazırlar. Kargo durumu sorgulamalarını chatbot karşılar. Müşteri 'siparişim nerede' diye sorduğunda anında kargo durumunu söyler. Haftada 10 saat kazanç.",
@@ -146,7 +146,7 @@ const varsayilanBilgiTabani = {
     "pazaryeri|trendyol|hepsiburada|amazon": "Trendyol, Hepsiburada, Amazon, N11 gibi pazaryerlerinde satış yapıyorsanız, chatbot'umuz sipariş ve müşteri sorularını tek panelden yönetir. Entegrasyonla birlikte tüm platformlardan gelen mesajlar tek bir yerde toplanır. Stok senkronizasyonu, fiyat güncelleme — hepsi otomasyona bağlanabilir. Proses Otomasyonu paketiyle çalışır.",
 
 
-    // â”€â”€ 4. SEKTÖREL: RESTORAN & KAFE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 4. SEKTÖREL: RESTORAN & KAFE ─────────────────────────
     "restoran|kafe|yemek|cafe|restaurant": "Restoran ve kafeler için özel AI çözümümüz var. WhatsApp'tan rezervasyon alma, müsaitlik kontrolü, menü bilgisi paylaşma, doğum günü/kutlama organizasyonu sorguları. Müşteri 'bu akşam yer var mı' diye sorduğunda chatbot anında müsaitlik durumuna bakar ve rezervasyonu oluşturur. Telefonla uğraşmazsınız, servise odaklanırsınız.",
 
     "rezervasyon|masa|yer": "Rezervasyon yönetimi restoranlar için en büyük zaman kaybı. Chatbot'umuz 7/24 WhatsApp'tan rezervasyon alır, takviminizdeki boş masa/saati gösterir, müşteriye uygun seçenekleri sunar, onaylanan rezervasyonu otomatik takvime ekler. İptalleri yönetir, hatırlatma mesajı gönderir. Garsonlarınız telefona bakmak yerine misafirlerinizle ilgilenir.",
@@ -156,7 +156,7 @@ const varsayilanBilgiTabani = {
     "paket servis|sipariş|teslimat": "Paket servis ve online sipariş için AI destekli çözüm sunuyoruz. Müşteri WhatsApp'tan sipariş verir, chatbot menüyü gösterir, seçenekleri alır, tutarı hesaplar, siparişi mutfağa iletir. Ödeme entegrasyonu da yapabiliyoruz. Telefon trafiğini azaltır, yanlış siparişleri minimuma indirir, mutfak operasyonunu rahatlatır.",
 
 
-    // â”€â”€ 5. TEKNİK DETAYLAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 5. TEKNİK DETAYLAR ───────────────────────────────────
     "chatbot|bot|asistan|sanal asistan|yapay zeka asistan": "Chatbot'umuz müşterilerinizin sorularını 7/24 yanıtlayan, randevu alan, fatura sorgulayan bir AI asistan. WhatsApp, web siteniz ve Instagram'da çalışır. Sizin belirlediğiniz sorulara, sizin onayladığınız cevapları verir. Yanıtlayamadığı soruyu anında size yönlendirir. Tam kontrol sizde, teknoloji bizde.",
  
     "nasıl çalışır|sistem|çalışma şekli": "Süreç şöyle işler: 1) Mevcut yazılım ve iletişim kanallarınızı inceleriz, 2) Sık sorulan 50-100 soruyu birlikte belirleriz, 3) Her soruya sizin onayladığınız cevabı tanımlarız, 4) Chatbot'u entegre eder ve test ederiz, 5) Siz onay verdikten sonra canlıya alırız. Kurulum 3-5 iş günü. Sonrasında ihtiyaç halinde cevapları güncelleriz.",
@@ -170,7 +170,7 @@ const varsayilanBilgiTabani = {
     "ai|yapay zeka|artificial intelligence|zeka": "Yapay zekÃ¢ bizim işimiz, ama karmaşıklaştırmak değil basitleştirmek için çalışıyoruz. Sizin AI'ın nasıl çalıştığını bilmenize gerek yok — ne işe yaradığını bilmeniz yeterli. AI sizin için angaryayı alır: tekrarlayan soruları cevaplar, evrakları sınıflandırır, raporları hazırlar. Siz işinize, uzmanlığınıza, müşterinize odaklanırsınız. AI bir araçtır, rakip değil.",
 
 
-    // â”€â”€ 6. SÜREÇ & SÖZLEÅME â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 6. SÜREÇ & SÖZLEÅME ─────────────────────────────────
     "kurulum|ne kadar sürer|süreç|başlangıç": "Ortalama kurulum süresi 3-5 iş günüdür. Gün 1: İhtiyaç analizi ve keşif toplantısı. Gün 2: Sık sorulan soruların belirlenmesi ve bilgi tabanının oluşturulması. Gün 3: Entegrasyon ve ilk test. Gün 4: Sizin testiniz ve geri bildiriminiz. Gün 5: Canlıya geçiş. Siz onay vermeden hiçbir adım tamamlanmaz.",
 
     "sozlesme|sözleşme|imza|taahhüt|kontrat": "Hizmet sözleşmemiz şeffaf ve kısadır — 13 madde, anlaşılır Türkçe. Hukuk danışmanımız Ege Bey tarafından hazırlanmıştır. Sözleşmede açıkça belirtilenler: hizmet kapsamı, ücret, süre, çıkış hakkı, gizlilik, veri güvenliği. Sürpriz madde yok. İmzadan önce tüm maddeleri sizinle birlikte gözden geçiririz. Dijital imza ile de yapabiliyoruz.",
@@ -182,7 +182,7 @@ const varsayilanBilgiTabani = {
     "iptal|cayma|çıkış|vazgeçme": "Sözleşmede 14 gün koşulsuz çıkış hakkı var. Deneyin, memnun kalmazsanız hiçbir gerekçe göstermeden çıkabilirsiniz. Devam eden sözleşmelerde, bitiş tarihinden 15 gün önce yazılı bildirimle fesih mümkün. Peşin ödenen ücretin kullanılmayan kısmı 15 gün içinde iade edilir. Çıkış süreci de giriş süreci kadar şeffaf.",
 
 
-    // â”€â”€ 7. İTİRAZ KARÅILAMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 7. İTİRAZ KARÅILAMA ──────────────────────────────────
     "pahalı|bütçe|maliyet|masraf": "Başlangıç paketimiz aylık 1.200 TL + KDV. Bu, bir muhasebe bürosunun aylık cirosunun sadece %2-3'ü. Üstelik sağladığı zaman tasarrufu bunun en az 3 katı — ayda 16 saat kazanırsınız, bu da en az 4.000 TL değerinde. Yani yatırımınız ilk ayda geri döner. Bütçenize uymazsa çözümü özelleştirelim.",
 
     "işimi alır|işsiz kalır|tehlike|korku": "AI işinizi almaz, tam tersi — angaryayı alır, danışmanlığı size bırakır. Müşteriniz 'dekont nerede' diye sorduğunda cevabı chatbot verir. Siz o sırada stratejiye, yeni müşterilere, karmaşık danışmanlığa odaklanırsınız. AI sizi değersizleştirmez, tam tersi — sizi sıradan işlerden kurtarıp asıl yeteneğinize zaman açar. Dünyada muhasebe bürolarının %40'ı AI kullanıyor ve işleri büyüyor.",
@@ -194,8 +194,8 @@ const varsayilanBilgiTabani = {
     "ihtiyacım yok|gerek yok|lazım değil": "Belki de gerçekten şu an ihtiyacınız yoktur. Ama bir soru sorayım: Haftada kaç saatiniz 'dekont, fatura, randevu, fiyat' sorularına gidiyor? Cevabınız 3 saatten fazlaysa, aslında ihtiyacınız var demektir. Ücretsiz keşif görüşmesi yapalım, ihtiyaç haritanızı birlikte çıkaralım. İhtiyaç yoksa zaten söyleriz, zorlamayız.",
 
 
-    // â”€â”€ 8. FİYAT & PAKET DETAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    "fiyat|ücret|paket|ne kadar|kaç para|kaç tl": "ğŸ“¦ Kivon paketleri:\n\nğŸ”¹ Başlangıç: 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu, aylık rapor\nğŸ”¹ Profesyonel: 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, haftalık rapor, randevu yönetimi\nğŸ”¹ Kurumsal: 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\nTüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, sözleşmede çıkış maddesi. Erken katılımda %20 indirim.",
+    // ── 8. FİYAT & PAKET DETAY ───────────────────────────────
+    "fiyat|ücret|paket|ne kadar|kaç para|kaç tl": "📦 Kivon paketleri:\n\n🔹 Başlangıç: 1.200 TL/ay + KDV — 1 AI çözümü, WhatsApp entegrasyonu, aylık rapor\n🔹 Profesyonel: 2.000 TL/ay + KDV — 2 AI çözümü, WhatsApp+Web, haftalık rapor, randevu yönetimi\n🔹 Kurumsal: 3.500 TL/ay + KDV — Sınırsız AI, canlı dashboard, 7/24 öncelikli destek\n\nTüm paketlerde: Kurulum dahil, 14 gün ücretsiz deneme, sözleşmede çıkış maddesi. Erken katılımda %20 indirim.",
 
     "baslangic|başlangıç paketi": "Başlangıç paketi (1.200 TL/ay + KDV) şunları içerir: 1 adet AI çözümü seçersiniz (genelde chatbot), WhatsApp'a entegre ederiz, 7/24 müşteri sorularını yanıtlar, aylık performans raporu veririz. Kurulum dahil. Muhasebe büroları, küçük e-ticaret işletmeleri ve butik restoranlar için ideal başlangıç noktası. 14 gün deneyin, memnun kalmazsanız çıkın.",
 
@@ -206,16 +206,16 @@ const varsayilanBilgiTabani = {
     "kdv|vergi dahil|fiyat kdv": "Tüm paket fiyatlarımıza KDV dahil değildir. Güncel KDV oranı (%20) faturaya eklenir. Örneğin Başlangıç paketi: 1.200 TL + 240 TL KDV = 1.440 TL toplam. Yıllık peşin ödemede 1 ay ücretsiz avantajı var. Faturanız her ay düzenli kesilir, muhasebe kaydınıza işlenir.",
 
 
-    // â”€â”€ 9. İLETİÅİM & DEMO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── 9. İLETİÅİM & DEMO ──────────────────────────────────
     "iletişim|ulaşmak|telefon|mail|whatsapp|instagram": "Bize ulaşmanın en hızlı yolu WhatsApp: +90 530 398 27 12. Ayrıca e-posta (kivon.iletisim@gmail.com) ve Instagram (@kivon.iletisim) üzerinden de yazabilirsiniz. Web sitemizde canlı demolarımız var: ahmetisikbir-code.github.io/kivon. Ücretsiz keşif görüşmesi için mesaj atmanız yeterli — en geç 24 saat içinde dönüş yaparız.",
 
-    "demo|deneme|test|gösteri": "Canlı demolarımızı hemen inceleyebilirsiniz — hepsi ücretsiz, kayıt gerekmez:\nğŸ’¬ Muhasebe Asistanı Chatbot — soru sorun, cevap alsın\nğŸ“Š Veri Analitiği Paneli — grafikleri görün\nğŸ§ª AI Hazırlık Testi — 12 soruda işletmenizin AI seviyesini ölçün\nğŸ§® MCP Muhasebe Araçları — fatura kesin, KDV hesaplayın\nğŸ§© Çözüm Yönetim Paneli — paketleri karşılaştırın\n\nHepsi: ahmetisikbir-code.github.io/kivon",
+    "demo|deneme|test|gösteri": "Canlı demolarımızı hemen inceleyebilirsiniz — hepsi ücretsiz, kayıt gerekmez:\n💬 Muhasebe Asistanı Chatbot — soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — grafikleri görün\n🧪 AI Hazırlık Testi — 12 soruda işletmenizin AI seviyesini ölçün\n🧮 MCP Muhasebe Araçları — fatura kesin, KDV hesaplayın\n🧩 Çözüm Yönetim Paneli — paketleri karşılaştırın\n\nHepsi: ahmetisikbir-code.github.io/kivon",
 
     "görüşme|toplantı|ziyaret|randevu": "Ücretsiz keşif görüşmesi için WhatsApp'tan (+90 530 398 27 12) bize ulaşın. 30 dakikalık bir toplantıda işletmenizin ihtiyaçlarını analiz eder, size özel AI yol haritası çıkarırız. Görüşme sonrası bağlayıcı hiçbir şey yok — sadece fırsatları görmüş olursunuz. Bursa'daysanız ofisinize de gelebiliriz, uzaktaysanız Google Meet.",
 
 
-    // â”€â”€ 10. GENEL & DİÄER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    "merhaba|selam|naber|iyi günler|günaydın": "Merhaba! Hoş geldiniz. Size nasıl yardımcı olabilirim? Sormak istediğiniz konuyu yazabilir veya aşağıdaki butonlardan seçebilirsiniz. İster muhasebe, ister e-ticaret, ister restoran — her sektöre özel çözümümüz var. ğŸ˜Š",
+    // ── 10. GENEL & DİÄER ────────────────────────────────────
+    "merhaba|selam|naber|iyi günler|günaydın": "Merhaba! Hoş geldiniz. Size nasıl yardımcı olabilirim? Sormak istediğiniz konuyu yazabilir veya aşağıdaki butonlardan seçebilirsiniz. İster muhasebe, ister e-ticaret, ister restoran — her sektöre özel çözümümüz var. 😊",
 
     "güvenlik|kvkk|veri koruma|gizlilik|hukuk": "KVKK ve GDPR'a tam uyumluyuz. Tüm müşteri verileri Türkiye'deki sunucularda, uçtan uca şifreleme ile korunur. Erişim yetkileri rol bazlı sınırlandırılmıştır. Hiçbir veri üçüncü taraflarla paylaşılmaz, yurt dışına aktarılmaz. Hukuk danışmanımız Ege Bey KVKK aydınlatma metni, açık rıza metni, veri işleme sözleşmesi ve NDA dahil tüm hukuki altyapıyı hazırladı. Gizlilik politikamız web sitemizde yayındadır.",
 
@@ -234,7 +234,7 @@ function bilgiTabaniOku() {
 function bilgiTabaniYaz(bt) { localStorage.setItem(KB_KEY, JSON.stringify(bt)); }
 let bilgiTabani = bilgiTabaniOku();
 
-// â”€â”€â”€ YANIT BULMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── YANIT BULMA ────────────────────────────────────────────────
 function yanitBul(metin) {
   const lower = metin.toLowerCase().trim();
   if (!lower) return null;
@@ -277,7 +277,7 @@ function konuDisiMi(metin) {
   return disiKelimeler.some(k => lower.includes(k));
 }
 
-// â”€â”€â”€ MESAJ SİSTEMİ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── MESAJ SİSTEMİ ─────────────────────────────────────────────
 function saveHistory() {
   const messages = [];
   chatBody.querySelectorAll('.msg').forEach(el => {
@@ -334,16 +334,16 @@ async function typing(ms) {
   div.remove();
 }
 
-// â”€â”€â”€ ANA MESAJ İÅLEME â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── ANA MESAJ İÅLEME ──────────────────────────────────────────
 let dialogStep = null;
 
 const paketDetay = {
-  'Başlangıç': 'ğŸ“¦ Başlangıç Paketi — 1.200 TL/ay + KDV\n\nâœ… 1 AI çözümü (chatbot, veri analitiği veya otomasyon)\nâœ… WhatsApp entegrasyonu\nâœ… 7/24 otomatik müşteri yanıtı\nâœ… Aylık performans raporu\nâœ… Kurulum ve 30 gün teknik destek dahil\n\nKimler için: Butik muhasebe büroları, küçük e-ticaret işletmeleri, tek şube restoranlar.\n\n14 gün koşulsuz çıkış hakkı.',
-  'Profesyonel': 'ğŸ“¦ Profesyonel Paket — 2.000 TL/ay + KDV\n\nâœ… 2 AI çözümü birden\nâœ… WhatsApp + Web sitesi entegrasyonu\nâœ… 7/24 otomatik yanıt\nâœ… Haftalık performans raporu\nâœ… Randevu ve takvim yönetimi\nâœ… Kurulum + ekip eğitimi dahil\n\nKimler için: Orta ölçekli muhasebe büroları, büyüyen e-ticaret markaları, şubeli restoranlar. En çok tercih edilen paket.',
-  'Kurumsal': 'ğŸ“¦ Kurumsal Paket — 3.500 TL/ay + KDV\n\nâœ… Sınırsız AI çözümü\nâœ… Tüm kanallarda entegrasyon\nâœ… Özel eğitilmiş AI modeli\nâœ… Canlı dashboard\nâœ… 7/24 öncelikli destek\nâœ… Aylık strateji toplantısı\n\nKimler için: Yüksek hacimli muhasebe büroları, büyük e-ticaret operasyonları, zincir restoranlar.'
+  'Başlangıç': '📦 Başlangıç Paketi — 1.200 TL/ay + KDV\n\n✅ 1 AI çözümü (chatbot, veri analitiği veya otomasyon)\n✅ WhatsApp entegrasyonu\n✅ 7/24 otomatik müşteri yanıtı\n✅ Aylık performans raporu\n✅ Kurulum ve 30 gün teknik destek dahil\n\nKimler için: Butik muhasebe büroları, küçük e-ticaret işletmeleri, tek şube restoranlar.\n\n14 gün koşulsuz çıkış hakkı.',
+  'Profesyonel': '📦 Profesyonel Paket — 2.000 TL/ay + KDV\n\n✅ 2 AI çözümü birden\n✅ WhatsApp + Web sitesi entegrasyonu\n✅ 7/24 otomatik yanıt\n✅ Haftalık performans raporu\n✅ Randevu ve takvim yönetimi\n✅ Kurulum + ekip eğitimi dahil\n\nKimler için: Orta ölçekli muhasebe büroları, büyüyen e-ticaret markaları, şubeli restoranlar. En çok tercih edilen paket.',
+  'Kurumsal': '📦 Kurumsal Paket — 3.500 TL/ay + KDV\n\n✅ Sınırsız AI çözümü\n✅ Tüm kanallarda entegrasyon\n✅ Özel eğitilmiş AI modeli\n✅ Canlı dashboard\n✅ 7/24 öncelikli destek\n✅ Aylık strateji toplantısı\n\nKimler için: Yüksek hacimli muhasebe büroları, büyük e-ticaret operasyonları, zincir restoranlar.'
 };
 
-const varsayilanButonlar = ['ğŸ’° Fiyat ve paketler', 'ğŸ’¬ Chatbot nasıl çalışır?', 'ğŸ¢ Muhasebe büroları', 'ğŸ›’ E-ticaret çözümleri', 'ğŸ½ï¸ Restoran & Kafe', 'ğŸ“ İletişim']; 
+const varsayilanButonlar = ['💰 Fiyat ve paketler', '💬 Chatbot nasıl çalışır?', 'ğŸ¢ Muhasebe büroları', '🛒 E-ticaret çözümleri', '🍽️ Restoran & Kafe', 'ğŸ“ İletişim']; 
 
 function butonlariAyarla(butonlar) {
   quickReplies.innerHTML = butonlar.map(b => `<button class="quick-btn">${b}</button>`).join('');
@@ -370,10 +370,10 @@ async function mesajIsle(metin) {
   }
 
   // Fiyat/paket sorulduysa paket seçimine geç
-  if (lower.includes('fiyat') || lower.includes('ücret') || lower.includes('paket') || lower.includes('ğŸ’°')) {
+  if (lower.includes('fiyat') || lower.includes('ücret') || lower.includes('paket') || lower.includes('💰')) {
     dialogStep = 'paket';
-    butonlariAyarla(['ğŸ“¦ Başlangıç Paketi', 'ğŸ“¦ Profesyonel Paket', 'ğŸ“¦ Kurumsal Paket']);
-    await botYaz('Size en uygun paketi seçmeniz için yardımcı olayım. Hangi paket hakkında bilgi almak istersiniz? ğŸ“‹');
+    butonlariAyarla(['📦 Başlangıç Paketi', '📦 Profesyonel Paket', '📦 Kurumsal Paket']);
+    await botYaz('Size en uygun paketi seçmeniz için yardımcı olayım. Hangi paket hakkında bilgi almak istersiniz? 📋');
     return;
   }
 
@@ -395,7 +395,7 @@ async function mesajIsle(metin) {
     // AI'yi de her zaman çalıştır
     const groqYanit = await groqSor(metin);
     if (groqYanit) {
-      await botYaz('ğŸ¤– AI destekli: ' + groqYanit);
+      await botYaz('🤖 AI destekli: ' + groqYanit);
     }
     return;
   }
@@ -412,7 +412,7 @@ async function mesajIsle(metin) {
   butonlariAyarla(varsayilanButonlar);
 }
 
-// â”€â”€â”€ GROQ AI FALLBACK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── GROQ AI FALLBACK ──────────────────────────────────────────
 const GROQ_KEY = ''; // https://console.groq.com/keys
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 const API_PROXY_URL = 'https://kivon-3.onrender.com/api/groq'; // Render proxy
@@ -462,7 +462,7 @@ function mesajGonder() {
   mesajIsle(text);
 }
 
-// â”€â”€â”€ BİLGİ TABANI YÖNETİMİ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── BİLGİ TABANI YÖNETİMİ ─────────────────────────────────────
 function adminPanelAc() {
   const panel = document.getElementById('adminPanel');
   const editor = document.getElementById('kbEditor');
@@ -481,18 +481,18 @@ function bilgiTabaniniKaydet() {
     bilgiTabani = yeni;
     bilgiTabaniYaz(yeni);
     document.getElementById('adminPanel').classList.remove('show');
-    kullaniciYaz('âš™ï¸ Bilgi tabanı güncellendi');
-    botYaz('Bilgi tabanı başarıyla kaydedildi! Yeni yanıtlar hemen aktif. Denemek için bir soru sorun. âœ…');
+    kullaniciYaz('⚙️ Bilgi tabanı güncellendi');
+    botYaz('Bilgi tabanı başarıyla kaydedildi! Yeni yanıtlar hemen aktif. Denemek için bir soru sorun. ✅');
   } catch(e) {
     alert('JSON hatası: ' + e.message);
   }
 }
 
-// â”€â”€â”€ SEKTÖR ALGILAMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-var sektorMsg = { muhasebe:'ğŸ“‘ Muhasebe çözümlerimiz hakkında bilgi almak için "muhasebe" yazabilirsiniz.', eticaret:'ğŸ›’ E-ticaret çözümlerimiz için "eticaret" yazmanız yeterli.', restoran:'ğŸ½ï¸ Restoran çözümlerimizi keşfetmek için "restoran" yazın.' };
+// ─── SEKTÖR ALGILAMA ─────────────────────────────────────────────
+var sektorMsg = { muhasebe:'📑 Muhasebe çözümlerimiz hakkında bilgi almak için "muhasebe" yazabilirsiniz.', eticaret:'🛒 E-ticaret çözümlerimiz için "eticaret" yazmanız yeterli.', restoran:'🍽️ Restoran çözümlerimizi keşfetmek için "restoran" yazın.' };
 var sektorParam = (window.location.search.match(/sektor=([^&]*)/)||[])[1];
 
-// â”€â”€â”€ BAÅLANGIÇ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── BAÅLANGIÇ ──────────────────────────────────────────────────
 window.onload = async () => {
   const avatarUrl = location.hostname === 'localhost' || location.protocol === 'file:'
     ? '../../gorseller/profil_foto_final.png'
@@ -511,7 +511,7 @@ window.onload = async () => {
     await botYaz(bilgiTabani.karsilama);
     await typing(500);
     if (sektorParam && sektorMsg[sektorParam]) { await botYaz(sektorMsg[sektorParam]); }
-    await botYaz('Aşağıdan bir konu seçin veya sorunuzu yazın â¤µ');
+    await botYaz('Aşağıdan bir konu seçin veya sorunuzu yazın ⤵');
   }
 };
 </script>
@@ -519,7 +519,7 @@ window.onload = async () => {
 <script>
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
-<div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(5,5,16,0.8);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1);transition:0.3s" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#94a3b8'">â† Ana Sayfa</a></div>
+<div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(5,5,16,0.8);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1);transition:0.3s" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#94a3b8'">← Ana Sayfa</a></div>
 <footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>

@@ -24,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* â”€â”€â”€ LOGIN â”€â”€â”€ */
+/* ─── LOGIN ─── */
 .login-page {
   min-height:100vh; display:flex; align-items:center; justify-content:center;
   background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06), transparent 60%);
@@ -50,7 +50,7 @@ body {
 .login-box .btn { width:100%; margin-top:8px; }
 .login-error { color:var(--red); font-size:12px; margin-top:8px; display:none; }
 
-/* â”€â”€â”€ DASHBOARD â”€â”€â”€ */
+/* ─── DASHBOARD ─── */
 .dashboard { display:none; }
 .dash-header {
   display:flex; align-items:center; justify-content:space-between;
@@ -71,7 +71,7 @@ body {
 
 .dash-body { max-width:1200px; margin:0 auto; padding:32px 24px; }
 
-/* â”€â”€â”€ STATS â”€â”€â”€ */
+/* ─── STATS ─── */
 .dash-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:32px; }
 .dash-stat {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -80,7 +80,7 @@ body {
 .dash-stat .num { font-size:32px; font-weight:900; color:var(--cyan); }
 .dash-stat .label { font-size:11px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
 
-/* â”€â”€â”€ GRID â”€â”€â”€ */
+/* ─── GRID ─── */
 .dash-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px; }
 .dash-card {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -93,7 +93,7 @@ body {
 .status-dot.up { background:var(--green); box-shadow:0 0 8px rgba(34,197,94,0.3); }
 .status-dot.down { background:var(--red); box-shadow:0 0 8px rgba(239,68,68,0.3); }
 
-/* â”€â”€â”€ ACTIONS â”€â”€â”€ */
+/* ─── ACTIONS ─── */
 .quick-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
 .qaction {
   background:rgba(15,15,40,0.4); border:1px solid rgba(56,189,248,0.06);
@@ -105,7 +105,7 @@ body {
 .qaction .name { font-size:13px; font-weight:600; }
 .qaction .desc { font-size:11px; color:rgba(255,255,255,0.25); margin-top:2px; }
 
-/* â”€â”€â”€ BTN â”€â”€â”€ */
+/* ─── BTN ─── */
 .btn {
   display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
   border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
@@ -114,7 +114,7 @@ body {
 .btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 30px rgba(56,189,248,0.2); }
 .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(56,189,248,0.3); }
 
-/* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+/* ─── RESPONSIVE ─── */
 @media (max-width:600px) {
   .dash-grid { grid-template-columns:1fr; }
   .quick-actions { grid-template-columns:1fr; }
@@ -125,7 +125,7 @@ body {
 </head>
 <body>
 
-<!-- â•â•â• LOGIN â•â•â• -->
+<!-- ═══ LOGIN ═══ -->
 <div class="login-page" id="loginPage">
   <div class="login-box fade-in">
     <h1><span>KIVON</span> ADMIN</h1>
@@ -137,7 +137,7 @@ body {
   </div>
 </div>
 
-<!-- â•â•â• DASHBOARD â•â•â• -->
+<!-- ═══ DASHBOARD ═══ -->
 <div class="dashboard" id="dashboard">
   <div class="dash-header">
     <h1><span>KIVON</span> ADMIN</h1>
@@ -154,14 +154,14 @@ body {
     <!-- Grid: Visitor + System -->
     <div class="dash-grid">
       <div class="dash-card fade-in">
-        <h3>ğŸ“Š Visitor Stats</h3>
+        <h3>📊 Visitor Stats</h3>
         <div class="status-row"><span>Today</span><span id="visitorToday">—</span></div>
         <div class="status-row"><span>This Week</span><span id="visitorWeek">—</span></div>
         <div class="status-row"><span>This Month</span><span id="visitorMonth">—</span></div>
         <div class="status-row"><span>All Time</span><span id="visitorAll">—</span></div>
       </div>
       <div class="dash-card fade-in">
-        <h3>ğŸ”§ System Status</h3>
+        <h3>🔧 System Status</h3>
         <div class="status-row"><span class="status-dot up"></span>All 29 MCPs</div>
         <div class="status-row"><span class="status-dot up"></span>API Gateway</div>
         <div class="status-row"><span class="status-dot up"></span>Render Hosting</div>
@@ -171,20 +171,20 @@ body {
     </div>
 
     <!-- Quick Actions -->
-    <h3 style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">âš¡ Quick Actions</h3>
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px">⚡ Quick Actions</h3>
     <div class="quick-actions">
       <a class="qaction fade-in" href="https://github.com/ahmetisikbir-code/kivon" target="_blank">
-        <span class="icon">ğŸ“¦</span>
+        <span class="icon">📦</span>
         <div class="name">GitHub Push</div>
         <div class="desc">Deploy latest code</div>
       </a>
       <a class="qaction fade-in" href="https://dashboard.render.com" target="_blank">
-        <span class="icon">ğŸš€</span>
+        <span class="icon">🚀</span>
         <div class="name">Render Deploy</div>
         <div class="desc">Redeploy API server</div>
       </a>
       <a class="qaction fade-in" href="https://wa.me/905303982712" target="_blank">
-        <span class="icon">ğŸ“¢</span>
+        <span class="icon">📢</span>
         <div class="name">WhatsApp Broadcast</div>
         <div class="desc">Send bulk message</div>
       </a>
@@ -193,11 +193,11 @@ body {
 </div>
 
 <script>
-/* â”€â”€â”€ CREDENTIALS â”€â”€â”€ */
+/* ─── CREDENTIALS ─── */
 const VALID_USER = 'admin';
 const VALID_PASS = 'kivon2026';
 
-/* â”€â”€â”€ LOGIN â”€â”€â”€ */
+/* ─── LOGIN ─── */
 function login() {
   var u = document.getElementById('username').value;
   var p = document.getElementById('password').value;
@@ -210,7 +210,7 @@ function login() {
   }
 }
 
-/* â”€â”€â”€ LOGOUT â”€â”€â”€ */
+/* ─── LOGOUT ─── */
 function logout() {
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('loginPage').style.display = 'flex';
@@ -219,7 +219,7 @@ function logout() {
   document.getElementById('loginError').style.display = 'none';
 }
 
-/* â”€â”€â”€ KEYBOARD â”€â”€â”€ */
+/* ─── KEYBOARD ─── */
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
     var dp = document.getElementById('dashboard');
@@ -227,7 +227,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-/* â”€â”€â”€ DASHBOARD â”€â”€â”€ */
+/* ─── DASHBOARD ─── */
 function initDashboard() {
   var stats = [
     { num: 29, label: 'MCP Tools' },

@@ -54,32 +54,32 @@
 
   <div class="dashboard-grid" id="dashboard">
     <div class="stat-card total" data-delay="0">
-      <div class="icon">ğŸ“Š</div>
+      <div class="icon">📊</div>
       <div class="value" id="statTotal">0</div>
       <div class="label">Toplam Müşteri</div>
     </div>
     <div class="stat-card hot" data-delay="100">
-      <div class="icon">ğŸ”¥</div>
+      <div class="icon">🔥</div>
       <div class="value" id="statHot">0</div>
       <div class="label">Sıcak Müşteri</div>
     </div>
     <div class="stat-card warm" data-delay="200">
-      <div class="icon">ğŸ’›</div>
+      <div class="icon">💛</div>
       <div class="value" id="statWarm">0</div>
       <div class="label">Ilık Müşteri</div>
     </div>
     <div class="stat-card cold" data-delay="300">
-      <div class="icon">ğŸ’™</div>
+      <div class="icon">💙</div>
       <div class="value" id="statCold">0</div>
       <div class="label">Soğuk Müşteri</div>
     </div>
     <div class="stat-card converted" data-delay="400">
-      <div class="icon">âœ…</div>
+      <div class="icon">✅</div>
       <div class="value" id="statConverted">0</div>
       <div class="label">Dönüşüm</div>
     </div>
     <div class="stat-card total" data-delay="500">
-      <div class="icon">ğŸ“ˆ</div>
+      <div class="icon">📈</div>
       <div class="value" id="statConversionRate">%0</div>
       <div class="label">Dönüşüm Oranı</div>
     </div>
@@ -262,7 +262,7 @@ function showHistory(customer){
   } else {
     list.innerHTML = msgs.slice().reverse().map(m => `
       <div class="history-item">
-        <div class="history-icon">${m.type === 'whatsapp' ? 'ğŸ“±' : 'ğŸ“'}</div>
+        <div class="history-icon">${m.type === 'whatsapp' ? '📱' : 'ğŸ“'}</div>
         <div class="history-content">
           <div class="h-date">${m.date}</div>
           <div class="h-msg">${escapeHtml(m.message)}</div>
@@ -302,9 +302,9 @@ function renderTable(){
         <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(c.note||'')}</td>
         <td style="white-space:nowrap">
           <button class="action-btn" onclick="openModalForEdit(${c.id})" title="Düzenle">âœ</button>
-          ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj Gönder">ğŸ“±</button>` : ''}
-          <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj Geçmişi">ğŸ“‹</button>
-          <button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">âœ•</button>
+          ${isHot ? `<button class="msg-btn" onclick="editAndSend(findCustomer(${c.id}))" title="Mesaj Gönder">📱</button>` : ''}
+          <button class="action-btn" onclick="showHistory(findCustomer(${c.id}))" title="Mesaj Geçmişi">📋</button>
+          <button class="action-btn" onclick="deleteCustomer(${c.id})" title="Sil">✕</button>
         </td>
       `;
       tbody.appendChild(tr);

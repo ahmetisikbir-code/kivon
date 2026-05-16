@@ -73,11 +73,11 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
     <span>Sektör: <b>6</b></span>
     <span>n8n tabanlı: <b>%100</b></span>
   </div>
-  <button class="mobile-toggle" id="mobileToggle">â˜°</button>
+  <button class="mobile-toggle" id="mobileToggle">☰</button>
 </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="index.html">Ana Sayfa</a>
   <a href="muhasebe.html">Muhasebe</a>
   <a href="eticaret.html">E-Ticaret</a>
@@ -86,12 +86,12 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 
 <div class="sector-nav">
   <a href="muhasebe.html" class="sector-card">
-    <span class="sector-card-icon">ğŸ“‘</span>
+    <span class="sector-card-icon">📑</span>
     <div class="sector-card-title">Muhasebe</div>
     <div class="sector-card-sub">Finansal otomasyon çözümleri</div>
   </a>
   <a href="eticaret.html" class="sector-card">
-    <span class="sector-card-icon">ğŸ›’</span>
+    <span class="sector-card-icon">🛒</span>
     <div class="sector-card-title">E-Ticaret</div>
     <div class="sector-card-sub">Online satış ve operasyon araçları</div>
   </a>
@@ -104,12 +104,12 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 
 <div class="filter-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">Tümü</button>
-  <button class="filter-btn" data-filter="muhasebe">ğŸ’° Muhasebe & Finans</button>
-  <button class="filter-btn" data-filter="eticaret">ğŸ›’ E-Ticaret</button>
-  <button class="filter-btn" data-filter="pazarlama">ğŸ“¢ Pazarlama</button>
+  <button class="filter-btn" data-filter="muhasebe">💰 Muhasebe & Finans</button>
+  <button class="filter-btn" data-filter="eticaret">🛒 E-Ticaret</button>
+  <button class="filter-btn" data-filter="pazarlama">📢 Pazarlama</button>
   <button class="filter-btn" data-filter="destek">ğŸ§ Müşteri Hizmetleri</button>
-  <button class="filter-btn" data-filter="dokuman">ğŸ“„ Doküman & Veri</button>
-  <button class="filter-btn" data-filter="proje">ğŸ“‹ Proje & Operasyon</button>
+  <button class="filter-btn" data-filter="dokuman">📄 Doküman & Veri</button>
+  <button class="filter-btn" data-filter="proje">📋 Proje & Operasyon</button>
 </div>
 
 <div class="container">
@@ -119,29 +119,29 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <script>
 const hizmetler = [
   // A. MUHASEBE & FİNANS
-  {id:1,sektor:'muhasebe',ikon:'ğŸ§¾',baslik:'Akıllı Fatura İşleme Asistanı',aciklama:'PDF/taranmış faturaları otomatik okuyup yapılandırılmış veriye çevirir. Tarih, tedarikçi, kalem, KDV — hepsini ayıklar. Google Sheets\'e aktarır.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'LlamaParse + OpenAI + Google Sheets'},
-  {id:2,sektor:'muhasebe',ikon:'ğŸ“§',baslik:'Gmail Harcama Takip ve Kategorizasyon',aciklama:'E-postalarınızdan fatura ve ödeme bildirimlerini otomatik ayıklar. Kategori bazlı gider takibi, KDV hesaplama, Google Sheets\'e anlık kayıt. Mikro işletmeler için muhasebe öncesi.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Gmail + OpenAI + Google Sheets'},
+  {id:1,sektor:'muhasebe',ikon:'🧾',baslik:'Akıllı Fatura İşleme Asistanı',aciklama:'PDF/taranmış faturaları otomatik okuyup yapılandırılmış veriye çevirir. Tarih, tedarikçi, kalem, KDV — hepsini ayıklar. Google Sheets\'e aktarır.',zorluk:'Orta',fiyat:'2.500-5.000 TL',kaynak:'LlamaParse + OpenAI + Google Sheets'},
+  {id:2,sektor:'muhasebe',ikon:'📧',baslik:'Gmail Harcama Takip ve Kategorizasyon',aciklama:'E-postalarınızdan fatura ve ödeme bildirimlerini otomatik ayıklar. Kategori bazlı gider takibi, KDV hesaplama, Google Sheets\'e anlık kayıt. Mikro işletmeler için muhasebe öncesi.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'Gmail + OpenAI + Google Sheets'},
 
   // B. E-TİCARET
   {id:3,sektor:'eticaret',ikon:'â­',baslik:'Ürün Yorum Analizi ve İtibar Yönetimi',aciklama:'Trendyol, Hepsiburada, Google Maps yorumlarınızı toplar, duygu analizi yapar. Olumsuz yorumları anında e-posta ile bildirir. Aylık itibar raporu.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'DeepSeek + OpenAI + Google Sheets'},
 
   // C. PAZARLAMA
-  {id:4,sektor:'pazarlama',ikon:'ğŸ“±',baslik:'4 Platforma Tek Tıkla İçerik',aciklama:'Tek bir brief\'ten X, LinkedIn, Instagram, Facebook için optimize içerik, hashtag ve SEO anahtar kelimeleri üretir. Sosyal medya ekibine haftada 10 saat kazandırır.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'OpenAI + Google Sheets'},
-  {id:5,sektor:'pazarlama',ikon:'ğŸ“ˆ',baslik:'Google Analytics AI Raporlama',aciklama:'Haftalık GA4 verilerinizi AI analiz eder. "Geçen haftaya göre trafik %15 arttı, en çok şu sayfa tıklandı" şeklinde Türkçe özet rapor. E-postayla gelsin.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Google Analytics + OpenAI + Gmail'},
-  {id:6,sektor:'pazarlama',ikon:'ğŸ“…',baslik:'Sosyal Medya İçerik Takvimi',aciklama:'Aylık içerik takvimi oluşturur. Caption\'ları AI yazar. 30 günlük içerik tek seferde — sadece marka bilginizi paylaşın.',zorluk:'Düşük',fiyat:'2.500-5.000 TL',kaynak:'OpenAI + Google Sheets + Google Calendar'},
+  {id:4,sektor:'pazarlama',ikon:'📱',baslik:'4 Platforma Tek Tıkla İçerik',aciklama:'Tek bir brief\'ten X, LinkedIn, Instagram, Facebook için optimize içerik, hashtag ve SEO anahtar kelimeleri üretir. Sosyal medya ekibine haftada 10 saat kazandırır.',zorluk:'Düşük',fiyat:'2.000-4.000 TL',kaynak:'OpenAI + Google Sheets'},
+  {id:5,sektor:'pazarlama',ikon:'📈',baslik:'Google Analytics AI Raporlama',aciklama:'Haftalık GA4 verilerinizi AI analiz eder. "Geçen haftaya göre trafik %15 arttı, en çok şu sayfa tıklandı" şeklinde Türkçe özet rapor. E-postayla gelsin.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Google Analytics + OpenAI + Gmail'},
+  {id:6,sektor:'pazarlama',ikon:'📅',baslik:'Sosyal Medya İçerik Takvimi',aciklama:'Aylık içerik takvimi oluşturur. Caption\'ları AI yazar. 30 günlük içerik tek seferde — sadece marka bilginizi paylaşın.',zorluk:'Düşük',fiyat:'2.500-5.000 TL',kaynak:'OpenAI + Google Sheets + Google Calendar'},
 
   // D. MÜÅTERİ HİZMETLERİ
-  {id:7,sektor:'destek',ikon:'ğŸ“¬',baslik:'E-posta Özetleme ve Akıllı Yanıt',aciklama:'Yoğun e-posta alan yöneticiler için: Gelen e-postaları özetler, taslak yanıt hazırlar. Göndermeden önce size onaylatır. Human-in-the-loop.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'IMAP + OpenAI + Gmail'},
-  {id:8,sektor:'destek',ikon:'ğŸ’¬',baslik:'WhatsApp AI Asistan',aciklama:'Mevcut WhatsApp numaranıza bağlanır. Müşteri mesajlarına 7/24 AI ile Türkçe yanıt verir. SSS, randevu, ürün bilgisi — hepsi otomatik. Biz kurarız, siz sadece QR tarayın.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'whatsapp-web.js + OpenAI + Groq'},
+  {id:7,sektor:'destek',ikon:'📬',baslik:'E-posta Özetleme ve Akıllı Yanıt',aciklama:'Yoğun e-posta alan yöneticiler için: Gelen e-postaları özetler, taslak yanıt hazırlar. Göndermeden önce size onaylatır. Human-in-the-loop.',zorluk:'Düşük',fiyat:'1.500-3.000 TL',kaynak:'IMAP + OpenAI + Gmail'},
+  {id:8,sektor:'destek',ikon:'💬',baslik:'WhatsApp AI Asistan',aciklama:'Mevcut WhatsApp numaranıza bağlanır. Müşteri mesajlarına 7/24 AI ile Türkçe yanıt verir. SSS, randevu, ürün bilgisi — hepsi otomatik. Biz kurarız, siz sadece QR tarayın.',zorluk:'Düşük',fiyat:'1.000-2.000 TL',kaynak:'whatsapp-web.js + OpenAI + Groq'},
 
   // E. DOKÜMAN & VERİ
   {id:9,sektor:'dokuman',ikon:'ğŸ¦',baslik:'Banka Ekstresi Dijitalleştirme',aciklama:'Taranmış banka ekstrelerini (PDF/görüntü) AI ile okur. Yapılandırılmış veriye çevirir, Google Sheets\'e aktarır. Gelir-gider analizi yapar.',zorluk:'Orta',fiyat:'2.000-4.000 TL',kaynak:'Gemini Vision + OpenAI + Google Sheets'},
 
   // F. PROJE & OPERASYON
-  {id:10,sektor:'proje',ikon:'ğŸš€',baslik:'Müşteri Onboarding Otomasyonu',aciklama:'Yeni müşteri kaydıyla birlikte hoş geldin e-postası, belge talebi, onboarding checklist\'i ve takvim daveti — hepsi otomatik.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Webhook + Gmail + Google Sheets + Calendar'}
+  {id:10,sektor:'proje',ikon:'🚀',baslik:'Müşteri Onboarding Otomasyonu',aciklama:'Yeni müşteri kaydıyla birlikte hoş geldin e-postası, belge talebi, onboarding checklist\'i ve takvim daveti — hepsi otomatik.',zorluk:'Düşük',fiyat:'1.000-2.500 TL',kaynak:'Webhook + Gmail + Google Sheets + Calendar'}
 ];
 
-const zorlukEmoji = {Düşük:'ğŸŸ¢',Orta:'ğŸŸ¡',Yüksek:'ğŸ”´'};
+const zorlukEmoji = {Düşük:'🟢',Orta:'🟡',Yüksek:'🔴'};
 let aktifFiltre = 'all';
 
 function render(filter) {
@@ -160,7 +160,7 @@ function render(filter) {
     }).join('');
   } else {
     grid.innerHTML = filtrelenmis.length ? filtrelenmis.map(h => kartHTML(h)).join('') :
-      `<div class="empty-state"><span class="icon">ğŸ“­</span>Bu kategoride henüz hizmet yok.</div>`;
+      `<div class="empty-state"><span class="icon">📭</span>Bu kategoride henüz hizmet yok.</div>`;
   }
 }
 
@@ -175,7 +175,7 @@ function kartHTML(h) {
       <span class="tag tag-sector">${h.kaynak.split('+')[0].trim()}</span>
     </div>
     <div class="card-footer">
-      <span>ğŸ”— ${h.kaynak}</span>
+      <span>🔗 ${h.kaynak}</span>
     </div>
   </div>`;
 }

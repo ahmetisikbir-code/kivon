@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="card">
-<h1>ğŸ”Œ KIVON API</h1>
+<h1>🔌 KIVON API</h1>
 <p class="sub">Gerçek zamanlı durum kontrolü</p>
 <div class="status online" id="statusBox"><span class="dot dot-green" id="statusDot"></span><span id="statusText">Bağlanıyor...</span></div>
 <div class="info" id="infoBox">
@@ -21,11 +21,11 @@
 <div class="info-row"><span class="label">Motorlar</span><span class="value" id="motor">—</span></div>
 <div class="info-row"><span class="label">Durum</span><span class="value" id="durum">—</span></div>
 </div>
-<a href="api-dokuman.html" class="btn">API Dökümantasyonu â†’</a>
+<a href="api-dokuman.html" class="btn">API Dökümantasyonu →</a>
 <small>Son kontrol: <span id="time">—</span></small>
 </div>
 <script>
-(async function(){try{var r=await fetch('https://kivon-3.onrender.com/',{signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('HTTP '+r.status);var d=await r.json();document.getElementById('statusText').textContent='Çevrimiçi';document.getElementById('server').textContent=d.sunucu;document.getElementById('model').textContent=d.varsayilan;document.getElementById('motor').textContent=d.motorlar.join(', ');document.getElementById('durum').textContent='âœ… Çalışıyor'}catch(e){document.getElementById('statusBox').className='status offline';document.getElementById('statusDot').className='dot dot-red';document.getElementById('statusText').textContent='Çevrimdışı';document.getElementById('durum').textContent='âŒ Hata: '+e.message}document.getElementById('time').textContent=new Date().toLocaleTimeString('tr-TR')})();
+(async function(){try{var r=await fetch('https://kivon-3.onrender.com/',{signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('HTTP '+r.status);var d=await r.json();document.getElementById('statusText').textContent='Çevrimiçi';document.getElementById('server').textContent=d.sunucu;document.getElementById('model').textContent=d.varsayilan;document.getElementById('motor').textContent=d.motorlar.join(', ');document.getElementById('durum').textContent='✅ Çalışıyor'}catch(e){document.getElementById('statusBox').className='status offline';document.getElementById('statusDot').className='dot dot-red';document.getElementById('statusText').textContent='Çevrimdışı';document.getElementById('durum').textContent='âŒ Hata: '+e.message}document.getElementById('time').textContent=new Date().toLocaleTimeString('tr-TR')})();
 </script>
 <script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script><footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>

@@ -30,7 +30,7 @@ body {
 /* 3D CANVAS */
 #c { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-/* â”€â”€â”€ NAV â”€â”€â”€ */
+/* ─── NAV ─── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,5,16,0.7); backdrop-filter:blur(20px);
@@ -59,7 +59,7 @@ nav {
 }
 .nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
 
-/* â”€â”€â”€ HERO â”€â”€â”€ */
+/* ─── HERO ─── */
 .hero {
   position:relative; z-index:1; min-height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -102,11 +102,11 @@ nav {
 }
 @keyframes fi{to{opacity:1}}
 
-/* â”€â”€â”€ SECTIONS â”€â”€â”€ */
+/* ─── SECTIONS ─── */
 section { position:relative; z-index:1; padding:100px 0; }
 .container { max-width:1200px; margin:0 auto; padding:0 24px; }
 
-/* â”€â”€â”€ STATS BAR â”€â”€â”€ */
+/* ─── STATS BAR ─── */
 .stats-bar {
   display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
   padding:40px 0; position:relative; z-index:1;
@@ -115,7 +115,7 @@ section { position:relative; z-index:1; padding:100px 0; }
 .stat-num { font-size:40px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; }
 .stat-label { font-size:12px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
 
-/* â”€â”€â”€ GRID CARDS â”€â”€â”€ */
+/* ─── GRID CARDS ─── */
 .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
 .card {
@@ -138,7 +138,7 @@ section { position:relative; z-index:1; padding:100px 0; }
 .card p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.6; }
 .card-wide { grid-column:span 2; }
 
-/* â”€â”€â”€ MCP SHOWCASE â”€â”€â”€ */
+/* ─── MCP SHOWCASE ─── */
 .mcp-showcase {
   display:flex; flex-wrap:wrap; gap:6px; justify-content:center;
   padding:20px 0;
@@ -151,7 +151,7 @@ section { position:relative; z-index:1; padding:100px 0; }
 }
 .mcp-chip:hover { background:rgba(56,189,248,0.1); color:var(--cyan); border-color:rgba(56,189,248,0.2); transform:translateY(-2px); }
 
-/* â”€â”€â”€ SECTION HEADERS â”€â”€â”€ */
+/* ─── SECTION HEADERS ─── */
 .section-label {
   font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
   color:var(--cyan); margin-bottom:12px; display:block; text-align:center;
@@ -164,7 +164,7 @@ section { position:relative; z-index:1; padding:100px 0; }
 }
 .section-title span { color:var(--cyan); -webkit-text-fill-color:var(--cyan); }
 
-/* â”€â”€â”€ TEAMS â”€â”€â”€ */
+/* ─── TEAMS ─── */
 .team-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 .team-pill {
   display:flex; align-items:center; gap:10px;
@@ -182,7 +182,7 @@ section { position:relative; z-index:1; padding:100px 0; }
 .team-name { font-size:13px; font-weight:600; }
 .team-role { font-size:10px; color:rgba(255,255,255,0.3); }
 
-/* â”€â”€â”€ PRICING â”€â”€â”€ */
+/* ─── PRICING ─── */
 .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .pricing-card {
   background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
@@ -204,11 +204,11 @@ section { position:relative; z-index:1; padding:100px 0; }
 .pricing-features li::before { content:'\2726'; color:var(--cyan); font-size:9px; }
 .pricing-card .btn { width:100%; justify-content:center; }
 
-/* â”€â”€â”€ FOOTER â”€â”€â”€ */
+/* ─── FOOTER ─── */
 footer { text-align:center; padding:40px 24px; position:relative; z-index:1; border-top:1px solid rgba(56,189,248,0.04); }
 footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 
-/* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+/* ─── RESPONSIVE ─── */
 @media (max-width:768px) {
   .grid-3, .grid-4, .pricing-grid { grid-template-columns:1fr; }
   .container > div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr!important; }
@@ -232,7 +232,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 </head>
 <body>
 
-<!-- â•â•â• NAV â•â•â• -->
+<!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -252,12 +252,12 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <li><a href="/en/" class="lang-switch">EN</a></li>
     </ul>
     <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
-    <button class="mobile-toggle" id="mobileToggle">â˜°</button>
+    <button class="mobile-toggle" id="mobileToggle">☰</button>
   </div>
 </nav>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">âœ•</button>
+  <button class="mobile-close" id="mobileClose">✕</button>
   <a href="#cozumler">Çözümler</a>
   <a href="muhasebe.html">Muhasebe</a>
   <a href="eticaret.html">E-Ticaret</a>
@@ -274,7 +274,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <a href="/en/">EN → English</a>
 </div>
 
-<!-- â•â•â• 3D HELIX HERO â•â•â• -->
+<!-- ═══ 3D HELIX HERO ═══ -->
 <section class="hero" id="hero3d" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden">
   <div id="c" style="position:absolute;inset:0;z-index:0;pointer-events:none"></div>
   <div style="position:relative;z-index:2;pointer-events:none;padding:0 20px">
@@ -288,9 +288,9 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#7dd3fc">3</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">Sektör</div></div>
     </div>
     <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;opacity:0;animation:fi 1.5s 2.5s forwards;flex-wrap:wrap">
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);color:#38bdf8">ðŸ“‘ Muhasebe</span>
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);color:#6366f1">ðŸ›’ E-Ticaret</span>
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);color:#fbbf24">ðŸ½ï¸ Restoran</span>
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);color:#38bdf8">📑 Muhasebe</span>
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);color:#6366f1">🛒 E-Ticaret</span>
+      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);color:#fbbf24">🍽️ Restoran</span>
     </div>
     <div class="hero-actions" style="justify-content:center;margin-top:20px;opacity:0;animation:fi 1.5s 3s forwards">
       <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" style="pointer-events:auto">Ücretsiz Görüşme</a>
@@ -299,28 +299,28 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
-<!-- â•â•â• SEKTÖRLER â•â•â• -->
+<!-- ═══ SEKTÖRLER ═══ -->
 <div class="container" style="position:relative;z-index:1;padding:40px 24px">
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
     <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">ğŸ“‘</span>
+      <span style="font-size:48px;display:block;margin-bottom:12px">📑</span>
       <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Muhasebe</h3>
       <p style="font-size:12px;color:rgba(255,255,255,0.3)">Fatura, beyanname, müşteri takibi</p>
     </a>
     <a href="eticaret.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(251,191,36,0.08));border:1px solid rgba(99,102,241,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">ğŸ›’</span>
+      <span style="font-size:48px;display:block;margin-bottom:12px">🛒</span>
       <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">E-Ticaret</h3>
       <p style="font-size:12px;color:rgba(255,255,255,0.3)">Sipariş, stok, müşteri hizmetleri</p>
     </a>
     <a href="restoran.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(56,189,248,0.08));border:1px solid rgba(251,191,36,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">ğŸ½ï¸</span>
+      <span style="font-size:48px;display:block;margin-bottom:12px">🍽️</span>
       <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Restoran & Kafe</h3>
       <p style="font-size:12px;color:rgba(255,255,255,0.3)">Rezervasyon, menü, paket servis</p>
     </a>
   </div>
 </div>
 
-<!-- â•â•â• STATS â•â•â• -->
+<!-- ═══ STATS ═══ -->
 <div class="stats-bar container">
   <div class="stat-item"><div class="stat-num">29</div><div class="stat-label">MCP Araç</div></div>
   <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">Çözüm</div></div>
@@ -329,45 +329,45 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Kategori</div></div>
 </div>
 
-<!-- â•â•â• ÇÖZÜMLER â•â•â• -->
+<!-- ═══ ÇÖZÜMLER ═══ -->
 <section id="cozumler" class="container">
   <span class="section-label">Çözümler</span>
   <h2 class="section-title">İşletmenize Özel <span>AI</span></h2>
   <div class="grid-3">
     <div class="card">
       <div class="card-glow"></div>
-      <span class="card-icon">ğŸ’¬</span>
+      <span class="card-icon">💬</span>
       <h3>AI Chatbot</h3>
       <p>7/24 müşteri hizmetleri. WhatsApp, web, Instagram.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
-      <span class="card-icon">ğŸ“Š</span>
+      <span class="card-icon">📊</span>
       <h3>Veri Analitiği</h3>
       <p>Satış, stok, müşteri verileri. AI tahminleme.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
-      <span class="card-icon">âš¡</span>
+      <span class="card-icon">⚡</span>
       <h3>Proses Otomasyonu</h3>
       <p>%70 zaman tasarrufu. Fatura, stok, e-posta.</p>
     </div>
     <div class="card">
       <div class="card-glow"></div>
-      <span class="card-icon">ğŸ§ </span>
+      <span class="card-icon">🧠</span>
       <h3>AI Danışmanlık</h3>
       <p>Özel AI yol haritası. Fizibilite + uygulama.</p>
     </div>
     <div class="card card-wide">
       <div class="card-glow"></div>
-      <span class="card-icon">âš™ï¸</span>
+      <span class="card-icon">⚙️</span>
       <h3>Teknik Altyapı</h3>
       <p>5 AI model (DeepSeek V4, Llama 3.3, Qwen3, Nemotron). n8n otomasyon. 28 MCP araç. Render API.</p>
     </div>
   </div>
 </section>
 
-<!-- â•â•â• MCP â•â•â• -->
+<!-- ═══ MCP ═══ -->
 <section id="mcp" style="background:rgba(10,10,26,0.3);">
   <div class="container">
     <span class="section-label">Altyapı</span>
@@ -387,7 +387,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
-<!-- â•â•â• EKİP â•â•â• -->
+<!-- ═══ EKİP ═══ -->
 <section id="ekip" class="container">
   <span class="section-label">Ekip</span>
   <h2 class="section-title">16 Kişi · 4 <span>Takım</span></h2>
@@ -459,7 +459,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
-<!-- â•â•â• PRICING â•â•â• -->
+<!-- ═══ PRICING ═══ -->
 <section id="fiyat" style="background:rgba(10,10,26,0.3);">
   <div class="container">
     <span class="section-label">Fiyat</span>
@@ -503,24 +503,24 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
-<!-- â•â•â• DEMOS â•â•â• -->
+<!-- ═══ DEMOS ═══ -->
 <section class="container">
   <span class="section-label">Demo</span>
   <h2 class="section-title">Canlı <span>Deneyin</span></h2>
   <div class="grid-3">
     <a href="demo/chatbot.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">ğŸ’¬</span><h3>AI Sohbet</h3><p>Canlı chatbot demo</p>
+      <div class="card-glow"></div><span class="card-icon">💬</span><h3>AI Sohbet</h3><p>Canlı chatbot demo</p>
     </a>
     <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">ğŸ“‘</span><h3>Muhasebe</h3><p>AI fatura okuyucu</p>
+      <div class="card-glow"></div><span class="card-icon">📑</span><h3>Muhasebe</h3><p>AI fatura okuyucu</p>
     </a>
     <a href="cozum-paneli.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">ğŸ“Š</span><h3>Panel</h3><p>Çözüm yönetim paneli</p>
+      <div class="card-glow"></div><span class="card-icon">📊</span><h3>Panel</h3><p>Çözüm yönetim paneli</p>
     </a>
   </div>
 </section>
 
-<!-- â•â•â• CONTACT â•â•â• -->
+<!-- ═══ CONTACT ═══ -->
 <section id="iletisim" style="background:rgba(10,10,26,0.3);">
   <div class="container" style="text-align:center">
     <span class="section-label">İletişim</span>
@@ -570,7 +570,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <p style="font-size:10px;color:rgba(255,255,255,0.08);margin-top:8px">Son güncelleme: 16 Mayıs 2026</p>
 </footer>
 
-<!-- â•â•â• 3D HELIX â•â•â• -->
+<!-- ═══ 3D HELIX ═══ -->
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -662,7 +662,7 @@ window.addEventListener('resize',()=>{
 });
 </script>
 
-<!-- â•â•â• SCROLL REVEAL â•â•â• -->
+<!-- ═══ SCROLL REVEAL ═══ -->
 <script>
 (function() {
   var els = document.querySelectorAll('.card, .pricing-card, .team-pill, .mcp-chip, .stat-item');

@@ -186,21 +186,21 @@ function renderGrid(){
         <div class="stage-progress">
           ${o.stages.map((s,i)=>`
             <div class="stage-dot ${s.done?'done':s.date?'active':''}" onclick="toggleStage(${o.id},${i})" title="${STAGE_NAMES[i]}: ${s.done?'Tamamlandı':s.date?'Devam ediyor':'Bekliyor'}">
-              ${s.done?'âœ“':i+1}
+              ${s.done?'✓':i+1}
               <span class="tooltip">${STAGE_NAMES[i]}: ${s.done?'Tamamlandı':s.date?'Devam':'Bekliyor'}${s.date?' ('+s.date+')':''}</span>
             </div>
           `).join('')}
         </div>
         <div class="onboard-meta">
-          <span>ğŸ“… ${sectorLabel(o.sector)}</span>
-          <span>âœ… ${doneCount}/6 aşama</span>
-          <span>ğŸ“† ${o.created||'-'}</span>
+          <span>📅 ${sectorLabel(o.sector)}</span>
+          <span>✅ ${doneCount}/6 aşama</span>
+          <span>📆 ${o.created||'-'}</span>
         </div>
         ${o.note ? `<div class="onboard-note">${escapeHtml(o.note)}</div>` : ''}
         <div class="onboard-actions">
           <button onclick="editOnboarding(${o.id})">âœ Düzenle</button>
-          <button onclick="sendWA('${escapeHtml(o.company)}','${escapeHtml(o.contact)}','${o.phone||''}','${doneCount}','${os}')" class="btn-wa" ${o.phone?'':'disabled'}>ğŸ“± WhatsApp</button>
-          <button onclick="deleteOnboarding(${o.id})" style="color:rgba(239,68,68,0.6)">âœ• Sil</button>
+          <button onclick="sendWA('${escapeHtml(o.company)}','${escapeHtml(o.contact)}','${o.phone||''}','${doneCount}','${os}')" class="btn-wa" ${o.phone?'':'disabled'}>📱 WhatsApp</button>
+          <button onclick="deleteOnboarding(${o.id})" style="color:rgba(239,68,68,0.6)">✕ Sil</button>
         </div>
       `;
       grid.appendChild(card);
