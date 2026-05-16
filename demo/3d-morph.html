@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>KIVON — 3D Morph</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050510;overflow:hidden}
+#c{position:fixed;top:0;left:0;width:100%;height:100%}
+.h{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.1);font-size:12px;z-index:10;letter-spacing:2px;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="h">✦ Tıkla → şekil değiştir ✦</div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);
+camera.position.z=10;
+
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+document.body.prepend(renderer.domElement);
+
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const bloom=new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.5,0.4,0.2);
+composer.addPass(bloom);
+
+const controls=new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=0.05;controls.autoRotate=true;
+controls.autoRotateSpeed=2;controls.enableZoom=true;controls.enablePan=false;
+
+// Create morphing geometry
+const count=8000;
+const pos=new Float32Array(count*3);
+const col=new Float32Array(count*3);
+const size=new Float32Array(count);
+const shapes=[];
+const c1=new THREE.Color('#38bdf8'),c2=new THREE.Color('#6366f1'),c3=new THREE.Color('#fbbf24'),c4=new THREE.Color('#ec4899');
+
+function makeSphere(i,count,rad){
+  const phi=Math.acos(2*(i/count)-1);
+  const theta=Math.PI*(1+Math.sqrt(5))*i;
+  return [Math.sin(phi)*Math.cos(theta)*rad,Math.sin(phi)*Math.sin(theta)*rad,Math.cos(phi)*rad];
+}
+function makeCube(i,count,sz){
+  const side=Math.floor(i/(count/6));
+  const t=(i%(count/6))/(count/6)*2-1;
+  const u=(i%(count/7))/(count/7)*2-1;
+  const v=((i*7)%(count/8))/(count/8)*2-1;
+  const faces=[[sz,t,u],[t,sz,u],[t,u,sz],[-sz,t,u],[t,-sz,u],[t,u,-sz]];
+  return faces[side%6];
+}
+function makeTorus(i,count){
+  const t=i/count;const a=t*Math.PI*6;
+  return [Math.cos(a)*(2+Math.cos(t*Math.PI*4)),Math.sin(a)*(2+Math.cos(t*Math.PI*4)),Math.sin(t*Math.PI*4)];
+}
+function makeStar(i,count){
+  const t=i/count;const a=t*Math.PI*8;const r=1+Math.sin(t*Math.PI*10)*2;
+  return [Math.cos(a)*r,Math.sin(a)*r,(t-0.5)*4];
+}
+function makeDna(i,count){
+  const t=i/count;const a=t*Math.PI*10;const r=1.5+Math.sin(t*Math.PI*3)*0.5;
+  return [Math.cos(a)*r,(t-0.5)*6,Math.sin(a)*r];
+}
+
+shapes.push(makeSphere,makeCube,makeTorus,makeStar,makeDna);
+
+// Init with sphere
+let currentShape=0;
+const initial=makeSphere;
+
+for(let i=0;i<count;i++){
+  const s=initial(i,count,3);
+  pos[i*3]=s[0];pos[i*3+1]=s[1];pos[i*3+2]=s[2];
+  size[i]=0.03+Math.random()*0.08;
+  const c=i%4===0?c1:i%4===1?c2:i%4===2?c3:c4;
+  col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+}
+
+const src=new Float32Array(pos);
+const tgt=new Float32Array(count*3);
+
+function setTarget(shapeIdx){
+  const fn=shapes[shapeIdx%shapes.length];
+  for(let i=0;i<count;i++){
+    const s=fn(i,count);
+    tgt[i*3]=s[0];tgt[i*3+1]=s[1];tgt[i*3+2]=s[2];
+  }
+}
+setTarget(0);
+
+const geo=new THREE.BufferGeometry();
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+
+const mat=new THREE.PointsMaterial({
+  size:0.06,vertexColors:true,transparent:true,opacity:0.9,
+  blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true
+});
+const pts=new THREE.Points(geo,mat);
+scene.add(pts);
+
+const glow=new THREE.Mesh(
+  new THREE.SphereGeometry(0.3,16,16),
+  new THREE.MeshBasicMaterial({color:'#38bdf8',transparent:true,opacity:0.2})
+);
+scene.add(glow);
+
+let progress=1,dir=-1,morphing=false,nextShape=0;
+const p=pts.geometry.attributes.position.array;
+
+function animate(){
+  requestAnimationFrame(animate);
+  if(morphing){
+    progress+=0.02*dir;
+    if(progress<=0){progress=0;dir=1;morphing=false}
+    if(progress>=1){progress=1;morphing=false}
+  }
+  if(!morphing&&progress<1){
+    progress+=0.02;
+    if(progress>=1){progress=1}
+  }
+  const e=progress<0.5?2*progress*progress:1-Math.pow(-2*progress+2,2)/2;
+  for(let i=0;i<count;i++){
+    p[i*3]=src[i*3]+(tgt[i*3]-src[i*3])*e;
+    p[i*3+1]=src[i*3+1]+(tgt[i*3+1]-src[i*3+1])*e;
+    p[i*3+2]=src[i*3+2]+(tgt[i*3+2]-src[i*3+2])*e;
+  }
+  pts.geometry.attributes.position.needsUpdate=true;
+  glow.scale.setScalar(1+(1-e)*2);
+  controls.update();
+  composer.render();
+}
+animate();
+
+renderer.domElement.addEventListener('click',()=>{
+  if(morphing)return;
+  nextShape=(nextShape+1)%shapes.length;
+  // Copy current positions to src
+  for(let i=0;i<count;i++){src[i*3]=p[i*3];src[i*3+1]=p[i*3+1];src[i*3+2]=p[i*3+2]}
+  setTarget(nextShape);
+  progress=0;morphing=true;
+});
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  composer.setSize(window.innerWidth,window.innerHeight);
+});
+</script>
+</body>
+</html>
