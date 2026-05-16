@@ -71,6 +71,19 @@ Yanıt kuralları:
 - Dosya düzenleme/kod yazma gibi işlemleri buradan yapamazsın, Ahmet'in CLI üzerinden yapması gerekir
 - Kivon'un vizyonunu ve ürünlerini iyi bilirsin`;
 
+// Chat Bridge depolama
+const BRIDGE_STORE = 'chat-bridge-store.json';
+
+function bridgeInit() {
+  if (!fs.existsSync(BRIDGE_STORE)) {
+    const ilk = { role: 'ai', text: 'Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', ts: new Date().toISOString() };
+    fs.writeFileSync(BRIDGE_STORE, JSON.stringify({ nextId: 1, messages: [{ id: 0, ...ilk }] }));
+  }
+}
+
+function bridgeOku() { return JSON.parse(fs.readFileSync(BRIDGE_STORE, 'utf-8')); }
+function bridgeYaz(data) { fs.writeFileSync(BRIDGE_STORE, JSON.stringify(data, null, 2)); }
+
 // Web chat HTML sayfası
 const CHAT_HTML = `<!DOCTYPE html>
 <html lang="tr">
@@ -112,6 +125,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 const chat = document.getElementById('chat');
 const input = document.getElementById('input');
 const sendBtn = document.getElementById('send');
+let lastMsgId = -1;
+let pollTimer = null;
 
 function addMessage(text, type) {
   const div = document.createElement('div');
@@ -130,6 +145,7 @@ function addMessage(text, type) {
 }
 
 function showTyping() {
+  if (document.getElementById('typing')) return;
   const div = document.createElement('div');
   div.className = 'typing';
   div.id = 'typing';
@@ -148,39 +164,81 @@ function setLoading(state) {
   input.disabled = state;
 }
 
+async function pollMessages() {
+  try {
+    const res = await fetch('/api/bridge/poll?after=' + lastMsgId);
+    const data = await res.json();
+    if (data.messages && data.messages.length > 0) {
+      hideTyping();
+      data.messages.forEach(m => {
+        if (m.id > lastMsgId) {
+          addMessage(m.text, m.role === 'ai' ? 'bot' : 'user');
+          lastMsgId = m.id;
+        }
+      });
+    }
+  } catch(e) { /* poll hatasi */ }
+}
+
 async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
   input.value = '';
-  addMessage(text, 'user');
   setLoading(true);
   showTyping();
   try {
-    const res = await fetch('/api/groq', {
+    const res = await fetch('/api/bridge/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ soru: text })
+      body: JSON.stringify({ text })
     });
     const data = await res.json();
-    hideTyping();
-    if (data.cevap) addMessage(data.cevap, 'bot');
-    else addMessage('Bir hata oldu: ' + (data.hata || 'Yanıt alınamadı'), 'error');
+    if (data.ok) {
+      addMessage(text, 'user');
+      lastMsgId = data.id;
+      pollTimer = setInterval(pollMessages, 2000);
+    } else {
+      hideTyping();
+      addMessage('Bir hata oldu', 'error');
+      setLoading(false);
+    }
   } catch(e) {
     hideTyping();
     addMessage('Sunucuya bağlanılamadı: ' + e.message, 'error');
+    setLoading(false);
   }
-  setLoading(false);
 }
 
 sendBtn.addEventListener('click', sendMessage);
 input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 
-addMessage('Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', 'bot');
+// Geçmiş mesajları yükle
+(async function() {
+  try {
+    const res = await fetch('/api/bridge/poll?after=-1');
+    const data = await res.json();
+    if (data.messages) {
+      data.messages.forEach(m => {
+        addMessage(m.text, m.role === 'ai' ? 'bot' : 'user');
+        if (m.id > lastMsgId) lastMsgId = m.id;
+      });
+      // Son mesaj user ise polling baslat
+      const son = data.messages[data.messages.length - 1];
+      if (son && son.role === 'user') {
+        showTyping();
+        pollTimer = setInterval(pollMessages, 2000);
+      }
+    }
+  } catch(e) {
+    addMessage('Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', 'bot');
+  }
+})();
 </script>
 </body>
 </html>`;
 
 const server = http.createServer(async (req, res) => {
+  bridgeInit();
   // CORS
   const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'null'];
   const origin = req.headers.origin;
@@ -255,6 +313,77 @@ const server = http.createServer(async (req, res) => {
         }));
       } catch(e) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ hata: e.message }));
+      }
+    });
+    return;
+  }
+
+  // POST /api/bridge/send -> kullanicidan mesaj al (CLI AI'ya iletilecek)
+  if (req.method === 'POST' && pathname === '/api/bridge/send') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { text } = JSON.parse(body);
+        if (!text || !text.trim()) throw new Error('Bos mesaj');
+        const store = bridgeOku();
+        const id = store.nextId++;
+        store.messages.push({ id, role: 'user', text: text.trim(), ts: new Date().toISOString() });
+        bridgeYaz(store);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, id }));
+      } catch(e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ hata: e.message }));
+      }
+    });
+    return;
+  }
+
+  // GET /api/bridge/poll?after=<id> -> web chat polling
+  if (req.method === 'GET' && pathname === '/api/bridge/poll') {
+    const afterId = parseInt(url.searchParams.get('after')) || -1;
+    const store = bridgeOku();
+    const yeni = store.messages.filter(m => m.id > afterId);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ messages: yeni }));
+    return;
+  }
+
+  // GET /api/bridge/inbox -> CLI AI'nin bekleyen mesajlari okumasi icin
+  if (req.method === 'GET' && pathname === '/api/bridge/inbox') {
+    const store = bridgeOku();
+    const bekleyen = [];
+    for (let i = store.messages.length - 1; i >= 0; i--) {
+      const m = store.messages[i];
+      if (m.role === 'user') {
+        // Bu user mesajindan sonra ai mesaji var mi?
+        const sonraAi = store.messages.slice(i + 1).some(x => x.role === 'ai');
+        if (!sonraAi) bekleyen.unshift(m);
+      }
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ messages: bekleyen }));
+    return;
+  }
+
+  // POST /api/bridge/respond -> CLI AI cevap yazsin
+  if (req.method === 'POST' && pathname === '/api/bridge/respond') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const { text } = JSON.parse(body);
+        if (!text || !text.trim()) throw new Error('Bos cevap');
+        const store = bridgeOku();
+        const id = store.nextId++;
+        store.messages.push({ id, role: 'ai', text: text.trim(), ts: new Date().toISOString() });
+        bridgeYaz(store);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, id }));
+      } catch(e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ hata: e.message }));
       }
     });
