@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1777930373819703" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon | AI DÃ¶nÃ¼ÅŸÃ¼m PlanÄ±</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060610;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+    padding: 40px 20px 80px;
+  }
+
+  .slide {
+    width: 1080px; height: 1080px; border-radius: 28px;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #101834 0%, #0a0a1a 70%);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(56,189,248,0.12);
+    display: flex; flex-direction: column;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(56,189,248,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 90%, rgba(129,140,248,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(251,191,36,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(56,189,248,0.015) 2px, rgba(56,189,248,0.015) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(56,189,248,0.015) 2px, rgba(56,189,248,0.015) 4px);
+    pointer-events: none;
+  }
+
+  /* ========== SLIDE 1: KAPAK ========== */
+  .slide-cover { justify-content: center; align-items: center; text-align: center; gap: 0; }
+  .slide-cover .logo-svg { width: 140px; height: 140px; margin-bottom: 32px; }
+  .slide-cover .logo-container {
+    position: relative; width: 220px; height: 220px;
+    background: rgba(16,24,52,0.6); border-radius: 50%;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(56,189,248,0.2);
+    box-shadow: 0 0 80px rgba(56,189,248,0.1), 0 20px 40px rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 48px;
+  }
+  .slide-cover .brand-name {
+    font-size: 96px; font-weight: 800; letter-spacing: 6px;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #7dd3fc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px; line-height: 1;
+  }
+  .slide-cover .subtitle {
+    font-size: 32px; font-weight: 500; color: #cbd5e1; letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .slide-cover .firma-name {
+    font-size: 44px; font-weight: 700; color: #fbbf24;
+    margin-bottom: 36px; letter-spacing: 1px;
+  }
+  .slide-cover .divider {
+    width: 80px; height: 2px; background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    margin-bottom: 36px;
+  }
+  .slide-cover .date {
+    font-size: 20px; font-weight: 400; color: #7dd3fc; letter-spacing: 2px;
+  }
+
+  .kivon-footer {
+    position: absolute; bottom: 40px; left: 0; right: 0; text-align: center;
+    font-size: 14px; color: rgba(148,163,184,0.6); letter-spacing: 1.5px;
+  }
+
+  /* ========== ORTAK HEADER ========== */
+  .slide-header {
+    padding: 52px 72px 0; display: flex; align-items: center; gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .slide-header .header-logo { width: 48px; height: 48px; }
+  .slide-header .header-brand {
+    font-size: 20px; font-weight: 700; color: #38bdf8; letter-spacing: 2px;
+  }
+  .slide-header .header-tagline {
+    font-size: 13px; color: rgba(148,163,184,0.7); letter-spacing: 1px;
+  }
+  .slide-header .header-right { margin-left: auto; }
+
+  .slide-number {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 600; color: #7dd3fc;
+  }
+
+  .section-title {
+    font-size: 52px; font-weight: 800; color: #ffffff;
+    padding: 32px 72px 0; position: relative; z-index: 1;
+  }
+  .section-title .highlight { color: #38bdf8; }
+  .section-sub {
+    font-size: 20px; font-weight: 400; color: #94a3b8;
+    padding: 8px 72px 0; position: relative; z-index: 1;
+  }
+
+  /* ========== SLIDE 2: MEVCUT DURUM ========== */
+  .metrics-row {
+    display: flex; gap: 24px; padding: 40px 72px 0; position: relative; z-index: 1;
+  }
+  .metric-card {
+    flex: 1; background: rgba(16,24,52,0.5); border-radius: 20px;
+    border: 1px solid rgba(56,189,248,0.12); padding: 32px 28px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .metric-card .metric-icon { font-size: 36px; margin-bottom: 16px; }
+  .metric-card .metric-value {
+    font-size: 42px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;
+  }
+  .metric-card .metric-label { font-size: 15px; color: #94a3b8; line-height: 1.4; }
+
+  .pain-list {
+    padding: 32px 72px 0; position: relative; z-index: 1;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .pain-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: rgba(16,24,52,0.3); border-radius: 14px; padding: 20px 24px;
+    border: 1px solid rgba(56,189,248,0.08);
+  }
+  .pain-item .pain-dot {
+    width: 12px; height: 12px; border-radius: 50%; background: #fbbf24;
+    flex-shrink: 0; margin-top: 5px;
+    box-shadow: 0 0 12px rgba(251,191,36,0.5);
+  }
+  .pain-item .pain-text {
+    font-size: 17px; color: #e2e8f0; line-height: 1.5;
+  }
+  .pain-item .pain-text strong { color: #fbbf24; font-weight: 600; }
+
+  /* ========== SLIDE 3: Ã‡Ã–ZÃœM ========== */
+  .solution-flow {
+    display: flex; align-items: center; gap: 20px;
+    padding: 44px 72px 0; position: relative; z-index: 1;
+  }
+  .flow-step {
+    flex: 1; background: rgba(16,24,52,0.5); border-radius: 20px;
+    border: 1px solid rgba(56,189,248,0.15); padding: 28px 22px;
+    text-align: center; backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .flow-step .step-num {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: #fff;
+    margin: 0 auto 14px;
+  }
+  .flow-step .step-title {
+    font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px;
+  }
+  .flow-step .step-desc {
+    font-size: 14px; color: #94a3b8; line-height: 1.5;
+  }
+  .flow-arrow {
+    font-size: 28px; color: #38bdf8; flex-shrink: 0;
+  }
+
+  .features-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    padding: 32px 72px 0; position: relative; z-index: 1;
+  }
+  .feature-card {
+    background: rgba(16,24,52,0.4); border-radius: 16px; padding: 24px;
+    border: 1px solid rgba(56,189,248,0.1);
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .feature-card .feat-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(56,189,248,0.1); display: flex; align-items: center;
+    justify-content: center; font-size: 22px; flex-shrink: 0;
+  }
+  .feature-card .feat-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .feature-card .feat-desc { font-size: 13px; color: #94a3b8; line-height: 1.4; }
+
+  /* ========== SLIDE 4: SONUÃ‡LAR ========== */
+  .results-compare {
+    display: flex; gap: 28px; padding: 36px 72px 0; position: relative; z-index: 1;
+  }
+  .compare-col {
+    flex: 1; border-radius: 22px; padding: 32px 28px; text-align: center;
+  }
+  .compare-col.before {
+    background: rgba(16,24,52,0.4); border: 1px solid rgba(239,68,68,0.2);
+  }
+  .compare-col.after {
+    background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.3);
+    box-shadow: 0 0 40px rgba(56,189,248,0.08);
+  }
+  .compare-col .col-label {
+    font-size: 14px; font-weight: 600; letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .compare-col.before .col-label { color: #ef4444; }
+  .compare-col.after .col-label { color: #38bdf8; }
+  .compare-col .col-big {
+    font-size: 56px; font-weight: 800; margin-bottom: 8px;
+  }
+  .compare-col.before .col-big { color: #ef4444; }
+  .compare-col.after .col-big { color: #38bdf8; }
+  .compare-col .col-detail { font-size: 15px; color: #94a3b8; line-height: 1.5; }
+  .compare-col .col-save {
+    font-size: 20px; font-weight: 700; color: #fbbf24; margin-top: 10px;
+  }
+
+  .roi-bar {
+    margin: 36px 72px 0; padding: 28px 32px;
+    background: rgba(16,24,52,0.5); border-radius: 18px;
+    border: 1px solid rgba(56,189,248,0.12);
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 28px;
+  }
+  .roi-bar .roi-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; flex-shrink: 0;
+  }
+  .roi-bar .roi-value {
+    font-size: 40px; font-weight: 800; color: #fbbf24;
+  }
+  .roi-bar .roi-text {
+    font-size: 17px; color: #e2e8f0; line-height: 1.5;
+  }
+
+  /* ========== SLIDE 5: TEKLÄ°F ========== */
+  .packages-row {
+    display: flex; gap: 24px; padding: 36px 72px 0; position: relative; z-index: 1;
+  }
+  .package-card {
+    flex: 1; background: rgba(16,24,52,0.5); border-radius: 20px;
+    border: 1px solid rgba(56,189,248,0.12); padding: 32px 26px;
+    backdrop-filter: blur(10px); text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  .package-card.featured {
+    border-color: rgba(56,189,248,0.4);
+    box-shadow: 0 0 48px rgba(56,189,248,0.12), 0 8px 32px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  .package-card.featured::before {
+    content: 'Ã–NERÄ°LEN';
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 5px 18px; border-radius: 20px;
+  }
+  .package-card .pkg-name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .package-card .pkg-price {
+    font-size: 40px; font-weight: 800; color: #38bdf8; margin-bottom: 4px;
+  }
+  .package-card .pkg-period { font-size: 14px; color: #94a3b8; margin-bottom: 20px; }
+  .package-card .pkg-features {
+    list-style: none; text-align: left; display: flex; flex-direction: column; gap: 10px;
+  }
+  .package-card .pkg-features li {
+    font-size: 14px; color: #cbd5e1; padding-left: 20px; position: relative;
+  }
+  .package-card .pkg-features li::before {
+    content: 'âœ“'; position: absolute; left: 0; color: #38bdf8; font-weight: 700;
+  }
+  .package-card.featured .pkg-features li::before { color: #fbbf24; }
+
+  .contact-strip {
+    margin: 36px 72px 0; padding: 28px 32px;
+    background: rgba(16,24,52,0.5); border-radius: 18px;
+    border: 1px solid rgba(56,189,248,0.12);
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 20px;
+    justify-content: center;
+  }
+  .contact-strip .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 17px; color: #e2e8f0;
+  }
+  .contact-strip .contact-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #38bdf8;
+  }
+  .contact-strip strong { color: #38bdf8; }
+
+  .install-bar {
+    margin: 24px 72px 0; padding: 20px 28px;
+    background: rgba(16,24,52,0.3); border-radius: 14px;
+    border: 1px solid rgba(56,189,248,0.08);
+    position: relative; z-index: 1; text-align: center;
+  }
+  .install-bar span { color: #94a3b8; font-size: 15px; }
+  .install-bar strong { color: #7dd3fc; font-size: 17px; }
+
+  /* Print-friendly slide separator */
+  .slide-label {
+    text-align: center; color: rgba(148,163,184,0.3); font-size: 12px;
+    letter-spacing: 3px; margin-bottom: 4px;
+  }
+
+  @media print {
+    body { background: #0a0a1a; padding: 0; gap: 0; }
+    .slide { page-break-after: always; box-shadow: none; }
+    .slide-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== SLIDE 1: KAPAK ========== -->
+<div class="slide-label">S L I D E &nbsp; 1</div>
+<div class="slide slide-cover">
+  <div class="logo-container">
+    <svg class="logo-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glowCenter1" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="logoGlow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <circle cx="100" cy="100" r="55" fill="url(#glowCenter1)" opacity="0.3"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(56,189,248,0.12)" stroke-width="0.5"/>
+      <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(56,189,248,0.06)" stroke-width="0.3"/>
+      <!-- 3 dÃ¼ÄŸÃ¼m -->
+      <circle cx="60" cy="60" r="18" fill="none" stroke="#38bdf8" stroke-width="2" filter="url(#logoGlow)"/>
+      <circle cx="140" cy="60" r="14" fill="none" stroke="#7dd3fc" stroke-width="1.8" filter="url(#logoGlow)"/>
+      <circle cx="100" cy="140" r="22" fill="none" stroke="#818cf8" stroke-width="2.2" filter="url(#logoGlow)"/>
+      <circle cx="60" cy="60" r="4" fill="#38bdf8"/>
+      <circle cx="140" cy="60" r="3" fill="#7dd3fc"/>
+      <circle cx="100" cy="140" r="5" fill="#818cf8"/>
+      <circle cx="100" cy="100" r="3" fill="#fbbf24"/>
+      <!-- Bezier baÄŸlantÄ±larÄ± -->
+      <path d="M78 68 C100 40, 120 50, 126 74" stroke="rgba(56,189,248,0.4)" stroke-width="1" fill="none"/>
+      <path d="M140 78 C130 110, 118 130, 100 118" stroke="rgba(129,140,248,0.4)" stroke-width="1" fill="none"/>
+      <path d="M78 78 C70 110, 60 130, 100 118" stroke="rgba(125,211,252,0.4)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="brand-name">KIVON</div>
+  <div class="subtitle">Yapay Zeka DÃ¶nÃ¼ÅŸÃ¼m PlanÄ±</div>
+  <div class="firma-name">[ Firma AdÄ± ]</div>
+  <div class="divider"></div>
+  <div class="date">MayÄ±s 2026</div>
+  <div class="kivon-footer">Â© Kivon Teknoloji DanÄ±ÅŸmanlÄ±k &nbsp;|&nbsp; @kivon.iletisim &nbsp;|&nbsp; kivon.iletisim@gmail.com</div>
+</div>
+
+<!-- ========== SLIDE 2: MEVCUT DURUM ========== -->
+<div class="slide-label">S L I D E &nbsp; 2</div>
+<div class="slide">
+  <div class="slide-header">
+    <svg class="header-logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#38bdf8" stroke-width="1.5"/><circle cx="16" cy="16" r="5" fill="#38bdf8"/><circle cx="32" cy="16" r="4" fill="#7dd3fc"/><circle cx="24" cy="34" r="6" fill="#818cf8"/><path d="M20 20 C24 12, 28 14, 28 20" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" fill="none"/></svg>
+    <div>
+      <div class="header-brand">KIVON</div>
+      <div class="header-tagline">AI Teknoloji DanÄ±ÅŸmanlÄ±ÄŸÄ±</div>
+    </div>
+    <div class="header-right"><div class="slide-number">02</div></div>
+  </div>
+  <div class="section-title">Mevcut <span class="highlight">Durum</span></div>
+  <div class="section-sub">Ä°ÅŸletmenizin bugÃ¼nkÃ¼ operasyonel gÃ¶rÃ¼nÃ¼mÃ¼</div>
+
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-icon">â±ï¸</div>
+      <div class="metric-value">12+</div>
+      <div class="metric-label">HaftalÄ±k tekrarlayan<br>iÅŸlemlere harcanan saat</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">ğŸ“</div>
+      <div class="metric-value">65%</div>
+      <div class="metric-label">Telefon/mesaj trafiÄŸinin<br>rutin sorulara ayrÄ±lan kÄ±smÄ±</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">ğŸ“‹</div>
+      <div class="metric-value">4.2</div>
+      <div class="metric-label">Ortalama yanÄ±t sÃ¼resi<br>(saat, mesai iÃ§i)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">âŒ</div>
+      <div class="metric-value">18%</div>
+      <div class="metric-label">YanÄ±tsÄ±z kalan mÃ¼ÅŸteri<br>talebi oranÄ±</div>
+    </div>
+  </div>
+
+  <div class="pain-list">
+    <div class="pain-item">
+      <div class="pain-dot"></div>
+      <div class="pain-text">Ekibiniz haftada <strong>12+ saatini</strong> tekrarlayan sorularÄ± yanÄ±tlamakla geÃ§iriyor.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-dot"></div>
+      <div class="pain-text">Mesai dÄ±ÅŸÄ± gelen talepler <strong>ertesi gÃ¼ne</strong> kalÄ±yor, mÃ¼ÅŸteri memnuniyeti dÃ¼ÅŸÃ¼yor.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-dot"></div>
+      <div class="pain-text"><strong>AynÄ± bilgi</strong> farklÄ± kanallardan tekrar tekrar soruluyor â€” WhatsApp, telefon, e-posta.</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-dot"></div>
+      <div class="pain-text">Randevu alma, fiyat sorma gibi iÅŸlemler <strong>manÃ¼el</strong> yÃ¼rÃ¼tÃ¼lÃ¼yor.</div>
+    </div>
+  </div>
+
+  <div class="kivon-footer">Â© Kivon Teknoloji DanÄ±ÅŸmanlÄ±k &nbsp;|&nbsp; @kivon.iletisim &nbsp;|&nbsp; kivon.iletisim@gmail.com</div>
+</div>
+
+<!-- ========== SLIDE 3: Ã‡Ã–ZÃœM ========== -->
+<div class="slide-label">S L I D E &nbsp; 3</div>
+<div class="slide">
+  <div class="slide-header">
+    <svg class="header-logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#38bdf8" stroke-width="1.5"/><circle cx="16" cy="16" r="5" fill="#38bdf8"/><circle cx="32" cy="16" r="4" fill="#7dd3fc"/><circle cx="24" cy="34" r="6" fill="#818cf8"/></svg>
+    <div>
+      <div class="header-brand">KIVON</div>
+      <div class="header-tagline">AI Teknoloji DanÄ±ÅŸmanlÄ±ÄŸÄ±</div>
+    </div>
+    <div class="header-right"><div class="slide-number">03</div></div>
+  </div>
+  <div class="section-title">AI <span class="highlight">Ã‡Ã¶zÃ¼m</span></div>
+  <div class="section-sub">Kivon AkÄ±llÄ± Asistan â€” 7/24 Ã§alÄ±ÅŸan yapay zeka chatbot</div>
+
+  <div class="solution-flow">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-title">MÃ¼ÅŸteri Sorar</div>
+      <div class="step-desc">WhatsApp, web sitesi veya Instagram Ã¼zerinden soru gelir.</div>
+    </div>
+    <div class="flow-arrow">â†’</div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-title">AI Ä°ÅŸler</div>
+      <div class="step-desc">Chatbot soruyu anlar, bilgi tabanÄ±ndan yanÄ±t Ã¼retir.</div>
+    </div>
+    <div class="flow-arrow">â†’</div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-title">AnÄ±nda YanÄ±t</div>
+      <div class="step-desc">&lt; 3 saniyede doÄŸru yanÄ±t. 7/24, tatil-mesai fark etmez.</div>
+    </div>
+    <div class="flow-arrow">â†’</div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-title">Ä°nsana AktarÄ±r</div>
+      <div class="step-desc">KarmaÅŸÄ±k konularda ekibinize yÃ¶nlendirir, Ã¶zet geÃ§er.</div>
+    </div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feat-icon">ğŸ§ </div>
+      <div>
+        <div class="feat-title">Ã–zel Bilgi TabanÄ±</div>
+        <div class="feat-desc">Ä°ÅŸletmenize Ã¶zel SSS, fiyat, hizmet bilgileriyle eÄŸitilir. Sizin veriniz, sizin chatbotunuz.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">ğŸ”—</div>
+      <div>
+        <div class="feat-title">Ã‡ok KanallÄ± Entegrasyon</div>
+        <div class="feat-desc">WhatsApp, Instagram DM, web siteniz â€” tek chatbot hepsine aynÄ± anda baÄŸlanÄ±r.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">ğŸ“Š</div>
+      <div>
+        <div class="feat-title">CanlÄ± Panel</div>
+        <div class="feat-desc">GÃ¼nlÃ¼k soru sayÄ±sÄ±, konu daÄŸÄ±lÄ±mÄ±, mÃ¼ÅŸteri memnuniyeti â€” tek ekranda.</div>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">ğŸ”„</div>
+      <div>
+        <div class="feat-title">SÃ¼rekli GÃ¼ncelleme</div>
+        <div class="feat-desc">Yeni Ã¼rÃ¼n, kampanya, fiyat deÄŸiÅŸikliÄŸi â€” chatbot bilgisi anÄ±nda gÃ¼ncellenir.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kivon-footer">Â© Kivon Teknoloji DanÄ±ÅŸmanlÄ±k &nbsp;|&nbsp; @kivon.iletisim &nbsp;|&nbsp; kivon.iletisim@gmail.com</div>
+</div>
+
+<!-- ========== SLIDE 4: SONUÃ‡LAR ========== -->
+<div class="slide-label">S L I D E &nbsp; 4</div>
+<div class="slide">
+  <div class="slide-header">
+    <svg class="header-logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#38bdf8" stroke-width="1.5"/><circle cx="16" cy="16" r="5" fill="#38bdf8"/><circle cx="32" cy="16" r="4" fill="#7dd3fc"/><circle cx="24" cy="34" r="6" fill="#818cf8"/></svg>
+    <div>
+      <div class="header-brand">KIVON</div>
+      <div class="header-tagline">AI Teknoloji DanÄ±ÅŸmanlÄ±ÄŸÄ±</div>
+    </div>
+    <div class="header-right"><div class="slide-number">04</div></div>
+  </div>
+  <div class="section-title">Beklenen <span class="highlight">SonuÃ§lar</span></div>
+  <div class="section-sub">Ä°lk 30 gÃ¼nde Ã¶ngÃ¶rÃ¼len iyileÅŸme</div>
+
+  <div class="results-compare">
+    <div class="compare-col before">
+      <div class="col-label">Ã–NCE</div>
+      <div class="col-big">12+</div>
+      <div class="col-detail">HaftalÄ±k kayÄ±p saat<br>tekrarlayan iÅŸlerde</div>
+    </div>
+    <div class="compare-col after">
+      <div class="col-label">SONRA</div>
+      <div class="col-big">&lt;3</div>
+      <div class="col-detail">HaftalÄ±k kalan saat<br>sadece Ã¶zel durumlar</div>
+      <div class="col-save">â†“ %75 azalma</div>
+    </div>
+    <div class="compare-col before">
+      <div class="col-label">Ã–NCE</div>
+      <div class="col-big">4.2</div>
+      <div class="col-detail">Saatlik ortalama<br>yanÄ±t sÃ¼resi</div>
+    </div>
+    <div class="compare-col after">
+      <div class="col-label">SONRA</div>
+      <div class="col-big">&lt;3sn</div>
+      <div class="col-detail">AnlÄ±k otomatik yanÄ±t<br>7/24 kesintisiz</div>
+      <div class="col-save">â†“ %99 hÄ±z</div>
+    </div>
+  </div>
+
+  <div class="roi-bar">
+    <div class="roi-icon">ğŸ’°</div>
+    <div>
+      <div class="roi-value">%380 tahmini ROI</div>
+      <div class="roi-text">AylÄ±k 1.200 TL yatÄ±rÄ±m ile haftada 9+ saat kazanÄ±n. Bu, asgari Ã¼cret bazÄ±nda bile aylÄ±k net kazanÃ§ demektir.</div>
+    </div>
+  </div>
+
+  <div style="padding: 20px 72px 0; position: relative; z-index: 1;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+      <div style="background:rgba(16,24,52,0.3); border-radius:14px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,0.08);">
+        <div style="font-size:28px; font-weight:800; color:#38bdf8;">%85</div>
+        <div style="font-size:13px; color:#94a3b8;">Otomatik YanÄ±tlanma OranÄ±</div>
+      </div>
+      <div style="background:rgba(16,24,52,0.3); border-radius:14px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,0.08);">
+        <div style="font-size:28px; font-weight:800; color:#38bdf8;">+%40</div>
+        <div style="font-size:13px; color:#94a3b8;">MÃ¼ÅŸteri Memnuniyet ArtÄ±ÅŸÄ±</div>
+      </div>
+      <div style="background:rgba(16,24,52,0.3); border-radius:14px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,0.08);">
+        <div style="font-size:28px; font-weight:800; color:#38bdf8;">7/24</div>
+        <div style="font-size:13px; color:#94a3b8;">Kesintisiz Hizmet</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kivon-footer">Â© Kivon Teknoloji DanÄ±ÅŸmanlÄ±k &nbsp;|&nbsp; @kivon.iletisim &nbsp;|&nbsp; kivon.iletisim@gmail.com</div>
+</div>
+
+<!-- ========== SLIDE 5: TEKLÄ°F ========== -->
+<div class="slide-label">S L I D E &nbsp; 5</div>
+<div class="slide">
+  <div class="slide-header">
+    <svg class="header-logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#38bdf8" stroke-width="1.5"/><circle cx="16" cy="16" r="5" fill="#38bdf8"/><circle cx="32" cy="16" r="4" fill="#7dd3fc"/><circle cx="24" cy="34" r="6" fill="#818cf8"/></svg>
+    <div>
+      <div class="header-brand">KIVON</div>
+      <div class="header-tagline">AI Teknoloji DanÄ±ÅŸmanlÄ±ÄŸÄ±</div>
+    </div>
+    <div class="header-right"><div class="slide-number">05</div></div>
+  </div>
+  <div class="section-title"><span class="highlight">Teklif</span> Paketi</div>
+  <div class="section-sub">Ä°ÅŸletmeniz iÃ§in Ã¶nerilen AI dÃ¶nÃ¼ÅŸÃ¼m paketi</div>
+
+  <div class="packages-row">
+    <div class="package-card">
+      <div class="pkg-name">BaÅŸlangÄ±Ã§</div>
+      <div class="pkg-price">1.200 â‚º</div>
+      <div class="pkg-period">/ ay</div>
+      <ul class="pkg-features">
+        <li>1 AI Ã§Ã¶zÃ¼mÃ¼ (Chatbot)</li>
+        <li>Temel bilgi tabanÄ±</li>
+        <li>Tek kanal entegrasyonu</li>
+        <li>AylÄ±k raporlama</li>
+        <li>E-posta desteÄŸi</li>
+      </ul>
+    </div>
+    <div class="package-card featured">
+      <div class="pkg-name">Profesyonel</div>
+      <div class="pkg-price">2.000 â‚º</div>
+      <div class="pkg-period">/ ay</div>
+      <ul class="pkg-features">
+        <li>2 AI Ã§Ã¶zÃ¼mÃ¼</li>
+        <li>GeliÅŸmiÅŸ bilgi tabanÄ±</li>
+        <li>Ã‡ok kanallÄ± (WhatsApp + Web)</li>
+        <li>CanlÄ± dashboard paneli</li>
+        <li>HaftalÄ±k raporlama</li>
+        <li>Ã–ncelikli WhatsApp desteÄŸi</li>
+        <li>Ä°nsana yÃ¶nlendirme modÃ¼lÃ¼</li>
+      </ul>
+    </div>
+    <div class="package-card">
+      <div class="pkg-name">Kurumsal</div>
+      <div class="pkg-price">3.500 â‚º</div>
+      <div class="pkg-period">/ ay</div>
+      <ul class="pkg-features">
+        <li>SÄ±nÄ±rsÄ±z AI Ã§Ã¶zÃ¼mÃ¼</li>
+        <li>Ã–zel AI model eÄŸitimi</li>
+        <li>TÃ¼m kanallar entegre</li>
+        <li>GeliÅŸmiÅŸ analitik panel</li>
+        <li>GÃ¼nlÃ¼k raporlama</li>
+        <li>7/24 Ã¶ncelikli destek</li>
+        <li>API eriÅŸimi</li>
+        <li>Proses otomasyonu dahil</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="install-bar">
+    <span>â±ï¸ Kurulum sÃ¼resi: <strong>3 iÅŸ gÃ¼nÃ¼</strong> &nbsp;|&nbsp; SÃ¶zleÅŸme: <strong>AylÄ±k, taahhÃ¼tsÃ¼z</strong> &nbsp;|&nbsp; Ä°ptal: <strong>7 gÃ¼n bildirim yeterli</strong></span>
+  </div>
+
+  <div class="contact-strip">
+    <div class="contact-item"><div class="contact-dot"></div> WhatsApp: <strong>+90 530 398 27 12</strong></div>
+    <div class="contact-item"><div class="contact-dot"></div> Instagram: <strong>@kivon.iletisim</strong></div>
+    <div class="contact-item"><div class="contact-dot"></div> E-posta: <strong>kivon.iletisim@gmail.com</strong></div>
+  </div>
+
+  <div class="kivon-footer">Â© Kivon Teknoloji DanÄ±ÅŸmanlÄ±k &nbsp;|&nbsp; @kivon.iletisim &nbsp;|&nbsp; kivon.iletisim@gmail.com</div>
+</div>
+
+</body>
+</html>

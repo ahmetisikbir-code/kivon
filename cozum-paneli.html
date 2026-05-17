@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1777930373819703" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVON — Çözüm Yönetim Paneli</title>
-<meta name="description" content="KIVON Çözüm Yönetim Paneli - AI çözümlerinizi tek bir panelden yönetin. Paket seçimi, özelleştirme ve performans takibi.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, çözüm paneli, Bursa, AI yönetim, dashboard">
+<title>KIVON â€” Ã‡Ã¶zÃ¼m YÃ¶netim Paneli</title>
+<meta name="description" content="KIVON Ã‡Ã¶zÃ¼m YÃ¶netim Paneli - AI Ã§Ã¶zÃ¼mlerinizi tek bir panelden yÃ¶netin. Paket seÃ§imi, Ã¶zelleÅŸtirme ve performans takibi.">
+<meta name="keywords" content="KIVON, yapay zeka, KOBÄ°, Ã§Ã¶zÃ¼m paneli, Bursa, AI yÃ¶netim, dashboard">
 <meta name="author" content="KIVON">
-<meta property="og:title" content="KIVON - Çözüm Yönetim Paneli">
-<meta property="og:description" content="KIVON Çözüm Yönetim Paneli - AI çözümlerinizi tek bir panelden yönetin. Paket seçimi, özelleştirme ve performans takibi.">
+<meta property="og:title" content="KIVON - Ã‡Ã¶zÃ¼m YÃ¶netim Paneli">
+<meta property="og:description" content="KIVON Ã‡Ã¶zÃ¼m YÃ¶netim Paneli - AI Ã§Ã¶zÃ¼mlerinizi tek bir panelden yÃ¶netin. Paket seÃ§imi, Ã¶zelleÅŸtirme ve performans takibi.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kivontr.com/cozum-paneli.html">
 <link rel="canonical" href="https://kivontr.com/cozum-paneli.html">
@@ -50,7 +51,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 .cozum-tag.red{background:rgba(239,68,68,0.08);color:var(--red);border-color:rgba(239,68,68,0.15)}
 .cozum-features{list-style:none}
 .cozum-features li{font-size:12px;color:var(--gray);padding:3px 0;padding-left:18px;position:relative}
-.cozum-features li::before{content:'✓';position:absolute;left:0;color:var(--cyan);font-weight:700;font-size:10px}
+.cozum-features li::before{content:'âœ“';position:absolute;left:0;color:var(--cyan);font-weight:700;font-size:10px}
 .izin-panel{background:rgba(10,10,26,0.5);border:1px solid rgba(56,189,248,0.1);border-radius:20px;padding:24px;margin-bottom:32px}
 .izin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
 .izin-card{background:rgba(255,255,255,0.03);border:1px solid rgba(56,189,248,0.08);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px}
@@ -77,37 +78,37 @@ footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:12px
   <div class="header">
     <div class="header-left">
       <div class="logo"><img src="../gorseller/profil_foto_final.png" onerror="this.style.display='none'" alt=""></div>
-      <h1><span>Kivon</span> Çözüm Paneli</h1>
+      <h1><span>Kivon</span> Ã‡Ã¶zÃ¼m Paneli</h1>
     </div>
     <div class="paket-switch" id="paketSwitch">
-      <button class="paket-btn active" data-paket="baslangic">Başlangıç</button>
+      <button class="paket-btn active" data-paket="baslangic">BaÅŸlangÄ±Ã§</button>
       <button class="paket-btn" data-paket="profesyonel">Profesyonel</button>
       <button class="paket-btn" data-paket="kurumsal">Kurumsal</button>
     </div>
-    <button class="mobile-toggle" id="mobileToggle">☰</button>
+    <button class="mobile-toggle" id="mobileToggle">â˜°</button>
   </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-close" id="mobileClose">✕</button>
+  <button class="mobile-close" id="mobileClose">âœ•</button>
   <a href="index.html">Ana Sayfa</a>
 </div>
 
   <div class="stats" id="stats"></div>
 
-  <div class="section-title">AI Çözümleri</div>
+  <div class="section-title">AI Ã‡Ã¶zÃ¼mleri</div>
   <div class="cozum-grid" id="cozumGrid"></div>
 
-  <div class="section-title">İzin Kuralları</div>
+  <div class="section-title">Ä°zin KurallarÄ±</div>
   <div class="izin-panel">
     <div class="izin-grid" id="izinGrid"></div>
   </div>
 </div>
 
-<footer>© 2026 Kivon Teknoloji Danışmanlık · Çözüm Motoru v1.0</footer>
+<footer>Â© 2026 Kivon Teknoloji DanÄ±ÅŸmanlÄ±k Â· Ã‡Ã¶zÃ¼m Motoru v1.0</footer>
 
 <script>
 // ====================================================================
-//    KİVON ÇÖZÜM MOTORU — Web Uyumlu
+//    KÄ°VON Ã‡Ã–ZÃœM MOTORU â€” Web Uyumlu
 //    Esin: Claude Code buildTool() + Permission model
 // ====================================================================
 
@@ -117,30 +118,30 @@ const PAKET_FIYAT = { baslangic: '1.200 TL/ay', profesyonel: '2.000 TL/ay', kuru
 
 const COZUMLER = [
   {
-    kod: 'chatbot', ad: 'Chatbot Entegrasyonu', ikon: '💬',
-    aciklama: 'Müşterilerinize 7/24 anında cevap veren, randevu alan, fatura sorgulayan akıllı asistan.',
+    kod: 'chatbot', ad: 'Chatbot Entegrasyonu', ikon: 'ğŸ’¬',
+    aciklama: 'MÃ¼ÅŸterilerinize 7/24 anÄ±nda cevap veren, randevu alan, fatura sorgulayan akÄ±llÄ± asistan.',
     minPaket: 'baslangic', sektorler: ['muhasebe', 'e-ticaret', 'restoran', 'genel'],
-    ozellikler: ['WhatsApp entegrasyonu', 'SSS bilgi tabanı', '7/24 otomatik yanıt', 'Yazma animasyonu'],
+    ozellikler: ['WhatsApp entegrasyonu', 'SSS bilgi tabanÄ±', '7/24 otomatik yanÄ±t', 'Yazma animasyonu'],
     metrikler: { zamanKazanci: '40 saat/ay', musteriMemnuniyet: '+%35' }
   },
   {
-    kod: 'veri-analitigi', ad: 'Veri Analitiği', ikon: '📊',
-    aciklama: 'Rakamların içindeki fırsatı görün. Özel dashboard, otomatik raporlama, tahmin modelleri.',
+    kod: 'veri-analitigi', ad: 'Veri AnalitiÄŸi', ikon: 'ğŸ“Š',
+    aciklama: 'RakamlarÄ±n iÃ§indeki fÄ±rsatÄ± gÃ¶rÃ¼n. Ã–zel dashboard, otomatik raporlama, tahmin modelleri.',
     minPaket: 'profesyonel', sektorler: ['muhasebe', 'e-ticaret', 'genel'],
-    ozellikler: ['Anlık dashboard', 'CSV/PDF export', 'Karşılaştırmalı analiz', 'Eşik uyarıları'],
+    ozellikler: ['AnlÄ±k dashboard', 'CSV/PDF export', 'KarÅŸÄ±laÅŸtÄ±rmalÄ± analiz', 'EÅŸik uyarÄ±larÄ±'],
     metrikler: { zamanKazanci: '20 saat/ay', raporHizi: '5 dk/rapor' }
   },
   {
-    kod: 'proses-otomasyonu', ad: 'Proses Otomasyonu', ikon: '⚡',
-    aciklama: 'Tekrarlayan işleri makinelere devredin. E-posta, fatura, stok, randevu yönetimi otomatik.',
+    kod: 'proses-otomasyonu', ad: 'Proses Otomasyonu', ikon: 'âš¡',
+    aciklama: 'Tekrarlayan iÅŸleri makinelere devredin. E-posta, fatura, stok, randevu yÃ¶netimi otomatik.',
     minPaket: 'profesyonel', sektorler: ['muhasebe', 'e-ticaret', 'restoran', 'genel'],
-    ozellikler: ['E-posta otomasyonu', 'Fatura hazırlama', 'Stok takibi', 'Randevu yönetimi'],
+    ozellikler: ['E-posta otomasyonu', 'Fatura hazÄ±rlama', 'Stok takibi', 'Randevu yÃ¶netimi'],
     metrikler: { zamanKazanci: '30 saat/ay', hataAzaltma: '%95' }
   }
 ];
 
 const IZIN_KURALLARI = [
-  { hedef: 'chatbot', davranis: 'izinVer', sebep: 'Tüm paketlerde aktif', renk: 'green' },
+  { hedef: 'chatbot', davranis: 'izinVer', sebep: 'TÃ¼m paketlerde aktif', renk: 'green' },
   { hedef: 'veri-analitigi', davranis: 'reddet', sebep: 'En az Profesyonel paket gerektirir', renk: 'red' },
   { hedef: 'proses-otomasyonu', davranis: 'reddet', sebep: 'En az Profesyonel paket gerektirir', renk: 'red' },
   { hedef: 'ozel_ai_model', davranis: 'reddet', sebep: 'Sadece Kurumsal pakette', renk: 'red' },
@@ -171,10 +172,10 @@ function render() {
   const kilitliCozumler = COZUMLER.filter(c => !paketIcinIzinli(c, aktifPaket));
 
   document.getElementById('stats').innerHTML = `
-    <div class="stat"><div class="stat-num">${PAKET_FIYAT[aktifPaket]}</div><div class="stat-label">Aylık Ücret</div></div>
-    <div class="stat"><div class="stat-num">${limit.izinli}</div><div class="stat-label">İzinli Çözüm</div></div>
+    <div class="stat"><div class="stat-num">${PAKET_FIYAT[aktifPaket]}</div><div class="stat-label">AylÄ±k Ãœcret</div></div>
+    <div class="stat"><div class="stat-num">${limit.izinli}</div><div class="stat-label">Ä°zinli Ã‡Ã¶zÃ¼m</div></div>
     <div class="stat"><div class="stat-num">${limit.limit}</div><div class="stat-label">Paket Limiti</div></div>
-    <div class="stat"><div class="stat-num">${kilitliCozumler.length}</div><div class="stat-label">Kilitli Çözüm</div></div>
+    <div class="stat"><div class="stat-num">${kilitliCozumler.length}</div><div class="stat-label">Kilitli Ã‡Ã¶zÃ¼m</div></div>
   `;
 
   document.getElementById('cozumGrid').innerHTML = [...izinliCozumler, ...kilitliCozumler].map(c => {
@@ -183,7 +184,7 @@ function render() {
     <div class="cozum-card ${izinli ? '' : 'locked'}">
       <div class="cozum-header">
         <div class="cozum-icon">${c.ikon}</div>
-        <span class="cozum-badge ${izinli ? 'badge-izinli' : 'badge-red'}">${izinli ? 'İZİNLİ' : 'KİLİTLİ'}</span>
+        <span class="cozum-badge ${izinli ? 'badge-izinli' : 'badge-red'}">${izinli ? 'Ä°ZÄ°NLÄ°' : 'KÄ°LÄ°TLÄ°'}</span>
       </div>
       <div class="cozum-name">${c.ad}</div>
       <div class="cozum-desc">${c.aciklama}</div>
@@ -196,7 +197,7 @@ function render() {
       <ul class="cozum-features">
         ${c.ozellikler.map(o => `<li>${o}</li>`).join('')}
       </ul>` : `
-      <span class="cozum-tag red">🔒 ${c.minPaket} paketine yükseltin</span>
+      <span class="cozum-tag red">ğŸ”’ ${c.minPaket} paketine yÃ¼kseltin</span>
       `}
     </div>`;
   }).join('');
@@ -224,7 +225,7 @@ function render() {
         <div class="izin-hedef">${k.hedef.replace(/_/g, ' ')}</div>
         <div class="izin-sebep">${k.sebep}</div>
       </div>
-      <div class="izin-davranis txt-${k.renk}">${k.davranis === 'izinVer' ? 'İZİN' : 'RED'}</div>
+      <div class="izin-davranis txt-${k.renk}">${k.davranis === 'izinVer' ? 'Ä°ZÄ°N' : 'RED'}</div>
     </div>
   `).join('');
 }
