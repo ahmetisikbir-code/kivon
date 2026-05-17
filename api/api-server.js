@@ -71,19 +71,15 @@ Yanıt kuralları:
 - Dosya düzenleme/kod yazma gibi işlemleri buradan yapamazsın, Ahmet'in CLI üzerinden yapması gerekir
 - Kivon'un vizyonunu ve ürünlerini iyi bilirsin`;
 
-// Chat Bridge depolama
-const BRIDGE_STORE = 'chat-bridge-store.json';
+// Chat Bridge depolama (RAM'de, dosya degil)
 const sseClients = [];
+let bridgeStore = {
+  nextId: 1,
+  messages: [{ id: 0, role: 'ai', text: 'Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', ts: new Date().toISOString() }]
+};
 
-function bridgeInit() {
-  if (!fs.existsSync(BRIDGE_STORE)) {
-    const ilk = { role: 'ai', text: 'Merhaba! Ben Kivon Ana İşlemci. Sana nasıl yardımcı olabilirim?', ts: new Date().toISOString() };
-    fs.writeFileSync(BRIDGE_STORE, JSON.stringify({ nextId: 1, messages: [{ id: 0, ...ilk }] }));
-  }
-}
-
-function bridgeOku() { return JSON.parse(fs.readFileSync(BRIDGE_STORE, 'utf-8')); }
-function bridgeYaz(data) { fs.writeFileSync(BRIDGE_STORE, JSON.stringify(data, null, 2)); }
+function bridgeOku() { return bridgeStore; }
+function bridgeYaz(data) { bridgeStore = data; }
 
 function sseBildir(olay, veri) {
   const msg = `event: ${olay}\ndata: ${JSON.stringify(veri)}\n\n`;
@@ -246,7 +242,6 @@ input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); }
 </html>`;
 
 const server = http.createServer(async (req, res) => {
-  bridgeInit();
   // CORS
   const IZINLI_ORIGINLER = ['https://kivontr.com', 'https://www.kivontr.com', 'http://localhost:3000', 'null'];
   const origin = req.headers.origin;
