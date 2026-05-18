@@ -114,7 +114,7 @@ async function analizEt() {
     const res = await fetch(PROXY, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        soru: `Isletme profili:\nSektor: ${sektor}\nEn buyuk zaman kaybi: ${sorun}\n\nBu isletme icin Kivon'un hangi 3 AI cozumu en uygun olur? Her birini 2-3 cumleyle, neden faydali olacagini anlatarak oner. En uygun paketi de belirt (Baslangic 1.200 TL, Profesyonel 2.000 TL, Kurumsal 3.500 TL). Sonuna "WhatsApp +905303982712" ve "14 gun ucretsiz deneme" hatirlatmasi ekle.`,
+        soru: `Isletme profili:\nSektor: ${sektor}\nEn buyuk zaman kaybi: ${sorun}\n\nBu isletme icin Kivon'un hangi 3 AI cozumu en uygun olur? Her birini 2-3 cumleyle, neden faydali olacagini anlatarak oner. En uygun paketi de belirt (Baslangic 5.000 TL, Profesyonel 8.000 TL, Kurumsal 12.000 TL). Sonuna "WhatsApp +905303982712" ve "14 gun ucretsiz deneme" hatirlatmasi ekle.`,
         sistem: 'Sen Kivon\'un AI cozum danismanisin. Kivon KOBİ\'lere chatbot, veri analitigi, proses otomasyonu ve AI danismanlik sunar. 30 farkli AI otomasyon hizmeti var. Profesyonel, samimi, Turkce cevap ver.'
       })
     });
