@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivon Inspect — Urun Tanitim Demosu</title>
+<style>
+:root{--p:#0D7C7C;--g:#E8A838;--n:#1B2A4A;--b:#F4F6FA;--t:#1E293B;--m:#64748B;--gr:#22C55E;--rd:#EF4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#0a0f1a;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;padding:14px 24px;align-items:center;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06)}
+.top .logo{font-weight:900;font-size:18px;letter-spacing:-.5px}.top .logo span{color:var(--g)}
+.top .right{display:flex;align-items:center;gap:8px}
+.top button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit;transition:.2s}
+.top button:hover{background:rgba(255,255,255,.15)}
+.top .slide-counter{font-size:12px;color:var(--m);min-width:60px;text-align:center}
+.bar{display:flex;gap:4px;padding:10px 24px 0;flex-shrink:0}
+.bar div{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;transition:.3s}
+.bar .on{background:var(--p)}.bar .now{background:var(--g);box-shadow:0 0 8px rgba(232,168,56,.3)}
+.main{flex:1;padding:24px;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;animation:fade .5s ease;max-width:860px;margin:0 auto}
+.slide.on{display:block}@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+h1{font-size:30px;text-align:center;margin-bottom:6px;font-weight:800}h1 em{color:var(--g);font-style:normal}
+h2{text-align:center;color:var(--m);font-weight:400;font-size:15px;margin-bottom:32px;line-height:1.5}
+.mock{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3)}
+.mh{background:linear-gradient(135deg,var(--n),var(--p));padding:16px 22px;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.mb{padding:22px}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.row2{grid-template-columns:repeat(2,1fr)}
+.row3{grid-template-columns:repeat(3,1fr)}
+.stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 12px;text-align:center;transition:.2s}
+.stat:hover{background:rgba(255,255,255,.05)}
+.stat .v{font-size:28px;font-weight:800;line-height:1.1}.stat .l{font-size:10px;color:var(--m);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.g{color:var(--gr)}.r{color:var(--rd)}.go{color:var(--g)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{grid-template-columns:1fr 1fr 1fr}
+.card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:16px;transition:.2s}
+.card:hover{background:rgba(255,255,255,.04)}
+.card h5{font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.card h5 .ic{font-size:16px}
+table{width:100%;font-size:11px;border-collapse:collapse;margin-top:4px}
+th{text-align:left;padding:7px 10px;color:var(--m);font-size:10px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid rgba(255,255,255,.08);font-weight:500}
+td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:hover td{background:rgba(255,255,255,.02)}
+.b{display:inline-block;padding:3px 8px;border-radius:8px;font-size:9px;font-weight:700}
+.bg{background:rgba(34,197,94,.15);color:var(--gr)}.br{background:rgba(239,68,68,.15);color:var(--rd)}.by{background:rgba(234,179,8,.15);color:var(--g)}.bl{background:rgba(13,124,124,.15);color:var(--p)}
+.citem{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.02);border-radius:8px;font-size:12px;margin-bottom:5px;transition:.2s}
+.citem:hover{background:rgba(255,255,255,.04)}
+.citem .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.citem .tag{font-size:10px;margin-left:auto;font-weight:600}
+.ai-box{background:linear-gradient(135deg,rgba(13,124,124,.2),rgba(27,42,74,.3));border:1px solid rgba(13,124,124,.3);border-radius:14px;padding:20px 24px;margin-top:12px;position:relative;overflow:hidden}
+.ai-box::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(232,168,56,.06);border-radius:50%;pointer-events:none}
+.ai-box h5{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ai-box h5 .ai-icon{font-size:22px}
+.ai-box p{font-size:13px;line-height:1.8;opacity:.9}
+.ai-box .ai-meta{font-size:10px;color:var(--m);margin-top:8px}
+.c-room{text-align:center;padding:14px 10px;background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.06);border-radius:12px;font-size:11px;transition:.2s}
+.c-room:hover{border-color:rgba(255,255,255,.12)}
+.c-room .ico{font-size:28px;margin-bottom:4px;line-height:1}
+.c-room .name{font-weight:700;font-size:12px;margin-bottom:2px}
+.c-room .info{font-size:10px;color:var(--m);margin-bottom:6px}
+.c-room .btn{display:inline-block;padding:5px 14px;border-radius:6px;font-size:10px;font-weight:700;border:none;color:#fff;cursor:default}
+.btn-go{background:var(--gr)}.btn-deep{background:var(--g);color:#111}.btn-busy{background:var(--rd)}
+.cko{border-color:rgba(232,168,56,.35)!important;background:rgba(232,168,56,.04)}
+.ft{text-align:center;padding:12px;font-size:10px;color:var(--m);flex-shrink:0;border-top:1px solid rgba(255,255,255,.04)}
+.ft .pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--g);animation:p 1.5s infinite;margin-right:5px;vertical-align:middle}
+@keyframes p{0%,100%{opacity:1;box-shadow:0 0 6px var(--g)}50%{opacity:.3;box-shadow:0 0 2px var(--g)}}
+.cta-box{text-align:center;padding:32px;background:rgba(255,255,255,.03);border-radius:14px;margin-top:20px}
+.cta-box p{font-size:13px;color:var(--m);margin:3px 0}
+.cta-box strong{color:#fff}
+.warn-strip{background:rgba(239,68,68,.08);border-left:3px solid var(--rd);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:8px;font-size:12px;display:flex;align-items:center;gap:8px}
+.warn-strip .w-icon{font-size:18px;flex-shrink:0}
+.warn-strip.yellow{background:rgba(234,179,8,.08);border-left-color:var(--g)}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cl-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border-radius:6px;font-size:11px}
+.cl-item .box{width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
+.cl-item.done{opacity:.4}.cl-item.done .box{background:var(--gr);border-color:var(--gr);color:#fff}
+.cl-item.deep{border-left:2px solid var(--g)}
+.key-val{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.03)}
+.key-val .kv{color:var(--m)}.key-val .vv{font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="logo">Kivon <span>Inspect</span></div>
+  <div class="right">
+    <span class="slide-counter" id="counter">1 / 10</span>
+    <button onclick="prev()">Geri</button>
+    <button onclick="togglePause()" id="pb">Duraklat</button>
+    <button onclick="next()">Ileri</button>
+  </div>
+</div>
+<div class="bar" id="bar"></div>
+<div class="main">
+
+<!-- 0: INTRO -->
+<div class="slide on" id="s0">
+  <h1>Temizlik Denetiminde<br><em>Yeni Standart</em></h1>
+  <h2>Yapay zeka ile goruntulu otel temizlik denetim ve takip platformu</h2>
+  <div class="grid grid3">
+    <div class="card"><div style="font-size:32px;margin-bottom:8px">AI</div><h5><span class="ic">..</span>AI Goruntu Analizi</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Temizlikci fotograf ceker, yapay zeka 6 bolgeyi es zamanli puanlar. Gecti/kaldi aninda belli olur.</p></div>
+    <div class="card" style="border-color:var(--g);background:rgba(232,168,56,.04)"><div style="font-size:32px;margin-bottom:8px">DB</div><h5><span class="ic">..</span>Canli Yonetim Paneli</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Tum odalarin durumu tek ekranda. Her denetim fotografli. Denetmene hazir.</p></div>
+    <div class="card"><div style="font-size:32px;margin-bottom:8px">ML</div><h5><span class="ic">..</span>Akilli Raporlama</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Gunluk temizlik mudurune, haftalik otel mudurune otomatik mail. AI yorumlu.</p></div>
+  </div>
+</div>
+
+<!-- 1: DASHBOARD -->
+<div class="slide" id="s1">
+  <h1 style="font-size:22px">Yonetim Paneli</h1>
+  <h2>Tek ekranda otelin tum temizlik durumu - anlik, fotografli, raporlanabilir</h2>
+  <div class="mock">
+    <div class="mh"><span>Lara Garden Resort &amp; Spa</span><span style="font-size:11px;opacity:.7">19 Mayis 2026 Persembe</span></div>
+    <div class="mb">
+      <div class="row">
+        <div class="stat"><div class="v">193</div><div class="l">Toplam Alan</div></div>
+        <div class="stat"><div class="v">180</div><div class="l">Bugun Denetim</div></div>
+        <div class="stat"><div class="v g">%87</div><div class="l">Basari Orani</div></div>
+        <div class="stat"><div class="v r">24</div><div class="l">Kalan Oda</div></div>
+      </div>
+      <div class="row row2">
+        <div class="card"><h5><span class="ic">..</span>Calisan Bazli Performans</h5>
+          <table><tr><th>Calisan</th><th>Bugun</th><th>Basari</th><th>Trend</th></tr>
+            <tr><td>Mehmet Kaya</td><td>10</td><td><span class="b bg">%92</span></td><td style="color:var(--gr)">artiyor</td></tr>
+            <tr><td>Ayse Demir</td><td>9</td><td><span class="b bg">%88</span></td><td style="color:var(--gr)">sabit</td></tr>
+            <tr><td>Hasan Celik</td><td>11</td><td><span class="b br">%71</span></td><td style="color:var(--rd)">dusuyor</td></tr>
+          </table>
+        </div>
+        <div class="card"><h5><span class="ic">..</span>Sorunlu Bolgeler (Bu Hafta)</h5>
+          <div class="key-val"><span class="kv">Banyo</span><span class="vv r">12 kez kaldi</span></div>
+          <div class="key-val"><span class="kv">Zemin</span><span class="vv" style="color:#f97316">8 kez kaldi</span></div>
+          <div class="key-val"><span class="kv">Yuzeyler</span><span class="vv go">5 kez kaldi</span></div>
+          <div class="key-val"><span class="kv">Pencereler</span><span class="vv go">3 kez kaldi</span></div>
+          <div class="key-val"><span class="kv">Yatak</span><span class="vv g">1 kez kaldi</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2: CLEANER -->
+<div class="slide" id="s2">
+  <h1 style="font-size:22px">Temizlikci Mobil Paneli</h1>
+  <h2>PIN ile giris. Sadece sorumlu oldugu kat. 3 butonla calisir.</h2>
+  <div class="mock">
+    <div class="mh"><span>Mehmet Kaya</span><span style="font-size:11px;opacity:.7">Kat: 1 - 30 oda kaldi</span></div>
+    <div class="mb">
+      <div class="row row3">
+        <div class="stat"><div class="v g">19</div><div class="l">Tamamlanan</div></div>
+        <div class="stat"><div class="v go">30</div><div class="l">Bekleyen</div></div>
+        <div class="stat"><div class="v r">2</div><div class="l">Tekrar Gerekli</div></div>
+      </div>
+      <h5 style="margin-bottom:10px">Denetlenecek Odalar</h5>
+      <div class="grid grid3">
+        <div class="c-room"><div class="ico">O</div><div class="name">101 - Standart</div><div class="info">6 bolge</div><button class="btn btn-go">Bos / Temizle</button></div>
+        <div class="c-room cko"><div class="ico" style="color:var(--g)">C</div><div class="name">105 - Cikis Odasi</div><div class="info" style="color:var(--g)">Derin temizlik gerekli</div><button class="btn btn-deep">Derin Temizlik</button></div>
+        <div class="c-room"><div class="ico">D</div><div class="name">108 - Standart</div><div class="info">Oda kullanimda</div><button class="btn btn-busy">Dolu / Girilemez</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3: CHECKLIST -->
+<div class="slide" id="s3">
+  <h1 style="font-size:22px">On Kontrol Listesi</h1>
+  <h2>Fotograf cekmeden once tamamlanmasi gerekenler. Mudur tarafindan ozellestirilebilir.</h2>
+  <div class="mock">
+    <div class="mh"><span>Oda 101 - Standart Tek Kisilik</span><span class="b bg">8 madde</span></div>
+    <div class="mb">
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;margin-bottom:14px;font-size:12px">
+        <input type="checkbox" id="deep" style="width:16px;height:16px;accent-color:var(--g)" onchange="this.checked?showDeep():hideDeep()">
+        <label for="deep" style="color:var(--g);font-weight:600;cursor:pointer">Derin temizlik (musteri cikis yapmis, oda bos)</label>
+      </div>
+      <div class="checklist">
+        <div class="cl-item"><div class="box">..</div>Zemin supuruldu / paspaslandi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Toz alindi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Cop alindi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Yuzeyler silindi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Yatak duzeltildi / nevresim degisti mi?</div>
+        <div class="cl-item"><div class="box">..</div>Banyo temizlendi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Ayna / cam temizlendi mi?</div>
+        <div class="cl-item"><div class="box">..</div>Havlu / bornoz kontrol edildi mi?</div>
+        <div class="cl-item deep" style="display:none" id="d1"><div class="box">..</div>Minibar / buzdolabi kontrol edildi mi?</div>
+        <div class="cl-item deep" style="display:none" id="d2"><div class="box">..</div>Kasa bos ve acik mi?</div>
+        <div class="cl-item deep" style="display:none" id="d3"><div class="box">..</div>Perdeler kontrol edildi / tozu alindi mi?</div>
+        <div class="cl-item deep" style="display:none" id="d4"><div class="box">..</div>Koltuk / cekyat alti supuruldu mu?</div>
+        <div class="cl-item deep" style="display:none" id="d5"><div class="box">..</div>TV / kumanda calisiyor, temiz mi?</div>
+      </div>
+      <p style="font-size:10px;color:var(--m);margin-top:12px;text-align:center">Tum zorunlu maddeler tamamlaninca fotograf cekme adimina gecilir.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 4: AI RAPOR -->
+<div class="slide" id="s4">
+  <h1 style="font-size:22px">AI Gunluk Rapor</h1>
+  <h2>Her sabah temizlik mudurunun mail kutusunda. Tum veriyi analiz eder, oneri sunar.</h2>
+  <div class="mock">
+    <div class="mh"><span>Temizlik Raporu - 19 Mayis 2026</span><span class="b bl">AI Analizli</span></div>
+    <div class="mb">
+      <div class="row">
+        <div class="stat"><div class="v">349</div><div class="l">Denetim</div></div>
+        <div class="stat"><div class="v g">286</div><div class="l">Gecen (%82)</div></div>
+        <div class="stat"><div class="v r">63</div><div class="l">Kalan (%18)</div></div>
+        <div class="stat"><div class="v go">12</div><div class="l">Calisan</div></div>
+      </div>
+      <div class="row row2">
+        <div><h5 style="font-size:12px;margin-bottom:6px;color:var(--g)">En Basarili Calisanlar</h5>
+          <div class="key-val"><span class="kv">Mehmet Kaya</span><span class="vv g">%92</span></div>
+          <div class="key-val"><span class="kv">Derya Ozkan</span><span class="vv g">%90</span></div>
+          <div class="key-val"><span class="kv">Ayse Demir</span><span class="vv g">%88</span></div>
+        </div>
+        <div><h5 style="font-size:12px;margin-bottom:6px;color:var(--rd)">Gelismesi Gerekenler</h5>
+          <div class="key-val"><span class="kv">Hasan Celik</span><span class="vv r">%71</span></div>
+          <div class="key-val"><span class="kv">Fatma Yildiz</span><span class="vv" style="color:#f97316">%76</span></div>
+          <div class="key-val"><span class="kv">Osman Bulut</span><span class="vv" style="color:#f97316">%79</span></div>
+        </div>
+      </div>
+      <div class="ai-box">
+        <h5><span class="ai-icon">AI</span> Yapay Zeka Yorumu</h5>
+        <p>"Gunluk temizlik performansi genel olarak %82 seviyesinde. En sorunlu bolge <strong style="color:var(--rd)">Banyo</strong> - ozellikle lavabo ve dusakabin kontrolunde tekrar eden hatalar var. Zemin temizliginde de standart sapma goruluyor. Hasan Celik'in son 3 gundur performansi dusuyor - birebir gorusme oneririm. Banyo temizligi icin kisa bir egitim ve Zemin kontrolune ek bir supervisor gozden gecirmesi, basari oranini %87-88 bandina cikarabilir."</p>
+        <div class="ai-meta">Groq AI / llama-3.3-70b - Gercek zamanli analiz</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5: HAFTALIK AI RAPOR -->
+<div class="slide" id="s5">
+  <h1 style="font-size:22px">AI Haftalik Rapor</h1>
+  <h2>Her Pazartesi otel mudurune ve temizlik mudurune mail ile gonderilir. Stratejik analiz.</h2>
+  <div class="mock">
+    <div class="mh"><span>Haftalik Rapor - 13-19 Mayis 2026</span><span class="b bg">Iki mudure</span></div>
+    <div class="mb">
+      <div class="row">
+        <div class="stat"><div class="v">2.486</div><div class="l">Toplam Denetim</div></div>
+        <div class="stat"><div class="v g">%87</div><div class="l">Haftalik Basari</div></div>
+        <div class="stat"><div class="v go">%84</div><div class="l">Gecen Hafta</div></div>
+        <div class="stat"><div class="v g" style="font-size:18px">+3%</div><div class="l">Iyilesme</div></div>
+      </div>
+      <div class="ai-box">
+        <h5><span class="ai-icon">AI</span> Haftalik Stratejik Analiz</h5>
+        <p>"Bu hafta basari orani gecen haftaya gore %3 artarak %87 seviyesine yukseldi. En buyuk iyilesme <strong style="color:var(--gr)">Yuzeyler</strong> kategorisinde - gecen haftaki AI onerisi dogrultusunda yapilan ek kontroller sonuc verdi. Banyo halen en sorunlu bolge olmaya devam ediyor. <strong style="color:var(--g)">Onumuzdeki hafta icin:</strong> 1) Banyo temizligine ozel egitim oturumu 2) Hasan Celik icin performans gelisim plani 3) Ilaclama takviminde Mutfak ve Bahce gecikmis - acil aksiyon alinmali. Yorum analizine gore misafir memnuniyeti temizlik bazinda %11 iyilesti."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6: YORUM -->
+<div class="slide" id="s6">
+  <h1 style="font-size:22px">Misafir Yorum Analizi</h1>
+  <h2>Google, TripAdvisor, Booking yorumlari otomatik entegre edilir. AI temizlik sikayetlerini tespit eder.</h2>
+  <div class="mock">
+    <div class="mb">
+      <div class="row">
+        <div class="stat"><div class="v">18</div><div class="l">Google</div></div>
+        <div class="stat"><div class="v">15</div><div class="l">TripAdvisor</div></div>
+        <div class="stat"><div class="v">12</div><div class="l">Booking.com</div></div>
+        <div class="stat"><div class="v r">11</div><div class="l">Temizlik Sikayeti</div></div>
+      </div>
+      <table>
+        <tr><th>Kaynak</th><th>Yorum</th><th>AI Analizi</th><th>Ciddiyet</th></tr>
+        <tr><td><span class="b bl">Google</span></td><td>Banyoda sac teli vardi, lavabo temiz degildi, hayal kirikligi</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--rd);font-weight:700">8/10</td></tr>
+        <tr><td><span class="b bl">TripAdvisor</span></td><td>Harika bir hafta sonu, her sey mukemmeldi, tekrar gelecegiz</td><td><span class="b bg">Temiz / Pozitif</span></td><td>-</td></tr>
+        <tr><td><span class="b bl">Booking</span></td><td>Koridor halilari cok kirli, ilk izlenim kotu oldu</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--rd);font-weight:700">6/10</td></tr>
+        <tr><td><span class="b bl">Google</span></td><td>Havuz kenari sezlonglar kirliydi, ilgilenilmiyor</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--g);font-weight:700">4/10</td></tr>
+      </table>
+      <div class="ai-box" style="margin-top:12px;padding:14px 18px">
+        <h5 style="font-size:13px"><span class="ai-icon" style="font-size:18px">AI</span> AI Onerisi</h5>
+        <p style="font-size:12px">Son 30 gunde <strong>11 yorumda</strong> temizlik sikayeti tespit edildi. En sik sikayet: <strong style="color:var(--rd)">Banyo temizligi</strong> (4 yorum) ve <strong style="color:#f97316">Zemin/koridor</strong> (3 yorum). Bu iki alana odaklanmak, Booking puanini 0.3-0.5 artirabilir.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7: ILACLAMA -->
+<div class="slide" id="s7">
+  <h1 style="font-size:22px">Ilaclama Takip Sistemi</h1>
+  <h2>Hangi alan ne zaman ilaclandi? Hangisi yaklasiyor? Hangisi gecikti? Tek ekranda.</h2>
+  <div class="mock">
+    <div class="mb">
+      <div class="warn-strip"><span class="w-icon">..</span><span><strong>Mutfak</strong> - Bocek/Hasere ilaclamasi <strong style="color:var(--rd)">3 gun gecikti!</strong> Hemen aksiyon alin.</span></div>
+      <div class="warn-strip yellow"><span class="w-icon">..</span><span><strong>Bahce & Peyzaj</strong> - Sinek ilaclamasi <strong style="color:var(--g)">2 gun kaldi.</strong> Randevu olusturulmali.</span></div>
+      <table style="margin-top:12px">
+        <tr><th>Alan</th><th>Tur</th><th>Periyot</th><th>Son Ilaclama</th><th>Sonraki</th><th>Durum</th></tr>
+        <tr><td>Mutfak</td><td>Bocek/Hasere</td><td>Aylik</td><td>19 Nisan</td><td style="color:var(--rd)">.. 3 gun gecikti</td><td><span class="b br">Gecikmis</span></td></tr>
+        <tr><td>Bahce & Peyzaj</td><td>Sinek</td><td>Aylik</td><td>20 Nisan</td><td style="color:var(--g)">.. 2 gun kaldi</td><td><span class="b by">Yaklasiyor</span></td></tr>
+        <tr><td>Ana Havuz</td><td>Dezenfeksiyon</td><td>2 Aylik</td><td>30 Nisan</td><td>29 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
+        <tr><td>Restoran</td><td>Bocek/Hasere</td><td>Aylik</td><td>14 Mayis</td><td>13 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
+        <tr><td>Spa & Wellness</td><td>Dezenfeksiyon</td><td>Aylik</td><td>12 Mayis</td><td>11 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
+      </table>
+      <div class="grid" style="margin-top:12px">
+        <div class="card"><h5><span class="ic">..</span>Kayip Esya</h5>
+          <div class="citem">iPhone 15 - Apple <span class="b bg" style="margin-left:auto">Teslim</span></div>
+          <div class="citem">RayBan Gunes Gozlugu <span class="b br" style="margin-left:auto">Bekliyor</span></div>
+          <div class="citem">Altin Kolye - Atasay <span class="b bg" style="margin-left:auto">Teslim</span></div>
+        </div>
+        <div class="card"><h5><span class="ic">..</span>Bakim Arizalari</h5>
+          <div class="citem">Klima sogutmuyor <span style="color:var(--rd);font-weight:700;margin-left:auto">5/5 acil</span></div>
+          <div class="citem">Musluk akitiyor <span style="color:var(--g);font-weight:700;margin-left:auto">3/5</span></div>
+          <div class="citem">Priz calismiyor <span class="b bg" style="margin-left:auto">Cozuldu</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8: TEKNIK -->
+<div class="slide" id="s8">
+  <h1 style="font-size:22px">Teknik Altyapi</h1>
+  <h2>Kendi sunucunuzda calisir. Veri disari cikmaz. Sifir bagimlilik.</h2>
+  <div class="grid grid3">
+    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">0</div><h5>Sifir Bagimlilik</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Sadece Node.js. npm install yok. package.json yok. Tek dosya sunucu.</p></div>
+    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>JSON Veritabani</h5><p style="font-size:11px;color:var(--m);line-height:1.5">MySQL, PostgreSQL gerektirmez. Tum veri JSON dosyalarinda. Yedek: klasoru kopyala.</p></div>
+    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>SHA256 Guvenlik</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Sifreler hashlenir. Token bazli yetkilendirme. /data/ klasoru disariya kapali.</p></div>
+    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>Mobil Uyumlu</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Temizlikci paneli 480px mobil oncelikli. Mudur paneli responsive.</p></div>
+    <div class="card" style="text-align:center;padding:20px;border-color:var(--g);background:rgba(232,168,56,.04)"><div style="font-size:36px;margin-bottom:10px">BY</div><h5>Beyaz Etiket</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Otelin logosu, renkleri, adiyla calisir. Kivon markasi gorunmez.</p></div>
+    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">SH</div><h5>Self-Hosted</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Veri sizin sunucunuzda kalir. Disariya veri cikmaz. GDPR uyumlu.</p></div>
+  </div>
+</div>
+
+<!-- 9: CTA -->
+<div class="slide" id="s9">
+  <h1><em>Hazir misiniz?</em></h1>
+  <h2>Otel temizlik denetimini yapay zeka ile dijitallestirmenin tam zamani</h2>
+  <div class="mock">
+    <div class="mb" style="text-align:center;padding:36px">
+      <div style="font-size:56px;margin-bottom:14px;line-height:1">K</div>
+      <h4 style="font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px">Kivon Inspect</h4>
+      <p style="color:var(--m);margin-bottom:28px;font-size:14px">AI Destekli Otel Temizlik Denetim Platformu</p>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;font-size:14px">
+        <span style="color:#fff;font-weight:600">Ahmet Isik</span>
+        <span style="color:var(--m)">ahmet@kivon.com</span>
+        <span style="color:var(--m)">0530 398 27 12</span>
+        <span style="color:var(--g);margin-top:4px">kivontr.com</span>
+      </div>
+      <div class="cta-box">
+        <p><strong>Demo oturumu bitti.</strong></p>
+        <p style="margin-top:8px">Canli sistemi denemek icin:</p>
+        <p style="margin-top:6px"><strong>Mudur Paneli:</strong> mudur@laragarden.com / mudur123</p>
+        <p><strong>Temizlikci Panel:</strong> PIN: 1010</p>
+        <p style="margin-top:6px;font-size:11px;color:var(--m)">kivontr.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="ft"><span class="pulse"></span> <span id="ti">Sonraki slayt: 15s</span> | Ok tuslari ile gezinebilir | Bosluk ile duraklat</div>
+
+<script>
+var cur = 0, paused = false, cd = 15, total = 10;
+
+for (var i = 0; i < total; i++) {
+  var d = document.createElement('div');
+  d.id = 'bd' + i;
+  document.getElementById('bar').appendChild(d);
+}
+
+function show(n) {
+  for (var i = 0; i < total; i++) {
+    var s = document.getElementById('s' + i);
+    if (s) s.className = 'slide' + (i === n ? ' on' : '');
+    var b = document.getElementById('bd' + i);
+    if (b) b.className = i < n ? 'on' : (i === n ? 'now' : '');
+  }
+  cur = n; cd = 15;
+  document.getElementById('counter').textContent = (n+1) + ' / ' + total;
+  updateLabel();
+}
+function next() { if (cur < total - 1) show(cur + 1); }
+function prev() { if (cur > 0) show(cur - 1); }
+function togglePause() { paused = !paused; document.getElementById('pb').textContent = paused ? 'Devam' : 'Duraklat'; }
+function updateLabel() { document.getElementById('ti').textContent = paused ? 'Duraklatildi' : 'Sonraki slayt: ' + cd + 's'; }
+function showDeep(){
+  var deep = document.querySelectorAll('.deep');
+  for(var i=0;i<deep.length;i++) deep[i].style.display = 'flex';
+}
+function hideDeep(){
+  var deep = document.querySelectorAll('.deep');
+  for(var i=0;i<deep.length;i++) deep[i].style.display = 'none';
+}
+
+setInterval(function() {
+  if (!paused) { cd--; updateLabel(); if (cd <= 0) show(cur < total - 1 ? cur + 1 : 0); }
+}, 1000);
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+  if (e.key === ' ') { e.preventDefault(); togglePause(); }
+});
+
+show(0);
+</script>
+</body>
+</html>
