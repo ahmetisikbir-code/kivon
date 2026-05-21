@@ -200,18 +200,14 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <img src="img/logo.png" alt="KIVON" style="width:32px;height:32px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(56,189,248,0.3)">
+      <svg viewBox="0 0 72 72" fill="none" style="width:28px;height:28px;filter:drop-shadow(0 0 10px rgba(56,189,248,0.3))"><rect x="2" y="2" width="68" height="68" rx="16" fill="#0a0a1a" stroke="#38bdf8" stroke-width="2"/><circle cx="22" cy="24" r="5.5" fill="#38bdf8"/><circle cx="50" cy="20" r="5.5" fill="#38bdf8"/><circle cx="36" cy="48" r="5.5" fill="#38bdf8"/><line x1="28" y1="24" x2="44" y2="20" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><line x1="22" y1="30" x2="30" y2="37" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="26" x2="42" y2="37" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/></svg>
       <span>KIVON</span>
     </a>
     <ul class="nav-links">
       <li><a href="#cozumler">Çözümler</a></li>
-      <li><a href="muhasebe.html">Muhasebe</a></li>
-      <li><a href="eticaret.html">E-Ticaret</a></li>
-      <li><a href="restoran.html">Restoran</a></li>
-      <li><a href="30-cozum.html">Çözümler</a></li>
-      <li><a href="crm.html">CRM</a></li>
+      <li><a href="30-cozum.html">AI Çözümler</a></li>
     </ul>
-    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank">İletişim</a>
+    <a href="https://wa.me/905303982712" class="nav-cta" target="_blank" rel="noopener noreferrer">İletişim</a>
     <button class="mobile-toggle" id="mobileToggle">☰</button>
   </div>
 </nav>
@@ -219,11 +215,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
 <div class="mobile-overlay" id="mobileOverlay">
   <button class="mobile-close" id="mobileClose">✕</button>
   <a href="#cozumler">Çözümler</a>
-  <a href="muhasebe.html">Muhasebe</a>
-  <a href="eticaret.html">E-Ticaret</a>
-  <a href="restoran.html">Restoran</a>
   <a href="30-cozum.html">AI Çözümler</a>
-  <a href="crm.html">CRM</a>
   <a href="neden-kivon.html">Neden KIVON?</a>
   <a href="blog.html">Blog</a>
   <a href="ortaklar.html">Ortaklar</a>
@@ -239,45 +231,17 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     <p style="color:rgba(255,255,255,0.2);font-size:clamp(0.7rem,1.5vw,1rem);letter-spacing:8px;text-transform:uppercase;margin-top:8px;opacity:0;animation:fi 1.5s 1.2s forwards">KOBİ'nizi Yapay Zeka ile Dönüştürün</p>
     <div style="display:flex;gap:32px;justify-content:center;margin-top:24px;opacity:0;animation:fi 1.5s 1.8s forwards;flex-wrap:wrap">
       <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#6366f1">7</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">Çözüm</div></div>
-      <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:#7dd3fc">3</div><div style="font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:2px">Sektör</div></div>
-    </div>
-    <div style="display:flex;gap:12px;justify-content:center;margin-top:16px;opacity:0;animation:fi 1.5s 2.5s forwards;flex-wrap:wrap">
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);color:#38bdf8">📑 Muhasebe</span>
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);color:#6366f1">🛒 E-Ticaret</span>
-      <span style="padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);color:#fbbf24">🍽️ Restoran</span>
     </div>
     <div class="hero-actions" style="justify-content:center;margin-top:20px;opacity:0;animation:fi 1.5s 3s forwards">
-      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" style="pointer-events:auto">Ücretsiz Görüşme</a>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="pointer-events:auto">Ücretsiz Görüşme</a>
       <a href="#cozumler" class="btn btn-glass" style="pointer-events:auto">Çözümler</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ SEKTÖRLER ═══ -->
-<div class="container" style="position:relative;z-index:1;padding:40px 24px">
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-    <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">📑</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Muhasebe</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Fatura, beyanname, müşteri takibi</p>
-    </a>
-    <a href="eticaret.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(251,191,36,0.08));border:1px solid rgba(99,102,241,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">🛒</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">E-Ticaret</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Sipariş, stok, müşteri hizmetleri</p>
-    </a>
-    <a href="restoran.html" class="card" style="text-decoration:none;color:var(--white);text-align:center;padding:40px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(56,189,248,0.08));border:1px solid rgba(251,191,36,0.1);transition:var(--tr);display:block">
-      <span style="font-size:48px;display:block;margin-bottom:12px">🍽️</span>
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px">Restoran & Kafe</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.3)">Rezervasyon, menü, paket servis</p>
-    </a>
-  </div>
-</div>
-
 <!-- ═══ STATS ═══ -->
 <div class="stats-bar container">
   <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">Çözüm</div></div>
-  <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Sektör</div></div>
   <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Kategori</div></div>
 </div>
 
@@ -334,7 +298,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
           <li>7/24 otomatik yanıt</li>
           <li>Aylık rapor</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener noreferrer">Başla</a>
       </div>
       <div class="pricing-card featured">
         <div class="pricing-badge">Popüler</div>
@@ -346,7 +310,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
           <li>Haftalık rapor</li>
           <li>Randevu yönetimi</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">Başla</a>
+        <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Başla</a>
       </div>
       <div class="pricing-card">
         <div class="pricing-name">Kurumsal</div>
@@ -357,7 +321,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
           <li>Özel AI model</li>
           <li>7/24 öncelikli</li>
         </ul>
-        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank">İletişim</a>
+        <a href="https://wa.me/905303982712" class="btn btn-glass" target="_blank" rel="noopener noreferrer">İletişim</a>
       </div>
     </div>
   </div>
@@ -386,9 +350,9 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     <span class="section-label">İletişim</span>
     <h2 class="section-title">Bize <span>Ulaşın</span></h2>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank">WhatsApp</a>
+      <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="mailto:kivon.iletisim@gmail.com" class="btn btn-glass">E-Posta</a>
-      <a href="https://instagram.com/kivon.iletisim" class="btn btn-glass" target="_blank">Instagram</a>
+      <a href="https://instagram.com/kivon.iletisim" class="btn btn-glass" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </div>
 </section>
@@ -401,9 +365,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     </div>
     <div>
       <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Çözümler</h4>
-      <a href="muhasebe.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Muhasebe</a>
-      <a href="eticaret.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">E-Ticaret</a>
-      <a href="restoran.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Restoran</a>
       <a href="servis-katalogu.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Tüm Çözümler</a>
       <a href="30-cozum.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">AI Çözümler</a>
       <a href="blog.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Blog</a>
@@ -411,7 +372,6 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     <div>
       <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Araçlar</h4>
       <a href="dashboard.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Dashboard</a>
-      <a href="crm.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">CRM</a>
       <a href="api-dokuman.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">API</a>
     </div>
     <div>
@@ -425,7 +385,7 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     </div>
   </div>
   <p>© 2026 Kivon · Bursa · kivontr.com · <a href="https://wa.me/905303982712" style="color:rgba(255,255,255,0.2)">WhatsApp</a> · <a href="mailto:kivon.iletisim@gmail.com" style="color:rgba(255,255,255,0.2)">E-Posta</a></p>
-  <p style="font-size:10px;color:rgba(255,255,255,0.08);margin-top:8px">Son güncelleme: 16 Mayıs 2026</p>
+  <p style="font-size:10px;color:rgba(255,255,255,0.08);margin-top:8px">Son güncelleme: 22 Mayıs 2026</p>
 </footer>
 
 <!-- ═══ 3D HELIX ═══ -->
