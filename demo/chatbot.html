@@ -116,15 +116,15 @@ const varsayilanBilgiTabani = {
   "yanitlar": {
 
     // ── 1. BİZ KİMİZ & NEDEN KİVON ──────────────────────────
-    "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Bursa merkezli bir yapay zeka danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
+    "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Türkiye merkezli bir yapay zeka danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Bursa'dan Türkiye geneline.",
 
     "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Bursa'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 5.000 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
 
     "referans|müşteri|örnek|tecrübe|portföy": "Seçici ve butik ilerliyoruz — az müşteri, çok ilgi prensibiyle çalışıyoruz. Bu yaklaşım sayesinde her müşterimize aceleye gelmemiş, özel çözümler sunabiliyoruz. Ayrıca erken katılım döneminde avantajlı fiyatlar ve 14 gün koşulsuz çıkış hakkı tanıyoruz. Risk sıfır, çözüm size özel.",
 
-    "ekip|çalışan|kadro|kimler": "Kivon, Bursa merkezli bir AI danışmanlık şirketi. Muhasebe, E-Ticaret ve Restoran sektörlerine anahtar teslim AI çözümleri sunuyoruz.",
+    "ekip|çalışan|kadro|kimler": "Kivon, Türkiye merkezli bir AI danışmanlık şirketi. Muhasebe, E-Ticaret ve Restoran sektörlerine anahtar teslim AI çözümleri sunuyoruz.",
 
-    "bursa|konum|nerede|adres": "Bursa merkezliyiz. Bu bizim için stratejik bir avantaj: Türkiye'nin en büyük sanayi ve ticaret şehirlerinden birindeyiz. Muhasebe büroları, e-ticaret işletmeleri, restoranlar — hedef kitlemiz tam burada. Yüz yüze görüşme, yerinde keşif, hızlı müdahale imkanımız var. Ama Türkiye'nin her yerine uzaktan hizmet de veriyoruz.",
+    "bursa|konum|nerede|adres": "Türkiye merkezliyiz. Bu bizim için stratejik bir avantaj: Türkiye'nin en büyük sanayi ve ticaret şehirlerinden birindeyiz. Muhasebe büroları, e-ticaret işletmeleri, restoranlar — hedef kitlemiz tam burada. Yüz yüze görüşme, yerinde keşif, hızlı müdahale imkanımız var. Ama Türkiye'nin her yerine uzaktan hizmet de veriyoruz.",
 
 
     // ── 2. SEKTÖREL: MUHASEBE ────────────────────────────────
@@ -441,7 +441,7 @@ async function groqSor(soru) {
           body: JSON.stringify({
             model: GROQ_MODEL,
             messages: [
-              { role: 'system', content: 'Sen Kivon\'un AI asistanisin. Kivon, Bursa merkezli, KOBİ\'lere AI cozumleri sunan bir teknoloji danismanligidir. Paketler: Baslangic 5.000 TL, Profesyonel 8.000 TL, Kurumsal 12.000 TL. 3 sektor: muhasebe, e-ticaret, restoran/kafe. Turkce, kisa ve net cevap ver. Max 3-4 cumle.' },
+              { role: 'system', content: 'Sen Kivon\'un AI asistanisin. Kivon, Türkiye merkezli, KOBİ\'lere AI cozumleri sunan bir teknoloji danismanligidir. Paketler: Baslangic 5.000 TL, Profesyonel 8.000 TL, Kurumsal 12.000 TL. 3 sektor: muhasebe, e-ticaret, restoran/kafe. Turkce, kisa ve net cevap ver. Max 3-4 cumle.' },
               { role: 'user', content: soru }
             ],
             temperature: 0.7, max_tokens: 300
