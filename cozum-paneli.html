@@ -77,8 +77,8 @@ footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:12px
 <div class="container">
   <div class="header">
     <div class="header-left">
-      <div class="logo"><img src="../gorseller/profil_foto_final.png" onerror="this.style.display='none'" alt=""></div>
-      <h1><span>Kivon</span> Çözüm Paneli</h1>
+      <div class="logo"><img src="img/logo-icon.png" onerror="this.style.display='none'" alt=""></div>
+      <h1><span>KIVON</span> Çözüm Paneli</h1>
     </div>
     <div class="paket-switch" id="paketSwitch">
       <button class="paket-btn active" data-paket="baslangic">Başlangıç</button>
@@ -118,14 +118,14 @@ const PAKET_FIYAT = { baslangic: '5.000 TL/ay', profesyonel: '8.000 TL/ay', kuru
 
 const COZUMLER = [
   {
-    kod: 'chatbot', ad: 'Chatbot Entegrasyonu', ikon: 'g���',
+    kod: 'chatbot', ad: 'Chatbot Entegrasyonu', ikon: '💬',
     aciklama: 'Müşterilerinize 7/24 anında cevap veren, randevu alan, fatura sorgulayan akıllı asistan.',
     minPaket: 'baslangic', sektorler: ['muhasebe', 'e-ticaret', 'restoran', 'genel'],
     ozellikler: ['WhatsApp entegrasyonu', 'SSS bilgi tabanı', '7/24 otomatik yanıt', 'Yazma animasyonu'],
     metrikler: { zamanKazanci: '40 saat/ay', musteriMemnuniyet: '+%35' }
   },
   {
-    kod: 'veri-analitigi', ad: 'Veri Analitiği', ikon: 'g���',
+    kod: 'veri-analitigi', ad: 'Veri Analitiği', ikon: '📊',
     aciklama: 'Rakamların içindeki fırsatı görün. Özel dashboard, otomatik raporlama, tahmin modelleri.',
     minPaket: 'profesyonel', sektorler: ['muhasebe', 'e-ticaret', 'genel'],
     ozellikler: ['Anlık dashboard', 'CSV/PDF export', 'Karşılaştırmalı analiz', 'Eşik uyarıları'],
@@ -197,7 +197,7 @@ function render() {
       <ul class="cozum-features">
         ${c.ozellikler.map(o => `<li>${o}</li>`).join('')}
       </ul>` : `
-      <span class="cozum-tag red">g��� ${c.minPaket} paketine yükseltin</span>
+      <span class="cozum-tag red">🔒 ${c.minPaket} paketine yükseltin</span>
       `}
     </div>`;
   }).join('');
