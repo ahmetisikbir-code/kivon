@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEIL — Luxury Fashion House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --gold: #c9a96e;
+  --gold-light: #d4b87a;
+  --gray-100: #f5f5f5;
+  --gray-200: #e8e8e8;
+  --gray-400: #999;
+  --gray-600: #555;
+  --gray-800: #1a1a1a;
+  --gray-900: #0d0d0d;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.gold-accent {
+  color: var(--gold);
+}
+
+.hr-gold {
+  border: none;
+  height: 1px;
+  background: var(--gold);
+  width: 60px;
+  margin: 24px 0;
+}
+
+/* ── Announcement Bar ── */
+.announcement {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 8px 20px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ── Navigation ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.nav-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 48px;
+}
+
+.nav-links a {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.72rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-actions button:hover {
+  color: var(--gold);
+}
+
+.nav-cart {
+  position: relative;
+}
+
+.nav-cart-count {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.6rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  background: var(--gray-900);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(201, 169, 110, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(201, 169, 110, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.5) 2px,
+      rgba(255,255,255,0.5) 3px
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding: 120px 40px;
+}
+
+.hero-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--white);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  margin-bottom: 48px;
+}
+
+.hero-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 48px;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 20px 48px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+.hero-cta:hover {
+  color: var(--black);
+  border-color: var(--white);
+}
+
+.hero-cta:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+}
+
+/* ── Section Headers ── */
+.section-header {
+  text-align: center;
+  padding: 100px 0 60px;
+}
+
+.section-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+
+.section-line {
+  width: 40px;
+  height: 1px;
+  background: var(--black);
+  margin: 0 auto;
+}
+
+.section-line.gold {
+  background: var(--gold);
+}
+
+/* ── Products Grid ── */
+.products {
+  padding-bottom: 100px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  background: var(--gray-200);
+}
+
+.product-card {
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-image {
+  aspect-ratio: 3 / 4;
+  background: var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card:hover .product-image-inner {
+  transform: scale(1.03);
+}
+
+.product-image-tag {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gray-200);
+  letter-spacing: 0.05em;
+  transition: color 0.4s;
+}
+
+.product-card:hover .product-image-tag {
+  color: var(--gold);
+  opacity: 0.15;
+}
+
+.product-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.02) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.product-card:hover .product-image-overlay {
+  opacity: 1;
+}
+
+.product-quick-view {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: rgba(255,255,255,0.9);
+  padding: 12px 28px;
+  opacity: 0;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+
+.product-card:hover .product-quick-view {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.product-info {
+  padding: 28px 24px;
+}
+
+.product-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+  transition: color 0.3s;
+}
+
+.product-card:hover .product-name {
+  color: var(--gold);
+}
+
+.product-category {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 12px;
+}
+
+.product-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* ── Editorial Section ── */
+.editorial {
+  padding: 100px 0;
+  background: var(--gray-100);
+}
+
+.editorial-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.editorial-visual {
+  aspect-ratio: 3 / 4;
+  background: var(--gray-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(201, 169, 110, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.03) 0%, transparent 50%);
+}
+
+.editorial-visual-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.04);
+  white-space: nowrap;
+}
+
+.editorial-text-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+
+.editorial-text-block .hr-gold {
+  margin-bottom: 28px;
+}
+
+.editorial-text-block p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+}
+
+.editorial-link {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--black);
+  position: relative;
+  padding-bottom: 4px;
+  margin-top: 12px;
+  transition: color 0.3s;
+}
+
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+.editorial-link:hover {
+  color: var(--gold);
+}
+
+.editorial-link:hover::after {
+  width: 100%;
+}
+
+/* ── Featured Banner ── */
+.featured-banner {
+  padding: 60px 0 0;
+}
+
+.featured-banner-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 500px;
+}
+
+.featured-banner-visual {
+  background: var(--gray-800);
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-banner-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(45deg, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.015) 40px,
+      rgba(255,255,255,0.015) 41px
+    );
+}
+
+.featured-banner-visual-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.04);
+  white-space: nowrap;
+}
+
+.featured-banner-text {
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  color: var(--white);
+}
+
+.featured-banner-text .hero-eyebrow {
+  margin-bottom: 24px;
+}
+
+.featured-banner-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.featured-banner-text p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 36px;
+}
+
+.featured-banner-link {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+  width: fit-content;
+}
+
+.featured-banner-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gold);
+}
+
+.featured-banner-link:hover {
+  color: var(--white);
+}
+
+/* ── Newsletter ── */
+.newsletter {
+  padding: 120px 0;
+  text-align: center;
+  background: var(--white);
+}
+
+.newsletter-inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.newsletter h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.newsletter p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: border-color 0.3s;
+}
+
+.newsletter-form:focus-within {
+  border-color: var(--gold);
+}
+
+.newsletter-form input {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 16px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--black);
+  outline: none;
+  letter-spacing: 0.03em;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--gray-400);
+  letter-spacing: 0.05em;
+}
+
+.newsletter-form button {
+  border: none;
+  background: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 16px 8px 16px 24px;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.newsletter-form button:hover {
+  color: var(--black);
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px 0 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-brand h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-bottom: 20px;
+}
+
+.footer-brand p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  max-width: 280px;
+}
+
+.footer-col h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col ul a {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.3s;
+}
+
+.footer-col ul a:hover {
+  color: var(--white);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+}
+
+.footer-social {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-social a {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: var(--gold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .editorial-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .editorial-visual {
+    aspect-ratio: 16 / 9;
+  }
+
+  .featured-banner-inner {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .featured-banner-text {
+    padding: 60px 40px;
+  }
+
+  .featured-banner-visual {
+    aspect-ratio: 16 / 9;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .product-info {
+    padding: 20px 16px;
+  }
+
+  .hero-content {
+    padding: 80px 20px;
+  }
+
+  .featured-banner-text {
+    padding: 40px 24px;
+  }
+
+  .featured-banner-text h3 {
+    font-size: 1.6rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .section-header {
+    padding: 60px 0 40px;
+  }
+
+  .products {
+    padding-bottom: 60px;
+  }
+
+  .editorial {
+    padding: 60px 0;
+  }
+
+  .newsletter {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.8rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    border-bottom: none;
+  }
+
+  .newsletter-form input {
+    border-bottom: 1px solid var(--gray-200);
+    text-align: center;
+  }
+
+  .newsletter-form button {
+    padding: 16px;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.fade-up-1 { animation-delay: 0.1s; }
+.fade-up-2 { animation-delay: 0.2s; }
+.fade-up-3 { animation-delay: 0.3s; }
+.fade-up-4 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement">
+  Complimentary shipping on all orders &bull; New SS24 arrivals now available
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Veil</a>
+    <ul class="nav-links">
+      <li><a href="#new">New In</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#editorial">Editorial</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button>Search</button>
+      <button>Account</button>
+      <button class="nav-cart">
+        Bag
+        <span class="nav-cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow fade-up fade-up-1">Spring / Summer 2024</p>
+    <h1 class="hero-title fade-up fade-up-2">SS24</h1>
+    <p class="hero-subtitle fade-up fade-up-3">Collection</p>
+    <div class="hero-line fade-up fade-up-3"></div>
+    <a href="#shop" class="hero-cta fade-up fade-up-4">Explore the Collection</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products" id="shop">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">The Collection</p>
+      <h2 class="section-title">SS24 Essentials</h2>
+      <hr class="section-line">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">01</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Tailored Wool Blazer</h3>
+          <p class="product-category">Outerwear</p>
+          <p class="product-price">$1,890</p>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">02</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Silk Drape Dress</h3>
+          <p class="product-category">Dresses</p>
+          <p class="product-price">$2,450</p>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">03</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Cashmere Turtleneck</h3>
+          <p class="product-category">Knitwear</p>
+          <p class="product-price">$1,220</p>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">04</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Wide-Leg Trousers</h3>
+          <p class="product-category">Bottoms</p>
+          <p class="product-price">$980</p>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">05</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Structured Leather Bag</h3>
+          <p class="product-category">Accessories</p>
+          <p class="product-price">$3,200</p>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card">
+        <div class="product-image">
+          <div class="product-image-inner">
+            <span class="product-image-tag">06</span>
+          </div>
+          <div class="product-image-overlay"></div>
+          <span class="product-quick-view">Quick View</span>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Minimal Leather Boot</h3>
+          <p class="product-category">Footwear</p>
+          <p class="product-price">$1,650</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Editorial -->
+<section class="editorial" id="editorial">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="editorial-visual">
+        <div class="editorial-visual-text">VEIL</div>
+      </div>
+      <div class="editorial-text-block">
+        <h3>The Art of<br>Understated Luxury</h3>
+        <hr class="hr-gold">
+        <p>
+          VEIL is founded on the principle that true luxury whispers. Our SS24 collection explores
+          the tension between structure and fluidity — sharp tailoring softened by gossamer silks,
+          architectural silhouettes rendered in the finest natural fibres.
+        </p>
+        <p>
+          Each piece is crafted in our Italian atelier, where generations of artisanship meet
+          a distinctly modern sensibility. The result is a wardrobe that transcends seasons,
+          designed for those who understand that elegance is not about being seen, but about
+          being remembered.
+        </p>
+        <a href="#" class="editorial-link">Discover Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Banner -->
+<section class="featured-banner">
+  <div class="container">
+    <div class="featured-banner-inner">
+      <div class="featured-banner-visual">
+        <div class="featured-banner-visual-label">ATELIER</div>
+      </div>
+      <div class="featured-banner-text">
+        <p class="hero-eyebrow">Craftsmanship</p>
+        <h3>Made in Italy,<br>Designed for Life</h3>
+        <p>
+          From the initial sketch to the final stitch, every VEIL garment passes through
+          the hands of master artisans. We source only the world's finest materials —
+          Mongolian cashmere, Como silk, and ethically sourced wool — ensuring each
+          creation meets the exacting standards our clients demand.
+        </p>
+        <a href="#" class="featured-banner-link">Visit the Atelier</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <h3>Join the Veil</h3>
+    <p>
+      Receive early access to new collections, private sale invitations,
+      and curated editorial content delivered to your inbox.
+    </p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>VEIL</h4>
+        <p>
+          A contemporary luxury fashion house dedicated to the art of refined simplicity.
+          Est. Milano, 2018.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Womenswear</a></li>
+          <li><a href="#">Menswear</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">The Edit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Atelier</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Client Care</h5>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Veil Milano. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Pinterest</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

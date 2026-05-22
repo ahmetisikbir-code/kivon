@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian Legal | Corporate Law Firm</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans Pro',sans-serif;color:#fff;background:#0a1628;line-height:1.6;overflow-x:hidden}
+
+:root{
+  --dark:#0a1628;
+  --gold:#c9a963;
+  --gold-light:#e0c78a;
+  --gold-dark:#a88c48;
+  --white:#ffffff;
+  --off-white:#f4f1ea;
+  --dark-2:#0d1e36;
+  --dark-3:#112240;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,169,99,0.15);padding:0 24px}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:80px}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-icon{width:42px;height:42px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center}
+.logo-icon-inner{width:14px;height:14px;background:var(--gold)}
+.logo-text{font-family:'EB Garamond',serif;font-size:26px;font-weight:600;color:var(--white);letter-spacing:3px;text-transform:uppercase}
+.logo-text span{color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;transition:color .3s;position:relative}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--gold);color:var(--dark);border:none;padding:12px 28px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s;font-family:'Source Sans Pro',sans-serif}
+.nav-cta:hover{background:var(--gold-light);transform:translateY(-1px)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%, rgba(201,169,99,0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, rgba(201,169,99,0.05) 0%, transparent 50%)}
+.hero-lines{position:absolute;inset:0;opacity:.03}
+.hero-lines::before{content:'';position:absolute;top:0;left:50%;width:1px;height:100%;background:var(--gold)}
+.hero-lines::after{content:'';position:absolute;top:50%;left:0;width:100%;height:1px;background:var(--gold)}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.hero-content{}
+.hero-subtitle{font-size:13px;text-transform:uppercase;letter-spacing:4px;color:var(--gold);font-weight:600;margin-bottom:24px}
+.hero-title{font-family:'EB Garamond',serif;font-size:68px;font-weight:600;line-height:1.08;color:var(--white);margin-bottom:28px}
+.hero-title em{font-style:italic;color:var(--gold);display:block}
+.hero-desc{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:460px;margin-bottom:40px}
+.hero-btns{display:flex;gap:16px}
+.btn-primary{background:var(--gold);color:var(--dark);border:none;padding:16px 36px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;transition:all .3s;font-family:'Source Sans Pro',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,169,99,0.25)}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.3);padding:16px 36px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;cursor:pointer;transition:all .3s;font-family:'Source Sans Pro',sans-serif;text-decoration:none;display:inline-flex;align-items:center}
+.btn-outline:hover{background:rgba(255,255,255,0.05);border-color:var(--white)}
+.hero-visual{position:relative;height:500px}
+.hero-shape{position:absolute;inset:0;border:1px solid rgba(201,169,99,0.2);transform:rotate(1deg)}
+.hero-shape:nth-child(2){transform:rotate(-1deg);inset:30px;border-color:rgba(201,169,99,0.3)}
+.hero-shape:nth-child(3){transform:rotate(0deg);inset:60px;border-color:rgba(201,169,99,0.4)}
+.hero-shape:nth-child(4){inset:90px;background:linear-gradient(135deg, rgba(201,169,99,0.08), rgba(201,169,99,0.02))}
+.hero-column{position:absolute;left:0;right:0;bottom:0;top:35%;background:linear-gradient(to bottom, transparent, rgba(201,169,99,0.04), rgba(201,169,99,0.08));border:1px solid rgba(201,169,99,0.15);border-bottom:none}
+.hero-column::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:80px;background:linear-gradient(to bottom, rgba(201,169,99,0.5), transparent)}
+.hero-est{position:absolute;top:100px;left:50%;transform:translateX(-50%);text-align:center}
+.hero-est-year{font-family:'EB Garamond',serif;font-size:36px;font-weight:700;color:var(--gold)}
+.hero-est-text{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+/* SECTION TITLES */
+.section-subtitle{font-size:13px;text-transform:uppercase;letter-spacing:4px;color:var(--gold);font-weight:600;text-align:center;margin-bottom:16px}
+.section-title{font-family:'EB Garamond',serif;font-size:48px;font-weight:600;text-align:center;color:var(--white);margin-bottom:16px;line-height:1.2}
+.section-line{width:60px;height:2px;background:var(--gold);margin:0 auto 60px}
+
+/* PRACTICE AREAS */
+.practice{padding:120px 0;background:var(--dark-2)}
+.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.practice-card{background:var(--dark-3);padding:48px 36px;border:1px solid rgba(201,169,99,0.08);transition:all .4s;position:relative;overflow:hidden}
+.practice-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right, transparent, var(--gold), transparent);opacity:0;transition:opacity .4s}
+.practice-card:hover{transform:translateY(-4px);border-color:rgba(201,169,99,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.practice-card:hover::before{opacity:1}
+.practice-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative}
+.practice-icon svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.practice-name{font-family:'EB Garamond',serif;font-size:24px;font-weight:600;color:var(--white);margin-bottom:12px}
+.practice-desc{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:20px}
+.practice-link{color:var(--gold);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:gap .3s}
+.practice-link:hover{gap:14px}
+
+/* ATTORNEYS */
+.attorneys{padding:120px 0;background:var(--dark);overflow:hidden}
+.attorney-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.attorney-card{text-align:center;transition:transform .4s}
+.attorney-card:hover{transform:translateY(-6px)}
+.attorney-photo{width:100%;aspect-ratio:3/4;margin-bottom:28px;position:relative;overflow:hidden}
+.attorney-photo::before{content:'';position:absolute;inset:0;z-index:1;border:1px solid rgba(201,169,99,0.15)}
+.attorney-photo::after{content:'';position:absolute;inset:16px;border:1px solid rgba(201,169,99,0.08);z-index:1}
+.attorney-gradient{position:absolute;inset:0}
+.attorney-name{font-family:'EB Garamond',serif;font-size:26px;font-weight:600;color:var(--white);margin-bottom:6px}
+.attorney-role{font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-weight:600;margin-bottom:16px}
+.attorney-bio{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:300px;margin:0 auto}
+
+/* TRUST */
+.trust{padding:100px 0;background:linear-gradient(135deg, var(--dark-3), var(--dark-2));position:relative;overflow:hidden}
+.trust::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(201,169,99,0.06) 0%, transparent 70%)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;position:relative;z-index:1}
+.trust-item{text-align:center;padding:48px 24px;border:1px solid rgba(201,169,99,0.1);transition:all .4s}
+.trust-item:hover{border-color:rgba(201,169,99,0.3);background:rgba(201,169,99,0.03)}
+.trust-number{font-family:'EB Garamond',serif;font-size:56px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:12px}
+.trust-label{font-size:15px;color:rgba(255,255,255,0.7);font-weight:400;text-transform:uppercase;letter-spacing:2px}
+.trust-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px}
+
+/* ABOUT */
+.about{padding:120px 0;background:var(--dark)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-image{position:relative;aspect-ratio:4/5;background:linear-gradient(135deg, rgba(10,22,40,0.8), rgba(17,34,64,0.9));border:1px solid rgba(201,169,99,0.15);display:flex;align-items:center;justify-content:center}
+.about-image::after{content:'';position:absolute;inset:20px;border:1px solid rgba(201,169,99,0.12)}
+.about-building{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.about-pillar{width:100px;height:4px;background:linear-gradient(to right, transparent, var(--gold), transparent)}
+.about-block{width:40px;height:60px;border:1px solid var(--gold);background:rgba(201,169,99,0.1)}
+.about-block-sm{width:30px;height:30px;border:1px solid var(--gold);background:rgba(201,169,99,0.06)}
+.about-content{}
+.about-heading{font-family:'EB Garamond',serif;font-size:42px;font-weight:600;color:var(--white);margin-bottom:24px;line-height:1.2}
+.about-text{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:20px}
+.about-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px}
+.about-stat{border-left:2px solid var(--gold);padding-left:20px}
+.about-stat-num{font-family:'EB Garamond',serif;font-size:32px;font-weight:700;color:var(--gold)}
+.about-stat-lbl{font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* CTA */
+.cta{padding:120px 0;background:linear-gradient(180deg, var(--dark-2), var(--dark));text-align:center}
+.cta-inner{max-width:680px;margin:0 auto}
+.cta-line{width:60px;height:2px;background:var(--gold);margin:28px auto 36px}
+.cta-text{font-size:18px;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:44px}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;max-width:700px;margin:0 auto}
+.form-input{background:rgba(255,255,255,0.05);border:1px solid rgba(201,169,99,0.15);padding:16px 20px;color:var(--white);font-size:14px;font-family:'Source Sans Pro',sans-serif;outline:none;transition:all .3s}
+.form-input:focus{border-color:var(--gold);background:rgba(255,255,255,0.08)}
+.form-input::placeholder{color:rgba(255,255,255,0.35)}
+
+/* FOOTER */
+.footer{padding:60px 0;background:var(--dark-2);border-top:1px solid rgba(201,169,99,0.1)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+.footer-brand{}
+.footer-logo{font-family:'EB Garamond',serif;font-size:22px;font-weight:600;letter-spacing:3px;color:var(--white);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.footer-logo span{color:var(--gold)}
+.footer-logo .logo-icon{width:28px;height:28px}
+.footer-logo .logo-icon-inner{width:10px;height:10px}
+.footer-info{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.8;max-width:280px}
+.footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:24px;font-weight:600}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:14px}
+.footer-col a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:14px;transition:color .3s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{margin-top:48px;padding-top:28px;border-top:1px solid rgba(201,169,99,0.08);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,0.4)}
+
+/* MOBILE */
+@media(max-width:968px){
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-desc{margin:0 auto 40px}
+  .hero-btns{justify-content:center}
+  .hero-visual{height:300px}
+  .hero-title{font-size:42px}
+  .section-title{font-size:36px}
+  .practice-grid{grid-template-columns:1fr}
+  .attorney-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .hero-title{font-size:34px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon"><div class="logo-icon-inner"></div></div>
+      <div class="logo-text">Meridian <span>Legal</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#practice">Practice Areas</a></li>
+      <li><a href="#attorneys">Our Attorneys</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Free Consultation</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <p class="hero-subtitle">Premier Corporate Law Firm</p>
+      <h1 class="hero-title">Defining the<br>Standard of <em>Excellence</em> in Corporate Law</h1>
+      <p class="hero-desc">For over two decades, Meridian Legal has provided sophisticated legal counsel to Fortune 500 companies, financial institutions, and emerging enterprises navigating complex corporate landscapes.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Schedule Consultation &#8594;</a>
+        <a href="#practice" class="btn-outline">Our Expertise</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-column"></div>
+      <div class="hero-est">
+        <div class="hero-est-year">1999</div>
+        <div class="hero-est-text">Established</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="practice" id="practice">
+  <div class="container">
+    <p class="section-subtitle">Our Expertise</p>
+    <h2 class="section-title">Practice Areas</h2>
+    <div class="section-line"></div>
+    <div class="practice-grid">
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="2" y1="7" x2="22" y2="7"/></svg>
+        </div>
+        <h3 class="practice-name">Corporate Law</h3>
+        <p class="practice-desc">Mergers &amp; acquisitions, corporate governance, securities regulation, and complex commercial transactions for domestic and international clients.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="practice-name">Litigation</h3>
+        <p class="practice-desc">Strategic representation in complex commercial disputes, securities litigation, class actions, and appellate advocacy before state and federal courts.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+        </div>
+        <h3 class="practice-name">Real Estate</h3>
+        <p class="practice-desc">Commercial real estate acquisitions, dispositions, financing, development, leasing, and land use matters for institutional investors and developers.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3 class="practice-name">Intellectual Property</h3>
+        <p class="practice-desc">Patent prosecution, trademark registration, IP portfolio management, licensing agreements, and intellectual property litigation across all industries.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><polyline points="17 5 22 12 17 19"/><polyline points="7 5 2 12 7 19"/></svg>
+        </div>
+        <h3 class="practice-name">Tax Law</h3>
+        <p class="practice-desc">Corporate tax planning, international tax structuring, tax controversy, transfer pricing, and executive compensation for multinational enterprises.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+      <div class="practice-card">
+        <div class="practice-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="practice-name">Employment</h3>
+        <p class="practice-desc">Executive employment agreements, workforce restructuring, compliance counseling, workplace investigations, and employment-related litigation defense.</p>
+        <a href="#" class="practice-link">Learn More &#8594;</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="attorneys" id="attorneys">
+  <div class="container">
+    <p class="section-subtitle">Our People</p>
+    <h2 class="section-title">Distinguished Counsel</h2>
+    <div class="section-line"></div>
+    <div class="attorney-grid">
+
+      <div class="attorney-card">
+        <div class="attorney-photo">
+          <div class="attorney-gradient" style="background:linear-gradient(135deg, #0d1e36 0%, #1a3355 25%, #0a1628 50%, #162d4a 75%, #0d1e36 100%)"></div>
+        </div>
+        <h3 class="attorney-name">Jonathan H. Whitmore</h3>
+        <p class="attorney-role">Managing Partner</p>
+        <p class="attorney-bio">Harvard Law, J.D. &middot; 30+ years in corporate M&A &middot; Chambers-ranked &middot; Former SEC senior counsel.</p>
+      </div>
+
+      <div class="attorney-card">
+        <div class="attorney-photo">
+          <div class="attorney-gradient" style="background:linear-gradient(135deg, #162d4a 0%, #0a1628 25%, #1a3355 50%, #0d1e36 75%, #162d4a 100%)"></div>
+        </div>
+        <h3 class="attorney-name">Catherine E. Langford</h3>
+        <p class="attorney-role">Senior Partner &middot; Litigation</p>
+        <p class="attorney-bio">Yale Law, J.D. &middot; 500+ trials &middot; Fellow, American College of Trial Lawyers &middot; Best Lawyers honoree.</p>
+      </div>
+
+      <div class="attorney-card">
+        <div class="attorney-photo">
+          <div class="attorney-gradient" style="background:linear-gradient(135deg, #1b2d4a 0%, #0d1e36 25%, #122544 50%, #0a1628 75%, #1b2d4a 100%)"></div>
+        </div>
+        <h3 class="attorney-name">Michael R. Chen</h3>
+        <p class="attorney-role">Partner &middot; Tax &amp; IP</p>
+        <p class="attorney-bio">Stanford Law, J.D. &middot; LL.M. in Taxation &middot; Former IRS Chief Counsel advisor &middot; 20+ years.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-number">25+</div>
+        <div class="trust-label">Years of Excellence</div>
+        <div class="trust-sub">Serving clients since 1999</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">500+</div>
+        <div class="trust-label">Cases Won</div>
+        <div class="trust-sub">Proven track record of success</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">Fortune 500</div>
+        <div class="trust-label">Clients Represented</div>
+        <div class="trust-sub">Trusted by the world's leading companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        <div class="about-building">
+          <div class="about-pillar" style="width:120px"></div>
+          <div class="about-block" style="width:50px;height:80px"></div>
+          <div class="about-block-sm" style="width:40px;height:40px"></div>
+          <div class="about-pillar" style="width:80px"></div>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-subtitle" style="text-align:left;margin-bottom:12px">About Our Firm</p>
+        <h2 class="about-heading">A Legacy of Legal Excellence Since 1999</h2>
+        <p class="about-text">Meridian Legal was founded on a singular principle: deliver uncompromising legal excellence with the precision and sophistication that complex corporate matters demand. From our offices in New York, Chicago, and San Francisco, we serve a global clientele that includes multinational corporations, financial institutions, and high-growth technology companies.</p>
+        <p class="about-text">Our attorneys are consistently recognized by Chambers &amp; Partners, The Legal 500, and Best Lawyers in America. We bring cross-disciplinary expertise and a results-oriented approach to every engagement, whether structuring a multibillion-dollar acquisition or defending a landmark securities case.</p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-num">120+</div>
+            <div class="about-stat-lbl">Attorneys Worldwide</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">98%</div>
+            <div class="about-stat-lbl">Client Retention Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-inner">
+      <p class="section-subtitle">Get In Touch</p>
+      <h2 class="section-title">Request a Consultation</h2>
+      <div class="section-line"></div>
+      <p class="cta-text">Schedule a confidential consultation with one of our senior partners to discuss your legal needs. We respond to all inquiries within 24 hours.</p>
+      <form class="form-row" onsubmit="event.preventDefault();alert('Thank you for your inquiry. A partner will contact you within 24 hours.');">
+        <input type="text" class="form-input" placeholder="Full Name" required>
+        <input type="email" class="form-input" placeholder="Email Address" required>
+        <select class="form-input" style="appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23c9a963%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 20px center;">
+          <option value="" disabled selected>Practice Area</option>
+          <option>Corporate Law</option>
+          <option>Litigation</option>
+          <option>Real Estate</option>
+          <option>Intellectual Property</option>
+          <option>Tax Law</option>
+          <option>Employment</option>
+        </select>
+        <button type="submit" class="btn-primary">Submit Inquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon"><div class="logo-icon-inner"></div></div>
+          Meridian <span>Legal</span>
+        </div>
+        <p class="footer-info">A premier corporate law firm providing sophisticated legal counsel to the world's leading enterprises since 1999.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Practice Areas</h4>
+        <ul>
+          <li><a href="#">Corporate Law</a></li>
+          <li><a href="#">Litigation</a></li>
+          <li><a href="#">Real Estate</a></li>
+          <li><a href="#">Intellectual Property</a></li>
+          <li><a href="#">Tax Law</a></li>
+          <li><a href="#">Employment</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Firm</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Attorneys</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News &amp; Insights</a></li>
+          <li><a href="#">Offices</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">400 Park Avenue<br>New York, NY 10022</a></li>
+          <li><a href="#">+1 (212) 555-0147</a></li>
+          <li><a href="#">counsel@meridianlegal.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Meridian Legal LLP. All rights reserved. Attorney Advertising.</span>
+      <span>Privacy Policy &middot; Terms of Use &middot; Disclaimer</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

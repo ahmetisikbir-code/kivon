@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakura — Japanese Fine Dining</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Noto+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a0a0a;
+    --bg-light: #2a1414;
+    --bg-card: #1e0c0c;
+    --red: #c0392b;
+    --red-hover: #e04a3a;
+    --red-glow: rgba(192,57,43,0.18);
+    --gold: #c9a96e;
+    --cream: #f5e6d3;
+    --cream-dim: rgba(245,230,211,0.7);
+    --cream-muted: rgba(245,230,211,0.45);
+    --border: rgba(245,230,211,0.08);
+    --border-light: rgba(245,230,211,0.14);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Noto Sans', 'Segoe UI', sans-serif;
+    --max-w: 1200px;
+    --radius: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--cream);
+    line-height: 1.7;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--cream); }
+
+  h1, h2, h3, h4, .serif { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.02em; }
+
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.6rem 0;
+    transition: all 0.4s ease;
+  }
+  .nav.scrolled { background: rgba(26,10,10,0.95); backdrop-filter: blur(20px); padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 2.8rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    color: var(--cream-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--red);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    background: transparent;
+    border: 1px solid var(--red);
+    padding: 0.55rem 1.8rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.35s;
+  }
+  .nav-cta:hover { background: var(--red); border-color: var(--red); }
+
+  .menu-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .menu-toggle span { display: block; width: 24px; height: 1.5px; background: var(--cream); transition: 0.3s; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 0 4rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(26,10,10,0.65) 0%, rgba(26,10,10,0.5) 40%, rgba(26,10,10,0.85) 85%, #1a0a0a 100%),
+      linear-gradient(135deg, rgba(192,57,43,0.15) 0%, transparent 50%, rgba(192,57,43,0.1) 100%),
+      radial-gradient(ellipse at 30% 50%, rgba(201,169,110,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 40%, rgba(192,57,43,0.08) 0%, transparent 50%),
+      linear-gradient(160deg, #1a0a0a 0%, #2d0a0a 30%, #1a0f0f 60%, #0d0505 100%);
+    z-index: 0;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245,230,211,0.015) 2px, rgba(245,230,211,0.015) 4px);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+  }
+  .hero-stars {
+    display: flex; gap: 6px; margin-bottom: 2rem;
+  }
+  .hero-stars svg { width: 18px; height: 18px; }
+
+  .hero-pre {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+  .hero h1 em { font-style: italic; color: var(--red); }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--cream-dim);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+  .hero-buttons { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.8rem 2.4rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.35s;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--red); color: var(--cream); border-color: var(--red); }
+  .btn-primary:hover { background: var(--red-hover); box-shadow: 0 0 40px var(--red-glow); }
+  .btn-outline { background: transparent; color: var(--cream); border-color: var(--cream-muted); }
+  .btn-outline:hover { border-color: var(--cream); background: rgba(245,230,211,0.05); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; animation: float 2.5s ease-in-out infinite;
+  }
+  .hero-scroll span { display: block; width: 1px; height: 40px; background: var(--cream-muted); margin: 0 auto 6px; }
+  .hero-scroll svg { width: 14px; height: 14px; opacity: 0.4; }
+  @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+
+  /* ── Ornament Divider ── */
+  .ornament {
+    text-align: center; padding: 2rem 0;
+    color: var(--gold); font-size: 1.4rem; letter-spacing: 0.3em;
+    font-family: var(--font-display);
+  }
+
+  /* ── Section ── */
+  .section { padding: 5rem 0; }
+  .section-label {
+    font-family: var(--font-display);
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    text-align: center;
+    font-size: clamp(2.5rem, 4.5vw, 3.6rem);
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--cream-dim);
+    max-width: 500px;
+    margin: 0 auto 3.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* ── Michelin Bar ── */
+  .michelin-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 0;
+    margin: 2rem 0 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .michelin-bar .stars-row { display: flex; gap: 5px; }
+  .michelin-bar .stars-row svg { width: 20px; height: 20px; }
+  .michelin-bar p {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+  }
+  .michelin-bar p span { color: var(--gold); font-style: italic; }
+
+  /* ── Menu ── */
+  #menu { background: var(--bg); }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .menu-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-item::before {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    transform: scaleX(0); transition: transform 0.5s ease;
+  }
+  .menu-item:hover { border-color: var(--border-light); transform: translateY(-4px); }
+  .menu-item:hover::before { transform: scaleX(1); }
+  .menu-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .menu-item h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .menu-item .jp {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--cream-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .menu-item .desc {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .menu-price {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--gold);
+    font-weight: 300;
+  }
+  .menu-price small { font-size: 1rem; color: var(--cream-muted); }
+
+  /* ── About ── */
+  #about { background: var(--bg-light); position: relative; overflow: hidden; }
+  #about::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(192,57,43,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .about-image {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, rgba(192,57,43,0.2), rgba(26,10,10,0.8)),
+                radial-gradient(circle at 30% 30%, rgba(201,169,110,0.15), transparent 60%),
+                linear-gradient(180deg, #2d0a0a, #1a0a0a);
+    border: 1px solid var(--border-light);
+    display: flex; align-items: flex-end; justify-content: center;
+    position: relative;
+  }
+  .about-image::after {
+    content: 'Chef Kenji Tanaka';
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+    padding: 1rem 1.5rem;
+    background: rgba(26,10,10,0.85);
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .about-text h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p {
+    color: var(--cream-dim);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .about-stats {
+    display: flex; gap: 2.5rem; margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .about-stat { text-align: center; }
+  .about-stat .num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--gold);
+    display: block;
+  }
+  .about-stat .lbl {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cream-muted);
+  }
+
+  /* ── Reservation ── */
+  #reserve { position: relative; }
+  .reserve-card {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 3rem;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(245,230,211,0.04);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--red); background: rgba(192,57,43,0.06); }
+  .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c9a96e' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; cursor: pointer; }
+  .form-group select option { background: var(--bg); color: var(--cream); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--red);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--red-hover); box-shadow: 0 0 40px var(--red-glow); }
+
+  /* ── Footer ── */
+  .footer {
+    background: #0d0505;
+    border-top: 1px solid var(--border);
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-info {
+    color: var(--cream-dim);
+    font-size: 0.85rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.8;
+  }
+  .footer-info p { margin-bottom: 0.3rem; }
+  .footer-divider { width: 60px; height: 1px; background: var(--border-light); margin: 0 auto 1.5rem; }
+  .footer-hours {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .footer-hours div { text-align: center; }
+  .footer-hours .day {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .footer-hours .time { font-size: 0.8rem; color: var(--cream-dim); }
+  .footer-copy { font-size: 0.7rem; color: var(--cream-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-cta { display: none; }
+    .hero h1 { font-size: 2.6rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .menu-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-image { aspect-ratio: 4/3; }
+    .form-row { grid-template-columns: 1fr; }
+    .michelin-bar { flex-direction: column; gap: 0.6rem; padding: 2rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">Saku<span>ra</span></a>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reserve">Reservations</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})">Book a Table</button>
+    <button class="menu-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-stars">
+        <svg viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="hero-pre">Tokyo &middot; Since 1998</p>
+      <h1>Japanese<br><em>Fine Dining</em><br>Reimagined</h1>
+      <p class="hero-sub">An intimate culinary journey through the seasons of Japan. Where tradition meets precision and every plate tells a story.</p>
+      <div class="hero-buttons">
+        <a href="#reserve" class="btn btn-primary">Make a Reservation</a>
+        <a href="#menu" class="btn btn-outline">View Menu</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span></span>
+    <svg viewBox="0 0 16 16" fill="var(--cream-muted)"><path fill-rule="evenodd" d="M8 2a.5.5 0 01.5.5v8.793l2.146-2.147a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L7.5 11.293V2.5A.5.5 0 018 2z"/></svg>
+  </div>
+</section>
+
+<!-- Michelin Bar -->
+<div class="michelin-bar">
+  <div class="stars-row">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </div>
+  <p>Two <span>Michelin</span> Stars &mdash; 2021 &bull; 2022 &bull; 2023</p>
+</div>
+
+<!-- Menu -->
+<section class="section" id="menu">
+  <div class="container">
+    <p class="section-label">Our Craft</p>
+    <h2 class="section-title">The Menu</h2>
+    <p class="section-subtitle">Each course is a meditation on seasonality and balance, curated by Chef Kenji Tanaka.</p>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-icon">&#127800;</div>
+        <h3>Omakase</h3>
+        <p class="jp">Seasonal tasting menu</p>
+        <p class="desc">A chef-led journey through twelve courses of the day's finest ingredients, from sashimi to wagyu.</p>
+        <div class="menu-price">&yen;850</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">&#127807;</div>
+        <h3>Kaiseki</h3>
+        <p class="jp">Traditional multi-course</p>
+        <p class="desc">Eight courses rooted in centuries of tradition. Celebrating harmony of taste, texture, and presentation.</p>
+        <div class="menu-price">&yen;1200</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon">&#127843;</div>
+        <h3>Sushi Platter</h3>
+        <p class="jp">Nigiri &amp; maki selection</p>
+        <p class="desc">Twelve pieces of Edomae-style nigiri, hand-pressed at the counter with select Hokkaido uni and otoro.</p>
+        <div class="menu-price">&yen;450</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">&mdash; &#10045; &mdash;</div>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image"></div>
+      <div class="about-text">
+        <p class="section-label" style="text-align:left;">Our Philosophy</p>
+        <h3>Shun &mdash; The Peak of the Season</h3>
+        <p>Chef Kenji Tanaka spent two decades mastering the art of washoku across Kyoto, Osaka, and Tokyo before opening Sakura in 1998. His approach is rooted in <em>shun</em> &mdash; serving each ingredient at the precise moment it reaches its peak.</p>
+        <p>Every morning, Chef Tanaka visits Toyosu Market himself, selecting fish that was swimming hours before. Vegetables arrive from a single farm in Kanagawa, grown exclusively for Sakura.</p>
+        <p>&ldquo;We do not cook to impress. We cook to honor the ingredient.&rdquo;</p>
+        <div class="about-stats">
+          <div class="about-stat"><span class="num">28</span><span class="lbl">Years</span></div>
+          <div class="about-stat"><span class="num">12</span><span class="lbl">Seats</span></div>
+          <div class="about-stat"><span class="num">2</span><span class="lbl">Michelin Stars</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">&mdash; &#10045; &mdash;</div>
+
+<!-- Reservation -->
+<section class="section" id="reserve">
+  <div class="container">
+    <p class="section-label">Join Us</p>
+    <h2 class="section-title">Reservations</h2>
+    <p class="section-subtitle">We open reservations 60 days in advance. Due to our intimate size, we recommend booking early.</p>
+    <div class="reserve-card">
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="Your email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Guests</label>
+            <select required>
+              <option value="">Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Date &amp; Time</label>
+            <input type="datetime-local" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Experience</label>
+            <select required>
+              <option value="">Select experience</option>
+              <option>Omakase &mdash; &yen;850</option>
+              <option>Kaiseki &mdash; &yen;1200</option>
+              <option>Sushi Platter &mdash; &yen;450</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+81" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Special Requests</label>
+          <textarea placeholder="Dietary restrictions, celebrations, or special requests..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Reserve Your Table</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Saku<span>ra</span></div>
+    <div class="footer-info">
+      <p>3-14-8 Minami-Aoyama, Minato-ku</p>
+      <p>Tokyo 107-0062, Japan</p>
+      <p>+81 3-5772-8910 &middot; hello@sakura-tokyo.jp</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-hours">
+      <div><div class="day">Dinner</div><div class="time">Tue &ndash; Sun<br>18:00 &ndash; 23:00</div></div>
+      <div><div class="day">Closed</div><div class="time">Mondays</div></div>
+      <div><div class="day">Lunch</div><div class="time">Sat &amp; Sun<br>12:00 &ndash; 15:00</div></div>
+    </div>
+    <p class="footer-copy">&copy; 2026 Sakura. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Nav scroll script -->
+<script>
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('navbar');
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+</script>
+
+</body>
+</html>
