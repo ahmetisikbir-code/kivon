@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna Cafe & Bistro — Menü</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #faf7f2;
+            --cream-dark: #f0ebe0;
+            --brown: #3c2415;
+            --brown-light: #5a3a2a;
+            --gold: #c9a96e;
+            --gold-light: #dbc48b;
+            --gold-dark: #b8943e;
+            --white: #ffffff;
+            --shadow: 0 2px 12px rgba(60, 36, 21, 0.06);
+            --shadow-hover: 0 6px 24px rgba(60, 36, 21, 0.10);
+            --radius: 14px;
+            --radius-sm: 10px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 72px;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--cream);
+            color: var(--brown);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ── Container ── */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--cream);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            height: 340px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.55);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(60, 36, 21, 0.15) 0%,
+                rgba(60, 36, 21, 0.45) 50%,
+                rgba(60, 36, 21, 0.80) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 32px 36px;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--brown);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-bottom: 10px;
+        }
+
+        .hero-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 10px;
+        }
+
+        .hero-info {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.7;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-info .dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hero-info .dot::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+        }
+
+        /* ── Sticky Category Nav ── */
+        .category-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 247, 242, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+            padding: 10px 0;
+        }
+
+        .category-nav-inner {
+            display: flex;
+            gap: 6px;
+            padding: 0 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-nav-inner::-webkit-scrollbar { display: none; }
+
+        .category-nav a {
+            flex-shrink: 0;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brown-light);
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: transparent;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .category-nav a:hover,
+        .category-nav a.active {
+            background: var(--brown);
+            color: var(--cream);
+        }
+
+        /* ── Section ── */
+        .section {
+            padding: 36px 16px 20px;
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .section-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+            box-shadow: 0 2px 10px rgba(201, 169, 110, 0.25);
+        }
+
+        .section-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--brown);
+            line-height: 1.1;
+        }
+
+        .section-line {
+            width: 36px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 1px;
+            margin-top: 4px;
+        }
+
+        /* ── Menu Items ── */
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: stretch;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            cursor: default;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 60%;
+            background: var(--gold);
+            border-radius: 0 2px 2px 0;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
+        .menu-item-body {
+            flex: 1;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .menu-item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--brown);
+            line-height: 1.2;
+        }
+
+        .menu-item-price {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold-dark);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .menu-item-desc {
+            font-size: 12px;
+            font-weight: 400;
+            color: #7a6a5c;
+            line-height: 1.5;
+        }
+
+        /* ── Section Divider ── */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+        }
+
+        .section-divider.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(201, 169, 110, 0.4), transparent);
+        }
+
+        .divider-ornament {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 18px;
+            user-select: none;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            padding: 28px 16px 48px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+        }
+
+        .cta-section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--brown-light);
+            margin-bottom: 14px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--brown);
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            box-shadow: 0 4px 16px rgba(201, 169, 110, 0.35);
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-button:hover {
+            background: var(--brown);
+            color: var(--cream);
+            box-shadow: 0 6px 22px rgba(60, 36, 21, 0.30);
+            transform: translateY(-2px);
+        }
+
+        .cta-button svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            padding: 24px 16px 32px;
+            text-align: center;
+            border-top: 1px solid rgba(201, 169, 110, 0.15);
+        }
+
+        .footer-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--brown);
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: #8a7a6c;
+            margin-top: 6px;
+            line-height: 1.7;
+        }
+
+        .footer-credits {
+            font-size: 10px;
+            color: #b0a090;
+            margin-top: 12px;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Scroll Reveal Animation ── */
+        .reveal-stagger-1 { transition-delay: 0.05s; }
+        .reveal-stagger-2 { transition-delay: 0.10s; }
+        .reveal-stagger-3 { transition-delay: 0.15s; }
+        .reveal-stagger-4 { transition-delay: 0.20s; }
+        .reveal-stagger-5 { transition-delay: 0.25s; }
+        .reveal-stagger-6 { transition-delay: 0.30s; }
+
+        /* ── Pulse Dot ── */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .pulse-dot {
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        /* ── Float Animation for Icons ── */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .section-icon {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* ── Responsive: slightly larger phones ── */
+        @media (min-width: 420px) {
+            .hero { height: 380px; }
+            .hero-title { font-size: 48px; }
+            .section-title { font-size: 28px; }
+        }
+
+        /* ── Very small screens ── */
+        @media (max-width: 360px) {
+            .hero { height: 280px; }
+            .hero-title { font-size: 36px; }
+            .hero-subtitle { font-size: 15px; }
+            .section { padding: 28px 12px 16px; }
+            .menu-item-body { padding: 12px 14px; }
+            .menu-item-name { font-size: 16px; }
+            .category-nav a { font-size: 11px; padding: 6px 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ═══════════ HERO ═══════════ -->
+        <header class="hero">
+            <img
+                class="hero-image"
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800"
+                alt="Lezzetli yemekler"
+                loading="eager"
+                width="800" height="600"
+            >
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-badge">Dijital Menü</span>
+                <h1 class="hero-title">Luna Cafe &amp; Bistro</h1>
+                <p class="hero-subtitle">Her anınıza lezzet katıyoruz</p>
+                <div class="hero-divider"></div>
+                <p class="hero-info">
+                    <span class="dot"><span class="pulse-dot">Açık</span></span>
+                    &ensp;08:00 – 23:00
+                </p>
+            </div>
+        </header>
+
+        <!-- ═══════════ STICKY NAV ═══════════ -->
+        <nav class="category-nav" id="categoryNav">
+            <div class="category-nav-inner">
+                <a href="#sicak-icecekler" class="active">☕ Sıcak İçecekler</a>
+                <a href="#kahvalti">🥐 Kahvaltı</a>
+                <a href="#ana-yemekler">🍝 Ana Yemekler</a>
+                <a href="#tatlilar">🍰 Tatlılar</a>
+                <a href="#icecekler">🍸 İçecekler</a>
+            </div>
+        </nav>
+
+        <main>
+
+            <!-- ═══════════ SICAK İÇECEKLER ═══════════ -->
+            <div class="section-divider reveal" id="divider-sicak">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <section class="section reveal" id="sicak-icecekler">
+                <div class="section-header">
+                    <img
+                        class="section-icon"
+                        src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400"
+                        alt="Kahve"
+                        loading="lazy"
+                        width="56" height="56"
+                    >
+                    <div class="section-title-group">
+                        <h2 class="section-title">Sıcak İçecekler</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+                <div class="menu-grid">
+                    <article class="menu-item reveal reveal-stagger-1">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Türk Kahvesi</h3>
+                                <span class="menu-item-price">45₺</span>
+                            </div>
+                            <p class="menu-item-desc">Geleneksel Türk kahvesi, bol köpüklü, lokum eşliğinde</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-2">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Filtre Kahve</h3>
+                                <span class="menu-item-price">55₺</span>
+                            </div>
+                            <p class="menu-item-desc">Kolombiya çekirdeklerinden, özenle demlenmiş filtre kahve</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-3">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Latte</h3>
+                                <span class="menu-item-price">65₺</span>
+                            </div>
+                            <p class="menu-item-desc">Espresso ve buharla ısıtılmış sütün mükemmel uyumu</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-4">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Cappuccino</h3>
+                                <span class="menu-item-price">65₺</span>
+                            </div>
+                            <p class="menu-item-desc">Espresso, kremsi süt ve yoğun süt köpüğü ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-5">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Sıcak Çikolata</h3>
+                                <span class="menu-item-price">60₺</span>
+                            </div>
+                            <p class="menu-item-desc">Belçika çikolatası ile hazırlanan yoğun lezzet</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-6">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Salep</h3>
+                                <span class="menu-item-price">55₺</span>
+                            </div>
+                            <p class="menu-item-desc">Toz tarçın ve Antep fıstığı ile sıcak servis edilir</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ═══════════ KAHVALTI ═══════════ -->
+            <div class="section-divider reveal" id="divider-kahvalti">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <section class="section reveal" id="kahvalti">
+                <div class="section-header">
+                    <img
+                        class="section-icon"
+                        src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400"
+                        alt="Kahvaltı"
+                        loading="lazy"
+                        width="56" height="56"
+                    >
+                    <div class="section-title-group">
+                        <h2 class="section-title">Kahvaltı</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+                <div class="menu-grid">
+                    <article class="menu-item reveal reveal-stagger-1">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Serpme Kahvaltı <em style="font-size:12px;color:#8a7a6c;">(2 Kişi)</em></h3>
+                                <span class="menu-item-price">320₺</span>
+                            </div>
+                            <p class="menu-item-desc">Peynir çeşitleri, zeytin, bal-kaymak, yumurta, reçel ve sınırsız çay</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-2">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Menemen</h3>
+                                <span class="menu-item-price">85₺</span>
+                            </div>
+                            <p class="menu-item-desc">Domates, yeşil biber ve yumurta ile sacda pişirilen klasik lezzet</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-3">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Avokadolu Tost</h3>
+                                <span class="menu-item-price">95₺</span>
+                            </div>
+                            <p class="menu-item-desc">Ekşi maya ekmek üzerinde avokado, cherry domates ve poşe yumurta</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-4">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Pankek</h3>
+                                <span class="menu-item-price">75₺</span>
+                            </div>
+                            <p class="menu-item-desc">Taze meyveler, akçaağaç şurubu ve pudra şekeri ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-5">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Granola Kasesi</h3>
+                                <span class="menu-item-price">70₺</span>
+                            </div>
+                            <p class="menu-item-desc">Ev yapımı granola, süzme yoğurt ve mevsim meyveleri</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-6">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Omlet</h3>
+                                <span class="menu-item-price">80₺</span>
+                            </div>
+                            <p class="menu-item-desc">Beyaz peynir, kaşar, domates ve taze kekik ile zenginleştirilmiş</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ═══════════ ANA YEMEKLER ═══════════ -->
+            <div class="section-divider reveal" id="divider-ana">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <section class="section reveal" id="ana-yemekler">
+                <div class="section-header">
+                    <img
+                        class="section-icon"
+                        src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400"
+                        alt="Ana Yemek"
+                        loading="lazy"
+                        width="56" height="56"
+                    >
+                    <div class="section-title-group">
+                        <h2 class="section-title">Ana Yemekler</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+                <div class="menu-grid">
+                    <article class="menu-item reveal reveal-stagger-1">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Izgara Bonfile</h3>
+                                <span class="menu-item-price">240₺</span>
+                            </div>
+                            <p class="menu-item-desc">250gr dana bonfile, patates püresi ve mevsim sebzeleri ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-2">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Fırın Somon</h3>
+                                <span class="menu-item-price">220₺</span>
+                            </div>
+                            <p class="menu-item-desc">Limon ve dereotu sosuyla marine edilmiş taze Norveç somonu</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-3">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Tavuk Şinitzel</h3>
+                                <span class="menu-item-price">160₺</span>
+                            </div>
+                            <p class="menu-item-desc">Çıtır pane tavuk, patates kızartması ve özel hardal sos ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-4">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Fettuccine Alfredo</h3>
+                                <span class="menu-item-price">140₺</span>
+                            </div>
+                            <p class="menu-item-desc">Taze makarna, kremalı mantarlı sos ve parmesan ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-5">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Sebzeli Risotto</h3>
+                                <span class="menu-item-price">130₺</span>
+                            </div>
+                            <p class="menu-item-desc">Arborio pirinci, mevsim sebzeleri, parmesan ve taze fesleğen ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-6">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Luna Burger</h3>
+                                <span class="menu-item-price">170₺</span>
+                            </div>
+                            <p class="menu-item-desc">180gr özel köfte, cheddar, karamelize soğan ve özel sos</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ═══════════ TATLILAR ═══════════ -->
+            <div class="section-divider reveal" id="divider-tatlilar">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <section class="section reveal" id="tatlilar">
+                <div class="section-header">
+                    <img
+                        class="section-icon"
+                        src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400"
+                        alt="Tatlı"
+                        loading="lazy"
+                        width="56" height="56"
+                    >
+                    <div class="section-title-group">
+                        <h2 class="section-title">Tatlılar</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+                <div class="menu-grid">
+                    <article class="menu-item reveal reveal-stagger-1">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Tiramisu</h3>
+                                <span class="menu-item-price">85₺</span>
+                            </div>
+                            <p class="menu-item-desc">Mascarpone peyniri ve espresso ile kat kat İtalyan klasiği</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-2">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Çikolatalı Sufle</h3>
+                                <span class="menu-item-price">90₺</span>
+                            </div>
+                            <p class="menu-item-desc">Akışkan çikolatalı sufle, vanilyalı dondurma ile sıcak servis</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-3">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Cheesecake</h3>
+                                <span class="menu-item-price">75₺</span>
+                            </div>
+                            <p class="menu-item-desc">New York usulü cheesecake, frambuaz sosu ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-4">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Waffle</h3>
+                                <span class="menu-item-price">80₺</span>
+                            </div>
+                            <p class="menu-item-desc">Taze meyve, çikolata sosu ve Antep fıstığı ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-5">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Profiterol</h3>
+                                <span class="menu-item-price">70₺</span>
+                            </div>
+                            <p class="menu-item-desc">Bol çikolata soslu klasik Fransız tatlısı</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-6">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">San Sebastian Cheesecake</h3>
+                                <span class="menu-item-price">85₺</span>
+                            </div>
+                            <p class="menu-item-desc">Yanık cheesecake, karamel sosu ile özel sunum</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ═══════════ İÇECEKLER ═══════════ -->
+            <div class="section-divider reveal" id="divider-icecekler">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <section class="section reveal" id="icecekler">
+                <div class="section-header">
+                    <img
+                        class="section-icon"
+                        src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400"
+                        alt="İçecek"
+                        loading="lazy"
+                        width="56" height="56"
+                    >
+                    <div class="section-title-group">
+                        <h2 class="section-title">İçecekler</h2>
+                        <div class="section-line"></div>
+                    </div>
+                </div>
+                <div class="menu-grid">
+                    <article class="menu-item reveal reveal-stagger-1">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Limonata</h3>
+                                <span class="menu-item-price">55₺</span>
+                            </div>
+                            <p class="menu-item-desc">Taze sıkılmış limon, nane yaprakları ve buz ile</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-2">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Mojito</h3>
+                                <span class="menu-item-price">80₺</span>
+                            </div>
+                            <p class="menu-item-desc">Taze nane, limon, esmer şeker ve soda ile ferahlatıcı</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-3">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Smoothie</h3>
+                                <span class="menu-item-price">70₺</span>
+                            </div>
+                            <p class="menu-item-desc">Mevsim meyveleri, yoğurt ve bal ile karışım</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-4">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Milkshake</h3>
+                                <span class="menu-item-price">75₺</span>
+                            </div>
+                            <p class="menu-item-desc">Çikolatalı, vanilyalı veya çilekli seçenekler</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-5">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Soğuk Kahve</h3>
+                                <span class="menu-item-price">65₺</span>
+                            </div>
+                            <p class="menu-item-desc">Buzlu latte veya cold brew seçeneğiyle</p>
+                        </div>
+                    </article>
+                    <article class="menu-item reveal reveal-stagger-6">
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3 class="menu-item-name">Taze Portakal Suyu</h3>
+                                <span class="menu-item-price">60₺</span>
+                            </div>
+                            <p class="menu-item-desc">Günlük sıkılmış taze portakal suyu</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ═══════════ CTA ═══════════ -->
+            <div class="section-divider reveal" id="divider-cta">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+
+            <div class="cta-section reveal" id="cta">
+                <p class="cta-text">Menüyü incelediniz, şimdi sipariş zamanı</p>
+                <a href="#" class="cta-button" onclick="event.preventDefault(); alert('Sipariş için lütfen garsonunuza danışın.\n\nSipariş hattı: 0212 555 44 33')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
+                        <line x1="12" y1="8" x2="12" y2="16"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                    QR ile Sipariş Ver
+                </a>
+            </div>
+
+        </main>
+
+        <!-- ═══════════ FOOTER ═══════════ -->
+        <footer class="footer">
+            <p class="footer-name">Luna Cafe &amp; Bistro</p>
+            <p class="footer-info">
+                Bağdat Caddesi No:142, Kadıköy / İstanbul<br>
+                <span style="color:var(--gold-dark);">0212 555 44 33</span>
+            </p>
+            <p class="footer-credits">© 2025 Luna Cafe & Bistro — Dijital Menü</p>
+        </footer>
+    </div>
+
+    <!-- ═══════════ SCROLL REVEAL SCRIPT ═══════════ -->
+    <script>
+        (function() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            reveals.forEach(function(el) { observer.observe(el); });
+
+            /* Active nav link on scroll */
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.category-nav a');
+
+            const navObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(function(link) {
+                            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.35,
+                rootMargin: '-72px 0px -50% 0px'
+            });
+
+            sections.forEach(function(sec) { navObserver.observe(sec); });
+
+            /* Smooth scroll to section with offset */
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const navHeight = document.getElementById('categoryNav').offsetHeight;
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 4;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

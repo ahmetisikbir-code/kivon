@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyaz Düşler Organizasyon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blush: #fff5f5;
+  --blush-deep: #f8e8e8;
+  --white: #fff;
+  --gold: #d4a853;
+  --gold-light: #ead5a0;
+  --gold-dark: #b8912e;
+  --text: #3d2e2e;
+  --text-muted: #7a6a6a;
+  --text-dim: #b0a0a0;
+  --border: rgba(212,168,83,.2);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Raleway', 'Segoe UI', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+
+html { scroll-behavior:smooth }
+
+body {
+  font-family:var(--font-body);
+  background:var(--white);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1.4rem 6%;
+  transition:all .4s;
+}
+nav.scrolled {
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(18px);
+  padding:0.9rem 6%;
+  box-shadow:0 1px 20px rgba(212,168,83,.1);
+}
+.nav-logo {
+  font-family:var(--font-display); font-size:1.7rem; font-weight:500;
+  letter-spacing:2px; color:var(--text);
+}
+.nav-links { display:flex; gap:2.5rem; list-style:none }
+.nav-links a {
+  color:var(--text-muted); text-decoration:none;
+  font-size:.78rem; font-weight:500; letter-spacing:2px; text-transform:uppercase;
+  transition:color .3s; position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:50%; transform:translateX(-50%);
+  width:0; height:1.5px; background:var(--gold); transition:width .35s;
+}
+.nav-links a:hover { color:var(--gold-dark) }
+.nav-links a:hover::after { width:100% }
+.nav-cta {
+  border:1.5px solid var(--gold); color:var(--gold-dark) !important;
+  padding:0.55rem 1.6rem; border-radius:100px;
+  transition:all .3s;
+}
+.nav-cta:hover { background:var(--gold); color:#fff !important }
+.nav-cta::after { display:none }
+
+/* HERO */
+.hero {
+  position:relative; min-height:100vh; display:flex; align-items:center;
+  justify-content:center; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200') center/cover no-repeat;
+  animation:heroZoom 25s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  0% { transform:scale(1) }
+  100% { transform:scale(1.06) }
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(255,245,245,.15) 0%, rgba(255,255,255,.35) 50%, rgba(255,245,245,.6) 100%);
+}
+.hero-content {
+  position:relative; z-index:2; text-align:center; max-width:700px;
+  padding:0 2rem;
+  opacity:0; transform:translateY(40px);
+  animation:fadeUp 1.2s .4s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0) }
+}
+.hero-ornament {
+  font-size:.7rem; letter-spacing:8px; color:var(--gold);
+  margin-bottom:1.2rem;
+}
+.hero-title {
+  font-family:var(--font-display); font-size:clamp(3rem, 7vw, 5.5rem);
+  font-weight:300; line-height:1.1; letter-spacing:2px;
+  color:var(--text); margin-bottom:1rem;
+}
+.hero-title em { font-style:italic; color:var(--gold-dark) }
+.hero-subtitle {
+  font-family:var(--font-body); font-size:1.05rem; font-weight:300;
+  color:var(--text-muted); margin-bottom:2.4rem; letter-spacing:1px;
+}
+.hero-cta {
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:.95rem 2.8rem;
+  background:var(--gold-dark); color:#fff;
+  text-decoration:none;
+  font-family:var(--font-body); font-size:.75rem; font-weight:600;
+  letter-spacing:3px; text-transform:uppercase; border-radius:100px;
+  transition:all .35s;
+}
+.hero-cta:hover {
+  background:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(212,168,83,.3);
+}
+
+/* FLOATING PETALS */
+.petals {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  z-index:1; pointer-events:none; overflow:hidden;
+}
+.petal {
+  position:absolute; font-size:2rem; opacity:0.3;
+  animation:fall linear infinite;
+}
+.petal:nth-child(1) { left:10%; animation-duration:12s; animation-delay:0s; font-size:1.8rem; }
+.petal:nth-child(2) { left:25%; animation-duration:16s; animation-delay:-3s; font-size:2.2rem; }
+.petal:nth-child(3) { left:40%; animation-duration:14s; animation-delay:-6s; font-size:1.6rem; }
+.petal:nth-child(4) { left:55%; animation-duration:18s; animation-delay:-2s; font-size:2.5rem; }
+.petal:nth-child(5) { left:70%; animation-duration:13s; animation-delay:-8s; font-size:1.9rem; }
+.petal:nth-child(6) { left:85%; animation-duration:15s; animation-delay:-4s; font-size:2rem; }
+.petal:nth-child(7) { left:92%; animation-duration:17s; animation-delay:-9s; font-size:1.7rem; }
+.petal:nth-child(8) { left:5%; animation-duration:19s; animation-delay:-5s; font-size:2.1rem; }
+
+@keyframes fall {
+  0% { transform:translateY(-10vh) rotate(0deg) translateX(0); opacity:0.4 }
+  25% { transform:translateY(25vh) rotate(90deg) translateX(60px); opacity:0.5 }
+  50% { transform:translateY(50vh) rotate(180deg) translateX(-30px); opacity:0.35 }
+  75% { transform:translateY(75vh) rotate(270deg) translateX(40px); opacity:0.25 }
+  100% { transform:translateY(110vh) rotate(360deg) translateX(0); opacity:0.1 }
+}
+
+/* SECTION HEADERS */
+.section-header { text-align:center; margin-bottom:4.5rem }
+.section-ornament {
+  font-size:.7rem; letter-spacing:8px; color:var(--gold);
+  margin-bottom:.8rem;
+}
+.section-title {
+  font-family:var(--font-display); font-size:clamp(2.4rem, 5vw, 3.6rem);
+  font-weight:400; letter-spacing:1px; line-height:1.15; color:var(--text);
+}
+.section-title em { font-style:italic; color:var(--gold-dark) }
+.section-subtitle {
+  font-size:.9rem; color:var(--text-muted); margin-top:.6rem; font-weight:400;
+}
+.divider { width:40px; height:1.5px; background:var(--gold); margin:1rem auto 0 }
+
+/* PACKAGES */
+.packages {
+  padding:8rem 6%; background:var(--blush);
+}
+.packages-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2rem;
+  max-width:1200px; margin:0 auto;
+}
+.package-card {
+  background:#fff; border-radius:12px; padding:3rem 2rem; text-align:center;
+  border:1px solid var(--border);
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94), box-shadow .5s;
+  position:relative;
+}
+.package-card.featured {
+  border-color:var(--gold); box-shadow:0 8px 40px rgba(212,168,83,.15);
+  transform:scale(1.04);
+}
+.package-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 20px 50px rgba(0,0,0,.06);
+}
+.package-card.featured:hover { transform:scale(1.04) translateY(-8px) }
+.package-badge {
+  position:absolute; top:0; left:50%; transform:translate(-50%,-50%);
+  background:var(--gold); color:#fff; font-size:.62rem; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase;
+  padding:.4rem 1.4rem; border-radius:100px;
+}
+.package-icon {
+  font-size:2.4rem; margin-bottom:1rem;
+}
+.package-name {
+  font-family:var(--font-display); font-size:2rem; font-weight:500;
+  margin-bottom:.4rem; color:var(--text);
+}
+.package-price {
+  font-family:var(--font-display); font-size:2.6rem; font-weight:300;
+  color:var(--gold-dark); margin-bottom:.2rem;
+}
+.package-price small { font-size:.8rem; color:var(--text-dim); font-family:var(--font-body) }
+.package-desc {
+  font-size:.82rem; color:var(--text-muted); margin-bottom:1.5rem;
+}
+.package-list { list-style:none; text-align:left; margin-bottom:2rem }
+.package-list li {
+  font-size:.82rem; color:var(--text-muted);
+  padding:.5rem 0; border-bottom:1px solid var(--border);
+}
+.package-list li::before { content:'✦'; color:var(--gold); margin-right:.6rem; font-size:.7rem }
+.package-btn {
+  display:inline-block; padding:.7rem 2rem;
+  border:1.5px solid var(--gold); color:var(--gold-dark);
+  text-decoration:none; font-size:.72rem; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; border-radius:100px;
+  transition:all .3s;
+}
+.package-btn:hover { background:var(--gold); color:#fff }
+.package-card.featured .package-btn {
+  background:var(--gold-dark); border-color:var(--gold-dark); color:#fff;
+}
+.package-card.featured .package-btn:hover { background:var(--gold); border-color:var(--gold) }
+
+/* GALLERY */
+.gallery {
+  padding:8rem 6%; max-width:1300px; margin:0 auto;
+}
+.gallery-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:300px 300px;
+  gap:1rem;
+}
+.gallery-item {
+  position:relative; overflow:hidden; border-radius:8px;
+  cursor:pointer;
+}
+.gallery-item:nth-child(1) { grid-column:1/3; grid-row:1/2 }
+.gallery-item:nth-child(2) { grid-column:3/5; grid-row:1/2 }
+.gallery-item:nth-child(3) { grid-column:1/2; grid-row:2/3 }
+.gallery-item:nth-child(4) { grid-column:2/4; grid-row:2/3 }
+.gallery-item:nth-child(5) { grid-column:4/5; grid-row:2/3 }
+.gallery-item img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.gallery-item:hover img { transform:scale(1.08) }
+.gallery-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.5) 100%);
+  display:flex; align-items:flex-end; padding:1.5rem;
+  opacity:0; transition:opacity .4s;
+}
+.gallery-item:hover .gallery-overlay { opacity:1 }
+.gallery-label {
+  color:#fff; font-family:var(--font-display); font-size:1.4rem;
+  font-style:italic;
+}
+
+/* REFERENCES */
+.references {
+  padding:8rem 6%; background:var(--blush);
+}
+.ref-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2rem;
+  max-width:1200px; margin:0 auto;
+}
+.ref-card {
+  background:#fff; border-radius:12px; padding:2.5rem 2rem;
+  text-align:center; border:1px solid var(--border);
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94);
+}
+.ref-card:hover { transform:translateY(-6px) }
+.ref-stars { color:var(--gold); font-size:1rem; letter-spacing:2px; margin-bottom:1.2rem }
+.ref-text {
+  font-family:var(--font-display); font-size:1.15rem; font-style:italic;
+  color:var(--text); line-height:1.6; margin-bottom:1.5rem;
+}
+.ref-author {
+  font-family:var(--font-body); font-size:.8rem; font-weight:700;
+  color:var(--gold-dark); letter-spacing:1px; text-transform:uppercase;
+}
+.ref-date {
+  font-size:.7rem; color:var(--text-dim);
+}
+
+/* CTA */
+.cta {
+  padding:7rem 6%; text-align:center;
+  background:linear-gradient(135deg, var(--blush) 0%, #fff 100%);
+}
+.cta-heading {
+  font-family:var(--font-display); font-size:clamp(2rem, 4vw, 3rem);
+  font-weight:400; margin-bottom:1rem; color:var(--text);
+}
+.cta-heading em { font-style:italic; color:var(--gold-dark) }
+.cta-text { font-size:1rem; color:var(--text-muted); margin-bottom:2rem; font-weight:300 }
+.cta-btn {
+  display:inline-block; padding:1rem 3rem;
+  background:var(--gold-dark); color:#fff;
+  text-decoration:none; font-size:.78rem; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; border-radius:100px;
+  transition:all .35s;
+}
+.cta-btn:hover {
+  background:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(212,168,83,.3);
+}
+
+/* FOOTER */
+footer {
+  background:var(--text); color:rgba(255,255,255,.65);
+  padding:4rem 6% 2rem;
+}
+.footer-grid {
+  display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem;
+  max-width:1300px; margin:0 auto 3rem;
+}
+.footer-brand {
+  font-family:var(--font-display); font-size:1.8rem; color:#fff;
+  letter-spacing:2px; margin-bottom:.8rem;
+}
+.footer-desc { font-size:.85rem; line-height:1.8 }
+.footer-title {
+  font-family:var(--font-body); font-size:.72rem; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; color:var(--gold-light);
+  margin-bottom:1.2rem;
+}
+.footer-links { list-style:none }
+.footer-links li { margin-bottom:.6rem }
+.footer-links a {
+  color:rgba(255,255,255,.5); text-decoration:none; font-size:.82rem;
+  transition:color .3s;
+}
+.footer-links a:hover { color:var(--gold-light) }
+.footer-bottom {
+  text-align:center; font-size:.72rem; padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,.08);
+  max-width:1300px; margin:0 auto;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity:0; transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.25,.46,.45,.94), transform .8s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.visible { opacity:1; transform:translateY(0) }
+
+/* RESPONSIVE */
+@media (max-width:1024px) {
+  .packages-grid { grid-template-columns:1fr; max-width:500px }
+  .package-card.featured { transform:none }
+  .package-card.featured:hover { transform:translateY(-8px) }
+  .ref-grid { grid-template-columns:1fr }
+  .gallery-grid { grid-template-columns:repeat(2,1fr); grid-template-rows:200px 200px 200px }
+  .gallery-item:nth-child(1) { grid-column:1/3; grid-row:1 }
+  .gallery-item:nth-child(2) { grid-column:1/3; grid-row:2 }
+  .gallery-item:nth-child(3) { grid-column:1; grid-row:3 }
+  .gallery-item:nth-child(4) { grid-column:1/3; grid-row:4 }
+  .gallery-item:nth-child(5) { grid-column:2; grid-row:3 }
+}
+@media (max-width:768px) {
+  .nav-links { display:none }
+  .footer-grid { grid-template-columns:1fr }
+  .gallery-grid { grid-template-columns:1fr; grid-template-rows:200px 200px 200px 200px 200px }
+  .gallery-item { grid-column:1 !important; grid-row:auto !important }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Beyaz Düşler</div>
+  <ul class="nav-links">
+    <li><a href="#packages">Paketler</a></li>
+    <li><a href="#gallery">Galeri</a></li>
+    <li><a href="#references">Referanslar</a></li>
+    <li><a href="#cta" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="petals">
+    <div class="petal">✿</div><div class="petal">❀</div><div class="petal">✾</div>
+    <div class="petal">✿</div><div class="petal">✦</div><div class="petal">❁</div>
+    <div class="petal">✾</div><div class="petal">✿</div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-ornament">✦ ✦ ✦ ✦ ✦</p>
+    <h1 class="hero-title">Beyaz <em>Düşler</em><br>Organizasyon</h1>
+    <p class="hero-subtitle">Hayalini kurduğunuz düğünü gerçeğe dönüştürüyoruz. Zarafet, tutku ve kusursuz her detay.</p>
+    <a href="#packages" class="hero-cta">Hayalini Keşfet</a>
+  </div>
+</section>
+
+<section class="packages" id="packages">
+  <div class="section-header reveal">
+    <p class="section-ornament">✦ ✦ ✦</p>
+    <h2 class="section-title"><em>Düğün</em> Paketlerimiz</h2>
+    <p class="section-subtitle">Her bütçeye ve hayale uygun özenle hazırlanmış çözümler</p>
+    <div class="divider"></div>
+  </div>
+  <div class="packages-grid">
+    <div class="package-card reveal">
+      <div class="package-icon">🌿</div>
+      <h3 class="package-name">Sade Şıklık</h3>
+      <p class="package-price">₺45.000<small> / paket</small></p>
+      <p class="package-desc">Butik ve samimi düğünler için</p>
+      <ul class="package-list">
+        <li>Mekan organizasyonu</li>
+        <li>Masa &amp; sandalye dekorasyonu</li>
+        <li>Gelin buketi &amp; yaka çiçekleri</li>
+        <li>DJ &amp; ses sistemi</li>
+        <li>Fotoğraf çekimi (4 saat)</li>
+      </ul>
+      <a href="#cta" class="package-btn">Seç</a>
+    </div>
+    <div class="package-card featured reveal">
+      <span class="package-badge">En Çok Tercih Edilen</span>
+      <div class="package-icon">🌹</div>
+      <h3 class="package-name">Zarafet</h3>
+      <p class="package-price">₺95.000<small> / paket</small></p>
+      <p class="package-desc">Kusursuz ve detaylı bir düğün için</p>
+      <ul class="package-list">
+        <li>Konsept tasarım &amp; danışmanlık</li>
+        <li>Tam mekan dekorasyonu</li>
+        <li>Çiçek tasarımı (mekan + araç)</li>
+        <li>Canlı müzik (4 kişilik grup)</li>
+        <li>Profesyonel fotoğraf &amp; video</li>
+        <li>Pasta &amp; ikram organizasyonu</li>
+        <li>Gelin aracı süsleme</li>
+      </ul>
+      <a href="#cta" class="package-btn">Seç</a>
+    </div>
+    <div class="package-card reveal">
+      <div class="package-icon">👑</div>
+      <h3 class="package-name">Masal</h3>
+      <p class="package-price">₺185.000<small> / paket</small></p>
+      <p class="package-desc">Unutulmaz bir masal düğünü için</p>
+      <ul class="package-list">
+        <li>Özel konsept tasarım ekibi</li>
+        <li>VIP mekan seçimi &amp; dekorasyon</li>
+        <li>Lüks çiçek &amp; ışıklandırma</li>
+        <li>Orkestra (8 kişi)</li>
+        <li>Sinematik çekim &amp; drone</li>
+        <li>Havai fişek &amp; özel gösteriler</li>
+        <li>Gurme catering &amp; şampanya bar</li>
+        <li>Lüks konvoy &amp; transfer</li>
+      </ul>
+      <a href="#cta" class="package-btn">Seç</a>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="section-header reveal">
+    <p class="section-ornament">✦ ✦ ✦</p>
+    <h2 class="section-title"><em>Galeri</em></h2>
+    <p class="section-subtitle">Bizden birkaç büyülü an</p>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Wedding Ceremony">
+      <div class="gallery-overlay"><span class="gallery-label">Tören</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=600" alt="Flowers">
+      <div class="gallery-overlay"><span class="gallery-label">Çiçekler</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600" alt="Table Setup">
+      <div class="gallery-overlay"><span class="gallery-label">Masa Dekor</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Bride">
+      <div class="gallery-overlay"><span class="gallery-label">Gelin</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=600" alt="Bouquet">
+      <div class="gallery-overlay"><span class="gallery-label">Buket</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="references" id="references">
+  <div class="section-header reveal">
+    <p class="section-ornament">✦ ✦ ✦</p>
+    <h2 class="section-title"><em>Referanslar</em></h2>
+    <p class="section-subtitle">Mutluluğumuza ortak olan çiftlerimiz</p>
+    <div class="divider"></div>
+  </div>
+  <div class="ref-grid">
+    <div class="ref-card reveal">
+      <div class="ref-stars">★★★★★</div>
+      <p class="ref-text">"Düğünümüz bir masal gibiydi. Her detay o kadar özenliydi ki gözlerimiz doldu. İyi ki Beyaz Düşler!"</p>
+      <p class="ref-author">Elif &amp; Kaan Yılmaz</p>
+      <p class="ref-date">İstanbul, Mayıs 2025</p>
+    </div>
+    <div class="ref-card reveal">
+      <div class="ref-stars">★★★★★</div>
+      <p class="ref-text">"Planlamadan uygulamaya kadar her aşamada yanımızdaydılar. Zarafet paketini seçtik ve her kuruşuna değdi."</p>
+      <p class="ref-author">Zeynep &amp; Emre Demir</p>
+      <p class="ref-date">Bodrum, Ağustos 2025</p>
+    </div>
+    <div class="ref-card reveal">
+      <div class="ref-stars">★★★★★</div>
+      <p class="ref-text">"Çiçekler, müzik, organizasyon... her şey kusursuzdu. Misafirlerimiz hala konuşuyor. Teşekkürler Beyaz Düşler!"</p>
+      <p class="ref-author">Ayşe &amp; Murat Öztürk</p>
+      <p class="ref-date">Çeşme, Eylül 2025</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="reveal">
+    <h2 class="cta-heading">Hayalindeki düğüne bir <em>adım</em> kaldı</h2>
+    <p class="cta-text">Bizimle iletişime geç, ücretsiz danışmanlık randevunu oluşturalım.</p>
+    <a href="#" class="cta-btn" onclick="event.preventDefault(); alert('Teşekkürler! En kısa sürede sizinle iletişime geçeceğiz.')">Bize Ulaşın</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Beyaz Düşler</div>
+      <p class="footer-desc">2010 yılından beri Türkiye'nin en özel düğünlerine imza atıyoruz. Zarafet, tutku ve kusursuzluk bizim işimiz.</p>
+    </div>
+    <div>
+      <p class="footer-title">Paketler</p>
+      <ul class="footer-links">
+        <li><a href="#">Sade Şıklık</a></li>
+        <li><a href="#">Zarafet</a></li>
+        <li><a href="#">Masal</a></li>
+        <li><a href="#">Özel Tasarım</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-title">İletişim</p>
+      <ul class="footer-links">
+        <li><a href="#">Bağdat Cad. No:42 İstanbul</a></li>
+        <li><a href="#">(0216) 555 78 90</a></li>
+        <li><a href="#">info@beyazdusler.com</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Beyaz Düşler Organizasyon. Tüm hakları saklıdır.</div>
+</footer>
+
+<script>
+/* NAV SCROLL */
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* SCROLL REVEAL */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+/* SMOOTH NAV SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const tgt = document.querySelector(a.getAttribute('href'));
+    if (tgt) tgt.scrollIntoView({ behavior:'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
