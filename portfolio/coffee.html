@@ -3,785 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ROAST — Specialty Coffee Roaster & Cafe</title>
+<title>ROAST — Artisan Coffee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
   --brown: #3c2415;
-  --brown-light: #5a3a28;
+  --brown-light: #5c3a2e;
+  --brown-dark: #2a1810;
   --cream: #f5e6d3;
-  --cream-dark: #e8d5be;
-  --terracotta: #c67b4b;
-  --terracotta-light: #d9a17a;
-  --terracotta-dark: #a85d32;
-  --white: #fffbf7;
-  --text: #3c2415;
-  --text-light: #7a6a5c;
+  --cream-light: #faf3eb;
+  --cream-dark: #e8d5bb;
+  --white: #ffffff;
   --radius: 12px;
-  --radius-sm: 8px;
-  --radius-full: 999px;
-  --shadow: 0 4px 24px rgba(60,36,21,0.08);
-  --shadow-lg: 0 12px 48px rgba(60,36,21,0.12);
-  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --shadow: 0 4px 20px rgba(60,36,21,0.08);
+  --shadow-lg: 0 20px 40px rgba(60,36,21,0.15);
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-h1, h2, h3, h4 {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+body { font-family: 'Nunito', sans-serif; color: var(--brown); background: var(--cream-light); line-height: 1.6; overflow-x: hidden; }
 
-/* ── NAV ────────────────────────────── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(245,230,211,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(60,36,21,0.06);
-  transition: var(--transition);
-}
-.nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 76px;
-  max-width: 1200px; margin: 0 auto; padding: 0 24px;
-}
-.nav-brand {
-  font-family: 'DM Serif Display', serif;
-  font-size: 28px;
-  letter-spacing: 0.12em;
-  color: var(--brown);
-  position: relative;
-}
-.nav-brand::after {
-  content: '';
-  position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px;
-  background: var(--terracotta);
-  border-radius: 2px;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.3s ease;
-}
-.nav-brand:hover::after { transform: scaleX(1); }
-.nav-links { display: flex; gap: 36px; list-style: none; }
-.nav-links a {
-  font-size: 15px; font-weight: 600;
-  color: var(--brown);
-  padding: 8px 0;
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute; bottom: 4px; left: 0; width: 100%; height: 2px;
-  background: var(--terracotta);
-  border-radius: 1px;
-  transform: scaleX(0); transform-origin: right;
-  transition: transform 0.3s ease;
-}
-.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-.nav-cta {
-  background: var(--brown);
-  color: var(--cream) !important;
-  padding: 10px 24px !important;
-  border-radius: var(--radius-full);
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  transition: background var(--transition);
-}
-.nav-cta:hover { background: var(--terracotta); }
-.nav-cta::after { display: none !important; }
-.nav-toggle { display: none; }
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(245,230,211,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(60,36,21,0.08); transition: var(--transition); }
+.nav.scrolled { padding: 0.65rem 5%; }
+.logo { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; color: var(--brown); text-decoration: none; letter-spacing: 4px; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { font-size: 0.9rem; font-weight: 600; color: var(--brown-light); text-decoration: none; transition: color var(--transition); }
+.nav-links a:hover { color: var(--brown); }
+.btn-nav { padding: 0.5rem 1.5rem; background: var(--brown); color: var(--cream) !important; border-radius: 50px; transition: all var(--transition); }
+.btn-nav:hover { background: var(--brown-dark); transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { width: 26px; height: 2.5px; background: var(--brown); border-radius: 2px; transition: var(--transition); }
 
-/* ── HERO ───────────────────────────── */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  background:
-    radial-gradient(ellipse at 70% 30%, rgba(198,123,75,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse at 30% 80%, rgba(60,36,21,0.15) 0%, transparent 50%),
-    linear-gradient(180deg, #f5e6d3 0%, #e8d5be 100%);
-  padding: 120px 24px 80px;
-  text-align: center;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 25% 25%, rgba(198,123,75,0.12) 0%, transparent 40%),
-    radial-gradient(circle at 75% 75%, rgba(60,36,21,0.08) 0%, transparent 40%);
-  pointer-events: none;
-}
-.hero-content { position: relative; z-index: 1; max-width: 720px; }
-.hero-badge {
-  display: inline-block;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--terracotta);
-  border: 2px solid var(--terracotta);
-  padding: 8px 20px; border-radius: var(--radius-full);
-  margin-bottom: 32px;
-}
-.hero h1 {
-  font-size: clamp(48px, 8vw, 88px);
-  line-height: 1.05;
-  color: var(--brown);
-  margin-bottom: 24px;
-}
-.hero h1 em { font-style: italic; color: var(--terracotta); position: relative; }
-.hero p {
-  font-size: clamp(17px, 2.5vw, 20px);
-  color: var(--text-light);
-  max-width: 520px; margin: 0 auto 40px;
-  line-height: 1.6;
-}
-.hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px; font-weight: 700;
-  padding: 14px 32px; border-radius: var(--radius-full);
-  border: none; cursor: pointer;
-  transition: all var(--transition);
-}
-.btn-primary {
-  background: var(--brown);
-  color: var(--cream);
-}
-.btn-primary:hover {
-  background: var(--terracotta);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(198,123,75,0.35);
-}
-.btn-outline {
-  background: transparent;
-  color: var(--brown);
-  border: 2px solid var(--brown);
-}
-.btn-outline:hover {
-  background: var(--brown);
-  color: var(--cream);
-  transform: translateY(-2px);
-}
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: bounce 2s ease infinite;
-}
-.hero-scroll span { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; color: var(--text-light); }
-.hero-scroll svg { width: 20px; height: 20px; color: var(--terracotta); }
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
+/* HERO - Parallax */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200') center/cover no-repeat; will-change: transform; }
+.hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(44,24,16,0.75) 0%, rgba(44,24,16,0.5) 50%, rgba(60,36,21,0.85) 100%); }
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+.hero-badge { display: inline-block; padding: 0.3rem 1.2rem; background: rgba(245,230,211,0.12); color: var(--cream); border: 1px solid rgba(245,230,211,0.25); font-size: 0.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; border-radius: 50px; margin-bottom: 2rem; }
+.hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 7vw, 5rem); font-weight: 400; color: var(--cream); line-height: 1.05; margin-bottom: 1.25rem; }
+.hero h1 span { display: block; font-style: italic; color: var(--cream-dark); }
+.hero p { font-size: 1.1rem; color: rgba(245,230,211,0.8); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+.hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.btn-primary, .btn-outline { font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; padding: 0.85rem 2.2rem; border-radius: 50px; cursor: pointer; text-decoration: none; transition: all var(--transition); display: inline-block; letter-spacing: 0.5px; }
+.btn-primary { background: var(--cream); color: var(--brown); border: none; }
+.btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+.btn-outline { background: transparent; color: var(--cream); border: 2px solid var(--cream); }
+.btn-outline:hover { background: var(--cream); color: var(--brown); transform: translateY(-2px); }
 
-/* ── SECTION HEADER ─────────────────── */
-.section-header { text-align: center; margin-bottom: 64px; }
-.section-tag {
-  font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 16px;
+/* STEAM ANIMATION */
+.steam-container { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 20px; }
+.steam { position: absolute; bottom: 0; left: 50%; width: 8px; height: 20px; background: rgba(245,230,211,0.4); border-radius: 50%; filter: blur(8px); animation: rise 3.5s infinite ease-out; }
+.steam:nth-child(1) { margin-left: -30px; animation-delay: 0s; }
+.steam:nth-child(2) { margin-left: -10px; animation-delay: 0.7s; width: 10px; }
+.steam:nth-child(3) { margin-left: 10px; animation-delay: 1.4s; width: 7px; }
+.steam:nth-child(4) { margin-left: 30px; animation-delay: 2.1s; width: 6px; }
+.steam:nth-child(5) { margin-left: 0px; animation-delay: 2.8s; width: 9px; }
+@keyframes rise {
+  0% { bottom: 0; opacity: 0.7; transform: translateX(0) scale(1); }
+  30% { opacity: 0.5; transform: translateX(8px) scale(1.8); }
+  60% { opacity: 0.2; transform: translateX(-6px) scale(2.5); }
+  100% { bottom: 120px; opacity: 0; transform: translateX(4px) scale(3); }
 }
-.section-header h2 {
-  font-size: clamp(36px, 5vw, 56px);
-  color: var(--brown);
-  margin-bottom: 16px;
-}
-.section-header p {
-  font-size: 17px; color: var(--text-light); max-width: 480px; margin: 0 auto;
-}
+.cup-icon { font-size: 2.5rem; position: relative; }
 
-/* ── PRODUCTS ───────────────────────── */
-.products {
-  padding: 100px 24px;
-  background: var(--white);
-}
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  max-width: 1200px; margin: 0 auto;
-}
-.product-card {
-  background: var(--cream);
-  border-radius: var(--radius);
-  padding: 36px 28px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition);
-  border: 1px solid transparent;
-}
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--terracotta);
-}
-.product-icon {
-  width: 80px; height: 80px; margin: 0 auto 24px;
-  background: var(--white);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 36px;
-  transition: transform var(--transition);
-}
-.product-card:hover .product-icon { transform: scale(1.1) rotate(-4deg); }
-.product-card h3 {
-  font-size: 22px; color: var(--brown); margin-bottom: 8px;
-}
-.product-card p {
-  font-size: 14px; color: var(--text-light); margin-bottom: 20px;
-  line-height: 1.5;
-}
-.product-price {
-  font-family: 'DM Serif Display', serif;
-  font-size: 28px; color: var(--terracotta);
-  display: block;
-}
-.product-price small {
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px; color: var(--text-light); font-weight: 400;
-}
-.product-badge {
-  position: absolute; top: 16px; right: 16px;
-  background: var(--terracotta);
-  color: var(--cream);
-  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
-  padding: 4px 12px; border-radius: var(--radius-full);
-}
+/* SECTIONS */
+section { padding: 100px 5%; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header span { font-size: 0.8rem; font-weight: 700; color: var(--brown-light); text-transform: uppercase; letter-spacing: 3px; }
+.section-header h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; color: var(--brown); margin: 0.5rem 0 1rem; }
+.section-header p { color: #6b5b4f; max-width: 520px; margin: 0 auto; }
 
-/* ── STORY ──────────────────────────── */
-.story {
-  padding: 100px 24px;
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(198,123,75,0.1) 0%, transparent 60%),
-    var(--cream);
-}
-.story-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  max-width: 1200px; margin: 0 auto;
-}
-.story-visual {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 16px;
-  align-items: center;
-}
-.story-visual-bar {
-  display: flex; flex-direction: column; gap: 16px;
-}
-.story-img-box {
-  width: 100%; aspect-ratio: 3/4;
-  border-radius: var(--radius);
-  background-size: cover; background-position: center;
-  position: relative; overflow: hidden;
-}
-.story-img-box::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(60,36,21,0.6));
-}
-.story-img-1 {
-  background:
-    linear-gradient(135deg, rgba(198,123,75,0.3), rgba(60,36,21,0.5)),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"><rect fill="%233c2415" width="200" height="300"/><circle fill="%23c67b4b" opacity="0.4" cx="60" cy="80" r="50"/><circle fill="%23f5e6d3" opacity="0.15" cx="150" cy="180" r="70"/><circle fill="%23c67b4b" opacity="0.25" cx="80" cy="250" r="40"/><rect fill="%23e8d5be" opacity="0.1" x="20" y="40" width="160" height="220" rx="20"/></svg>');
-  background-size: cover;
-}
-.story-img-2 {
-  aspect-ratio: 2/3;
-  background:
-    linear-gradient(135deg, rgba(60,36,21,0.3), rgba(198,123,75,0.4)),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"><rect fill="%23e8d5be" width="200" height="300"/><circle fill="%23c67b4b" opacity="0.3" cx="100" cy="100" r="60"/><circle fill="%233c2415" opacity="0.15" cx="60" cy="220" r="50"/><circle fill="%23f5e6d3" opacity="0.2" cx="150" cy="250" r="45"/></svg>');
-  background-size: cover;
-}
-.story-content h2 {
-  font-size: clamp(36px, 5vw, 52px);
-  color: var(--brown);
-  margin-bottom: 24px;
-}
-.story-content .lead {
-  font-size: 18px; font-weight: 600; color: var(--terracotta);
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-.story-content p {
-  color: var(--text-light); margin-bottom: 16px;
-}
-.story-stats {
-  display: flex; gap: 48px; margin-top: 32px;
-}
-.story-stat {
-  text-align: center;
-}
-.story-stat-number {
-  font-family: 'DM Serif Display', serif;
-  font-size: 40px; color: var(--terracotta);
-  display: block; line-height: 1;
-}
-.story-stat-label {
-  font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--text-light);
-}
+/* BLEND CARDS */
+.blend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+.blend-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform var(--transition), box-shadow var(--transition); }
+.blend-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.blend-card img { width: 100%; height: 220px; object-fit: cover; }
+.blend-info { padding: 1.5rem; }
+.blend-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.3rem; }
+.blend-info .origin { font-size: 0.8rem; color: #8b7355; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+.blend-info p { font-size: 0.9rem; color: #6b5b4f; margin-bottom: 1rem; }
+.blend-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tag { padding: 0.25rem 0.75rem; background: var(--cream); color: var(--brown); font-size: 0.75rem; font-weight: 700; border-radius: 50px; }
 
-/* ── LOCATIONS ──────────────────────── */
-.locations {
-  padding: 100px 24px;
-  background: var(--white);
-}
-.locations-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  max-width: 1000px; margin: 0 auto;
-}
-.location-card {
-  background: var(--cream);
-  border-radius: var(--radius);
-  padding: 40px;
-  border: 1px solid var(--cream-dark);
-  transition: all var(--transition);
-}
-.location-card:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: var(--terracotta);
-}
-.location-card h3 {
-  font-size: 24px; color: var(--brown); margin-bottom: 4px;
-}
-.location-card .location-area {
-  font-size: 14px; color: var(--terracotta); font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.location-detail {
-  display: flex; gap: 12px; align-items: flex-start;
-  margin-bottom: 12px;
-  font-size: 15px; color: var(--text-light);
-}
-.location-detail svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--terracotta); margin-top: 3px; }
-.location-hours {
-  margin-top: 24px; padding-top: 20px;
-  border-top: 1px solid var(--cream-dark);
-}
-.location-hours h4 {
-  font-size: 14px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 8px; color: var(--brown);
-}
-.location-hours p {
-  font-size: 14px; color: var(--text-light); line-height: 1.6;
-}
+/* VISIT / EXPERIENCE */
+.experience { background: var(--brown-dark); color: var(--cream); }
+.experience .section-header h2 { color: var(--cream); }
+.experience .section-header p { color: rgba(245,230,211,0.7); }
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.exp-grid img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+.exp-text h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; }
+.exp-text p { color: rgba(245,230,211,0.75); margin-bottom: 1.5rem; line-height: 1.7; }
+.exp-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.exp-features li { display: flex; align-items: center; gap: 0.75rem; font-weight: 600; }
+.exp-features li::before { content: '☕'; font-size: 1.1rem; }
 
-/* ── NEWSLETTER ─────────────────────── */
-.newsletter {
-  padding: 100px 24px;
-  background: var(--brown);
-  color: var(--cream);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.newsletter::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(198,123,75,0.2) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.newsletter::after {
-  content: '';
-  position: absolute;
-  bottom: -80px; left: -40px;
-  width: 250px; height: 250px;
-  background: radial-gradient(circle, rgba(245,230,211,0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.newsletter-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
-.newsletter h2 {
-  font-size: clamp(32px, 5vw, 48px);
-  margin-bottom: 12px;
-}
-.newsletter p {
-  font-size: 16px; color: var(--cream-dark); margin-bottom: 32px;
-}
-.newsletter-form {
-  display: flex; gap: 12px;
-  max-width: 460px; margin: 0 auto;
-}
-.newsletter-form input {
-  flex: 1;
-  padding: 14px 20px;
-  border-radius: var(--radius-full);
-  border: 2px solid rgba(245,230,211,0.2);
-  background: rgba(245,230,211,0.08);
-  color: var(--cream);
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px;
-  outline: none;
-  transition: border-color var(--transition);
-}
-.newsletter-form input::placeholder { color: rgba(245,230,211,0.4); }
-.newsletter-form input:focus { border-color: var(--terracotta); }
-.newsletter-form .btn {
-  background: var(--terracotta);
-  color: var(--cream);
-  flex-shrink: 0;
-}
-.newsletter-form .btn:hover {
-  background: var(--terracotta-light);
-  box-shadow: 0 8px 24px rgba(198,123,75,0.4);
-}
+/* TESTIMONIALS */
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+.testimonial-card { background: var(--white); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); border-left: 3px solid var(--brown); transition: transform var(--transition); }
+.testimonial-card:hover { transform: translateY(-4px); }
+.testimonial-card p { font-style: italic; font-size: 0.95rem; color: #5c4a3a; margin-bottom: 1rem; line-height: 1.6; }
+.testimonial-card strong { display: block; font-weight: 700; }
 
-/* ── FOOTER ─────────────────────────── */
-.footer {
-  padding: 60px 24px 32px;
-  background: #2e1a0f;
-  color: var(--cream-dark);
-}
-.footer-grid {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  max-width: 1200px; margin: 0 auto;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(245,230,211,0.08);
-}
-.footer-brand {
-  font-family: 'DM Serif Display', serif;
-  font-size: 28px; letter-spacing: 0.12em;
-  color: var(--cream);
-  margin-bottom: 12px;
-}
-.footer-about { font-size: 14px; line-height: 1.6; max-width: 260px; }
-.footer-col h4 {
-  font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--cream); margin-bottom: 20px;
-}
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
-.footer-col a {
-  font-size: 14px; color: var(--cream-dark);
-  transition: color var(--transition);
-}
-.footer-col a:hover { color: var(--terracotta); }
-.footer-bottom {
-  display: flex; justify-content: space-between;
-  align-items: center;
-  max-width: 1200px; margin: 0 auto; padding-top: 24px;
-  font-size: 13px;
-}
-.footer-social { display: flex; gap: 16px; }
-.footer-social a {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: rgba(245,230,211,0.1);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--cream-dark);
-  transition: all var(--transition);
-}
-.footer-social a:hover { background: var(--terracotta); color: var(--cream); }
+/* CTA */
+.cta-section { background: linear-gradient(135deg, var(--brown), var(--brown-light)); text-align: center; padding: 80px 5%; position: relative; overflow: hidden; }
+.cta-section::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600') center/cover no-repeat; opacity: 0.06; }
+.cta-section > * { position: relative; z-index: 1; }
+.cta-section h2 { font-family: 'DM Serif Display', serif; font-size: 2.3rem; color: var(--cream); margin-bottom: 1rem; }
+.cta-section p { color: rgba(245,230,211,0.8); margin-bottom: 2rem; font-size: 1.05rem; }
+.cta-section .btn-primary { background: var(--cream); color: var(--brown); }
 
-/* ── RESPONSIVE ─────────────────────── */
-@media (max-width: 1024px) {
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
-  .story-grid { grid-template-columns: 1fr; gap: 48px; }
-  .story-visual { max-width: 500px; margin: 0 auto; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-}
+footer { background: var(--brown-dark); color: rgba(245,230,211,0.6); padding: 3rem 5%; text-align: center; }
+footer .logo { display: block; margin-bottom: 1rem; color: var(--cream); }
+footer p { font-size: 0.85rem; }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-toggle {
-    display: flex; flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer; padding: 4px;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: var(--brown); border-radius: 2px;
-    transition: var(--transition);
-  }
-  .products-grid { grid-template-columns: 1fr; }
-  .locations-grid { grid-template-columns: 1fr; }
-  .newsletter-form { flex-direction: column; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .hero h1 { font-size: clamp(36px, 10vw, 52px); }
+  .exp-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.5rem; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--cream-light); padding: 1.5rem; box-shadow: var(--shadow-lg); }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+  section { padding: 60px 5%; }
 }
-
-/* ── MOBILE NAV ─────────────────────── */
-.nav.open .nav-links {
-  display: flex;
-  flex-direction: column;
-  position: absolute; top: 76px; left: 0; right: 0;
-  background: var(--cream);
-  padding: 24px;
-  gap: 16px;
-  border-bottom: 1px solid var(--cream-dark);
-}
-.nav.open .nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
-.nav.open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-
-/* ── BEANS DECORATION ───────────────── */
-.beans-decor {
-  position: absolute; pointer-events: none; opacity: 0.06;
-}
-.beans-decor-1 { top: 120px; left: -40px; font-size: 200px; transform: rotate(-15deg); }
-.beans-decor-2 { bottom: 60px; right: -30px; font-size: 160px; transform: rotate(20deg); }
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
 <nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-brand">ROAST</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#products">Shop</a></li>
-      <li><a href="#story">Our Story</a></li>
-      <li><a href="#locations">Locations</a></li>
-      <li><a href="#newsletter" class="nav-cta">Subscribe</a></li>
-    </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <a href="#" class="logo">ROAST</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#blends">Blends</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#visit" class="btn-nav">Visit Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="beans-decor beans-decor-1" aria-hidden="true">&#x2615;</div>
-  <div class="beans-decor beans-decor-2" aria-hidden="true">&#x2615;</div>
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
   <div class="hero-content">
-    <span class="hero-badge">Specialty Coffee Roasters</span>
-    <h1>Craft coffee, <em>slowly</em> roasted.</h1>
-    <p>We source the finest beans from sustainable farms worldwide and roast them in small batches to bring out their fullest, most vibrant character.</p>
+    <div class="hero-badge">Est. 2012 · Artisan Roasters</div>
+    <h1>Crafted <span>to Perfection</span></h1>
+    <p>Every bean is sourced ethically, roasted precisely, and brewed passionately. Experience coffee the way it was meant to be.</p>
     <div class="hero-buttons">
-      <a href="#products" class="btn btn-primary">Explore our beans</a>
-      <a href="#story" class="btn btn-outline">Our story</a>
+      <a href="#blends" class="btn-primary">Explore Blends</a>
+      <a href="#visit" class="btn-outline">Find a Cafe</a>
     </div>
   </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <span>SCROLL</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  <div class="steam-container">
+    <div class="cup-icon">☕</div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section class="products" id="products">
-  <div class="section-header">
-    <div class="section-tag">Our Collection</div>
-    <h2>Freshly roasted for you</h2>
-    <p>Every batch is roasted with care. From bright single origins to bold cold brew, find your perfect cup.</p>
+<section id="blends">
+  <div class="section-header reveal">
+    <span>Our Roasts</span>
+    <h2>Signature Blends</h2>
+    <p>Expertly curated single-origin beans and masterfully crafted blends for every palate.</p>
   </div>
-  <div class="products-grid">
-    <!-- Single Origin -->
-    <article class="product-card">
-      <span class="product-badge">Bestseller</span>
-      <div class="product-icon">&#x1F33F;</div>
-      <h3>Single Origin</h3>
-      <p>Ethiopia Yirgacheffe — floral, bright, with notes of bergamot and stone fruit.</p>
-      <span class="product-price">$18<small>/12oz bag</small></span>
-    </article>
-    <!-- Blends -->
-    <article class="product-card">
-      <div class="product-icon">&#x1F3AD;</div>
-      <h3>House Blend</h3>
-      <p>Our signature three-bean blend — balanced, smooth, with chocolate and nutty warmth.</p>
-      <span class="product-price">$16<small>/12oz bag</small></span>
-    </article>
-    <!-- Cold Brew -->
-    <article class="product-card">
-      <span class="product-badge">Seasonal</span>
-      <div class="product-icon">&#x1F9CA;</div>
-      <h3>Cold Brew</h3>
-      <p>Steeped 18 hours for a velvety smooth finish. Dark cocoa and caramel notes.</p>
-      <span class="product-price">$22<small>/6-pack</small></span>
-    </article>
-    <!-- Equipment -->
-    <article class="product-card">
-      <div class="product-icon">&#x2615;</div>
-      <h3>Brewing Gear</h3>
-      <p>Pour-over dripper, gooseneck kettle, and our ceramic dripper — everything you need.</p>
-      <span class="product-price">$38<small>starting at</small></span>
-    </article>
-  </div>
-</section>
-
-<!-- STORY -->
-<section class="story" id="story">
-  <div class="story-grid">
-    <div class="story-visual">
-      <div class="story-visual-bar">
-        <div class="story-img-box story-img-1"></div>
-      </div>
-      <div class="story-visual-bar">
-        <div class="story-img-box story-img-2"></div>
-      </div>
-      <div class="story-visual-bar">
-        <div class="story-img-box story-img-1" style="background-position:bottom;"></div>
+  <div class="blend-grid">
+    <div class="blend-card reveal">
+      <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600" alt="Ethiopian Yirgacheffe beans" loading="lazy">
+      <div class="blend-info">
+        <h3>Ethiopian Yirgacheffe</h3>
+        <p class="origin">Single Origin</p>
+        <p>Floral aroma with bright citrus notes and a clean, tea-like finish. Light roasted to preserve its delicate character.</p>
+        <div class="blend-tags"><span class="tag">Light Roast</span><span class="tag">Floral</span><span class="tag">Citrus</span></div>
       </div>
     </div>
-    <div class="story-content">
-      <div class="section-tag">Our Story</div>
-      <h2>Rooted in the soil, raised with care.</h2>
-      <p class="lead">We travel to origin. We meet the farmers. We taste the cherries right off the branch.</p>
-      <p>Every bean we roast carries a story — of the land it grew on, the hands that picked it, and the community that nurtured it. We partner directly with smallholder farms in Ethiopia, Colombia, Guatemala, and Rwanda, paying premiums well above Fair Trade to ensure sustainable livelihoods.</p>
-      <p>Back home, each batch is roasted on our vintage Probat drum roaster, tuned by hand to unlock the unique character of each origin. No two roasts are exactly alike — and that is precisely the point.</p>
-      <div class="story-stats">
-        <div class="story-stat">
-          <span class="story-stat-number">12</span>
-          <span class="story-stat-label">Origins</span>
-        </div>
-        <div class="story-stat">
-          <span class="story-stat-number">8</span>
-          <span class="story-stat-label">Farm Partners</span>
-        </div>
-        <div class="story-stat">
-          <span class="story-stat-number">2016</span>
-          <span class="story-stat-label">Established</span>
-        </div>
+    <div class="blend-card reveal">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600" alt="Colombian Supremo" loading="lazy">
+      <div class="blend-info">
+        <h3>Colombian Supremo</h3>
+        <p class="origin">Single Origin</p>
+        <p>Rich caramel sweetness, balanced body, with notes of stone fruit and cocoa. A timeless classic.</p>
+        <div class="blend-tags"><span class="tag">Medium Roast</span><span class="tag">Caramel</span><span class="tag">Balanced</span></div>
+      </div>
+    </div>
+    <div class="blend-card reveal">
+      <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=600" alt="Midnight Reserve espresso" loading="lazy">
+      <div class="blend-info">
+        <h3>Midnight Reserve</h3>
+        <p class="origin">House Blend</p>
+        <p>Bold, smoky, and intensely satisfying. Dark roasted blend of Indonesian and Central American beans.</p>
+        <div class="blend-tags"><span class="tag">Dark Roast</span><span class="tag">Bold</span><span class="tag">Smoky</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LOCATIONS -->
-<section class="locations" id="locations">
-  <div class="section-header">
-    <div class="section-tag">Visit Us</div>
-    <h2>Two cafes, one mission.</h2>
-    <p>Pull up a chair. Stay awhile. Coffee tastes better when you are not in a hurry.</p>
+<section class="experience" id="experience">
+  <div class="section-header reveal">
+    <span>The ROAST Way</span>
+    <h2>More Than Coffee</h2>
+    <p>Step into a space designed for connection, creativity, and the perfect cup.</p>
   </div>
-  <div class="locations-grid">
-    <!-- Downtown -->
-    <article class="location-card">
-      <h3>ROAST Downtown</h3>
-      <p class="location-area">Art District</p>
-      <div class="location-detail">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>417 Elm Street, Portland, OR 97201</span>
-      </div>
-      <div class="location-detail">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        <span>(503) 555-0182</span>
-      </div>
-      <div class="location-hours">
-        <h4>Hours</h4>
-        <p>Mon–Fri 6:30am – 7pm<br>Sat–Sun 7:30am – 8pm</p>
-      </div>
-    </article>
-    <!-- Riverside -->
-    <article class="location-card">
-      <h3>ROAST Riverside</h3>
-      <p class="location-area">Waterfront</p>
-      <div class="location-detail">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>128 Harbor Lane, Portland, OR 97209</span>
-      </div>
-      <div class="location-detail">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        <span>(503) 555-0194</span>
-      </div>
-      <div class="location-hours">
-        <h4>Hours</h4>
-        <p>Mon–Thu 7am – 6pm<br>Fri–Sun 7am – 9pm</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter" id="newsletter">
-  <div class="newsletter-inner">
-    <div class="section-tag" style="color:var(--terracotta-light)">Stay Connected</div>
-    <h2>Fresh drops in your inbox.</h2>
-    <p>Be the first to know about new origins, seasonal releases, and events at ROAST. No spam, just good coffee news.</p>
-    <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Welcome to the ROAST family!');">
-      <input type="email" placeholder="Your email address" required>
-      <button type="submit" class="btn">Subscribe</button>
-    </form>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand">ROAST</div>
-      <p class="footer-about">Specialty coffee roaster and cafe. Obsessively sourced, meticulously roasted, lovingly served.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="#">Single Origin</a></li>
-        <li><a href="#">House Blends</a></li>
-        <li><a href="#">Cold Brew</a></li>
-        <li><a href="#">Equipment</a></li>
-        <li><a href="#">Gift Cards</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>About</h4>
-      <ul>
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#">Sourcing</a></li>
-        <li><a href="#">Wholesale</a></li>
-        <li><a href="#">Careers</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Returns</a></li>
-        <li><a href="#">FAQ</a></li>
+  <div class="exp-grid">
+    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=600" alt="ROAST cafe interior" loading="lazy" class="reveal">
+    <div class="exp-text reveal">
+      <h3>A Place to Savor</h3>
+      <p>Our cafes are havens from the rush of daily life. Exposed brick, warm oak, soft lighting, and the hum of meaningful conversation fill every corner.</p>
+      <ul class="exp-features">
+        <li>Free high-speed Wi-Fi &amp; power at every seat</li>
+        <li>Freshly baked pastries daily from local bakeries</li>
+        <li>Pour-over bar — watch your coffee brewed to order</li>
+        <li>Roasting workshops every Saturday morning</li>
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 ROAST Coffee Co. All rights reserved.</span>
-    <div class="footer-social">
-      <a href="#" aria-label="Instagram">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-      </a>
-      <a href="#" aria-label="Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-      </a>
-      <a href="#" aria-label="Facebook">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-      </a>
+</section>
+
+<section id="reviews">
+  <div class="section-header reveal">
+    <span>Community Love</span>
+    <h2>What Our Guests Say</h2>
+    <p>Thousands of cups served. Thousands of smiles shared.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <p>"The Ethiopian Yirgacheffe pour-over here is unlike anything I've had. The baristas clearly care about every single cup."</p>
+      <strong>Marcus D.</strong>
+    </div>
+    <div class="testimonial-card reveal">
+      <p>"I work from ROAST three days a week. The atmosphere is unmatched — productive yet cozy. And the pastries are incredible."</p>
+      <strong>Sophia L.</strong>
+    </div>
+    <div class="testimonial-card reveal">
+      <p>"Took the Saturday roasting workshop and loved it. Walked away with a bag of beans I roasted myself. So much fun."</p>
+      <strong>Daniel K.</strong>
     </div>
   </div>
+</section>
+
+<section class="cta-section" id="visit">
+  <div class="reveal">
+    <h2>Your Perfect Cup Awaits</h2>
+    <p>Find a ROAST cafe near you and taste the difference craft makes.</p>
+    <a href="#" class="btn-primary">Find a Location</a>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="logo">ROAST</a>
+  <p>&copy; 2026 ROAST Artisan Coffee. All rights reserved.</p>
 </footer>
 
 <script>
-(function() {
-  var toggle = document.getElementById('navToggle');
-  var nav = document.getElementById('nav');
-  var links = document.getElementById('navLinks');
-  toggle.addEventListener('click', function() {
-    nav.classList.toggle('open');
+const nav = document.getElementById('nav'), hamburger = document.getElementById('hamburger'), navLinks = document.getElementById('navLinks');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('visible');
   });
-  links.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      nav.classList.remove('open');
-    });
-  });
-})();
+  const heroBg = document.getElementById('heroBg');
+  if (heroBg) heroBg.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+});
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+window.dispatchEvent(new Event('scroll'));
 </script>
 
 </body>

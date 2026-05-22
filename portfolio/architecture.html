@@ -6,362 +6,488 @@
 <title>Atelier Nine &mdash; Architecture &amp; Interior Design</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── Reset ─────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --white:    #f8f8f8;
-  --charcoal: #2d2d2d;
-  --gray:     #b8b8b8;
-  --mid:      #6b6b6b;
-  --light:    #e8e8e8;
-  --font-body:  'DM Sans', system-ui, sans-serif;
-  --font-head:  'Space Grotesk', system-ui, sans-serif;
+  --white:    #fafafa;
+  --charcoal: #1a1a1a;
+  --gray:     #b0b0b0;
+  --mid:      #666;
+  --light:    #e5e5e5;
+  --accent:   #d4d4d4;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-head: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--font-body);
   background: var(--white);
   color: var(--charcoal);
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 500; letter-spacing: -0.02em; }
+h1, h2, h3, h4, h5 { font-family: var(--font-head); font-weight: 500; letter-spacing: -0.025em; }
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
-.container { width: min(90vw, 1280px); margin: 0 auto; }
 
-/* ── Nav ───────────────────────────────────────── */
+.container { width: min(92vw, 1320px); margin: 0 auto; }
+
+/* ── Scroll reveal ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+.reveal--visible { opacity: 1; transform: translateY(0); }
+.reveal--delay-1 { transition-delay: 0.1s; }
+.reveal--delay-2 { transition-delay: 0.2s; }
+.reveal--delay-3 { transition-delay: 0.3s; }
+.reveal--delay-4 { transition-delay: 0.4s; }
+
+/* ── Nav ────────────────────────────────────── */
 .nav {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-  padding: 1.5rem 0;
+  padding: 1.6rem 0;
   mix-blend-mode: difference;
   color: var(--white);
+  transition: background 0.4s ease, padding 0.4s ease;
 }
+.nav--scrolled { background: rgba(250,250,250,0.92); mix-blend-mode: normal; color: var(--charcoal); backdrop-filter: blur(12px); padding: 1rem 0; }
 .nav .container { display: flex; justify-content: space-between; align-items: center; }
-.nav__logo { font-family: var(--font-head); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
-.nav__links { display: flex; gap: 2.5rem; list-style: none; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; }
-.nav__links a { position: relative; padding-bottom: 4px; }
+.nav__logo { font-family: var(--font-head); font-size: 1.2rem; font-weight: 600; letter-spacing: -0.01em; }
+.nav__links { display: flex; gap: 2.8rem; list-style: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+.nav__links a { position: relative; padding-bottom: 5px; }
 .nav__links a::after {
-  content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
-  background: currentColor; transition: width 0.35s ease;
+  content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px;
+  background: currentColor; transition: width 0.4s var(--ease-out-expo);
 }
 .nav__links a:hover::after { width: 100%; }
 
-/* ── Hero ──────────────────────────────────────── */
+/* ── Hero ───────────────────────────────────── */
 .hero {
-  height: 100vh; min-height: 700px;
-  background: var(--charcoal);
-  color: var(--white);
-  display: flex; align-items: flex-end;
-  padding-bottom: 6rem;
+  height: 100vh; min-height: 720px; max-height: 1080px;
   position: relative; overflow: hidden;
+  display: flex; align-items: center;
+  color: var(--white);
 }
 .hero__bg {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(135deg, transparent 49.5%, rgba(248,248,248,0.03) 49.5%, rgba(248,248,248,0.03) 50.5%, transparent 50.5%),
-    linear-gradient(225deg, transparent 49.5%, rgba(184,184,184,0.04) 49.5%, rgba(184,184,184,0.04) 50.5%, transparent 50.5%),
-    linear-gradient(180deg, rgba(45,45,45,0) 0%, rgba(45,45,45,0.9) 80%);
-  background-size: 80px 80px, 120px 120px, 100% 100%;
+  position: absolute; inset: 0; z-index: 0;
+  background: url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200') center/cover no-repeat;
 }
-.hero__content { position: relative; z-index: 1; }
+.hero__bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(26,26,26,0.35) 0%, rgba(26,26,26,0.55) 50%, rgba(26,26,26,0.85) 100%);
+}
+.hero__geo {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(45deg, transparent calc(50% - 1px), rgba(250,250,250,0.04) calc(50% - 1px), rgba(250,250,250,0.04) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(135deg, transparent calc(50% - 1px), rgba(250,250,250,0.04) calc(50% - 1px), rgba(250,250,250,0.04) calc(50% + 1px), transparent calc(50% + 1px));
+}
+.hero__content { position: relative; z-index: 2; padding-top: 4rem; }
 .hero__tag {
-  font-family: var(--font-head); font-size: 0.75rem; text-transform: uppercase;
-  letter-spacing: 0.25em; color: var(--gray); margin-bottom: 1.5rem;
+  font-family: var(--font-head); font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.25rem;
 }
 .hero h1 {
-  font-size: clamp(3rem, 8vw, 7rem);
-  line-height: 0.9; font-weight: 600;
-  max-width: 10ch;
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  line-height: 0.88; font-weight: 600;
+  max-width: 14ch; letter-spacing: -0.03em;
 }
-.hero__angle {
-  position: absolute; bottom: 0; right: 0;
-  width: 50%; height: 60%;
-  background: linear-gradient(225deg, transparent 40%, var(--gray) 40%);
-  opacity: 0.05;
+.hero h1 em { font-style: italic; font-weight: 300; }
+.hero__scroll {
+  position: absolute; bottom: 2.5rem; right: 2.5rem; z-index: 2;
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-head); font-size: 0.7rem;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--gray);
+}
+.hero__scroll::before {
+  content: ''; width: 20px; height: 20px;
+  border-right: 1.5px solid var(--gray); border-bottom: 1.5px solid var(--gray);
+  transform: rotate(45deg);
+  animation: scrollBob 1.8s ease-in-out infinite;
+}
+@keyframes scrollBob {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); }
+  50% { transform: rotate(45deg) translate(-4px, 4px); }
 }
 
-/* ── Sections ──────────────────────────────────── */
+/* ── Section headers ────────────────────────── */
 .section { padding: 8rem 0; }
 .section--dark { background: var(--charcoal); color: var(--white); }
 .section__label {
   font-family: var(--font-head); font-size: 0.7rem; text-transform: uppercase;
-  letter-spacing: 0.3em; color: var(--mid); margin-bottom: 0.75rem;
+  letter-spacing: 0.3em; color: var(--mid); margin-bottom: 0.6rem;
 }
+.section--dark .section__label { color: var(--gray); }
 .section__title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.05; margin-bottom: 3rem;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  line-height: 1; margin-bottom: 3.5rem; font-weight: 600;
 }
 
-/* ── Projects Grid ─────────────────────────────── */
+/* ── Projects Grid ──────────────────────────── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  background: var(--light);
-}
-.project-card {
-  position: relative;
-  aspect-ratio: 4 / 3;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 3px;
   background: var(--charcoal);
-  overflow: hidden;
-  cursor: pointer;
 }
+
+.project-card {
+  position: relative; overflow: hidden;
+  cursor: pointer; background: var(--charcoal);
+}
+.project-card:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; }
+.project-card:nth-child(2) { grid-column: 2 / 4; }
+.project-card:nth-child(3) { grid-column: 2 / 3; }
+.project-card:nth-child(4) { grid-column: 3 / 4; }
+
 .project-card__img {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.7s ease;
+  transition: transform 1.2s var(--ease-in-out);
+  will-change: transform;
 }
-.project-card:hover .project-card__img {
-  transform: scale(1.08);
-  filter: brightness(0.55);
-}
-.project-card__overlay {
+.project-card::after {
+  content: '';
   position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, transparent 55%, rgba(26,26,26,0.7) 100%);
   opacity: 0;
-  transition: opacity 0.5s ease;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 2.5rem;
+  transition: opacity 0.55s ease;
 }
-.project-card:hover .project-card__overlay { opacity: 1; }
+.project-card:hover::after { opacity: 1; }
+.project-card:hover .project-card__img { transform: scale(1.06); }
+
 .project-card__info {
-  transform: translateY(20px);
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  padding: 2.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s var(--ease-out-expo) 0.1s;
 }
-.project-card:hover .project-card__info { transform: translateY(0); }
+.project-card:hover .project-card__info { opacity: 1; transform: translateY(0); }
+
 .project-card__name {
-  font-family: var(--font-head); font-size: 1.5rem; font-weight: 500;
-  color: var(--white); margin-bottom: 0.35rem;
+  font-family: var(--font-head); font-size: 1.6rem; font-weight: 500;
+  color: var(--white); margin-bottom: 0.3rem; letter-spacing: -0.01em;
 }
 .project-card__loc {
   font-size: 0.85rem; color: var(--gray); font-weight: 300;
 }
 
-/* geometric cut shapes */
-.project-card::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 2;
-  pointer-events: none;
+/* Border reveal on hover */
+.project-card__border {
+  position: absolute; inset: 12px; z-index: 2; pointer-events: none;
+  border: 1px solid rgba(250,250,250,0.25);
+  opacity: 0;
+  transition: opacity 0.45s ease 0.15s;
 }
-.project-card:nth-child(1)::before {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 100%, 0 20%);
-  background: var(--charcoal);
-  transform: translateX(-100%);
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.project-card:nth-child(2)::before {
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 40% 100%, 0 100%);
-  background: var(--charcoal);
-  transform: translateY(100%);
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.project-card:nth-child(3)::before {
-  clip-path: polygon(0 80%, 20% 0, 100% 0, 100% 100%, 0 100%);
-  background: var(--charcoal);
-  transform: translateX(100%);
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.project-card:nth-child(4)::before {
-  clip-path: polygon(0 0, 60% 0, 100% 50%, 100% 100%, 0 100%);
-  background: var(--charcoal);
-  transform: translateY(-100%);
-  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-.project-card:hover::before { transform: translate(0, 0); }
+.project-card:hover .project-card__border { opacity: 1; }
 
-/* border drawing effect */
-.project-card::after {
-  content: '';
-  position: absolute; inset: 14px; z-index: 3;
-  border: 1px solid rgba(248,248,248,0.3);
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.4s ease 0.15s;
+/* Stagger animation */
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(48px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.project-card:hover::after { opacity: 1; }
+.project-card__inner {
+  opacity: 0;
+  animation: cardSlideUp 0.8s var(--ease-out-expo) forwards;
+  height: 100%; position: relative;
+}
+.project-card:nth-child(1) .project-card__inner { animation-delay: 0.1s; }
+.project-card:nth-child(2) .project-card__inner { animation-delay: 0.25s; }
+.project-card:nth-child(3) .project-card__inner { animation-delay: 0.4s; }
+.project-card:nth-child(4) .project-card__inner { animation-delay: 0.55s; }
 
-/* ── Services ──────────────────────────────────── */
-.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--light); }
+/* Aspect ratios per card */
+.project-card:nth-child(1) { min-height: 620px; }
+.project-card:nth-child(2) { min-height: 360px; }
+.project-card:nth-child(3),
+.project-card:nth-child(4) { min-height: 380px; }
+
+/* ── Services ───────────────────────────────── */
+.services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--light);
+}
 .service {
   background: var(--white);
-  padding: 3rem 2rem;
-  transition: background 0.4s ease, color 0.4s ease;
-  display: flex; flex-direction: column; gap: 1.25rem;
+  padding: 3.5rem 2.25rem 3rem;
+  transition: background 0.45s ease, color 0.45s ease;
+  display: flex; flex-direction: column; gap: 1.4rem;
 }
 .service:hover { background: var(--charcoal); color: var(--white); }
+.service__index {
+  font-family: var(--font-head); font-size: 0.65rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--mid); transition: color 0.45s ease;
+}
+.service:hover .service__index { color: var(--gray); }
 .service__icon {
-  width: 40px; height: 40px;
-  border: 1px solid var(--gray);
+  width: 48px; height: 48px;
+  border: 1.5px solid var(--light);
   position: relative;
-  transition: border-color 0.4s ease, transform 0.4s ease;
+  transition: border-color 0.45s ease, transform 0.5s var(--ease-out-expo);
 }
-.service:hover .service__icon { border-color: var(--white); transform: rotate(45deg); }
+.service:hover .service__icon { border-color: var(--gray); transform: rotate(45deg) scale(1.05); }
+.service__icon::before, .service__icon::after {
+  content: ''; position: absolute; background: var(--charcoal);
+  transition: background 0.45s ease;
+}
+.service:hover .service__icon::before, .service:hover .service__icon::after { background: var(--white); }
 .service__icon::before {
-  content: ''; position: absolute; top: 50%; left: 50%;
-  width: 8px; height: 8px; background: var(--charcoal);
+  top: 50%; left: 50%; width: 10px; height: 10px;
   transform: translate(-50%, -50%);
-  transition: background 0.4s ease;
 }
-.service:hover .service__icon::before { background: var(--white); }
-.service__name { font-family: var(--font-head); font-size: 1.25rem; font-weight: 500; line-height: 1.2; }
-.service__desc { font-size: 0.9rem; color: var(--mid); line-height: 1.7; transition: color 0.4s ease; }
+.service__icon::after {
+  top: 30%; left: 30%; width: 6px; height: 6px;
+}
+.service__name { font-family: var(--font-head); font-size: 1.3rem; font-weight: 500; line-height: 1.2; }
+.service__desc { font-size: 0.9rem; color: var(--mid); line-height: 1.75; transition: color 0.45s ease; }
 .service:hover .service__desc { color: var(--gray); }
 
-/* ── About strip ────────────────────────────────── */
+/* ── Stats strip ────────────────────────────── */
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--light);
+  border-bottom: 1px solid var(--light);
+}
+.stat { padding: 3rem 0; text-align: center; }
+.stat:not(:last-child) { border-right: 1px solid var(--light); }
+.stat__num {
+  font-family: var(--font-head); font-size: 3rem; font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.stat__label {
+  font-family: var(--font-head); font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.25em; color: var(--mid); margin-top: 0.5rem;
+}
+
+/* ── About strip ────────────────────────────── */
 .about-strip {
-  display: grid; grid-template-columns: 1fr 1fr;
-  min-height: 400px;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  min-height: 480px;
 }
 .about-strip__img {
-  background: var(--gray);
+  background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=800') center/cover no-repeat;
   position: relative; overflow: hidden;
 }
-.about-strip__img::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(45,45,45,0.04) 8px, rgba(45,45,45,0.04) 9px);
+.about-strip__img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,26,26,0.15) 0%, transparent 60%);
 }
 .about-strip__text {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 4rem;
+  padding: 5rem;
   background: var(--charcoal);
   color: var(--white);
 }
 .about-strip__text p {
-  font-size: 1.15rem; line-height: 1.8; max-width: 34ch;
-  color: var(--gray);
-  margin-bottom: 1.5rem;
+  font-size: 1.1rem; line-height: 1.85; max-width: 36ch;
+  color: var(--gray); margin-bottom: 1.6rem;
 }
+.about-strip__text p:last-child { margin-bottom: 0; }
 .about-strip__label {
   font-family: var(--font-head); font-size: 0.7rem; text-transform: uppercase;
-  letter-spacing: 0.3em; color: var(--mid); margin-bottom: 1.5rem;
+  letter-spacing: 0.3em; color: var(--mid); margin-bottom: 1.8rem;
 }
 
-/* ── Contact ───────────────────────────────────── */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-.contact__info p { font-size: 0.95rem; color: var(--mid); line-height: 1.8; margin-bottom: 0.5rem; }
+/* ── Contact ────────────────────────────────── */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 5rem; align-items: start;
+}
+.contact__info p { font-size: 1rem; color: var(--mid); line-height: 1.8; margin-bottom: 0.5rem; }
 .contact__email {
-  display: inline-block; font-family: var(--font-head); font-size: 1.5rem; font-weight: 500;
-  margin: 1.25rem 0 2rem; color: var(--charcoal);
-  transition: color 0.3s ease; position: relative;
+  display: inline-block;
+  font-family: var(--font-head); font-size: 1.6rem; font-weight: 500;
+  margin: 1.5rem 0 2.25rem; color: var(--charcoal);
+  letter-spacing: -0.01em;
+  position: relative; transition: color 0.3s ease;
 }
 .contact__email::after {
-  content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px;
+  content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 2px;
   background: var(--charcoal); transform: scaleX(0); transform-origin: left;
-  transition: transform 0.4s ease;
+  transition: transform 0.45s var(--ease-out-expo);
 }
 .contact__email:hover::after { transform: scaleX(1); }
-.contact__address { font-style: normal; font-size: 0.9rem; color: var(--mid); line-height: 1.8; }
+.contact__address { font-style: normal; font-size: 0.9rem; color: var(--mid); line-height: 1.9; }
 .contact__address span { display: block; }
 
 .form { display: flex; flex-direction: column; gap: 1.25rem; }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .form input, .form textarea {
-  width: 100%; padding: 1rem;
+  width: 100%; padding: 1.05rem 1.1rem;
   font-family: var(--font-body); font-size: 0.9rem; font-weight: 300;
-  border: 1px solid var(--light); background: transparent;
+  border: 1.5px solid var(--light); background: var(--white);
   color: var(--charcoal); outline: none;
-  transition: border-color 0.35s ease;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  border-radius: 0;
 }
-.form input:focus, .form textarea:focus { border-color: var(--charcoal); }
-.form textarea { min-height: 140px; resize: vertical; }
+.form input:focus, .form textarea:focus {
+  border-color: var(--charcoal);
+  box-shadow: 0 0 0 1px var(--charcoal);
+}
+.form textarea { min-height: 150px; resize: vertical; }
 .form__btn {
   align-self: flex-start;
   font-family: var(--font-head); font-size: 0.8rem; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  padding: 1rem 2.5rem; border: none; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  padding: 1.1rem 3rem; border: none; cursor: pointer;
   background: var(--charcoal); color: var(--white);
-  transition: background 0.35s ease, transform 0.3s ease;
+  transition: background 0.35s ease, transform 0.35s var(--ease-out-expo);
   position: relative; overflow: hidden;
 }
-.form__btn:hover { background: #1a1a1a; transform: translateY(-2px); }
+.form__btn:hover { background: #000; transform: translateY(-3px); }
+.form__btn:active { transform: translateY(-1px); }
+
+/* Ripple */
 .form__btn::after {
   content: '';
   position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-  background: rgba(248,248,248,0.08); border-radius: 50%;
+  background: rgba(250,250,250,0.07); border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
+  transition: width 0.7s ease, height 0.7s ease;
 }
-.form__btn:hover::after { width: 300px; height: 300px; }
+.form__btn:hover::after { width: 400px; height: 400px; }
 
-/* ── Footer ────────────────────────────────────── */
+/* ── Footer ─────────────────────────────────── */
 .footer {
-  padding: 3rem 0; border-top: 1px solid var(--light);
+  padding: 3.5rem 0;
+  border-top: 1px solid var(--light);
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.8rem; color: var(--mid);
+  font-size: 0.8rem; color: var(--mid); letter-spacing: 0.02em;
 }
-.footer__links { display: flex; gap: 2rem; list-style: none; }
-.footer__links a { transition: color 0.3s ease; }
+.footer__links { display: flex; gap: 2.5rem; list-style: none; }
+.footer__links a { transition: color 0.3s ease; position: relative; }
 .footer__links a:hover { color: var(--charcoal); }
 
-/* ── Responsive ────────────────────────────────── */
+/* ── Brutalist divider ──────────────────────── */
+.divider {
+  height: 6px; background: var(--charcoal);
+  width: 100%;
+}
+
+/* ── Loader / page enter ────────────────────── */
+.page-enter {
+  animation: pageFadeIn 0.7s var(--ease-out-expo) forwards;
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Responsive ─────────────────────────────── */
 @media (max-width: 1024px) {
   .services { grid-template-columns: repeat(2, 1fr); }
-  .projects-grid { grid-template-columns: 1fr 1fr; }
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .project-card:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 2; }
+  .project-card:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
+  .project-card:nth-child(3) { grid-column: 1 / 2; grid-row: 2 / 3; }
+  .project-card:nth-child(4) { grid-column: 2 / 3; grid-row: 2 / 3; }
+  .project-card:nth-child(1),
+  .project-card:nth-child(2),
+  .project-card:nth-child(3),
+  .project-card:nth-child(4) { min-height: 360px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
 }
+
 @media (max-width: 768px) {
   .nav__links { display: none; }
-  .hero { padding-bottom: 4rem; min-height: 550px; }
+  .hero { min-height: 550px; }
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); }
   .section { padding: 5rem 0; }
   .projects-grid { grid-template-columns: 1fr; }
-  .project-card { aspect-ratio: 16 / 10; }
+  .project-card:nth-child(1),
+  .project-card:nth-child(2),
+  .project-card:nth-child(3),
+  .project-card:nth-child(4) {
+    grid-column: 1 / 2; grid-row: auto; min-height: 340px;
+  }
   .services { grid-template-columns: 1fr 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; border: none; }
+  .stat { border: none; }
+  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--light); }
   .about-strip { grid-template-columns: 1fr; }
-  .about-strip__img { min-height: 250px; }
-  .about-strip__text { padding: 2.5rem; }
-  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-strip__img { min-height: 280px; }
+  .about-strip__text { padding: 3rem 2rem; }
+  .contact-grid { gap: 3rem; }
   .form__row { grid-template-columns: 1fr; }
+  .footer { flex-direction: column; gap: 1.25rem; text-align: center; }
+  .footer__links { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
 }
+
 @media (max-width: 480px) {
   .services { grid-template-columns: 1fr; }
-  .project-card { aspect-ratio: 4 / 5; }
-  .footer { flex-direction: column; gap: 1rem; text-align: center; }
-  .footer__links { flex-wrap: wrap; justify-content: center; }
+  .nav { padding: 1.2rem 0; }
+  .hero__scroll { display: none; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { padding: 2rem 0; border-bottom: 1px solid var(--light); }
+  .stat:last-child { border-bottom: none; }
+  .about-strip__text p { font-size: 1rem; }
 }
 </style>
 </head>
-<body>
+<body class="page-enter">
 
 <!-- Nav ──────────────────────────────────────────── -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="container">
     <a href="#" class="nav__logo">Atelier Nine</a>
     <ul class="nav__links">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Practice</a></li>
       <li><a href="#about">Studio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero ────────────────────────────────────────── -->
-<section class="hero">
+<!-- Hero ─────────────────────────────────────────── -->
+<section class="hero page-enter">
   <div class="hero__bg"></div>
-  <div class="hero__angle"></div>
+  <div class="hero__geo"></div>
   <div class="container hero__content">
-    <p class="hero__tag">Architecture &amp; Interior</p>
-    <h1>We shape<br>space into<br>experience</h1>
+    <p class="hero__tag reveal" style="transition-delay:0.2s">Architecture &amp; Interior Design</p>
+    <h1 class="reveal" style="transition-delay:0.3s">Form follows<br><em>feeling</em></h1>
   </div>
+  <div class="hero__scroll reveal" style="transition-delay:0.6s">Scroll</div>
 </section>
 
-<!-- Projects ────────────────────────────────────── -->
-<section class="section" id="projects">
+<div class="divider"></div>
+
+<!-- Projects ─────────────────────────────────────── -->
+<section class="section" id="work">
   <div class="container">
-    <p class="section__label">Selected Works</p>
-    <h2 class="section__title">Projects</h2>
+    <p class="section__label reveal">Selected Works</p>
+    <h2 class="section__title reveal reveal--delay-1">Projects</h2>
   </div>
+
   <div class="projects-grid">
 
+    <!-- Project 1 — Crescent House (tall, left) -->
     <div class="project-card">
-      <div class="project-card__img" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect fill=%22%233a3a3a%22 width=%22800%22 height=%22600%22/><rect fill=%22%23444444%22 x=%2230%22 y=%2230%22 width=%22240%22 height=%22540%22/><rect fill=%22%23353535%22 x=%22300%22 y=%2280%22 width=%22470%22 height=%22490%22/><rect fill=%22%233d3d3d%22 x=%22330%22 y=%22120%22 width=%22410%22 height=%22420%22/><circle fill=%22%23383838%22 cx=%22650%22 cy=%22180%22 r=%2260%22/><line stroke=%22%234a4a4a%22 stroke-width=%222%22 x1=%22270%22 y1=%22570%22 x2=%22770%22 y2=%22570%22/><line stroke=%22%234a4a4a%22 stroke-width=%222%22 x1=%2230%22 y1=%22300%22 x2=%22270%22 y2=%22300%22/><line stroke=%22%234a4a4a%22 stroke-width=%221%22 x1=%22300%22 y1=%2280%22 x2=%22330%22 y2=%22120%22/></svg>');"></div>
-      <div class="project-card__overlay">
+      <div class="project-card__inner">
+        <div class="project-card__img" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600')"></div>
+        <div class="project-card__border"></div>
         <div class="project-card__info">
           <h3 class="project-card__name">Crescent House</h3>
           <p class="project-card__loc">Santa Monica, CA</p>
@@ -369,9 +495,11 @@ img { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Project 2 — Villa Ellipse (wide, top right) -->
     <div class="project-card">
-      <div class="project-card__img" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect fill=%22%232f2f2f%22 width=%22800%22 height=%22600%22/><rect fill=%22%233b3b3b%22 x=%2250%22 y=%2250%22 width=%22700%22 height=%22500%22/><polygon fill=%22%23353535%22 points=%22200,50 600,50 800,300 800,550 0,550 0,300%22/><line stroke=%22%23454545%22 stroke-width=%223%22 x1=%2250%22 y1=%22200%22 x2=%22750%22 y2=%22200%22/><line stroke=%22%23454545%22 stroke-width=%223%22 x1=%2250%22 y1=%22400%22 x2=%22750%22 y2=%22400%22/><line stroke=%22%23404040%22 stroke-width=%222%22 x1=%22400%22 y1=%2250%22 x2=%22400%22 y2=%22550%22/></svg>');"></div>
-      <div class="project-card__overlay">
+      <div class="project-card__inner">
+        <div class="project-card__img" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600')"></div>
+        <div class="project-card__border"></div>
         <div class="project-card__info">
           <h3 class="project-card__name">Villa Ellipse</h3>
           <p class="project-card__loc">Oslo, Norway</p>
@@ -379,9 +507,11 @@ img { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Project 3 — The Meridian (bottom right, left side) -->
     <div class="project-card">
-      <div class="project-card__img" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect fill=%22%23363636%22 width=%22800%22 height=%22600%22/><rect fill=%22%23303030%22 x=%2240%22 y=%2240%22 width=%22720%22 height=%22520%22/><rect fill=%22%233a3a3a%22 x=%2240%22 y=%2240%22 width=%22350%22 height=%22520%22/><line stroke=%22%23424242%22 stroke-width=%222%22 x1=%22390%22 y1=%2240%22 x2=%22390%22 y2=%22150%22/><line stroke=%22%23424242%22 stroke-width=%221%22 x1=%2240%22 y1=%22300%22 x2=%22760%22 y2=%22300%22/><line stroke=%22%23424242%22 stroke-width=%221%22 x1=%2240%22 y1=%22450%22 x2=%22390%22 y2=%22450%22/><rect fill=%22%23333333%22 x=%22420%22 y=%22180%22 width=%22310%22 height=%22350%22/></svg>');"></div>
-      <div class="project-card__overlay">
+      <div class="project-card__inner">
+        <div class="project-card__img" style="background-image:url('https://images.unsplash.com/photo-1600566753086-00f18f6b0050?w=600')"></div>
+        <div class="project-card__border"></div>
         <div class="project-card__info">
           <h3 class="project-card__name">The Meridian</h3>
           <p class="project-card__loc">Melbourne, AU</p>
@@ -389,9 +519,11 @@ img { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Project 4 — Form / Void (bottom right, right side) -->
     <div class="project-card">
-      <div class="project-card__img" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect fill=%22%23323232%22 width=%22800%22 height=%22600%22/><rect fill=%22%23383838%22 x=%2260%22 y=%2260%22 width=%22680%22 height=%22480%22/><polygon fill=%22%23333333%22 points=%22300,540 400,60 500,60 600,540%22/><rect fill=%22%233c3c3c%22 x=%22220%22 y=%22180%22 width=%22360%22 height=%22340%22/><line stroke=%22%23464646%22 stroke-width=%222%22 x1=%22220%22 y1=%22300%22 x2=%22580%22 y2=%22300%22/><line stroke=%22%23464646%22 stroke-width=%222%22 x1=%22220%22 y1=%22420%22 x2=%22580%22 y2=%22420%22/><line stroke=%22%23464646%22 stroke-width=%222%22 x1=%22380%22 y1=%22180%22 x2=%22380%22 y2=%22520%22/></svg>');"></div>
-      <div class="project-card__overlay">
+      <div class="project-card__inner">
+        <div class="project-card__img" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600')"></div>
+        <div class="project-card__border"></div>
         <div class="project-card__info">
           <h3 class="project-card__name">Form / Void</h3>
           <p class="project-card__loc">Tokyo, JP</p>
@@ -402,29 +534,53 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<!-- Services ────────────────────────────────────── -->
+<!-- Stats ─────────────────────────────────────────── -->
+<div class="stats container reveal reveal--delay-2">
+  <div class="stat">
+    <div class="stat__num">18</div>
+    <div class="stat__label">Team Members</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num">42</div>
+    <div class="stat__label">Projects</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num">14</div>
+    <div class="stat__label">Years Active</div>
+  </div>
+  <div class="stat">
+    <div class="stat__num">11</div>
+    <div class="stat__label">Awards</div>
+  </div>
+</div>
+
+<!-- Services ──────────────────────────────────────── -->
 <section class="section" id="services">
   <div class="container">
-    <p class="section__label">Practice Areas</p>
-    <h2 class="section__title">Services</h2>
+    <p class="section__label reveal">Practice Areas</p>
+    <h2 class="section__title reveal reveal--delay-1">Services</h2>
   </div>
   <div class="services">
-    <div class="service">
+    <div class="service reveal reveal--delay-1">
+      <p class="service__index">01</p>
       <div class="service__icon"></div>
       <h3 class="service__name">Residential</h3>
       <p class="service__desc">Tailored homes that balance form, light, and the rituals of daily life.</p>
     </div>
-    <div class="service">
+    <div class="service reveal reveal--delay-2">
+      <p class="service__index">02</p>
       <div class="service__icon"></div>
       <h3 class="service__name">Commercial</h3>
       <p class="service__desc">Workplaces and retail spaces designed for clarity, flow, and identity.</p>
     </div>
-    <div class="service">
+    <div class="service reveal reveal--delay-3">
+      <p class="service__index">03</p>
       <div class="service__icon"></div>
       <h3 class="service__name">Interior Design</h3>
       <p class="service__desc">Material-driven interiors that feel both considered and effortless.</p>
     </div>
-    <div class="service">
+    <div class="service reveal reveal--delay-4">
+      <p class="service__index">04</p>
       <div class="service__icon"></div>
       <h3 class="service__name">Urban Planning</h3>
       <p class="service__desc">Master plans and public realms shaped by context, people, and movement.</p>
@@ -432,24 +588,24 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<!-- About strip ─────────────────────────────────── -->
+<!-- About strip ───────────────────────────────────── -->
 <section class="about-strip" id="about">
-  <div class="about-strip__img"></div>
-  <div class="about-strip__text">
+  <div class="about-strip__img reveal"></div>
+  <div class="about-strip__text reveal reveal--delay-1">
     <p class="about-strip__label">The Studio</p>
     <p>Atelier Nine is a design-driven practice founded on the belief that architecture is the quiet partner in every meaningful moment. We pursue clarity over decoration, substance over spectacle.</p>
     <p>Based in Copenhagen with projects across three continents, our team of eighteen architects and designers brings a collective rigor to every scale &mdash; from a door handle to a city block.</p>
   </div>
 </section>
 
-<!-- Contact ─────────────────────────────────────── -->
+<!-- Contact ───────────────────────────────────────── -->
 <section class="section" id="contact">
   <div class="container">
-    <p class="section__label">Get in touch</p>
-    <h2 class="section__title">Contact</h2>
+    <p class="section__label reveal">Get in touch</p>
+    <h2 class="section__title reveal reveal--delay-1">Contact</h2>
 
     <div class="contact-grid">
-      <div class="contact__info">
+      <div class="contact__info reveal reveal--delay-1">
         <p>New business inquiries, press,<br>or just to say hello.</p>
         <a href="mailto:studio@ateliernine.com" class="contact__email">studio@ateliernine.com</a>
         <address class="contact__address">
@@ -459,7 +615,7 @@ img { display: block; max-width: 100%; }
         </address>
       </div>
 
-      <form class="form" onsubmit="event.preventDefault(); alert('Thank you for your message.')">
+      <form class="form reveal reveal--delay-2" onsubmit="event.preventDefault(); alert('Thank you for your message.')">
         <div class="form__row">
           <input type="text" placeholder="Name" required>
           <input type="email" placeholder="Email" required>
@@ -472,7 +628,9 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<!-- Footer ──────────────────────────────────────── -->
+<div class="divider"></div>
+
+<!-- Footer ────────────────────────────────────────── -->
 <footer class="footer container">
   <span>&copy; 2026 Atelier Nine</span>
   <ul class="footer__links">
@@ -482,6 +640,30 @@ img { display: block; max-width: 100%; }
     <li><a href="#">ArchDaily</a></li>
   </ul>
 </footer>
+
+<!-- Scroll reveal + nav scroll ────────────────────── -->
+<script>
+(function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal--visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  // Nav scroll effect
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 80) { nav.classList.add('nav--scrolled'); }
+    else { nav.classList.remove('nav--scrolled'); }
+  });
+})();
+</script>
 
 </body>
 </html>
