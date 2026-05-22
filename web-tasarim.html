@@ -60,6 +60,16 @@ section{padding:40px 0;position:relative;z-index:1}
 .service-card:hover{border-color:rgba(56,189,248,0.15);transform:translateY(-4px)}
 .service-card .icon{font-size:36px;margin-bottom:8px;display:block}
 .service-card h4{font-size:13px;font-weight:700}
+.carousel{position:relative;margin:0 -24px}
+.carousel-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 24px 20px;scrollbar-width:none;-ms-overflow-style:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-card{flex:0 0 340px;height:480px;border-radius:20px;overflow:hidden;border:2px solid rgba(56,189,248,0.08);transition:var(--tr);text-decoration:none;position:relative;scroll-snap-align:start;cursor:pointer}
+.carousel-card:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.carousel-label{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;font-size:13px;font-weight:600;z-index:2}
+.carousel-label span{margin-right:6px}
+.carousel-nav{position:absolute;top:50%;left:4px;right:4px;transform:translateY(-50%);display:flex;justify-content:space-between;pointer-events:none;z-index:3}
+.carousel-btn{width:44px;height:44px;border-radius:50%;background:rgba(5,5,16,0.8);backdrop-filter:blur(8px);border:1px solid rgba(56,189,248,0.2);color:var(--cyan);font-size:24px;cursor:pointer;pointer-events:auto;transition:var(--tr);display:flex;align-items:center;justify-content:center}
+.carousel-btn:hover{background:rgba(56,189,248,0.15);border-color:var(--cyan)}
 .cta-box{text-align:center;padding:48px 24px;background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);border-radius:24px}
 .cta-box h3{font-size:22px;font-weight:800;margin-bottom:8px}
 .cta-box p{font-size:14px;color:var(--muted);margin-bottom:24px}
@@ -68,7 +78,7 @@ section{padding:40px 0;position:relative;z-index:1}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(56,189,248,0.3)}
 footer{text-align:center;padding:40px 24px;border-top:1px solid rgba(56,189,248,0.04)}
 footer p{font-size:12px;color:rgba(255,255,255,0.12)}
-@media(max-width:768px){.portfolio-grid{grid-template-columns:1fr}.services-grid{grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 0}.service-card{padding:10px 6px}.service-card .icon{font-size:22px}.service-card h4{font-size:10px}}
+@media(max-width:768px){.portfolio-grid{grid-template-columns:1fr}.carousel-card{flex:0 0 280px;height:390px}.carousel-nav{display:none}.services-grid{grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 0}.service-card{padding:10px 6px}.service-card .icon{font-size:22px}.service-card h4{font-size:10px}}
 </style>
 </head>
 <body>
@@ -92,23 +102,56 @@ footer p{font-size:12px;color:rgba(255,255,255,0.12)}
   <p>10 sektör, 10 benzersiz tasarım. Her işletmeye özel, modern ve profesyonel web siteleri.</p>
 </section>
 
-<section>
+<section style="padding:20px 0">
   <div class="container">
-    <div class="services-grid">
-      <div class="service-card"><span class="icon">🏨</span><h4>Otel</h4></div>
-      <div class="service-card"><span class="icon">🍽️</span><h4>Restoran</h4></div>
-      <div class="service-card"><span class="icon">👗</span><h4>Moda</h4></div>
-      <div class="service-card"><span class="icon">🏛️</span><h4>Mimarlık</h4></div>
-      <div class="service-card"><span class="icon">🦷</span><h4>Sağlık</h4></div>
-      <div class="service-card"><span class="icon">💪</span><h4>Spor</h4></div>
-      <div class="service-card"><span class="icon">🏠</span><h4>Emlak</h4></div>
-      <div class="service-card"><span class="icon">⚖️</span><h4>Hukuk</h4></div>
-      <div class="service-card"><span class="icon">☕</span><h4>Kafe</h4></div>
-      <div class="service-card"><span class="icon">🚀</span><h4>Tech</h4></div>
-      <div class="service-card"><span class="icon">🧖</span><h4>Spa</h4></div>
-      <div class="service-card"><span class="icon">💍</span><h4>Düğün</h4></div>
-      <div class="service-card"><span class="icon">💻</span><h4>Ajans</h4></div>
-      <div class="service-card"><span class="icon">📱</span><h4>Dijital Menü</h4></div>
+    <h2 class="section-title">Öne Çıkan <span>Tasarımlar</span></h2>
+    <div class="carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <a href="portfolio/hotel.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/hotel.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>🏨</span> Azure Palace Resort</div>
+        </a>
+        <a href="portfolio/restaurant.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/restaurant.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>🍽️</span> Sakura Fine Dining</div>
+        </a>
+        <a href="portfolio/fashion.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/fashion.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>👗</span> VEIL Fashion</div>
+        </a>
+        <a href="portfolio/saas.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/saas.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>🚀</span> FlowDesk SaaS</div>
+        </a>
+        <a href="portfolio/menu.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/menu.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>📱</span> Luna QR Menü</div>
+        </a>
+        <a href="portfolio/gym.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/gym.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>💪</span> IRONHOUSE Gym</div>
+        </a>
+        <a href="portfolio/coffee.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/coffee.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>☕</span> ROAST Coffee</div>
+        </a>
+        <a href="portfolio/spa.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/spa.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>🧖</span> SERENE Spa</div>
+        </a>
+        <a href="portfolio/agency.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/agency.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>💻</span> NOVA Digital</div>
+        </a>
+        <a href="portfolio/wedding.html" target="_blank" class="carousel-card">
+          <iframe src="portfolio/wedding.html" loading="lazy" sandbox="allow-same-origin" style="width:100%;height:100%;border:none;border-radius:16px;pointer-events:none;transform:scale(0.35);transform-origin:top left;width:286%;height:286%"></iframe>
+          <div class="carousel-label"><span>💍</span> Beyaz Düşler</div>
+        </a>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" onclick="document.getElementById('carouselTrack').scrollBy({left:-400,behavior:'smooth'})">‹</button>
+        <button class="carousel-btn" onclick="document.getElementById('carouselTrack').scrollBy({left:400,behavior:'smooth'})">›</button>
+      </div>
     </div>
   </div>
 </section>
