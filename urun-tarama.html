@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Kivon Scan — Ürün Analizi</title>
+<style>
+:root{--bg:#06060e;--card:#0f0f20;--cyan:#38bdf8;--gold:#fbbf24;--green:#10b981;--red:#ef4444;--text:#f1f5f9;--muted:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{padding:20px;text-align:center;background:var(--card);border-bottom:1px solid rgba(56,189,248,0.08)}
+header h1{font-size:20px;font-weight:800;letter-spacing:-0.5px}
+header h1 span{color:var(--cyan)}
+.camera-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#scanner{width:100%;max-width:360px;aspect-ratio:1;background:#000;border-radius:24px;overflow:hidden;position:relative;border:2px solid rgba(56,189,248,0.15)}
+#scanner video{width:100%;height:100%;object-fit:cover}
+#scanner canvas{display:none}
+.scan-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.scan-frame{width:200px;height:200px;border:2px solid var(--cyan);border-radius:16px;box-shadow:0 0 0 9999px rgba(0,0,0,0.5)}
+.scan-line{position:absolute;width:200px;height:2px;background:var(--cyan);animation:scan 2s ease-in-out infinite}
+@keyframes scan{0%,100%{top:30%}50%{top:70%}}
+.manual{text-align:center;padding:16px}
+.manual input{width:280px;padding:12px 16px;border-radius:12px;border:1px solid rgba(56,189,248,0.2);background:var(--card);color:var(--text);font-size:16px;text-align:center}
+.manual input:focus{outline:none;border-color:var(--cyan)}
+.btn{display:inline-block;padding:14px 32px;border-radius:100px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:.2s;margin:8px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),#6366f1);color:#fff}
+.btn-primary:active{transform:scale(0.96)}
+.btn-glass{background:rgba(255,255,255,0.04);color:var(--text);border:1px solid rgba(255,255,255,0.08)}
+.result{display:none;padding:20px}
+.result-card{background:var(--card);border:1px solid rgba(56,189,248,0.1);border-radius:20px;padding:24px;margin-bottom:16px}
+.result-card h2{font-size:18px;margin-bottom:4px}
+.result-card .brand{color:var(--muted);font-size:13px;margin-bottom:12px}
+.health-score{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.score-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900}
+.score-good{background:rgba(16,185,129,0.1);border:2px solid var(--green);color:var(--green)}
+.score-ok{background:rgba(251,191,36,0.1);border:2px solid var(--gold);color:var(--gold)}
+.score-bad{background:rgba(239,68,68,0.1);border:2px solid var(--red);color:var(--red)}
+.score-label{font-size:13px;color:var(--muted)}
+.ai-box{background:rgba(56,189,248,0.03);border:1px solid rgba(56,189,248,0.1);border-radius:16px;padding:16px;margin-top:12px}
+.ai-box h4{font-size:12px;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.ai-box p{font-size:14px;color:var(--muted);line-height:1.6}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.tag{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.tag-bad{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.2)}
+.tag-warn{background:rgba(251,191,36,0.1);color:var(--gold);border:1px solid rgba(251,191,36,0.2)}
+.tag-good{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)}
+.loading{text-align:center;padding:40px;display:none}
+.spinner{width:40px;height:40px;border:3px solid rgba(56,189,248,0.1);border-top-color:var(--cyan);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nutrition-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.nutrition-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:12px;text-align:center}
+.nutrition-item .val{font-size:18px;font-weight:700;color:var(--text)}
+.nutrition-item .lbl{font-size:11px;color:var(--muted)}
+footer{text-align:center;padding:16px;color:rgba(255,255,255,0.1);font-size:11px}
+</style>
+</head>
+<body>
+<header><h1>Kivon <span>Scan</span></h1></header>
+
+<div class="camera-area">
+  <div id="scanner">
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas"></canvas>
+    <div class="scan-overlay">
+      <div class="scan-frame"></div>
+      <div class="scan-line"></div>
+    </div>
+  </div>
+</div>
+
+<div class="manual">
+  <input type="text" id="barcode" placeholder="Barkod numarası yazın" inputmode="numeric">
+  <div>
+    <button class="btn btn-primary" onclick="ara()">🔍 Analiz Et</button>
+    <button class="btn btn-glass" onclick="kameraAc()">📷 Kamera</button>
+  </div>
+</div>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <p style="color:var(--muted)">Ürün analiz ediliyor...</p>
+</div>
+
+<div class="result" id="result"></div>
+
+<footer>Kivon Scan v1.0</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.8.3/dist/quagga.min.js"></script>
+<script>
+let stream = null;
+
+async function kameraAc() {
+  const video = document.getElementById('video');
+  if (stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:640,height:640}});
+    video.srcObject = stream;
+    video.style.display = 'block';
+    barkodTara();
+  } catch(e) {
+    alert('Kamera izni gerekli. Manuel barkod girin.');
+  }
+}
+
+function barkodTara() {
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  
+  function tick() {
+    if (!stream) return;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video,0,0,canvas.width,canvas.height);
+    const data = ctx.getImageData(0,0,canvas.width,canvas.height);
+    
+    Quagga.decodeSingle({src:data,decoder:{readers:['ean_reader','ean_8_reader','upc_reader','code_128_reader']}},function(r){
+      if(r?.codeResult) {
+        document.getElementById('barcode').value = r.codeResult.code;
+        stream.getTracks().forEach(t=>t.stop());
+        stream = null;
+        video.style.display = 'none';
+        ara();
+      } else {
+        requestAnimationFrame(tick);
+      }
+    });
+  }
+  tick();
+}
+
+async function ara() {
+  const barcode = document.getElementById('barcode').value.trim();
+  if (!barcode) return alert('Barkod girin');
+  
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('result').innerHTML = '';
+  
+  try {
+    // Open Food Facts API
+    const res = await fetch(`https://world.openfoodfacts.org/api/v2/product/${barcode}.json`);
+    const data = await res.json();
+    
+    if (!data.product) {
+      document.getElementById('result').innerHTML = '<div class="result-card"><h2>Ürün bulunamadı</h2><p style="color:var(--muted)">Bu barkod veritabanında yok.</p></div>';
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('loading').style.display = 'none';
+      return;
+    }
+    
+    const p = data.product;
+    const ad = p.product_name_tr || p.product_name || 'Bilinmeyen Ürün';
+    const marka = p.brands || '';
+    const nutriscore = p.nutriscore_grade?.toUpperCase() || '?';
+    const nova = p.nova_group || '?';
+    const ecoscore = p.ecoscore_grade?.toUpperCase() || '?';
+    
+    // AI analiz
+    let aiYorum = '';
+    try {
+      const aiRes = await fetch('https://kivon-3.onrender.com/api/bridge/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({m:`Bu urunu analiz et:\nAd: ${ad}\nMarka: ${marka}\nNutriscore: ${nutriscore}\nNOVA islenmislik: ${nova}/4\nIcerik: ${(p.ingredients_text_tr||p.ingredients_text||'').substring(0,300)}\n\nMax 3 cumle Turkce yorum yap: saglikli mi, neye dikkat edilmeli, alternatif oner.`}),
+        signal:AbortSignal.timeout(10000)
+      });
+      if (aiRes.ok) {
+        const t = await aiRes.text();
+        aiYorum = t.replace(/data:.*\n\n/g,'').trim() || '';
+      }
+    } catch(e) { aiYorum = ''; }
+    
+    if (!aiYorum) {
+      // Fallback analiz
+      let yorum = '';
+      if (nutriscore === 'A' || nutriscore === 'B') yorum = '✅ Sağlıklı bir tercih. Besin değeri yüksek.';
+      else if (nutriscore === 'C' || nutriscore === 'D') yorum = '⚠️ Orta seviye. Aşırı tüketimden kaçının.';
+      else if (nutriscore === 'E') yorum = '❌ Sağlıksız. Daha iyi alternatifler düşünün.';
+      else yorum = '📊 Yeterli veri yok, etiketleri kontrol edin.';
+      aiYorum = yorum;
+    }
+    
+    // Besin değerleri
+    const n = p.nutriments || {};
+    const kalori = n['energy-kcal_100g'] || n['energy-kcal'] || '?';
+    const yag = n.fat_100g || '?';
+    const seker = n.sugars_100g || '?';
+    const protein = n.proteins_100g || '?';
+    
+    // Skor rengi
+    let scoreClass = 'score-ok';
+    if (nutriscore === 'A' || nutriscore === 'B') scoreClass = 'score-good';
+    if (nutriscore === 'D' || nutriscore === 'E') scoreClass = 'score-bad';
+    
+    // Tag'ler
+    let tagsHTML = '';
+    if (p.additives_tags?.length) {
+      p.additives_tags.slice(0,5).forEach(a=>{
+        tagsHTML += `<span class="tag tag-warn">${a.replace('en:','')}</span>`;
+      });
+    }
+    if (nova >= 3) tagsHTML += '<span class="tag tag-bad">İşlenmiş gıda</span>';
+    if (nutriscore === 'A') tagsHTML += '<span class="tag tag-good">Temiz içerik</span>';
+    
+    const html = `
+      <div class="result-card">
+        <h2>${ad}</h2>
+        <div class="brand">${marka || 'Marka bilinmiyor'}</div>
+        <div class="health-score">
+          <div class="score-circle ${scoreClass}">${nutriscore}</div>
+          <div>
+            <div class="score-label">Nutri-Score</div>
+            <div style="font-size:11px;color:var(--muted)">NOVA: ${nova}/4 | Eko: ${ecoscore}</div>
+          </div>
+        </div>
+        <div class="tags">${tagsHTML}</div>
+        <div class="ai-box">
+          <h4>🤖 Kivon AI Yorumu</h4>
+          <p>${aiYorum}</p>
+        </div>
+        <div class="nutrition-grid">
+          <div class="nutrition-item"><div class="val">${kalori}</div><div class="lbl">Kalori (kcal)</div></div>
+          <div class="nutrition-item"><div class="val">${yag}g</div><div class="lbl">Yağ</div></div>
+          <div class="nutrition-item"><div class="val">${seker}g</div><div class="lbl">Şeker</div></div>
+          <div class="nutrition-item"><div class="val">${protein}g</div><div class="lbl">Protein</div></div>
+        </div>
+      </div>
+    `;
+    
+    document.getElementById('result').innerHTML = html;
+    document.getElementById('result').style.display = 'block';
+  } catch(e) {
+    document.getElementById('result').innerHTML = '<div class="result-card"><h2>Hata</h2><p style="color:var(--red)">'+e.message+'</p></div>';
+    document.getElementById('result').style.display = 'block';
+  }
+  document.getElementById('loading').style.display = 'none';
+}
+
+// Enter tusu
+document.getElementById('barcode').addEventListener('keydown',e=>{if(e.key==='Enter')ara()});
+</script>
+</body>
+</html>
