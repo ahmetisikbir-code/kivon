@@ -30,7 +30,7 @@
 <meta name="twitter:image" content="https://kivontr.com/img/logo-icon.png">
 <style>
 :root {
-  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24; --green: #10b981;
   --white: #f1f5f9; --muted: #94a3b8;
   --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
   --glow: 0 0 30px rgba(56,189,248,0.3);
@@ -211,6 +211,11 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   .stats-bar { gap:32px; }
   .nav-links { display:none; }
 }
+
+@media (max-width:768px) {
+  div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns:repeat(2,1fr)!important; }
+}
+
 .mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
 .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
 .mobile-overlay.open { display:flex; }
@@ -281,30 +286,127 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
       <span class="card-icon">💬</span>
       <h3>AI Chatbot</h3>
       <p>7/24 müşteri hizmetleri. WhatsApp, web, Instagram.</p>
+      <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">WhatsApp</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">7/24 Yanıt</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">Randevu</li>
+      </ul>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">📊</span>
       <h3>Veri Analitiği</h3>
       <p>Satış, stok, müşteri verileri. AI tahminleme.</p>
+      <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">Dashboard</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">CSV/PDF</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">Tahmin</li>
+      </ul>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">⚡</span>
       <h3>Proses Otomasyonu</h3>
       <p>%70 zaman tasarrufu. Fatura, stok, e-posta.</p>
+      <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">Fatura</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">Stok</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">E-Posta</li>
+      </ul>
     </div>
     <div class="card">
       <div class="card-glow"></div>
       <span class="card-icon">🧠</span>
       <h3>AI Danışmanlık</h3>
       <p>Özel AI yol haritası. Fizibilite + uygulama.</p>
+      <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Analiz</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Yol Haritası</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Uygulama</li>
+      </ul>
     </div>
     <div class="card card-wide">
       <div class="card-glow"></div>
       <span class="card-icon">⚙️</span>
       <h3>Teknik Altyapı</h3>
       <p>5 AI model (DeepSeek V4, Llama 3.3, Qwen3, Nemotron). n8n otomasyon. Render API.</p>
+      <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">DeepSeek V4</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Llama 3.3</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Qwen3</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Nemotron</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="container" style="text-align:center;padding:48px 0">
+  <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);border-radius:24px;padding:48px 24px;text-align:center">
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">İşletmenize özel <span style="color:var(--cyan)">ücretsiz analiz</span> için hazır mısınız?</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:24px">15 dakikalık keşif görüşmesinde ihtiyaçlarınızı anlıyor, size özel çözüm önerisi sunuyoruz.</p>
+    <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:16px 40px">WhatsApp'tan Başlayın →</a>
+  </div>
+</div>
+
+<!-- ═══ NEDEN KIVON ═══ -->
+<section id="neden-kivon" style="background:rgba(10,10,26,0.3);">
+  <div class="container">
+    <span class="section-label">Neden KIVON?</span>
+    <h2 class="section-title">Sizi <span>Anlıyoruz</span></h2>
+    <div class="grid-4">
+      <div class="card" style="text-align:center">
+        <div class="card-glow"></div>
+        <span class="card-icon">🎯</span>
+        <h3>Size Özel Çözüm</h3>
+        <p>Her işletme farklıdır. Hazır paket değil, ihtiyacınıza özel AI çözümü tasarlıyoruz.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-glow"></div>
+        <span class="card-icon">⚡</span>
+        <h3>Hızlı Kurulum</h3>
+        <p>Ortalama 3 iş gününde sisteminiz hazır. Sıfır teknik bilgi gerekir.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-glow"></div>
+        <span class="card-icon">💬</span>
+        <h3>7/24 Canlı Destek</h3>
+        <p>WhatsApp üzerinden her an ulaşabileceğiniz gerçek insan desteği.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-glow"></div>
+        <span class="card-icon">🔒</span>
+        <h3>Veri Güvenliği</h3>
+        <p>Verileriniz Türkiye'de kalır. KVKK uyumlu, şifreli altyapı.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ÇALIŞMA SÜRECİ ═══ -->
+<section class="container">
+  <span class="section-label">Nasıl Başlarız?</span>
+  <h2 class="section-title">4 Adımda <span>AI'ye Geçin</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:40px">
+    <div style="text-align:center;position:relative">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(56,189,248,0.1);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">1</div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Keşif</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">15 dk ücretsiz görüşme. İhtiyaçlarınızı anlıyoruz.</p>
+    </div>
+    <div style="text-align:center;position:relative">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(99,102,241,0.1);border:2px solid var(--indigo);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">2</div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Teklif</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">Size özel çözüm planı ve şeffaf fiyat teklifi.</p>
+    </div>
+    <div style="text-align:center;position:relative">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(251,191,36,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">3</div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Kurulum</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">3 iş günü içinde sisteminiz hazır, eğitiminiz verilir.</p>
+    </div>
+    <div style="text-align:center;position:relative">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(16,185,129,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">4</div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Canlı</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">Sisteminiz yayında. 7/24 destek yanınızdayız.</p>
     </div>
   </div>
 </section>
@@ -353,6 +455,15 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   </div>
 </section>
 
+<!-- CTA Banner -->
+<div class="container" style="text-align:center;padding:48px 0">
+  <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);border-radius:24px;padding:48px 24px;text-align:center">
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">İşletmenize özel <span style="color:var(--cyan)">ücretsiz analiz</span> için hazır mısınız?</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:24px">15 dakikalık keşif görüşmesinde ihtiyaçlarınızı anlıyor, size özel çözüm önerisi sunuyoruz.</p>
+    <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:16px 40px">WhatsApp'tan Başlayın →</a>
+  </div>
+</div>
+
 <!-- ═══ DEMOS ═══ -->
 <section class="container">
   <span class="section-label">Demo</span>
@@ -369,6 +480,45 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
     </a>
   </div>
 </section>
+
+<!-- ═══ SSS ═══ -->
+<section id="sss" style="background:rgba(10,10,26,0.3);">
+  <div class="container">
+    <span class="section-label">SSS</span>
+    <h2 class="section-title">Merak <span>Edilenler</span></h2>
+    <div style="max-width:700px;margin:0 auto">
+      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">AI çözümleri ne kadar sürede kurulur?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Ortalama 3 iş günü içinde sisteminiz hazır olur. WhatsApp entegrasyonu için telefon numaranızın olması yeterli. Kurulum sürecinde size teknik destek sağlıyoruz.</div>
+      </div>
+      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Teknik bilgim yok, kullanabilir miyim?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Evet! Çözümlerimiz sıfır teknik bilgi gerektirir. WhatsApp'tan mesaj atar gibi kullanırsınız. Kurulum ve eğitimi biz sağlıyoruz.</div>
+      </div>
+      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Verilerim güvende mi?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Kesinlikle. Tüm verileriniz Türkiye'de saklanır, KVKK uyumlu altyapı kullanırız. Verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
+      </div>
+      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Paket değiştirebilir miyim?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Tabii ki. İhtiyacınız değiştikçe paketinizi yükseltebilir veya düşürebilirsiniz. Herhangi bir cayma bedeli yoktur.</div>
+      </div>
+      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Ödeme ve sözleşme nasıl?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Aylık fatura karşılığı çalışıyoruz. 12 aylık sözleşme ile hizmet veriyoruz. Ödemelerinizi banka havalesi veya kredi kartı ile yapabilirsiniz.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="container" style="text-align:center;padding:48px 0">
+  <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);border-radius:24px;padding:48px 24px;text-align:center">
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">İşletmenize özel <span style="color:var(--cyan)">ücretsiz analiz</span> için hazır mısınız?</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:24px">15 dakikalık keşif görüşmesinde ihtiyaçlarınızı anlıyor, size özel çözüm önerisi sunuyoruz.</p>
+    <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:16px 40px">WhatsApp'tan Başlayın →</a>
+  </div>
+</div>
 
 <!-- ═══ CONTACT ═══ -->
 <section id="iletisim" style="background:rgba(10,10,26,0.3);">
@@ -605,6 +755,9 @@ window.addEventListener('resize',()=>{
       ripple.addEventListener('animationend', function() { ripple.remove(); });
     });
   });
+
+  // ── FAQ accordion ──
+  (function(){document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var a=this.nextElementSibling,icon=this.querySelector('span');var isOpen=a.style.maxHeight!=='0px'&&a.style.maxHeight!=='';document.querySelectorAll('.faq-a').forEach(function(el){el.style.maxHeight='0';el.previousElementSibling.querySelector('span').textContent='+'});if(!isOpen){a.style.maxHeight=a.scrollHeight+'px';a.style.padding='0 20px 18px';icon.textContent='\u2212'}else{a.style.padding='0 20px';icon.textContent='+'}})})})();
 })();
 </script>
 
