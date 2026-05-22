@@ -145,9 +145,26 @@ async function ara() {
     const data = await res.json();
     
     if (!data.product) {
-      document.getElementById('result').innerHTML = '<div class="result-card"><h2>Ürün bulunamadı</h2><p style="color:var(--muted)">Bu barkod veritabanında yok.</p></div>';
-      document.getElementById('result').style.display = 'block';
+      // AI fallback — barkod no'dan ürün tipini tahmin et
+      const gs1 = barcode.substring(0,3);
+      let ulke = '';
+      if (gs1.startsWith('869')) ulke = 'Türkiye';
+      else if (gs1.startsWith('0')||gs1.startsWith('00')) ulke = 'ABD/Kanada';
+      else ulke = 'Uluslararası';
+      
       document.getElementById('loading').style.display = 'none';
+      document.getElementById('result').innerHTML = `
+        <div class="result-card">
+          <h2>📦 Veritabanında yok</h2>
+          <p style="color:var(--muted)">Bu barkod Open Food Facts'te bulunamadı.</p>
+          <p style="color:var(--muted)">Barkod: ${barcode} (${ulke} menşeli)</p>
+          <div style="margin-top:12px">
+            <input id="manuelAd" type="text" placeholder="Ürün adını yazın" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.2);background:var(--card);color:var(--text);font-size:15px">
+            <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="manuelAnaliz()">🤖 AI ile Analiz Et</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('result').style.display = 'block';
       return;
     }
     
@@ -241,6 +258,41 @@ async function ara() {
 
 // Enter tusu
 document.getElementById('barcode').addEventListener('keydown',e=>{if(e.key==='Enter')ara()});
+
+async function manuelAnaliz() {
+  const ad = document.getElementById('manuelAd')?.value?.trim();
+  const barkod = document.getElementById('barcode').value.trim();
+  if (!ad) return alert('Ürün adı girin');
+  
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  
+  let yorum = '';
+  try {
+    const res = await fetch('https://kivon-3.onrender.com/api/bridge/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({m:`Bu urunu saglik acisindan analiz et. Max 4 cumle Turkce:\nUrun: ${ad}\nBarkod: ${barkod}\n\n1) Ne tur bir urun? 2) Saglikli mi? (1-10 puan ver) 3) Icerikte nelere dikkat edilmeli? 4) Daha saglikli alternatif oner.`}),
+      signal:AbortSignal.timeout(15000)
+    });
+    if (res.ok) yorum = (await res.text()).replace(/data:.*\n\n/g,'').trim();
+  } catch(e) {}
+  
+  if (!yorum) yorum = `"${ad}" için veritabanında kayıt yok. Genel olarak paketli gıdaların etiketini okumanızı, şeker ve katkı maddelerine dikkat etmenizi öneririz.`;
+  
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('result').innerHTML = `
+    <div class="result-card">
+      <h2>${ad}</h2>
+      <div class="brand">Barkod: ${barkod}</div>
+      <div class="ai-box">
+        <h4>🤖 Kivon AI Analizi</h4>
+        <p>${yorum}</p>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:8px">⚠️ Bu analiz AI tahminidir. Kesin bilgi için ürün etiketini kontrol edin.</p>
+    </div>
+  `;
+  document.getElementById('result').style.display = 'block';
+}
 </script>
 </body>
 </html>
