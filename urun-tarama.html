@@ -145,22 +145,31 @@ async function ara() {
     const data = await res.json();
     
     if (!data.product) {
-      // AI fallback — barkod no'dan ürün tipini tahmin et
-      const gs1 = barcode.substring(0,3);
-      let ulke = '';
-      if (gs1.startsWith('869')) ulke = 'Türkiye';
-      else if (gs1.startsWith('0')||gs1.startsWith('00')) ulke = 'ABD/Kanada';
-      else ulke = 'Uluslararası';
-      
       document.getElementById('loading').style.display = 'none';
+      const gs1 = barcode.substring(0,3);
+      const ulke = gs1==='869'?'Türkiye':'Uluslararası';
+      
+      // Direkt AI analiz
+      let yorum = '';
+      try {
+        const res = await fetch('https://kivon-3.onrender.com/api/bridge/chat', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({m:`Bu barkoda sahip urun hakkinda bilgi ver: ${barcode} (${ulke} menseili). Urun adini tahmin et ve saglik acisindan 3 cumle Turkce analiz et. Saglikli mi? Neye dikkat edilmeli?`}),
+          signal:AbortSignal.timeout(15000)
+        });
+        if (res.ok) yorum = (await res.text()).replace(/data:.*\n\n/g,'').trim();
+      } catch(e) {}
+      
+      if (!yorum) yorum = `Bu barkod (${barcode}, ${ulke}) veritabanında bulunamadı. Ürün adını yazarsanız AI analiz edebilir.`;
+      
       document.getElementById('result').innerHTML = `
         <div class="result-card">
-          <h2>📦 Veritabanında yok</h2>
-          <p style="color:var(--muted)">Bu barkod Open Food Facts'te bulunamadı.</p>
-          <p style="color:var(--muted)">Barkod: ${barcode} (${ulke} menşeli)</p>
+          <h2>📦 Veritabanında Yok</h2>
+          <div class="brand">Barkod: ${barcode} (${ulke})</div>
+          <div class="ai-box"><h4>🤖 AI Tahmini</h4><p>${yorum}</p></div>
           <div style="margin-top:12px">
-            <input id="manuelAd" type="text" placeholder="Ürün adını yazın" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.2);background:var(--card);color:var(--text);font-size:15px">
-            <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="manuelAnaliz()">🤖 AI ile Analiz Et</button>
+            <input id="manuelAd" type="text" placeholder="Doğru ürün adını yazın →" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(56,189,248,0.2);background:var(--card);color:var(--text);font-size:15px">
+            <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="manuelAnaliz()">🤖 Detaylı Analiz</button>
           </div>
         </div>
       `;
