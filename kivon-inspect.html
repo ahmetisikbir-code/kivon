@@ -8,20 +8,21 @@
 :root{--p:#0D7C7C;--g:#E8A838;--n:#1B2A4A;--b:#F4F6FA;--t:#1E293B;--m:#64748B;--gr:#22C55E;--rd:#EF4444}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#0a0f1a;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;padding:14px 24px;align-items:center;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06)}
+body::before{content:'';position:fixed;inset:0;z-index:0;opacity:.06;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><path d="M30 5 L55 20 L55 50 L30 65 L5 50 L5 20 Z" fill="none" stroke="%2338bdf8" stroke-width=".5"/></svg>') repeat}
+.top{display:flex;justify-content:space-between;padding:14px 24px;align-items:center;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:2}
 .top .logo{font-weight:900;font-size:18px;letter-spacing:-.5px}.top .logo span{color:var(--g)}
 .top .right{display:flex;align-items:center;gap:8px}
 .top button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit;transition:.2s}
 .top button:hover{background:rgba(255,255,255,.15)}
 .top .slide-counter{font-size:12px;color:var(--m);min-width:60px;text-align:center}
-.bar{display:flex;gap:4px;padding:10px 24px 0;flex-shrink:0}
+.bar{display:flex;gap:4px;padding:10px 24px 0;flex-shrink:0;position:relative;z-index:2}
 .bar div{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;transition:.3s}
 .bar .on{background:var(--p)}.bar .now{background:var(--g);box-shadow:0 0 8px rgba(232,168,56,.3)}
-.main{flex:1;padding:24px;overflow-y:auto;overflow-x:hidden}
-.slide{display:none;animation:fade .5s ease;max-width:860px;margin:0 auto}
+.main{flex:1;padding:24px;overflow-y:auto;overflow-x:hidden;position:relative;z-index:1}
+.slide{display:none;animation:fade .5s ease;max-width:860px;margin:0 auto;position:relative;z-index:1}
 .slide.on{display:block}@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-h1{font-size:30px;text-align:center;margin-bottom:6px;font-weight:800}h1 em{color:var(--g);font-style:normal}
-h2{text-align:center;color:var(--m);font-weight:400;font-size:15px;margin-bottom:32px;line-height:1.5}
+.slide-bg{position:absolute;inset:0;z-index:0;border-radius:16px;overflow:hidden;opacity:.08;pointer-events:none}
+.slide-bg img{width:100%;height:100%;object-fit:cover}
 .mock{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3)}
 .mh{background:linear-gradient(135deg,var(--n),var(--p));padding:16px 22px;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
 .mb{padding:22px}
@@ -84,7 +85,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
 
 <!-- ─── ÜRÜN TANITIM SLAYT (ilk slayt) ─── -->
 <div class="slide on" id="s0">
-  <h1 style="font-size:28px">Kivon <em>Inspect</em> Nedir?</h1>
+  <div class="slide-bg"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200" alt=""></div>
+  <h1 style="font-size:28px;position:relative;z-index:1">Kivon <em>Inspect</em> Nedir?</h1>
   <h2>AI destekli otel temizlik denetim platformu. Self-hosted, veri sizde, aylık fatura yok.</h2>
   
   <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 28px;max-width:760px;margin:0 auto">
