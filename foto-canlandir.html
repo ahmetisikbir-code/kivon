@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kivon Motion — Fotoğrafı Canlandır</title>
+<style>
+:root{--bg:#050510;--card:#0f0f20;--cyan:#38bdf8;--gold:#fbbf24;--text:#f1f5f9;--muted:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+h1{font-size:28px;font-weight:900;margin-bottom:4px;text-align:center}
+h1 span{color:var(--cyan)}
+.sub{color:var(--muted);font-size:14px;margin-bottom:32px;text-align:center}
+.upload-area{width:100%;max-width:500px;aspect-ratio:1;border:2px dashed rgba(56,189,248,0.2);border-radius:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s;position:relative;overflow:hidden;background:var(--card);margin-bottom:20px}
+.upload-area:hover{border-color:var(--cyan)}
+.upload-area img{width:100%;height:100%;object-fit:cover;display:none}
+.upload-area .placeholder{text-align:center;color:var(--muted)}
+.upload-area .placeholder .icon{font-size:48px;margin-bottom:8px}
+.result-area{width:100%;max-width:500px;min-height:300px;background:var(--card);border-radius:24px;display:none;overflow:hidden;position:relative;margin-bottom:20px}
+.result-area video{width:100%;border-radius:24px}
+.btn{display:inline-block;padding:14px 32px;border-radius:100px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:.2s;margin:4px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),#6366f1);color:#fff}
+.btn-primary:disabled{opacity:.4;cursor:default}
+.loading{text-align:center;padding:40px;display:none}
+.spinner{width:40px;height:40px;border:3px solid rgba(56,189,248,0.1);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.note{font-size:11px;color:var(--muted);margin-top:12px;text-align:center;max-width:500px;line-height:1.6}
+.powered{font-size:10px;color:rgba(255,255,255,0.1);margin-top:24px}
+.how{background:var(--card);border-radius:16px;padding:20px;max-width:500px;width:100%;margin-bottom:24px}
+.how h3{font-size:14px;color:var(--cyan);margin-bottom:12px}
+.how ol{font-size:13px;color:var(--muted);line-height:2;padding-left:20px}
+</style>
+</head>
+<body>
+<h1>Kivon <span>Motion</span></h1>
+<p class="sub">Fotoğraftaki kişiyi yürüt, canlandır, videoya dönüştür</p>
+
+<input type="file" accept="image/*" id="fileInput" style="display:none">
+
+<div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+  <img id="preview" src="" alt="">
+  <div class="placeholder" id="placeholder">
+    <div class="icon">📸</div>
+    <div>Fotoğraf seçmek için tıkla</div>
+    <div style="font-size:11px;margin-top:4px">Tam boy insan fotoğrafı önerilir</div>
+  </div>
+</div>
+
+<button class="btn btn-primary" id="animateBtn" disabled onclick="animatePhoto()">✨ Canlandır</button>
+
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <p style="color:var(--muted)">AI fotoğrafı canlandırıyor... (30-60 sn)</p>
+</div>
+
+<div class="result-area" id="resultArea"></div>
+
+<div class="how">
+  <h3>📋 Nasıl Kullanılır</h3>
+  <ol>
+    <li>Tam boy, net bir insan fotoğrafı seç</li>
+    <li>"Canlandır" butonuna tıkla</li>
+    <li>AI kişiyi yürütür, hareketlendirir</li>
+    <li>Videoyu indir, paylaş</li>
+  </ol>
+  <p style="font-size:11px;color:var(--muted);margin-top:8px">
+  ⚡ Arkada Kling AI / Runway Gen-3 çalışır. Her canlandırma ~30-60 saniye sürer.
+  </p>
+</div>
+
+<p class="note">
+💡 <strong>İpucu:</strong> En iyi sonuç için düz zeminde, tam boy, net ışıkta çekilmiş fotoğraflar kullanın. Yüz net görünmeli.
+</p>
+
+<p class="powered">Kivon Motion v1 — Powered by Runway Gen-3</p>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+const placeholder = document.getElementById('placeholder');
+const animateBtn = document.getElementById('animateBtn');
+const uploadArea = document.getElementById('uploadArea');
+const loading = document.getElementById('loading');
+const resultArea = document.getElementById('resultArea');
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    animateBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+});
+
+uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.style.borderColor = '#38bdf8'; });
+uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = 'rgba(56,189,248,0.2)'; });
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.style.borderColor = 'rgba(56,189,248,0.2)';
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    fileInput.files = e.dataTransfer.files;
+    fileInput.dispatchEvent(new Event('change'));
+  }
+});
+
+async function animatePhoto() {
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  loading.style.display = 'block';
+  resultArea.style.display = 'none';
+  resultArea.innerHTML = '';
+  animateBtn.disabled = true;
+
+  // Base64'e çevir
+  const b64 = await new Promise(r => {
+    const reader = new FileReader();
+    reader.onload = (e) => r(e.target.result.split(',')[1]);
+    reader.readAsDataURL(file);
+  });
+
+  // Runway Gen-3 API (image-to-video)
+  try {
+    const key = 'RUNWAY_API_KEY'; // Ücretsiz key al: runwayml.com
+    if (key === 'RUNWAY_API_KEY') {
+      // Demo modu — API key olmadan simülasyon
+      await new Promise(r => setTimeout(r, 3000));
+      loading.style.display = 'none';
+      resultArea.style.display = 'block';
+      resultArea.innerHTML = `
+        <div style="text-align:center;padding:40px">
+          <div style="font-size:48px;margin-bottom:12px">🎬</div>
+          <div style="font-weight:700;margin-bottom:8px">API Anahtarı Gerekli</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.8">
+            Canlı kullanım için <strong>Runway Gen-3</strong> API anahtarı gerekli.<br>
+            <a href="https://runwayml.com" style="color:var(--cyan)" target="_blank">runwayml.com</a> — ücretsiz başlangıç kredisi var.<br><br>
+            Alternatif: <a href="https://klingai.com" style="color:var(--cyan)" target="_blank">Kling AI</a> veya 
+            <a href="https://viggle.ai" style="color:var(--cyan)" target="_blank">Viggle AI</a><br><br>
+            <span style="font-size:11px">Anahtar alınınca bu sayfa tam çalışır hale gelir.</span>
+          </div>
+        </div>`;
+      animateBtn.disabled = false;
+      return;
+    }
+
+    // Gerçek API çağrısı
+    const res = await fetch('https://api.runwayml.com/v1/tasks', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'gen3a_turbo',
+        input: {
+          promptImage: `data:image/jpeg;base64,${b64}`,
+          promptText: 'The person walks forward naturally with smooth motion, full body visible, like a fashion show runway walk',
+          motion: 5,
+          duration: 4
+        }
+      })
+    });
+
+    if (!res.ok) throw new Error('API hatası: ' + res.status);
+    const task = await res.json();
+    
+    // Poll for result
+    let videoUrl = null;
+    for (let i = 0; i < 30; i++) {
+      await new Promise(r => setTimeout(r, 3000));
+      const check = await fetch(`https://api.runwayml.com/v1/tasks/${task.id}`, {
+        headers: { 'Authorization': `Bearer ${key}` }
+      });
+      const data = await check.json();
+      if (data.status === 'SUCCEEDED') {
+        videoUrl = data.output?.[0];
+        break;
+      }
+      if (data.status === 'FAILED') throw new Error('AI işleme başarısız');
+    }
+
+    loading.style.display = 'none';
+    if (videoUrl) {
+      resultArea.style.display = 'block';
+      resultArea.innerHTML = `<video src="${videoUrl}" controls autoplay loop></video>
+        <div style="text-align:center;margin-top:8px">
+          <a href="${videoUrl}" download class="btn btn-primary" style="font-size:13px;padding:10px 24px">📥 Videoyu İndir</a>
+        </div>`;
+    } else {
+      resultArea.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">Zaman aşımı. Tekrar deneyin.</div>';
+    }
+
+  } catch(e) {
+    loading.style.display = 'none';
+    resultArea.style.display = 'block';
+    resultArea.innerHTML = `<div style="text-align:center;padding:40px;color:#ef4444">Hata: ${e.message}</div>`;
+  }
+  animateBtn.disabled = false;
+}
+</script>
+</body>
+</html>
