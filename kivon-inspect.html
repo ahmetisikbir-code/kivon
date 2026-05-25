@@ -1,453 +1,1159 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kivon Inspect — Urun Tanitim Demosu</title>
-<style>
-:root{--p:#0D7C7C;--g:#E8A838;--n:#1B2A4A;--b:#F4F6FA;--t:#1E293B;--m:#64748B;--gr:#22C55E;--rd:#EF4444}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#0a0f1a;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
-body::before{content:'';position:fixed;inset:0;z-index:0;opacity:.06;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><path d="M30 5 L55 20 L55 50 L30 65 L5 50 L5 20 Z" fill="none" stroke="%2338bdf8" stroke-width=".5"/></svg>') repeat}
-.top{display:flex;justify-content:space-between;padding:14px 24px;align-items:center;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:2}
-.top .logo{font-weight:900;font-size:18px;letter-spacing:-.5px}.top .logo span{color:var(--g)}
-.top .right{display:flex;align-items:center;gap:8px}
-.top button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit;transition:.2s}
-.top button:hover{background:rgba(255,255,255,.15)}
-.top .slide-counter{font-size:12px;color:var(--m);min-width:60px;text-align:center}
-.bar{display:flex;gap:4px;padding:10px 24px 0;flex-shrink:0;position:relative;z-index:2}
-.bar div{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;transition:.3s}
-.bar .on{background:var(--p)}.bar .now{background:var(--g);box-shadow:0 0 8px rgba(232,168,56,.3)}
-.main{flex:1;padding:24px;overflow-y:auto;overflow-x:hidden;position:relative;z-index:1}
-.slide{display:none;animation:fade .5s ease;max-width:860px;margin:0 auto;position:relative;z-index:1}
-.slide.on{display:block}@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.slide-bg{position:absolute;inset:0;z-index:0;border-radius:16px;overflow:hidden;opacity:.08;pointer-events:none}
-.slide-bg img{width:100%;height:100%;object-fit:cover}
-.mock{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3)}
-.mh{background:linear-gradient(135deg,var(--n),var(--p));padding:16px 22px;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
-.mb{padding:22px}
-.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.row2{grid-template-columns:repeat(2,1fr)}
-.row3{grid-template-columns:repeat(3,1fr)}
-.stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 12px;text-align:center;transition:.2s}
-.stat:hover{background:rgba(255,255,255,.05)}
-.stat .v{font-size:28px;font-weight:800;line-height:1.1}.stat .l{font-size:10px;color:var(--m);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
-.g{color:var(--gr)}.r{color:var(--rd)}.go{color:var(--g)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{grid-template-columns:1fr 1fr 1fr}
-.card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:16px;transition:.2s}
-.card:hover{background:rgba(255,255,255,.04)}
-.card h5{font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.card h5 .ic{font-size:16px}
-table{width:100%;font-size:11px;border-collapse:collapse;margin-top:4px}
-th{text-align:left;padding:7px 10px;color:var(--m);font-size:10px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid rgba(255,255,255,.08);font-weight:500}
-td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04)}
-tr:hover td{background:rgba(255,255,255,.02)}
-.b{display:inline-block;padding:3px 8px;border-radius:8px;font-size:9px;font-weight:700}
-.bg{background:rgba(34,197,94,.15);color:var(--gr)}.br{background:rgba(239,68,68,.15);color:var(--rd)}.by{background:rgba(234,179,8,.15);color:var(--g)}.bl{background:rgba(13,124,124,.15);color:var(--p)}
-.citem{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.02);border-radius:8px;font-size:12px;margin-bottom:5px;transition:.2s}
-.citem:hover{background:rgba(255,255,255,.04)}
-.citem .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.citem .tag{font-size:10px;margin-left:auto;font-weight:600}
-.ai-box{background:linear-gradient(135deg,rgba(13,124,124,.2),rgba(27,42,74,.3));border:1px solid rgba(13,124,124,.3);border-radius:14px;padding:20px 24px;margin-top:12px;position:relative;overflow:hidden}
-.ai-box::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(232,168,56,.06);border-radius:50%;pointer-events:none}
-.ai-box h5{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.ai-box h5 .ai-icon{font-size:22px}
-.ai-box p{font-size:13px;line-height:1.8;opacity:.9}
-.ai-box .ai-meta{font-size:10px;color:var(--m);margin-top:8px}
-.c-room{text-align:center;padding:14px 10px;background:rgba(255,255,255,.02);border:2px solid rgba(255,255,255,.06);border-radius:12px;font-size:11px;transition:.2s}
-.c-room:hover{border-color:rgba(255,255,255,.12)}
-.c-room .ico{font-size:28px;margin-bottom:4px;line-height:1}
-.c-room .name{font-weight:700;font-size:12px;margin-bottom:2px}
-.c-room .info{font-size:10px;color:var(--m);margin-bottom:6px}
-.c-room .btn{display:inline-block;padding:5px 14px;border-radius:6px;font-size:10px;font-weight:700;border:none;color:#fff;cursor:default}
-.btn-go{background:var(--gr)}.btn-deep{background:var(--g);color:#111}.btn-busy{background:var(--rd)}
-.cko{border-color:rgba(232,168,56,.35)!important;background:rgba(232,168,56,.04)}
-.ft{text-align:center;padding:12px;font-size:10px;color:var(--m);flex-shrink:0;border-top:1px solid rgba(255,255,255,.04)}
-.ft .pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--g);animation:p 1.5s infinite;margin-right:5px;vertical-align:middle}
-@keyframes p{0%,100%{opacity:1;box-shadow:0 0 6px var(--g)}50%{opacity:.3;box-shadow:0 0 2px var(--g)}}
-.cta-box{text-align:center;padding:32px;background:rgba(255,255,255,.03);border-radius:14px;margin-top:20px}
-.cta-box p{font-size:13px;color:var(--m);margin:3px 0}
-.cta-box strong{color:#fff}
-.warn-strip{background:rgba(239,68,68,.08);border-left:3px solid var(--rd);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:8px;font-size:12px;display:flex;align-items:center;gap:8px}
-.warn-strip .w-icon{font-size:18px;flex-shrink:0}
-.warn-strip.yellow{background:rgba(234,179,8,.08);border-left-color:var(--g)}
-.checklist{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.cl-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,.02);border-radius:6px;font-size:11px}
-.cl-item .box{width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
-.cl-item.done{opacity:.4}.cl-item.done .box{background:var(--gr);border-color:var(--gr);color:#fff}
-.cl-item.deep{border-left:2px solid var(--g)}
-.key-val{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.03)}
-.key-val .kv{color:var(--m)}.key-val .vv{font-weight:600}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kivon Inspect — Otel Denetimlerinde Yapay Zeka</title>
+    <style>
+        :root {
+            --navy: #0a1622;
+            --navy-light: #0f1f33;
+            --gold: #c9a96e;
+            --gold-light: #e2c98b;
+            --gold-dark: #b8943f;
+            --white: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.75);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg-hover: rgba(255, 255, 255, 0.09);
+            --glass-border-hover: rgba(201, 169, 110, 0.35);
+            --transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: 0.35s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ── Progress Bar ─────────────────────────── */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+            z-index: 1000;
+            transition: width var(--transition);
+            box-shadow: 0 0 12px rgba(201, 169, 110, 0.5);
+        }
+
+        /* ── Presentation Container ──────────────── */
+        .presentation {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+        }
+
+        /* ── Slides ──────────────────────────────── */
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            will-change: opacity;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, rgba(10, 22, 34, 0.9) 0%, rgba(10, 22, 34, 0.62) 50%, rgba(10, 22, 34, 0.82) 100%);
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        /* ── Typography ──────────────────────────── */
+        .slide-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50px;
+            padding: 0.4rem 1.4rem;
+        }
+
+        .slide-heading {
+            font-size: clamp(2rem, 4.5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .slide-heading.gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.35rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ── Glass Cards ─────────────────────────── */
+        .card-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-grid.cols-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card-grid.cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card-grid.cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .glass-card:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(201, 169, 110, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--gold);
+        }
+
+        .glass-card .card-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.8;
+        }
+
+        .glass-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .glass-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ── Step Cards (Solution) ────────────────── */
+        .steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-top: 2rem;
+        }
+
+        .step-card {
+            flex: 1;
+            max-width: 300px;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .step-number {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.1);
+            border: 2px solid rgba(201, 169, 110, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            transition: all var(--transition-fast);
+        }
+
+        .step-card:hover .step-number {
+            background: rgba(201, 169, 110, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 32px rgba(201, 169, 110, 0.25);
+            transform: scale(1.08);
+        }
+
+        .step-connector {
+            width: 60px;
+            height: 2px;
+            background: rgba(201, 169, 110, 0.3);
+            position: relative;
+            top: -44px;
+        }
+
+        .step-connector::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: -4px;
+            border: 5px solid transparent;
+            border-left: 8px solid rgba(201, 169, 110, 0.5);
+        }
+
+        .step-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        /* ── Benefit Stats ────────────────────────── */
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem 1.8rem;
+            text-align: center;
+            transition: all var(--transition-fast);
+        }
+
+        .stat-card:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ── Problem Cards ────────────────────────── */
+        .problem-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 100, 100, 0.15);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: left;
+            transition: all var(--transition-fast);
+        }
+
+        .problem-card:hover {
+            border-color: rgba(255, 120, 120, 0.4);
+            background: rgba(255, 80, 80, 0.06);
+            transform: translateY(-4px);
+        }
+
+        .problem-card .problem-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .problem-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ff8a8a;
+            margin-bottom: 0.4rem;
+        }
+
+        .problem-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── CTA Slide ────────────────────────────── */
+        .cta-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-card .cta-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            box-shadow: 0 8px 32px rgba(201, 169, 110, 0.25);
+            letter-spacing: 0.01em;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 44px rgba(201, 169, 110, 0.45);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 0.85rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gold);
+            background: transparent;
+            border: 1.5px solid rgba(201, 169, 110, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            background: rgba(201, 169, 110, 0.08);
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-item strong {
+            display: block;
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* ── Navigation Dots ─────────────────────── */
+        .dots {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            padding: 0;
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 12px rgba(201, 169, 110, 0.6);
+            width: 28px;
+            border-radius: 20px;
+        }
+
+        /* ── Navigation Arrows ───────────────────── */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .nav-arrow.prev {
+            left: 1.5rem;
+        }
+
+        .nav-arrow.next {
+            right: 1.5rem;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(201, 169, 110, 0.15);
+            border-color: rgba(201, 169, 110, 0.5);
+            color: var(--gold);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.25;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .nav-arrow svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ── Animations ──────────────────────────── */
+        .slide.active .glass-card,
+        .slide.active .problem-card,
+        .slide.active .stat-card,
+        .slide.active .step-card {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .slide.active .glass-card:nth-child(1),
+        .slide.active .problem-card:nth-child(1),
+        .slide.active .stat-card:nth-child(1),
+        .slide.active .step-card:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+
+        .slide.active .glass-card:nth-child(2),
+        .slide.active .problem-card:nth-child(2),
+        .slide.active .stat-card:nth-child(2),
+        .slide.active .step-card:nth-child(2) {
+            animation-delay: 0.25s;
+        }
+
+        .slide.active .glass-card:nth-child(3),
+        .slide.active .problem-card:nth-child(3),
+        .slide.active .stat-card:nth-child(3),
+        .slide.active .step-card:nth-child(3) {
+            animation-delay: 0.35s;
+        }
+
+        .slide.active .glass-card:nth-child(4),
+        .slide.active .problem-card:nth-child(4),
+        .slide.active .stat-card:nth-child(4),
+        .slide.active .step-card:nth-child(4) {
+            animation-delay: 0.45s;
+        }
+
+        .slide.active .glass-card:nth-child(5),
+        .slide.active .glass-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .slide.active .glass-card:nth-child(6),
+        .slide.active .glass-card:nth-child(6) {
+            animation-delay: 0.55s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(36px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .slide-label,
+        .slide.active .slide-heading,
+        .slide.active .slide-subtitle,
+        .slide.active .cta-card {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+        }
+
+        .slide.active .slide-label {
+            animation-delay: 0.05s;
+        }
+
+        .slide.active .slide-heading {
+            animation-delay: 0.12s;
+        }
+
+        .slide.active .slide-subtitle {
+            animation-delay: 0.2s;
+        }
+
+        .slide.active .cta-card {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .btn-gold,
+        .slide.active .btn-outline {
+            animation: fadeInUp 0.7s ease forwards;
+            opacity: 0;
+            animation-delay: 0.45s;
+        }
+
+        /* ── Feature icon grid (6 items) ──────────── */
+        .feature-icon-inline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(201, 169, 110, 0.12);
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-icon-inline svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ── Responsive ──────────────────────────── */
+        @media (max-width: 968px) {
+            .card-grid.cols-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-grid.cols-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .step-connector {
+                width: 2px;
+                height: 32px;
+                top: auto;
+            }
+
+            .step-connector::after {
+                right: auto;
+                top: auto;
+                bottom: -1px;
+                left: -4px;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 8px solid rgba(201, 169, 110, 0.5);
+            }
+
+            .step-card {
+                max-width: 100%;
+            }
+
+            .slide-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-arrow.prev {
+                left: 0.75rem;
+            }
+
+            .nav-arrow.next {
+                right: 0.75rem;
+            }
+
+            .cta-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                overflow: auto;
+            }
+
+            .presentation {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .slide {
+                position: relative;
+                opacity: 1;
+                pointer-events: auto;
+                min-height: 100vh;
+                min-height: 100dvh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .slide:not(.active) {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .slide.active {
+                z-index: 1;
+            }
+
+            .card-grid.cols-4,
+            .card-grid.cols-3,
+            .card-grid.cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-arrow,
+            .dots,
+            .progress-bar {
+                display: none;
+            }
+
+            .slide-content {
+                padding: 4rem 1.25rem;
+            }
+
+            .slide-heading {
+                font-size: 1.8rem;
+            }
+
+            .contact-row {
+                flex-direction: column;
+                gap: 1.2rem;
+                align-items: center;
+            }
+
+            .glass-card,
+            .problem-card,
+            .stat-card {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+
+            .slide-label,
+            .slide-heading,
+            .slide-subtitle,
+            .cta-card,
+            .btn-gold,
+            .btn-outline {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+        }
+
+        /* ── Reduced motion ──────────────────────── */
+        @media (prefers-reduced-motion: reduce) {
+            .slide,
+            .glass-card,
+            .problem-card,
+            .stat-card,
+            .step-card,
+            .cta-card,
+            .progress-bar {
+                transition: none !important;
+            }
+
+            .slide.active .glass-card,
+            .slide.active .problem-card,
+            .slide.active .stat-card,
+            .slide.active .step-card,
+            .slide.active .slide-label,
+            .slide.active .slide-heading,
+            .slide.active .slide-subtitle,
+            .slide.active .cta-card,
+            .slide.active .btn-gold,
+            .slide.active .btn-outline {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ─── ÜRÜN TANITIM SLAYT (ilk slayt) ─── -->
-<div class="slide on" id="s0">
-  <div class="slide-bg"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200" alt=""></div>
-  <h1 style="font-size:28px;position:relative;z-index:1">Kivon <em>Inspect</em> Nedir?</h1>
-  <h2>AI destekli otel temizlik denetim platformu. Self-hosted, veri sizde, aylık fatura yok.</h2>
-  
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 28px;max-width:760px;margin:0 auto">
-    
-    <h3 style="font-size:16px;color:var(--g);margin-bottom:14px">📋 Sistem Nasıl Çalışır?</h3>
-    
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-      <div style="background:rgba(255,255,255,.02);padding:12px;border-radius:10px">
-        <div style="font-size:20px;margin-bottom:3px">📸</div>
-        <div style="font-weight:700;font-size:13px;margin-bottom:2px">Temizlikçi Fotoğraf Çeker</div>
-        <div style="font-size:11px;color:var(--m)">Oda temizliği biter, telefonla 6 bölgenin fotoğrafı çekilir. 10 saniye.</div>
-      </div>
-      <div style="background:rgba(255,255,255,.02);padding:12px;border-radius:10px">
-        <div style="font-size:20px;margin-bottom:3px">🤖</div>
-        <div style="font-weight:700;font-size:13px;margin-bottom:2px">AI Puanlama Yapar</div>
-        <div style="font-size:11px;color:var(--m)">Yatak, banyo, zemin, yüzey, pencere, genel — her bölge anında puanlanır.</div>
-      </div>
-      <div style="background:rgba(255,255,255,.02);padding:12px;border-radius:10px">
-        <div style="font-size:20px;margin-bottom:3px">📊</div>
-        <div style="font-weight:700;font-size:13px;margin-bottom:2px">Müdür Panelde Görür</div>
-        <div style="font-size:11px;color:var(--m)">Tüm odaların durumu anlık ekranda. Hangi kat, kim temizledi, puan kaç.</div>
-      </div>
-      <div style="background:rgba(255,255,255,.02);padding:12px;border-radius:10px">
-        <div style="font-size:20px;margin-bottom:3px">📧</div>
-        <div style="font-weight:700;font-size:13px;margin-bottom:2px">Otomatik Rapor Gider</div>
-        <div style="font-size:11px;color:var(--m)">AI her sabah temizlik müdürüne, her hafta otel müdürüne rapor gönderir.</div>
-      </div>
-    </div>
+    <!-- ── Progress Bar ──────────────────────────── -->
+    <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
 
-    <h3 style="font-size:16px;color:var(--g);margin-bottom:14px">✅ Avantajlar</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px">
-      <div style="text-align:center;padding:10px;background:rgba(16,185,129,.06);border-radius:8px;font-size:12px">🔒 Veri Otelde Kalır<br><span style="color:var(--m);font-size:10px">Self-hosted, KVKK uyumlu</span></div>
-      <div style="text-align:center;padding:10px;background:rgba(16,185,129,.06);border-radius:8px;font-size:12px">💰 Aylık Fatura Yok<br><span style="color:var(--m);font-size:10px">Tek seferlik yatırım</span></div>
-      <div style="text-align:center;padding:10px;background:rgba(16,185,129,.06);border-radius:8px;font-size:12px">👥 Tartışma Biter<br><span style="color:var(--m);font-size:10px">Kanıtlı, fotoğraflı kayıt</span></div>
-    </div>
+    <!-- ── Slides ────────────────────────────────── -->
+    <div class="presentation" id="presentation">
 
-    <h3 style="font-size:16px;color:var(--g);margin-bottom:14px">📦 İçinde Neler Var?</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
-      <div>• AI 6 bölge puanlama</div><div>• Günlük/haftalık AI rapor</div>
-      <div>• Misafir yorum analizi</div><div>• İlaçlama takip sistemi</div>
-      <div>• Kayıp eşya takibi</div><div>• Bakım arızası kaydı</div>
-      <div>• Personel performans</div><div>• Mobil + Masaüstü panel</div>
-    </div>
-
-    <div style="margin-top:20px;text-align:center;padding:16px;background:rgba(232,168,56,.06);border:1px solid rgba(232,168,56,.15);border-radius:12px">
-      <div style="font-size:13px;margin-bottom:4px">📞 <strong>Demo ve bilgi için:</strong></div>
-      <div style="font-size:12px;color:var(--m)">Kivon Teknoloji | 0530 398 27 12 | kivon.iletisim@gmail.com</div>
-    </div>
-  </div>
-</div>
-
-<div class="top">
-  <div class="logo">Kivon <span>Inspect</span></div>
-  <div class="right">
-    <span class="slide-counter" id="counter">1 / 10</span>
-    <button onclick="prev()">Geri</button>
-    <button onclick="togglePause()" id="pb">Duraklat</button>
-    <button onclick="next()">Ileri</button>
-  </div>
-</div>
-<div class="bar" id="bar"></div>
-<div class="main">
-
-<!-- 0: INTRO -->
-<div class="slide on" id="s0">
-  <h1>Temizlik Denetiminde<br><em>Yeni Standart</em></h1>
-  <h2>Yapay zeka ile goruntulu otel temizlik denetim ve takip platformu</h2>
-  <div class="grid grid3">
-    <div class="card"><div style="font-size:32px;margin-bottom:8px">AI</div><h5><span class="ic">..</span>AI Goruntu Analizi</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Temizlikci fotograf ceker, yapay zeka 6 bolgeyi es zamanli puanlar. Gecti/kaldi aninda belli olur.</p></div>
-    <div class="card" style="border-color:var(--g);background:rgba(232,168,56,.04)"><div style="font-size:32px;margin-bottom:8px">DB</div><h5><span class="ic">..</span>Canli Yonetim Paneli</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Tum odalarin durumu tek ekranda. Her denetim fotografli. Denetmene hazir.</p></div>
-    <div class="card"><div style="font-size:32px;margin-bottom:8px">ML</div><h5><span class="ic">..</span>Akilli Raporlama</h5><p style="font-size:11px;color:var(--m);line-height:1.6">Gunluk temizlik mudurune, haftalik otel mudurune otomatik mail. AI yorumlu.</p></div>
-  </div>
-</div>
-
-<!-- 1: DASHBOARD -->
-<div class="slide" id="s1">
-  <h1 style="font-size:22px">Yonetim Paneli</h1>
-  <h2>Tek ekranda otelin tum temizlik durumu - anlik, fotografli, raporlanabilir</h2>
-  <div class="mock">
-    <div class="mh"><span>Lara Garden Resort &amp; Spa</span><span style="font-size:11px;opacity:.7">19 Mayis 2026 Persembe</span></div>
-    <div class="mb">
-      <div class="row">
-        <div class="stat"><div class="v">193</div><div class="l">Toplam Alan</div></div>
-        <div class="stat"><div class="v">180</div><div class="l">Bugun Denetim</div></div>
-        <div class="stat"><div class="v g">%87</div><div class="l">Basari Orani</div></div>
-        <div class="stat"><div class="v r">24</div><div class="l">Kalan Oda</div></div>
-      </div>
-      <div class="row row2">
-        <div class="card"><h5><span class="ic">..</span>Calisan Bazli Performans</h5>
-          <table><tr><th>Calisan</th><th>Bugun</th><th>Basari</th><th>Trend</th></tr>
-            <tr><td>Mehmet Kaya</td><td>10</td><td><span class="b bg">%92</span></td><td style="color:var(--gr)">artiyor</td></tr>
-            <tr><td>Ayse Demir</td><td>9</td><td><span class="b bg">%88</span></td><td style="color:var(--gr)">sabit</td></tr>
-            <tr><td>Hasan Celik</td><td>11</td><td><span class="b br">%71</span></td><td style="color:var(--rd)">dusuyor</td></tr>
-          </table>
+        <!-- SLIDE 1: INTRO ───────────────────────── -->
+        <div class="slide active" data-index="0" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-label">Kivon Inspect</span>
+                <h1 class="slide-heading gold">Otel Denetimlerinde<br>Yapay Zeka Çağı</h1>
+                <p class="slide-subtitle">
+                    Görüntü tanıma ve yapay zeka destekli denetim platformu ile otel operasyonlarınızı bir üst seviyeye taşıyın. Her şey dahil, self-hosted çözüm.
+                </p>
+                <div class="card-grid cols-4">
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        </div>
+                        <h3>Yapay Zeka Analizi</h3>
+                        <p>60+ denetim kriterinde anlık görüntü tanıma ve otomatik skorlama.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><rect x="6" y="6" width="12" height="12" rx="1"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <h3>Self-Hosted Altyapı</h3>
+                        <p>Verileriniz kendi sunucunuzda. Tam kontrol, tam güvenlik, sıfır veri sızıntısı.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+                        </div>
+                        <h3>Mobil Panel</h3>
+                        <p>iOS ve Android uyumlu web panel ile her yerden, her cihazdan anlık erişim.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <h3>Otomatik Rapor</h3>
+                        <p>Tek tıkla PDF denetim raporu oluşturun, e-posta ile anında paylaşın.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card"><h5><span class="ic">..</span>Sorunlu Bolgeler (Bu Hafta)</h5>
-          <div class="key-val"><span class="kv">Banyo</span><span class="vv r">12 kez kaldi</span></div>
-          <div class="key-val"><span class="kv">Zemin</span><span class="vv" style="color:#f97316">8 kez kaldi</span></div>
-          <div class="key-val"><span class="kv">Yuzeyler</span><span class="vv go">5 kez kaldi</span></div>
-          <div class="key-val"><span class="kv">Pencereler</span><span class="vv go">3 kez kaldi</span></div>
-          <div class="key-val"><span class="kv">Yatak</span><span class="vv g">1 kez kaldi</span></div>
+
+        <!-- SLIDE 2: PROBLEM ──────────────────────── -->
+        <div class="slide" data-index="1" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-label">Sorun</span>
+                <h2 class="slide-heading">Manuel Denetimin<br>Görünmeyen Maliyeti</h2>
+                <p class="slide-subtitle">
+                    Geleneksel oda denetim yöntemleri operasyonunuzu yavaşlatıyor, hata oranını artırıyor ve misafir memnuniyetini riske atıyor.
+                </p>
+                <div class="card-grid cols-2">
+                    <div class="problem-card">
+                        <span class="problem-icon">&#9201;</span>
+                        <h3>Zaman Kaybı</h3>
+                        <p>Her oda denetimi ortalama 15 dakika sürer. 200 odalı bir otelde bu, günde 50 saatin üzerinde kayıp demektir.</p>
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-icon">&#10060;</span>
+                        <h3>İnsan Hatası</h3>
+                        <p>Manuel kontrollerde hata payı %23'e kadar çıkar. Gözden kaçan bir detay, misafir şikayetine dönüşür.</p>
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-icon">&#128202;</span>
+                        <h3>Tutarsız Standartlar</h3>
+                        <p>Her personel farklı değerlendirme yapar. Zincir otellerde lokasyonlar arası standart sapması kaçınılmazdır.</p>
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-icon">&#128176;</span>
+                        <h3>Operasyonel Kayıp</h3>
+                        <p>Geciken raporlama ve yavaş aksiyon alma nedeniyle yıllık ortalama ₺450K operasyonel kayıp yaşanır.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- 2: CLEANER -->
-<div class="slide" id="s2">
-  <h1 style="font-size:22px">Temizlikci Mobil Paneli</h1>
-  <h2>PIN ile giris. Sadece sorumlu oldugu kat. 3 butonla calisir.</h2>
-  <div class="mock">
-    <div class="mh"><span>Mehmet Kaya</span><span style="font-size:11px;opacity:.7">Kat: 1 - 30 oda kaldi</span></div>
-    <div class="mb">
-      <div class="row row3">
-        <div class="stat"><div class="v g">19</div><div class="l">Tamamlanan</div></div>
-        <div class="stat"><div class="v go">30</div><div class="l">Bekleyen</div></div>
-        <div class="stat"><div class="v r">2</div><div class="l">Tekrar Gerekli</div></div>
-      </div>
-      <h5 style="margin-bottom:10px">Denetlenecek Odalar</h5>
-      <div class="grid grid3">
-        <div class="c-room"><div class="ico">O</div><div class="name">101 - Standart</div><div class="info">6 bolge</div><button class="btn btn-go">Bos / Temizle</button></div>
-        <div class="c-room cko"><div class="ico" style="color:var(--g)">C</div><div class="name">105 - Cikis Odasi</div><div class="info" style="color:var(--g)">Derin temizlik gerekli</div><button class="btn btn-deep">Derin Temizlik</button></div>
-        <div class="c-room"><div class="ico">D</div><div class="name">108 - Standart</div><div class="info">Oda kullanimda</div><button class="btn btn-busy">Dolu / Girilemez</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 3: CHECKLIST -->
-<div class="slide" id="s3">
-  <h1 style="font-size:22px">On Kontrol Listesi</h1>
-  <h2>Fotograf cekmeden once tamamlanmasi gerekenler. Mudur tarafindan ozellestirilebilir.</h2>
-  <div class="mock">
-    <div class="mh"><span>Oda 101 - Standart Tek Kisilik</span><span class="b bg">8 madde</span></div>
-    <div class="mb">
-      <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;margin-bottom:14px;font-size:12px">
-        <input type="checkbox" id="deep" style="width:16px;height:16px;accent-color:var(--g)" onchange="this.checked?showDeep():hideDeep()">
-        <label for="deep" style="color:var(--g);font-weight:600;cursor:pointer">Derin temizlik (musteri cikis yapmis, oda bos)</label>
-      </div>
-      <div class="checklist">
-        <div class="cl-item"><div class="box">..</div>Zemin supuruldu / paspaslandi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Toz alindi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Cop alindi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Yuzeyler silindi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Yatak duzeltildi / nevresim degisti mi?</div>
-        <div class="cl-item"><div class="box">..</div>Banyo temizlendi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Ayna / cam temizlendi mi?</div>
-        <div class="cl-item"><div class="box">..</div>Havlu / bornoz kontrol edildi mi?</div>
-        <div class="cl-item deep" style="display:none" id="d1"><div class="box">..</div>Minibar / buzdolabi kontrol edildi mi?</div>
-        <div class="cl-item deep" style="display:none" id="d2"><div class="box">..</div>Kasa bos ve acik mi?</div>
-        <div class="cl-item deep" style="display:none" id="d3"><div class="box">..</div>Perdeler kontrol edildi / tozu alindi mi?</div>
-        <div class="cl-item deep" style="display:none" id="d4"><div class="box">..</div>Koltuk / cekyat alti supuruldu mu?</div>
-        <div class="cl-item deep" style="display:none" id="d5"><div class="box">..</div>TV / kumanda calisiyor, temiz mi?</div>
-      </div>
-      <p style="font-size:10px;color:var(--m);margin-top:12px;text-align:center">Tum zorunlu maddeler tamamlaninca fotograf cekme adimina gecilir.</p>
-    </div>
-  </div>
-</div>
-
-<!-- 4: AI RAPOR -->
-<div class="slide" id="s4">
-  <h1 style="font-size:22px">AI Gunluk Rapor</h1>
-  <h2>Her sabah temizlik mudurunun mail kutusunda. Tum veriyi analiz eder, oneri sunar.</h2>
-  <div class="mock">
-    <div class="mh"><span>Temizlik Raporu - 19 Mayis 2026</span><span class="b bl">AI Analizli</span></div>
-    <div class="mb">
-      <div class="row">
-        <div class="stat"><div class="v">349</div><div class="l">Denetim</div></div>
-        <div class="stat"><div class="v g">286</div><div class="l">Gecen (%82)</div></div>
-        <div class="stat"><div class="v r">63</div><div class="l">Kalan (%18)</div></div>
-        <div class="stat"><div class="v go">12</div><div class="l">Calisan</div></div>
-      </div>
-      <div class="row row2">
-        <div><h5 style="font-size:12px;margin-bottom:6px;color:var(--g)">En Basarili Calisanlar</h5>
-          <div class="key-val"><span class="kv">Mehmet Kaya</span><span class="vv g">%92</span></div>
-          <div class="key-val"><span class="kv">Derya Ozkan</span><span class="vv g">%90</span></div>
-          <div class="key-val"><span class="kv">Ayse Demir</span><span class="vv g">%88</span></div>
+        <!-- SLIDE 3: SOLUTION ─────────────────────── -->
+        <div class="slide" data-index="2" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-label">Çözüm</span>
+                <h2 class="slide-heading">3 Adımda Kusursuz<br>Denetim Deneyimi</h2>
+                <p class="slide-subtitle">
+                    Kivon Inspect ile oda denetim süreciniz saniyeler içinde tamamlanır, sonuçlar anında raporlanır.
+                </p>
+                <div class="steps">
+                    <div class="step-card">
+                        <span class="step-icon">&#128248;</span>
+                        <div class="step-number">1</div>
+                        <h3>Fotoğraf Çekin</h3>
+                        <p>Denetlenecek oda veya alanın fotoğraflarını mobil cihazınızla çekin. Uygulama yüklemesi gerekmez.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-card">
+                        <span class="step-icon">&#129302;</span>
+                        <div class="step-number">2</div>
+                        <h3>AI Analiz Etsin</h3>
+                        <p>Yapay zeka modelimiz 60'ın üzerinde kriteri saniyeler içinde değerlendirir ve skorlar.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-card">
+                        <span class="step-icon">&#128187;</span>
+                        <div class="step-number">3</div>
+                        <h3>Paneli Görün</h3>
+                        <p>Sonuçlar, karşılaştırmalı skorlar ve aksiyon önerileri anında dashboard'unuzda.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div><h5 style="font-size:12px;margin-bottom:6px;color:var(--rd)">Gelismesi Gerekenler</h5>
-          <div class="key-val"><span class="kv">Hasan Celik</span><span class="vv r">%71</span></div>
-          <div class="key-val"><span class="kv">Fatma Yildiz</span><span class="vv" style="color:#f97316">%76</span></div>
-          <div class="key-val"><span class="kv">Osman Bulut</span><span class="vv" style="color:#f97316">%79</span></div>
+
+        <!-- SLIDE 4: FEATURES ─────────────────────── -->
+        <div class="slide" data-index="3" style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-label">Özellikler</span>
+                <h2 class="slide-heading">Kivon Inspect ile<br>Gelen Her Şey</h2>
+                <p class="slide-subtitle">
+                    Otel denetimlerinizi baştan sona dönüştürecek kapsamlı özellik seti. Hepsi tek platformda, kuruluma hazır.
+                </p>
+                <div class="card-grid cols-3">
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3>Gerçek Zamanlı Analiz</h3>
+                        <p>Fotoğraf yüklendiği anda AI modeli çalışır, sonuçlar saniyeler içinde ekrana yansır.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                        </div>
+                        <h3>Özelleştirilebilir Şablonlar</h3>
+                        <p>Denetim kriterlerini, puanlama sistemini ve rapor formatını ihtiyacınıza göre özelleştirin.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        </div>
+                        <h3>Ekip Yönetimi</h3>
+                        <p>Denetim ekiplerinizi oluşturun, görev atayın, performansı takip edin. Tek elden personel yönetimi.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <h3>Çoklu Lokasyon</h3>
+                        <p>Zincir oteller için tüm lokasyonları tek panelden yönetin, karşılaştırmalı raporlar alın.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <h3>API Entegrasyonu</h3>
+                        <p>Mevcut PMS ve operasyon yazılımlarınızla sorunsuz entegrasyon. RESTful API, webhook desteği.</p>
+                    </div>
+                    <div class="glass-card">
+                        <div class="feature-icon-inline">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        </div>
+                        <h3>Kurumsal Güvenlik</h3>
+                        <p>Uçtan uca şifreleme, rol tabanlı erişim kontrolü, audit log ve GDPR uyumlu veri yönetimi.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="ai-box">
-        <h5><span class="ai-icon">AI</span> Yapay Zeka Yorumu</h5>
-        <p>"Gunluk temizlik performansi genel olarak %82 seviyesinde. En sorunlu bolge <strong style="color:var(--rd)">Banyo</strong> - ozellikle lavabo ve dusakabin kontrolunde tekrar eden hatalar var. Zemin temizliginde de standart sapma goruluyor. Hasan Celik'in son 3 gundur performansi dusuyor - birebir gorusme oneririm. Banyo temizligi icin kisa bir egitim ve Zemin kontrolune ek bir supervisor gozden gecirmesi, basari oranini %87-88 bandina cikarabilir."</p>
-        <div class="ai-meta">Groq AI / llama-3.3-70b - Gercek zamanli analiz</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- 5: HAFTALIK AI RAPOR -->
-<div class="slide" id="s5">
-  <h1 style="font-size:22px">AI Haftalik Rapor</h1>
-  <h2>Her Pazartesi otel mudurune ve temizlik mudurune mail ile gonderilir. Stratejik analiz.</h2>
-  <div class="mock">
-    <div class="mh"><span>Haftalik Rapor - 13-19 Mayis 2026</span><span class="b bg">Iki mudure</span></div>
-    <div class="mb">
-      <div class="row">
-        <div class="stat"><div class="v">2.486</div><div class="l">Toplam Denetim</div></div>
-        <div class="stat"><div class="v g">%87</div><div class="l">Haftalik Basari</div></div>
-        <div class="stat"><div class="v go">%84</div><div class="l">Gecen Hafta</div></div>
-        <div class="stat"><div class="v g" style="font-size:18px">+3%</div><div class="l">Iyilesme</div></div>
-      </div>
-      <div class="ai-box">
-        <h5><span class="ai-icon">AI</span> Haftalik Stratejik Analiz</h5>
-        <p>"Bu hafta basari orani gecen haftaya gore %3 artarak %87 seviyesine yukseldi. En buyuk iyilesme <strong style="color:var(--gr)">Yuzeyler</strong> kategorisinde - gecen haftaki AI onerisi dogrultusunda yapilan ek kontroller sonuc verdi. Banyo halen en sorunlu bolge olmaya devam ediyor. <strong style="color:var(--g)">Onumuzdeki hafta icin:</strong> 1) Banyo temizligine ozel egitim oturumu 2) Hasan Celik icin performans gelisim plani 3) Ilaclama takviminde Mutfak ve Bahce gecikmis - acil aksiyon alinmali. Yorum analizine gore misafir memnuniyeti temizlik bazinda %11 iyilesti."</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 6: YORUM -->
-<div class="slide" id="s6">
-  <h1 style="font-size:22px">Misafir Yorum Analizi</h1>
-  <h2>Google, TripAdvisor, Booking yorumlari otomatik entegre edilir. AI temizlik sikayetlerini tespit eder.</h2>
-  <div class="mock">
-    <div class="mb">
-      <div class="row">
-        <div class="stat"><div class="v">18</div><div class="l">Google</div></div>
-        <div class="stat"><div class="v">15</div><div class="l">TripAdvisor</div></div>
-        <div class="stat"><div class="v">12</div><div class="l">Booking.com</div></div>
-        <div class="stat"><div class="v r">11</div><div class="l">Temizlik Sikayeti</div></div>
-      </div>
-      <table>
-        <tr><th>Kaynak</th><th>Yorum</th><th>AI Analizi</th><th>Ciddiyet</th></tr>
-        <tr><td><span class="b bl">Google</span></td><td>Banyoda sac teli vardi, lavabo temiz degildi, hayal kirikligi</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--rd);font-weight:700">8/10</td></tr>
-        <tr><td><span class="b bl">TripAdvisor</span></td><td>Harika bir hafta sonu, her sey mukemmeldi, tekrar gelecegiz</td><td><span class="b bg">Temiz / Pozitif</span></td><td>-</td></tr>
-        <tr><td><span class="b bl">Booking</span></td><td>Koridor halilari cok kirli, ilk izlenim kotu oldu</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--rd);font-weight:700">6/10</td></tr>
-        <tr><td><span class="b bl">Google</span></td><td>Havuz kenari sezlonglar kirliydi, ilgilenilmiyor</td><td><span class="b br">Temizlik sorunu</span></td><td style="color:var(--g);font-weight:700">4/10</td></tr>
-      </table>
-      <div class="ai-box" style="margin-top:12px;padding:14px 18px">
-        <h5 style="font-size:13px"><span class="ai-icon" style="font-size:18px">AI</span> AI Onerisi</h5>
-        <p style="font-size:12px">Son 30 gunde <strong>11 yorumda</strong> temizlik sikayeti tespit edildi. En sik sikayet: <strong style="color:var(--rd)">Banyo temizligi</strong> (4 yorum) ve <strong style="color:#f97316">Zemin/koridor</strong> (3 yorum). Bu iki alana odaklanmak, Booking puanini 0.3-0.5 artirabilir.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 7: ILACLAMA -->
-<div class="slide" id="s7">
-  <h1 style="font-size:22px">Ilaclama Takip Sistemi</h1>
-  <h2>Hangi alan ne zaman ilaclandi? Hangisi yaklasiyor? Hangisi gecikti? Tek ekranda.</h2>
-  <div class="mock">
-    <div class="mb">
-      <div class="warn-strip"><span class="w-icon">..</span><span><strong>Mutfak</strong> - Bocek/Hasere ilaclamasi <strong style="color:var(--rd)">3 gun gecikti!</strong> Hemen aksiyon alin.</span></div>
-      <div class="warn-strip yellow"><span class="w-icon">..</span><span><strong>Bahce & Peyzaj</strong> - Sinek ilaclamasi <strong style="color:var(--g)">2 gun kaldi.</strong> Randevu olusturulmali.</span></div>
-      <table style="margin-top:12px">
-        <tr><th>Alan</th><th>Tur</th><th>Periyot</th><th>Son Ilaclama</th><th>Sonraki</th><th>Durum</th></tr>
-        <tr><td>Mutfak</td><td>Bocek/Hasere</td><td>Aylik</td><td>19 Nisan</td><td style="color:var(--rd)">.. 3 gun gecikti</td><td><span class="b br">Gecikmis</span></td></tr>
-        <tr><td>Bahce & Peyzaj</td><td>Sinek</td><td>Aylik</td><td>20 Nisan</td><td style="color:var(--g)">.. 2 gun kaldi</td><td><span class="b by">Yaklasiyor</span></td></tr>
-        <tr><td>Ana Havuz</td><td>Dezenfeksiyon</td><td>2 Aylik</td><td>30 Nisan</td><td>29 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
-        <tr><td>Restoran</td><td>Bocek/Hasere</td><td>Aylik</td><td>14 Mayis</td><td>13 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
-        <tr><td>Spa & Wellness</td><td>Dezenfeksiyon</td><td>Aylik</td><td>12 Mayis</td><td>11 Haziran</td><td><span class="b bg">Tamam</span></td></tr>
-      </table>
-      <div class="grid" style="margin-top:12px">
-        <div class="card"><h5><span class="ic">..</span>Kayip Esya</h5>
-          <div class="citem">iPhone 15 - Apple <span class="b bg" style="margin-left:auto">Teslim</span></div>
-          <div class="citem">RayBan Gunes Gozlugu <span class="b br" style="margin-left:auto">Bekliyor</span></div>
-          <div class="citem">Altin Kolye - Atasay <span class="b bg" style="margin-left:auto">Teslim</span></div>
+        <!-- SLIDE 5: BENEFITS ─────────────────────── -->
+        <div class="slide" data-index="4" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-label">Kazanımlar</span>
+                <h2 class="slide-heading">Somut Getiriler,<br>Ölçülebilir Sonuçlar</h2>
+                <p class="slide-subtitle">
+                    Kivon Inspect'e yaptığınız yatırım, operasyonel verimlilik ve misafir memnuniyeti olarak size hızla geri döner.
+                </p>
+                <div class="card-grid cols-4">
+                    <div class="stat-card">
+                        <div class="stat-value">%70</div>
+                        <div class="stat-label">Daha Hızlı Denetim</div>
+                        <p style="font-size:0.82rem;color:var(--text-tertiary);margin-top:0.5rem;">15 dakika → 3 dakika</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">%90</div>
+                        <div class="stat-label">Daha Az Hata</div>
+                        <p style="font-size:0.82rem;color:var(--text-tertiary);margin-top:0.5rem;">Yapay zeka hassasiyeti</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3 Ay</div>
+                        <div class="stat-label">Yatırım Geri Dönüşü</div>
+                        <p style="font-size:0.82rem;color:var(--text-tertiary);margin-top:0.5rem;">Ortalama ROI süresi</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">%40</div>
+                        <div class="stat-label">Artan Misafir Memnuniyeti</div>
+                        <p style="font-size:0.82rem;color:var(--text-tertiary);margin-top:0.5rem;">Tutarlı oda kalitesi</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card"><h5><span class="ic">..</span>Bakim Arizalari</h5>
-          <div class="citem">Klima sogutmuyor <span style="color:var(--rd);font-weight:700;margin-left:auto">5/5 acil</span></div>
-          <div class="citem">Musluk akitiyor <span style="color:var(--g);font-weight:700;margin-left:auto">3/5</span></div>
-          <div class="citem">Priz calismiyor <span class="b bg" style="margin-left:auto">Cozuldu</span></div>
+
+        <!-- SLIDE 6: CTA ──────────────────────────── -->
+        <div class="slide" data-index="5" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <div class="cta-card">
+                    <span class="slide-label" style="margin-bottom:1.5rem;">Harekete Geçin</span>
+                    <h2>Kivon Inspect'i<br>Keşfedin</h2>
+                    <p class="cta-subtitle">
+                        Otel denetimlerinizi bir üst seviyeye taşımanın tam zamanı. Ekibiniz için özel bir demo planlayalım, Kivon Inspect'in otelinize neler katabileceğini birlikte görelim.
+                    </p>
+                    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;">
+                        <a href="#" class="btn-gold">&#9654; Demo Talep Edin</a>
+                        <a href="#" class="btn-outline">Broşür İndir</a>
+                    </div>
+                    <div class="contact-row">
+                        <div class="contact-item">
+                            <strong>&#9742; Telefon</strong>
+                            +90 (212) 555 00 00
+                        </div>
+                        <div class="contact-item">
+                            <strong>&#9993; E-posta</strong>
+                            info@kivon.com.tr
+                        </div>
+                        <div class="contact-item">
+                            <strong>&#127968; Adres</strong>
+                            Levent, İstanbul
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
     </div>
-  </div>
-</div>
 
-<!-- 8: TEKNIK -->
-<div class="slide" id="s8">
-  <h1 style="font-size:22px">Teknik Altyapi</h1>
-  <h2>Kendi sunucunuzda calisir. Veri disari cikmaz. Sifir bagimlilik.</h2>
-  <div class="grid grid3">
-    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">0</div><h5>Sifir Bagimlilik</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Sadece Node.js. npm install yok. package.json yok. Tek dosya sunucu.</p></div>
-    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>JSON Veritabani</h5><p style="font-size:11px;color:var(--m);line-height:1.5">MySQL, PostgreSQL gerektirmez. Tum veri JSON dosyalarinda. Yedek: klasoru kopyala.</p></div>
-    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>SHA256 Guvenlik</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Sifreler hashlenir. Token bazli yetkilendirme. /data/ klasoru disariya kapali.</p></div>
-    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">..</div><h5>Mobil Uyumlu</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Temizlikci paneli 480px mobil oncelikli. Mudur paneli responsive.</p></div>
-    <div class="card" style="text-align:center;padding:20px;border-color:var(--g);background:rgba(232,168,56,.04)"><div style="font-size:36px;margin-bottom:10px">BY</div><h5>Beyaz Etiket</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Otelin logosu, renkleri, adiyla calisir. Kivon markasi gorunmez.</p></div>
-    <div class="card" style="text-align:center;padding:20px"><div style="font-size:36px;margin-bottom:10px">SH</div><h5>Self-Hosted</h5><p style="font-size:11px;color:var(--m);line-height:1.5">Veri sizin sunucunuzda kalir. Disariya veri cikmaz. GDPR uyumlu.</p></div>
-  </div>
-</div>
-
-<!-- 9: CTA -->
-<div class="slide" id="s9">
-  <h1><em>Hazir misiniz?</em></h1>
-  <h2>Otel temizlik denetimini yapay zeka ile dijitallestirmenin tam zamani</h2>
-  <div class="mock">
-    <div class="mb" style="text-align:center;padding:36px">
-      <div style="font-size:56px;margin-bottom:14px;line-height:1">K</div>
-      <h4 style="font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px">Kivon Inspect</h4>
-      <p style="color:var(--m);margin-bottom:28px;font-size:14px">AI Destekli Otel Temizlik Denetim Platformu</p>
-      <div style="display:flex;flex-direction:column;gap:6px;align-items:center;font-size:14px">
-        <span style="color:#fff;font-weight:600">Ahmet Isik</span>
-        <span style="color:var(--m)">ahmet@kivon.com</span>
-        <span style="color:var(--m)">0530 398 27 12</span>
-        <span style="color:var(--g);margin-top:4px">kivontr.com</span>
-      </div>
-      <div class="cta-box">
-        <p><strong>Demo oturumu bitti.</strong></p>
-        <p style="margin-top:8px">Canli sistemi denemek icin:</p>
-        <p style="margin-top:6px"><strong>Mudur Paneli:</strong> mudur@laragarden.com / mudur123</p>
-        <p><strong>Temizlikci Panel:</strong> PIN: 1010</p>
-        <p style="margin-top:6px;font-size:11px;color:var(--m)">kivontr.com</p>
-      </div>
+    <!-- ── Dots Navigation ───────────────────────── -->
+    <div class="dots" id="dots">
+        <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+        <button class="dot" data-index="1" aria-label="Slide 2"></button>
+        <button class="dot" data-index="2" aria-label="Slide 3"></button>
+        <button class="dot" data-index="3" aria-label="Slide 4"></button>
+        <button class="dot" data-index="4" aria-label="Slide 5"></button>
+        <button class="dot" data-index="5" aria-label="Slide 6"></button>
     </div>
-  </div>
-</div>
 
-</div>
-<div class="ft"><span class="pulse"></span> <span id="ti">Sonraki slayt: 15s</span> | Ok tuslari ile gezinebilir | Bosluk ile duraklat</div>
+    <!-- ── Arrow Navigation ──────────────────────── -->
+    <button class="nav-arrow prev" id="prevBtn" aria-label="Önceki" disabled>
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="nav-arrow next" id="nextBtn" aria-label="Sonraki">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
 
-<script>
-var cur = 0, paused = false, cd = 15, total = 10;
+    <script>
+        (function() {
+            var slides = document.querySelectorAll('.slide');
+            var dots = document.querySelectorAll('.dot');
+            var progressBar = document.getElementById('progressBar');
+            var prevBtn = document.getElementById('prevBtn');
+            var nextBtn = document.getElementById('nextBtn');
+            var current = 0;
+            var total = slides.length;
+            var isTransitioning = false;
+            var touchStartX = 0;
+            var touchStartY = 0;
 
-for (var i = 0; i < total; i++) {
-  var d = document.createElement('div');
-  d.id = 'bd' + i;
-  document.getElementById('bar').appendChild(d);
-}
+            function goTo(index) {
+                if (isTransitioning || index === current || index < 0 || index >= total) return;
+                isTransitioning = true;
 
-function show(n) {
-  for (var i = 0; i < total; i++) {
-    var s = document.getElementById('s' + i);
-    if (s) s.className = 'slide' + (i === n ? ' on' : '');
-    var b = document.getElementById('bd' + i);
-    if (b) b.className = i < n ? 'on' : (i === n ? 'now' : '');
-  }
-  cur = n; cd = 15;
-  document.getElementById('counter').textContent = (n+1) + ' / ' + total;
-  updateLabel();
-}
-function next() { if (cur < total - 1) show(cur + 1); }
-function prev() { if (cur > 0) show(cur - 1); }
-function togglePause() { paused = !paused; document.getElementById('pb').textContent = paused ? 'Devam' : 'Duraklat'; }
-function updateLabel() { document.getElementById('ti').textContent = paused ? 'Duraklatildi' : 'Sonraki slayt: ' + cd + 's'; }
-function showDeep(){
-  var deep = document.querySelectorAll('.deep');
-  for(var i=0;i<deep.length;i++) deep[i].style.display = 'flex';
-}
-function hideDeep(){
-  var deep = document.querySelectorAll('.deep');
-  for(var i=0;i<deep.length;i++) deep[i].style.display = 'none';
-}
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
 
-setInterval(function() {
-  if (!paused) { cd--; updateLabel(); if (cd <= 0) show(cur < total - 1 ? cur + 1 : 0); }
-}, 1000);
+                current = index;
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowRight') next();
-  if (e.key === 'ArrowLeft') prev();
-  if (e.key === ' ') { e.preventDefault(); togglePause(); }
-});
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
 
-show(0);
-</script>
+                progressBar.style.width = (current / (total - 1)) * 100 + '%';
+
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === total - 1;
+
+                setTimeout(function() {
+                    isTransitioning = false;
+                }, 700);
+            }
+
+            function next() { goTo(current + 1); }
+
+            function prev() { goTo(current - 1); }
+
+            prevBtn.addEventListener('click', prev);
+            nextBtn.addEventListener('click', next);
+
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function() {
+                    goTo(parseInt(this.getAttribute('data-index')));
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault();
+                    next(); }
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault();
+                    prev(); }
+            });
+
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            document.addEventListener('touchend', function(e) {
+                var endX = e.changedTouches[0].screenX;
+                var endY = e.changedTouches[0].screenY;
+                var diffX = touchStartX - endX;
+                var diffY = touchStartY - endY;
+
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) next();
+                    else prev();
+                }
+            });
+
+            progressBar.style.width = '0%';
+        })();
+    </script>
+
 </body>
 </html>
