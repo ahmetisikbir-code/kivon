@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON Otomasyon Motoru — Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh}
+header{background:linear-gradient(135deg,#00f5a0,#00d9f5);padding:20px;text-align:center}
+header h1{color:#0a0a0f;font-size:24px}
+header p{color:#0a0a0f;opacity:.7;font-size:14px;margin-top:4px}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.workflow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:16px;margin-top:20px}
+.card{background:#12121a;border:1px solid #2a2a3a;border-radius:12px;padding:20px}
+.card h3{color:#00f5a0;font-size:16px;margin-bottom:4px}
+.card .desc{color:#888;font-size:12px;margin-bottom:12px}
+.card .nodes{color:#555;font-size:11px;margin-bottom:12px}
+.form-group{margin-bottom:10px}
+.form-group label{display:block;font-size:12px;color:#aaa;margin-bottom:4px}
+.form-group input,.form-group textarea{width:100%;padding:8px 10px;background:#1a1a25;border:1px solid #2a2a3a;border-radius:6px;color:#e0e0e0;font-size:13px;font-family:inherit}
+.form-group textarea{min-height:60px;resize:vertical}
+button{background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a0f;border:none;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;width:100%;transition:opacity .2s}
+button:hover{opacity:.9}
+button:disabled{opacity:.4;cursor:not-allowed}
+.result{margin-top:12px;padding:12px;background:#0d0d15;border:1px solid #2a2a3a;border-radius:8px;font-size:12px;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow:auto;display:none}
+.result.show{display:block}
+.result.success{border-color:#00f5a0}
+.result.error{border-color:#ff4444}
+.status{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px}
+.status.online{background:#00f5a020;color:#00f5a0;border:1px solid #00f5a040}
+.status.offline{background:#ff444420;color:#ff4444;border:1px solid #ff444440}
+.loading{text-align:center;padding:40px;color:#555}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ KIVON Otomasyon Motoru</h1>
+  <p>Workflow'ları canlı test et — AI destekli otomasyon</p>
+</header>
+
+<div class="container">
+  <div style="text-align:right;margin-bottom:12px">
+    <span id="engineStatus" class="status offline">Motor: Kontrol ediliyor...</span>
+  </div>
+  <div id="workflowList" class="loading">Workflow'lar yükleniyor...</div>
+</div>
+
+<script>
+const API = 'http://localhost:3002';
+
+const WORKFLOW_FORMS = {
+  'whatsapp-ai': [
+    { key: 'message', label: 'Mesaj', type: 'text', value: 'Merhaba, AI chatbot fiyatlariniz nedir?' },
+    { key: 'name', label: 'Adınız', type: 'text', value: 'Ahmet' }
+  ],
+  'lead-capture': [
+    { key: 'name', label: 'Ad Soyad', type: 'text', value: 'Ahmet Yılmaz' },
+    { key: 'email', label: 'E-posta', type: 'text', value: 'ahmet@example.com' },
+    { key: 'phone', label: 'Telefon', type: 'text', value: '0555 555 5555' },
+    { key: 'message', label: 'Mesaj', type: 'text', value: 'AI chatbot fiyatları hakkında bilgi almak istiyorum' }
+  ],
+  'appointment-bot': [
+    { key: 'name', label: 'Adınız', type: 'text', value: 'Ayşe Demir' },
+    { key: 'message', label: 'Mesaj', type: 'text', value: 'Merhaba, yarin ögleden sonra randevu almak istiyorum' }
+  ],
+  'siparis-bildirim': [
+    { key: 'name', label: 'Müşteri Adı', type: 'text', value: 'Mehmet Kaya' },
+    { key: 'product', label: 'Ürün', type: 'text', value: 'Akıllı Saat X200' },
+    { key: 'quantity', label: 'Adet', type: 'number', value: '2' },
+    { key: 'total', label: 'Tutar (TL)', type: 'number', value: '5999' },
+    { key: 'address', label: 'Adres', type: 'text', value: 'İstanbul, Kadıköy' }
+  ],
+  'fatura-okuyucu': [
+    { key: 'firma', label: 'Firma Adı', type: 'text', value: 'ABC Teknoloji' },
+    { key: 'faturaMetni', label: 'Fatura Metni', type: 'textarea', value: 'ABC Teknoloji - Fatura #2024/001\nTarih: 15.05.2026\nLaptop 15.000 TL x 1 = 15.000 TL\nMouse 500 TL x 2 = 1.000 TL\nKDV %%20: 3.200 TL\nTOPLAM: 19.200 TL' }
+  ],
+  'sosyal-medya': [
+    { key: 'konu', label: 'Konu', type: 'text', value: 'Yeni AI asistanimiz Kivon ile isinizi otomatiklestirin' },
+    { key: 'hedefKitle', label: 'Hedef Kitle', type: 'text', value: 'KOBİ sahipleri, girisimciler' }
+  ]
+};
+
+async function init() {
+  try {
+    const status = await fetch(`${API}/`).then(r => r.json());
+    document.getElementById('engineStatus').textContent = `Motor: Çalışıyor (${status.workflows.length} workflow)`;
+    document.getElementById('engineStatus').className = 'status online';
+    renderWorkflows(status.workflows);
+  } catch(e) {
+    document.getElementById('engineStatus').textContent = 'Motor: Çalışmıyor';
+    document.getElementById('workflowList').innerHTML = `
+      <div style="text-align:center;padding:40px;color:#ff4444">
+        <h3>❌ Motora bağlanılamadı</h3>
+        <p style="margin-top:8px;font-size:13px">Önce motoru başlatın:<br><code style="background:#1a1a25;padding:4px 8px;border-radius:4px">node server.js</code></p>
+      </div>`;
+  }
+}
+
+function renderWorkflows(workflows) {
+  const names = {
+    'whatsapp-ai': { icon: '🤖', title: 'WhatsApp AI Asistan', desc: 'Gelen mesaja AI ile cevap üretir' },
+    'lead-capture': { icon: '📝', title: 'Lead Yakalama', desc: 'Form bilgisi → AI → E-posta taslağı' },
+    'appointment-bot': { icon: '📅', title: 'Randevu Botu', desc: 'Randevu talebini AI ile anlar, yönlendirir' },
+    'siparis-bildirim': { icon: '📦', title: 'Sipariş Bildirim', desc: 'Sipariş bilgisinden AI bildirim mesajı üretir' },
+    'fatura-okuyucu': { icon: '📄', title: 'Fatura Okuyucu', desc: 'Fatura metnini AI ile JSON özet çıkarır' },
+    'sosyal-medya': { icon: '📱', title: 'Sosyal Medya Post', desc: 'Konuya göre Instagram + LinkedIn post üretir' }
+  };
+
+  let html = '<div class="workflow-grid">';
+  workflows.forEach(w => {
+    const meta = names[w.id] || { icon: '⚡', title: w.id, desc: '' };
+    const fields = WORKFLOW_FORMS[w.id] || [];
+    html += `<div class="card">
+      <h3>${meta.icon} ${meta.title}</h3>
+      <p class="desc">${meta.desc || w.name}</p>
+      <p class="nodes">${w.nodes} node</p>
+      <div id="form-${w.id}">`;
+    fields.forEach(f => {
+      html += `<div class="form-group">
+        <label>${f.label}</label>
+        ${f.type === 'textarea'
+          ? `<textarea id="${w.id}-${f.key}">${f.value}</textarea>`
+          : `<input type="${f.type}" id="${w.id}-${f.key}" value="${f.value}">`
+        }
+      </div>`;
+    });
+    html += `<button id="btn-${w.id}" onclick="triggerWorkflow('${w.id}')">▶ Çalıştır</button>
+      <div id="result-${w.id}" class="result"></div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('workflowList').innerHTML = html;
+}
+
+async function triggerWorkflow(id) {
+  const btn = document.getElementById(`btn-${id}`);
+  const result = document.getElementById(`result-${id}`);
+  btn.disabled = true;
+  btn.textContent = '⏳ Çalışıyor...';
+  result.className = 'result';
+  result.style.display = 'none';
+
+  const fields = WORKFLOW_FORMS[id] || [];
+  const body = {};
+  fields.forEach(f => body[f.key] = document.getElementById(`${id}-${f.key}`).value);
+
+  try {
+    const resp = await fetch(`${API}/trigger/${id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await resp.json();
+    result.textContent = JSON.stringify(data, null, 2);
+    result.className = `result show ${data.success ? 'success' : 'error'}`;
+  } catch(e) {
+    result.textContent = `Hata: ${e.message}`;
+    result.className = 'result show error';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '▶ Çalıştır';
+}
+
+init();
+</script>
+</body>
+</html>

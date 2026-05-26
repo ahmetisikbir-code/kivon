@@ -1,0 +1,47 @@
+{
+  "name": "Randevu Botu",
+  "description": "Müşteri mesajına göre randevu alır, loglar, onay hazırlar",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "ai-1",
+      "config": {}
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "filter-1",
+      "config": {
+        "system": "Kullanıcının mesajı randevu talebi mi degil mi? Önce EVET/HAYIR ile başla. EVET ise devamında: 'Randevu talebiniz alındı. En kısa sürede sizi arayıp randevunuzu onaylayacağız. Kivon AI.' yaz.",
+        "prompt": "Kullanıcı: {{payload.body.message}}\nKullanıcı adı: {{payload.body.name}}"
+      }
+    },
+    {
+      "id": "filter-1",
+      "type": "filter",
+      "trueNext": "log-randevu",
+      "falseNext": "log-iptal",
+      "config": {
+        "condition": "{{$.ai-1.text}} == 'EVET'"
+      }
+    },
+    {
+      "id": "log-randevu",
+      "type": "log",
+      "config": {
+        "message": "RANDEVU TALEP: {{payload.body.name}} - {{payload.body.message}}",
+        "level": "info"
+      }
+    },
+    {
+      "id": "log-iptal",
+      "type": "log",
+      "config": {
+        "message": "RANDEVU YOK: {{payload.body.message}}",
+        "level": "info"
+      }
+    }
+  ]
+}

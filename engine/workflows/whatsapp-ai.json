@@ -1,0 +1,42 @@
+{
+  "name": "WhatsApp AI Assistant",
+  "description": "WhatsApp mesajı al → AI ile cevap üret → logla",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "log-1",
+      "config": {
+        "path": "/whatsapp"
+      }
+    },
+    {
+      "id": "log-1",
+      "type": "log",
+      "next": "ai-1",
+      "config": {
+        "message": "WhatsApp mesajı alındı: {{payload.body.message}}",
+        "level": "info"
+      }
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "log-2",
+      "config": {
+        "system": "Sen Kivon AI asistanısın. KOBİ'lere AI otomasyon çözümleri sunuyorsun. Kısa, net ve samimi cevap ver. Fiyat bilgisi istenirse: Paketler 349-599 TL kurulum, ek ücret yok. 7/24 destek. WhatsApp'tan iletişime geçmek için 0530 398 27 12.",
+        "prompt": "Müşteri: {{payload.body.message}}\n\nBu müşteriye Kivon'un AI çözümlerini tanıtarak cevap ver. Müşterinin ne istediğini anla ve uygun çözümü öner.",
+        "model": "llama-3.3-70b-versatile"
+      }
+    },
+    {
+      "id": "log-2",
+      "type": "log",
+      "config": {
+        "message": "AI cevabı: {{$.ai-1.text}}",
+        "level": "info"
+      }
+    }
+  ]
+}

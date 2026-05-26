@@ -1,0 +1,40 @@
+{
+  "name": "Lead Capture → Email Bildirim",
+  "description": "Web sitesinden iletişim formu gelince e-posta gönder",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "log-1",
+      "config": {}
+    },
+    {
+      "id": "log-1",
+      "type": "log",
+      "next": "ai-1",
+      "config": {
+        "message": "Yeni lead: {{payload.body.name}} - {{payload.body.email}}",
+        "level": "info"
+      }
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "log-2",
+      "config": {
+        "system": "Sen Kivon'un satış asistanısın. Gelen lead bilgisine göre profesyonel bir karşılama e-postası yaz. E-postada Kivon'dan bahset, çözüm öner, WhatsApp iletişim bilgisi ver (0530 398 27 12).",
+        "prompt": "Yeni müşteri adayı:\nAd: {{payload.body.name}}\nE-posta: {{payload.body.email}}\nTelefon: {{payload.body.phone}}\nMesaj: {{payload.body.message}}\n\nBu bilgilere göre Kivon AI çözümlerini tanıtan bir e-posta taslağı hazırla.",
+        "model": "llama-3.3-70b-versatile"
+      }
+    },
+    {
+      "id": "log-2",
+      "type": "log",
+      "config": {
+        "message": "AI taslak: {{$.ai-1.text}}",
+        "level": "info"
+      }
+    }
+  ]
+}

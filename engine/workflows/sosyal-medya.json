@@ -1,0 +1,39 @@
+{
+  "name": "Sosyal Medya Post",
+  "description": "AI ile içerik üretir, sosyal medya paylaşım metni hazırlar",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "ai-1",
+      "config": {}
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "ai-2",
+      "config": {
+        "system": "Sen Kivon sosyal medya yöneticisisin. Verilen konuyla ilgili samimi, akılda kalıcı paylaşım yaz. Kivon'un imzasını ekle: 'Kivon AI — İşini Otomatikleştir'",
+        "prompt": "Konu: {{payload.body.konu}}\nHedef kitle: {{payload.body.hedefKitle}}\n\nInstagram post (maks 150 karakter, emoji kullan):"
+      }
+    },
+    {
+      "id": "ai-2",
+      "type": "ai",
+      "next": "log-sonuc",
+      "config": {
+        "system": "Sen Kivon sosyal medya yöneticisisin. LinkedIn için profesyonel, sektöre yönelik bir paylaşım yaz.",
+        "prompt": "Konu: {{payload.body.konu}}\nHedef kitle: {{payload.body.hedefKitle}}\n\nLinkedIn post (maks 300 karakter, profesyonel ton):"
+      }
+    },
+    {
+      "id": "log-sonuc",
+      "type": "log",
+      "config": {
+        "message": "Instagram: {{$.ai-1.text}}\n---\nLinkedIn: {{$.ai-2.text}}",
+        "level": "info"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Sipariş Bildirim",
+  "description": "E-ticaret sitesinden sipariş gelince WhatsApp bildirimi hazırlar ve loglar",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "ai-1",
+      "config": {}
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "log-1",
+      "config": {
+        "system": "Sen Kivon e-ticaret asistanısın. Sipariş bildirimini müşteri dostu bir dille yaz. Sipariş no, ürün, tutar, tahmini teslimat ve Kivon iletişim (0530 398 27 12) bilgilerini ekle.",
+        "prompt": "Yeni sipariş:\nMüşteri: {{payload.body.name}}\nÜrün: {{payload.body.product}}\nAdet: {{payload.body.quantity}}\nTutar: {{payload.body.total}} TL\nAdres: {{payload.body.address}}\n\nBildirim mesajını hazırla."
+      }
+    },
+    {
+      "id": "log-1",
+      "type": "log",
+      "config": {
+        "message": "SİPARİŞ BİLDİRİMİ: {{$.ai-1.text}}",
+        "level": "info"
+      }
+    }
+  ]
+}

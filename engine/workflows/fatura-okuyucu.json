@@ -1,0 +1,39 @@
+{
+  "name": "Fatura Okuyucu",
+  "description": "Fatura PDF/metin bilgisini alır, AI ile analiz eder, özet çıkarır",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "log-ham",
+      "config": {}
+    },
+    {
+      "id": "log-ham",
+      "type": "log",
+      "next": "ai-1",
+      "config": {
+        "message": "Fatura alındı: {{payload.body.firma}}",
+        "level": "info"
+      }
+    },
+    {
+      "id": "ai-1",
+      "type": "ai",
+      "next": "log-sonuc",
+      "config": {
+        "system": "Sen Kivon muhasebe asistanısın. Fatura metnini analiz et. JSON çıktısı ver: {\"firma\":\"...\",\"tarih\":\"...\",\"tutar\":\"...\",\"kdv\":\"...\",\"toplam\":\"...\",\"kalemler\":[]}. Eğer JSON çıkaramazsan düz metin özet ver.",
+        "prompt": "Fatura metni:\n{{payload.body.faturaMetni}}\n\nFatura bilgilerini yapılandırılmış olarak çıkar."
+      }
+    },
+    {
+      "id": "log-sonuc",
+      "type": "log",
+      "config": {
+        "message": "FATURA ÖZETİ: {{$.ai-1.text}}",
+        "level": "info"
+      }
+    }
+  ]
+}

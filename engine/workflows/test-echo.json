@@ -1,0 +1,21 @@
+{
+  "name": "Test Echo",
+  "description": "Basit test - gelen veriyi geri döndürür",
+  "trigger": "webhook-1",
+  "nodes": [
+    {
+      "id": "webhook-1",
+      "type": "webhook",
+      "next": "echo-1",
+      "config": {}
+    },
+    {
+      "id": "echo-1",
+      "type": "function",
+      "config": {
+        "code": "return { message: 'echo: ' + JSON.stringify(ctx.payload) }",
+        "next": null
+      }
+    }
+  ]
+}
