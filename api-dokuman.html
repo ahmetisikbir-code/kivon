@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIVON — API Dökümantasyonu</title>
-<meta name="description" content="KIVON API dökümantasyonu">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, Bursa, AI danışmanlık">
+<meta name='description' content='KIVON API D�k�mantasyonu - REST API endpoint'leri, kimlik do�rulama ve entegrasyon rehberi.'>
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, Turkiye, AI danışmanlık">
 <meta property="og:title" content="KIVON — API Dökümantasyonu">
 <meta property="og:description" content="KIVON API dökümantasyonu">
 <meta property="og:type" content="website">
@@ -497,6 +497,15 @@
             font-family: 'SF Mono', 'Fira Code', monospace;
         }
     @media(max-width:768px){.mobile-toggle{display:block!important}.nav-links{display:none!important}}</style>
+
+<link rel='icon' type='image/png' href='img/logo-icon.png'><link rel='apple-touch-icon' href='img/logo-icon.png'><meta name='theme-color' content='#0a0a1a'>
+<link rel='alternate' hreflang='tr' href='https://kivontr.com/api-dokuman.html'>
+<meta property='og:url' content='https://kivontr.com/api-dokuman.html'>
+<meta property='og:image' content='https://kivontr.com/img/logo-icon.png'>
+<meta name='twitter:card' content='summary_large_image'>
+<meta name='twitter:title' content='KIVON — API Dökümantasyonu'>
+<meta name='twitter:description' content='KIVON API D�k�mantasyonu - REST API endpoint'>
+<meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
 <body><canvas id="canvas3d"></canvas><script>(function(){var c=document.getElementById("canvas3d"),ctx=c.getContext("2d"),w,h,ps=[],mx={x:0,y:0};function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener("resize",rs);window.addEventListener("mousemove",function(e){mx.x=e.clientX;mx.y=e.clientY});for(var i=0;i<80;i++){ps.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2})}function dr(){ctx.clearRect(0,0,w,h);for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;var dx=mx.x-p.x,dy=mx.y-p.y;if(Math.sqrt(dx*dx+dy*dy)<200){p.vx+=dx*5e-5;p.vy+=dy*5e-5}ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle="rgba(56,189,248,0.15)";ctx.fill()}for(var i=0;i<ps.length;i++){for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=dx*dx+dy*dy;if(d<15000){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle="rgba(56,189,248,"+(0.03*(1-d/15000))+")";ctx.lineWidth=0.3;ctx.stroke()}}}requestAnimationFrame(dr)}dr()})();</script>
     <canvas id="particles-canvas"></canvas>

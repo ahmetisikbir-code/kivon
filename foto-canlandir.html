@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#050510;--card:#0f0f20;--cyan:#38bdf8;--gold:#fbbf24;--text:#f1f5f9;--muted:#94a3b8}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+$1padding-top:80px;$2
 h1{font-size:28px;font-weight:900;margin-bottom:4px;text-align:center}
 h1 span{color:var(--cyan)}
 .sub{color:var(--muted);font-size:14px;margin-bottom:32px;text-align:center}
@@ -30,10 +30,45 @@ h1 span{color:var(--cyan)}
 .how h3{font-size:14px;color:var(--cyan);margin-bottom:12px}
 .how ol{font-size:13px;color:var(--muted);line-height:2;padding-left:20px}
 </style>
+
+<link rel='icon' type='image/png' href='img/logo-icon.png'><link rel='apple-touch-icon' href='img/logo-icon.png'><meta name='theme-color' content='#0a0a1a'>
+<link rel='canonical' href='https://kivontr.com/foto-canlandir.html'>
+<link rel='alternate' hreflang='tr' href='https://kivontr.com/foto-canlandir.html'>
+<meta property='og:title' content='Kivon Motion — Fotoğrafı Canlandır'>
+<meta property='og:description' content='KIVON Foto Canlandirma - Yapay zeka ile fotograf canlandirma araci. Eski fotograflari renklendirin, cozunurluk artirin ve hareketlendirin.'>
+<meta property='og:type' content='website'>
+<meta property='og:url' content='https://kivontr.com/foto-canlandir.html'>
+<meta property='og:image' content='https://kivontr.com/img/logo-icon.png'>
+<meta name='twitter:card' content='summary_large_image'>
+<meta name='twitter:title' content='Kivon Motion — Fotoğrafı Canlandır'>
+<meta name='twitter:description' content='KIVON Foto Canlandirma - Yapay zeka ile fotograf canlandirma araci. Eski fotograflari renklendirin, cozunurluk artirin ve hareketlendirin.'>
+<meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
+<meta name='description' content='KIVON Foto Canlandirma - Yapay zeka ile fotograf canlandirma araci. Eski fotograflari renklendirin, cozunurluk artirin ve hareketlendirin.'>
 </head>
 <body>
+<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#38bdf8'>KIVON</span></a></div></nav>
 <h1>Kivon <span>Motion</span></h1>
 <p class="sub">Fotoğraftaki kişiyi yürüt, canlandır, videoya dönüştür</p>
+
+<div class="pricing" style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;justify-content:center">
+  <div style="background:var(--card);border:1px solid rgba(56,189,248,0.1);border-radius:16px;padding:16px 20px;text-align:center;min-width:130px">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Deneme</div>
+    <div style="font-size:22px;font-weight:800;color:var(--cyan)">3</div>
+    <div style="font-size:11px;color:var(--muted)">ücretsiz</div>
+  </div>
+  <div style="background:var(--card);border:2px solid var(--cyan);border-radius:16px;padding:16px 20px;text-align:center;min-width:130px">
+    <div style="font-size:12px;color:var(--cyan);margin-bottom:4px">Popüler</div>
+    <div style="font-size:22px;font-weight:800">50</div>
+    <div style="font-size:11px;color:var(--muted)">canlandırma</div>
+    <div style="font-size:13px;color:var(--gold);font-weight:700;margin-top:4px">199 TL/ay</div>
+  </div>
+  <div style="background:var(--card);border:1px solid rgba(56,189,248,0.1);border-radius:16px;padding:16px 20px;text-align:center;min-width:130px">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Sınırsız</div>
+    <div style="font-size:22px;font-weight:800">∞</div>
+    <div style="font-size:11px;color:var(--muted)">canlandırma</div>
+    <div style="font-size:13px;color:var(--gold);font-weight:700;margin-top:4px">399 TL/ay</div>
+  </div>
+</div>
 
 <input type="file" accept="image/*" id="fileInput" style="display:none">
 
@@ -126,26 +161,70 @@ async function animatePhoto() {
 
   // Runway Gen-3 API (image-to-video)
   try {
-    const key = 'RUNWAY_API_KEY'; // Ücretsiz key al: runwayml.com
-    if (key === 'RUNWAY_API_KEY') {
-      // Demo modu — API key olmadan simülasyon
-      await new Promise(r => setTimeout(r, 3000));
+    // Replicate API (ücretsiz başlangıç kredisi var)
+    const KEY = 'REPLICATE_API_TOKEN'; // replicate.com/account — ücretsiz
+    
+    if (KEY === 'REPLICATE_API_TOKEN') {
       loading.style.display = 'none';
       resultArea.style.display = 'block';
-      resultArea.innerHTML = `
-        <div style="text-align:center;padding:40px">
-          <div style="font-size:48px;margin-bottom:12px">🎬</div>
-          <div style="font-weight:700;margin-bottom:8px">API Anahtarı Gerekli</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.8">
-            Canlı kullanım için <strong>Runway Gen-3</strong> API anahtarı gerekli.<br>
-            <a href="https://runwayml.com" style="color:var(--cyan)" target="_blank">runwayml.com</a> — ücretsiz başlangıç kredisi var.<br><br>
-            Alternatif: <a href="https://klingai.com" style="color:var(--cyan)" target="_blank">Kling AI</a> veya 
-            <a href="https://viggle.ai" style="color:var(--cyan)" target="_blank">Viggle AI</a><br><br>
-            <span style="font-size:11px">Anahtar alınınca bu sayfa tam çalışır hale gelir.</span>
-          </div>
-        </div>`;
+      resultArea.innerHTML = `<div style="text-align:center;padding:40px">
+        <div style="font-size:48px;margin-bottom:12px">🔑</div>
+        <div style="font-weight:700;margin-bottom:8px">API Kurulumu Gerekiyor</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8">
+          <strong>replicate.com</strong> → GitHub ile giriş → Account → API token<br>
+          Ücretsiz başlangıç kredisi var. Her canlandırma ~$0.05.<br><br>
+          <span style="font-size:11px">Token alınınca bu sayfa tam çalışır.</span>
+        </div>
+      </div>`;
       animateBtn.disabled = false;
       return;
+    }
+
+    const res = await fetch('https://api.replicate.com/v1/predictions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        version: 'stability-ai/stable-video-diffusion:3f0457e4619daac51203dedb472816fd4af51f3149fa7a9e0b5ffcf1b8172438',
+        input: {
+          input_image: `data:image/jpeg;base64,${b64}`,
+          video_length: "14_frames_with_svd",
+          sizing_strategy: "maintain_aspect_ratio",
+          frames_per_second: 6
+        }
+      })
+    });
+
+    if (!res.ok) throw new Error('API hatası: ' + res.status);
+    const task = await res.json();
+    
+    let done = false;
+    for (let i = 0; i < 30; i++) {
+      await new Promise(r => setTimeout(r, 2000));
+      const check = await fetch(`https://api.replicate.com/v1/predictions/${task.id}`, {
+        headers: { 'Authorization': `Token ${KEY}` }
+      });
+      const data = await check.json();
+      if (data.status === 'succeeded') {
+        loading.style.display = 'none';
+        resultArea.style.display = 'block';
+        resultArea.innerHTML = `<video src="${data.output}" controls autoplay loop style="width:100%;border-radius:24px"></video>
+          <div style="text-align:center;margin-top:8px">
+            <a href="${data.output}" download class="btn btn-primary" style="font-size:13px;padding:10px 24px">📥 Videoyu İndir</a>
+          </div>`;
+        done = true;
+        break;
+      }
+      if (data.status === 'failed') throw new Error('AI işleme başarısız: ' + (data.error || ''));
+      // Progress
+      loading.innerHTML = `<div class="spinner"></div><p style="color:var(--muted)">AI çalışıyor... ${Math.round(i/30*100)}%</p>`;
+    }
+    if (!done) {
+      loading.style.display = 'none';
+      resultArea.style.display = 'block';
+      resultArea.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">Zaman aşımı. Tekrar deneyin.</div>';
     }
 
     // Gerçek API çağrısı

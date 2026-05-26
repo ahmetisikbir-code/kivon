@@ -31,7 +31,32 @@
   <url><loc>https://kivontr.com/neden-kivon.html</loc><priority>0.7</priority></url>
   <url><loc>https://kivontr.com/30-cozum.html</loc><priority>0.8</priority></url>
   <url><loc>https://kivontr.com/api-durum.html</loc><priority>0.5</priority></url>
-  <url><loc>https://kivontr.com/blog.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/blog.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/kivon-inspect.html</loc><priority>0.9</priority></url>
+  <url><loc>https://kivontr.com/web-tasarim.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kivontr.com/foto-canlandir.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/satis-sunum.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/urun-tarama.html</loc><priority>0.6</priority></url>
+  <url><loc>https://kivontr.com/blog/ai-kobi-onemi.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/blog/muhasebede-ai-devrimi.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/blog/eticarette-ai-kullanimi.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/blog/restoran-dijital-donusum.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/blog/kvkk-uyumlu-ai.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/blog/kosgeb-destekli-ai.html</loc><priority>0.7</priority></url>
+  <url><loc>https://kivontr.com/portfolio/hotel.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/restaurant.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/fashion.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/architecture.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/dental.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/gym.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/realestate.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/law.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/coffee.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/saas.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/spa.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/wedding.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/agency.html</loc><priority>0.5</priority></url>
+  <url><loc>https://kivontr.com/portfolio/menu.html</loc><priority>0.5</priority></url>
   <url><loc>https://kivontr.com/baslangic.html</loc><priority>0.7</priority></url>
   <url><loc>https://kivontr.com/onboarding.html</loc><priority>0.6</priority></url>
   <url><loc>https://kivontr.com/n8n-panel.html</loc><priority>0.6</priority></url>
@@ -49,5 +74,5 @@
   <url><loc>https://kivontr.com/demo/3d-galaxy.html</loc><priority>0.3</priority></url>
   <url><loc>https://kivontr.com/demo/3d-morph.html</loc><priority>0.3</priority></url>
   <url><loc>https://kivontr.com/demo/3d-network.html</loc><priority>0.3</priority></url>
-  <url><loc>https://kivontr.com/demo/3d-ornek.html</loc><priority>0.3</priority></url>
+  <url><loc>https://kivontr.com/demo/3d-ornek.html</loc><priority>0.3</priority>  <url><loc>https://kivontr.com/iletisim.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

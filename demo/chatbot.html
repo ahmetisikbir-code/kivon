@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KIVON — AI Sohbet Asistanı</title>
 <meta name="description" content="KIVON AI Sohbet - Canlı chatbot demosu. Yapay zeka destekli müşteri hizmetleri asistanını ücretsiz deneyin.">
-<meta name="keywords" content="KIVON, yapay zeka, KOBİ, chatbot, Bursa, AI sohbet, demo">
+<meta name="keywords" content="KIVON, yapay zeka, KOBİ, chatbot, Turkiye, AI sohbet, demo">
 <meta name="author" content="KIVON">
 <meta property="og:title" content="KIVON - AI Sohbet Botu">
 <meta property="og:description" content="KIVON AI Sohbet - Canlı chatbot demosu. Yapay zeka destekli müşteri hizmetleri asistanını ücretsiz deneyin.">
@@ -62,8 +62,17 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:#0d1117;displa
 .mobile-overlay a:hover { color:#38bdf8; }
 .mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
 </style>
+
+<link rel='icon' type='image/png' href='../img/logo-icon.png'><link rel='apple-touch-icon' href='../img/logo-icon.png'><meta name='theme-color' content='#0a0a1a'>
+<link rel='alternate' hreflang='tr' href='https://kivontr.com/demo/chatbot.html'>
+<meta property='og:image' content='https://kivontr.com/img/logo-icon.png'>
+<meta name='twitter:card' content='summary_large_image'>
+<meta name='twitter:title' content='KIVON — AI Sohbet Asistanı'>
+<meta name='twitter:description' content='KIVON AI Sohbet - Canlı chatbot demosu. Yapay zeka destekli müşteri hizmetleri asistanını ücretsiz deneyin.'>
+<meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
 <body>
+<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='../index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#38bdf8'>KIVON</span></a></div></nav>
 <div class="chat-container" style="position:relative">
   <div class="chat-header">
     <div class="chat-avatar" id="headerAvatar">K</div>
@@ -118,7 +127,7 @@ const varsayilanBilgiTabani = {
     // ── 1. BİZ KİMİZ & NEDEN KİVON ──────────────────────────
     "kimsin|kivon|şirket|firma|siz kimsiniz": "Kivon, Türkiye merkezli bir yapay zeka danışmanlık şirketi. KOBİ'lerin tekrarlayan işlerini AI ile hafifletiyoruz — müşteri soruları, randevu takibi, fatura hazırlama, stok yönetimi gibi. Butik çalışıyoruz — her müşteriye özel, yüz yüze, Türkiye geneline.",
 
-    "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Bursa'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 5.000 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
+    "neden|fark|avantaj|rakip|farkınız": "Üç temel farkımız var. Birincisi, yerel ve yüz yüze hizmet — online rakiplerin aksine Turkiye'dayız, dilinizden anlıyoruz, gerektiğinde ofisinize geliyoruz. İkincisi, sektör odaklı çözümler — muhasebeciye muhasebeci gibi, e-ticaretçiye e-ticaretçi gibi konuşan AI. Üçüncüsü, şeffaf fiyatlandırma — 5.000 TL'den başlayan, KOBİ bütçesine uygun, sürpriz maliyetsiz paketler. Risk almak istemeyene 14 gün koşulsuz çıkış hakkı.",
 
     "referans|müşteri|örnek|tecrübe|portföy": "Seçici ve butik ilerliyoruz — az müşteri, çok ilgi prensibiyle çalışıyoruz. Bu yaklaşım sayesinde her müşterimize aceleye gelmemiş, özel çözümler sunabiliyoruz. Ayrıca erken katılım döneminde avantajlı fiyatlar ve 14 gün koşulsuz çıkış hakkı tanıyoruz. Risk sıfır, çözüm size özel.",
 
@@ -212,7 +221,7 @@ const varsayilanBilgiTabani = {
 
     "demo|deneme|test|gösteri": "Canlı demolarımızı hemen inceleyebilirsiniz — hepsi ücretsiz, kayıt gerekmez:\n💬 Muhasebe Asistanı Chatbot — soru sorun, cevap alsın\n📊 Veri Analitiği Paneli — grafikleri görün\n🧪 AI Hazırlık Testi — 12 soruda işletmenizin AI seviyesini ölçün\n🧮 Muhasebe Araçları — fatura kesin, KDV hesaplayın\n🧩 Çözüm Yönetim Paneli — paketleri karşılaştırın\n\nHepsi: ahmetisikbir-code.github.io/kivon",
 
-    "görüşme|toplantı|ziyaret|randevu": "Ücretsiz keşif görüşmesi için WhatsApp'tan (+90 530 398 27 12) bize ulaşın. 30 dakikalık bir toplantıda işletmenizin ihtiyaçlarını analiz eder, size özel AI yol haritası çıkarırız. Görüşme sonrası bağlayıcı hiçbir şey yok — sadece fırsatları görmüş olursunuz. Bursa'daysanız ofisinize de gelebiliriz, uzaktaysanız Google Meet.",
+    "görüşme|toplantı|ziyaret|randevu": "Ücretsiz keşif görüşmesi için WhatsApp'tan (+90 530 398 27 12) bize ulaşın. 30 dakikalık bir toplantıda işletmenizin ihtiyaçlarını analiz eder, size özel AI yol haritası çıkarırız. Görüşme sonrası bağlayıcı hiçbir şey yok — sadece fırsatları görmüş olursunuz. Turkiye'daysanız ofisinize de gelebiliriz, uzaktaysanız Google Meet.",
 
 
     // ── 10. GENEL & DİĞER ────────────────────────────────────
@@ -521,6 +530,6 @@ window.onload = async () => {
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
 <div style="position:fixed;top:12px;left:12px;z-index:50"><a href="../index.html" style="background:rgba(5,5,16,0.8);backdrop-filter:blur(12px);color:#94a3b8;padding:6px 14px;border-radius:100px;font-size:12px;text-decoration:none;border:1px solid rgba(56,189,248,0.1);transition:0.3s" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#94a3b8'">← Ana Sayfa</a></div>
-<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
+<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="../index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>
