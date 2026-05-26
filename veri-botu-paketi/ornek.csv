@@ -1,0 +1,31 @@
+isim,telefon,email,sehir,yas,cinsiyet,urun,tutar,tarih,kategori
+Ali Yılmaz,05321234567,ali@email.com,İstanbul,34,Erkek,Bluetooth Kulaklık,299,2026-01-15,Elektronik
+Ayşe Demir,05439876543,ayse@email.com,Ankara,28,Kadın,Yoga Matı,149,2026-01-18,Spor
+Mehmet Kaya,05051112233,mehmet@email.com,İzmir,45,Erkek,Kahve Makinesi,899,2026-02-01,Ev Aletleri
+Zeynep Şahin,05339998877,zeynep@email.com,Bursa,31,Kadın,Cilt Bakım Seti,249,2026-02-05,Güzellik
+Can Öztürk,05442223311,can@email.com,Antalya,26,Erkek,Kitap Seti,179,2026-02-10,Kitap
+Elif Arslan,05556667788,elif@email.com,İstanbul,29,Kadın,Bluetooth Kulaklık,299,2026-02-14,Elektronik
+Ahmet Güneş,05337778899,ahmet@email.com,Ankara,52,Erkek,Elektrikli Süpürge,1599,2026-02-20,Ev Aletleri
+Selin Korkmaz,05448889900,selin@email.com,İzmir,27,Kadın,Spor Ayakkabı,649,2026-03-01,Spor
+Mustafa Çelik,05051114455,mustafa@email.com,İstanbul,38,Erkek,Bilgisayar Faresi,199,2026-03-05,Elektronik
+İrem Yıldız,05332224455,irem@email.com,Ankara,33,Kadın,Yoga Matı,149,2026-03-10,Spor
+Burak Aydın,05443335566,burak@email.com,İstanbul,30,Erkek,Kahve Makinesi,899,2026-03-15,Ev Aletleri
+Seda Yaman,05557778899,seda@email.com,Bursa,25,Kadın,Krem,89,2026-03-18,Güzellik
+Fatih Koç,05332228899,fatih@email.com,İstanbul,41,Erkek,Kitap Seti,179,2026-03-20,Kitap
+Merve Taş,05446667788,merve@email.com,İzmir,32,Kadın,Cilt Bakım Seti,329,2026-03-25,Güzellik
+Emre Akın,05338889900,emre@email.com,Antalya,29,Erkek,Elektrikli Süpürge,1299,2026-03-28,Ev Aletleri
+Aslı Kurt,05051116677,asli@email.com,İstanbul,36,Kadın,Spor Ayakkabı,799,2026-04-01,Spor
+Okan Polat,05334445566,okan@email.com,Ankara,48,Erkek,Bilgisayar Klavyesi,349,2026-04-05,Elektronik
+Duygu Aktaş,05445556677,duygu@email.com,İzmir,24,Kadın,Krem,89,2026-04-08,Güzellik
+Kerem Şen,05332224499,kerem@email.com,İstanbul,35,Erkek,Kahve Makinesi,1999,2026-04-12,Ev Aletleri
+Pınar Özkan,05058887766,pinar@email.com,Bursa,39,Kadın,Bluetooth Kulaklık,259,2026-04-15,Elektronik
+Hakan Doğan,05335556644,hakan@email.com,İstanbul,42,Erkek,Kitap Seti,179,2026-04-18,Kitap
+Ceren Uçar,05447778899,ceren@email.com,Ankara,26,Kadın,Yoga Matı,189,2026-04-20,Spor
+Tolga Ersoy,05051112288,tolga@email.com,İzmir,37,Erkek,Cilt Bakım Seti,249,2026-04-22,Güzellik
+Büşra Kılıç,05335558899, busra@email.com,İstanbul,28,Kadın,Spor Ayakkabı,549,2026-04-25,Spor
+Uğur Aslan,05443334455,ugur@email.com,Antalya,44,Erkek,Kahve Makinesi,1299,2026-04-28,Ev Aletleri
+Gamze Yüksel,05332224466,gamze@email.com,İstanbul,30,Kadın,Elektrikli Süpürge,1899,2026-05-01,Ev Aletleri
+Serdar Güzel,05559998877,serdar@email.com,Ankara,33,Erkek,Bluetooth Kulaklık,349,2026-05-04,Elektronik
+Ebru Metin,05051115599,ebru@email.com,İzmir,35,Kadın,Kitap Seti,179,2026-05-07,Kitap
+Levent Uysal,05337776655,levent@email.com,İstanbul,50,Erkek,Yoga Matı,149,2026-05-10,Spor
+Nazlı Erdem,05446667799,nazli@email.com,Bursa,27,Kadın,Bilgisayar Klavyesi,449,2026-05-12,Elektronik
