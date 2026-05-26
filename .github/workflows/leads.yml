@@ -1,0 +1,31 @@
+name: Musteri Bulucu
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  find-leads:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Find potential customers
+        run: node leads.js
+
+      - name: Commit results
+        run: |
+          git config user.name "Kivon AI"
+          git config user.email "ai@kivontr.com"
+          git add leads.json leads-seen.json
+          git diff --staged --quiet || git commit -m "gunluk musteri verisi guncellendi"
+          git push
