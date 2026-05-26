@@ -1,0 +1,19 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  super-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: npm init -y
+      - run: npm install --save-dev htmlhint
+
+      - name: Check HTML files
+        run: npx htmlhint --config '{"tagname-lowercase":true,"attr-lowercase":true,"attr-value-double-quotes":true,"tag-pair":true,"empty-tag-not-self-closed":true,"alt-require":true}' **/*.html

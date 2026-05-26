@@ -1,0 +1,22 @@
+name: Engine Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'engine/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run engine tests
+        run: node engine/test.js
