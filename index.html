@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KIVON — KOBİ'nizi Yapay Zeka ile Dönüştürün | AI Danışmanlık</title>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 <script type="importmap" crossorigin="anonymous">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <meta name="description" content="KIVON - Türkiye merkezli yapay zeka danışmanlık şirketi. KOBİ'lere özel AI chatbot, veri analitiği, proses otomasyonu ve danışmanlık hizmetleri. 5.000 TL/ay'dan başlayan paketler, 14 gün iade garantisi.">
 <meta name="keywords" content="KIVON, yapay zeka, KOBİ, AI danışmanlık, Turkiye, dijital dönüşüm, chatbot">
@@ -124,6 +125,8 @@ a.card:hover .demo-arrow{opacity:1;transform:translateX(4px)}
   100% { transform:translateX(-50%); }
 }
 @keyframes fi{to{opacity:1}}
+@keyframes spotlight-in{0%{opacity:0;transform:translate(-50%,-62%) scale(0.5)}100%{opacity:1;transform:translate(-50%,-40%) scale(1)}}
+@media(max-width:640px){#spline-card{flex-direction:column;height:auto!important}#spline-card>div:last-child{height:280px}}
 
 /* ─── SECTIONS ─── */
 section { position:relative; z-index:1; padding:100px 0; }
@@ -282,6 +285,55 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   <div class="stat-item"><div class="stat-num">14</div><div class="stat-label">Web Tasarım</div></div>
   <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">AI Model</div></div>
 </div>
+
+<!-- ═══ 3D SHOWCASE ═══ -->
+<section style="padding:48px 0 0">
+  <div class="container">
+    <div id="spline-card" style="position:relative;background:rgba(0,0,0,0.97);border-radius:24px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;height:480px;display:flex;cursor:default">
+      <!-- Spotlight blob -->
+      <div id="spline-spot" style="pointer-events:none;position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle at center,rgba(255,255,255,0.07) 0%,transparent 70%);transform:translate(-50%,-50%);opacity:0;transition:opacity 0.3s;z-index:1;left:50%;top:50%"></div>
+      <!-- Static beam (aceternity-style) -->
+      <svg style="pointer-events:none;position:absolute;z-index:1;height:169%;width:84%;opacity:0;animation:spotlight-in 2s 0.5s forwards;left:-10%;top:-40%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3787 2842" fill="none">
+        <g filter="url(#spf)">
+          <ellipse cx="1924.71" cy="273.501" rx="1924.71" ry="273.501" transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)" fill="white" fill-opacity="0.18"/>
+        </g>
+        <defs>
+          <filter id="spf" x="0" y="0" width="3787" height="2842" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="bg"/><feBlend mode="normal" in="SourceGraphic" in2="bg" result="shape"/>
+            <feGaussianBlur stdDeviation="151" result="blur"/>
+          </filter>
+        </defs>
+      </svg>
+      <!-- Left: text -->
+      <div style="flex:1;padding:clamp(24px,5vw,52px);position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;min-width:0">
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(56,189,248,0.7);text-transform:uppercase;margin-bottom:16px">3D · Etkileşimli</p>
+        <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.05;background:linear-gradient(to bottom,#fff 40%,rgba(255,255,255,0.35));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:20px">Yapay Zeka<br>Görselleşti</h2>
+        <p style="color:rgba(255,255,255,0.45);max-width:320px;line-height:1.75;font-size:14px">AI sistemlerinizi sadece anlatmıyoruz — gösteriyoruz. Etkileşimli 3D ile KOBİ'nize özel çözümleri canlandırıyoruz.</p>
+        <div style="margin-top:32px">
+          <a href="https://wa.me/905303982712" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="pointer-events:auto">Ücretsiz Demo →</a>
+        </div>
+      </div>
+      <!-- Right: Spline -->
+      <div style="flex:1;position:relative;min-width:0">
+        <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" style="width:100%;height:100%;display:block"></spline-viewer>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var card=document.getElementById('spline-card');
+  var spot=document.getElementById('spline-spot');
+  if(!card||!spot)return;
+  card.addEventListener('mouseenter',function(){spot.style.opacity='1';});
+  card.addEventListener('mouseleave',function(){spot.style.opacity='0';});
+  card.addEventListener('mousemove',function(e){
+    var r=card.getBoundingClientRect();
+    spot.style.left=(e.clientX-r.left)+'px';
+    spot.style.top=(e.clientY-r.top)+'px';
+  });
+})();
+</script>
 
 <!-- ═══ ÇÖZÜMLER ═══ -->
 <section id="cozumler" class="container">
