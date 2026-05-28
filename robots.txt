@@ -1,3 +1,16 @@
 User-agent: *
 Allow: /
+
+# Hassas yolları gizle
+Disallow: /admin/
+Disallow: /api/
+Disallow: /leads.json
+Disallow: /leads-seen.json
+Disallow: /leads.js
+Disallow: /engine/
+Disallow: /veri-hazinesi/
+Disallow: /pazar-verisi/
+Disallow: /rapor/
+Disallow: /demo/bilgi-tabani.json
+
 Sitemap: https://kivontr.com/sitemap.xml

@@ -1,0 +1,20 @@
+# Hassas veriler — asla git'e ekleme
+leads.json
+leads-seen.json
+*.env
+.env*
+veri-hazinesi/
+pazar-verisi/
+rapor/
+
+# API ve config
+api/api-server.js
+api/package-lock.json
+
+# Test çıktıları
+test-*.md
+test-*.js
+veri-broker-*.md
+arastirma-*.md
+KIVON-GENEL-DEGERLENDIRME.md
+agent-gorevi.md
