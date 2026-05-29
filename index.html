@@ -229,10 +229,203 @@ footer p { font-size:12px; color:rgba(255,255,255,0.12); }
   .mobile-toggle { display:block; }
   .nav-links { display:none!important; }
 }
+
+/* ═══════════════════════════════════════════════
+   ULTRA PREMIUM LAYER — Apple · Tesla · OpenAI
+   ═══════════════════════════════════════════════ */
+
+/* Aurora volumetric background */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 55% at 15% -5%,  rgba(56,189,248,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 50% at 85% 105%, rgba(99,102,241,0.11) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 35% at 55% 45%,  rgba(251,191,36,0.04) 0%, transparent 50%);
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { opacity:1;   transform:scale(1)    rotate(0deg); }
+  100% { opacity:0.7; transform:scale(1.06) rotate(1.5deg); }
+}
+
+/* Cinematic film grain */
+body::after {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:0.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat; background-size:180px 180px;
+}
+
+/* Ambient cursor light */
+#ambient-bg {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  will-change:background;
+}
+
+/* ── Enhanced glassmorphism cards ── */
+.card {
+  background: rgba(8,8,26,0.50) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  box-shadow:
+    0 4px 32px rgba(0,0,0,0.35),
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 -1px 0 rgba(0,0,0,0.25) inset !important;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card:hover {
+  border-color: rgba(56,189,248,0.20) !important;
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.45),
+    0 0   48px rgba(56,189,248,0.07),
+    0 1px 0 rgba(255,255,255,0.10) inset,
+    0 -1px 0 rgba(0,0,0,0.25) inset !important;
+}
+
+/* ── Pricing & process cards — same glass treatment ── */
+.pricing-card,
+div[style*="rgba(15,15,40"] {
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+}
+
+/* ── Premium shimmer buttons ── */
+.btn-primary {
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 60%, #38bdf8 120%) !important;
+  background-size: 200% auto !important;
+  animation: btn-shimmer 4s linear infinite;
+  box-shadow: 0 0 32px rgba(56,189,248,0.25), 0 4px 16px rgba(0,0,0,0.3) !important;
+}
+@keyframes btn-shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 200% center; }
+}
+.btn-primary::before {
+  content:'';
+  position:absolute; inset:0; border-radius:inherit;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+.btn-primary:hover::before { transform: translateX(120%); }
+.btn-primary:hover {
+  transform: scale(1.06) translateY(-4px) !important;
+  box-shadow: 0 0 60px rgba(56,189,248,0.45), 0 12px 32px rgba(0,0,0,0.35) !important;
+}
+
+/* ── Glass button upgrade ── */
+.btn-glass {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 0 0 1px rgba(56,189,248,0.04) inset !important;
+}
+.btn-glass:hover {
+  background: rgba(56,189,248,0.10) !important;
+  border-color: rgba(56,189,248,0.25) !important;
+  transform: scale(1.05) translateY(-3px) !important;
+}
+
+/* ── Frosted nav upgrade ── */
+nav {
+  background: rgba(5,5,16,0.20) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+}
+nav.scrolled {
+  background: rgba(5,5,16,0.72) !important;
+  backdrop-filter: blur(48px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(220%) !important;
+  border-bottom: 1px solid rgba(56,189,248,0.12) !important;
+  box-shadow: 0 1px 48px rgba(0,0,0,0.5), 0 0 1px rgba(56,189,248,0.1) !important;
+}
+
+/* ── Gradient stat numbers ── */
+.stat-num {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 0 12px rgba(56,189,248,0.4));
+}
+
+/* ── Section title depth ── */
+.section-title {
+  text-shadow: 0 0 80px rgba(56,189,248,0.06);
+}
+
+/* ── Custom cursor ── */
+#kivon-cursor {
+  width:9px; height:9px;
+  background:#38bdf8;
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+  mix-blend-mode:screen;
+  transition:width 0.25s, height 0.25s, background 0.25s;
+}
+#kivon-cursor-ring {
+  width:38px; height:38px;
+  border:1.5px solid rgba(56,189,248,0.45);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+  transition:width 0.3s cubic-bezier(0.34,1.56,0.64,1),
+             height 0.3s cubic-bezier(0.34,1.56,0.64,1),
+             border-color 0.3s, opacity 0.3s;
+}
+#kivon-cursor-glow {
+  width:140px; height:140px;
+  background:radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 70%);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+}
+body.cursor-hovering #kivon-cursor {
+  width:14px; height:14px;
+  background:#818cf8;
+}
+body.cursor-hovering #kivon-cursor-ring {
+  width:60px; height:60px;
+  border-color:rgba(99,102,241,0.7);
+}
+@media (max-width:768px) {
+  #kivon-cursor,#kivon-cursor-ring,#kivon-cursor-glow,#ambient-bg { display:none!important; }
+}
+
+/* ── Section reveal — initial hidden state for GSAP ── */
+.section-label,
+.section-title {
+  will-change: opacity, transform, filter;
+}
+
+/* ── CTA banner glass ── */
+div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(56,189,248,0.14) !important;
+  box-shadow: 0 0 60px rgba(56,189,248,0.04) inset, 0 4px 32px rgba(0,0,0,0.2) !important;
+}
 </style>
 
 <link rel='alternate' hreflang='tr' href='https://kivontr.com/index.html'></head>
 <body>
+
+<!-- ═══ PREMIUM UI LAYERS ═══ -->
+<div id="ambient-bg"></div>
+<div id="kivon-cursor"></div>
+<div id="kivon-cursor-ring"></div>
+<div id="kivon-cursor-glow"></div>
 
 <!-- ═══ NAV ═══ -->
 <nav>
@@ -942,5 +1135,185 @@ window.addEventListener('resize',()=>{
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
 <script src="js/kivon.js"></script>
+
+<!-- ═══ ULTRA PREMIUM LIBRARIES ═══ -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+/* ═══ ULTRA PREMIUM INTERACTIONS ═══ */
+(function() {
+  'use strict';
+
+  // Safety check — libraries must be loaded
+  if (typeof gsap === 'undefined') return;
+
+  /* ── 1. Lenis Smooth Scroll ─────────────────── */
+  var lenis;
+  if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 1.15,
+      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smooth: true,
+      smoothTouch: false,
+      touchMultiplier: 2
+    });
+    // Wire Lenis to GSAP ticker for frame-perfect sync
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+    }
+  } else if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  /* ── 2. Section Title Cinematic Reveals ─────── */
+  if (typeof ScrollTrigger !== 'undefined') {
+    // Section labels fly in
+    gsap.utils.toArray('.section-label').forEach(function(el) {
+      gsap.fromTo(el,
+        { opacity: 0, y: 18, letterSpacing: '6px' },
+        { opacity: 1, y: 0, letterSpacing: '3px', duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+      );
+    });
+
+    // Section titles blur-in
+    gsap.utils.toArray('.section-title').forEach(function(el) {
+      gsap.fromTo(el,
+        { opacity: 0, y: 48, filter: 'blur(10px)' },
+        { opacity: 1, y: 0,  filter: 'blur(0px)', duration: 1.1, ease: 'power4.out',
+          scrollTrigger: { trigger: el, start: 'top 87%', once: true } }
+      );
+    });
+
+    // Stat items cascade up
+    var statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach(function(el, i) {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 82%',
+        once: true,
+        onEnter: function() {
+          gsap.fromTo(el,
+            { y: 24, opacity: 0 },
+            { y: 0,  opacity: 1, duration: 0.7, delay: i * 0.12, ease: 'power3.out' }
+          );
+        }
+      });
+    });
+  }
+
+  /* ── 3. Custom Cursor ───────────────────────── */
+  var dot   = document.getElementById('kivon-cursor');
+  var ring  = document.getElementById('kivon-cursor-ring');
+  var glow  = document.getElementById('kivon-cursor-glow');
+  var ambBg = document.getElementById('ambient-bg');
+
+  if (dot && ring && glow && window.innerWidth > 768) {
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    var rx = mx, ry = my, glx = mx, gly = my;
+
+    document.addEventListener('mousemove', function(e) {
+      mx = e.clientX; my = e.clientY;
+      // Dot is instant
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+      // Dynamic ambient light
+      if (ambBg) {
+        ambBg.style.background =
+          'radial-gradient(700px circle at ' + mx + 'px ' + my + 'px,' +
+          'rgba(56,189,248,0.04) 0%, transparent 65%)';
+      }
+    }, { passive: true });
+
+    // Ring + glow lag via rAF lerp
+    (function animCursor() {
+      rx  += (mx - rx)  * 0.11;
+      ry  += (my - ry)  * 0.11;
+      glx += (mx - glx) * 0.055;
+      gly += (my - gly) * 0.055;
+      ring.style.left = rx  + 'px';
+      ring.style.top  = ry  + 'px';
+      glow.style.left = glx + 'px';
+      glow.style.top  = gly + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+
+    // Hover expand on interactive targets
+    var hoverEls = document.querySelectorAll('a, button, .card, .faq-q, .nav-cta');
+    hoverEls.forEach(function(el) {
+      el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hovering'); });
+      el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hovering'); });
+    });
+  }
+
+  /* ── 4. 3D Card Tilt ────────────────────────── */
+  document.querySelectorAll('.card').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = this.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width  - 0.5;
+      var y = (e.clientY - r.top)  / r.height - 0.5;
+      gsap.to(this, {
+        rotateY:  x * 10,
+        rotateX: -y * 10,
+        transformPerspective: 900,
+        duration: 0.35,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    });
+    card.addEventListener('mouseleave', function() {
+      gsap.to(this, {
+        rotateY: 0, rotateX: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.45)',
+        overwrite: 'auto'
+      });
+    });
+  });
+
+  /* ── 5. Magnetic Buttons ────────────────────── */
+  document.querySelectorAll('.btn-primary, .nav-cta').forEach(function(btn) {
+    btn.addEventListener('mousemove', function(e) {
+      var r   = this.getBoundingClientRect();
+      var dx  = e.clientX - r.left - r.width  / 2;
+      var dy  = e.clientY - r.top  - r.height / 2;
+      gsap.to(this, { x: dx * 0.28, y: dy * 0.28, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+    });
+    btn.addEventListener('mouseleave', function() {
+      gsap.to(this, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' });
+    });
+  });
+
+  /* ── 6. Stats Glow Pulse on Enter ───────────── */
+  if (typeof ScrollTrigger !== 'undefined') {
+    document.querySelectorAll('.stat-num').forEach(function(el) {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 80%',
+        once: true,
+        onEnter: function() {
+          gsap.fromTo(el,
+            { filter: 'drop-shadow(0 0 0px rgba(56,189,248,0))' },
+            { filter: 'drop-shadow(0 0 18px rgba(56,189,248,0.55))', duration: 1.4, ease: 'power2.out' }
+          );
+        }
+      });
+    });
+  }
+
+  /* ── 7. FAQ item glass on open ──────────────── */
+  // Already handled by existing accordion; no conflict needed
+
+  /* ── 8. Viewport shimmer on hero CTA buttons ── */
+  // Buttons already have CSS shimmer animation
+
+})();
+</script>
 </body>
 </html>
