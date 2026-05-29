@@ -18,8 +18,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/logo-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/logo-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/logo-icon.png">
-<link rel="mask-icon" href="img/logo-icon.png" color="#38bdf8">
-<meta name="theme-color" content="#0a0a1a">
+<link rel="mask-icon" href="img/logo-icon.png" color="#00e5ff">
+<meta name="theme-color" content="#00000c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:image" content="https://kivontr.com/img/logo-icon.png">
@@ -30,408 +30,401 @@
 <meta name="twitter:description" content="Türkiye merkezli AI entegrasyon danışmanlığı. KOBİ'lere özel yapay zeka çözümleri.">
 <meta name="twitter:image" content="https://kivontr.com/img/logo-icon.png">
 <style>
+/* ═══════════════════════════════════════════════
+   KIVON — COMPLETE VISUAL REBIRTH
+   Cinematic · Holographic · Living
+   ═══════════════════════════════════════════════ */
+
 :root {
-  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24; --green: #10b981;
-  --white: #f1f5f9; --muted: #94a3b8;
-  --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
-  --glow: 0 0 30px rgba(56,189,248,0.3);
+  --void:    #00000c;
+  --depth1:  #030315;
+  --depth2:  #06061e;
+  --glass:   rgba(4,4,22,0.72);
+  --cyan:    #00e5ff;
+  --cyan2:   #22d3ee;
+  --blue:    #0088ff;
+  --violet:  #8b5cf6;
+  --purple:  #7c3aed;
+  --gold:    #f59e0b;
+  --chrome:  #c8d0f0;
+  --white:   #eef2ff;
+  --muted:   rgba(148,163,184,0.55);
+  --tr:      0.4s cubic-bezier(0.4,0,0.2,1);
   --tr-fast: 0.2s cubic-bezier(0.4,0,0.2,1);
-  --tr-bounce: 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  --tr-b:    0.6s cubic-bezier(0.34,1.56,0.64,1);
 }
+
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+
 body {
   font-family: -apple-system,'Segoe UI','Inter',sans-serif;
-  background: var(--navy); color: var(--white);
-  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  background: var(--void);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 3D CANVAS */
+/* ── GLOBAL FIXED CANVAS ── */
 #c { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-/* ─── NAV ─── */
+/* ── PERSISTENT SCI-FI GRID ── */
+#sci-grid {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg,   transparent, transparent 79px, rgba(0,229,255,0.018) 80px),
+    repeating-linear-gradient(90deg,  transparent, transparent 79px, rgba(0,229,255,0.018) 80px);
+  mask-image: radial-gradient(ellipse 120% 90% at 50% 10%, rgba(0,0,0,0.8) 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 10%, rgba(0,0,0,0.8) 0%, transparent 70%);
+}
+
+/* ── AMBIENT CURSOR GLOW ── */
+#ambient-bg { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* ── FILM GRAIN ── */
+#film-grain {
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ── CURSOR ── */
+#kv-dot {
+  width:10px; height:10px; border-radius:50%;
+  background:#00e5ff;
+  box-shadow: 0 0 16px rgba(0,229,255,0.9), 0 0 40px rgba(0,229,255,0.4);
+  position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%); will-change:left,top;
+  mix-blend-mode:screen;
+  transition:width .25s,height .25s,background .25s,box-shadow .25s;
+}
+#kv-ring {
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid rgba(0,229,255,0.5);
+  position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%); will-change:left,top;
+  transition:width .3s cubic-bezier(.34,1.56,.64,1),height .3s cubic-bezier(.34,1.56,.64,1),border-color .3s;
+}
+body.ch #kv-dot { width:14px;height:14px;background:#8b5cf6;box-shadow:0 0 16px rgba(139,92,246,.9),0 0 40px rgba(139,92,246,.4); }
+body.ch #kv-ring { width:64px;height:64px;border-color:rgba(139,92,246,.7); }
+@media(max-width:768px){#kv-dot,#kv-ring,#ambient-bg{display:none!important}}
+
+/* ════ NAV ════ */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
-  background:rgba(5,5,16,0.3); backdrop-filter:blur(6px);
-  border-bottom:1px solid rgba(56,189,248,0.02);
-  transition:background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+  background:rgba(0,0,12,0.12);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(0,229,255,0.04);
+  transition:background .4s,backdrop-filter .4s,border-color .4s,box-shadow .4s;
 }
 nav.scrolled {
-  background:rgba(5,5,16,0.85); backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(56,189,248,0.08);
+  background:rgba(0,0,12,0.82);
+  backdrop-filter:blur(60px) saturate(220%);
+  -webkit-backdrop-filter:blur(60px) saturate(220%);
+  border-bottom:1px solid rgba(0,229,255,0.15);
+  box-shadow:0 4px 60px rgba(0,0,0,.7);
 }
 .nav-inner {
   display:flex; align-items:center; justify-content:space-between;
   max-width:1200px; margin:0 auto; padding:0 24px; height:64px;
 }
-.nav-logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; letter-spacing:3px; text-decoration:none; color:var(--white); }
-.nav-logo svg { width:28px; height:28px; }
-.nav-logo span { color:var(--cyan); }
-.nav-links { display:flex; gap:32px; list-style:none; font-size:13px; font-weight:500; }
-.nav-links a { color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--tr); }
-.nav-links a:hover { color:var(--white); }
+.nav-logo { display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:3px;text-decoration:none;color:var(--white); }
+.nav-logo svg { width:28px;height:28px; }
+.nav-logo span { color:var(--cyan); text-shadow:0 0 20px rgba(0,229,255,.6); }
+.nav-links { display:flex;gap:32px;list-style:none;font-size:13px;font-weight:500; }
+.nav-links a { color:rgba(255,255,255,.45);text-decoration:none;transition:var(--tr); }
+.nav-links a:hover { color:var(--white);text-shadow:0 0 12px rgba(0,229,255,.4); }
 .nav-cta {
-  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
-  padding:8px 22px; border-radius:100px; font-size:13px; font-weight:700; text-decoration:none;
-  transition:var(--tr);
+  background:linear-gradient(135deg,rgba(0,229,255,.9),rgba(124,58,237,.9));
+  color:#fff; padding:8px 22px; border-radius:100px;
+  font-size:13px;font-weight:700;text-decoration:none;
+  box-shadow:0 0 24px rgba(0,229,255,.25),0 4px 12px rgba(0,0,0,.4);
+  transition:var(--tr); position:relative; overflow:hidden;
 }
-.nav-cta:hover { transform:scale(1.04); box-shadow:0 0 30px rgba(56,189,248,0.3); }
+.nav-cta:hover { transform:scale(1.04);box-shadow:0 0 50px rgba(0,229,255,.45),0 8px 20px rgba(0,0,0,.5); }
 
-/* ─── HERO ─── */
+/* ════ HERO ════ */
 .hero {
   position:relative; z-index:1; min-height:100vh;
   display:flex; align-items:center; justify-content:center;
-  text-align:center; padding:120px 24px 60px;
+  text-align:center; padding:120px 24px 60px; overflow:hidden;
 }
-.hero h1 {
-  font-size:clamp(3.5rem,10vw,7rem); font-weight:900; letter-spacing:-0.04em; line-height:1;
-  background:linear-gradient(135deg,#fff 0%,#94a3b8 50%,rgba(56,189,248,0.6) 100%);
+
+/* Ghost mega wordmark */
+.hero-ghost {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:clamp(22vw,32vw,44vw); font-weight:900; letter-spacing:-.05em;
+  pointer-events:none; user-select:none; z-index:1;
+  background:linear-gradient(135deg, rgba(0,229,255,0.045) 0%, rgba(139,92,246,0.03) 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  margin-bottom:16px;
+  animation:ghost-breathe 6s ease-in-out infinite;
 }
-.hero p {
-  font-size:clamp(1rem,2vw,1.3rem); color:rgba(255,255,255,0.4);
-  max-width:500px; margin:0 auto 32px; line-height:1.6;
-  font-weight:300; letter-spacing:0.02em;
-}
-.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.btn {
-  display:inline-flex; align-items:center; gap:8px; padding:14px 32px;
-  border-radius:100px; font-weight:700; font-size:14px; text-decoration:none;
-  transition:var(--tr); border:none; cursor:pointer; position:relative; overflow:hidden;
-}
-.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff; box-shadow:0 0 30px rgba(56,189,248,0.2); }
-.btn-primary:hover { transform:scale(1.05) translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.4); }
-.btn-glass { background:rgba(255,255,255,0.04); color:var(--white); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(12px); }
-.btn-glass:hover { background:rgba(255,255,255,0.08); transform:scale(1.05) translateY(-3px); box-shadow:0 0 20px rgba(56,189,248,0.15); }
-.btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);transform:scale(0);animation:ripple-anim 0.6s ease-out;pointer-events:none}
-@keyframes ripple-anim{to{transform:scale(4);opacity:0}}
-.demo-arrow{display:inline-block;margin-left:6px;transition:var(--tr);font-size:13px;opacity:0.3}
-a.card:hover .demo-arrow{opacity:1;transform:translateX(4px)}
-.hero-sub-line{width:60px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);margin:10px auto 0;box-shadow:0 0 12px rgba(56,189,248,0.4)}
+@keyframes ghost-breathe{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.012)}}
 
-.hero-marquee {
-  position:absolute; bottom:40px; left:0; right:0; overflow:hidden;
-  padding:16px 0;
+/* Top spotlight cone */
+.hero-cone {
+  position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+  width:2px; height:70vh; pointer-events:none; z-index:1;
+  background:linear-gradient(180deg,rgba(0,229,255,0.6) 0%,rgba(0,229,255,0.08) 60%,transparent 100%);
+  filter:blur(1px);
 }
-.marquee-track {
-  display:flex; gap:48px; animation: scroll 30s linear infinite;
-  width: max-content;
+.hero-cone::after {
+  content:'';
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:300px; height:300px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,229,255,0.12) 0%,transparent 60%);
+  pointer-events:none;
 }
-.marquee-track span { font-size:13px; color:rgba(255,255,255,0.15); white-space:nowrap; letter-spacing:1px; }
-@keyframes scroll {
-  0% { transform:translateX(0); }
-  100% { transform:translateX(-50%); }
+
+/* Scan line */
+.hero-scan {
+  position:absolute; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.35),rgba(139,92,246,.25),transparent);
+  animation:scan-move 8s ease-in-out infinite;
+  pointer-events:none; z-index:2;
 }
+@keyframes scan-move{0%{top:15%}50%{top:85%}100%{top:15%}}
+
+.hero h1 { font-size:clamp(3.5rem,10vw,7rem); font-weight:900; letter-spacing:-.04em; line-height:1; margin-bottom:16px;
+  background:linear-gradient(135deg,#fff 0%,rgba(200,208,240,.85) 45%,rgba(0,229,255,.55) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(0,229,255,.2)); }
+.hero p { font-size:clamp(1rem,2vw,1.3rem);color:rgba(255,255,255,.4);max-width:500px;margin:0 auto 32px;line-height:1.6;font-weight:300;letter-spacing:.02em; }
+.hero-actions { display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+.hero-sub-line{width:60px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);margin:10px auto 0;box-shadow:0 0 16px rgba(0,229,255,.5)}
+
+.hero-marquee { position:absolute;bottom:40px;left:0;right:0;overflow:hidden;padding:16px 0; }
+.marquee-track { display:flex;gap:48px;animation:scroll 30s linear infinite;width:max-content; }
+.marquee-track span { font-size:13px;color:rgba(255,255,255,.12);white-space:nowrap;letter-spacing:1px; }
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes fi{to{opacity:1}}
-@keyframes spotlight-in{0%{opacity:0;transform:translate(-50%,-62%) scale(0.5)}100%{opacity:1;transform:translate(-50%,-40%) scale(1)}}
-@media(max-width:640px){#spline-card{flex-direction:column;height:auto!important}#spline-card>div:last-child{height:280px}}
 
-/* ─── SECTIONS ─── */
-section { position:relative; z-index:1; padding:100px 0; }
-.container { max-width:1200px; margin:0 auto; padding:0 24px; }
+/* ════ LAYOUT ════ */
+section { position:relative;z-index:1;padding:100px 0; }
+.container { max-width:1200px;margin:0 auto;padding:0 24px; }
 
-/* ─── STATS BAR ─── */
-.stats-bar {
-  display:flex; justify-content:center; gap:60px; flex-wrap:wrap;
-  padding:40px 0; position:relative; z-index:1;
+/* Light beam separator */
+.beam-sep {
+  position:relative; z-index:1; height:1px; overflow:visible;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.25),rgba(139,92,246,.2),transparent);
 }
-.stat-item { text-align:center; }
-.stat-num { font-size:40px; font-weight:900; color:var(--cyan); letter-spacing:-0.03em; }
-.stat-label { font-size:12px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:2px; margin-top:2px; }
+.beam-sep::before {
+  content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+  width:2px;height:60px;
+  background:linear-gradient(180deg,transparent,rgba(0,229,255,.5),transparent);
+}
 
-/* ─── GRID CARDS ─── */
-.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+/* ════ STATS BAR ════ */
+.stats-bar { display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:40px 0;position:relative;z-index:1; }
+.stat-item { text-align:center; }
+.stat-num {
+  font-size:48px;font-weight:900;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#00e5ff 0%,#8b5cf6 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 16px rgba(0,229,255,.5));
+}
+.stat-label { font-size:12px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:2px;margin-top:2px; }
+
+/* ════ HOLOGRAPHIC CARD PANELS ════ */
+.grid-3 { display:grid;grid-template-columns:repeat(3,1fr);gap:16px; }
+.grid-4 { display:grid;grid-template-columns:repeat(4,1fr);gap:12px; }
+
 .card {
   position:relative; overflow:hidden;
-  background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
-  border:1px solid rgba(56,189,248,0.06);
+  background:linear-gradient(145deg,rgba(0,229,255,.045) 0%,rgba(4,4,22,.78) 35%,rgba(124,58,237,.035) 100%);
+  backdrop-filter:blur(40px) saturate(200%) brightness(1.06);
+  -webkit-backdrop-filter:blur(40px) saturate(200%) brightness(1.06);
+  border:1px solid rgba(0,229,255,.10);
   border-radius:20px; padding:32px 28px;
-  transition:var(--tr); cursor:default;
-}
-.card:hover { border-color:rgba(56,189,248,0.15); transform:scale(1.02) translateY(-4px); box-shadow:var(--glow); }
-.card-glow {
-  position:absolute; top:-50%; left:-50%; width:200%; height:200%;
-  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.06), transparent 60%);
-  pointer-events:none; transition:opacity 0.3s;
-  opacity:0;
-}
-.card:hover .card-glow { opacity:1; }
-.card-icon { font-size:32px; margin-bottom:16px; display:block; }
-.card h3 { font-size:15px; font-weight:700; margin-bottom:4px; }
-.card p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.6; }
-.card-wide { grid-column:span 2; }
-
-/* ─── SECTION HEADERS ─── */
-.section-label {
-  font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
-  color:var(--cyan); margin-bottom:12px; display:block; text-align:center;
-}
-.section-title {
-  font-size:clamp(1.8rem,4vw,3rem); font-weight:800; letter-spacing:-0.03em;
-  text-align:center; margin-bottom:40px;
-  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.6) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.section-title span { color:var(--cyan); -webkit-text-fill-color:var(--cyan); }
-
-/* ─── PRICING ─── */
-.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.pricing-card {
-  background:rgba(15,15,40,0.4); backdrop-filter:blur(12px);
-  border:1px solid rgba(56,189,248,0.06); border-radius:20px;
-  padding:36px 28px; transition:var(--tr); position:relative;
-}
-.pricing-card:hover { border-color:rgba(56,189,248,0.15); transform:translateY(-4px); }
-.pricing-card.featured { border-color:var(--cyan); box-shadow:0 0 40px rgba(56,189,248,0.08); }
-.pricing-badge {
-  position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-  background:linear-gradient(135deg,var(--cyan),var(--indigo)); color:#fff;
-  font-size:10px; font-weight:700; padding:4px 14px; border-radius:100px; white-space:nowrap;
-  animation:pulse-badge 2s ease-in-out infinite;
-}
-@keyframes pulse-badge{0%,100%{opacity:1;box-shadow:0 0 10px rgba(56,189,248,0.3);transform:translateX(-50%)} 50%{opacity:0.8;box-shadow:0 0 20px rgba(56,189,248,0.6);transform:translateX(-50%) scale(1.05)}}
-.pricing-name { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:8px; }
-.pricing-price { font-size:36px; font-weight:900; letter-spacing:-0.03em; margin-bottom:16px; }
-.pricing-price span { font-size:13px; font-weight:500; color:rgba(255,255,255,0.3); }
-.pricing-features { list-style:none; margin-bottom:20px; }
-.pricing-features li { padding:6px 0; font-size:13px; color:rgba(255,255,255,0.3); display:flex; align-items:center; gap:8px; }
-.pricing-features li::before { content:'\2726'; color:var(--cyan); font-size:9px; }
-.pricing-card .btn { width:100%; justify-content:center; }
-
-/* ─── FOOTER ─── */
-footer { text-align:center; padding:40px 24px; position:relative; z-index:1; border-top:1px solid rgba(56,189,248,0.04); }
-footer p { font-size:12px; color:rgba(255,255,255,0.12); }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width:768px) {
-  .grid-3, .grid-4, .pricing-grid { grid-template-columns:1fr; }
-  .container > div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr!important; }
-  footer div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns:1fr 1fr!important; }
-  .card-wide { grid-column:span 1; }
-  .hero h1 { font-size:2.5rem; }
-  .stats-bar { gap:32px; }
-  .nav-links { display:none; }
-}
-
-@media (max-width:768px) {
-  div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns:repeat(2,1fr)!important; }
-}
-
-.mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
-.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
-.mobile-overlay.open { display:flex; }
-.mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
-.mobile-overlay a:hover { color:#38bdf8; }
-.mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
-@media (max-width:768px) {
-  .mobile-toggle { display:block; }
-  .nav-links { display:none!important; }
-}
-
-/* ═══════════════════════════════════════════════
-   ULTRA PREMIUM LAYER — Apple · Tesla · OpenAI
-   ═══════════════════════════════════════════════ */
-
-/* Aurora volumetric background */
-body::before {
-  content:'';
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(ellipse 90% 55% at 15% -5%,  rgba(56,189,248,0.13) 0%, transparent 55%),
-    radial-gradient(ellipse 65% 50% at 85% 105%, rgba(99,102,241,0.11) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 35% at 55% 45%,  rgba(251,191,36,0.04) 0%, transparent 50%);
-  animation: aurora-drift 14s ease-in-out infinite alternate;
-}
-@keyframes aurora-drift {
-  0%   { opacity:1;   transform:scale(1)    rotate(0deg); }
-  100% { opacity:0.7; transform:scale(1.06) rotate(1.5deg); }
-}
-
-/* Cinematic film grain */
-body::after {
-  content:'';
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  opacity:0.022;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat:repeat; background-size:180px 180px;
-}
-
-/* Ambient cursor light */
-#ambient-bg {
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  will-change:background;
-}
-
-/* ── Enhanced glassmorphism cards ── */
-.card {
-  background: rgba(8,8,26,0.50) !important;
-  backdrop-filter: blur(28px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  border: 1px solid rgba(255,255,255,0.07) !important;
   box-shadow:
-    0 4px 32px rgba(0,0,0,0.35),
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 -1px 0 rgba(0,0,0,0.25) inset !important;
-  transform-style: preserve-3d;
-  will-change: transform;
+    0 0 0 .5px rgba(255,255,255,.04) inset,
+    0 2px 0  rgba(255,255,255,.04) inset,
+    0 -1px 0 rgba(0,229,255,.03)   inset,
+    0 32px 80px rgba(0,0,0,.65),
+    0 8px  32px rgba(0,0,0,.45);
+  transition:transform var(--tr),box-shadow var(--tr),border-color var(--tr);
+  transform-style:preserve-3d; will-change:transform; cursor:default;
+}
+
+/* Animated top-edge hologram line */
+.card::before {
+  content:'';
+  position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.7),rgba(139,92,246,.5),transparent);
+  opacity:0;transition:opacity .4s;
+}
+/* Interior shimmer */
+.card::after {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(145deg,rgba(0,229,255,.04) 0%,transparent 45%,rgba(139,92,246,.04) 100%);
+  opacity:0;transition:opacity .5s;pointer-events:none;
 }
 .card:hover {
-  border-color: rgba(56,189,248,0.20) !important;
+  transform:translateY(-10px);
+  border-color:rgba(0,229,255,.30);
   box-shadow:
-    0 24px 64px rgba(0,0,0,0.45),
-    0 0   48px rgba(56,189,248,0.07),
-    0 1px 0 rgba(255,255,255,0.10) inset,
-    0 -1px 0 rgba(0,0,0,0.25) inset !important;
+    0 0 0 .5px rgba(0,229,255,.08) inset,
+    0 2px 0  rgba(0,229,255,.06) inset,
+    0 -1px 0 rgba(0,229,255,.04) inset,
+    0 48px 96px rgba(0,0,0,.75),
+    0 16px 48px rgba(0,0,0,.55),
+    0 0   80px rgba(0,229,255,.07);
+}
+.card:hover::before { opacity:1; }
+.card:hover::after  { opacity:1; }
+
+.card-glow {
+  position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.07),transparent 60%);
+  pointer-events:none;transition:opacity .3s;opacity:0;
+}
+.card:hover .card-glow { opacity:1; }
+.card-icon { font-size:32px;margin-bottom:16px;display:block;filter:drop-shadow(0 0 10px rgba(0,229,255,.4)); }
+.card h3 { font-size:15px;font-weight:700;margin-bottom:4px; }
+.card p { font-size:13px;color:rgba(255,255,255,.35);line-height:1.6; }
+.card-wide { grid-column:span 2; }
+
+/* ════ SECTION HEADERS ════ */
+.section-label {
+  font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--cyan);text-shadow:0 0 20px rgba(0,229,255,.6);
+  margin-bottom:12px;display:block;text-align:center;
+}
+.section-title {
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;
+  text-align:center;margin-bottom:40px;
+  background:linear-gradient(135deg,#fff 0%,rgba(200,208,240,.85) 55%,rgba(0,229,255,.5) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px rgba(0,229,255,.12));
+}
+.section-title span {
+  background:linear-gradient(135deg,#00e5ff,#8b5cf6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 20px rgba(0,229,255,.45));
 }
 
-/* ── Pricing & process cards — same glass treatment ── */
-.pricing-card,
-div[style*="rgba(15,15,40"] {
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+/* ════ BUTTONS ════ */
+.btn {
+  display:inline-flex;align-items:center;gap:8px;padding:14px 32px;
+  border-radius:100px;font-weight:700;font-size:14px;text-decoration:none;
+  transition:var(--tr);border:none;cursor:pointer;position:relative;overflow:hidden;
 }
-
-/* ── Premium shimmer buttons ── */
 .btn-primary {
-  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 60%, #38bdf8 120%) !important;
-  background-size: 200% auto !important;
-  animation: btn-shimmer 4s linear infinite;
-  box-shadow: 0 0 32px rgba(56,189,248,0.25), 0 4px 16px rgba(0,0,0,0.3) !important;
+  background:linear-gradient(135deg,rgba(0,229,255,.92) 0%,rgba(124,58,237,.92) 100%);
+  color:#fff;
+  box-shadow:0 0 0 1px rgba(0,229,255,.2),0 0 40px rgba(0,229,255,.25),0 8px 24px rgba(0,0,0,.45);
 }
-@keyframes btn-shimmer {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 200% center; }
-}
+/* Sweep light */
 .btn-primary::before {
-  content:'';
-  position:absolute; inset:0; border-radius:inherit;
-  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
-  transform: translateX(-120%);
-  transition: transform 0.55s ease;
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.22) 50%,transparent 75%);
+  transform:translateX(-120%);
+  animation:btn-sweep 2.8s ease-in-out infinite;
 }
-.btn-primary:hover::before { transform: translateX(120%); }
+@keyframes btn-sweep{0%,35%{transform:translateX(-120%)}65%,100%{transform:translateX(130%)}}
 .btn-primary:hover {
-  transform: scale(1.06) translateY(-4px) !important;
-  box-shadow: 0 0 60px rgba(56,189,248,0.45), 0 12px 32px rgba(0,0,0,0.35) !important;
+  transform:scale(1.06) translateY(-4px);
+  box-shadow:0 0 0 1px rgba(0,229,255,.4),0 0 80px rgba(0,229,255,.45),0 16px 40px rgba(0,0,0,.5);
 }
-
-/* ── Glass button upgrade ── */
 .btn-glass {
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(255,255,255,0.12) !important;
-  backdrop-filter: blur(20px) !important;
-  box-shadow: 0 0 0 1px rgba(56,189,248,0.04) inset !important;
+  background:rgba(255,255,255,.045);color:var(--white);
+  border:1px solid rgba(0,229,255,.15);backdrop-filter:blur(20px);
+  box-shadow:0 0 0 1px rgba(0,229,255,.04) inset;
 }
 .btn-glass:hover {
-  background: rgba(56,189,248,0.10) !important;
-  border-color: rgba(56,189,248,0.25) !important;
-  transform: scale(1.05) translateY(-3px) !important;
+  background:rgba(0,229,255,.09);border-color:rgba(0,229,255,.3);
+  transform:scale(1.05) translateY(-3px);
+  box-shadow:0 0 30px rgba(0,229,255,.15);
+}
+.btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:scale(0);animation:ripple-anim .6s ease-out;pointer-events:none}
+@keyframes ripple-anim{to{transform:scale(4);opacity:0}}
+
+.demo-arrow{display:inline-block;margin-left:6px;transition:var(--tr);font-size:13px;opacity:.3}
+a.card:hover .demo-arrow{opacity:1;transform:translateX(4px)}
+
+/* ════ SECTION ATMOSPHERES ════ */
+.section-atmo {
+  position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.section-atmo::before {
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:900px;height:600px;
+  background:radial-gradient(ellipse at 50% 0%,var(--sa-color,rgba(0,229,255,.04)) 0%,transparent 65%);
 }
 
-/* ── Frosted nav upgrade ── */
-nav {
-  background: rgba(5,5,16,0.20) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+/* ════ PRICING (TEKLIF) ════ */
+.pricing-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px; }
+.pricing-card {
+  background:linear-gradient(145deg,rgba(0,229,255,.04),rgba(4,4,22,.78) 40%,rgba(124,58,237,.03) 100%);
+  backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+  border:1px solid rgba(0,229,255,.10);border-radius:20px;padding:36px 28px;
+  transition:var(--tr);position:relative;
+  box-shadow:0 32px 80px rgba(0,0,0,.6);
 }
-nav.scrolled {
-  background: rgba(5,5,16,0.72) !important;
-  backdrop-filter: blur(48px) saturate(220%) !important;
-  -webkit-backdrop-filter: blur(48px) saturate(220%) !important;
-  border-bottom: 1px solid rgba(56,189,248,0.12) !important;
-  box-shadow: 0 1px 48px rgba(0,0,0,0.5), 0 0 1px rgba(56,189,248,0.1) !important;
+.pricing-card:hover { border-color:rgba(0,229,255,.25);transform:translateY(-6px); }
+.pricing-card.featured { border-color:rgba(0,229,255,.28);box-shadow:0 0 60px rgba(0,229,255,.07),0 32px 80px rgba(0,0,0,.6); }
+.pricing-badge {
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--cyan),var(--violet));color:#fff;
+  font-size:10px;font-weight:700;padding:4px 14px;border-radius:100px;white-space:nowrap;
+  animation:pulse-badge 2s ease-in-out infinite;
 }
+@keyframes pulse-badge{0%,100%{opacity:1;box-shadow:0 0 14px rgba(0,229,255,.4);transform:translateX(-50%)}50%{opacity:.85;box-shadow:0 0 28px rgba(0,229,255,.7);transform:translateX(-50%) scale(1.05)}}
+.pricing-name{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px}
+.pricing-price{font-size:36px;font-weight:900;letter-spacing:-.03em;margin-bottom:16px}
+.pricing-price span{font-size:13px;font-weight:500;color:rgba(255,255,255,.3)}
+.pricing-features{list-style:none;margin-bottom:20px}
+.pricing-features li{padding:6px 0;font-size:13px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:8px}
+.pricing-features li::before{content:'\2726';color:var(--cyan);font-size:9px}
+.pricing-card .btn{width:100%;justify-content:center}
 
-/* ── Gradient stat numbers ── */
-.stat-num {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  filter: drop-shadow(0 0 12px rgba(56,189,248,0.4));
-}
+/* ════ FOOTER ════ */
+footer { text-align:center;padding:40px 24px;position:relative;z-index:1;border-top:1px solid rgba(0,229,255,.07);background:rgba(0,0,10,.85); }
+footer p { font-size:12px;color:rgba(255,255,255,.12); }
 
-/* ── Section title depth ── */
-.section-title {
-  text-shadow: 0 0 80px rgba(56,189,248,0.06);
+/* ════ RESPONSIVE ════ */
+@media(max-width:768px){
+  .grid-3,.grid-4,.pricing-grid{grid-template-columns:1fr}
+  .card-wide{grid-column:span 1}
+  .hero h1{font-size:2.5rem}
+  .stats-bar{gap:32px}
+  .nav-links{display:none}
+  .container>div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+  footer div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
 }
+@media(max-width:768px){
+  div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
+}
+.mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px}
+.mobile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,10,.97);backdrop-filter:blur(24px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{color:#fff;font-size:20px;font-weight:600;text-decoration:none;transition:.3s}
+.mobile-overlay a:hover{color:#00e5ff}
+.mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+@media(max-width:768px){.mobile-toggle{display:block}.nav-links{display:none!important}}
 
-/* ── Custom cursor ── */
-#kivon-cursor {
-  width:9px; height:9px;
-  background:#38bdf8;
-  border-radius:50%;
-  position:fixed; top:0; left:0;
-  pointer-events:none; z-index:9999;
-  transform:translate(-50%,-50%);
-  will-change:left,top;
-  mix-blend-mode:screen;
-  transition:width 0.25s, height 0.25s, background 0.25s;
-}
-#kivon-cursor-ring {
-  width:38px; height:38px;
-  border:1.5px solid rgba(56,189,248,0.45);
-  border-radius:50%;
-  position:fixed; top:0; left:0;
-  pointer-events:none; z-index:9998;
-  transform:translate(-50%,-50%);
-  will-change:left,top;
-  transition:width 0.3s cubic-bezier(0.34,1.56,0.64,1),
-             height 0.3s cubic-bezier(0.34,1.56,0.64,1),
-             border-color 0.3s, opacity 0.3s;
-}
-#kivon-cursor-glow {
-  width:140px; height:140px;
-  background:radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 70%);
-  border-radius:50%;
-  position:fixed; top:0; left:0;
-  pointer-events:none; z-index:9997;
-  transform:translate(-50%,-50%);
-  will-change:left,top;
-}
-body.cursor-hovering #kivon-cursor {
-  width:14px; height:14px;
-  background:#818cf8;
-}
-body.cursor-hovering #kivon-cursor-ring {
-  width:60px; height:60px;
-  border-color:rgba(99,102,241,0.7);
-}
-@media (max-width:768px) {
-  #kivon-cursor,#kivon-cursor-ring,#kivon-cursor-glow,#ambient-bg { display:none!important; }
-}
-
-/* ── Section reveal — initial hidden state for GSAP ── */
-.section-label,
-.section-title {
-  will-change: opacity, transform, filter;
-}
-
-/* ── CTA banner glass ── */
-div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border: 1px solid rgba(56,189,248,0.14) !important;
-  box-shadow: 0 0 60px rgba(56,189,248,0.04) inset, 0 4px 32px rgba(0,0,0,0.2) !important;
-}
+/* ── Section reveal init ── */
+.rev { opacity:0;transform:translateY(50px);filter:blur(6px); }
 </style>
-
-<link rel='alternate' hreflang='tr' href='https://kivontr.com/index.html'></head>
+<link rel='alternate' hreflang='tr' href='https://kivontr.com/index.html'>
+</head>
 <body>
 
-<!-- ═══ PREMIUM UI LAYERS ═══ -->
+<!-- CURSOR -->
+<div id="kv-dot"></div>
+<div id="kv-ring"></div>
+
+<!-- PERSISTENT LAYERS -->
+<div id="sci-grid"></div>
+<div id="film-grain"></div>
 <div id="ambient-bg"></div>
-<div id="kivon-cursor"></div>
-<div id="kivon-cursor-ring"></div>
-<div id="kivon-cursor-glow"></div>
 
 <!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <img src="img/logo-icon.png" alt="KIVON" style="width:32px;height:32px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(56,189,248,0.3)">
+      <img src="img/logo-icon.png" alt="KIVON" style="width:32px;height:32px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(0,229,255,0.35),0 0 24px rgba(0,229,255,.2)">
       <span>KIVON</span>
     </a>
     <ul class="nav-links">
@@ -456,13 +449,19 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
   <a href="api-durum.html">API Durum</a>
 </div>
 
-<!-- ═══ 3D HELIX HERO ═══ -->
+<!-- ═══ HERO ═══ -->
 <section class="hero" id="hero3d" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden">
   <div id="c" style="position:absolute;inset:0;z-index:0;pointer-events:none"></div>
-   <div style="position:relative;z-index:2;pointer-events:none;padding:0 20px">
-    <img src="img/logo-icon.png" alt="KIVON" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:16px;opacity:0;animation:fi 1.5s 0.5s forwards;box-shadow:0 0 30px rgba(56,189,248,0.3)">
-    <h1 style="font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;letter-spacing:-0.04em;line-height:1;opacity:0;animation:fi 1.5s 0.8s forwards;background:linear-gradient(135deg,#38bdf8,#6366f1,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">KIVON</h1>
-    <p style="color:rgba(255,255,255,0.6);font-size:clamp(0.9rem,1.5vw,1.2rem);letter-spacing:6px;text-transform:uppercase;margin-top:8px;opacity:0;animation:fi 1.5s 1.2s forwards;font-weight:400">KOBİ'nizi Yapay Zeka ile Dönüştürün</p>
+  <!-- Ghost mega wordmark -->
+  <div class="hero-ghost" aria-hidden="true">KIVON</div>
+  <!-- Light cone -->
+  <div class="hero-cone" aria-hidden="true"></div>
+  <!-- Scan line -->
+  <div class="hero-scan" aria-hidden="true"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;padding:0 20px">
+    <img src="img/logo-icon.png" alt="KIVON" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:16px;opacity:0;animation:fi 1.5s .5s forwards;box-shadow:0 0 0 2px rgba(0,229,255,.3),0 0 40px rgba(0,229,255,.2)">
+    <h1 style="font-size:clamp(2.5rem,8vw,5.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;opacity:0;animation:fi 1.5s .8s forwards;background:linear-gradient(135deg,#00e5ff,#8b5cf6,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">KIVON</h1>
+    <p style="color:rgba(255,255,255,.55);font-size:clamp(.9rem,1.5vw,1.2rem);letter-spacing:6px;text-transform:uppercase;margin-top:8px;opacity:0;animation:fi 1.5s 1.2s forwards;font-weight:400">KOBİ'nizi Yapay Zeka ile Dönüştürün</p>
     <div class="hero-sub-line" style="opacity:0;animation:fi 1.5s 1.4s forwards"></div>
     <div class="hero-actions" style="justify-content:center;margin-top:20px;opacity:0;animation:fi 1.5s 2s forwards">
       <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="pointer-events:auto">Ücretsiz Görüşme</a>
@@ -472,17 +471,19 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
 </section>
 
 <!-- ═══ STATS ═══ -->
+<div class="beam-sep"></div>
 <div class="stats-bar container">
   <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Çözüm Kategorisi</div></div>
   <div class="stat-item"><div class="stat-num">14</div><div class="stat-label">Web Tasarım</div></div>
   <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">AI Model</div></div>
 </div>
-
+<div class="beam-sep"></div>
 
 <!-- ═══ ÇÖZÜMLER ═══ -->
 <section id="cozumler" class="container">
-  <span class="section-label">Çözümler</span>
-  <h2 class="section-title">İşletmenize Özel <span>AI</span></h2>
+  <div class="section-atmo" style="--sa-color:rgba(0,229,255,.045)"></div>
+  <span class="section-label rev">Çözümler</span>
+  <h2 class="section-title rev">İşletmenize Özel <span>AI</span></h2>
   <div class="grid-3">
     <div class="card">
       <div class="card-glow"></div>
@@ -490,9 +491,9 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
       <h3>AI Chatbot</h3>
       <p>7/24 müşteri hizmetleri için AI destekli chatbot. WhatsApp, web sitesi ve Instagram entegrasyonu ile tüm kanallarda kesintisiz iletişim. Müşteri sorularını anında yanıtlar, randevu alır, sipariş takibi yapar.</p>
       <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">WhatsApp</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">7/24 Yanıt</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.12);color:var(--cyan)">Randevu</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.18);color:#00e5ff">WhatsApp</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.18);color:#00e5ff">7/24 Yanıt</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.18);color:#00e5ff">Randevu</li>
       </ul>
     </div>
     <div class="card">
@@ -501,9 +502,9 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
       <h3>Veri Analitiği</h3>
       <p>Satış, stok ve müşteri verilerinizi AI ile analiz edin. Otomatik raporlama, talep tahmini ve anormallik tespiti. CSV, PDF ve Excel çıktı desteği ile kolay paylaşım.</p>
       <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">Dashboard</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">CSV/PDF</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.12);color:var(--indigo)">Tahmin</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:#a78bfa">Dashboard</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:#a78bfa">CSV/PDF</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:#a78bfa">Tahmin</li>
       </ul>
     </div>
     <div class="card">
@@ -512,9 +513,9 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
       <h3>Proses Otomasyonu</h3>
       <p>Tekrarlayan işlemleri AI ile otomatikleştirin. Fatura oluşturma, stok takibi, e-posta yanıtlama ve veri girişi gibi görevlerde %70'e varan zaman tasarrufu.</p>
       <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">Fatura</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">Stok</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.12);color:var(--gold)">E-Posta</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#f59e0b">Fatura</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#f59e0b">Stok</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:#f59e0b">E-Posta</li>
       </ul>
     </div>
     <div class="card">
@@ -523,9 +524,9 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
       <h3>AI Danışmanlık</h3>
       <p>İşletmenize özel AI yol haritası çıkarıyoruz. Mevcut durum analizi, fizibilite çalışması, çözüm tasarımı ve uygulama desteği ile dönüşümünüzü yönetiyoruz.</p>
       <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Analiz</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Yol Haritası</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.12);color:var(--green)">Uygulama</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399">Analiz</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399">Yol Haritası</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#34d399">Uygulama</li>
       </ul>
     </div>
     <div class="card card-wide">
@@ -534,218 +535,163 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
       <h3>Teknik Altyapı</h3>
       <p>5 AI model (DeepSeek V4, Llama 3.3, Qwen3, Nemotron). n8n otomasyon. Render API.</p>
       <ul style="list-style:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">DeepSeek V4</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Llama 3.3</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Qwen3</li>
-        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.12);color:#a855f7">Nemotron</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#c084fc">DeepSeek V4</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#c084fc">Llama 3.3</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#c084fc">Qwen3</li>
+        <li style="font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#c084fc">Nemotron</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ═══ AI ÇÖZÜM SÜREÇLERİ ═══ -->
+<!-- ═══ SÜREÇ ═══ -->
+<div class="beam-sep"></div>
 <section class="container">
-  <span class="section-label">Süreç</span>
-  <h2 class="section-title">AI Çözümlerimiz <span>Nasıl Çalışır?</span></h2>
-  <p style="font-size:14px;color:rgba(255,255,255,0.4);max-width:700px;margin:0 auto 40px;text-align:center;line-height:1.7">KIVON olarak her işletmeye özel AI çözümü geliştiriyoruz. Sürecimiz keşiften canlı yayına kadar 4 aşamadan oluşur. Ortalama kurulum süremiz 3-5 iş günüdür.</p>
+  <div class="section-atmo" style="--sa-color:rgba(139,92,246,.04)"></div>
+  <span class="section-label rev">Süreç</span>
+  <h2 class="section-title rev">AI Çözümlerimiz <span>Nasıl Çalışır?</span></h2>
+  <p style="font-size:14px;color:rgba(255,255,255,.4);max-width:700px;margin:0 auto 40px;text-align:center;line-height:1.7">KIVON olarak her işletmeye özel AI çözümü geliştiriyoruz. Sürecimiz keşiften canlı yayına kadar 4 aşamadan oluşur. Ortalama kurulum süremiz 3-5 iş günüdür.</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-    <div style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:20px;padding:28px 24px">
+    <div style="background:linear-gradient(145deg,rgba(0,229,255,.04),rgba(4,4,22,.75));border:1px solid rgba(0,229,255,.10);border-radius:20px;padding:28px 24px;backdrop-filter:blur(24px)">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div style="width:36px;height:36px;border-radius:50%;background:rgba(56,189,248,0.1);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:var(--cyan);flex-shrink:0">1</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.6);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#00e5ff;flex-shrink:0;box-shadow:0 0 16px rgba(0,229,255,.2)">1</div>
         <h3 style="font-size:16px;font-weight:700">Keşif ve Analiz</h3>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">İşletmenizin ihtiyaçlarını anlamak için ücretsiz keşif görüşmesi yapıyoruz. Hangi süreçlerin otomatize edilebileceğini, hangi AI çözümlerinin işletmenize en çok değer katacağını belirliyoruz. Mevcut altyapınızı inceliyor ve entegrasyon noktalarını haritalandırıyoruz. Bu aşamada sizden herhangi bir ücret talep etmiyoruz.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">İşletmenizin ihtiyaçlarını anlamak için ücretsiz keşif görüşmesi yapıyoruz. Hangi süreçlerin otomatize edilebileceğini, hangi AI çözümlerinin işletmenize en çok değer katacağını belirliyoruz. Mevcut altyapınızı inceliyor ve entegrasyon noktalarını haritalandırıyoruz. Bu aşamada sizden herhangi bir ücret talep etmiyoruz.</p>
     </div>
-    <div style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:20px;padding:28px 24px">
+    <div style="background:linear-gradient(145deg,rgba(139,92,246,.04),rgba(4,4,22,.75));border:1px solid rgba(139,92,246,.12);border-radius:20px;padding:28px 24px;backdrop-filter:blur(24px)">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div style="width:36px;height:36px;border-radius:50%;background:rgba(99,102,241,0.1);border:2px solid var(--indigo);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:var(--indigo);flex-shrink:0">2</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(139,92,246,.1);border:2px solid rgba(139,92,246,.6);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#8b5cf6;flex-shrink:0;box-shadow:0 0 16px rgba(139,92,246,.2)">2</div>
         <h3 style="font-size:16px;font-weight:700">Model Eğitimi ve Özelleştirme</h3>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">Seçtiğiniz AI çözümü için gerekli bilgi tabanını oluşturuyoruz. İşletmenize ait veriler (SSS, ürün kataloğu, fiyat listesi, müşteri senaryoları) ile AI modelini eğitiyoruz. Bu sayede chatbot'unuz veya asistanınız size ait terminolojiyi kullanır ve işletmenize özel doğru yanıtlar verir. Eğitim süreci genellikle 1-2 iş günü sürer.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">Seçtiğiniz AI çözümü için gerekli bilgi tabanını oluşturuyoruz. İşletmenize ait veriler (SSS, ürün kataloğu, fiyat listesi, müşteri senaryoları) ile AI modelini eğitiyoruz. Bu sayede chatbot'unuz veya asistanınız size ait terminolojiyi kullanır ve işletmenize özel doğru yanıtlar verir. Eğitim süreci genellikle 1-2 iş günü sürer.</p>
     </div>
-    <div style="background:rgba(15,15,40,0.4);border:1px solid rgba(251,191,36,0.06);border-radius:20px;padding:28px 24px">
+    <div style="background:linear-gradient(145deg,rgba(245,158,11,.04),rgba(4,4,22,.75));border:1px solid rgba(245,158,11,.10);border-radius:20px;padding:28px 24px;backdrop-filter:blur(24px)">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div style="width:36px;height:36px;border-radius:50%;background:rgba(251,191,36,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:var(--gold);flex-shrink:0">3</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,.1);border:2px solid rgba(245,158,11,.6);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#f59e0b;flex-shrink:0;box-shadow:0 0 16px rgba(245,158,11,.2)">3</div>
         <h3 style="font-size:16px;font-weight:700">Entegrasyon ve Test</h3>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">AI çözümünü seçtiğiniz kanallara (WhatsApp, web sitesi, Instagram) entegre ediyoruz. Tüm senaryoları test ediyor, hata payını sıfıra indiriyoruz. Size yönetici paneli oluşturuyor ve yanıtları anlık olarak takip edebilmenizi sağlıyoruz. Test aşamasında sizden gelen geri bildirimlerle modeli son haline getiriyoruz.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">AI çözümünü seçtiğiniz kanallara (WhatsApp, web sitesi, Instagram) entegre ediyoruz. Tüm senaryoları test ediyor, hata payını sıfıra indiriyoruz. Size yönetici paneli oluşturuyor ve yanıtları anlık olarak takip edebilmenizi sağlıyoruz. Test aşamasında sizden gelen geri bildirimlerle modeli son haline getiriyoruz.</p>
     </div>
-    <div style="background:rgba(15,15,40,0.4);border:1px solid rgba(16,185,129,0.06);border-radius:20px;padding:28px 24px">
+    <div style="background:linear-gradient(145deg,rgba(16,185,129,.04),rgba(4,4,22,.75));border:1px solid rgba(16,185,129,.10);border-radius:20px;padding:28px 24px;backdrop-filter:blur(24px)">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div style="width:36px;height:36px;border-radius:50%;background:rgba(16,185,129,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:var(--green);flex-shrink:0">4</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(16,185,129,.1);border:2px solid rgba(16,185,129,.6);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#10b981;flex-shrink:0;box-shadow:0 0 16px rgba(16,185,129,.2)">4</div>
         <h3 style="font-size:16px;font-weight:700">Canlı Yayın ve Sürekli İyileştirme</h3>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7">Sisteminizi canlıya alıyor ve performansı izlemeye başlıyoruz. İlk hafta boyunca tüm yanıtları manuel olarak denetliyor, gerekli düzeltmeleri yapıyoruz. Aylık raporlarla AI çözümünüzün performansını paylaşıyoruz. Zaman içinde gelen gerçek kullanıcı sorularına göre modeli sürekli güncelliyor ve iyileştiriyoruz.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">Sisteminizi canlıya alıyor ve performansı izlemeye başlıyoruz. İlk hafta boyunca tüm yanıtları manuel olarak denetliyor, gerekli düzeltmeleri yapıyoruz. Aylık raporlarla AI çözümünüzün performansını paylaşıyoruz. Zaman içinde gelen gerçek kullanıcı sorularına göre modeli sürekli güncelliyor ve iyileştiriyoruz.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══ KULLANIM ALANLARI ═══ -->
-<section style="background:rgba(10,10,26,0.3);">
+<div class="beam-sep"></div>
+<section style="position:relative;z-index:1;padding:100px 0;">
+  <div class="section-atmo" style="--sa-color:rgba(0,229,255,.04)"></div>
   <div class="container">
-    <span class="section-label">Kullanım Alanları</span>
-    <h2 class="section-title">Hangi Sektörlerde <span>Kullanılır?</span></h2>
-    <p style="font-size:14px;color:rgba(255,255,255,0.4);max-width:750px;margin:0 auto 40px;text-align:center;line-height:1.7">AI çözümlerimiz farklı sektörlerdeki KOBİ'lerin operasyonel yükünü hafifletiyor, müşteri memnuniyetini artırıyor ve çalışan verimliliğini yükseltiyor. İşte en çok talep gören kullanım senaryolarımız:</p>
+    <span class="section-label rev">Kullanım Alanları</span>
+    <h2 class="section-title rev">Hangi Sektörlerde <span>Kullanılır?</span></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.4);max-width:750px;margin:0 auto 40px;text-align:center;line-height:1.7">AI çözümlerimiz farklı sektörlerdeki KOBİ'lerin operasyonel yükünü hafifletiyor, müşteri memnuniyetini artırıyor ve çalışan verimliliğini yükseltiyor. İşte en çok talep gören kullanım senaryolarımız:</p>
     <div class="grid-3">
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">📞</span>
-        <h3>Müşteri Hizmetleri Otomasyonu</h3>
-        <p>Müşterilerinizden gelen tekrarlayan soruları AI chatbot'unuz yanıtlar. Sık sorulan sorular, ürün bilgisi, fiyat sorgulama ve randevu talepleri gibi konularda 7/24 hizmet verir. Çalışanlarınız yalnızca karmaşık sorunlara odaklanır, müşteri memnuniyeti artar.</p>
-      </div>
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">📄</span>
-        <h3>Fatura ve Muhasebe Otomasyonu</h3>
-        <p>Muhasebe büroları ve şirketler için AI destekli fatura okuma, kategorize etme ve kayıt sistemi. PDF, görsel veya e-Devlet çıktısı faturaları otomatik okunur, muhasebe programınıza aktarılır. Haftalık 10+ saat zaman tasarrufu sağlar.</p>
-      </div>
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">🛒</span>
-        <h3>E-Ticaret Alışveriş Asistanı</h3>
-        <p>Online mağazanız için AI destekli alışveriş asistanı. Ürün tavsiyesi, stok sorgulama, sipariş takibi ve iade yönetimi gibi işlemleri otomatikleştirir. Müşteri başına ortalama 3 dakikalık işlem süresini saniyelere indirir.</p>
-      </div>
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">🍽️</span>
-        <h3>Restoran ve Kafe Dijital Dönüşüm</h3>
-        <p>WhatsApp üzerinden rezervasyon alma, QR menü yönetimi, sipariş takibi ve müşteri geri bildirimi toplama. Restoranınızın dijital ayak izini oluşturur, masa başına düşen müşteri sayısını artırır.</p>
-      </div>
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">📅</span>
-        <h3>Randevu ve Takvim Yönetimi</h3>
-        <p>Kuaför, diş kliniği, spor salonu ve danışmanlık firmaları için AI randevu asistanı. WhatsApp üzerinden randevu alma, hatırlatma, yeniden planlama ve boş zaman dilimlerini doldurma. Randevu no-show oranını %40'a kadar düşürür.</p>
-      </div>
-      <div class="card">
-        <div class="card-glow"></div>
-        <span class="card-icon">🔍</span>
-        <h3>Veri Analitiği ve Raporlama</h3>
-        <p>Satış verilerinizden anlamlı içgörüler çıkaran AI analiz asistanı. Hangi ürünlerin daha çok sattığını, hangi saatlerde sipariş yoğunluğu olduğunu, müşteri segmentasyonunu otomatik raporlar. CSV veya PDF çıktıları ile kolay paylaşım.</p>
-      </div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">📞</span><h3>Müşteri Hizmetleri Otomasyonu</h3><p>Müşterilerinizden gelen tekrarlayan soruları AI chatbot'unuz yanıtlar. Sık sorulan sorular, ürün bilgisi, fiyat sorgulama ve randevu talepleri gibi konularda 7/24 hizmet verir. Çalışanlarınız yalnızca karmaşık sorunlara odaklanır, müşteri memnuniyeti artar.</p></div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">📄</span><h3>Fatura ve Muhasebe Otomasyonu</h3><p>Muhasebe büroları ve şirketler için AI destekli fatura okuma, kategorize etme ve kayıt sistemi. PDF, görsel veya e-Devlet çıktısı faturaları otomatik okunur, muhasebe programınıza aktarılır. Haftalık 10+ saat zaman tasarrufu sağlar.</p></div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">🛒</span><h3>E-Ticaret Alışveriş Asistanı</h3><p>Online mağazanız için AI destekli alışveriş asistanı. Ürün tavsiyesi, stok sorgulama, sipariş takibi ve iade yönetimi gibi işlemleri otomatikleştirir. Müşteri başına ortalama 3 dakikalık işlem süresini saniyelere indirir.</p></div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">🍽️</span><h3>Restoran ve Kafe Dijital Dönüşüm</h3><p>WhatsApp üzerinden rezervasyon alma, QR menü yönetimi, sipariş takibi ve müşteri geri bildirimi toplama. Restoranınızın dijital ayak izini oluşturur, masa başına düşen müşteri sayısını artırır.</p></div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">📅</span><h3>Randevu ve Takvim Yönetimi</h3><p>Kuaför, diş kliniği, spor salonu ve danışmanlık firmaları için AI randevu asistanı. WhatsApp üzerinden randevu alma, hatırlatma, yeniden planlama ve boş zaman dilimlerini doldurma. Randevu no-show oranını %40'a kadar düşürür.</p></div>
+      <div class="card"><div class="card-glow"></div><span class="card-icon">🔍</span><h3>Veri Analitiği ve Raporlama</h3><p>Satış verilerinizden anlamlı içgörüler çıkaran AI analiz asistanı. Hangi ürünlerin daha çok sattığını, hangi saatlerde sipariş yoğunluğu olduğunu, müşteri segmentasyonunu otomatik raporlar. CSV veya PDF çıktıları ile kolay paylaşım.</p></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ NEDEN KIVON ═══ -->
-<section id="neden-kivon" style="background:rgba(10,10,26,0.3);">
+<div class="beam-sep"></div>
+<section id="neden-kivon" style="position:relative;z-index:1;padding:100px 0;">
+  <div class="section-atmo" style="--sa-color:rgba(139,92,246,.045)"></div>
   <div class="container">
-    <span class="section-label">Neden KIVON?</span>
-    <h2 class="section-title">Sizi <span>Anlıyoruz</span></h2>
+    <span class="section-label rev">Neden KIVON?</span>
+    <h2 class="section-title rev">Sizi <span>Anlıyoruz</span></h2>
     <div class="grid-4">
-      <div class="card" style="text-align:center">
-        <div class="card-glow"></div>
-        <span class="card-icon">🎯</span>
-        <h3>Size Özel Çözüm</h3>
-        <p>Her işletme farklıdır. Hazır paket değil, ihtiyacınıza özel AI çözümü tasarlıyoruz. Sektörünüzü, müşteri kitlenizi ve operasyonel ihtiyaçlarınızı analiz ederek size en uygun sistemi kuruyoruz.</p>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="card-glow"></div>
-        <span class="card-icon">⚡</span>
-        <h3>Hızlı Kurulum</h3>
-        <p>Ortalama 3 iş gününde sisteminiz hazır. Sıfır teknik bilgi gerekir. Kurulum sonrası kullanıcı eğitimi veriyor, ekibinizin sistemi hemen kullanmasını sağlıyoruz.</p>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="card-glow"></div>
-        <span class="card-icon">💬</span>
-        <h3>7/24 Canlı Destek</h3>
-        <p>WhatsApp üzerinden her an ulaşabileceğiniz gerçek insan desteği. Mesai saatleri içinde 2 saat, mesai dışı 4 saat içinde dönüş garantisi veriyoruz.</p>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="card-glow"></div>
-        <span class="card-icon">🔒</span>
-        <h3>Veri Güvenliği</h3>
-        <p>Verileriniz Türkiye'de kalır. KVKK uyumlu, şifreli altyapı kullanıyoruz. Verileriniz asla üçüncü taraflarla paylaşılmaz, yurt dışına aktarılmaz.</p>
-      </div>
+      <div class="card" style="text-align:center"><div class="card-glow"></div><span class="card-icon">🎯</span><h3>Size Özel Çözüm</h3><p>Her işletme farklıdır. Hazır paket değil, ihtiyacınıza özel AI çözümü tasarlıyoruz. Sektörünüzü, müşteri kitlenizi ve operasyonel ihtiyaçlarınızı analiz ederek size en uygun sistemi kuruyoruz.</p></div>
+      <div class="card" style="text-align:center"><div class="card-glow"></div><span class="card-icon">⚡</span><h3>Hızlı Kurulum</h3><p>Ortalama 3 iş gününde sisteminiz hazır. Sıfır teknik bilgi gerekir. Kurulum sonrası kullanıcı eğitimi veriyor, ekibinizin sistemi hemen kullanmasını sağlıyoruz.</p></div>
+      <div class="card" style="text-align:center"><div class="card-glow"></div><span class="card-icon">💬</span><h3>7/24 Canlı Destek</h3><p>WhatsApp üzerinden her an ulaşabileceğiniz gerçek insan desteği. Mesai saatleri içinde 2 saat, mesai dışı 4 saat içinde dönüş garantisi veriyoruz.</p></div>
+      <div class="card" style="text-align:center"><div class="card-glow"></div><span class="card-icon">🔒</span><h3>Veri Güvenliği</h3><p>Verileriniz Türkiye'de kalır. KVKK uyumlu, şifreli altyapı kullanıyoruz. Verileriniz asla üçüncü taraflarla paylaşılmaz, yurt dışına aktarılmaz.</p></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ ÇALIŞMA SÜRECİ ═══ -->
-<section class="container">
-  <span class="section-label">Nasıl Başlarız?</span>
-  <h2 class="section-title">4 Adımda <span>AI'ye Geçin</span></h2>
+<div class="beam-sep"></div>
+<section class="container" style="position:relative">
+  <div class="section-atmo" style="--sa-color:rgba(0,229,255,.035)"></div>
+  <span class="section-label rev">Nasıl Başlarız?</span>
+  <h2 class="section-title rev">4 Adımda <span>AI'ye Geçin</span></h2>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:40px">
     <div style="text-align:center;position:relative">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(56,189,248,0.1);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">1</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.6);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;box-shadow:0 0 24px rgba(0,229,255,.2)">1</div>
       <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Keşif</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">15 dk ücretsiz görüşme. İhtiyaçlarınızı anlıyoruz.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">15 dk ücretsiz görüşme. İhtiyaçlarınızı anlıyoruz.</p>
     </div>
     <div style="text-align:center;position:relative">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(99,102,241,0.1);border:2px solid var(--indigo);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">2</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(139,92,246,.1);border:2px solid rgba(139,92,246,.6);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;box-shadow:0 0 24px rgba(139,92,246,.2)">2</div>
       <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Teklif</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">Size özel çözüm planı ve şeffaf fiyat teklifi.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">Size özel çözüm planı ve şeffaf fiyat teklifi.</p>
     </div>
     <div style="text-align:center;position:relative">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(251,191,36,0.1);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">3</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(245,158,11,.1);border:2px solid rgba(245,158,11,.6);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;box-shadow:0 0 24px rgba(245,158,11,.2)">3</div>
       <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Kurulum</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">3 iş günü içinde sisteminiz hazır, eğitiminiz verilir.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">3 iş günü içinde sisteminiz hazır, eğitiminiz verilir.</p>
     </div>
     <div style="text-align:center;position:relative">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(16,185,129,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">4</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(16,185,129,.1);border:2px solid rgba(16,185,129,.6);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;box-shadow:0 0 24px rgba(16,185,129,.2)">4</div>
       <h3 style="font-size:15px;font-weight:700;margin-bottom:4px">Canlı</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.5">Sisteminiz yayında. 7/24 destek yanınızdayız.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.5">Sisteminiz yayında. 7/24 destek yanınızdayız.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══ TEKLİF ═══ -->
-<section id="teklif" style="background:rgba(10,10,26,0.3);">
+<div class="beam-sep"></div>
+<section id="teklif" style="position:relative;z-index:1;padding:100px 0;">
+  <div class="section-atmo" style="--sa-color:rgba(245,158,11,.04)"></div>
   <div class="container" style="text-align:center">
-    <span class="section-label">Özel Teklif</span>
-    <h2 class="section-title">Her İşletmeye <span>Özel Fiyat</span></h2>
-    <p style="font-size:14px;color:rgba(255,255,255,0.4);max-width:580px;margin:0 auto 48px;line-height:1.8">
-      Hazır paket yok — çünkü her işletme farklı. İhtiyacınızı dinliyor, size özel çözüm tasarlıyor ve <strong style="color:rgba(255,255,255,0.7)">şeffaf fiyat teklifi</strong> sunuyoruz. 15 dakika yeterli.
+    <span class="section-label rev">Özel Teklif</span>
+    <h2 class="section-title rev">Her İşletmeye <span>Özel Fiyat</span></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.4);max-width:580px;margin:0 auto 48px;line-height:1.8">
+      Hazır paket yok — çünkü her işletme farklı. İhtiyacınızı dinliyor, size özel çözüm tasarlıyor ve <strong style="color:rgba(255,255,255,.7)">şeffaf fiyat teklifi</strong> sunuyoruz. 15 dakika yeterli.
     </p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:820px;margin:0 auto 48px">
-      <div class="card" style="text-align:center;padding:28px 20px">
-        <div class="card-glow"></div>
-        <div style="font-size:32px;margin-bottom:14px">🎯</div>
-        <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">İhtiyaç Analizi</h3>
-        <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6">İşletmenizi ve süreçlerinizi dinliyoruz. Neye ihtiyaç var anlıyoruz.</p>
-      </div>
-      <div class="card" style="text-align:center;padding:28px 20px;border-color:rgba(56,189,248,0.18);box-shadow:0 0 30px rgba(56,189,248,0.06)">
-        <div class="card-glow"></div>
-        <div style="font-size:32px;margin-bottom:14px">💡</div>
-        <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">Çözüm Planı</h3>
-        <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6">Size özel AI çözümü ve detaylı uygulama yol haritası hazırlıyoruz.</p>
-      </div>
-      <div class="card" style="text-align:center;padding:28px 20px">
-        <div class="card-glow"></div>
-        <div style="font-size:32px;margin-bottom:14px">💰</div>
-        <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">Net Fiyat</h3>
-        <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6">Gizli ücret yok. Görüşmede şeffaf ve kesin fiyat teklifi alıyorsunuz.</p>
-      </div>
+      <div class="card" style="text-align:center;padding:28px 20px"><div class="card-glow"></div><div style="font-size:32px;margin-bottom:14px">🎯</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px">İhtiyaç Analizi</h3><p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.6">İşletmenizi ve süreçlerinizi dinliyoruz. Neye ihtiyaç var anlıyoruz.</p></div>
+      <div class="card" style="text-align:center;padding:28px 20px;border-color:rgba(0,229,255,.22);box-shadow:0 0 40px rgba(0,229,255,.06)"><div class="card-glow"></div><div style="font-size:32px;margin-bottom:14px">💡</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px">Çözüm Planı</h3><p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.6">Size özel AI çözümü ve detaylı uygulama yol haritası hazırlıyoruz.</p></div>
+      <div class="card" style="text-align:center;padding:28px 20px"><div class="card-glow"></div><div style="font-size:32px;margin-bottom:14px">💰</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px">Net Fiyat</h3><p style="font-size:12px;color:rgba(255,255,255,.35);line-height:1.6">Gizli ücret yok. Görüşmede şeffaf ve kesin fiyat teklifi alıyorsunuz.</p></div>
     </div>
-    <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:18px 52px;box-shadow:0 0 50px rgba(56,189,248,0.25)">
-      Ücretsiz Teklif Al →
-    </a>
-    <p style="font-size:11px;color:rgba(255,255,255,0.18);margin-top:14px;letter-spacing:1px">15 DAKİKA &nbsp;·&nbsp; ÜCRETSİZ &nbsp;·&nbsp; BAĞLAYICI DEĞİL</p>
+    <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:18px 52px">Ücretsiz Teklif Al →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,.18);margin-top:14px;letter-spacing:1px">15 DAKİKA &nbsp;·&nbsp; ÜCRETSİZ &nbsp;·&nbsp; BAĞLAYICI DEĞİL</p>
   </div>
 </section>
 
-<!-- CTA Banner -->
-<div class="container" style="text-align:center;padding:48px 0">
-  <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.1);border-radius:24px;padding:48px 24px;text-align:center">
-    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">İşletmenize özel <span style="color:var(--cyan)">ücretsiz analiz</span> için hazır mısınız?</h3>
-    <p style="font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:24px">15 dakikalık keşif görüşmesinde ihtiyaçlarınızı anlıyor, size özel çözüm önerisi sunuyoruz.</p>
+<!-- CTA BANNER -->
+<div class="container" style="text-align:center;padding:48px 0;position:relative;z-index:1">
+  <div style="background:linear-gradient(135deg,rgba(0,229,255,.07),rgba(124,58,237,.07));border:1px solid rgba(0,229,255,.15);border-radius:24px;padding:48px 24px;text-align:center;backdrop-filter:blur(20px);box-shadow:0 0 60px rgba(0,229,255,.04) inset,0 4px 40px rgba(0,0,0,.3)">
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:8px">İşletmenize özel <span style="color:#00e5ff;text-shadow:0 0 20px rgba(0,229,255,.5)">ücretsiz analiz</span> için hazır mısınız?</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,.35);margin-bottom:24px">15 dakikalık keşif görüşmesinde ihtiyaçlarınızı anlıyor, size özel çözüm önerisi sunuyoruz.</p>
     <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:16px;padding:16px 40px">WhatsApp'tan Başlayın →</a>
   </div>
 </div>
 
 <!-- ═══ AI MOTORU ═══ -->
-<section id="ai-motor" style="padding:72px 0 48px;overflow:hidden">
+<div class="beam-sep"></div>
+<section id="ai-motor" style="padding:72px 0 48px;overflow:hidden;position:relative;z-index:1">
+  <div class="section-atmo" style="--sa-color:rgba(139,92,246,.05)"></div>
   <div class="container" style="text-align:center">
-    <span class="section-label">Altyapı</span>
-    <h2 class="section-title">AI <span>Motoru</span></h2>
-    <p style="font-size:14px;color:rgba(255,255,255,0.35);max-width:560px;margin:0 auto 36px;line-height:1.75">Tek bir model yetmez — farklı görevler için en güçlü AI motorlarını seçiyor, birleştiriyor ve iş akışınıza entegre ediyoruz.</p>
+    <span class="section-label rev">Altyapı</span>
+    <h2 class="section-title rev">AI <span>Motoru</span></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.35);max-width:560px;margin:0 auto 36px;line-height:1.75">Tek bir model yetmez — farklı görevler için en güçlü AI motorlarını seçiyor, birleştiriyor ve iş akışınıza entegre ediyoruz.</p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:44px">
-      <span style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#38bdf8">DeepSeek V3</span>
-      <span style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#818cf8">Llama 3.3</span>
-      <span style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#a78bfa">Qwen 3</span>
-      <span style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#7dd3fc">Gemma 3</span>
-      <span style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#fbbf24">Gemini Flash</span>
-      <span style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.18);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.8px;color:#6366f1">GPT-4o</span>
+      <span style="background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.28);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#00e5ff;box-shadow:0 0 12px rgba(0,229,255,.15)">DeepSeek V3</span>
+      <span style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.28);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#a78bfa;box-shadow:0 0 12px rgba(139,92,246,.15)">Llama 3.3</span>
+      <span style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.28);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#c084fc;box-shadow:0 0 12px rgba(168,85,247,.15)">Qwen 3</span>
+      <span style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.22);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#7dd3fc;box-shadow:0 0 12px rgba(96,165,250,.1)">Gemma 3</span>
+      <span style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.22);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#fbbf24;box-shadow:0 0 12px rgba(245,158,11,.1)">Gemini Flash</span>
+      <span style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.22);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;color:#818cf8;box-shadow:0 0 12px rgba(99,102,241,.1)">GPT-4o</span>
     </div>
   </div>
   <div style="position:relative;height:400px">
@@ -753,147 +699,99 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
   </div>
   <div class="container" style="text-align:center;margin-top:36px">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:580px;margin:0 auto">
-      <div><div style="font-size:24px;font-weight:900;color:#38bdf8;margin-bottom:4px">7+</div><div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.5px">AI Model</div></div>
-      <div><div style="font-size:24px;font-weight:900;color:#818cf8;margin-bottom:4px">%99.9</div><div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.5px">Uptime</div></div>
-      <div><div style="font-size:24px;font-weight:900;color:#a78bfa;margin-bottom:4px">&lt;2sn</div><div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.5px">Yanıt Süresi</div></div>
+      <div><div class="stat-num" style="font-size:24px">7+</div><div style="font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px">AI Model</div></div>
+      <div><div class="stat-num" style="font-size:24px">%99.9</div><div style="font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px">Uptime</div></div>
+      <div><div class="stat-num" style="font-size:24px">&lt;2sn</div><div style="font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px">Yanıt Süresi</div></div>
     </div>
   </div>
 </section>
 <script>
 (function(){
-  var c=document.getElementById('nn-canvas');
-  if(!c)return;
-  var ctx=c.getContext('2d');
-  var W=0,H=0,nodes=[],edges=[];
+  var c=document.getElementById('nn-canvas');if(!c)return;
+  var ctx=c.getContext('2d');var W=0,H=0,nodes=[],edges=[];
   var LAYERS=[4,6,8,6,3];
-  var RGB=[[56,189,248],[99,102,241],[139,92,246],[99,102,241],[56,189,248]];
-  function resize(){
-    var par=c.parentElement;
-    W=c.width=par.offsetWidth;
-    H=c.height=par.offsetHeight||400;
-    build();
+  var RGB=[[0,229,255],[139,92,246],[168,85,247],[139,92,246],[0,229,255]];
+  function resize(){var par=c.parentElement;W=c.width=par.offsetWidth;H=c.height=par.offsetHeight||400;build();}
+  function build(){nodes=[];edges=[];var ml=Math.max(80,W*.1),usW=W-ml*2;
+    for(var l=0;l<LAYERS.length;l++){var n=LAYERS[l],lx=ml+(l/(LAYERS.length-1))*usW;var gap=Math.min(54,(H-100)/n);for(var i=0;i<n;i++)nodes.push({x:lx,y:H/2+(i-(n-1)/2)*gap,l:l,ph:Math.random()*6.28,r:RGB[l]});}
+    var byL=[];for(var l=0;l<LAYERS.length;l++)byL.push(nodes.filter(function(nd){return nd.l===l;}));
+    for(var l=0;l<LAYERS.length-1;l++)byL[l].forEach(function(a){byL[l+1].forEach(function(b){edges.push({x1:a.x,y1:a.y,x2:b.x,y2:b.y});});});
   }
-  function build(){
-    nodes=[];edges=[];
-    var ml=Math.max(80,W*0.1),usW=W-ml*2;
-    for(var l=0;l<LAYERS.length;l++){
-      var n=LAYERS[l],lx=ml+(l/(LAYERS.length-1))*usW;
-      var gap=Math.min(54,(H-100)/n);
-      for(var i=0;i<n;i++){
-        nodes.push({x:lx,y:H/2+(i-(n-1)/2)*gap,l:l,ph:Math.random()*6.28,r:RGB[l]});
-      }
-    }
-    var byL=[];
-    for(var l=0;l<LAYERS.length;l++){byL.push(nodes.filter(function(nd){return nd.l===l;}));}
-    for(var l=0;l<LAYERS.length-1;l++){
-      byL[l].forEach(function(a){
-        byL[l+1].forEach(function(b){
-          edges.push({x1:a.x,y1:a.y,x2:b.x,y2:b.y});
-        });
-      });
-    }
-  }
-  resize();
-  window.addEventListener('resize',function(){resize();});
+  resize();window.addEventListener('resize',function(){resize();});
   var parts=[],lastSpawn=0;
-  function animate(ts){
-    requestAnimationFrame(animate);
-    ctx.clearRect(0,0,W,H);
-    if(ts-lastSpawn>55){
-      lastSpawn=ts;
-      var e=edges[Math.floor(Math.random()*edges.length)];
-      if(e&&parts.length<80)parts.push({e:e,t:0,spd:0.007+Math.random()*0.013});
-    }
-    for(var i=0;i<edges.length;i++){
-      var e=edges[i];
-      ctx.beginPath();
-      ctx.strokeStyle='rgba(99,102,241,0.07)';
-      ctx.lineWidth=0.7;
-      ctx.moveTo(e.x1,e.y1);ctx.lineTo(e.x2,e.y2);ctx.stroke();
-    }
-    for(var i=parts.length-1;i>=0;i--){
-      var p=parts[i];p.t+=p.spd;
-      if(p.t>1){parts.splice(i,1);continue;}
-      var px=p.e.x1+(p.e.x2-p.e.x1)*p.t;
-      var py=p.e.y1+(p.e.y2-p.e.y1)*p.t;
-      var al=Math.sin(p.t*Math.PI);
-      var gr=ctx.createRadialGradient(px,py,0,px,py,12);
-      gr.addColorStop(0,'rgba(56,189,248,'+(al*0.55)+')');
-      gr.addColorStop(1,'rgba(56,189,248,0)');
-      ctx.beginPath();ctx.arc(px,py,12,0,6.283);ctx.fillStyle=gr;ctx.fill();
-      ctx.beginPath();ctx.arc(px,py,2.5,0,6.283);
-      ctx.fillStyle='rgba(56,189,248,'+al+')';ctx.fill();
-    }
-    var t=ts*0.001;
-    nodes.forEach(function(nd){
-      var pulse=0.5+0.5*Math.sin(t*1.3+nd.ph);
-      var rgb=nd.r;
-      var gr=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,16+pulse*6);
-      gr.addColorStop(0,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+(0.18+pulse*0.12)+')');
+  function animate(ts){requestAnimationFrame(animate);ctx.clearRect(0,0,W,H);
+    if(ts-lastSpawn>50){lastSpawn=ts;var e=edges[Math.floor(Math.random()*edges.length)];if(e&&parts.length<90)parts.push({e:e,t:0,spd:.007+Math.random()*.014});}
+    for(var i=0;i<edges.length;i++){var e=edges[i];ctx.beginPath();ctx.strokeStyle='rgba(0,229,255,0.06)';ctx.lineWidth=.8;ctx.moveTo(e.x1,e.y1);ctx.lineTo(e.x2,e.y2);ctx.stroke();}
+    for(var i=parts.length-1;i>=0;i--){var p=parts[i];p.t+=p.spd;if(p.t>1){parts.splice(i,1);continue;}
+      var px=p.e.x1+(p.e.x2-p.e.x1)*p.t,py=p.e.y1+(p.e.y2-p.e.y1)*p.t,al=Math.sin(p.t*Math.PI);
+      var gr=ctx.createRadialGradient(px,py,0,px,py,14);gr.addColorStop(0,'rgba(0,229,255,'+(al*.6)+')');gr.addColorStop(1,'rgba(0,229,255,0)');
+      ctx.beginPath();ctx.arc(px,py,14,0,6.283);ctx.fillStyle=gr;ctx.fill();
+      ctx.beginPath();ctx.arc(px,py,2.5,0,6.283);ctx.fillStyle='rgba(0,229,255,'+al+')';ctx.fill();}
+    var t=ts*.001;
+    nodes.forEach(function(nd){var pulse=.5+.5*Math.sin(t*1.3+nd.ph),rgb=nd.r;
+      var gr=ctx.createRadialGradient(nd.x,nd.y,0,nd.x,nd.y,18+pulse*7);
+      gr.addColorStop(0,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+(0.2+pulse*.14)+')');
       gr.addColorStop(1,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',0)');
-      ctx.beginPath();ctx.arc(nd.x,nd.y,16+pulse*6,0,6.283);ctx.fillStyle=gr;ctx.fill();
-      ctx.beginPath();ctx.arc(nd.x,nd.y,5,0,6.283);
-      ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';ctx.fill();
-      ctx.beginPath();ctx.arc(nd.x,nd.y,2.5,0,6.283);
-      ctx.fillStyle='rgba(255,255,255,0.85)';ctx.fill();
-    });
+      ctx.beginPath();ctx.arc(nd.x,nd.y,18+pulse*7,0,6.283);ctx.fillStyle=gr;ctx.fill();
+      ctx.beginPath();ctx.arc(nd.x,nd.y,5.5,0,6.283);ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';ctx.fill();
+      ctx.beginPath();ctx.arc(nd.x,nd.y,2.5,0,6.283);ctx.fillStyle='rgba(255,255,255,.9)';ctx.fill();});
   }
   requestAnimationFrame(animate);
 })();
 </script>
 
 <!-- ═══ DEMOS ═══ -->
-<section class="container">
-  <span class="section-label">Demo</span>
-  <h2 class="section-title">Canlı <span>Deneyin</span></h2>
+<div class="beam-sep"></div>
+<section class="container" style="position:relative;z-index:1">
+  <div class="section-atmo" style="--sa-color:rgba(0,229,255,.04)"></div>
+  <span class="section-label rev">Demo</span>
+  <h2 class="section-title rev">Canlı <span>Deneyin</span></h2>
   <div class="grid-3">
-    <a href="demo/chatbot.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">💬</span><h3>AI Sohbet</h3><p>Canlı chatbot demo <span class="demo-arrow">→</span></p>
-    </a>
-    <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">📑</span><h3>Muhasebe</h3><p>AI fatura okuyucu <span class="demo-arrow">→</span></p>
-    </a>
-    <a href="cozum-paneli.html" class="card" style="text-decoration:none;color:var(--white)">
-      <div class="card-glow"></div><span class="card-icon">📊</span><h3>Panel</h3><p>Çözüm yönetim paneli <span class="demo-arrow">→</span></p>
-    </a>
+    <a href="demo/chatbot.html" class="card" style="text-decoration:none;color:var(--white)"><div class="card-glow"></div><span class="card-icon">💬</span><h3>AI Sohbet</h3><p>Canlı chatbot demo <span class="demo-arrow">→</span></p></a>
+    <a href="muhasebe.html" class="card" style="text-decoration:none;color:var(--white)"><div class="card-glow"></div><span class="card-icon">📑</span><h3>Muhasebe</h3><p>AI fatura okuyucu <span class="demo-arrow">→</span></p></a>
+    <a href="cozum-paneli.html" class="card" style="text-decoration:none;color:var(--white)"><div class="card-glow"></div><span class="card-icon">📊</span><h3>Panel</h3><p>Çözüm yönetim paneli <span class="demo-arrow">→</span></p></a>
   </div>
 </section>
 
 <!-- ═══ SSS ═══ -->
-<section id="sss" style="background:rgba(10,10,26,0.3);">
+<div class="beam-sep"></div>
+<section id="sss" style="position:relative;z-index:1;padding:100px 0;">
+  <div class="section-atmo" style="--sa-color:rgba(139,92,246,.04)"></div>
   <div class="container">
-    <span class="section-label">SSS</span>
-    <h2 class="section-title">Merak <span>Edilenler</span></h2>
+    <span class="section-label rev">SSS</span>
+    <h2 class="section-title rev">Merak <span>Edilenler</span></h2>
     <div style="max-width:700px;margin:0 auto">
-      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
-        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">AI çözümleri ne kadar sürede kurulur?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
-        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Ortalama 3 iş günü içinde sisteminiz hazır olur. WhatsApp entegrasyonu için telefon numaranızın olması yeterli. Kurulum sürecinde size teknik destek sağlıyoruz.</div>
+      <div class="faq-item" style="background:linear-gradient(145deg,rgba(0,229,255,.03),rgba(4,4,22,.78));border:1px solid rgba(0,229,255,.08);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:.3s;backdrop-filter:blur(20px)">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">AI çözümleri ne kadar sürede kurulur?<span style="color:#00e5ff;font-size:18px;transition:.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Ortalama 3 iş günü içinde sisteminiz hazır olur. WhatsApp entegrasyonu için telefon numaranızın olması yeterli. Kurulum sürecinde size teknik destek sağlıyoruz.</div>
       </div>
-      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
-        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Teknik bilgim yok, kullanabilir miyim?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
-        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Evet! Çözümlerimiz sıfır teknik bilgi gerektirir. WhatsApp'tan mesaj atar gibi kullanırsınız. Kurulum ve eğitimi biz sağlıyoruz.</div>
+      <div class="faq-item" style="background:linear-gradient(145deg,rgba(0,229,255,.03),rgba(4,4,22,.78));border:1px solid rgba(0,229,255,.08);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:.3s;backdrop-filter:blur(20px)">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Teknik bilgim yok, kullanabilir miyim?<span style="color:#00e5ff;font-size:18px;transition:.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Evet! Çözümlerimiz sıfır teknik bilgi gerektirir. WhatsApp'tan mesaj atar gibi kullanırsınız. Kurulum ve eğitimi biz sağlıyoruz.</div>
       </div>
-      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
-        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Verilerim güvende mi?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
-        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Kesinlikle. Tüm verileriniz Türkiye'de saklanır, KVKK uyumlu altyapı kullanırız. Verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
+      <div class="faq-item" style="background:linear-gradient(145deg,rgba(0,229,255,.03),rgba(4,4,22,.78));border:1px solid rgba(0,229,255,.08);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:.3s;backdrop-filter:blur(20px)">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Verilerim güvende mi?<span style="color:#00e5ff;font-size:18px;transition:.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Kesinlikle. Tüm verileriniz Türkiye'de saklanır, KVKK uyumlu altyapı kullanırız. Verileriniz asla üçüncü taraflarla paylaşılmaz.</div>
       </div>
-      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
-        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Paket değiştirebilir miyim?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
-        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Tabii ki. İhtiyacınız değiştikçe paketinizi yükseltebilir veya düşürebilirsiniz. Herhangi bir cayma bedeli yoktur.</div>
+      <div class="faq-item" style="background:linear-gradient(145deg,rgba(0,229,255,.03),rgba(4,4,22,.78));border:1px solid rgba(0,229,255,.08);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:.3s;backdrop-filter:blur(20px)">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Paket değiştirebilir miyim?<span style="color:#00e5ff;font-size:18px;transition:.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Tabii ki. İhtiyacınız değiştikçe paketinizi yükseltebilir veya düşürebilirsiniz. Herhangi bir cayma bedeli yoktur.</div>
       </div>
-      <div class="faq-item" style="background:rgba(15,15,40,0.4);border:1px solid rgba(56,189,248,0.06);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:0.3s">
-        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Ödeme ve sözleşme nasıl?<span style="color:var(--cyan);font-size:18px;transition:0.3s">+</span></div>
-        <div class="faq-a" style="max-height:0;overflow:hidden;transition:0.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6">Aylık fatura karşılığı çalışıyoruz. 12 aylık sözleşme ile hizmet veriyoruz. Ödemelerinizi banka havalesi veya kredi kartı ile yapabilirsiniz.</div>
+      <div class="faq-item" style="background:linear-gradient(145deg,rgba(0,229,255,.03),rgba(4,4,22,.78));border:1px solid rgba(0,229,255,.08);border-radius:16px;margin-bottom:8px;overflow:hidden;transition:.3s;backdrop-filter:blur(20px)">
+        <div class="faq-q" style="padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;user-select:none">Ödeme ve sözleşme nasıl?<span style="color:#00e5ff;font-size:18px;transition:.3s">+</span></div>
+        <div class="faq-a" style="max-height:0;overflow:hidden;transition:.3s;padding:0 20px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6">Aylık fatura karşılığı çalışıyoruz. 12 aylık sözleşme ile hizmet veriyoruz. Ödemelerinizi banka havalesi veya kredi kartı ile yapabilirsiniz.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CONTACT ═══ -->
-<section id="iletisim" style="background:rgba(10,10,26,0.3);">
+<!-- ═══ İLETİŞİM ═══ -->
+<div class="beam-sep"></div>
+<section id="iletisim" style="position:relative;z-index:1;padding:100px 0;">
+  <div class="section-atmo" style="--sa-color:rgba(0,229,255,.05)"></div>
   <div class="container" style="text-align:center">
-    <span class="section-label">İletişim</span>
-    <h2 class="section-title">Bize <span>Ulaşın</span></h2>
+    <span class="section-label rev">İletişim</span>
+    <h2 class="section-title rev">Bize <span>Ulaşın</span></h2>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="https://wa.me/905303982712" class="btn btn-primary" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       <a href="mailto:kivon.iletisim@gmail.com" class="btn btn-glass">E-Posta</a>
@@ -905,36 +803,36 @@ div[style*="linear-gradient(135deg,rgba(56,189,248,0.08)"] {
 <footer>
   <div class="container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:left;margin-bottom:24px">
     <div>
-      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">KIVON</h4>
-      <p style="font-size:12px;color:rgba(255,255,255,0.25);line-height:1.6">Türkiye merkezli AI entegrasyon danışmanlığı. KOBİ'lere özel yapay zeka çözümleri.</p>
+      <h4 style="font-size:12px;font-weight:700;color:#00e5ff;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-shadow:0 0 12px rgba(0,229,255,.4)">KIVON</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,.25);line-height:1.6">Türkiye merkezli AI entegrasyon danışmanlığı. KOBİ'lere özel yapay zeka çözümleri.</p>
     </div>
     <div>
-      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Çözümler</h4>
-      <a href="servis-katalogu.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Tüm Çözümler</a>
-      <a href="30-cozum.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">AI Çözümler</a>
-      <a href="urunler.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Paketler</a>
-      <a href="blog.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Blog</a>
+      <h4 style="font-size:12px;font-weight:700;color:#00e5ff;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Çözümler</h4>
+      <a href="servis-katalogu.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Tüm Çözümler</a>
+      <a href="30-cozum.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">AI Çözümler</a>
+      <a href="urunler.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Paketler</a>
+      <a href="blog.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Blog</a>
     </div>
     <div>
-      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Araçlar</h4>
-      <a href="dashboard.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Dashboard</a>
-      <a href="api-dokuman.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">API</a>
+      <h4 style="font-size:12px;font-weight:700;color:#00e5ff;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Araçlar</h4>
+      <a href="dashboard.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Dashboard</a>
+      <a href="api-dokuman.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">API</a>
     </div>
     <div>
-      <h4 style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Kurumsal</h4>
-      <a href="hakkimizda.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Hakkımızda</a>
-      <a href="referanslar.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Referanslar</a>
-      <a href="sss.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">SSS</a>
-      <a href="gizlilik-politikasi.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Gizlilik</a>
-      <a href="basvuru.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Başvuru</a>
-      <a href="site-haritasi.html" style="display:block;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;margin-bottom:6px">Site Haritası</a>
+      <h4 style="font-size:12px;font-weight:700;color:#00e5ff;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">Kurumsal</h4>
+      <a href="hakkimizda.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Hakkımızda</a>
+      <a href="referanslar.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Referanslar</a>
+      <a href="sss.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">SSS</a>
+      <a href="gizlilik-politikasi.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Gizlilik</a>
+      <a href="basvuru.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Başvuru</a>
+      <a href="site-haritasi.html" style="display:block;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;margin-bottom:6px">Site Haritası</a>
     </div>
   </div>
-  <p>© 2026 Kivon · Turkiye · kivontr.com · <a href="https://wa.me/905303982712" style="color:rgba(255,255,255,0.2)">WhatsApp</a> · <a href="mailto:kivon.iletisim@gmail.com" style="color:rgba(255,255,255,0.2)">E-Posta</a></p>
-  <p style="font-size:10px;color:rgba(255,255,255,0.08);margin-top:8px">Son güncelleme: 22 Mayıs 2026</p>
+  <p>© 2026 Kivon · Turkiye · kivontr.com · <a href="https://wa.me/905303982712" style="color:rgba(255,255,255,.2)">WhatsApp</a> · <a href="mailto:kivon.iletisim@gmail.com" style="color:rgba(255,255,255,.2)">E-Posta</a></p>
+  <p style="font-size:10px;color:rgba(255,255,255,.08);margin-top:8px">Son güncelleme: 30 Mayıs 2026</p>
 </footer>
 
-<!-- ═══ 3D HELIX ═══ -->
+<!-- ═══ CINEMATIC THREE.JS SCENE ═══ -->
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -942,378 +840,466 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-const isMobile=innerWidth<768,isTablet=innerWidth<1024;
-const N=isMobile?2000:isTablet?5000:8000;
+const isMob = innerWidth < 768, isTab = innerWidth < 1024;
+const N = isMob ? 3500 : isTab ? 9000 : 18000;
 
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,1000);
-camera.position.set(0,1,14);
+/* ── Scene ── */
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
+camera.position.set(0, 1, 14);
 
-const renderer=new THREE.WebGLRenderer({antialias:!isMobile,alpha:true});
-renderer.setSize(innerWidth,innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1:2));
+const renderer = new THREE.WebGLRenderer({ antialias: !isMob, alpha: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMob ? 1 : 2));
+renderer.setClearColor(0x000000, 0);
 document.getElementById('c').appendChild(renderer.domElement);
 
-const composer=new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene,camera));
-composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),isMobile?0.15:0.25,0.4,0.1));
+/* ── Post-processing: richer bloom ── */
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight),
+  isMob ? 0.4 : 0.7,   // strength
+  0.35,                  // radius
+  0.05                   // threshold
+);
+composer.addPass(bloom);
 
-const controls=new OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;controls.dampingFactor=0.05;controls.autoRotate=true;
-controls.autoRotateSpeed=1;controls.enableZoom=false;controls.enablePan=false;
-controls.maxPolarAngle=Math.PI/2;controls.minPolarAngle=0;
+/* ── Controls ── */
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.05;
+controls.autoRotate = true; controls.autoRotateSpeed = 0.6;
+controls.enableZoom = false; controls.enablePan = false;
+controls.maxPolarAngle = Math.PI * .62; controls.minPolarAngle = Math.PI * .25;
 
-const pos=new Float32Array(N*3),col=new Float32Array(N*3);
-const src=new Float32Array(N*3),dst=new Float32Array(N*3);
-const c1=new THREE.Color('#38bdf8'),c2=new THREE.Color('#6366f1'),c3=new THREE.Color('#fbbf24'),c4=new THREE.Color('#7dd3fc');
+/* ── Section palettes (8 gradient stops) ── */
+const PALS = [
+  ['#00e5ff','#4f46e5','#7c3aed','#22d3ee'],   // hero
+  ['#22d3ee','#8b5cf6','#00b4d8','#a78bfa'],    // stats
+  ['#00e5ff','#6366f1','#8b5cf6','#38bdf8'],    // cozumler
+  ['#f59e0b','#22d3ee','#00e5ff','#fbbf24'],    // surec
+  ['#8b5cf6','#00e5ff','#a855f7','#22d3ee'],    // sektorler
+  ['#10b981','#00e5ff','#22d3ee','#34d399'],    // neden
+  ['#f59e0b','#7c3aed','#fbbf24','#8b5cf6'],    // teklif
+  ['#1e40af','#312e81','#1e3a8a','#1e40af'],    // footer
+];
+let palIdx = 0;
+const c1 = new THREE.Color(), c2 = new THREE.Color(), c3 = new THREE.Color(), c4 = new THREE.Color();
 
-for(let i=0;i<N;i++){
-  const t=i/N,angle=t*Math.PI*12,r=2.5+Math.sin(t*Math.PI*5)*1;
-  src[i*3]=Math.cos(angle)*r;src[i*3+1]=(t-0.5)*6+Math.sin(t*Math.PI*8)*0.2;src[i*3+2]=Math.sin(angle)*r;
-  const rad=5+Math.random()*8,theta=Math.random()*Math.PI*2,phi=Math.acos(2*Math.random()-1);
-  dst[i*3]=Math.sin(phi)*Math.cos(theta)*rad;dst[i*3+1]=Math.sin(phi)*Math.sin(theta)*rad;dst[i*3+2]=Math.cos(phi)*rad;
-  pos[i*3]=src[i*3];pos[i*3+1]=src[i*3+1];pos[i*3+2]=src[i*3+2];
-  const ci=i%4===0?c1:i%4===1?c2:i%4===2?c3:c4;
-  col[i*3]=ci.r;col[i*3+1]=ci.g;col[i*3+2]=ci.b;
+function applyPalette(idx) {
+  const p = PALS[Math.min(idx, PALS.length-1)];
+  c1.set(p[0]); c2.set(p[1]); c3.set(p[2]); c4.set(p[3]);
+}
+applyPalette(0);
+
+/* ── Particles: 5 morph targets ── */
+const pos  = new Float32Array(N*3);
+const col  = new Float32Array(N*3);
+const src  = new Float32Array(N*3);
+const dst  = new Float32Array(N*3);
+const tmp  = new Float32Array(N*3);
+
+// Formation builder
+function buildHelix(buf) {
+  for(let i=0;i<N;i++){
+    const t=i/N, ang=t*Math.PI*14, r=2.4+Math.sin(t*Math.PI*6)*.9;
+    buf[i*3]   = Math.cos(ang)*r;
+    buf[i*3+1] = (t-.5)*8 + Math.sin(t*Math.PI*10)*.15;
+    buf[i*3+2] = Math.sin(ang)*r;
+  }
+}
+function buildSphere(buf) {
+  for(let i=0;i<N;i++){
+    const r=4.5+Math.random()*.5;
+    const theta=Math.random()*Math.PI*2;
+    const phi=Math.acos(2*Math.random()-1);
+    buf[i*3]   = r*Math.sin(phi)*Math.cos(theta);
+    buf[i*3+1] = r*Math.sin(phi)*Math.sin(theta);
+    buf[i*3+2] = r*Math.cos(phi);
+  }
+}
+function buildGalaxy(buf) {
+  for(let i=0;i<N;i++){
+    const arm = Math.floor(Math.random()*4);
+    const t=Math.random();
+    const ang=t*Math.PI*5 + arm*(Math.PI/2);
+    const r=t*6+.5;
+    const spread=(1-t)*1.2;
+    buf[i*3]   = Math.cos(ang)*r + (Math.random()-.5)*spread;
+    buf[i*3+1] = (Math.random()-.5)*spread*.5;
+    buf[i*3+2] = Math.sin(ang)*r + (Math.random()-.5)*spread;
+  }
+}
+function buildVortex(buf) {
+  for(let i=0;i<N;i++){
+    const t=i/N, ang=t*Math.PI*20;
+    const r=t*5+.2;
+    buf[i*3]   = Math.cos(ang)*r;
+    buf[i*3+1] = (t-.5)*10;
+    buf[i*3+2] = Math.sin(ang)*r;
+  }
+}
+function buildWave(buf) {
+  for(let i=0;i<N;i++){
+    const x=(Math.random()-.5)*14;
+    const z=(Math.random()-.5)*14;
+    const y=Math.sin(x*.9)*Math.cos(z*.9)*1.6+Math.sin(x*.4+z*.4)*1.2;
+    buf[i*3]=x; buf[i*3+1]=y; buf[i*3+2]=z;
+  }
 }
 
-const geo=new THREE.BufferGeometry();
-geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-const pts=new THREE.Points(geo,new THREE.PointsMaterial({
-  size:isMobile?0.05:0.07,vertexColors:true,transparent:true,opacity:0.85,
-  blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true
+const FORMS = [buildHelix, buildSphere, buildGalaxy, buildVortex, buildWave];
+let formIdx=0;
+buildHelix(src); buildSphere(dst);
+
+// Initial positions + colors
+for(let i=0;i<N;i++){
+  pos[i*3]=src[i*3]; pos[i*3+1]=src[i*3+1]; pos[i*3+2]=src[i*3+2];
+  const ci=i%4===0?c1:i%4===1?c2:i%4===2?c3:c4;
+  col[i*3]=ci.r; col[i*3+1]=ci.g; col[i*3+2]=ci.b;
+}
+
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+const pts = new THREE.Points(geo, new THREE.PointsMaterial({
+  size: isMob ? .06 : .085,
+  vertexColors: true,
+  transparent: true,
+  opacity: .9,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+  sizeAttenuation: true
 }));
 scene.add(pts);
 
-const rm=new THREE.MeshBasicMaterial({color:'#38bdf8',transparent:true,opacity:0.1});
-const r1=new THREE.Mesh(new THREE.TorusGeometry(1.8,0.02,16,64),rm);
-r1.rotation.x=Math.PI/3;scene.add(r1);
-const r2=new THREE.Mesh(new THREE.TorusGeometry(2.2,0.015,16,64),rm);
-r2.rotation.x=-Math.PI/4;r2.rotation.y=0.5;scene.add(r2);
+/* ── Floating geometry ── */
+const ringMat = new THREE.MeshBasicMaterial({ color:'#00e5ff', transparent:true, opacity:.12 });
+function addRing(rx,ry,rz,sx,sy,sz) {
+  const m = new THREE.Mesh(new THREE.TorusGeometry(sx,sy,16,64),ringMat);
+  m.rotation.x=rx; m.rotation.y=ry; m.rotation.z=rz; scene.add(m); return m;
+}
+const rings = [
+  addRing(Math.PI/3, 0, 0, 2.0, 0.018, 0, 0, 0),
+  addRing(-Math.PI/4, .5, 0, 2.5, 0.014, 0, 0, 0),
+  addRing(Math.PI/6, .3, Math.PI/5, 3.2, 0.012, 0, 0, 0),
+];
 
-let progress=0,dir=1,_scrollPct=0;
-const p=pts.geometry.attributes.position.array;
+// Icosahedrons (wireframe, floating)
+const icoMat = new THREE.MeshBasicMaterial({ color:'#8b5cf6', wireframe:true, transparent:true, opacity:.06 });
+const icos = [
+  new THREE.Mesh(new THREE.IcosahedronGeometry(1.2,1), icoMat),
+  new THREE.Mesh(new THREE.IcosahedronGeometry(.8,1), icoMat),
+];
+icos[0].position.set(5,2,-3); icos[1].position.set(-5,-1,-2);
+icos.forEach(m=>scene.add(m));
 
+/* ── Morph system ── */
+let progress=0, dir=1, _scrollPct=0, _morphing=false;
+let colorT=0; // for smooth color transitions
+const targetCol = new Float32Array(col);
+
+function refreshColors() {
+  applyPalette(palIdx);
+  for(let i=0;i<N;i++){
+    const ci=i%4===0?c1:i%4===1?c2:i%4===2?c3:c4;
+    targetCol[i*3]=ci.r; targetCol[i*3+1]=ci.g; targetCol[i*3+2]=ci.b;
+  }
+  colorT=0;
+}
+
+// Trigger next morph form
+function nextForm() {
+  if(_morphing) return;
+  _morphing=true;
+  const newIdx=(formIdx+1)%FORMS.length;
+  FORMS[formIdx](src); // current becomes src
+  FORMS[newIdx](dst);  // new becomes dst
+  formIdx=newIdx;
+  progress=0; dir=1;
+  setTimeout(()=>{ _morphing=false; }, 3000);
+}
+
+const p = pts.geometry.attributes.position.array;
+const clr = pts.geometry.attributes.color.array;
+
+function lerp(a,b,t){return a+(b-a)*t;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+
+/* ── Mouse reactive ── */
+let mouseX=0,mouseY=0;
+document.addEventListener('mousemove',e=>{
+  mouseX=(e.clientX/innerWidth-.5)*.8;
+  mouseY=(e.clientY/innerHeight-.5)*.5;
+},{passive:true});
+
+/* ── Animation loop ── */
+let lastSection=-1;
 function anim(){
   requestAnimationFrame(anim);
-  progress+=0.002*dir;
-  if(progress>=1||progress<=0)dir*=-1;
-  const e=progress<0.5?2*progress*progress:1-Math.pow(-2*progress+2,2)/2;
+
+  // Morph particles
+  progress += .0015*dir;
+  if(progress>=1||progress<=0){dir*=-1; if(progress>=1&&!isMob) setTimeout(nextForm,2000);}
+  const e=ease(Math.max(0,Math.min(1,progress)));
   for(let i=0;i<N;i++){
-    p[i*3]=src[i*3]+(dst[i*3]-src[i*3])*e;
-    p[i*3+1]=src[i*3+1]+(dst[i*3+1]-src[i*3+1])*e;
-    p[i*3+2]=src[i*3+2]+(dst[i*3+2]-src[i*3+2])*e;
+    p[i*3]  =lerp(src[i*3],  dst[i*3],  e);
+    p[i*3+1]=lerp(src[i*3+1],dst[i*3+1],e);
+    p[i*3+2]=lerp(src[i*3+2],dst[i*3+2],e);
   }
   pts.geometry.attributes.position.needsUpdate=true;
-  r1.rotation.z+=0.005;r2.rotation.x+=0.003;r2.rotation.y+=0.004;
+
+  // Smooth color transition
+  if(colorT<1){
+    colorT=Math.min(1,colorT+.008);
+    for(let i=0;i<N*3;i++) clr[i]=lerp(clr[i],targetCol[i],colorT*.12);
+    pts.geometry.attributes.color.needsUpdate=true;
+  }
+
+  // Scroll-based section detection
+  const scrollPct = window.scrollY/Math.max(1,document.body.scrollHeight-innerHeight);
+  const secIdx = Math.min(7,Math.floor(scrollPct*8.5));
+  if(secIdx!==lastSection){
+    lastSection=secIdx;
+    palIdx=secIdx;
+    refreshColors();
+    bloom.strength = .4+secIdx*.04;
+  }
+
+  // Scroll camera
+  _scrollPct=Math.min(scrollPct*1.5,1);
+  controls.target.y += (-_scrollPct*2.2-controls.target.y)*.03;
+
+  // Mouse drift
+  camera.position.x += (mouseX*1.2-camera.position.x)*.04;
+  camera.position.y += (-mouseY*.8+1-camera.position.y)*.04;
+
+  // Floating geometry
+  const t=Date.now()*.001;
+  rings[0].rotation.z+=.004; rings[1].rotation.x+=.003; rings[1].rotation.y+=.002;
+  rings[2].rotation.x+=.002; rings[2].rotation.z+=.003;
+  icos[0].rotation.x+=.007; icos[0].rotation.y+=.005;
+  icos[1].rotation.x+=.004; icos[1].rotation.z+=.006;
+  icos[0].position.y=2+Math.sin(t*.4)*.5;
+  icos[1].position.y=-1+Math.sin(t*.35+1)*.5;
+
   controls.update();
-  controls.target.y+=(-_scrollPct*1.8-controls.target.y)*0.03;
   composer.render();
 }
 anim();
 
-renderer.domElement.addEventListener('click',()=>{dir*=-1});
+// Click to reverse morph direction
+renderer.domElement.addEventListener('click',()=>{ dir*=-1; });
 
-window.addEventListener('scroll',()=>{
-  _scrollPct=Math.min(window.scrollY/(window.innerHeight*1.5),1);
-  dir=_scrollPct<0.05?1:-1;
-});
-
+// Resize
 window.addEventListener('resize',()=>{
-  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);
+  camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight); composer.setSize(innerWidth,innerHeight);
 });
 </script>
 
 <!-- ═══ INTERACTIONS ═══ -->
 <script>
-(function() {
-  // ── Card glow mouse tracking ──
-  document.querySelectorAll('.card').forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+(function(){
+  // Card glow mouse tracking
+  document.querySelectorAll('.card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
     });
-    card.addEventListener('mouseleave', function() {
-      card.style.setProperty('--mx', '50%');
-      card.style.setProperty('--my', '50%');
+    card.addEventListener('mouseleave',function(){
+      card.style.setProperty('--mx','50%');
+      card.style.setProperty('--my','50%');
     });
   });
 
-  // ── Staggered scroll reveal ──
-  var cards = document.querySelectorAll('.card, .pricing-card');
-  var cardObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var d = parseInt(e.target.dataset.delay || '0');
-        setTimeout(function() {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-        }, d);
-        cardObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  cards.forEach(function(el, i) {
-    el.dataset.delay = i * 80;
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.7s cubic-bezier(0.34,1.56,0.64,1), transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
-    cardObs.observe(el);
-  });
+  // Nav scroll
+  var nav=document.querySelector('nav');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>40);}
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
-  var stats = document.querySelectorAll('.stat-item');
-  var statObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-        statObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  stats.forEach(function(el) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    statObs.observe(el);
-  });
-
-  // ── Count-up animation ──
-  var countObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting && !e.target.dataset.counted) {
-        e.target.dataset.counted = '1';
-        var target = parseInt(e.target.innerText);
-        if (isNaN(target)) return;
-        var start = 0, duration = 1400, startTime = null;
-        function step(ts) {
-          if (!startTime) startTime = ts;
-          var p = Math.min((ts - startTime) / duration, 1);
-          var eased = 1 - Math.pow(1 - p, 3);
-          e.target.innerText = Math.floor(eased * target);
-          if (p < 1) requestAnimationFrame(step);
-          else e.target.innerText = target;
+  // Count-up
+  var countObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting&&!e.target.dataset.counted){
+        e.target.dataset.counted='1';
+        var target=parseInt(e.target.innerText);
+        if(isNaN(target))return;
+        var dur=1600,st=null;
+        function step(ts){
+          if(!st)st=ts;
+          var prog=Math.min((ts-st)/dur,1);
+          var eased=1-Math.pow(1-prog,4);
+          e.target.innerText=Math.floor(eased*target);
+          if(prog<1)requestAnimationFrame(step);
+          else e.target.innerText=target;
         }
         requestAnimationFrame(step);
       }
     });
-  }, { threshold: 0.6 });
-  document.querySelectorAll('.stat-num').forEach(function(el) { countObs.observe(el); });
+  },{threshold:.6});
+  document.querySelectorAll('.stat-num').forEach(function(el){countObs.observe(el);});
 
-  // ── Nav scroll effect ──
-  var nav = document.querySelector('nav');
-  function onScroll() {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // ── Button ripple ──
-  document.querySelectorAll('.btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      var ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      var rect = btn.getBoundingClientRect();
-      var size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      ripple.addEventListener('animationend', function() { ripple.remove(); });
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var a=this.nextElementSibling,icon=this.querySelector('span');
+      var isOpen=a.style.maxHeight!=='0px'&&a.style.maxHeight!=='';
+      document.querySelectorAll('.faq-a').forEach(function(el){el.style.maxHeight='0';el.style.padding='0 20px';el.previousElementSibling.querySelector('span').textContent='+';});
+      if(!isOpen){a.style.maxHeight=a.scrollHeight+'px';a.style.padding='0 20px 18px';icon.textContent='−';}
     });
   });
 
-  // ── FAQ accordion ──
-  (function(){document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var a=this.nextElementSibling,icon=this.querySelector('span');var isOpen=a.style.maxHeight!=='0px'&&a.style.maxHeight!=='';document.querySelectorAll('.faq-a').forEach(function(el){el.style.maxHeight='0';el.previousElementSibling.querySelector('span').textContent='+'});if(!isOpen){a.style.maxHeight=a.scrollHeight+'px';a.style.padding='0 20px 18px';icon.textContent='\u2212'}else{a.style.padding='0 20px';icon.textContent='+'}})})})();
+  // Button ripple
+  document.querySelectorAll('.btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      var ripple=document.createElement('span');
+      ripple.className='ripple';
+      var rect=btn.getBoundingClientRect();
+      var size=Math.max(rect.width,rect.height);
+      ripple.style.width=ripple.style.height=size+'px';
+      ripple.style.left=(e.clientX-rect.left-size/2)+'px';
+      ripple.style.top=(e.clientY-rect.top-size/2)+'px';
+      btn.appendChild(ripple);
+      ripple.addEventListener('animationend',function(){ripple.remove();});
+    });
+  });
+
+  // Mobile menu
+  var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');
+  if(b&&o){b.onclick=function(){o.classList.add('open');};c.onclick=function(){o.classList.remove('open');};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open');};});}
 })();
 </script>
 
-<script>
-(function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
-</script>
-<script src="js/kivon.js"></script>
-
-<!-- ═══ ULTRA PREMIUM LIBRARIES ═══ -->
+<!-- GSAP + Lenis + Premium system -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-
 <script>
-/* ═══ ULTRA PREMIUM INTERACTIONS ═══ */
-(function() {
+(function(){
   'use strict';
+  if(typeof gsap==='undefined') return;
 
-  // Safety check — libraries must be loaded
-  if (typeof gsap === 'undefined') return;
-
-  /* ── 1. Lenis Smooth Scroll ─────────────────── */
+  /* ── Lenis smooth scroll ── */
   var lenis;
-  if (typeof Lenis !== 'undefined') {
-    lenis = new Lenis({
-      duration: 1.15,
-      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smooth: true,
-      smoothTouch: false,
-      touchMultiplier: 2
-    });
-    // Wire Lenis to GSAP ticker for frame-perfect sync
-    if (typeof ScrollTrigger !== 'undefined') {
+  if(typeof Lenis!=='undefined'){
+    lenis=new Lenis({duration:1.1,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smooth:true,smoothTouch:false});
+    if(typeof ScrollTrigger!=='undefined'){
       gsap.registerPlugin(ScrollTrigger);
-      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+      gsap.ticker.add(function(time){lenis.raf(time*1000);});
       gsap.ticker.lagSmoothing(0);
     } else {
-      (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+      (function r(t){lenis.raf(t);requestAnimationFrame(r);})();
     }
-  } else if (typeof ScrollTrigger !== 'undefined') {
+  } else if(typeof ScrollTrigger!=='undefined'){
     gsap.registerPlugin(ScrollTrigger);
   }
 
-  /* ── 2. Section Title Cinematic Reveals ─────── */
-  if (typeof ScrollTrigger !== 'undefined') {
-    // Section labels fly in
-    gsap.utils.toArray('.section-label').forEach(function(el) {
+  /* ── Cinematic section reveals ── */
+  if(typeof ScrollTrigger!=='undefined'){
+    gsap.utils.toArray('.rev').forEach(function(el){
       gsap.fromTo(el,
-        { opacity: 0, y: 18, letterSpacing: '6px' },
-        { opacity: 1, y: 0, letterSpacing: '3px', duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+        {opacity:0,y:55,filter:'blur(10px)'},
+        {opacity:1,y:0,filter:'blur(0px)',duration:1.1,ease:'power4.out',
+         scrollTrigger:{trigger:el,start:'top 88%',once:true}}
       );
     });
 
-    // Section titles blur-in
-    gsap.utils.toArray('.section-title').forEach(function(el) {
-      gsap.fromTo(el,
-        { opacity: 0, y: 48, filter: 'blur(10px)' },
-        { opacity: 1, y: 0,  filter: 'blur(0px)', duration: 1.1, ease: 'power4.out',
-          scrollTrigger: { trigger: el, start: 'top 87%', once: true } }
-      );
-    });
-
-    // Stat items cascade up
-    var statItems = document.querySelectorAll('.stat-item');
-    statItems.forEach(function(el, i) {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 82%',
-        once: true,
-        onEnter: function() {
-          gsap.fromTo(el,
-            { y: 24, opacity: 0 },
-            { y: 0,  opacity: 1, duration: 0.7, delay: i * 0.12, ease: 'power3.out' }
+    // Cards stagger cascade
+    var sections=document.querySelectorAll('.grid-3,.grid-4');
+    sections.forEach(function(grid){
+      var cards=grid.querySelectorAll('.card');
+      ScrollTrigger.create({trigger:grid,start:'top 85%',once:true,
+        onEnter:function(){
+          gsap.fromTo(cards,
+            {opacity:0,y:60,rotateX:10,filter:'blur(6px)'},
+            {opacity:1,y:0,rotateX:0,filter:'blur(0px)',duration:.9,stagger:.1,ease:'power3.out',transformPerspective:900}
           );
+        }
+      });
+    });
+
+    // Stat items stagger
+    var statBar=document.querySelector('.stats-bar');
+    if(statBar){
+      ScrollTrigger.create({trigger:statBar,start:'top 82%',once:true,
+        onEnter:function(){
+          gsap.fromTo(statBar.querySelectorAll('.stat-item'),
+            {y:40,opacity:0},
+            {y:0,opacity:1,duration:.8,stagger:.15,ease:'power3.out'}
+          );
+        }
+      });
+    }
+
+    // Process step cards
+    var procCards=document.querySelectorAll('div[style*="border:1px solid rgba(0,229,255,.10)"], div[style*="border:1px solid rgba(139,92,246,.12)"], div[style*="border:1px solid rgba(245,158,11,.10)"], div[style*="border:1px solid rgba(16,185,129,.10)"]');
+    procCards.forEach(function(el,i){
+      ScrollTrigger.create({trigger:el,start:'top 88%',once:true,
+        onEnter:function(){
+          gsap.fromTo(el,{opacity:0,x:i%2===0?-40:40,filter:'blur(6px)'},{opacity:1,x:0,filter:'blur(0px)',duration:1,ease:'power3.out'});
         }
       });
     });
   }
 
-  /* ── 3. Custom Cursor ───────────────────────── */
-  var dot   = document.getElementById('kivon-cursor');
-  var ring  = document.getElementById('kivon-cursor-ring');
-  var glow  = document.getElementById('kivon-cursor-glow');
-  var ambBg = document.getElementById('ambient-bg');
-
-  if (dot && ring && glow && window.innerWidth > 768) {
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    var rx = mx, ry = my, glx = mx, gly = my;
-
-    document.addEventListener('mousemove', function(e) {
-      mx = e.clientX; my = e.clientY;
-      // Dot is instant
-      dot.style.left = mx + 'px';
-      dot.style.top  = my + 'px';
-      // Dynamic ambient light
-      if (ambBg) {
-        ambBg.style.background =
-          'radial-gradient(700px circle at ' + mx + 'px ' + my + 'px,' +
-          'rgba(56,189,248,0.04) 0%, transparent 65%)';
-      }
-    }, { passive: true });
-
-    // Ring + glow lag via rAF lerp
-    (function animCursor() {
-      rx  += (mx - rx)  * 0.11;
-      ry  += (my - ry)  * 0.11;
-      glx += (mx - glx) * 0.055;
-      gly += (my - gly) * 0.055;
-      ring.style.left = rx  + 'px';
-      ring.style.top  = ry  + 'px';
-      glow.style.left = glx + 'px';
-      glow.style.top  = gly + 'px';
-      requestAnimationFrame(animCursor);
+  /* ── Custom cursor ── */
+  var dot=document.getElementById('kv-dot');
+  var ring=document.getElementById('kv-ring');
+  var amb=document.getElementById('ambient-bg');
+  if(dot&&ring&&innerWidth>768){
+    var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+    document.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;
+      dot.style.left=mx+'px';dot.style.top=my+'px';
+      if(amb)amb.style.background='radial-gradient(650px circle at '+mx+'px '+my+'px,rgba(0,229,255,0.045) 0%,transparent 65%)';
+    },{passive:true});
+    (function ac(){
+      rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(ac);
     })();
-
-    // Hover expand on interactive targets
-    var hoverEls = document.querySelectorAll('a, button, .card, .faq-q, .nav-cta');
-    hoverEls.forEach(function(el) {
-      el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hovering'); });
-      el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hovering'); });
+    document.querySelectorAll('a,button,.card,.faq-q,.nav-cta').forEach(function(el){
+      el.addEventListener('mouseenter',function(){document.body.classList.add('ch');});
+      el.addEventListener('mouseleave',function(){document.body.classList.remove('ch');});
     });
   }
 
-  /* ── 4. 3D Card Tilt ────────────────────────── */
-  document.querySelectorAll('.card').forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var r = this.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width  - 0.5;
-      var y = (e.clientY - r.top)  / r.height - 0.5;
-      gsap.to(this, {
-        rotateY:  x * 10,
-        rotateX: -y * 10,
-        transformPerspective: 900,
-        duration: 0.35,
-        ease: 'power2.out',
-        overwrite: 'auto'
-      });
+  /* ── 3D card tilt ── */
+  document.querySelectorAll('.card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=this.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5;
+      var y=(e.clientY-r.top)/r.height-.5;
+      gsap.to(this,{rotateY:x*12,rotateX:-y*12,transformPerspective:900,duration:.35,ease:'power2.out',overwrite:'auto'});
     });
-    card.addEventListener('mouseleave', function() {
-      gsap.to(this, {
-        rotateY: 0, rotateX: 0,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.45)',
-        overwrite: 'auto'
-      });
+    card.addEventListener('mouseleave',function(){
+      gsap.to(this,{rotateY:0,rotateX:0,duration:.7,ease:'elastic.out(1,.45)',overwrite:'auto'});
     });
   });
 
-  /* ── 5. Magnetic Buttons ────────────────────── */
-  document.querySelectorAll('.btn-primary, .nav-cta').forEach(function(btn) {
-    btn.addEventListener('mousemove', function(e) {
-      var r   = this.getBoundingClientRect();
-      var dx  = e.clientX - r.left - r.width  / 2;
-      var dy  = e.clientY - r.top  - r.height / 2;
-      gsap.to(this, { x: dx * 0.28, y: dy * 0.28, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+  /* ── Magnetic buttons ── */
+  document.querySelectorAll('.btn-primary,.nav-cta').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r=this.getBoundingClientRect();
+      gsap.to(this,{x:(e.clientX-r.left-r.width/2)*.28,y:(e.clientY-r.top-r.height/2)*.28,duration:.35,ease:'power2.out',overwrite:'auto'});
     });
-    btn.addEventListener('mouseleave', function() {
-      gsap.to(this, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' });
+    btn.addEventListener('mouseleave',function(){
+      gsap.to(this,{x:0,y:0,duration:.7,ease:'elastic.out(1,.45)',overwrite:'auto'});
     });
   });
 
-  /* ── 6. Stats Glow Pulse on Enter ───────────── */
-  if (typeof ScrollTrigger !== 'undefined') {
-    document.querySelectorAll('.stat-num').forEach(function(el) {
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 80%',
-        once: true,
-        onEnter: function() {
-          gsap.fromTo(el,
-            { filter: 'drop-shadow(0 0 0px rgba(56,189,248,0))' },
-            { filter: 'drop-shadow(0 0 18px rgba(56,189,248,0.55))', duration: 1.4, ease: 'power2.out' }
-          );
-        }
-      });
-    });
+  /* ── Scan line pulse on hover ── */
+  var heroScan=document.querySelector('.hero-scan');
+  if(heroScan){
+    window.addEventListener('scroll',function(){
+      var pct=Math.min(window.scrollY/innerHeight,1);
+      heroScan.style.opacity=1-pct;
+    },{passive:true});
   }
-
-  /* ── 7. FAQ item glass on open ──────────────── */
-  // Already handled by existing accordion; no conflict needed
-
-  /* ── 8. Viewport shimmer on hero CTA buttons ── */
-  // Buttons already have CSS shimmer animation
 
 })();
 </script>
+<script src="js/kivon.js"></script>
 </body>
 </html>
