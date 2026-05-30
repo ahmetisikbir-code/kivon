@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1777930373819703" crossorigin="anonymous"></script>
@@ -482,11 +482,9 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 <div id="scroller"></div>
 
 <!-- ════════════════════════════════════════════
-     THREE.JS — KIVON DNA ENERGY SPINE
-     Double helix + rungs + flow particles
-     Section elements on each spine node
-     Camera orbits around the spine
-     Neon blue / purple / cyan palette
+     KIVON — DNA ENERGY SPINE v3
+     Enhanced double helix + dynamic lighting
+     Neon blue / Purple / Cyan on deep space
      ════════════════════════════════════════════ -->
 <script type="module">
 import * as THREE from 'three';
@@ -499,59 +497,94 @@ console.log('[KIVON-DNA] Motor basladi, Three.js surumu:', THREE.REVISION);
 try {
 const isMob = innerWidth < 768;
 
-/* ═══ SCENE ═══ */
+/* --- SCENE --- */
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x030712, isMob ? 0.028 : 0.018);
-
-const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 200);
-camera.position.set(5, 12, 14);
+scene.fog = new THREE.FogExp2(0x030712, isMob ? 0.022 : 0.014);
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(4, 10, 16);
 
 const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false, powerPreference:'high-performance'});
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 1.4;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.getElementById('stage').appendChild(renderer.domElement);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.7 : 1.1, 0.35, 0.08);
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.6 : 0.9, 0.3, 0.06);
 composer.addPass(bloom);
 
-/* ═══ LIGHTING ═══ */
-scene.add(new THREE.AmbientLight(0x1e1b4b, 0.25));
-const hemi = new THREE.HemisphereLight(0x00d4ff, 0x030712, 0.5);
+/* --- LIGHTING (6 katman) --- */
+// 1 - Ambient glow
+scene.add(new THREE.AmbientLight(0x1e1b4b, 0.3));
+// 2 - Hemisphere
+const hemi = new THREE.HemisphereLight(0x00d4ff, 0x030712, 0.6);
 scene.add(hemi);
-const key = new THREE.PointLight(0x00d4ff, 2.5, 35);
-key.position.set(4, 10, 8);
+// 3 - Key light (neon blue, moving)
+const key = new THREE.PointLight(0x00d4ff, 3, 45);
+key.position.set(6, 12, 10);
 scene.add(key);
-const fill = new THREE.PointLight(0x8b5cf6, 1.2, 35);
-fill.position.set(-5, -2, -10);
+// 4 - Fill light (purple, counter-moving)
+const fill = new THREE.PointLight(0x8b5cf6, 2, 45);
+fill.position.set(-6, -2, -10);
 scene.add(fill);
-const rim = new THREE.DirectionalLight(0x38bdf8, 1);
-rim.position.set(-4, 8, -6);
+// 5 - Rim light (cyan, from behind)
+const rim = new THREE.DirectionalLight(0x38bdf8, 1.8);
+rim.position.set(-5, 10, -12);
 scene.add(rim);
+// 6 - Bottom glow (warm purple)
+const bottom = new THREE.PointLight(0xa78bfa, 1.5, 30);
+bottom.position.set(0, -10, 0);
+scene.add(bottom);
+// 7 - Top strobe (white-blue pulse)
+const topLight = new THREE.PointLight(0x38bdf8, 0.5, 20);
+topLight.position.set(0, 16, 0);
+scene.add(topLight);
 
-/* ═══ GLSL NEBULA ═══ */
+/* --- BACKGROUND: enhanced nebula --- */
 const bgGeo = new THREE.PlaneGeometry(2, 2);
 const bgMat = new THREE.ShaderMaterial({
   uniforms: { uTime: { value: 0 } },
-  vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`,
-  fragmentShader: `varying vec2 vUv;uniform float uTime;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.1+0.37;a*=0.5;}return v;}void main(){vec2 uv=vUv-0.5;float t=uTime*0.07;float n1=fbm(uv*2.8+vec2(t*0.6,t*0.35));float n2=fbm(uv*1.9+vec2(-t*0.4,t*0.55));float n3=fbm(uv*4.2-vec2(t*0.3,t*0.2));vec3 col=vec3(0.004,0.002,0.025);float nb=pow(max(n1-0.35,0.0),2.5)*0.22;col+=vec3(0.0,0.83,1.0)*nb;col+=vec3(0.54,0.17,0.89)*pow(max(n3-0.55,0.0),3.0)*0.08;col+=vec3(0.1,0.0,0.3)*n2*0.12;col*=1.0-smoothstep(0.3,0.95,length(uv))*0.7;gl_FragColor=vec4(col,1.0);}`,
+  vertexShader: "varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}",
+  fragmentShader: "varying vec2 vUv;uniform float uTime;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.1+0.37;a*=0.5;}return v;}void main(){vec2 uv=vUv-0.5;float t=uTime*0.05;float n1=fbm(uv*2.8+vec2(t*0.5,t*0.3));float n2=fbm(uv*1.9+vec2(-t*0.35,t*0.5));float n3=fbm(uv*4.2-vec2(t*0.25,t*0.2));float n4=fbm(uv*6.0+vec2(t*0.7,-t*0.4));vec3 col=vec3(0.003,0.001,0.02);float nb=pow(max(n1-0.3,0.0),2.0)*0.35;col+=vec3(0.0,0.85,1.0)*nb;float np=pow(max(n2-0.4,0.0),2.5)*0.12;col+=vec3(0.54,0.17,0.89)*np;float nc=pow(max(n3-0.5,0.0),3.0)*0.06;col+=vec3(0.22,0.78,0.95)*nc;float nd=pow(max(n4-0.6,0.0),2.0)*0.04;col+=vec3(0.1,0.0,0.4)*nd;float vig=1.0-smoothstep(0.2,0.95,length(uv));col*=vig;gl_FragColor=vec4(col,1.0);}",
   depthTest: false, depthWrite: false,
 });
 const bgMesh = new THREE.Mesh(bgGeo, bgMat);
 bgMesh.renderOrder = -999; bgMesh.frustumCulled = false;
 scene.add(bgMesh);
 
-/* ═══════════════════════════════════════
-   DNA ENERGY SPINE
-   Çift sarmal + bağlantılar + düğümler
-   ═══════════════════════════════════════ */
-const SPINE_TOP = 15, SPINE_LEN = 30, HELIX_R = 1.6, HELIX_TURNS = 3.5;
-const PTS = isMob ? 60 : 100, NODE_STEP = 4;
+/* --- STARFIELD (far background) --- */
+const STAR_COUNT = isMob ? 300 : 800;
+const starPos = new Float32Array(STAR_COUNT * 3);
+const starSizes = new Float32Array(STAR_COUNT);
+const starTwinkle = new Float32Array(STAR_COUNT);
+for (let i = 0; i < STAR_COUNT; i++) {
+  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 25 + Math.random() * 40;
+  starPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+  starPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  starPos[i*3+2] = r * Math.cos(phi);
+  starSizes[i] = 0.02 + Math.random() * 0.06;
+  starTwinkle[i] = 0.5 + Math.random() * 2;
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+starGeo.setAttribute('size', new THREE.Float32BufferAttribute(starSizes, 1));
+const starMat = new THREE.PointsMaterial({
+  color: 0xffffff, size: 0.04, transparent: true, opacity: 0.6,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
 
-// Generate helix point arrays
+/* ================================
+   DNA ENERGY SPINE v3 — ENHANCED
+   ================================ */
+const SPINE_TOP = 15, SPINE_LEN = 30, HELIX_R = 1.8, HELIX_TURNS = 3.5;
+const PTS = isMob ? 60 : 120, NODE_STEP = 4;
+
+// Helix point arrays
 const s1 = [], s2 = [];
 for (let i = 0; i <= PTS; i++) {
   const t = i / PTS, y = SPINE_TOP - t * SPINE_LEN;
@@ -559,381 +592,587 @@ for (let i = 0; i <= PTS; i++) {
   s1.push(new THREE.Vector3(HELIX_R * Math.cos(a), y, HELIX_R * Math.sin(a)));
   s2.push(new THREE.Vector3(HELIX_R * Math.cos(a + Math.PI), y, HELIX_R * Math.sin(a + Math.PI)));
 }
-
-// Strand tubes
-function makeTube(pts, color, radius) {
+function makeTube(pts, color, radius, opacity) {
   const curve = new THREE.CatmullRomCurve3(pts);
-  const geo = new THREE.TubeGeometry(curve, pts.length * 2, radius, 6, false);
-  const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.25 });
+  const geo = new THREE.TubeGeometry(curve, pts.length * 2, radius, 8, false);
+  const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: opacity||0.25 });
   return new THREE.Mesh(geo, mat);
 }
-const strandMat1 = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.25 });
-const strandMat2 = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.2 });
-const tube1 = makeTube(s1, 0x00d4ff, 0.035);
-const tube2 = makeTube(s2, 0x8b5cf6, 0.03);
+// Strand 1 (blue) - thick with glow
+const tube1 = makeTube(s1, 0x00d4ff, 0.045, 0.3);
+const glow1 = makeTube(s1, 0x38bdf8, 0.018, 0.6);
+// Strand 2 (purple) - thick with glow
+const tube2 = makeTube(s2, 0x8b5cf6, 0.04, 0.25);
+const glow2 = makeTube(s2, 0xa78bfa, 0.015, 0.5);
 scene.add(tube1); scene.add(tube2);
-
-// Glow strands (thinner, brighter)
-const glow1 = makeTube(s1, 0x38bdf8, 0.012);
-const glow2 = makeTube(s2, 0xa78bfa, 0.01);
-glow1.material.opacity = 0.5; glow2.material.opacity = 0.4;
 scene.add(glow1); scene.add(glow2);
 
-// Nodes along strands
-const nodeGeo = new THREE.SphereGeometry(isMob ? 0.04 : 0.055, 6, 6);
-const nodeMat1 = new THREE.MeshBasicMaterial({ color: 0x00d4ff });
-const nodeMat2 = new THREE.MeshBasicMaterial({ color: 0x8b5cf6 });
-const nodeCount1 = Math.floor(s1.length / NODE_STEP) + 1;
-const nodeCount2 = Math.floor(s2.length / NODE_STEP) + 1;
-const node1 = new THREE.InstancedMesh(nodeGeo, nodeMat1, nodeCount1);
-const node2 = new THREE.InstancedMesh(nodeGeo, nodeMat2, nodeCount2);
+// Enhanced nodes with glow
+const nodeGeo = new THREE.SphereGeometry(isMob ? 0.06 : 0.08, 8, 8);
+const nodeMat1 = new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.8, metalness: 0.3, roughness: 0.2 });
+const nodeMat2 = new THREE.MeshStandardMaterial({ color: 0x8b5cf6, emissive: 0x8b5cf6, emissiveIntensity: 0.7, metalness: 0.3, roughness: 0.2 });
+const nodeGlowGeo = new THREE.SphereGeometry(isMob ? 0.1 : 0.14, 8, 8);
+const nodeGlowMat1 = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.15 });
+const nodeGlowMat2 = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.12 });
+const nCount1 = Math.floor(s1.length / NODE_STEP) + 1;
+const nCount2 = Math.floor(s2.length / NODE_STEP) + 1;
+const node1 = new THREE.InstancedMesh(nodeGeo, nodeMat1, nCount1);
+const node2 = new THREE.InstancedMesh(nodeGeo, nodeMat2, nCount2);
+const nodeG1 = new THREE.InstancedMesh(nodeGlowGeo, nodeGlowMat1, nCount1);
+const nodeG2 = new THREE.InstancedMesh(nodeGlowGeo, nodeGlowMat2, nCount2);
 const nd = new THREE.Object3D();
 for (let i = 0, j = 0; i < s1.length; i += NODE_STEP, j++) {
   nd.position.copy(s1[i]); nd.updateMatrix(); node1.setMatrixAt(j, nd.matrix);
+  nd.scale.setScalar(1.8); nd.updateMatrix(); nodeG1.setMatrixAt(j, nd.matrix); nd.scale.setScalar(1);
 }
 for (let i = 0, j = 0; i < s2.length; i += NODE_STEP, j++) {
   nd.position.copy(s2[i]); nd.updateMatrix(); node2.setMatrixAt(j, nd.matrix);
+  nd.scale.setScalar(1.8); nd.updateMatrix(); nodeG2.setMatrixAt(j, nd.matrix); nd.scale.setScalar(1);
 }
 scene.add(node1); scene.add(node2);
+scene.add(nodeG1); scene.add(nodeG2);
 
-// Rungs connecting strands
+// Rungs (more frequent, animated opacity)
 const rungPositions = [];
-for (let i = 0; i < s1.length; i += 3) {
+for (let i = 0; i < s1.length; i += 2) {
   rungPositions.push(s1[i].x, s1[i].y, s1[i].z, s2[i].x, s2[i].y, s2[i].z);
 }
 const rungGeo = new THREE.BufferGeometry();
 rungGeo.setAttribute('position', new THREE.Float32BufferAttribute(rungPositions, 3));
-const rungMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending });
+const rungMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
 const rungs = new THREE.LineSegments(rungGeo, rungMat);
 scene.add(rungs);
 
-// Inner energy core (central glowing tube)
-const corePts = [new THREE.Vector3(0, SPINE_TOP, 0), new THREE.Vector3(0, SPINE_TOP - SPINE_LEN, 0)];
+// Inner energy core (bright central beam)
+const corePts = [new THREE.Vector3(0, SPINE_TOP + 1, 0), new THREE.Vector3(0, SPINE_TOP - SPINE_LEN - 1, 0)];
 const coreCurve = new THREE.CatmullRomCurve3(corePts);
-const coreTubeGeo = new THREE.TubeGeometry(coreCurve, PTS, 0.03, 8, false);
-const coreTubeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.4 });
+const coreTubeGeo = new THREE.TubeGeometry(coreCurve, PTS, 0.05, 12, false);
+const coreTubeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
 const coreTube = new THREE.Mesh(coreTubeGeo, coreTubeMat);
 scene.add(coreTube);
+// Inner glow core (brighter, smaller)
+const coreGlowGeo = new THREE.TubeGeometry(coreCurve, PTS, 0.02, 8, false);
+const coreGlowMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+const coreGlow = new THREE.Mesh(coreGlowGeo, coreGlowMat);
+scene.add(coreGlow);
 
-// Energy particles flowing along spine
-const FLOW_COUNT = isMob ? 80 : 200;
+// Energy arcs (sparks jumping between strands)
+const ARC_COUNT = isMob ? 8 : 20;
+const arcPositions = [];
+const arcMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+const arcs = [];
+for (let i = 0; i < ARC_COUNT; i++) {
+  const arcPts = new Float32Array(6);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(arcPts, 3));
+  const line = new THREE.Line(geo, arcMat.clone());
+  scene.add(line);
+  arcs.push({ line, phase: Math.random() * Math.PI * 2, speed: 0.3 + Math.random() * 0.4 });
+}
+
+// Flow particles (energy flowing upward)
+const FLOW_COUNT = isMob ? 120 : 350;
 const flowPos = new Float32Array(FLOW_COUNT * 3);
-const flowSizes = new Float32Array(FLOW_COUNT);
 const flowColors = new Float32Array(FLOW_COUNT * 3);
+const flowSpeeds = new Float32Array(FLOW_COUNT);
 for (let i = 0; i < FLOW_COUNT; i++) {
   const t = Math.random();
   const y = SPINE_TOP - t * SPINE_LEN;
   const a = t * HELIX_TURNS * Math.PI * 2;
-  const r = HELIX_R * 0.4;
+  const r = HELIX_R * (0.3 + Math.random() * 0.4);
   flowPos[i*3] = r * Math.cos(a); flowPos[i*3+1] = y; flowPos[i*3+2] = r * Math.sin(a);
-  flowSizes[i] = 0.02 + Math.random() * 0.04;
+  flowSpeeds[i] = 0.2 + Math.random() * 0.3;
   const c = new THREE.Color(0x00d4ff).lerp(new THREE.Color(0x8b5cf6), Math.random());
   flowColors[i*3] = c.r; flowColors[i*3+1] = c.g; flowColors[i*3+2] = c.b;
 }
 const flowGeo = new THREE.BufferGeometry();
 flowGeo.setAttribute('position', new THREE.Float32BufferAttribute(flowPos, 3));
-flowGeo.setAttribute('size', new THREE.Float32BufferAttribute(flowSizes, 1));
 flowGeo.setAttribute('color', new THREE.Float32BufferAttribute(flowColors, 3));
-const flowMat = new THREE.PointsMaterial({ size: 0.04, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });
+const flowMat = new THREE.PointsMaterial({
+  size: 0.05, vertexColors: true, transparent: true, opacity: 0.7,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
 const flowPoints = new THREE.Points(flowGeo, flowMat);
 scene.add(flowPoints);
 
-// Energy halos at each section
-const SEC_Y = [12, 9.5, 7, 4.5, 2, -0.5, -3, -5.5, -8];
-const halos = [];
-SEC_Y.forEach((y, i) => {
-  const r = 1.2 + Math.sin(i * 0.7) * 0.3;
-  const geo = new THREE.TorusGeometry(r, 0.012, 6, 32);
-  const mat = new THREE.MeshBasicMaterial({
-    color: i % 2 === 0 ? 0x00d4ff : 0x8b5cf6,
-    transparent: true, opacity: 0.25 + Math.sin(i) * 0.08
-  });
-  const mesh = new THREE.Mesh(geo, mat);
-  mesh.position.set(0, y, 0);
-  mesh.rotation.x = Math.PI / 2 + 0.15;
-  mesh.userData = { idx: i, speed: 0.3 + i * 0.04 };
-  scene.add(mesh);
-  halos.push(mesh);
-});
-
-/* ═══ SECTION 3D ELEMENTS ═══ */
-// Each section gets a unique 3D element attached to the spine
+/* --- ENHANCED SECTION 3D ELEMENTS --- */
 const secEls = [];
+const SEC_Y = [12, 9.5, 7, 4.5, 2, -0.5, -3, -5.5, -8];
 
-// 0 - Hero: large glowing icosahedron core
+// 0 - Hero: glowing core + orbiting rings + sparkle particles
 const h0 = new THREE.Mesh(
-  new THREE.IcosahedronGeometry(0.6, 1),
-  new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.4, metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.85 })
+  new THREE.IcosahedronGeometry(0.7, 1),
+  new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.6, metalness: 0.9, roughness: 0.1, transparent: true, opacity: 0.9 })
 );
 h0.position.set(0, 12.5, 0);
-scene.add(h0);
-secEls.push(h0);
+scene.add(h0); secEls.push(h0);
 const h0w = new THREE.Mesh(
-  new THREE.IcosahedronGeometry(0.62, 1),
-  new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.15 })
+  new THREE.IcosahedronGeometry(0.73, 1),
+  new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.2 })
 );
-scene.add(h0w);
-secEls.push(h0w);
-
-// 1 - Stats: double ring
-const h1 = new THREE.Mesh(
-  new THREE.TorusGeometry(0.7, 0.025, 8, 32),
-  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.3 })
+scene.add(h0w); secEls.push(h0w);
+// Orbiting ring 1
+const h0r1 = new THREE.Mesh(
+  new THREE.TorusGeometry(1.0, 0.015, 8, 48),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending })
 );
-h1.position.set(0, 9.5, 0); h1.rotation.x = Math.PI / 3;
-scene.add(h1); secEls.push(h1);
-const h1b = h1.clone();
-h1b.material = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.2 });
-h1b.rotation.x = -Math.PI / 4; h1b.scale.setScalar(1.3);
-scene.add(h1b); secEls.push(h1b);
+h0r1.position.set(0, 12.5, 0); h0r1.rotation.x = Math.PI / 3;
+scene.add(h0r1); secEls.push(h0r1);
+// Orbiting ring 2 (counter-rotating)
+const h0r2 = new THREE.Mesh(
+  new THREE.TorusGeometry(1.3, 0.01, 6, 48),
+  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+);
+h0r2.position.set(0, 12.5, 0); h0r2.rotation.x = -Math.PI / 4;
+scene.add(h0r2); secEls.push(h0r2);
 
-// 2 - Solutions: floating platforms (small box cluster)
+// 1 - Stats: data pillars with floating numbers
+const statGroup = new THREE.Group();
+statGroup.position.set(0, 9.5, 0);
+scene.add(statGroup); secEls.push(statGroup);
+for (let i = 0; i < 3; i++) {
+  const angle = (i / 3) * Math.PI * 2;
+  const pillar = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.04, 0.06, 0.8, 6),
+    new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.3, metalness: 0.5, roughness: 0.3 })
+  );
+  pillar.position.set(Math.cos(angle) * 0.8, 0, Math.sin(angle) * 0.8);
+  pillar.userData = { angle, speed: 0.2 + i * 0.1 };
+  statGroup.add(pillar);
+  // Cap
+  const cap = new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 6, 6),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.6 })
+  );
+  cap.position.set(Math.cos(angle) * 0.8, 0.4, Math.sin(angle) * 0.8);
+  statGroup.add(cap);
+}
+// Connecting ring
+const statRing = new THREE.Mesh(
+  new THREE.TorusGeometry(0.9, 0.008, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+);
+statRing.rotation.x = Math.PI / 2;
+scene.add(statRing); secEls.push(statRing);
+
+// 2 - Solutions: floating platform with orbiting orbs
+const solGroup = new THREE.Group();
+solGroup.position.set(0, 7, 0);
+scene.add(solGroup); secEls.push(solGroup);
+const solPlatform = new THREE.Mesh(
+  new THREE.CylinderGeometry(0.5, 0.6, 0.04, 6),
+  new THREE.MeshStandardMaterial({ color: 0x1e293b, emissive: 0x38bdf8, emissiveIntensity: 0.1, metalness: 0.6, roughness: 0.3 })
+);
+solGroup.add(solPlatform);
+const solColors = [0x00d4ff, 0x8b5cf6, 0x38bdf8, 0x06b6d4];
 for (let i = 0; i < 4; i++) {
   const a = (i / 4) * Math.PI * 2;
-  const p = new THREE.Mesh(
-    new THREE.BoxGeometry(0.2, 0.02, 0.12),
-    new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.2, metalness: 0.5, roughness: 0.3, transparent: true, opacity: 0.4 })
+  const orb = new THREE.Mesh(
+    new THREE.SphereGeometry(0.08, 8, 8),
+    new THREE.MeshStandardMaterial({ color: solColors[i], emissive: solColors[i], emissiveIntensity: 0.5, metalness: 0.3, roughness: 0.2 })
   );
-  p.position.set(Math.cos(a) * 0.6, 7 + Math.sin(a * 2) * 0.1, Math.sin(a) * 0.6);
-  p.userData = { angle: a, speed: 0.3 + i * 0.1, idx: i };
-  scene.add(p); secEls.push(p);
+  orb.position.set(Math.cos(a) * 0.4, 0.08, Math.sin(a) * 0.4);
+  orb.userData = { angle: a, speed: 0.4 + i * 0.1, rad: 0.4 };
+  solGroup.add(orb);
 }
+// Glow ring
+const solRing = new THREE.Mesh(
+  new THREE.TorusGeometry(0.45, 0.008, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+);
+solRing.rotation.x = Math.PI / 2; solRing.position.y = 0.04;
+solGroup.add(solRing);
 
-// 3 - Process: ascending small steps
+// 3 - Process: ascending staircase with glow
+const procGroup = new THREE.Group();
+procGroup.position.set(0, 4.5, 0);
+scene.add(procGroup); secEls.push(procGroup);
 for (let i = 0; i < 4; i++) {
-  const s = new THREE.Mesh(
-    new THREE.BoxGeometry(0.15 + i * 0.05, 0.015, 0.15 + i * 0.05),
-    new THREE.MeshBasicMaterial({ color: [0x00d4ff,0x38bdf8,0x06b6d4,0x8b5cf6][i], transparent: true, opacity: 0.3 })
+  const step = new THREE.Mesh(
+    new THREE.BoxGeometry(0.8 - i * 0.1, 0.02, 0.15 + i * 0.05),
+    new THREE.MeshStandardMaterial({
+      color: [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6][i],
+      emissive: [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6][i],
+      emissiveIntensity: 0.3, metalness: 0.4, roughness: 0.3, transparent: true, opacity: 0.5
+    })
   );
-  s.position.set(0, 4.5 - i * 0.15, 0);
-  s.scale.y = 1 + i * 0.5;
-  scene.add(s); secEls.push(s);
+  step.position.set(0, i * 0.3 - 0.45, 0);
+  procGroup.add(step);
 }
+// Vertical light beam
+const beamGeo = new THREE.CylinderGeometry(0.01, 0.01, 1.0, 6);
+const beamMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
+const beam = new THREE.Mesh(beamGeo, beamMat);
+beam.position.y = 0.1; procGroup.add(beam);
 
-// 4 - Sectors: orbiting cluster
-const orbParents = [];
-const orbCount = isMob ? 4 : 8;
-const orbGroup = new THREE.Group();
-orbGroup.position.set(0, 2, 0);
-scene.add(orbGroup);
+// 4 - Sectors: orbiting system
+const sectGroup = new THREE.Group();
+sectGroup.position.set(0, 2, 0);
+scene.add(sectGroup); secEls.push(sectGroup);
+// Central glow
+const centerGlow = new THREE.Mesh(
+  new THREE.SphereGeometry(0.1, 8, 8),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending })
+);
+sectGroup.add(centerGlow);
+const orbCount = isMob ? 6 : 12;
 for (let i = 0; i < orbCount; i++) {
   const a = (i / orbCount) * Math.PI * 2;
+  const rad = 0.3 + (i % 3) * 0.2;
   const s = new THREE.Mesh(
-    new THREE.SphereGeometry(0.04, 4, 4),
-    new THREE.MeshBasicMaterial({ color: [0x00d4ff,0x8b5cf6,0x38bdf8,0x06b6d4][i % 4], transparent: true, opacity: 0.7 })
+    new THREE.SphereGeometry(0.03 + (i % 3) * 0.015, 6, 6),
+    new THREE.MeshStandardMaterial({
+      color: [0x00d4ff, 0x8b5cf6, 0x38bdf8, 0x06b6d4][i % 4],
+      emissive: [0x00d4ff, 0x8b5cf6, 0x38bdf8, 0x06b6d4][i % 4],
+      emissiveIntensity: 0.6, metalness: 0.3, roughness: 0.2
+    })
   );
-  s.position.set(Math.cos(a) * 0.8, Math.sin(a * 2) * 0.15, Math.sin(a) * 0.8);
-  s.userData = { angle: a, speed: 0.5 + i * 0.05, rad: 0.8 };
-  orbGroup.add(s);
+  s.position.set(Math.cos(a) * rad, Math.sin(a * 3) * 0.1, Math.sin(a) * rad);
+  s.userData = { angle: a, speed: 0.3 + i * 0.05, rad };
+  sectGroup.add(s);
   secEls.push(s);
 }
 
-// 5 - Why: sphere with ring
+// 5 - Why: crystal sphere with inner light
 const h5 = new THREE.Mesh(
-  new THREE.SphereGeometry(0.4, 12, 12),
-  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.08, wireframe: true })
+  new THREE.SphereGeometry(0.45, 16, 16),
+  new THREE.MeshStandardMaterial({ color: 0x8b5cf6, emissive: 0x8b5cf6, emissiveIntensity: 0.15, metalness: 0.5, roughness: 0.2, transparent: true, opacity: 0.15, wireframe: false })
 );
 h5.position.set(0, -0.5, 0);
 scene.add(h5); secEls.push(h5);
-const h5r = new THREE.Mesh(
-  new THREE.TorusGeometry(0.6, 0.015, 6, 24),
-  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2 })
+const h5w = new THREE.Mesh(
+  new THREE.SphereGeometry(0.46, 12, 8),
+  new THREE.MeshBasicMaterial({ color: 0xa78bfa, wireframe: true, transparent: true, opacity: 0.2 })
 );
-h5r.position.set(0, -0.5, 0); h5r.rotation.x = Math.PI / 2;
-scene.add(h5r); secEls.push(h5r);
+h5.position.set(0, -0.5, 0);
+scene.add(h5w); secEls.push(h5w);
+const h5Ring1 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.6, 0.008, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending })
+);
+h5Ring1.position.set(0, -0.5, 0); h5Ring1.rotation.x = Math.PI / 3;
+scene.add(h5Ring1); secEls.push(h5Ring1);
+const h5Ring2 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.7, 0.005, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending })
+);
+h5Ring2.position.set(0, -0.5, 0); h5Ring2.rotation.x = -Math.PI / 4;
+scene.add(h5Ring2); secEls.push(h5Ring2);
 
-// 6 - Journey: cone markers
+// 6 - Journey: waypoint markers with energy beams
 for (let i = 0; i < 3; i++) {
   const a = (i / 3) * Math.PI * 2 + 0.3;
-  const m = new THREE.Mesh(
-    new THREE.ConeGeometry(0.06, 0.12, 4),
-    new THREE.MeshBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.5 })
+  const marker = new THREE.Mesh(
+    new THREE.ConeGeometry(0.08, 0.15, 6),
+    new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 0.5, metalness: 0.4, roughness: 0.3 })
   );
-  m.position.set(Math.cos(a) * 0.5, -3 + i * 0.1, Math.sin(a) * 0.5);
-  m.userData = { angle: a };
-  scene.add(m); secEls.push(m);
+  marker.position.set(Math.cos(a) * 0.6, -3 + i * 0.15, Math.sin(a) * 0.6);
+  marker.userData = { angle: a, phase: Math.random() * Math.PI * 2 };
+  scene.add(marker); secEls.push(marker);
+  // Glow ring around marker
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(0.12, 0.005, 6, 16),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+  );
+  ring.position.copy(marker.position); ring.rotation.x = Math.PI / 2;
+  scene.add(ring); secEls.push(ring);
 }
 
-// 7 - CTA: energy burst (small particle cloud)
-const burstCount = isMob ? 15 : 30;
-const burstGroup = new THREE.Group();
-burstGroup.position.set(0, -5.5, 0);
-scene.add(burstGroup);
+// 7 - CTA: expanding energy burst
+const ctaGroup = new THREE.Group();
+ctaGroup.position.set(0, -5.5, 0);
+scene.add(ctaGroup); secEls.push(ctaGroup);
+// Central glow
+const ctaCore = new THREE.Mesh(
+  new THREE.SphereGeometry(0.15, 8, 8),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending })
+);
+ctaGroup.add(ctaCore);
+// Expanding rings
+for (let r = 0; r < 3; r++) {
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(0.3 + r * 0.2, 0.006, 6, 24),
+    new THREE.MeshBasicMaterial({ color: [0x00d4ff, 0x8b5cf6, 0x38bdf8][r], transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending })
+  );
+  ring.rotation.x = Math.PI / 2 + (r - 1) * 0.3;
+  ring.userData = { phase: r * 0.5 };
+  ctaGroup.add(ring);
+}
+// Burst particles
+const burstCount = isMob ? 20 : 40;
 for (let i = 0; i < burstCount; i++) {
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.acos(2 * Math.random() - 1);
-  const r = 0.1 + Math.random() * 0.3;
+  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 0.1 + Math.random() * 0.4;
   const b = new THREE.Mesh(
-    new THREE.SphereGeometry(0.015, 4, 4),
-    new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5 })
+    new THREE.SphereGeometry(0.012, 4, 4),
+    new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending })
   );
   b.position.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-  b.userData = { home: b.position.clone(), speed: 0.5 + Math.random() };
-  burstGroup.add(b);
-  secEls.push(b);
+  b.userData = { home: b.position.clone(), speed: 0.3 + Math.random() * 0.5 };
+  ctaGroup.add(b);
 }
 
-// 8 - Footer: base tetrahedron
+// 8 - Footer: crystal tetrahedron with grounded glow
 const h8 = new THREE.Mesh(
-  new THREE.TetrahedronGeometry(0.35),
-  new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.15, metalness: 0.4, roughness: 0.3, transparent: true, opacity: 0.6 })
+  new THREE.TetrahedronGeometry(0.4),
+  new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.3, metalness: 0.6, roughness: 0.2, transparent: true, opacity: 0.7 })
 );
 h8.position.set(0, -8.5, 0);
 scene.add(h8); secEls.push(h8);
+// Ground glow
+const groundGlow = new THREE.Mesh(
+  new THREE.RingGeometry(0.2, 0.5, 24),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.1, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })
+);
+groundGlow.rotation.x = -Math.PI / 2; groundGlow.position.set(0, -8.7, 0);
+scene.add(groundGlow); secEls.push(groundGlow);
+// Wireframe outer
+const h8w = new THREE.Mesh(
+  new THREE.TetrahedronGeometry(0.42),
+  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.12 })
+);
+h8w.position.set(0, -8.5, 0);
+scene.add(h8w); secEls.push(h8w);
 
-/* ═══ AMBIENT PARTICLES ═══ */
-const PC = isMob ? 400 : 1000;
-const pp = new Float32Array(PC * 3), pc = new Float32Array(PC * 3);
+/* --- AMBIENT PARTICLES (floating) --- */
+const PC = isMob ? 300 : 700;
+const pp = new Float32Array(PC * 3), pc = new Float32Array(PC * 3), ps = new Float32Array(PC);
 for (let i = 0; i < PC; i++) {
-  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 6 + Math.random() * 18;
+  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 5 + Math.random() * 20;
   pp[i*3] = r * Math.sin(phi) * Math.cos(theta);
   pp[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
   pp[i*3+2] = r * Math.cos(phi);
   const c = new THREE.Color(0x00d4ff).lerp(new THREE.Color(0x8b5cf6), Math.random());
   pc[i*3] = c.r; pc[i*3+1] = c.g; pc[i*3+2] = c.b;
+  ps[i] = 0.02 + Math.random() * 0.05;
 }
 const pGeo = new THREE.BufferGeometry();
 pGeo.setAttribute('position', new THREE.Float32BufferAttribute(pp, 3));
 pGeo.setAttribute('color', new THREE.Float32BufferAttribute(pc, 3));
-const pMat = new THREE.PointsMaterial({ size: 0.04, vertexColors: true, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });
-const ambParticles = new THREE.Points(pGeo, pMat);
+pGeo.setAttribute('size', new THREE.Float32BufferAttribute(ps, 1));
+const ambMat = new THREE.PointsMaterial({
+  size: 0.04, vertexColors: true, transparent: true, opacity: 0.2,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const ambParticles = new THREE.Points(pGeo, ambMat);
 scene.add(ambParticles);
 
-/* ═══════════════════════════════════════
-   SCROLL & CAMERA SYSTEM
-   Kamera omurga etrafında döner
-   ═══════════════════════════════════════ */
+/* --- FIREFLY PARTICLES (near camera, interactive) --- */
+const FF_COUNT = isMob ? 30 : 80;
+const ffPos = new Float32Array(FF_COUNT * 3);
+const ffVel = [];
+for (let i = 0; i < FF_COUNT; i++) {
+  ffPos[i*3] = (Math.random() - 0.5) * 20;
+  ffPos[i*3+1] = (Math.random() - 0.5) * 20;
+  ffPos[i*3+2] = (Math.random() - 0.5) * 10 - 5;
+  ffVel.push(new THREE.Vector3((Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01));
+}
+const ffGeo = new THREE.BufferGeometry();
+ffGeo.setAttribute('position', new THREE.Float32BufferAttribute(ffPos, 3));
+const ffMat = new THREE.PointsMaterial({
+  color: 0x38bdf8, size: 0.03, transparent: true, opacity: 0.4,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const fireflies = new THREE.Points(ffGeo, ffMat);
+scene.add(fireflies);
+
+/* --- SCROLL & MOUSE --- */
 let scrollProg = 0;
 let mx = 0, my = 0;
 document.addEventListener('mousemove', e => {
-  mx = (e.clientX / innerWidth - 0.5) * 0.8;
-  my = (e.clientY / innerHeight - 0.5) * 0.5;
+  mx = (e.clientX / innerWidth - 0.5) * 0.7;
+  my = (e.clientY / innerHeight - 0.5) * 0.4;
 }, { passive: true });
 
-// Procedural camera orbit around spine
-const camPos = new THREE.Vector3(5, 12, 14);
+const camPos = new THREE.Vector3(4, 10, 16);
 const camLook = new THREE.Vector3(0, 12, 0);
-
-/* ═══════════════════════════════════════
-   ANIMATION LOOP
-   ═══════════════════════════════════════ */
 let lastSec = -1;
-const _v = new THREE.Vector3();
+let time = 0;
 
+/* --- ANIMATION LOOP --- */
 function anim() {
   requestAnimationFrame(anim);
   const now = Date.now() * 0.001;
+  const dt = Math.min(0.05, now - time);
+  time = now;
   bgMat.uniforms.uTime.value = now;
 
-  /* DNA helix rotation (spin the tubes) */
-  const spin = Math.sin(now * 0.06) * 0.15;
-  tube1.rotation.y = spin;
-  tube2.rotation.y = spin;
-  glow1.rotation.y = spin;
-  glow2.rotation.y = spin;
-  rungs.rotation.y = spin;
-  node1.rotation.y = spin;
-  node2.rotation.y = spin;
-  coreTube.rotation.y = spin * 0.5;
+  /* Lighting animation */
+  const lx = Math.sin(now * 0.15) * 8;
+  const lz = Math.cos(now * 0.12) * 8;
+  key.position.x = lx; key.position.z = lz;
+  fill.position.x = -lx * 0.6; fill.position.z = -lz * 0.6;
+  topLight.intensity = 0.3 + Math.sin(now * 0.5) * 0.3;
+  key.intensity = 2.5 + Math.sin(now * 0.3) * 0.8;
+  fill.intensity = 1.5 + Math.cos(now * 0.25) * 0.5;
 
-  /* Flow particles move upward along spine */
+  /* DNA helix rotate */
+  const spin = Math.sin(now * 0.05) * 0.2;
+  [tube1, tube2, glow1, glow2, rungs, node1, node2, nodeG1, nodeG2, coreTube, coreGlow].forEach(o => o.rotation.y = spin);
+
+  /* Flow particles */
   const fPos = flowPoints.geometry.attributes.position.array;
   for (let i = 0; i < FLOW_COUNT; i++) {
     let t = (fPos[i*3+1] + SPINE_LEN - SPINE_TOP) / SPINE_LEN;
-    t = (t + 0.003) % 1;
+    t = (t + 0.004 * flowSpeeds[i]) % 1;
     const y = SPINE_TOP - t * SPINE_LEN;
-    const a = t * HELIX_TURNS * Math.PI * 2 + now;
-    const r = HELIX_R * 0.4;
+    const a = t * HELIX_TURNS * Math.PI * 2 + now * 0.3;
+    const r = HELIX_R * (0.3 + Math.sin(i + now) * 0.15);
     fPos[i*3] = r * Math.cos(a);
     fPos[i*3+1] = y;
     fPos[i*3+2] = r * Math.sin(a);
   }
   flowPoints.geometry.attributes.position.needsUpdate = true;
 
-  /* Energy halos rotate & pulse */
-  halos.forEach((h, i) => {
-    h.rotation.z += 0.004 * (i % 2 === 0 ? 1 : -1);
-    h.rotation.x = Math.PI / 2 + 0.15 + Math.sin(now * 0.3 + i) * 0.05;
-    h.material.opacity = 0.2 + Math.sin(now * 0.5 + i * 0.7) * 0.1;
+  /* Energy arcs (sparks between strands) */
+  arcs.forEach((arc, i) => {
+    const t = (Math.sin(now * arc.speed + arc.phase) + 1) * 0.5;
+    const idx1 = Math.floor(t * (PTS - 1));
+    const idx2 = Math.min(idx1 + 1, PTS - 1);
+    const lt = (t * (PTS - 1)) - idx1;
+    const p1 = s1[idx1].clone().lerp(s1[idx2], lt);
+    const p2 = s2[idx1].clone().lerp(s2[idx2], lt);
+    const pos = arc.line.geometry.attributes.position.array;
+    const mid = p1.clone().add(p2).multiplyScalar(0.5);
+    const offset = new THREE.Vector3(
+      (Math.random() - 0.5) * 0.3,
+      (Math.random() - 0.5) * 0.3,
+      (Math.random() - 0.5) * 0.3
+    );
+    mid.add(offset);
+    pos[0] = p1.x; pos[1] = p1.y; pos[2] = p1.z;
+    pos[3] = mid.x; pos[4] = mid.y; pos[5] = mid.z;
+    arc.line.geometry.attributes.position.needsUpdate = true;
+    arc.line.material.opacity = 0.1 + Math.sin(now * 2 + arc.phase) * 0.15;
   });
 
-  /* Section elements animate */
-  // Hero core
-  h0.rotation.x += 0.003; h0.rotation.y += 0.005;
+  /* Section elements animation */
+  // Hero
+  h0.rotation.x += 0.004; h0.rotation.y += 0.006;
   h0w.rotation.copy(h0.rotation);
-  h0.material.emissiveIntensity = 0.3 + Math.sin(now * 0.7) * 0.15;
-  // Double ring
-  h1.rotation.z += 0.006; h1b.rotation.z -= 0.004;
-  // Platforms orbit
-  secEls.forEach(el => {
-    if (el.userData && el.userData.angle !== undefined && el.userData.speed && el.userData.idx !== undefined) {
-      const a = el.userData.angle + now * el.userData.speed;
-      el.position.x = Math.cos(a) * 0.6;
-      el.position.z = Math.sin(a) * 0.6;
+  h0.material.emissiveIntensity = 0.4 + Math.sin(now * 0.6) * 0.25;
+  h0r1.rotation.z += 0.008; h0r2.rotation.z -= 0.005;
+  // Stats
+  statGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.angle !== undefined) {
+      const a = child.userData.angle + now * child.userData.speed;
+      child.position.x = Math.cos(a) * 0.8;
+      child.position.z = Math.sin(a) * 0.8;
     }
   });
-  // Orbiting cluster
-  orbGroup.rotation.y += 0.005;
-  orbGroup.children.forEach((c, i) => {
-    if (c.userData && c.userData.angle !== undefined) {
-      const a = c.userData.angle + now * c.userData.speed;
-      c.position.x = Math.cos(a) * c.userData.rad;
-      c.position.z = Math.sin(a) * c.userData.rad;
-      c.position.y = Math.sin(a * 2 + now) * 0.15;
+  statRing.rotation.z += 0.004;
+  // Solutions
+  solGroup.rotation.y += 0.003;
+  solGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.angle !== undefined) {
+      const a = child.userData.angle + now * child.userData.speed;
+      child.position.x = Math.cos(a) * child.userData.rad;
+      child.position.z = Math.sin(a) * child.userData.rad;
+      child.position.y = 0.08 + Math.sin(now * 1.5 + i) * 0.04;
     }
   });
-  // Wire sphere
+  // Process
+  procGroup.children.forEach((child, i) => {
+    if (child.isMesh && child.geometry.type === 'BoxGeometry') {
+      child.material.opacity = 0.3 + Math.sin(now * 0.5 + i) * 0.2;
+    }
+  });
+  beam.material.opacity = 0.1 + Math.sin(now * 0.7) * 0.08;
+  // Sectors
+  sectGroup.rotation.y += 0.002;
+  sectGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.angle !== undefined) {
+      const a = child.userData.angle + now * child.userData.speed;
+      child.position.x = Math.cos(a) * child.userData.rad;
+      child.position.z = Math.sin(a) * child.userData.rad;
+      child.position.y = Math.sin(a * 2 + now) * 0.1;
+    }
+  });
+  centerGlow.material.opacity = 0.3 + Math.sin(now * 0.4) * 0.15;
+  // Why
   h5.rotation.x += 0.002; h5.rotation.y += 0.003;
-  h5r.rotation.z += 0.005;
-  // Burst particles
-  burstGroup.children.forEach((b, i) => {
-    if (b.userData && b.userData.home) {
-      const push = Math.sin(now * b.userData.speed + i) * 0.15;
-      b.position.copy(b.userData.home);
-      const dir = b.position.clone().normalize();
-      b.position.add(dir.multiplyScalar(push));
+  h5w.rotation.copy(h5.rotation);
+  h5Ring1.rotation.z += 0.005; h5Ring2.rotation.z -= 0.004;
+  // Journey
+  secEls.forEach(el => {
+    if (el.userData && el.userData.angle !== undefined && el.geometry && el.geometry.type === 'ConeGeometry') {
+      el.position.y = -3 + el.userData.angle * 0.15 + Math.sin(now * 0.4 + el.userData.phase) * 0.06;
     }
   });
-  // Base
-  h8.rotation.x += 0.002; h8.rotation.y += 0.004;
-  h8.material.emissiveIntensity = 0.15 + Math.sin(now * 0.5) * 0.1;
+  // CTA
+  ctaGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.phase !== undefined) {
+      const p = (Math.sin(now * 0.3 + child.userData.phase) + 1) * 0.5;
+      child.scale.setScalar(1 + p * 0.5);
+      child.material.opacity = 0.05 + p * 0.15;
+    }
+    if (child.userData && child.userData.home) {
+      const push = Math.sin(now * child.userData.speed + i) * 0.2;
+      child.position.copy(child.userData.home);
+      const dir = child.position.clone().normalize();
+      child.position.add(dir.multiplyScalar(push));
+    }
+  });
+  ctaCore.material.opacity = 0.4 + Math.sin(now * 0.5) * 0.2;
+  // Footer
+  h8.rotation.x += 0.003; h8.rotation.y += 0.005;
+  h8w.rotation.copy(h8.rotation);
+  h8.material.emissiveIntensity = 0.2 + Math.sin(now * 0.4) * 0.15;
+  groundGlow.material.opacity = 0.06 + Math.sin(now * 0.3) * 0.04;
 
-  /* Camera: orbit around spine following scroll */
-  const ct = Math.max(0, Math.min(1, scrollProg));
-  const targetY = SPINE_TOP - ct * SPINE_LEN + 2;
-  const orbitAngle = ct * Math.PI * 3 + mx * 0.5;
-  const orbitDist = 14 - ct * 4 + Math.sin(ct * Math.PI * 2) * 2;
-  const targetX = orbitDist * Math.cos(orbitAngle);
-  const targetZ = orbitDist * Math.sin(orbitAngle);
-  const targetPos = new THREE.Vector3(targetX, targetY + my * 0.3, targetZ);
-  camPos.lerp(targetPos, 0.04);
-  camera.position.copy(camPos);
-  camLook.lerp(new THREE.Vector3(0, targetY - 1, 0), 0.06);
-  camera.lookAt(camLook);
-
-  /* Bloom pulse */
-  const si = Math.min(8, Math.floor(scrollProg * 9));
-  if (si !== lastSec) { lastSec = si; bloom.strength = 2.2; }
-  bloom.strength += (1.1 - bloom.strength) * 0.025;
+  /* Stars twinkle */
+  // (we don't update individual star sizes in buffer for perf)
+  stars.rotation.y += 0.0001;
 
   /* Ambient particles drift */
   const pA = ambParticles.geometry.attributes.position.array;
   for (let i = 0; i < PC; i++) {
-    pA[i*3+1] += Math.sin(now * 0.08 + i) * 0.0005;
-    pA[i*3] += Math.cos(now * 0.06 + i * 0.3) * 0.0003;
+    pA[i*3+1] += Math.sin(now * 0.06 + i * 0.1) * 0.0004;
+    pA[i*3] += Math.cos(now * 0.05 + i * 0.2) * 0.0003;
   }
   ambParticles.geometry.attributes.position.needsUpdate = true;
   ambParticles.rotation.y += 0.00015;
+
+  /* Fireflies drift */
+  const ffA = fireflies.geometry.attributes.position.array;
+  for (let i = 0; i < FF_COUNT; i++) {
+    ffA[i*3] += ffVel[i].x + Math.sin(now + i) * 0.001;
+    ffA[i*3+1] += ffVel[i].y + Math.cos(now * 0.7 + i) * 0.001;
+    ffA[i*3+2] += ffVel[i].z;
+    if (Math.abs(ffA[i*3]) > 12) ffVel[i].x *= -1;
+    if (Math.abs(ffA[i*3+1]) > 12) ffVel[i].y *= -1;
+  }
+  fireflies.geometry.attributes.position.needsUpdate = true;
+
+  /* Camera: cinematic orbit around spine */
+  const ct = Math.max(0, Math.min(1, scrollProg));
+  const targetY = SPINE_TOP - ct * SPINE_LEN + 2;
+  const orbitAngle = ct * Math.PI * 3 + mx * 0.4;
+  const orbitDist = 15 - ct * 5 + Math.sin(ct * Math.PI * 2.5) * 2;
+  const targetX = orbitDist * Math.cos(orbitAngle);
+  const targetZ = orbitDist * Math.sin(orbitAngle);
+  const targetPos = new THREE.Vector3(targetX, targetY + my * 0.3 + Math.sin(now * 0.1) * 0.3, targetZ);
+  camPos.lerp(targetPos, 0.035);
+  camera.position.copy(camPos);
+  const lookY = targetY - 1.5 + Math.sin(now * 0.15) * 0.2;
+  camLook.lerp(new THREE.Vector3(0, lookY, 0), 0.05);
+  camera.lookAt(camLook);
+
+  /* Bloom pulse on section change */
+  const si = Math.min(8, Math.floor(scrollProg * 9));
+  if (si !== lastSec) { lastSec = si; bloom.strength = 2.5; }
+  bloom.strength += (1.0 - bloom.strength) * 0.03;
 
   composer.render();
 }
 anim();
 
+/* --- RESIZE --- */
 window.addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
+  const w = innerWidth, h = innerHeight;
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-  composer.setSize(innerWidth, innerHeight);
+  renderer.setSize(w, h);
+  composer.setSize(w, h);
 });
 window._setScrollProg = v => { scrollProg = v; };
 } catch (e) {
@@ -945,6 +1184,8 @@ window._setScrollProg = v => { scrollProg = v; };
 <!-- ════════════════════════════
      SCROLL + INTERACTIONS
      ════════════════════════════ -->
+
+
 <script>
 (function(){
 'use strict';
