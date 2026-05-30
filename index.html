@@ -520,12 +520,14 @@ const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isM
 composer.addPass(bloom);
 // Chromatic aberration
 const chromaPass = new ShaderPass(RGBShiftShader);
-chromaPass.uniforms.amount.value = 0.003;
+if (chromaPass.uniforms && chromaPass.uniforms.amount) chromaPass.uniforms.amount.value = 0.003;
 composer.addPass(chromaPass);
 // Film grain (final pass → renders to screen)
 const filmPass = new ShaderPass(FilmShader);
-filmPass.uniforms.intensity.value = 0.1;
-filmPass.uniforms.sCount.value = 600;
+if (filmPass.uniforms) {
+  if (filmPass.uniforms.intensity) filmPass.uniforms.intensity.value = 0.1;
+  if (filmPass.uniforms.time) filmPass.uniforms.time.value = 0;
+}
 filmPass.needsSwap = false;
 composer.addPass(filmPass);
 
@@ -643,15 +645,16 @@ function makeHoloTube(pts, c1, c2, r) {
 // Strand 1 (blue→cyan holographic)
 const tube1 = makeHoloTube(s1, 0x00d4ff, 0x38bdf8, 0.05);
 const tube2 = makeHoloTube(s2, 0x8b5cf6, 0xa78bfa, 0.045);
-// Inner glow strands (thinner, brighter, fresnel-only)
+// Inner glow strands (thinner, brighter, fresnel-only — safe shader, no derivatives)
 const holoGlowShader = (pts, c, r) => {
   const curve = new THREE.CatmullRomCurve3(pts);
   const geo = new THREE.TubeGeometry(curve, pts.length * 2, r, 12, false);
   const mat = new THREE.ShaderMaterial({
     uniforms: { uT: { value: 0 }, uC: { value: new THREE.Color(c) } },
     vertexShader: `
-      varying vec3 vV; varying vec2 vU;
+      varying vec3 vN; varying vec3 vV; varying vec2 vU;
       void main() {
+        vN = normalize(normalMatrix * normal);
         vec4 mv = modelViewMatrix * vec4(position, 1.0);
         vV = mv.xyz; vU = uv;
         gl_Position = projectionMatrix * mv;
@@ -659,11 +662,10 @@ const holoGlowShader = (pts, c, r) => {
     `,
     fragmentShader: `
       uniform vec3 uC; uniform float uT;
-      varying vec3 vV; varying vec2 vU;
+      varying vec3 vN; varying vec3 vV; varying vec2 vU;
       void main() {
         vec3 d = normalize(-vV);
-        vec3 n = normalize(cross(dFdx(vV), dFdy(vV)));
-        float f = pow(1.0 - abs(dot(d, n)), 4.0);
+        float f = pow(1.0 - abs(dot(d, vN)), 4.0);
         float s = pow(max(0.0, sin(vU.y * 60.0 - uT * 1.5)), 20.0);
         float a = (f * 0.6 + s * 0.4) * 0.4;
         gl_FragColor = vec4(uC * (1.0 + f * 0.5), a);
@@ -1124,17 +1126,17 @@ function anim() {
   // Scroll velocity (smooth)
   scrollVel += (Math.abs(scrollProg - prevScroll) / Math.max(dt, 0.001) - scrollVel) * 0.1;
   prevScroll = scrollProg;
-  bgMat.uniforms.uTime.value = now;
-  tube1.material.uniforms.uT.value = now;
-  tube2.material.uniforms.uT.value = now;
-  glow1.material.uniforms.uT.value = now;
-  glow2.material.uniforms.uT.value = now;
-  gridUniforms.uT.value = now;
-  gridUniforms.uScroll.value = scrollProg;
+  if (bgMat.uniforms) bgMat.uniforms.uTime.value = now;
+  if (tube1.material && tube1.material.uniforms) tube1.material.uniforms.uT.value = now;
+  if (tube2.material && tube2.material.uniforms) tube2.material.uniforms.uT.value = now;
+  if (glow1.material && glow1.material.uniforms) glow1.material.uniforms.uT.value = now;
+  if (glow2.material && glow2.material.uniforms) glow2.material.uniforms.uT.value = now;
+  if (gridUniforms) { gridUniforms.uT.value = now; gridUniforms.uScroll.value = scrollProg; }
   // Dynamic chromatic aberration based on scroll velocity
-  chromaPass.uniforms.amount.value = 0.002 + scrollVel * 0.002;
+  if (chromaPass.uniforms.amount) chromaPass.uniforms.amount.value = 0.002 + scrollVel * 0.002;
   // Film grain intensity follows scroll
-  filmPass.uniforms.intensity.value = 0.05 + scrollVel * 0.08;
+  if (filmPass.uniforms.intensity) filmPass.uniforms.intensity.value = 0.05 + scrollVel * 0.08;
+  if (filmPass.uniforms.time) filmPass.uniforms.time.value = now;
 
   /* Lighting animation */
   const lx = Math.sin(now * 0.15) * 8;
