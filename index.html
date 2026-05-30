@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1777930373819703" crossorigin="anonymous"></script>
@@ -482,197 +482,345 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 <div id="scroller"></div>
 
 <!-- ════════════════════════════════════════════
-     THREE.JS — KIVON DNA ENERGY SPINE
-     Double helix + rungs + flow particles
-     Section elements on each spine node
-     Camera orbits around the spine
-     Neon blue / purple / cyan palette
+     THREE.JS — KIVON 6 REAL OBJECTS
+     Bavul, Dişli, Robot Kol, Bilgisayar, Küre, Puzzle
+     Scroll ile sırayla açılma
      ════════════════════════════════════════════ -->
 <script type="module">
 import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
 try {
 const isMob = innerWidth < 768;
-const SHATTER_GRID = isMob ? 4 : 6; // 64 veya 216 parça
-const TOTAL_PIECES = SHATTER_GRID ** 3;
 
-/* ═══════ SCENE ═══════ */
+/* --- SCENE --- */
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x030712, isMob ? 0.035 : 0.025);
-const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 200);
-camera.position.set(7, 4, 9);
+scene.fog = new THREE.FogExp2(0x030712, isMob ? 0.025 : 0.018);
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(0, 3, 12);
 const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false, powerPreference:'high-performance'});
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure = 1.2;
 document.getElementById('stage').appendChild(renderer.domElement);
+
+/* --- CSS2D LABEL RENDERER --- */
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(innerWidth, innerHeight);
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.top = '0';
+labelRenderer.domElement.style.pointerEvents = 'none';
+labelRenderer.domElement.style.zIndex = '1';
+document.getElementById('stage').appendChild(labelRenderer.domElement);
+
+/* --- COMPOSER --- */
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.6 : 1.0, 0.3, 0.1);
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.5 : 0.8, 0.25, 0.08);
 composer.addPass(bloom);
 
-/* ═══════ LIGHTING ═══════ */
-scene.add(new THREE.AmbientLight(0x1e1b4b, 0.3));
-const hemi = new THREE.HemisphereLight(0x00d4ff, 0x030712, 0.6);
+/* --- LIGHTING --- */
+scene.add(new THREE.AmbientLight(0x1e1b4b, 0.4));
+const hemi = new THREE.HemisphereLight(0x00d4ff, 0x030712, 0.7);
 scene.add(hemi);
-const key = new THREE.PointLight(0x00d4ff, 3, 40);
-key.position.set(5, 8, 10);
+const key = new THREE.PointLight(0x00d4ff, 4, 50);
+key.position.set(8, 10, 12);
 scene.add(key);
-const fill = new THREE.PointLight(0x8b5cf6, 1.5, 40);
-fill.position.set(-6, -2, -8);
+const fill = new THREE.PointLight(0x8b5cf6, 2, 50);
+fill.position.set(-8, -3, -10);
 scene.add(fill);
-const rim = new THREE.DirectionalLight(0x38bdf8, 1.2);
-rim.position.set(-5, 10, -8);
+const rim = new THREE.DirectionalLight(0x38bdf8, 1.5);
+rim.position.set(-6, 12, -10);
 scene.add(rim);
+const rim2 = new THREE.DirectionalLight(0x8b5cf6, 0.8);
+rim2.position.set(6, -4, 8);
+scene.add(rim2);
 
-/* ═══════ GLSL NEBULA ═══════ */
+/* --- BACKGROUND (nebula shader) --- */
 const bgGeo = new THREE.PlaneGeometry(2, 2);
 const bgMat = new THREE.ShaderMaterial({
   uniforms: { uTime: { value: 0 } },
-  vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`,
-  fragmentShader: `varying vec2 vUv;uniform float uTime;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.1+0.37;a*=0.5;}return v;}void main(){vec2 uv=vUv-0.5;float t=uTime*0.07;float n1=fbm(uv*2.8+vec2(t*0.6,t*0.35));float n2=fbm(uv*1.9+vec2(-t*0.4,t*0.55));float n3=fbm(uv*4.2-vec2(t*0.3,t*0.2));vec3 col=vec3(0.004,0.002,0.025);float nb=pow(max(n1-0.35,0.0),2.5)*0.22;col+=vec3(0.0,0.83,1.0)*nb;col+=vec3(0.54,0.17,0.89)*pow(max(n3-0.55,0.0),3.0)*0.08;col+=vec3(0.1,0.0,0.3)*n2*0.12;col*=1.0-smoothstep(0.3,0.95,length(uv))*0.7;gl_FragColor=vec4(col,1.0);}`,
+  vertexShader: "varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}",
+  fragmentShader: "varying vec2 vUv;uniform float uTime;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.1+0.37;a*=0.5;}return v;}void main(){vec2 uv=vUv-0.5;float t=uTime*0.07;float n1=fbm(uv*2.8+vec2(t*0.6,t*0.35));float n2=fbm(uv*1.9+vec2(-t*0.4,t*0.55));float n3=fbm(uv*4.2-vec2(t*0.3,t*0.2));vec3 col=vec3(0.004,0.002,0.025);float nb=pow(max(n1-0.35,0.0),2.5)*0.22;col+=vec3(0.0,0.83,1.0)*nb;col+=vec3(0.54,0.17,0.89)*pow(max(n3-0.55,0.0),3.0)*0.08;col+=vec3(0.1,0.0,0.3)*n2*0.12;col*=1.0-smoothstep(0.3,0.95,length(uv))*0.7;gl_FragColor=vec4(col,1.0);}",
   depthTest: false, depthWrite: false,
 });
 const bgMesh = new THREE.Mesh(bgGeo, bgMat);
 bgMesh.renderOrder = -999; bgMesh.frustumCulled = false;
 scene.add(bgMesh);
 
-/* ═══════════════════════════════════════════════
-   KIVON SHATTER ENGINE
-   6×6×6 = 216 adet katı 3D obje → Küp
-   Scroll ile patlama + aşağı düşme
-   ═══════════════════════════════════════════════ */
+/* --- PEDESTAL RING --- */
+function makePedestal(color) {
+  const g = new THREE.RingGeometry(0.9, 1.2, 48);
+  const m = new THREE.MeshBasicMaterial({
+    color, transparent: true, opacity: 0.15, side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.rotation.x = -Math.PI / 2;
+  mesh.position.y = -0.1;
+  return mesh;
+}
 
-// Her parça için: başlangıç pozisyonu, hız, geometri, malzeme
-const geoTypes = [
-  (s) => new THREE.TetrahedronGeometry(s * 0.09, 0),
-  (s) => new THREE.OctahedronGeometry(s * 0.08, 0),
-  (s) => new THREE.BoxGeometry(s * 0.08, s * 0.08, s * 0.08),
-  (s) => new THREE.DodecahedronGeometry(s * 0.07, 0),
-  (s) => new THREE.ConeGeometry(s * 0.07, s * 0.1, 4),
-  (s) => new THREE.IcosahedronGeometry(s * 0.075, 0),
+/* ==============================
+   6 REAL OBJECTS
+   ============================== */
+const RADIUS = isMob ? 3.5 : 5.5;
+const objDefs = [
+  { label: 'VERI', sub: 'Data Broker', color: 0x00d4ff, angle: 0 },
+  { label: 'OTOMASYON', sub: 'Otomasyon', color: 0x8b5cf6, angle: Math.PI/3 },
+  { label: 'YAPAY ZEKA', sub: 'AI Robotik', color: 0x38bdf8, angle: 2*Math.PI/3 },
+  { label: 'TEKNOLOJI', sub: 'Bilisim', color: 0x06b6d4, angle: Math.PI },
+  { label: 'KURESEL', sub: 'Global Veri', color: 0xa78bfa, angle: 4*Math.PI/3 },
+  { label: 'COZUM', sub: 'Analitik', color: 0x22d3ee, angle: 5*Math.PI/3 },
 ];
-const pal = [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6, 0xa78bfa, 0x22d3ee, 0x6366f1].map(c => new THREE.Color(c));
 
-// Küp merkezleme
-const SPACING = 0.38;
-const OFFSET = (SHATTER_GRID - 1) * SPACING / 2;
+const gltfLoader = new GLTFLoader();
 
-const pieces = [];
-const startPositions = [];
-const velocities = [];
-const rotSpeeds = [];
+const glbUrls = [
+  'https://raw.githubusercontent.com/ITsMagic-Software/Package-Suitcase4/main/Files/Models/ITsMagic/Suitcase_3.glb',
+  'https://raw.githubusercontent.com/vfasteng/glb_models/master/GearboxAssy.glb',
+  null,
+  'https://raw.githubusercontent.com/ToxSam/cc0-models-Polygonal-Mind/main/projects/chromatic-chaos/ComputerScreen_Open_Retro.glb',
+  null,
+  null,
+];
 
-function genRandomDir() {
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.acos(2 * Math.random() - 1);
-  return new THREE.Vector3(
-    Math.sin(phi) * Math.cos(theta),
-    Math.sin(phi) * Math.sin(theta),
-    Math.cos(phi)
-  ).normalize();
+/* --- BUILD: Robot Arm --- */
+function buildRobotArm() {
+  const group = new THREE.Group();
+  const mat = (c, em) => new THREE.MeshStandardMaterial({
+    color: c, emissive: c, emissiveIntensity: em||0.15, metalness: 0.5, roughness: 0.3
+  });
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.8, 0.25, 24), mat(0x374151, 0.05));
+  base.position.y = 0.125; group.add(base);
+  const tt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.55, 0.12, 24), mat(0x4b5563, 0.05));
+  tt.position.y = 0.31; group.add(tt);
+  const lower = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 0.2), mat(0x00d4ff, 0.2));
+  lower.position.set(0, 0.97, 0); group.add(lower);
+  const mid = new THREE.Mesh(new THREE.SphereGeometry(0.28, 16, 16), mat(0x8b5cf6, 0.3));
+  mid.position.set(0, 1.57, 0); group.add(mid);
+  const upper = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.0, 0.18), mat(0x38bdf8, 0.2));
+  upper.position.set(0.35, 2.17, 0); upper.rotation.z = -0.4; group.add(upper);
+  const wrist = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 12), mat(0x06b6d4, 0.25));
+  wrist.position.set(0.6, 2.65, 0); group.add(wrist);
+  for (let s = -1; s <= 1; s += 2) {
+    const f = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.25, 0.04), mat(0x00d4ff, 0.3));
+    f.position.set(0.6 + s*0.08, 2.9, 0); group.add(f);
+  }
+  const glow = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.7, 32), new THREE.MeshBasicMaterial({
+    color: 0x00d4ff, transparent: true, opacity: 0.3, side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  }));
+  glow.rotation.x = -Math.PI/2; glow.position.y = 0.02; group.add(glow);
+  group.scale.setScalar(0.7);
+  return group;
 }
 
-let idx = 0;
-for (let x = 0; x < SHATTER_GRID; x++) {
-  for (let y = 0; y < SHATTER_GRID; y++) {
-    for (let z = 0; z < SHATTER_GRID; z++) {
-      const startPos = new THREE.Vector3(
-        x * SPACING - OFFSET,
-        y * SPACING - OFFSET,
-        z * SPACING - OFFSET
-      );
-      startPositions.push(startPos.clone());
-      
-      // Patlama hızı: merkezden dışarı + aşağı
-      const dir = startPos.clone().normalize();
-      const speed = 1.5 + Math.random() * 2.5;
-      // Fall velocity: gravity-like
-      const fallVel = 0.3 + Math.random() * 0.5;
-      velocities.push(new THREE.Vector3(
-        dir.x * speed * (0.5 + Math.random()),
-        dir.y * speed * (0.3 + Math.random() * 0.5) - fallVel * 2,
-        dir.z * speed * (0.5 + Math.random())
-      ));
-      
-      rotSpeeds.push(new THREE.Vector3(
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6
-      ));
-      
-      const sizeScale = 0.7 + Math.random() * 0.6;
-      const geom = geoTypes[Math.floor(Math.random() * geoTypes.length)](sizeScale);
-      const color = pal[Math.floor(Math.random() * pal.length)];
-      const mat = new THREE.MeshStandardMaterial({
-        color, emissive: color, emissiveIntensity: 0.1,
-        metalness: 0.4 + Math.random() * 0.3,
-        roughness: 0.2 + Math.random() * 0.3
-      });
-      const mesh = new THREE.Mesh(geom, mat);
-      mesh.position.copy(startPos);
-      mesh.userData = {
-        startPos: startPos.clone(),
-        vel: velocities[idx],
-        rotSpeed: rotSpeeds[idx],
-        idx: idx
-      };
-      scene.add(mesh);
-      pieces.push(mesh);
-      idx++;
-    }
+/* --- BUILD: Globe --- */
+function buildGlobe() {
+  const group = new THREE.Group();
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024; canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createRadialGradient(512, 256, 50, 512, 256, 400);
+  grad.addColorStop(0, '#0a2a5e'); grad.addColorStop(0.5, '#061a3e'); grad.addColorStop(1, '#030e1e');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  function continent(pts) {
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(56,189,248,0.5)'; ctx.shadowColor = 'rgba(0,212,255,0.3)'; ctx.shadowBlur = 15;
+    ctx.fill(); ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(0,212,255,0.4)'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  continent([[150,80],[220,70],[280,85],[310,110],[290,140],[260,150],[230,145],[200,130],[170,110],[140,95]]);
+  continent([[240,230],[260,200],[290,210],[310,240],[300,280],[280,310],[260,320],[240,300],[230,260]]);
+  continent([[490,70],[530,60],[560,75],[550,100],[520,110],[490,100],[480,85]]);
+  continent([[490,120],[540,110],[570,140],[580,180],[560,220],[530,240],[500,230],[480,190],[475,150]]);
+  continent([[570,60],[680,50],[760,70],[780,100],[760,140],[720,160],[660,160],[600,140],[570,110],[560,80]]);
+  continent([[720,280],[770,270],[800,290],[790,320],[750,330],[720,310],[710,290]]);
+  ctx.strokeStyle = 'rgba(0,212,255,0.12)'; ctx.lineWidth = 0.5;
+  for (let i = 0; i < 12; i++) { const y = (i/12)*512; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(1024,y); ctx.stroke(); }
+  for (let i = 0; i < 24; i++) { const x = (i/24)*1024; ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,512); ctx.stroke(); }
+  const tex = new THREE.CanvasTexture(canvas);
+  const sphere = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 48), new THREE.MeshStandardMaterial({
+    map: tex, emissive: 0x00d4ff, emissiveIntensity: 0.15, metalness: 0.1, roughness: 0.6
+  }));
+  group.add(sphere);
+  const wire = new THREE.Mesh(new THREE.SphereGeometry(1.01, 24, 16), new THREE.MeshBasicMaterial({
+    color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.08
+  }));
+  group.add(wire);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(1.05, 1.25, 48), new THREE.MeshBasicMaterial({
+    color: 0x00d4ff, transparent: true, opacity: 0.12, side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  }));
+  ring.rotation.x = Math.PI/2; group.add(ring);
+  group.rotation.z = 0.41;
+  return group;
+}
+
+/* --- BUILD: Puzzle Piece --- */
+function buildPuzzlePiece() {
+  const group = new THREE.Group();
+  const shape = new THREE.Shape();
+  const S = 0.7, T = 0.25;
+  shape.moveTo(0, 0);
+  shape.lineTo(S/2 - T/2, 0);
+  shape.quadraticCurveTo(S/2 - T/2, -T, S/2, -T);
+  shape.quadraticCurveTo(S/2 + T/2, -T, S/2 + T/2, 0);
+  shape.lineTo(S, 0);
+  shape.lineTo(S, S/2 - T/2);
+  shape.quadraticCurveTo(S + T, S/2 - T/2, S + T, S/2);
+  shape.quadraticCurveTo(S + T, S/2 + T/2, S, S/2 + T/2);
+  shape.lineTo(S, S);
+  shape.lineTo(S/2 + T/2, S);
+  shape.quadraticCurveTo(S/2 + T/2, S + T, S/2, S + T);
+  shape.quadraticCurveTo(S/2 - T/2, S + T, S/2 - T/2, S);
+  shape.lineTo(0, S);
+  shape.lineTo(0, S/2 + T/2);
+  shape.quadraticCurveTo(-T, S/2 + T/2, -T, S/2);
+  shape.quadraticCurveTo(-T, S/2 - T/2, 0, S/2 - T/2);
+  shape.lineTo(0, 0);
+  const geom = new THREE.ExtrudeGeometry(shape, {depth:0.15, bevelEnabled:true, bevelThickness:0.03, bevelSize:0.02, bevelSegments:4});
+  geom.center();
+  const mesh = new THREE.Mesh(geom, new THREE.MeshStandardMaterial({
+    color: 0x22d3ee, emissive: 0x22d3ee, emissiveIntensity: 0.2, metalness: 0.3, roughness: 0.4
+  }));
+  mesh.rotation.x = -0.2; mesh.rotation.y = 0.3; group.add(mesh);
+  const edges = new THREE.EdgesGeometry(geom);
+  group.add(new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:0x38bdf8, transparent:true, opacity:0.3})));
+  group.scale.setScalar(0.8);
+  return group;
+}
+
+/* --- FALLBACK BUILDERS --- */
+function buildFallbackSuitcase() {
+  const g = new THREE.Group();
+  const m = (c, em) => new THREE.MeshStandardMaterial({color:c, emissive:c, emissiveIntensity:em||0.1, metalness:0.5, roughness:0.3});
+  const body = new THREE.Mesh(new THREE.BoxGeometry(1.2,0.9,0.6), m(0x1e293b)); body.position.y=0.45; g.add(body);
+  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.15,0.04,8,12,Math.PI), m(0x475569,0.05));
+  handle.position.set(0,0.95,0.3); handle.rotation.x=0.2; g.add(handle);
+  const lock = new THREE.Mesh(new THREE.BoxGeometry(0.08,0.06,0.04), m(0x94a3b8));
+  lock.position.set(0,0.52,0.32); g.add(lock);
+  const trim = new THREE.Mesh(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.2,0.9,0.6)), new THREE.MeshBasicMaterial({color:0x00d4ff,transparent:true,opacity:0.15}));
+  trim.position.y=0.45; g.add(trim);
+  return g;
+}
+function buildFallbackGearbox() {
+  const g = new THREE.Group();
+  const m = (c) => new THREE.MeshStandardMaterial({color:c, emissive:c, emissiveIntensity:0.12, metalness:0.7, roughness:0.25});
+  const lg = new THREE.Mesh(new THREE.CylinderGeometry(0.6,0.6,0.15,12), m(0x8b5cf6)); lg.position.set(-0.3,0.35,0); g.add(lg);
+  const sg = new THREE.Mesh(new THREE.CylinderGeometry(0.35,0.35,0.15,8), m(0x00d4ff)); sg.position.set(0.3,0.35,0.15); g.add(sg);
+  const base = new THREE.Mesh(new THREE.BoxGeometry(1.0,0.12,0.6), new THREE.MeshStandardMaterial({color:0x1f2937,metalness:0.8,roughness:0.3}));
+  base.position.y=0.06; g.add(base);
+  for (let s of [-0.3,0.3]) {
+    const sh = new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.4,8), m(0x94a3b8));
+    sh.position.set(s,0.3,0); g.add(sh);
+  }
+  return g;
+}
+function buildFallbackComputer() {
+  const g = new THREE.Group();
+  const m = (c, em) => new THREE.MeshStandardMaterial({color:c, emissive:c, emissiveIntensity:em||0.1, metalness:0.4, roughness:0.3});
+  const mon = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.7,0.15), m(0x1e293b)); mon.position.y=0.5; g.add(mon);
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.75,0.55), new THREE.MeshBasicMaterial({color:0x00d4ff,transparent:true,opacity:0.3,blending:THREE.AdditiveBlending}));
+  scr.position.set(0,0.5,0.08); g.add(scr);
+  const st = new THREE.Mesh(new THREE.BoxGeometry(0.25,0.25,0.1), m(0x374151)); st.position.set(0,0.12,-0.08); g.add(st);
+  const sb = new THREE.Mesh(new THREE.BoxGeometry(0.35,0.04,0.15), m(0x374151)); sb.position.set(0,0.02,-0.08); g.add(sb);
+  const kb = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.03,0.2), m(0x1e293b)); kb.position.set(0,0.01,0.25); g.add(kb);
+  return g;
+}
+
+/* --- INIT: create all object groups --- */
+const objData = [];
+const fallbacks = [buildFallbackSuitcase, buildFallbackGearbox, null, buildFallbackComputer, null, null];
+
+for (let i = 0; i < 6; i++) {
+  const def = objDefs[i];
+  const group = new THREE.Group();
+  const angle = def.angle;
+  const x = Math.sin(angle) * RADIUS;
+  const z = Math.cos(angle) * RADIUS;
+
+  const ped = makePedestal(def.color);
+  ped.position.set(x, -0.1, z);
+  scene.add(ped);
+
+  const labelDiv = document.createElement('div');
+  labelDiv.textContent = def.label;
+  labelDiv.style.cssText = "color:" + (new THREE.Color(def.color).getStyle()) + ";font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;font-family:monospace;text-shadow:0 0 20px currentColor;opacity:0;transition:opacity 0.8s";
+  const label = new CSS2DObject(labelDiv);
+  label.position.set(x, -1.2, z);
+  scene.add(label);
+
+  const subDiv = document.createElement('div');
+  subDiv.textContent = def.sub;
+  subDiv.style.cssText = "color:rgba(255,255,255,0.3);font-size:8px;letter-spacing:2px;font-family:monospace;opacity:0;transition:opacity 0.8s";
+  const subLabel = new CSS2DObject(subDiv);
+  subLabel.position.set(x, -1.6, z);
+  scene.add(subLabel);
+
+  const startReveal = i * 0.12;
+  const endReveal = startReveal + 0.1;
+
+  objData.push({
+    group, label, subLabel, labelDiv, subDiv,
+    startReveal, endReveal,
+    basePos: new THREE.Vector3(x, 0.2, z),
+    color: def.color, index: i
+  });
+
+  scene.add(group);
+
+  const url = glbUrls[i];
+  if (url) {
+    gltfLoader.load(url,
+      (gltf) => {
+        const model = gltf.scene;
+        model.traverse(child => {
+          if (child.isMesh) {
+            if (!child.material) {
+              child.material = new THREE.MeshStandardMaterial({color:def.color, emissive:def.color, emissiveIntensity:0.1, metalness:0.5, roughness:0.3});
+            } else {
+              if (Array.isArray(child.material)) {
+                child.material.forEach(m => { m.emissive = new THREE.Color(def.color); m.emissiveIntensity = 0.1; });
+              } else {
+                child.material.emissive = new THREE.Color(def.color);
+                child.material.emissiveIntensity = 0.1;
+              }
+            }
+            child.material.needsUpdate = true;
+          }
+        });
+        model.scale.setScalar(1.2);
+        group.add(model);
+      },
+      undefined,
+      (err) => {
+        console.warn('[GLB '+i+'] failed:', err.message);
+        if (fallbacks[i]) group.add(fallbacks[i]());
+      }
+    );
+  } else {
+    let obj;
+    if (i === 2) obj = buildRobotArm();
+    else if (i === 4) obj = buildGlobe();
+    else if (i === 5) obj = buildPuzzlePiece();
+    if (obj) group.add(obj);
   }
 }
 
-/* ─── Bağlantı çizgileri (patlamada kopar) ─── */
-// Her parçayı 2-3 yakın komşuya bağla
-const connPairs = [];
-for (let i = 0; i < pieces.length; i++) {
-  const p1 = pieces[i].position;
-  for (let j = i + 1; j < Math.min(i + 10, pieces.length); j++) {
-    const p2 = pieces[j].position;
-    if (p1.distanceTo(p2) < SPACING * 1.2) {
-      connPairs.push(i, j);
-    }
-  }
-}
-const connPos = new Float32Array(connPairs.length * 3);
-const connGeo = new THREE.BufferGeometry();
-connGeo.setAttribute('position', new THREE.BufferAttribute(connPos, 3));
-const connMat = new THREE.LineBasicMaterial({
-  color: 0x00d4ff, transparent: true, opacity: 0.06,
-  blending: THREE.AdditiveBlending
-});
-const connLines = new THREE.LineSegments(connGeo, connMat);
-scene.add(connLines);
-
-/* ─── Patlama parçacıkları ─── */
-const SPARK_COUNT = isMob ? 100 : 300;
-const sparkPos = new Float32Array(SPARK_COUNT * 3);
-const sparkVel = [];
-for (let i = 0; i < SPARK_COUNT; i++) {
-  const dir = genRandomDir();
-  sparkPos[i*3] = 0; sparkPos[i*3+1] = 0; sparkPos[i*3+2] = 0;
-  sparkVel.push(dir.multiplyScalar(2 + Math.random() * 4));
-}
-const sparkGeo = new THREE.BufferGeometry();
-sparkGeo.setAttribute('position', new THREE.Float32BufferAttribute(sparkPos, 3));
-const sparkMat = new THREE.PointsMaterial({
-  color: 0x38bdf8, size: 0.03, transparent: true, opacity: 0,
-  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
-});
-const sparks = new THREE.Points(sparkGeo, sparkMat);
-scene.add(sparks);
-
-/* ─── Ortam parçacıkları ─── */
-const PC = isMob ? 300 : 800;
+/* --- AMBIENT PARTICLES --- */
+const PC = isMob ? 200 : 500;
 const pp = new Float32Array(PC * 3), pc = new Float32Array(PC * 3);
 for (let i = 0; i < PC; i++) {
-  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 5 + Math.random() * 15;
+  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 6 + Math.random() * 18;
   pp[i*3] = r * Math.sin(phi) * Math.cos(theta);
   pp[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
   pp[i*3+2] = r * Math.cos(phi);
@@ -682,174 +830,95 @@ for (let i = 0; i < PC; i++) {
 const pGeo = new THREE.BufferGeometry();
 pGeo.setAttribute('position', new THREE.Float32BufferAttribute(pp, 3));
 pGeo.setAttribute('color', new THREE.Float32BufferAttribute(pc, 3));
-const pMat = new THREE.PointsMaterial({size:0.03,vertexColors:true,transparent:true,opacity:0.2,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
-const ambP = new THREE.Points(pGeo, pMat);
+const ambP = new THREE.Points(pGeo, new THREE.PointsMaterial({
+  size: 0.04, vertexColors: true, transparent: true, opacity: 0.15,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+}));
 scene.add(ambP);
 
-/* ═══════════════════════════════════════════════
-   ANİMASYON FAZLARI
-   0: Bütün — küp sağlam, yavaş döner
-   1: Titreşim — patlama öncesi
-   2: Patlama! — parçalar dışarı + aşağı
-   3: Düşüş — parçalar aşağı iner
-   4: Sakin — parçalar yerde dağılmış
-   ═══════════════════════════════════════════════ */
+/* --- ANIMATION --- */
 let scrollProg = 0;
 let mx = 0, my = 0;
 document.addEventListener('mousemove', e => {
-  mx = (e.clientX / innerWidth - 0.5) * 0.7;
-  my = (e.clientY / innerHeight - 0.5) * 0.4;
+  mx = (e.clientX / innerWidth - 0.5) * 0.5;
+  my = (e.clientY / innerHeight - 0.5) * 0.3;
 }, { passive: true });
 
-function getPhase(p) {
-  if (p < 0.08) return { id: 0, t: p / 0.08 };
-  if (p < 0.22) return { id: 1, t: (p - 0.08) / 0.14 };
-  if (p < 0.50) return { id: 2, t: (p - 0.22) / 0.28 };
-  if (p < 0.75) return { id: 3, t: (p - 0.50) / 0.25 };
-  return { id: 4, t: Math.min((p - 0.75) / 0.25, 1) };
-}
-function smoothstep(t) { return t * t * (3 - 2 * t); }
-
-const camPos = new THREE.Vector3(7, 4, 9);
+const camPos = new THREE.Vector3(0, 3, 12);
 const camLook = new THREE.Vector3(0, 0, 0);
-let lastSec = -1;
 
 function anim() {
   requestAnimationFrame(anim);
   const now = Date.now() * 0.001;
   bgMat.uniforms.uTime.value = now;
-  const ph = getPhase(scrollProg);
+  const p = Math.max(0, Math.min(1, scrollProg));
 
-  /* — PARÇA POZİSYONLARI — */
-  const pieceCount = pieces.length;
-  const centerY = 0;
-  let allShattered = false;
-  
-  for (let i = 0; i < pieceCount; i++) {
-    const m = pieces[i];
-    const sp = m.userData.startPos;
-    const vel = m.userData.vel;
-    const rs = m.userData.rotSpeed;
-    
-    if (ph.id === 0) {
-      // Bütün: başlangıç pozisyonunda, hafif nefes
-      const br = Math.sin(now * 0.4 + i * 0.1) * 0.02;
-      m.position.copy(sp).addScalar(br);
-      m.material.emissiveIntensity = 0.1;
-      m.rotation.x += 0.001; m.rotation.y += 0.002;
-    } else if (ph.id === 1) {
-      // Titreşim
-      const intensity = smoothstep(ph.t) * 0.6;
-      const shake = intensity * 0.3;
-      m.position.copy(sp).add(new THREE.Vector3(
-        Math.sin(now * 15 + i * 2.1) * shake,
-        Math.cos(now * 12 + i * 1.3) * shake,
-        Math.sin(now * 18 + i * 0.7) * shake
-      ));
-      m.material.emissiveIntensity = 0.1 + intensity * 1.8;
-      m.rotation.x += rs.x * 0.01 * intensity;
-      m.rotation.y += rs.y * 0.01 * intensity;
-    } else if (ph.id >= 2) {
-      // Patlama + düşüş
-      allShattered = true;
-      const t = (ph.id === 2) ? smoothstep(ph.t) : 1;
-      const fallT = (ph.id === 2) ? 0 : (ph.id === 3 ? smoothstep(ph.t) : 1);
-      
-      // Patlama yönünde ilerle + aşağı düş
-      const expPos = sp.clone().add(vel.clone().multiplyScalar(t * 2.5));
-      const gravity = -4.5 * fallT * fallT;
-      expPos.y += gravity;
-      
-      m.position.copy(expPos);
-      m.material.emissiveIntensity = Math.max(0.05, 0.4 - t * 0.35 - fallT * 0.1);
-      m.rotation.x += rs.x * 0.015;
-      m.rotation.y += rs.y * 0.02;
-      m.rotation.z += rs.z * 0.012;
-    }
+  for (let i = 0; i < objData.length; i++) {
+    const d = objData[i];
+    const revealT = Math.max(0, Math.min(1, (p - d.startReveal) / (d.endReveal - d.startReveal)));
+    const eased = 1 - Math.pow(1 - revealT, 3);
+    const scale = eased;
+    d.group.scale.setScalar(scale);
+    const yOff = (1 - eased) * 2;
+    const bob = Math.sin(now * 0.4 + i * 1.7) * 0.08 * eased;
+    d.group.position.set(d.basePos.x, d.basePos.y - yOff + bob, d.basePos.z);
+    d.group.rotation.y = now * 0.15 + i * 1.2;
+    d.group.rotation.x = Math.sin(now * 0.1 + i) * 0.04;
+    d.labelDiv.style.opacity = Math.min(1, eased * 2);
+    d.subDiv.style.opacity = Math.min(1, eased * 1.5);
+    d.label.position.y = -1.2 + Math.sin(now * 0.3 + i) * 0.08;
+    d.subLabel.position.y = -1.6 + Math.sin(now * 0.3 + i + 0.5) * 0.06;
   }
-  
-  /* — BAĞLANTILAR — */
-  if (allShattered) {
-    connMat.opacity = Math.max(0, 0.06 - (ph.id === 2 ? smoothstep(ph.t) * 0.06 : 0.06));
-  } else {
-    connMat.opacity = 0.06;
-  }
-  for (let i = 0; i < connPairs.length; i++) {
-    const p = pieces[connPairs[i]].position;
-    connPos[i*3] = p.x; connPos[i*3+1] = p.y; connPos[i*3+2] = p.z;
-  }
-  connGeo.attributes.position.needsUpdate = true;
-  
-  /* — KIVILCIMLAR — */
-  if (ph.id === 2 && ph.t > 0.1) {
-    sparkMat.opacity = Math.min(1, (ph.t - 0.1) * 3) * 0.6;
-    const spPos = sparks.geometry.attributes.position.array;
-    for (let i = 0; i < SPARK_COUNT; i++) {
-      spPos[i*3] += sparkVel[i].x * 0.03;
-      spPos[i*3+1] += sparkVel[i].y * 0.03 - 0.02;
-      spPos[i*3+2] += sparkVel[i].z * 0.03;
-    }
-    sparks.geometry.attributes.position.needsUpdate = true;
-  } else if (ph.id > 2) {
-    sparkMat.opacity = Math.max(0, sparkMat.opacity - 0.005);
-  }
-  
-  /* — KAMERA — */
-  const ct = Math.max(0, Math.min(1, scrollProg));
-  // Kamera: objenin etrafında döner, patlamada geri çekilir, sonra aşağı iner
-  let targetX, targetY, targetZ;
-  const orbitAng = ct * Math.PI * 3 + mx * 0.4;
-  const fallProgress = Math.max(0, (ct - 0.22) / 0.53); // 0.22-0.75 arası
-  const dist = 9 + fallProgress * 5 + Math.sin(ct * Math.PI * 2) * 1.5;
-  const yOff = -fallProgress * 12 + my * 0.3;
-  
-  targetX = dist * Math.cos(orbitAng);
-  targetY = ct * 3 + yOff;
-  targetZ = dist * Math.sin(orbitAng);
-  
-  const targetPos = new THREE.Vector3(targetX, targetY, targetZ);
-  camPos.lerp(targetPos, 0.045);
+
+  const orbitAngle = p * Math.PI * 2 + mx * 0.3;
+  const camDist = 8 + (1 - Math.min(1, p * 2)) * 4;
+  const camHeight = 2.5 + p * 1.5 + my * 0.5;
+  const targetPos = new THREE.Vector3(
+    Math.sin(orbitAngle) * camDist, camHeight, Math.cos(orbitAngle) * camDist
+  );
+  camPos.lerp(targetPos, 0.04);
   camera.position.copy(camPos);
-  
-  // LookAt: düşen parçaların merkezine
-  const lookY = -fallProgress * 8;
-  camLook.lerp(new THREE.Vector3(0, lookY, 0), 0.05);
+
+  const lookTarget = new THREE.Vector3(0, 0.2 * Math.min(1, p * 3), 0);
+  camLook.lerp(lookTarget, 0.05);
   camera.lookAt(camLook);
-  
-  /* — BLOOM — */
-  const si = Math.min(8, Math.floor(scrollProg * 9));
-  if (si !== lastSec) { lastSec = si; bloom.strength = 2.5; }
-  bloom.strength += (1.0 - bloom.strength) * 0.02;
-  
-  /* — ORTAM PARÇACIKLARI — */
+
+  const targetBloom = 0.5 + (1 - Math.abs(p - 0.5) * 2) * 0.4;
+  bloom.strength += (targetBloom - bloom.strength) * 0.02;
+
   const pA = ambP.geometry.attributes.position.array;
   for (let i = 0; i < PC; i++) {
-    pA[i*3+1] += Math.sin(now * 0.08 + i) * 0.0005;
-    pA[i*3] += Math.cos(now * 0.06 + i * 0.3) * 0.0003;
+    pA[i*3+1] += Math.sin(now * 0.06 + i * 0.1) * 0.0004;
+    pA[i*3] += Math.cos(now * 0.05 + i * 0.2) * 0.0003;
   }
   ambP.geometry.attributes.position.needsUpdate = true;
-  ambP.rotation.y += 0.0001;
-  
+  ambP.rotation.y += 0.0002;
+
   composer.render();
+  labelRenderer.render(scene, camera);
 }
 anim();
 
 window.addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
+  const w = innerWidth, h = innerHeight;
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-  composer.setSize(innerWidth, innerHeight);
+  renderer.setSize(w, h);
+  composer.setSize(w, h);
+  labelRenderer.setSize(w, h);
 });
 window._setScrollProg = v => { scrollProg = v; };
 } catch (e) {
-  console.error('[SHATTER] HATA:', e.message);
-  document.body.innerHTML += '<div style="position:fixed;bottom:0;left:0;right:0;background:#f00;color:#fff;padding:10px;z-index:99999">3D Hata: '+e.message+'</div>';
+  console.error('[KIVON-3D] HATA:', e.message);
+  document.body.innerHTML += '<div style="position:fixed;bottom:0;left:0;right:0;background:#f00;color:#fff;padding:10px;z-index:99999;font-size:12px">3D Hata: '+e.message+'</div>';
 }
 </script>
 
 <!-- ════════════════════════════
      SCROLL + INTERACTIONS
      ════════════════════════════ -->
+
+
 <script>
 (function(){
 'use strict';
