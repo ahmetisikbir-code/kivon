@@ -597,7 +597,7 @@ const sectionGroups = [];
 const SEC_Y = [12, 9.5, 7, 4.5, 2, -0.5, -3, -5.5, -8];
 
 function em(overrides) {
-  return Object.assign({metalness:0.6, roughness:0.2, envMapIntensity:0.5}, overrides);
+  return new THREE.MeshPhysicalMaterial(Object.assign({metalness:0.6, roughness:0.2, envMapIntensity:0.5}, overrides));
 }
 
 // ===== Section 0 — AI Core =====
