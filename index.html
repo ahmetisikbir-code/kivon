@@ -494,7 +494,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { RGBShiftShader } from 'three/addons/shaders/RGBShiftShader.js';
 import { FilmShader } from 'three/addons/shaders/FilmShader.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+// GLTFLoader intentionally removed — no cheap demo models, only custom procedural art
 
 document.body.style.borderTop = '3px solid #00d4ff';
 console.log('[KIVON-DNA] Motor basladi, Three.js surumu:', THREE.REVISION);
@@ -853,160 +853,266 @@ function makeShatterMat(geo, c1, c2) {
 }
 
 /* =================================
-   GLB MODEL LOADER + SECTION SYSTEM
+   CUSTOM PROCEDURAL 3D ART — NO CHEAP MODELS
+   Stunning procedural geometry with shatter shaders
    ================================= */
 const secEls = [];
 const SEC_Y = [12, 9.5, 7, 4.5, 2, -0.5, -3, -5.5, -8];
-const gltfLoader = new GLTFLoader();
-const shatterModels = []; // { mesh, material, secIdx, pos }
+const shatterModels = [];
 
-function loadShatterModel(url, secIdx, yPos, scale, col1, col2) {
-  gltfLoader.load(url, gltf => {
-    const model = gltf.scene;
-    model.position.set(0, yPos, 0);
-    model.scale.setScalar(scale);
-    model.traverse(child => {
-      if (child.isMesh) {
-        const sm = makeShatterMat(child.geometry, col1, col2);
-        child.material = sm;
-        shatterModels.push({ mesh: child, mat: sm, secIdx, yPos });
-      }
-    });
-    scene.add(model);
-    secEls.push(model);
-  }, undefined, () => {
-    // Fallback if model fails to load: create an icosahedron with shatter
-    const fallback = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(0.6, 1),
-      makeShatterMat(new THREE.IcosahedronGeometry(0.6, 1).geometry, col1, col2)
-    );
-    fallback.position.set(0, yPos, 0);
-    scene.add(fallback);
-    secEls.push(fallback);
-    shatterModels.push({ mesh: fallback, mat: fallback.material, secIdx, yPos });
-  });
+/* ── SECTION 0 (Hero) — 3D NEURAL NETWORK (3000 particles + dynamic connections) ── */
+const NN_COUNT = isMob ? 800 : 2500;
+const nnPos = new Float32Array(NN_COUNT * 3);
+const nnCol = new Float32Array(NN_COUNT * 3);
+const nnVel = new Float32Array(NN_COUNT * 3);
+const nnPhase = new Float32Array(NN_COUNT);
+for (let i = 0; i < NN_COUNT; i++) {
+  const r = Math.pow(Math.random(), 1.2) * 1.2;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  nnPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+  nnPos[i*3+1] = (r * Math.sin(phi) * Math.sin(theta)) * 1.3;
+  nnPos[i*3+2] = r * Math.cos(phi);
+  const c = new THREE.Color(0x00d4ff).lerp(new THREE.Color(0x8b5cf6), r / 1.2);
+  nnCol[i*3] = c.r; nnCol[i*3+1] = c.g; nnCol[i*3+2] = c.b;
+  nnVel[i*3] = (Math.random()-0.5)*0.002;
+  nnVel[i*3+1] = (Math.random()-0.5)*0.002;
+  nnVel[i*3+2] = (Math.random()-0.5)*0.002;
+  nnPhase[i] = Math.random() * Math.PI * 2;
 }
+const nnGeo = new THREE.BufferGeometry();
+nnGeo.setAttribute('position', new THREE.Float32BufferAttribute(nnPos, 3));
+nnGeo.setAttribute('color', new THREE.Float32BufferAttribute(nnCol, 3));
+const nnMat = new THREE.PointsMaterial({
+  size: 0.03, vertexColors: true, transparent: true, opacity: 0.7,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const nnCluster = new THREE.Points(nnGeo, nnMat);
+nnCluster.position.set(0, 12.5, 0);
+scene.add(nnCluster); secEls.push(nnCluster);
+// Neural connections (lines between nearby particles)
+const nnLinesPos = [];
+for (let i = 0; i < Math.min(NN_COUNT, 800); i++) {
+  for (let j = i + 1; j < Math.min(NN_COUNT, 800); j++) {
+    const dx = nnPos[i*3] - nnPos[j*3];
+    const dy = nnPos[i*3+1] - nnPos[j*3+1];
+    const dz = nnPos[i*3+2] - nnPos[j*3+2];
+    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    if (dist < 0.3 && dist > 0.02) {
+      nnLinesPos.push(nnPos[i*3], nnPos[i*3+1], nnPos[i*3+2]);
+      nnLinesPos.push(nnPos[j*3], nnPos[j*3+1], nnPos[j*3+2]);
+    }
+  }
+}
+const nnLineGeo = new THREE.BufferGeometry();
+nnLineGeo.setAttribute('position', new THREE.Float32BufferAttribute(nnLinesPos, 3));
+const nnLineMat = new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending });
+const nnLines = new THREE.LineSegments(nnLineGeo, nnLineMat);
+nnLines.position.set(0, 12.5, 0);
+scene.add(nnLines);
 
-// Load models at key sections:
-// 0 (Hero) → BrainStem (AI/neural theme)
-// 2 (Solutions) → RobotExpressive (automation)
-// 4 (Sectors) → DamagedHelmet (transformation)
-// 5 (Why) → BrainStem (copy for now)
-loadShatterModel('https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@main/2.0/BrainStem/glTF-Binary/BrainStem.glb', 0, 12.5, 0.7, 0x00d4ff, 0x38bdf8);
-loadShatterModel('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/RobotExpressive/RobotExpressive.glb', 2, 7.0, 0.5, 0x8b5cf6, 0xa78bfa);
-
-// 1 - Stats: data pillars with floating energy
+/* ── SECTION 1 (Stats) — Enhanced data crystals ── */
 const statGroup = new THREE.Group();
 statGroup.position.set(0, 9.5, 0);
 scene.add(statGroup); secEls.push(statGroup);
 for (let i = 0; i < 3; i++) {
   const angle = (i / 3) * Math.PI * 2;
-  const pillar = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.04, 0.06, 0.8, 6),
-    new THREE.MeshStandardMaterial({ color: 0x00d4ff, emissive: 0x00d4ff, emissiveIntensity: 0.3, metalness: 0.5, roughness: 0.3 })
+  const h = 0.6 + i * 0.15;
+  const crystal = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.08 - i*0.015, 0.1 - i*0.015, h, 5),
+    makeShatterMat(new THREE.CylinderGeometry(0.08 - i*0.015, 0.1 - i*0.015, h, 5).rotateX(0), [0x00d4ff, 0x8b5cf6, 0x38bdf8][i], [0x38bdf8, 0xa78bfa, 0x06b6d4][i])
   );
-  pillar.position.set(Math.cos(angle) * 0.8, 0, Math.sin(angle) * 0.8);
-  pillar.userData = { angle, speed: 0.2 + i * 0.1 };
-  statGroup.add(pillar);
-  const cap = new THREE.Mesh(
-    new THREE.SphereGeometry(0.06, 6, 6),
-    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.6 })
-  );
-  cap.position.set(Math.cos(angle) * 0.8, 0.4, Math.sin(angle) * 0.8);
-  statGroup.add(cap);
+  crystal.position.set(Math.cos(angle) * 0.8, 0, Math.sin(angle) * 0.8);
+  crystal.userData = { angle, speed: 0.15 + i * 0.1, secIdx: 1 };
+  statGroup.add(crystal);
+  shatterModels.push({ mesh: crystal, mat: crystal.material, secIdx: 1, yPos: 9.5 });
 }
 const statRing = new THREE.Mesh(
-  new THREE.TorusGeometry(0.9, 0.008, 6, 32),
-  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+  new THREE.TorusGeometry(0.9, 0.008, 6, 48),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending })
 );
 statRing.rotation.x = Math.PI / 2;
 scene.add(statRing); secEls.push(statRing);
 
-// 3 - Process: floating staircase (kept as-is)
+/* ── SECTION 2 (Solutions) — Parametric TorusKnot galaxy ── */
+const knotGroup = new THREE.Group();
+knotGroup.position.set(0, 7, 0);
+scene.add(knotGroup); secEls.push(knotGroup);
+const knotGeo = new THREE.TorusKnotGeometry(0.5, 0.18, isMob ? 64 : 128, 16);
+const knotMat2 = makeShatterMat(knotGeo, 0x8b5cf6, 0x38bdf8);
+const knotMesh = new THREE.Mesh(knotGeo, knotMat2);
+knotGroup.add(knotMesh);
+shatterModels.push({ mesh: knotMesh, mat: knotMat2, secIdx: 2, yPos: 7 });
+// Orbiting data rings around the knot
+for (let r = 0; r < 3; r++) {
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(0.6 + r * 0.2, 0.006, 6, 32),
+    new THREE.MeshBasicMaterial({ color: [0x00d4ff, 0x8b5cf6, 0x38bdf8][r], transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending })
+  );
+  ring.rotation.x = Math.PI / 3 + r * 0.5;
+  ring.rotation.y = r * 0.3;
+  ring.userData = { speed: 0.2 + r * 0.1, phase: r };
+  knotGroup.add(ring);
+}
+
+/* ── SECTION 3 (Process) — Floating staircase (enhanced) ── */
 const procGroup = new THREE.Group();
 procGroup.position.set(0, 4.5, 0);
 scene.add(procGroup); secEls.push(procGroup);
 for (let i = 0; i < 4; i++) {
+  const stepMat = makeShatterMat(
+    new THREE.BoxGeometry(0.8 - i * 0.1, 0.03, 0.15 + i * 0.05),
+    [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6][i],
+    [0x38bdf8, 0x06b6d4, 0x8b5cf6, 0xa78bfa][i]
+  );
   const step = new THREE.Mesh(
-    new THREE.BoxGeometry(0.8 - i * 0.1, 0.02, 0.15 + i * 0.05),
-    new THREE.MeshStandardMaterial({
-      color: [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6][i],
-      emissive: [0x00d4ff, 0x38bdf8, 0x06b6d4, 0x8b5cf6][i],
-      emissiveIntensity: 0.3, metalness: 0.4, roughness: 0.3, transparent: true, opacity: 0.5
-    })
+    new THREE.BoxGeometry(0.8 - i * 0.1, 0.03, 0.15 + i * 0.05),
+    stepMat
   );
   step.position.set(0, i * 0.3 - 0.45, 0);
+  step.userData = { secIdx: 3, idx: i };
   procGroup.add(step);
+  shatterModels.push({ mesh: step, mat: stepMat, secIdx: 3, yPos: 4.5 + i * 0.3 - 0.45 });
 }
-const beamGeo = new THREE.CylinderGeometry(0.01, 0.01, 1.0, 6);
-const beamMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
-const beam = new THREE.Mesh(beamGeo, beamMat);
+// Energy beam
+const beamGeo = new THREE.CylinderGeometry(0.015, 0.015, 1.2, 6);
+const beamMat2 = new THREE.ShaderMaterial({
+  uniforms: { uT: { value: 0 }, uCol: { value: new THREE.Color(0x00d4ff) } },
+  vertexShader: `varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+  fragmentShader: `uniform vec3 uCol;uniform float uT;varying vec2 vU;float s=sin(vU.y*20.0-uT*2.0)*0.5+0.5;gl_FragColor=vec4(uCol*(0.1+s*0.3),s*0.3);`,
+  transparent: true, blending: THREE.AdditiveBlending, depthWrite: false,
+});
+const beam = new THREE.Mesh(beamGeo, beamMat2);
 beam.position.y = 0.1; procGroup.add(beam);
 
-// 6 - Journey: waypoint markers (kept as-is)
+/* ── SECTION 4 (Sectors) — Orbital particle rings ── */
+const sectGroup = new THREE.Group();
+sectGroup.position.set(0, 2, 0);
+scene.add(sectGroup); secEls.push(sectGroup);
+const RING_PARTICLES = isMob ? 300 : 800;
+const rpPos = new Float32Array(RING_PARTICLES * 3);
+const rpCol = new Float32Array(RING_PARTICLES * 3);
+for (let i = 0; i < RING_PARTICLES; i++) {
+  const theta = Math.random() * Math.PI * 2;
+  const phi = i / RING_PARTICLES * Math.PI * 2;
+  const rad = 0.2 + (i % 3) * 0.2;
+  rpPos[i*3] = rad * Math.cos(theta + phi * 0.3);
+  rpPos[i*3+1] = rad * Math.sin(phi * 2) * 0.15;
+  rpPos[i*3+2] = rad * Math.sin(theta + phi * 0.3);
+  const c = new THREE.Color(0x00d4ff).lerp(new THREE.Color(0x8b5cf6), i / RING_PARTICLES);
+  rpCol[i*3] = c.r; rpCol[i*3+1] = c.g; rpCol[i*3+2] = c.b;
+}
+const rpGeo = new THREE.BufferGeometry();
+rpGeo.setAttribute('position', new THREE.Float32BufferAttribute(rpPos, 3));
+rpGeo.setAttribute('color', new THREE.Float32BufferAttribute(rpCol, 3));
+const rpMat = new THREE.PointsMaterial({
+  size: 0.025, vertexColors: true, transparent: true, opacity: 0.6,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const ringParticles = new THREE.Points(rpGeo, rpMat);
+sectGroup.add(ringParticles);
+// Central shatter core
+const coreGlowGeo2 = new THREE.IcosahedronGeometry(0.12, 1);
+const coreMat2 = makeShatterMat(coreGlowGeo2, 0x00d4ff, 0x38bdf8);
+const coreMesh2 = new THREE.Mesh(coreGlowGeo2, coreMat2);
+sectGroup.add(coreMesh2);
+shatterModels.push({ mesh: coreMesh2, mat: coreMat2, secIdx: 4, yPos: 2 });
+
+/* ── SECTION 5 (Neden) — Geodesic crystal cluster ── */
+const crystalGroup = new THREE.Group();
+crystalGroup.position.set(0, -0.5, 0);
+scene.add(crystalGroup); secEls.push(crystalGroup);
+for (let i = 0; i < 7; i++) {
+  const sz = 0.15 + Math.random() * 0.25;
+  const crystalGeo = new THREE.OctahedronGeometry(sz);
+  const crystalMat5 = makeShatterMat(crystalGeo, 0x8b5cf6, 0xa78bfa);
+  const cMesh = new THREE.Mesh(crystalGeo, crystalMat5);
+  const a = (i / 7) * Math.PI * 2 + Math.random() * 0.3;
+  const r = 0.3 + Math.random() * 0.3;
+  cMesh.position.set(r * Math.cos(a), (Math.random() - 0.5) * 0.4, r * Math.sin(a));
+  cMesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+  cMesh.userData = { rotSpeed: { x: (Math.random()-0.5)*0.01, y: (Math.random()-0.5)*0.01 }, secIdx: 5 };
+  crystalGroup.add(cMesh);
+  shatterModels.push({ mesh: cMesh, mat: crystalMat5, secIdx: 5, yPos: -0.5 });
+}
+// Glow ring
+const h5Ring1 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.65, 0.008, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+);
+h5Ring1.rotation.x = Math.PI / 3;
+crystalGroup.add(h5Ring1);
+const h5Ring2 = new THREE.Mesh(
+  new THREE.TorusGeometry(0.75, 0.005, 6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending })
+);
+h5Ring2.rotation.x = -Math.PI / 4;
+crystalGroup.add(h5Ring2);
+
+/* ── SECTION 6 (Journey) — Enhanced waypoints ── */
 for (let i = 0; i < 3; i++) {
   const a = (i / 3) * Math.PI * 2 + 0.3;
   const marker = new THREE.Mesh(
-    new THREE.ConeGeometry(0.08, 0.15, 6),
-    new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 0.5, metalness: 0.4, roughness: 0.3 })
+    new THREE.OctahedronGeometry(0.08),
+    new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 0.6, metalness: 0.4, roughness: 0.3 })
   );
   marker.position.set(Math.cos(a) * 0.6, -3 + i * 0.15, Math.sin(a) * 0.6);
   marker.userData = { angle: a, phase: Math.random() * Math.PI * 2 };
   scene.add(marker); secEls.push(marker);
   const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(0.12, 0.005, 6, 16),
-    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending })
+    new THREE.TorusGeometry(0.14, 0.005, 6, 16),
+    new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending })
   );
   ring.position.copy(marker.position); ring.rotation.x = Math.PI / 2;
   scene.add(ring); secEls.push(ring);
 }
 
-// 7 - CTA: energy burst (kept as-is)
+/* ── SECTION 7 (CTA) — Exploding energy burst ── */
 const ctaGroup = new THREE.Group();
 ctaGroup.position.set(0, -5.5, 0);
 scene.add(ctaGroup); secEls.push(ctaGroup);
 const ctaCore = new THREE.Mesh(
-  new THREE.SphereGeometry(0.15, 8, 8),
-  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending })
+  new THREE.SphereGeometry(0.18, 12, 12),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending })
 );
 ctaGroup.add(ctaCore);
 for (let r = 0; r < 3; r++) {
   const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3 + r * 0.2, 0.006, 6, 24),
-    new THREE.MeshBasicMaterial({ color: [0x00d4ff, 0x8b5cf6, 0x38bdf8][r], transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending })
+    new THREE.TorusGeometry(0.3 + r * 0.25, 0.008, 8, 32),
+    new THREE.MeshBasicMaterial({ color: [0x00d4ff, 0x8b5cf6, 0x38bdf8][r], transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending })
   );
   ring.rotation.x = Math.PI / 2 + (r - 1) * 0.3;
   ring.userData = { phase: r * 0.5 };
   ctaGroup.add(ring);
 }
-const burstCount = isMob ? 20 : 40;
+const burstCount = isMob ? 30 : 60;
 for (let i = 0; i < burstCount; i++) {
-  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 0.1 + Math.random() * 0.4;
+  const theta = Math.random() * Math.PI * 2, phi = Math.acos(2 * Math.random() - 1), r = 0.1 + Math.random() * 0.5;
   const b = new THREE.Mesh(
-    new THREE.SphereGeometry(0.012, 4, 4),
-    new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending })
+    new THREE.SphereGeometry(0.015, 4, 4),
+    new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending })
   );
   b.position.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
-  b.userData = { home: b.position.clone(), speed: 0.3 + Math.random() * 0.5 };
+  b.userData = { home: b.position.clone(), speed: 0.2 + Math.random() * 0.4 };
   ctaGroup.add(b);
 }
 
-// 8 - Footer: crystal tetrahedron (kept as-is)
+/* ── SECTION 8 (Footer) — Crystal tetrahedron ── */
 const h8 = new THREE.Mesh(
-  new THREE.TetrahedronGeometry(0.4),
-  new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.3, metalness: 0.6, roughness: 0.2, transparent: true, opacity: 0.7 })
+  new THREE.TetrahedronGeometry(0.5),
+  new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.4, metalness: 0.6, roughness: 0.2, transparent: true, opacity: 0.6 })
 );
 h8.position.set(0, -8.5, 0);
 scene.add(h8); secEls.push(h8);
 const groundGlow = new THREE.Mesh(
-  new THREE.RingGeometry(0.2, 0.5, 24),
-  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.1, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })
+  new THREE.RingGeometry(0.2, 0.6, 32),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.08, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })
 );
 groundGlow.rotation.x = -Math.PI / 2; groundGlow.position.set(0, -8.7, 0);
 scene.add(groundGlow); secEls.push(groundGlow);
 const h8w = new THREE.Mesh(
-  new THREE.TetrahedronGeometry(0.42),
-  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.12 })
+  new THREE.TetrahedronGeometry(0.52),
+  new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.1 })
 );
 h8w.position.set(0, -8.5, 0);
 scene.add(h8w); secEls.push(h8w);
@@ -1203,7 +1309,50 @@ function anim() {
       sm.mat.uniforms.uT.value = now;
     }
   });
-  // Stats
+  // Neural network (Section 0) — organic particle flow
+  const nnp = nnCluster.geometry.attributes.position.array;
+  for (let i = 0; i < NN_COUNT; i++) {
+    nnp[i*3] += nnVel[i*3] + Math.sin(now * 0.2 + nnPhase[i]) * 0.0003;
+    nnp[i*3+1] += nnVel[i*3+1] + Math.cos(now * 0.25 + nnPhase[i] * 1.3) * 0.0003;
+    nnp[i*3+2] += nnVel[i*3+2] + Math.sin(now * 0.15 + nnPhase[i] * 0.7) * 0.0003;
+    // Keep in bounds
+    const dx = nnp[i*3], dy = nnp[i*3+1], dz = nnp[i*3+2];
+    const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    if (d > 1.3) { nnVel[i*3] -= dx * 0.001; nnVel[i*3+1] -= dy * 0.001; nnVel[i*3+2] -= dz * 0.001; }
+  }
+  nnCluster.geometry.attributes.position.needsUpdate = true;
+  nnCluster.material.opacity = 0.5 + Math.sin(now * 0.2) * 0.15;
+  nnLines.material.opacity = 0.04 + Math.sin(now * 0.3) * 0.02;
+  // TorusKnot (Section 2) — rotation + orbiting rings
+  knotMesh.rotation.x += 0.003;
+  knotMesh.rotation.y += 0.005;
+  knotGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.speed !== undefined) {
+      child.rotation.z += child.userData.speed * 0.01;
+      child.rotation.x += child.userData.speed * 0.005;
+    }
+  });
+  // Orbital ring particles (Section 4)
+  const rpp = ringParticles.geometry.attributes.position.array;
+  for (let i = 0; i < RING_PARTICLES; i++) {
+    const theta = i * 0.1 + now * (0.05 + (i % 3) * 0.02);
+    const phi = (i / RING_PARTICLES) * Math.PI * 2 + now * 0.03;
+    const rad = 0.2 + (i % 3) * 0.2;
+    rpp[i*3] = rad * Math.cos(theta + phi * 0.3);
+    rpp[i*3+1] = rad * Math.sin(phi * 2) * 0.15;
+    rpp[i*3+2] = rad * Math.sin(theta + phi * 0.3);
+  }
+  ringParticles.geometry.attributes.position.needsUpdate = true;
+  ringParticles.rotation.y += 0.002;
+  // Crystal cluster (Section 5) — slow rotation
+  crystalGroup.children.forEach((child, i) => {
+    if (child.userData && child.userData.rotSpeed) {
+      child.rotation.x += child.userData.rotSpeed.x;
+      child.rotation.y += child.userData.rotSpeed.y;
+    }
+  });
+  h5Ring1.rotation.z += 0.004; h5Ring2.rotation.z -= 0.003;
+  // Stats crystals orbit
   statGroup.children.forEach((child, i) => {
     if (child.userData && child.userData.angle !== undefined) {
       const a = child.userData.angle + now * child.userData.speed;
@@ -1212,17 +1361,13 @@ function anim() {
     }
   });
   statRing.rotation.z += 0.004;
-  // Process
-  procGroup.children.forEach((child, i) => {
-    if (child.isMesh && child.geometry.type === 'BoxGeometry') {
-      child.material.opacity = 0.3 + Math.sin(now * 0.5 + i) * 0.2;
-    }
-  });
-  beam.material.opacity = 0.1 + Math.sin(now * 0.7) * 0.08;
+  // Process — update beam shader time
+  if (beam.material.uniforms) beam.material.uniforms.uT.value = now;
   // Journey
   secEls.forEach(el => {
-    if (el.userData && el.userData.angle !== undefined && el.geometry && el.geometry.type === 'ConeGeometry') {
+    if (el.userData && el.userData.angle !== undefined && el.geometry && el.geometry.type === 'OctahedronGeometry') {
       el.position.y = -3 + el.userData.angle * 0.15 + Math.sin(now * 0.4 + el.userData.phase) * 0.06;
+      el.rotation.x += 0.01; el.rotation.y += 0.015;
     }
   });
   // CTA
