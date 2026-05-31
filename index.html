@@ -976,14 +976,11 @@ function animate() {
   if (filmPass.uniforms && filmPass.uniforms.time) filmPass.uniforms.time.value = now;
   animateSections(now, scrollProg);
   updateCamera(now, scrollProg);
-  if (introProgress < 1) {
-    introStart = performance.now() / 1000;
-  }
   composer.render();
 }
 
 function init() {
-  introStart = performance.now() / 1000;
+  introStart = 0; // clock.getElapsedTime() starts at 0
   animate();
   /* Resize handler (Alex Chen) */
   window.addEventListener('resize', function() {
