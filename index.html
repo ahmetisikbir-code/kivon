@@ -770,8 +770,71 @@ const flowPoints = new THREE.Points(flowGeo, flowMat);
 scene.add(flowPoints);
 
 /* =================================
+   CINEMATIC INTRO SEQUENCE
+   ================================= */
+let introT = 0; // 0 = intro playing, 1 = done
+let introStart = 0;
+
+/* =================================
+   SCREEN SHAKE SYSTEM
+   ================================= */
+let shakeIntensity = 0;
+
+/* =================================
+   SHOCKWAVE RING SYSTEM
+   ================================= */
+const shockwaveRing = new THREE.Mesh(
+  new THREE.RingGeometry(0.02, 0.08, 64),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false })
+);
+shockwaveRing.rotation.x = -Math.PI / 2;
+shockwaveRing.visible = false;
+scene.add(shockwaveRing);
+const shockwaveState = { active: false, progress: 0, y: 0, speed: 0.4 };
+
+/* =================================
+   PARTICLE BURST SYSTEM
+   ================================= */
+const BURST_COUNT = 300;
+const burstPos = new Float32Array(BURST_COUNT * 3);
+const burstVel = new Float32Array(BURST_COUNT * 3);
+const burstLife = new Float32Array(BURST_COUNT);
+const burstColors = new Float32Array(BURST_COUNT * 3);
+// Initialize all dead
+burstLife.fill(-1);
+const burstGeo = new THREE.BufferGeometry();
+burstGeo.setAttribute('position', new THREE.Float32BufferAttribute(burstPos, 3));
+burstGeo.setAttribute('color', new THREE.Float32BufferAttribute(burstColors, 3));
+const burstMat = new THREE.PointsMaterial({
+  size: 0.06, vertexColors: true, transparent: true, opacity: 0.8,
+  blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true
+});
+const burstPoints = new THREE.Points(burstGeo, burstMat);
+scene.add(burstPoints);
+
+function triggerBurst(originY) {
+  const c1 = new THREE.Color(0x00d4ff);
+  const c2 = new THREE.Color(0x8b5cf6);
+  for (let i = 0; i < BURST_COUNT; i++) {
+    burstPos[i*3] = (Math.random() - 0.5) * 0.5;
+    burstPos[i*3+1] = originY + (Math.random() - 0.5) * 0.3;
+    burstPos[i*3+2] = (Math.random() - 0.5) * 0.5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const speed = 0.05 + Math.random() * 0.15;
+    burstVel[i*3] = Math.sin(phi) * Math.cos(theta) * speed;
+    burstVel[i*3+1] = Math.sin(phi) * Math.sin(theta) * speed * 0.5 + 0.02;
+    burstVel[i*3+2] = Math.cos(phi) * speed;
+    burstLife[i] = 1.0 + Math.random() * 0.5;
+    const c = c1.clone().lerp(c2, Math.random());
+    burstColors[i*3] = c.r; burstColors[i*3+1] = c.g; burstColors[i*3+2] = c.b;
+  }
+  burstGeo.attributes.position.needsUpdate = true;
+  burstGeo.attributes.color.needsUpdate = true;
+}
+
+/* =================================
    SHATTER MATERIAL SYSTEM
-   Vertex-displacement explosion
    ================================= */
 function makeShatterMat(geo, c1, c2) {
   const pos = geo.attributes.position;
@@ -1219,32 +1282,99 @@ function anim() {
   }
   fireflies.geometry.attributes.position.needsUpdate = true;
 
-  /* Dynamic FOV on scroll */
-  const targetFov = 48 + scrollProg * 8;
-  camera.fov += (targetFov - camera.fov) * 0.02;
-  camera.updateProjectionMatrix();
+  /* Cinematic intro — camera swoops in on load */
+  if (introStart === 0) introStart = now;
+  if (introT < 1) {
+    introT = Math.min(1, (now - introStart) / 4);
+    const e = 1 - Math.pow(1 - introT, 3);
+    const introCamPos = new THREE.Vector3(camPos.x + (1 - e) * 20, camPos.y + (1 - e) * 8, camPos.z + (1 - e) * 25);
+    camera.position.copy(introCamPos);
+    camera.lookAt(0, 12, 0);
+  } else {
+    /* Dynamic FOV on scroll */
+    const targetFov = 48 + scrollProg * 8;
+    camera.fov += (targetFov - camera.fov) * 0.02;
+    camera.updateProjectionMatrix();
 
-  /* Camera: cinematic orbit with velocity-responsive easing */
-  const ct = Math.max(0, Math.min(1, scrollProg));
-  const targetY = SPINE_TOP - ct * SPINE_LEN + 2;
-  const orbitAngle = ct * Math.PI * 3 + mx * 0.4 + Math.sin(now * 0.03) * 0.08;
-  const baseDist = 15 - ct * 5;
-  const breathe = Math.sin(now * 0.06) * 0.6;
-  const orbitDist = baseDist + breathe + Math.sin(ct * Math.PI * 2.5) * 2;
-  const targetX = orbitDist * Math.cos(orbitAngle);
-  const targetZ = orbitDist * Math.sin(orbitAngle);
-  const camBob = Math.sin(now * 0.08 + ct * 3) * 0.15;
-  const targetPos = new THREE.Vector3(targetX, targetY + my * 0.3 + camBob, targetZ);
-  const ease = Math.min(0.08, 0.02 + scrollVel * 0.04);
-  camPos.lerp(targetPos, ease);
-  camera.position.copy(camPos);
-  const lookY = targetY - 1.5 + Math.sin(now * 0.12) * 0.3 + my * 0.2;
-  camLook.lerp(new THREE.Vector3(0, lookY, 0), 0.04);
-  camera.lookAt(camLook);
+    /* Camera: cinematic orbit with velocity-responsive easing */
+    const ct = Math.max(0, Math.min(1, scrollProg));
+    const targetY = SPINE_TOP - ct * SPINE_LEN + 2;
+    const orbitAngle = ct * Math.PI * 3 + mx * 0.4 + Math.sin(now * 0.03) * 0.08;
+    const baseDist = 15 - ct * 5;
+    const breathe = Math.sin(now * 0.06) * 0.6;
+    const orbitDist = baseDist + breathe + Math.sin(ct * Math.PI * 2.5) * 2;
+    const targetX = orbitDist * Math.cos(orbitAngle);
+    const targetZ = orbitDist * Math.sin(orbitAngle);
+    const camBob = Math.sin(now * 0.08 + ct * 3) * 0.15;
+    const targetPos = new THREE.Vector3(targetX, targetY + my * 0.3 + camBob, targetZ);
+    const ease = Math.min(0.08, 0.02 + scrollVel * 0.04);
+    camPos.lerp(targetPos, ease);
+    camera.position.copy(camPos);
+    const lookY = targetY - 1.5 + Math.sin(now * 0.12) * 0.3 + my * 0.2;
+    camLook.lerp(new THREE.Vector3(0, lookY, 0), 0.04);
+    camera.lookAt(camLook);
 
-  /* Bloom pulse + scroll-reactive strength */
+    /* Screen shake */
+    if (shakeIntensity > 0.001) {
+      camera.position.x += (Math.random() - 0.5) * shakeIntensity;
+      camera.position.y += (Math.random() - 0.5) * shakeIntensity;
+      shakeIntensity *= 0.92;
+    }
+  }
+
+  /* Shockwave ring */
+  if (shockwaveState.active) {
+    shockwaveState.progress += shockwaveState.speed * dt;
+    if (shockwaveState.progress >= 1) {
+      shockwaveState.active = false;
+      shockwaveRing.visible = false;
+    } else {
+      shockwaveRing.visible = true;
+      const r = 0.5 + shockwaveState.progress * 12;
+      const innerR = Math.max(0.02, r - 0.5 - shockwaveState.progress * 2);
+      shockwaveRing.geometry.dispose();
+      shockwaveRing.geometry = new THREE.RingGeometry(innerR, r, 64);
+      shockwaveRing.material.opacity = (1 - shockwaveState.progress) * 0.6;
+      shockwaveRing.position.y = shockwaveState.y;
+      const s = Math.sin(shockwaveState.progress * Math.PI) * 0.5 + 0.5;
+      shockwaveRing.material.color.setHSL(0.55 + s * 0.1, 1, 0.5);
+    }
+  }
+
+  /* Particle burst update */
+  let anyAlive = false;
+  for (let i = 0; i < BURST_COUNT; i++) {
+    if (burstLife[i] > 0) {
+      anyAlive = true;
+      burstPos[i*3] += burstVel[i*3];
+      burstPos[i*3+1] += burstVel[i*3+1];
+      burstPos[i*3+2] += burstVel[i*3+2];
+      burstLife[i] -= dt * 0.5;
+      burstVel[i*3] *= 0.98;
+      burstVel[i*3+1] *= 0.98;
+      burstVel[i*3+2] *= 0.98;
+    }
+  }
+  if (anyAlive) {
+    burstGeo.attributes.position.needsUpdate = true;
+    burstMat.opacity = 0.8;
+  } else {
+    burstMat.opacity = 0;
+  }
+
+  /* Bloom pulse + scroll-reactive strength + section triggers */
   const si = Math.min(8, Math.floor(scrollProg * 9));
-  if (si !== lastSec) { lastSec = si; bloom.strength = 2.5; }
+  if (si !== lastSec) {
+    lastSec = si;
+    bloom.strength = 2.5;
+    shakeIntensity = 0.08;
+    // Trigger shockwave at current section Y
+    const secY = SPINE_TOP - (si / 9) * SPINE_LEN + 2;
+    shockwaveState.active = true;
+    shockwaveState.progress = 0;
+    shockwaveState.y = secY;
+    triggerBurst(secY);
+  }
   const targetBloom = 0.7 + scrollVel * 0.5;
   bloom.strength += (Math.max(targetBloom, 0.5) - bloom.strength) * 0.03;
 
