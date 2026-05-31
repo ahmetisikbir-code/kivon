@@ -511,13 +511,13 @@ const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false, powerPref
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.4;
+renderer.toneMappingExposure = 0.7;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.getElementById('stage').appendChild(renderer.domElement);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.6 : 0.9, 0.3, 0.06);
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), isMob ? 0.15 : 0.25, 0.5, 0.85);
 composer.addPass(bloom);
 // Chromatic aberration
 const chromaPass = new ShaderPass(RGBShiftShader);
@@ -1243,10 +1243,10 @@ function anim() {
   if (glow1.material && glow1.material.uniforms) glow1.material.uniforms.uT.value = now;
   if (glow2.material && glow2.material.uniforms) glow2.material.uniforms.uT.value = now;
   if (gridUniforms) { gridUniforms.uT.value = now; gridUniforms.uScroll.value = scrollProg; }
-  // Dynamic chromatic aberration based on scroll velocity
-  if (chromaPass.uniforms.amount) chromaPass.uniforms.amount.value = 0.002 + scrollVel * 0.002;
-  // Film grain intensity follows scroll
-  if (filmPass.uniforms.intensity) filmPass.uniforms.intensity.value = 0.05 + scrollVel * 0.08;
+  // Very subtle chromatic aberration
+  if (chromaPass.uniforms.amount) chromaPass.uniforms.amount.value = 0.0005 + scrollVel * 0.0005;
+  // Subtle film grain
+  if (filmPass.uniforms.intensity) filmPass.uniforms.intensity.value = 0.03 + scrollVel * 0.02;
   if (filmPass.uniforms.time) filmPass.uniforms.time.value = now;
 
   /* Lighting animation */
@@ -1511,7 +1511,7 @@ function anim() {
   const si = Math.min(8, Math.floor(scrollProg * 9));
   if (si !== lastSec) {
     lastSec = si;
-    bloom.strength = 2.5;
+    bloom.strength = 0.5;
     shakeIntensity = 0.08;
     // Trigger shockwave at current section Y
     const secY = SPINE_TOP - (si / 9) * SPINE_LEN + 2;
@@ -1520,8 +1520,8 @@ function anim() {
     shockwaveState.y = secY;
     triggerBurst(secY);
   }
-  const targetBloom = 0.7 + scrollVel * 0.5;
-  bloom.strength += (Math.max(targetBloom, 0.5) - bloom.strength) * 0.03;
+  const targetBloom = 0.2 + scrollVel * 0.3;
+  bloom.strength += (Math.max(targetBloom, 0.1) - bloom.strength) * 0.03;
 
   composer.render();
 }
