@@ -1031,7 +1031,23 @@ window.addEventListener('scroll', function() { if(nav) nav.style.top = window.sc
 
 /* ── Count-up ── */
 var counted = false;
-new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting&&!counted){counted=true;[['st0',8],['st1',14],['st2',5]].forEach(function(p){var el=document.getElementById(p[0]);if(!el)return;var t=p[1],d=1800,s=null;function step(ts){if(!s)s=ts;var pr=Math.min((ts-s)/d,1);var e=1-Math.pow(1-pr,4);el.textContent=Math.floor(e*t);if(pr<1)requestAnimationFrame(step);else el.textContent=t;}requestAnimationFrame(step);});}});});},{threshold:.5}).observe(document.getElementById('cn1')||document.body);
+new IntersectionObserver(function(e) {
+  e.forEach(function(en) {
+    if (en.isIntersecting && !counted) {
+      counted = true;
+      [['st0',8],['st1',14],['st2',5]].forEach(function(p) {
+        var el = document.getElementById(p[0]); if (!el) return;
+        var t = p[1], d = 1800, s = null;
+        function step(ts) { if (!s) s = ts;
+          var pr = Math.min((ts-s)/d, 1); var e = 1-Math.pow(1-pr,4);
+          el.textContent = Math.floor(e*t);
+          if (pr < 1) requestAnimationFrame(step); else el.textContent = t;
+        }
+        requestAnimationFrame(step);
+      });
+    }
+  });
+}, {threshold: .5}).observe(document.getElementById('cn1') || document.body);
 
 /* ── Mobile menu ── */
 var mTg = document.getElementById('mTg'), mOvl = document.getElementById('mOvl'), mCl = document.getElementById('mCl');
