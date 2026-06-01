@@ -234,7 +234,15 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 
 /* Footer */
 #cn8.cnode{justify-content:center;padding:80px 20px 60px}
-.foot-w{max-width:820px;width:100%}
+.foot-w{
+  max-width:820px;width:100%;
+  background:rgba(2,8,16,.84);
+  backdrop-filter:blur(28px) saturate(150%);
+  border:1px solid rgba(249,115,22,.14);
+  border-radius:16px;
+  padding:28px 26px 22px;
+  box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 0 1px rgba(249,115,22,.05) inset;
+}
 .faq-w{margin-bottom:28px}
 .faq-ttl{text-align:center;margin-bottom:18px}
 .faq-b{border:1px solid rgba(249,115,22,.1);border-radius:8px;overflow:hidden;background:rgba(249,115,22,.02)}
@@ -252,7 +260,7 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 .foot-g{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;border-top:1px solid rgba(249,115,22,.07);padding-top:24px}
 .fg-h{font-size:.6rem;color:var(--o1);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;display:flex;gap:4px;align-items:center}
 .fg-h::before{content:'//';opacity:.4}
-.fg-a{display:block;font-size:.6rem;color:rgba(255,255,255,.2);text-decoration:none;margin-bottom:5px;transition:.2s;font-family:monospace}
+.fg-a{display:block;font-size:.6rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:5px;transition:.2s;font-family:monospace}
 .fg-a:hover{color:var(--o2);padding-left:4px}
 .foot-b{border-top:1px solid rgba(249,115,22,.05);padding-top:16px;text-align:center;font-family:monospace;font-size:.6rem;color:rgba(255,255,255,.1);letter-spacing:1px;margin-top:20px}
 .foot-b a{color:rgba(249,115,22,.25);text-decoration:none}
@@ -317,7 +325,7 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 <!-- Content Nodes -->
 <div class="cnode on" id="cn0">
   <div class="cp">
-    <span class="lbl">KIVON · AI Danışmanlık · 2026</span>
+    <span class="lbl">KOBİ · AI Danışmanlık · KIVON</span>
     <h1 class="h1x">KOBİ'nizi<br><em>Yapay Zeka</em><br>ile Dönüştür</h1>
     <p class="sub">Türkiye'nin KOBİ'lerine özel yapay zeka laboratuvarı. Gerçek çözümler, ölçülebilir sonuçlar.</p>
     <div class="brow">
@@ -1084,27 +1092,33 @@ document.querySelectorAll('.fq-q').forEach(btn => {
 
 /* Count-up animation */
 let counted = false;
-new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting && !counted) {
-      counted = true;
-      [['st0', 8], ['st1', 14], ['st2', 5]].forEach(([id, target]) => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const dur = 1800, start = null;
-        const step = ts => {
-          const s  = start ?? ts;
-          const pr = Math.min((ts - s) / dur, 1);
-          const e  = 1 - Math.pow(1 - pr, 4);
-          el.textContent = Math.floor(e * target);
-          if (pr < 1) requestAnimationFrame(step);
-          else el.textContent = target;
-        };
-        requestAnimationFrame(step);
-      });
-    }
+function runCountUp() {
+  if (counted) return;
+  counted = true;
+  [['st0', 8], ['st1', 14], ['st2', 5]].forEach(([id, target]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const dur = 1800;
+    let startTs = null;
+    const step = ts => {
+      if (startTs === null) startTs = ts;
+      const pr = Math.min((ts - startTs) / dur, 1);
+      const e  = 1 - Math.pow(1 - pr, 4);
+      el.textContent = Math.floor(e * target);
+      if (pr < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(step);
   });
-}, { threshold: 0.5 }).observe(document.getElementById('cn1') || document.body);
+}
+/* Trigger count-up when scroll reaches stats section (cn1: 11-22%) */
+window.addEventListener('scroll', function onScrollCount() {
+  const p = window.scrollY / (document.documentElement.scrollHeight - innerHeight);
+  if (p >= 0.11) {
+    runCountUp();
+    window.removeEventListener('scroll', onScrollCount);
+  }
+}, { passive: true });
 
 </script>
 
