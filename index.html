@@ -118,16 +118,39 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;tran
 
 .cp{
   max-width:360px;width:100%;
-  padding-left:18px;
-  border-left:2px solid rgba(249,115,22,.4);
+  padding:20px 22px 20px 22px;
+  background:rgba(2,8,16,.82);
+  backdrop-filter:blur(28px) saturate(160%);
+  border:1px solid rgba(249,115,22,.16);
+  border-left:2px solid rgba(249,115,22,.48);
+  border-radius:0 12px 12px 0;
   position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px rgba(249,115,22,.05) inset,0 0 60px rgba(249,115,22,.04);
 }
+/* Animated left accent */
 .cp::before{
-  content:'';position:absolute;left:-2px;top:0;width:2px;height:0;
-  background:var(--o1);box-shadow:0 0 8px rgba(249,115,22,.6);
-  transition:height .8s cubic-bezier(.4,0,.2,1);
+  content:'';position:absolute;
+  left:-2px;top:0;
+  width:2px;height:0;
+  background:linear-gradient(to bottom,var(--o3),var(--o1) 50%,var(--o2));
+  box-shadow:0 0 12px rgba(249,115,22,.6);
+  transition:height .9s cubic-bezier(.4,0,.2,1);
+  border-radius:2px;
 }
 .cnode.on .cp::before{height:100%}
+/* Connector arm extending right toward DNA */
+.cp::after{
+  content:'';
+  position:absolute;
+  top:50%;right:-110px;
+  width:110px;height:1px;
+  background:linear-gradient(90deg,rgba(249,115,22,.55) 0%,rgba(249,115,22,.15) 65%,transparent 100%);
+  transform:translateY(-50%);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .7s cubic-bezier(.4,0,.2,1);
+}
+.cnode.on .cp::after{opacity:1}
 
 .lbl{font-size:8px;letter-spacing:6px;text-transform:uppercase;color:var(--o1);opacity:.7;margin-bottom:10px;display:block}
 .h1x{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.05em;line-height:.95;margin-bottom:14px;color:var(--wh)}
@@ -731,6 +754,65 @@ scene.add(new THREE.Points(partGeo, new THREE.PointsMaterial({
   depthWrite: false,
 })));
 
+/* ═══════════════════════════════════════════════
+   SECTION ANCHOR NODES
+   9 glow spheres on DNA — one per content section
+   They pulse when their section is active
+   A connector line stretches from the active anchor
+   toward the panel side of the camera view
+   ═══════════════════════════════════════════════ */
+
+// t values along the helix mapped to each section (0-8)
+const ANCHOR_T = [0.04, 0.14, 0.24, 0.34, 0.44, 0.54, 0.64, 0.74, 0.90];
+
+// Alternate between strand A (offset=0) and B (offset=PI) for variety
+const anchorPositions = ANCHOR_T.map((t, i) =>
+  helixPt(t, i % 2 === 0 ? 0 : Math.PI)
+);
+
+const anchorGeo = new THREE.SphereGeometry(0.28, 12, 12);
+const anchorMeshes = anchorPositions.map(pos => {
+  const mat = new THREE.MeshBasicMaterial({
+    color: '#ffffff',
+    transparent: true,
+    opacity: 0,
+  });
+  const mesh = new THREE.Mesh(anchorGeo, mat);
+  mesh.position.copy(pos);
+  scene.add(mesh);
+  return { mesh, mat };
+});
+
+// Larger outer glow halo per anchor (very faint)
+const anchorHaloGeo = new THREE.SphereGeometry(0.55, 8, 8);
+const anchorHalos = anchorPositions.map(pos => {
+  const mat = new THREE.MeshBasicMaterial({
+    color: '#f97316',
+    transparent: true,
+    opacity: 0,
+  });
+  const mesh = new THREE.Mesh(anchorHaloGeo, mat);
+  mesh.position.copy(pos);
+  scene.add(mesh);
+  return { mesh, mat };
+});
+
+// Active connector line (anchor → camera-left side)
+const connVerts = new Float32Array(6);
+const connGeoLine = new THREE.BufferGeometry();
+connGeoLine.setAttribute('position', new THREE.BufferAttribute(connVerts, 3));
+const connLineMesh = new THREE.Line(connGeoLine, new THREE.LineBasicMaterial({
+  color: '#f97316',
+  transparent: true,
+  opacity: 0,
+}));
+scene.add(connLineMesh);
+
+// Left-side screen anchor point (panel edge in camera space)
+const _panelEdge = new THREE.Vector3();
+const _leftDir   = new THREE.Vector3();
+let   activeSecIdx = 0;
+
 /* ─── Data pulse tracers (bright spheres racing along strands) ─── */
 const tracerGeo = new THREE.SphereGeometry(0.22, 8, 8);
 const tracer1 = new THREE.Mesh(tracerGeo, new THREE.MeshBasicMaterial({ color: '#ffffff' }));
@@ -869,6 +951,39 @@ function animate() {
 
   /* ── Cross-connection opacity pulse ── */
   crossMat.opacity = 0.25 + 0.18 * Math.sin(time * 1.2);
+
+  /* ── Section anchor glow ── */
+  activeSecIdx = SECS.findIndex(s => smoothProg >= s.from && smoothProg <= s.to);
+  if (activeSecIdx < 0) activeSecIdx = 0;
+
+  anchorMeshes.forEach(({ mat }, i) => {
+    const isActive = i === activeSecIdx;
+    const target = isActive ? (0.85 + 0.15 * Math.sin(time * 4.5)) : 0;
+    mat.opacity += (target - mat.opacity) * 0.08;
+  });
+  anchorHalos.forEach(({ mat }, i) => {
+    const isActive = i === activeSecIdx;
+    const target = isActive ? (0.12 + 0.06 * Math.sin(time * 3.0)) : 0;
+    mat.opacity += (target - mat.opacity) * 0.06;
+  });
+
+  /* ── Connector line: active anchor → camera-left (panel edge) ── */
+  const anchor3D = anchorPositions[activeSecIdx];
+  // Panel edge: camera position + strong left offset (puts it behind the left panel area)
+  _leftDir.set(-1, 0, 0).applyQuaternion(camera.quaternion).normalize();
+  _panelEdge.copy(camera.position).addScaledVector(_leftDir, 5.5);
+  _panelEdge.y = anchor3D.y; // match the anchor's Y for a clean horizontal feel
+
+  connVerts[0] = anchor3D.x;
+  connVerts[1] = anchor3D.y;
+  connVerts[2] = anchor3D.z;
+  connVerts[3] = _panelEdge.x;
+  connVerts[4] = _panelEdge.y;
+  connVerts[5] = _panelEdge.z;
+  connGeoLine.attributes.position.needsUpdate = true;
+  // Fade in/out the connector line
+  const connTarget = 0.55 + 0.15 * Math.sin(time * 2.8);
+  connLineMesh.material.opacity += (connTarget - connLineMesh.material.opacity) * 0.07;
 
   /* ── Camera orbit ── */
   const orbAngle = smoothProg * Math.PI * 2 * ORB_TURNS + Math.PI * 0.15;
