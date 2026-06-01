@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIVON — API Dökümantasyonu</title>
-<meta name='description' content='KIVON API D�k�mantasyonu - REST API endpoint'leri, kimlik do�rulama ve entegrasyon rehberi.'>
+<meta name='description' content='KIVON API D�k�mantasyonu - REST API endpoint'leri, kimlik do�rulama ve entegrasyon rehberi.'>
 <meta name="keywords" content="KIVON, yapay zeka, KOBİ, Turkiye, AI danışmanlık">
 <meta property="og:title" content="KIVON — API Dökümantasyonu">
 <meta property="og:description" content="KIVON API dökümantasyonu">
@@ -504,10 +504,10 @@
 <meta property='og:image' content='https://kivontr.com/img/logo-icon.png'>
 <meta name='twitter:card' content='summary_large_image'>
 <meta name='twitter:title' content='KIVON — API Dökümantasyonu'>
-<meta name='twitter:description' content='KIVON API D�k�mantasyonu - REST API endpoint'>
+<meta name='twitter:description' content='KIVON API D�k�mantasyonu - REST API endpoint'>
 <meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
-<body><canvas id="canvas3d"></canvas><script>(function(){var c=document.getElementById("canvas3d"),ctx=c.getContext("2d"),w,h,ps=[],mx={x:0,y:0};function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener("resize",rs);window.addEventListener("mousemove",function(e){mx.x=e.clientX;mx.y=e.clientY});for(var i=0;i<80;i++){ps.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2})}function dr(){ctx.clearRect(0,0,w,h);for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;var dx=mx.x-p.x,dy=mx.y-p.y;if(Math.sqrt(dx*dx+dy*dy)<200){p.vx+=dx*5e-5;p.vy+=dy*5e-5}ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle="rgba(56,189,248,0.15)";ctx.fill()}for(var i=0;i<ps.length;i++){for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=dx*dx+dy*dy;if(d<15000){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle="rgba(56,189,248,"+(0.03*(1-d/15000))+")";ctx.lineWidth=0.3;ctx.stroke()}}}requestAnimationFrame(dr)}dr()})();</script>
+<body><canvas id="canvas3d"></canvas><script>(function(){var c=document.getElementById("canvas3d"),ctx=c.getContext("2d"),w,h,ps=[],mx={x:0,y:0};function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}rs();window.addEventListener("resize",rs);window.addEventListener("mousemove",function(e){mx.x=e.clientX;mx.y=e.clientY});for(var i=0;i<80;i++){ps.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2})}function dr(){ctx.clearRect(0,0,w,h);for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;var dx=mx.x-p.x,dy=mx.y-p.y;if(Math.sqrt(dx*dx+dy*dy)<200){p.vx+=dx*5e-5;p.vy+=dy*5e-5}ctx.beginPath();ctx.arc(p.x,p.y,1,0,Math.PI*2);ctx.fillStyle="rgba(249,115,22,0.12)";ctx.fill()}for(var i=0;i<ps.length;i++){for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=dx*dx+dy*dy;if(d<15000){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle="rgba(249,115,22,"+(0.03*(1-d/15000))+")";ctx.lineWidth=0.3;ctx.stroke()}}}requestAnimationFrame(dr)}dr()})();</script>
     <canvas id="particles-canvas"></canvas>
 
     <div class="content">
@@ -518,7 +518,7 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="#" class="active">API Docs</a></li>
             </ul>
-        <button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button><div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button></nav>
+        <button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button><div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(2,8,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button></nav>
 
         <!-- Hero -->
         <section class="hero anim-fade-in">
@@ -888,6 +888,6 @@
             animate();
         })();
     </script>
-<script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script><footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
+<script>(function(){var b=document.getElementById("mobileToggle"),o=document.getElementById("mobileOverlay"),c=document.getElementById("mobileClose");if(b&&o){b.onclick=function(){o.style.display="flex"};c.onclick=function(){o.style.display="none"};o.querySelectorAll("a").forEach(function(a){a.onclick=function(){o.style.display="none"}})}})();</script><footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(249,115,22,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>

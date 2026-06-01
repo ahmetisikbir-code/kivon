@@ -15,7 +15,7 @@
 <link rel="canonical" href="https://kivontr.com/404.html">
 <style>
 :root {
-  --navy: #050510; --navy2: #0a0a1a; --cyan: #38bdf8; --indigo: #6366f1; --gold: #fbbf24;
+  --navy: #050510; --navy2: #0a0a1a; --o1: #f97316; --o3: #fbbf24; --gold: #fbbf24;
   --white: #f1f5f9; --muted: #94a3b8;
   --tr: 0.4s cubic-bezier(0.4,0,0.2,1);
 }
@@ -23,7 +23,7 @@
 html { scroll-behavior:smooth; }
 body {
   font-family: -apple-system,'Segoe UI','Inter',sans-serif;
-  background: var(--navy); color: var(--white);
+  background: var(--bg); color: var(--white);
   overflow-x: hidden; -webkit-font-smoothing: antialiased;
   min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
 }
@@ -40,11 +40,11 @@ body {
   margin-bottom:40px;
 }
 .logo svg { width:32px; height:32px; }
-.logo span { color:var(--cyan); }
+.logo span { color:var(--o1); }
 
 .error-404 {
   font-size:clamp(6rem,20vw,12rem); font-weight:900; letter-spacing:-0.06em; line-height:1;
-  background:linear-gradient(135deg,var(--cyan) 0%,var(--indigo) 40%,#a855f7 70%,var(--gold) 100%);
+  background:linear-gradient(135deg,var(--o1) 0%,var(--o3) 40%,#a855f7 70%,var(--gold) 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   margin-bottom:8px; animation:float 4s ease-in-out infinite;
 }
@@ -61,11 +61,11 @@ h2 {
 .btn {
   display:inline-flex; align-items:center; gap:8px;
   padding:16px 36px; border-radius:100px;
-  background:linear-gradient(135deg,var(--cyan),var(--indigo));
+  background:linear-gradient(135deg,var(--o1),var(--o3));
   color:#fff; font-weight:700; font-size:14px; text-decoration:none;
-  transition:var(--tr); box-shadow:0 0 30px rgba(56,189,248,0.15);
+  transition:var(--tr); box-shadow:0 0 30px rgba(249,115,22,0.12);
 }
-.btn:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(56,189,248,0.3); }
+.btn:hover { transform:translateY(-3px); box-shadow:0 0 50px rgba(249,115,22,0.3); }
 
 .hint {
   margin-top:40px; font-size:12px; color:rgba(255,255,255,0.08);
@@ -86,15 +86,15 @@ footer p { font-size:11px; color:rgba(255,255,255,0.06); }
 <meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
 <body>
-<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#38bdf8'>KIVON</span></a></div></nav>
+<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,8,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.1);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#f97316'>KIVON</span></a></div></nav>
 <button class="mobile-toggle" id="mobileToggle" style="display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer">☰</button>
-<div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,5,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button><a href="index.html" style="color:#fff;font-size:20px;font-weight:600;text-decoration:none">Ana Sayfa</a></div>
+<div class="mobile-overlay" id="mobileOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(2,8,16,0.97);backdrop-filter:blur(20px);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px"><button class="mobile-close" id="mobileClose" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer">✕</button><a href="index.html" style="color:#fff;font-size:20px;font-weight:600;text-decoration:none">Ana Sayfa</a></div>
 
 <canvas id="canvas3d"></canvas>
 
 <div class="content">
   <a href="index.html" class="logo">
-    <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#38bdf8" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#38bdf8"/><circle cx="19" cy="8" r="2" fill="#38bdf8"/><circle cx="14" cy="18" r="2" fill="#38bdf8"/><line x1="11" y1="10" x2="17" y2="8" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 28 28" fill="none"><rect x="1" y="1" width="26" height="26" rx="7" fill="#0a0a1a" stroke="#f97316" stroke-width="1.5"/><circle cx="9" cy="10" r="2" fill="#f97316"/><circle cx="19" cy="8" r="2" fill="#f97316"/><circle cx="14" cy="18" r="2" fill="#f97316"/><line x1="11" y1="10" x2="17" y2="8" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="12" x2="12.5" y2="16.5" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="10.5" x2="15.5" y2="16.5" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/></svg>
     <span>KIVON</span>
   </a>
 
@@ -146,7 +146,7 @@ footer p { font-size:11px; color:rgba(255,255,255,0.06); }
       if (dist < 200) { p.vx += dx * 0.00005; p.vy += dy * 0.00005; }
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(56,189,248,' + p.alpha + ')';
+      ctx.fillStyle = 'rgba(249,115,22,' + p.alpha + ')';
       ctx.fill();
     }
     for (var i = 0; i < particles.length; i++) {
@@ -166,7 +166,7 @@ footer p { font-size:11px; color:rgba(255,255,255,0.06); }
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = 'rgba(56,189,248,' + alpha + ')';
+          ctx.strokeStyle = 'rgba(249,115,22,' + alpha + ')';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }

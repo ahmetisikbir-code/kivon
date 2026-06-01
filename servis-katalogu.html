@@ -14,31 +14,31 @@
 <meta property="og:url" content="https://kivontr.com/servis-katalogu.html">
 <link rel="canonical" href="https://kivontr.com/servis-katalogu.html">
 <style>
-:root{--navy:#0a0a1a;--navy2:#101834;--cyan:#38bdf8;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24;--red:#ef4444;--green:#10b981;--indigo:#818cf8}
+:root{--bg:#020810;--navy2:#101834;--o1:#f97316;--ice:#7dd3fc;--white:#fff;--gray:#94a3b8;--gold:#fbbf24;--red:#ef4444;--green:#10b981;--o3:#818cf8}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
-.topbar{background:rgba(10,10,26,0.95);border-bottom:1px solid rgba(56,189,248,0.1);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--bg);color:var(--white);min-height:100vh}
+.topbar{background:rgba(2,8,16,0.95);border-bottom:1px solid rgba(249,115,22,0.1);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
 .topbar h1{font-size:18px;font-weight:800}
-.topbar h1 span{color:var(--cyan)}
+.topbar h1 span{color:var(--o1)}
 .topbar-stats{display:flex;gap:20px;font-size:12px;color:var(--gray)}
-.topbar-stats b{color:var(--cyan);font-size:16px}
-.filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:16px 28px;background:rgba(16,24,52,0.5);border-bottom:1px solid rgba(56,189,248,0.06)}
-.filter-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.12);color:var(--gray);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
-.filter-btn:hover,.filter-btn.active{background:rgba(56,189,248,0.15);color:var(--white);border-color:rgba(56,189,248,0.3)}
+.topbar-stats b{color:var(--o1);font-size:16px}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:16px 28px;background:rgba(16,24,52,0.5);border-bottom:1px solid rgba(249,115,22,0.06)}
+.filter-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(249,115,22,0.12);color:var(--gray);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap}
+.filter-btn:hover,.filter-btn.active{background:rgba(249,115,22,0.12);color:var(--white);border-color:rgba(249,115,22,0.3)}
 .container{max-width:1300px;margin:0 auto;padding:24px 28px}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}
-.service-card{background:rgba(10,10,26,0.6);border:1px solid rgba(56,189,248,0.08);border-radius:18px;padding:22px 24px;transition:all .2s;cursor:default;position:relative;overflow:hidden}
-.service-card:hover{border-color:rgba(56,189,248,0.25);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent));opacity:0;transition:opacity .3s}
+.service-card{background:rgba(2,8,16,0.6);border:1px solid rgba(249,115,22,0.08);border-radius:18px;padding:22px 24px;transition:all .2s;cursor:default;position:relative;overflow:hidden}
+.service-card:hover{border-color:rgba(249,115,22,0.25);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--o1),transparent));opacity:0;transition:opacity .3s}
 .service-card:hover::before{opacity:1}
 .card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-.card-num{font-size:12px;font-weight:800;color:var(--cyan);opacity:0.5}
+.card-num{font-size:12px;font-weight:800;color:var(--o1);opacity:0.5}
 .card-icon{font-size:28px;line-height:1}
 .card-title{font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3}
 .card-desc{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:12px}
 .card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
 .tag{font-size:10px;padding:3px 9px;border-radius:12px;font-weight:600}
-.tag-sector{background:rgba(56,189,248,0.1);color:var(--cyan);border:1px solid rgba(56,189,248,0.15)}
+.tag-sector{background:rgba(249,115,22,0.1);color:var(--o1);border:1px solid rgba(249,115,22,0.12)}
 .tag-price{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2)}
 .tag-diff{background:rgba(251,191,36,0.1);color:var(--gold);border:1px solid rgba(251,191,36,0.15)}
 .card-footer{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--gray);padding-top:10px;border-top:1px solid rgba(255,255,255,0.04)}
@@ -46,22 +46,22 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 .empty-state{text-align:center;padding:60px;grid-column:1/-1}
 .empty-state .icon{font-size:48px;margin-bottom:12px;display:block}
 .sector-section{margin-bottom:32px}
-.sector-title{font-size:15px;font-weight:700;color:var(--cyan);margin-bottom:14px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:1px}
-  .sector-title::after{content:'';flex:1;height:1px;background:rgba(56,189,248,0.1)}
+.sector-title{font-size:15px;font-weight:700;color:var(--o1);margin-bottom:14px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:1px}
+  .sector-title::after{content:'';flex:1;height:1px;background:rgba(249,115,22,0.1)}
   .sector-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:20px 28px;max-width:1300px;margin:0 auto;width:100%}
-  .sector-card{background:linear-gradient(135deg,rgba(16,24,52,0.8),rgba(10,10,26,0.9));border:1px solid rgba(56,189,248,0.12);border-radius:16px;padding:24px 20px;text-align:center;text-decoration:none;color:var(--white);transition:all .3s;position:relative;overflow:hidden}
-  .sector-card:hover{border-color:rgba(56,189,248,0.4);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
-  .sector-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+  .sector-card{background:linear-gradient(135deg,rgba(16,24,52,0.8),rgba(2,8,16,0.9));border:1px solid rgba(249,115,22,0.12);border-radius:16px;padding:24px 20px;text-align:center;text-decoration:none;color:var(--white);transition:all .3s;position:relative;overflow:hidden}
+  .sector-card:hover{border-color:rgba(249,115,22,0.4);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+  .sector-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--o1),transparent);opacity:0;transition:opacity .3s}
   .sector-card:hover::before{opacity:1}
   .sector-card-icon{font-size:40px;display:block;margin-bottom:10px}
   .sector-card-title{font-size:18px;font-weight:700;margin-bottom:4px}
   .sector-card-sub{font-size:12px;color:var(--gray)}
   @media(max-width:768px){.services-grid{grid-template-columns:1fr}.topbar-stats{display:none}.filter-bar{gap:4px}.sector-nav{grid-template-columns:1fr}}
 .mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
-.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+.mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,8,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
 .mobile-overlay.open { display:flex; }
 .mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
-.mobile-overlay a:hover { color:#38bdf8; }
+.mobile-overlay a:hover { color:#f97316; }
 .mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
 </style>
 
@@ -74,7 +74,7 @@ body{font-family:'Segoe UI',Inter,system-ui,sans-serif;background:var(--navy);co
 <meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
 <body>
-<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#38bdf8'>KIVON</span></a></div></nav>
+<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,8,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.1);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#f97316'>KIVON</span></a></div></nav>
 
 <div class="topbar">
   <h1><span>Kivon</span> Hizmet Kataloğu</h1>
@@ -205,6 +205,6 @@ render('all');
 <script>
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
-<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
+<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(249,115,22,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>

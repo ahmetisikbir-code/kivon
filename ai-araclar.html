@@ -18,7 +18,7 @@
       --bg-deep: #0a0a1a;
       --bg-card: rgba(15, 15, 40, 0.75);
       --bg-glass: rgba(255, 255, 255, 0.04);
-      --cyan: #38bdf8;
+      --o1: #f97316;
       --cyan-dim: rgba(56, 189, 248, 0.15);
       --cyan-glow: rgba(56, 189, 248, 0.35);
       --text: #e2e8f0;
@@ -51,7 +51,7 @@
     .header .logo {
       font-size: 2.4rem;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--cyan), #818cf8);
+      background: linear-gradient(135deg, var(--o1), #818cf8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -79,7 +79,7 @@
       align-items: center;
       gap: 10px;
       font-size: 0.88rem;
-      color: var(--cyan);
+      color: var(--o1);
     }
     .notice .icon { font-size: 1.1rem; flex-shrink: 0; }
 
@@ -99,7 +99,7 @@
       transition: all 0.25s;
       font-family: var(--font);
     }
-    .settings-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+    .settings-toggle:hover { border-color: var(--o1); color: var(--o1); }
     .settings-panel {
       background: var(--bg-glass);
       border: 1px solid var(--border);
@@ -122,7 +122,7 @@
       font-family: var(--font);
       font-size: 0.88rem;
     }
-    .settings-panel input[type="text"]:focus { outline: none; border-color: var(--cyan); }
+    .settings-panel input[type="text"]:focus { outline: none; border-color: var(--o1); }
 
     /* ── Buttons ── */
     .btn {
@@ -134,7 +134,7 @@
       border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--cyan-dim);
-      color: var(--cyan);
+      color: var(--o1);
       font-family: var(--font);
       font-size: 0.9rem;
       cursor: pointer;
@@ -142,11 +142,11 @@
       transition: all 0.25s;
       white-space: nowrap;
     }
-    .btn:hover { background: rgba(56, 189, 248, 0.22); border-color: var(--cyan); }
+    .btn:hover { background: rgba(56, 189, 248, 0.22); border-color: var(--o1); }
     .btn.primary {
-      background: var(--cyan);
+      background: var(--o1);
       color: #0a0a1a;
-      border-color: var(--cyan);
+      border-color: var(--o1);
       font-weight: 600;
     }
     .btn.primary:hover { box-shadow: 0 0 24px var(--cyan-glow); }
@@ -179,7 +179,7 @@
     }
     .tab-btn.active {
       background: var(--cyan-dim);
-      color: var(--cyan);
+      color: var(--o1);
       box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.08);
     }
     .tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.03); }
@@ -225,7 +225,7 @@
     }
     .card textarea:focus, .card select:focus, .card input[type="text"]:focus {
       outline: none;
-      border-color: var(--cyan);
+      border-color: var(--o1);
     }
     .card textarea { min-height: 110px; }
     .card select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2394a3b8' viewBox='0 0 20 20'%3e%3cpath d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 12px center; background-size: 18px; padding-right: 36px; }
@@ -264,13 +264,13 @@
       align-items: center;
       gap: 6px;
       padding: 16px 0;
-      color: var(--cyan);
+      color: var(--o1);
     }
     .loading-dots .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--cyan);
+      background: var(--o1);
       animation: bounce 1.2s infinite;
     }
     .dot:nth-child(2) { animation-delay: 0.2s; }
@@ -290,9 +290,9 @@
       font-family: var(--font);
     }
     .chip:hover, .chip.selected {
-      border-color: var(--cyan);
+      border-color: var(--o1);
       background: var(--cyan-dim);
-      color: var(--cyan);
+      color: var(--o1);
     }
 
     /* ── Blank state ── */
@@ -338,7 +338,7 @@
       padding: 16px;
       margin-bottom: 12px;
     }
-    .all-results .mini-card h4 { color: var(--cyan); margin-bottom: 8px; font-size: 0.9rem; }
+    .all-results .mini-card h4 { color: var(--o1); margin-bottom: 8px; font-size: 0.9rem; }
 
     .copy-btn {
       background: none;
@@ -351,13 +351,13 @@
       font-family: var(--font);
       transition: all 0.2s;
     }
-    .copy-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .copy-btn:hover { border-color: var(--o1); color: var(--o1); }
     .copied { color: #34d399 !important; border-color: #34d399 !important; }
     .mobile-toggle { display:none; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; padding:4px; }
-    .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(5,5,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+    .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,8,16,0.97); backdrop-filter:blur(20px); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
     .mobile-overlay.open { display:flex; }
     .mobile-overlay a { color:#fff; font-size:20px; font-weight:600; text-decoration:none; transition:0.3s; }
-    .mobile-overlay a:hover { color:#38bdf8; }
+    .mobile-overlay a:hover { color:#f97316; }
     .mobile-close { position:absolute; top:20px; right:24px; background:none; border:none; color:#fff; font-size:28px; cursor:pointer; }
   </style>
 
@@ -370,7 +370,7 @@
 <meta name='twitter:image' content='https://kivontr.com/img/logo-icon.png'>
 </head>
 <body>
-<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,5,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,0.06);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#38bdf8'>KIVON</span></a></div></nav>
+<nav style='position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,8,16,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(249,115,22,0.1);height:64px'><div style='display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px'><a href='index.html' style='display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;text-decoration:none;color:#fff'><span style='color:#f97316'>KIVON</span></a></div></nav>
 <div class="container">
 
   <!-- ═══════════ HEADER ═══════════ -->
@@ -907,7 +907,7 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
         <div style="white-space:pre-wrap;font-size:0.88rem;line-height:1.5;">${esc(content)}</div>
       </div>`;
     });
-    allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--cyan);font-weight:600;">✨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
+    allResults.innerHTML = `<div style="text-align:center;margin-bottom:16px;color:var(--o1);font-weight:600;">✨ Tüm sonuçlar (örnek verilerle)</div>${html}`;
   } catch (e) {
     allResults.innerHTML = `<span style="color:#f87171;">&#10060; Toplu işlem hatası: ${e.message}</span>`;
   } finally {
@@ -920,6 +920,6 @@ Kişiselleştirilmiş profesyonel teklif metni hazırla. Giriş, kapsam, fiyat, 
 <script>
 (function(){var b=document.getElementById('mobileToggle'),o=document.getElementById('mobileOverlay'),c=document.getElementById('mobileClose');if(b&&o){b.onclick=function(){o.classList.add('open')};c.onclick=function(){o.classList.remove('open')};o.querySelectorAll('a').forEach(function(a){a.onclick=function(){o.classList.remove('open')}});}})();
 </script>
-<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(56,189,248,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
+<footer style="padding:40px 24px;text-align:center;border-top:1px solid rgba(249,115,22,0.04);position:relative;z-index:1"><p style="font-size:12px;color:rgba(255,255,255,0.12)">&copy; 2026 Kivon &middot; <a href="index.html" style="color:rgba(255,255,255,0.2)">Ana Sayfa</a></p></footer>
 </body>
 </html>

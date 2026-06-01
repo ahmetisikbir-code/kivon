@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIVON — Otomatik Veri Broker | B2B Satış Listeleri</title>
+<meta name="description" content="KIVON AI destekli veri broker botu. Sektörel b2b satış listeleri, telefon numaraları, email adresleri — anında hazır.">
+<script src="nav.js"></script>
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--border:#2a2a3a;--text:#e0e0e0;--muted:#888;--accent:#00f5a0;--accent2:#00d9f5;--grad:linear-gradient(135deg,#00f5a0,#00d9f5)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,245,160,0.06);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.nav-logo{font-weight:800;font-size:18px;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:20px;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.container{max-width:1100px;margin:0 auto;padding:100px 20px 60px}
+.hero{text-align:center;margin-bottom:40px}
+.hero h1{font-size:clamp(28px,4vw,48px);background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.hero p{color:var(--muted);font-size:15px;margin-top:12px;max-width:640px;margin-left:auto;margin-right:auto}
+.stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 24px;text-align:center;min-width:120px}
+.stat-card .num{font-size:24px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.filter-bar label{font-size:13px;color:var(--muted)}
+.filter-bar select{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid rgba(42,42,58,0.5);color:var(--text)}
+tr:hover{background:rgba(0,245,160,0.03)}
+.phones{display:flex;gap:4px;flex-wrap:wrap}
+.phone{background:rgba(0,245,160,0.08);color:var(--accent);font-size:11px;padding:2px 8px;border-radius:4px;font-family:monospace}
+.badge{display:inline-block;background:rgba(0,217,245,0.1);color:var(--accent2);font-size:10px;padding:2px 8px;border-radius:10px}
+.price{color:var(--accent);font-weight:600}
+.cta-section{text-align:center;margin-top:50px;padding:40px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.cta-section h2{font-size:20px;margin-bottom:8px}
+.cta-section p{color:var(--muted);font-size:13px;margin-bottom:20px}
+.btn-large{display:inline-block;background:var(--grad);color:var(--bg);padding:14px 36px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none}
+.btn-large:hover{opacity:.85}
+.btn-outline{display:inline-block;background:transparent;color:var(--text);border:1px solid var(--border);padding:6px 16px;border-radius:6px;font-weight:600;font-size:11px;text-decoration:none;margin-top:6px;transition:border-color .2s}
+.btn-outline:hover{border-color:var(--accent)}
+.btn-sm{display:inline-block;background:var(--grad);color:var(--bg);padding:6px 16px;border-radius:6px;font-weight:600;font-size:11px;text-decoration:none;margin-top:6px}
+.btn-sm:hover{opacity:.85}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.loading span{animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+footer{text-align:center;padding:30px;border-top:1px solid var(--border);font-size:12px;color:rgba(255,255,255,0.12)}
+footer a{color:rgba(255,255,255,0.2);text-decoration:none}
+.demo-section{margin-top:40px;padding:32px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.demo-section h2{font-size:18px;margin-bottom:4px}
+@media(max-width:600px){.hero h1{font-size:24px}.stat-card{min-width:80px;padding:12px}.stat-card .num{font-size:18px}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hero">
+  <h1>Otomatik Veri Broker</h1>
+  <p>AI destekli botumuz Türkiye genelinde sektörel işletme verilerini tarar, telefon ve e-posta bilgilerini toplar. B2B satış listeleriniz dakikalar içinde hazır.</p>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="filter-bar">
+  <label for="sektor">Sektör Filtresi:</label>
+  <select id="sektor"><option value="">Tüm Sektörler</option></select>
+  <span style="color:var(--muted);font-size:12px;margin-left:auto" id="count"></span>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Firma</th><th>Sektör</th><th>Telefon</th><th>Email</th><th>Alıcı</th><th>Fiyat</th><th></th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div class="cta-section">
+  <h2>Tam Veri Setini Satın Al</h2>
+  <p>Tüm sektörler — 140+ kayıt, 300+ telefon, düzenli güncellenen veri tabanı.</p>
+  <a href="https://gumroad.com/l/uhfijg" class="btn-large" target="_blank">Hemen Satın Al — 500 TL</a>
+  <br><br>
+  <a href="https://wa.me/905555555555?text=Veri%20Broker%20hakkında%20bilgi" class="btn-outline">WhatsApp'tan Bilgi Al</a>
+  <a href="veri-broker-demo.html" class="btn-outline">Canlı Demo Görüntüle →</a>
+</div>
+
+<div class="demo-section">
+  <h2>Canlı Katalogdan Örnek Kayıtlar</h2>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Sektörlere göre ilk 5 kayıt — gerçek veriler</p>
+  <div class="table-wrap" style="border:1px solid var(--border);border-radius:10px;background:var(--card)">
+    <table>
+      <thead><tr><th>Firma</th><th>Sektör</th><th>Telefon</th><th>Fiyat</th></tr></thead>
+      <tbody id="demo-tbody"></tbody>
+    </table>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <a href="veri-broker-demo.html" class="btn-sm">Tüm Katalogu Görüntüle →</a>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p>© 2026 Kivon · Turkiye · <a href="index.html">Ana Sayfa</a> · <a href="https://wa.me/905303982712">WhatsApp</a> · <a href="site-haritasi.html">Site Haritası</a></p>
+</footer>
+
+<script>
+(function(){
+  var tbody = document.getElementById('tbody');
+  var sel = document.getElementById('sektor');
+  var count = document.getElementById('count');
+  var allData = [];
+
+  fetch('veri-hazinesi/katalog.json').then(function(r){ return r.json(); }).then(function(data){
+    allData = data;
+    renderStats(data);
+    var sectors = {};
+    data.forEach(function(d){ sectors[d.sektor] = true; });
+    var keys = Object.keys(sectors).sort();
+    keys.forEach(function(s){
+      var o = document.createElement('option');
+      o.value = s; o.textContent = s;
+      sel.appendChild(o);
+    });
+    renderTable(data);
+  });
+
+  sel.addEventListener('change', function(){
+    var val = this.value;
+    if(!val) renderTable(allData);
+    else renderTable(allData.filter(function(d){ return d.sektor === val; }));
+  });
+
+  function renderStats(data){
+    var phones = {}, emails = {};
+    data.forEach(function(d){
+      (d.telefon||[]).forEach(function(p){ phones[p] = true; });
+      (d.email||[]).forEach(function(e){ emails[e] = true; });
+    });
+    var sektorSet = new Set(data.map(function(d){ return d.sektor; }));
+    var vals = [
+      { n: data.length, l: 'Toplam Kayıt' },
+      { n: Object.keys(phones).length, l: 'Benzersiz Telefon' },
+      { n: Object.keys(emails).length, l: 'Benzersiz Email' },
+      { n: sektorSet.size, l: 'Sektör' }
+    ];
+    var el = document.getElementById('stats');
+    el.innerHTML = vals.map(function(v){ return '<div class="stat-card"><div class="num">'+v.n+'</div><div class="lbl">'+v.l+'</div></div>'; }).join('');
+  }
+
+  function renderTable(data){
+    var limited = data.slice(0, 20);
+    count.textContent = limited.length + ' / ' + data.length + ' kayıt gösteriliyor';
+    tbody.innerHTML = limited.map(function(d){
+      var phones = (d.telefon||[]).map(function(p){ return '<span class="phone">'+p+'</span>'; }).join('');
+      var emails = (d.email||[]).length ? (d.email||[]).join(', ') : '<span style="color:var(--muted)">-</span>';
+      return '<tr><td style="color:var(--text)">'+(d.firma||'?')+'</td>' +
+        '<td><span class="badge">'+(d.sektor||'?')+'</span></td>' +
+        '<td><div class="phones">'+phones+'</div></td>' +
+        '<td>'+emails+'</td>' +
+        '<td style="color:var(--muted);font-size:12px">'+(d.alici||'?')+'</td>' +
+        '<td class="price">'+(d.fiyat||'?')+'</td>' +
+        '<td><a href="https://wa.me/905303982712" class="btn-sm">Satın Al</a></td></tr>';
+    }).join('');
+  }
+})();
+</script>
+
+<script>
+(function(){
+  fetch('veri-hazinesi/katalog.json').then(function(r){ return r.json(); }).then(function(data){
+    var tbody = document.getElementById('demo-tbody');
+    if(!tbody) return;
+    var items = data.slice(0, 5);
+    tbody.innerHTML = items.map(function(d){
+      var phones = (d.telefon||[]).slice(0, 3).map(function(p){ return '<span class="phone">'+p+'</span>'; }).join('');
+      return '<tr>' +
+        '<td style="color:var(--text)">'+(d.firma||'?')+'</td>' +
+        '<td><span class="badge">'+(d.sektor||'?')+'</span></td>' +
+        '<td><div class="phones">'+phones+'</div></td>' +
+        '<td class="price">'+(d.fiyat||'?')+'</td></tr>';
+    }).join('');
+  });
+})();
+</script>
+
+</body>
+</html>
