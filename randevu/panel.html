@@ -21,6 +21,7 @@
     <div class="nav-logo">KIVON Randevu</div>
     <div class="nav-links">
       <span id="userName" style="color:var(--text);font-weight:500;font-size:14px;"></span>
+      <a href="admin.html" id="doctorLink" style="display:none;font-size:12px;color:var(--purple);text-decoration:none;padding:4px 12px;border:1px solid var(--purple);border-radius:100px">Doktor Paneli</a>
       <button id="logoutBtn" class="btn btn-sm btn-outline">Cikis Yap</button>
     </div>
   </nav>
@@ -79,8 +80,12 @@
 
     getProfile().then(res => {
       if (res.data?.user) {
+        setUser(res.data.user);
         const u = res.data.user;
         document.getElementById('userName').textContent = u.full_name || u.email;
+      }
+      if (res.data?.profile?.role === 'doctor') {
+        document.getElementById('doctorLink').style.display = 'inline-block';
       }
     }).catch(() => {});
 
