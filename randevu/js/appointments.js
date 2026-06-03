@@ -3,8 +3,8 @@ import { getAppointments, createAppointment, cancelAppointment, getDoctors, getA
 export async function renderAppointments(container) {
   if (!container) return;
   try {
-    const data = await getAppointments();
-    const appointments = data.appointments || data || [];
+    const res = await getAppointments();
+    const appointments = res.data || [];
     container.innerHTML = '';
 
     if (!appointments.length) {
@@ -30,7 +30,7 @@ export async function renderAppointments(container) {
       const month = date.toLocaleString('tr-TR', { month: 'short' });
       const time = apt.time || (apt.appointment_time ? apt.appointment_time.slice(0, 5) : '');
       const status = (apt.status || 'pending').toLowerCase();
-      const doctorName = apt.doctor_name || apt.doctor?.full_name || 'Bilinmeyen Doktor';
+      const doctorName = apt.doctor?.profile?.full_name || apt.doctor_name || 'Bilinmeyen Doktor';
       const fullDate = date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
 
       const card = document.createElement('div');
@@ -96,7 +96,8 @@ async function loadDoctorsStep() {
   content.innerHTML = '<div class="spinner"></div>';
   try {
     const data = await getDoctors();
-    bookingState.doctors = data.doctors || data || [];
+    const list = data.data || data || [];
+    bookingState.doctors = list.map(d => ({ ...d, full_name: d.profile?.full_name || d.full_name || 'Bilinmeyen' }));
     bookingState.step = 1;
     renderStep1();
   } catch (err) {
@@ -218,8 +219,8 @@ async function renderStep3() {
   content.innerHTML = '<div class="spinner"></div>';
 
   try {
-    const data = await getAvailability(bookingState.doctorId, bookingState.date);
-    const slots = data.slots || data.availableSlots || data || [];
+    const res = await getAvailability(bookingState.doctorId, bookingState.date);
+    const slots = res.data || [];
 
     if (!slots.length) {
       content.innerHTML = `
@@ -231,9 +232,9 @@ async function renderStep3() {
 
     let html = '<p style="margin-bottom:16px;color:var(--text-muted)">Müsait saatler:</p><div class="time-slots">';
     slots.forEach(slot => {
-      const time = slot.time || slot.start_time || slot;
-      const isBooked = slot.isBooked || slot.is_booked || false;
-      html += `<div class="time-slot ${isBooked ? 'disabled' : ''}" data-time="${time}">${time.slice(0, 5)}</div>`;
+      const time = slot.start_time || slot.time || slot;
+      const isBooked = slot.is_booked || false;
+      html += `<div class="time-slot ${isBooked ? 'disabled' : ''}" data-time="${time}" data-slot-id="${slot.id}">${String(time).slice(0, 5)}</div>`;
     });
     html += '</div><button class="btn btn-primary form-submit" id="step3Confirm" style="margin-top:20px" disabled>Randevuyu Onayla</button>';
 
@@ -250,7 +251,9 @@ async function renderStep3() {
 
     document.getElementById('step3Confirm').addEventListener('click', async () => {
       if (bookingState.time) {
-        await confirmBooking(bookingState.doctorId, bookingState.date, bookingState.time);
+        const selected = document.querySelector('.time-slot.selected');
+        const slotId = selected?.dataset?.slotId;
+        await confirmBooking(bookingState.doctorId, bookingState.date, bookingState.time, slotId);
       }
     });
   } catch (err) {
@@ -258,12 +261,12 @@ async function renderStep3() {
   }
 }
 
-async function confirmBooking(doctorId, date, time) {
+async function confirmBooking(doctorId, date, time, slotId) {
   const content = document.getElementById('modalContent');
   if (!content) return;
   content.innerHTML = '<div class="spinner"></div>';
   try {
-    await createAppointment({ doctorId, date, time });
+    await createAppointment({ doctor_id: doctorId, date, time, slot_id: slotId });
     content.innerHTML = `
       <div style="text-align:center;padding:40px">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="margin-bottom:16px">
