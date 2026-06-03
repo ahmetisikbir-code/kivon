@@ -106,15 +106,9 @@
 
       try {
         const res = await signup({ full_name: fullName, email, phone, role, password });
-        if (res?.data?.user?.identities?.length === 0) {
-          successEl.textContent = 'Bu e-posta zaten kayitli. Giris sayfasina yonlendiriliyorsunuz...';
-          successEl.classList.add('visible');
-          setTimeout(() => { window.location.href = 'giris.html'; }, 2000);
-        } else {
-          successEl.textContent = 'Kaydiniz basariyla olusturuldu. Giris sayfasina yonlendiriliyorsunuz...';
-          successEl.classList.add('visible');
-          setTimeout(() => { window.location.href = 'panel.html'; }, 1500);
-        }
+        successEl.textContent = 'Kaydiniz olusturuldu. E-posta adresinize gelen dogrulama linkine tiklayin, ardindan giris yapabilirsiniz.';
+        successEl.classList.add('visible');
+        document.getElementById('registerForm').querySelector('button').disabled = true;
       } catch (err) {
         errEl.textContent = err.message;
         errEl.classList.add('visible');
