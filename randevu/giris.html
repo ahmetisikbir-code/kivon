@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Giris Yap — KIVON Randevu</title>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-canvas" id="authCanvas"></div>
+    <div class="auth-card glass">
+      <h1>Giris Yap</h1>
+      <p>KIVON hesabiniza giris yapin</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">E-posta</label>
+          <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Sifre</label>
+          <input type="password" id="password" class="form-input" placeholder="Sifreniz" required>
+        </div>
+        <div id="formError" class="form-error"></div>
+        <button type="submit" class="btn btn-primary form-submit">Giris Yap</button>
+      </form>
+      <div class="form-footer">
+        Hesabin yok mu? <a href="kayit.html">Kayit Ol</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    window.THREE = THREE;
+    import { initDNAScene } from './js/dna-scene.js';
+    import { login } from './js/api.js';
+    import { isAuthenticated, setUser } from './js/auth.js';
+
+    if (isAuthenticated()) {
+      window.location.href = 'panel.html';
+    }
+
+    initDNAScene('authCanvas', { cameraZ: 8, tubeRadius: 0.12, starCount: 2000 });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errEl = document.getElementById('formError');
+      errEl.classList.remove('visible');
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        errEl.textContent = 'E-posta ve sifre gereklidir.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      try {
+        const res = await login(email, password);
+        if (res.data?.user) setUser(res.data.user);
+        window.location.href = 'panel.html';
+      } catch (err) {
+        errEl.textContent = err.message;
+        errEl.classList.add('visible');
+      }
+    });
+  </script>
+</body>
+</html>

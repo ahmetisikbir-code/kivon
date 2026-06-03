@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Kayit Ol — KIVON Randevu</title>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-canvas" id="authCanvas"></div>
+    <div class="auth-card glass">
+      <h1>Kayit Ol</h1>
+      <p>KIVON hesabi olusturun</p>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="full_name">Ad Soyad</label>
+          <input type="text" id="full_name" class="form-input" placeholder="Adiniz ve soyadiniz" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E-posta</label>
+          <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required>
+        </div>
+        <div class="form-group">
+          <label for="role">Rol</label>
+          <select id="role" class="form-select" required>
+            <option value="">Seciniz...</option>
+            <option value="user">Kullanici</option>
+            <option value="doctor">Doktor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Sifre</label>
+          <input type="password" id="password" class="form-input" placeholder="En az 6 karakter" minlength="6" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Sifre Tekrar</label>
+          <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required>
+        </div>
+        <div id="formError" class="form-error"></div>
+        <button type="submit" class="btn btn-primary form-submit">Kayit Ol</button>
+      </form>
+      <div class="form-footer">
+        Zaten hesabin var mi? <a href="giris.html">Giris Yap</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    window.THREE = THREE;
+    import { initDNAScene } from './js/dna-scene.js';
+    import { signup } from './js/api.js';
+    import { isAuthenticated, setUser } from './js/auth.js';
+
+    if (isAuthenticated()) {
+      window.location.href = 'panel.html';
+    }
+
+    initDNAScene('authCanvas', { cameraZ: 8, tubeRadius: 0.12, starCount: 2000 });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errEl = document.getElementById('formError');
+      errEl.classList.remove('visible');
+
+      const fullName = document.getElementById('full_name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const role = document.getElementById('role').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm_password').value;
+
+      if (!fullName || !email || !phone || !role || !password || !confirmPassword) {
+        errEl.textContent = 'Tum alanlar gereklidir.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errEl.textContent = 'Sifreler eslesmiyor.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      if (password.length < 6) {
+        errEl.textContent = 'Sifre en az 6 karakter olmalidir.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      try {
+        const res = await signup({ full_name: fullName, email, phone, role, password });
+        if (res.data?.user) setUser(res.data.user);
+        window.location.href = 'panel.html';
+      } catch (err) {
+        errEl.textContent = err.message;
+        errEl.classList.add('visible');
+      }
+    });
+  </script>
+</body>
+</html>

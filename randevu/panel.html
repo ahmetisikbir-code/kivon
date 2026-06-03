@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Panel — KIVON Randevu</title>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo">KIVON Randevu</div>
+    <div class="nav-links">
+      <span id="userName" style="color:var(--text);font-weight:500;font-size:14px;"></span>
+      <button id="logoutBtn" class="btn btn-sm btn-outline">Cikis Yap</button>
+    </div>
+  </nav>
+
+  <main style="padding-top:88px;">
+    <div class="container">
+      <div class="dash-header">
+        <h1>Randevularim</h1>
+        <div class="dash-header-right">
+          <button id="newAppointmentBtn" class="btn btn-primary">Yeni Randevu</button>
+        </div>
+      </div>
+
+      <div class="appointments-list" id="appointmentsList">
+        <div class="spinner" style="margin:60px auto;"></div>
+      </div>
+
+      <div class="whatsapp-section glass">
+        <h3>WhatsApp'tan da randevu alabilirsiniz</h3>
+        <p>7/24 randevu almak icin WhatsApp uzerinden mesaj gonderebilirsiniz.</p>
+        <a href="#" class="btn btn-outline">WhatsApp'tan Yaz</a>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="bookModal">
+    <div class="modal glass" style="position:relative">
+      <button class="modal-close">&times;</button>
+      <h2>Yeni Randevu</h2>
+      <div class="step-indicators">
+        <div class="step-indicator active">1</div>
+        <div class="step-indicator">2</div>
+        <div class="step-indicator">3</div>
+      </div>
+      <div class="step-content" id="modalContent">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    window.THREE = THREE;
+    import { redirectIfNotAuthenticated, getUser, setUser } from './js/auth.js';
+    import { logout, getProfile } from './js/api.js';
+    import { renderAppointments, setupBookModal } from './js/appointments.js';
+
+    redirectIfNotAuthenticated();
+
+    const user = getUser();
+    if (user?.full_name) {
+      document.getElementById('userName').textContent = user.full_name;
+    } else if (user?.email) {
+      document.getElementById('userName').textContent = user.email;
+    }
+
+    getProfile().then(res => {
+      if (res.data?.user) {
+        setUser(res.data.user);
+        const u = res.data.user;
+        document.getElementById('userName').textContent = u.full_name || u.email;
+      }
+    }).catch(() => {});
+
+    const container = document.getElementById('appointmentsList');
+    renderAppointments(container);
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await logout();
+      window.location.href = 'giris.html';
+    });
+
+    document.getElementById('newAppointmentBtn').addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('open-book-modal'));
+    });
+
+    setupBookModal();
+  </script>
+</body>
+</html>
