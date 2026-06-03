@@ -45,11 +45,9 @@
     window.THREE = THREE;
     import { initDNAScene } from './js/dna-scene.js';
     import { login } from './js/api.js';
-    import { isAuthenticated, setUser } from './js/auth.js';
+    import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
-    if (isAuthenticated()) {
-      window.location.href = 'panel.html';
-    }
+    redirectIfAuthenticated();
 
     initDNAScene('authCanvas', { cameraZ: 8, tubeRadius: 0.12, starCount: 2000 });
 
@@ -68,8 +66,7 @@
       }
 
       try {
-        const res = await login(email, password);
-        if (res.data?.user) setUser(res.data.user);
+        await login(email, password);
         window.location.href = 'panel.html';
       } catch (err) {
         errEl.textContent = err.message;

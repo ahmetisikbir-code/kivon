@@ -1,100 +1,119 @@
-import { getToken, setToken, clearToken } from './auth.js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-const API_BASE = window.API_BASE_URL || window.location.origin;
+const supabaseUrl = 'https://remiwuslxbqlzuevecic.supabase.co';
+const supabaseAnonKey = 'sb_publishable_bWlpyQycwdlquuzoNBxNkg_1WiFqaOo';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-async function api(endpoint, options = {}) {
-  const token = getToken();
-  const headers = { 'Content-Type': 'application/json', ...options.headers };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-
-  try {
-    const response = await fetch(`${API_BASE}${endpoint}`, { ...options, headers });
-    if (response.status === 401) {
-      clearToken();
-      window.location.href = 'login.html';
-      throw new Error('Oturum süreniz doldu');
-    }
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Bir hata oluştu');
-    return data;
-  } catch (err) {
-    if (err.message === 'Oturum süreniz doldu') throw err;
-    throw new Error(err.message || 'Sunucuya bağlanılamadı');
-  }
+async function getSession() {
+  const { data } = await supabase.auth.getSession();
+  return data.session;
 }
 
 export async function login(email, password) {
-  const res = await api('/api/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-  });
-  if (res.data?.session?.access_token) setToken(res.data.session.access_token);
-  return res;
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw new Error(error.message);
+  return data;
 }
 
 export async function signup(data) {
-  const res = await api('/api/auth/signup', {
-    method: 'POST',
-    body: JSON.stringify(data),
+  const { data: authData, error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
+    options: { data: { full_name: data.full_name, phone: data.phone, role: data.role || 'user' } }
   });
-  if (res.data?.session?.access_token) setToken(res.data.session.access_token);
-  return res;
+  if (error) throw new Error(error.message);
+  return authData;
 }
 
 export async function logout() {
-  try { await api('/api/auth/logout', { method: 'POST' }); } catch {}
-  clearToken();
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
 }
 
 export async function getProfile() {
-  return api('/api/auth/me');
+  const session = await getSession();
+  if (!session) throw new Error('Oturum bulunamadı');
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+  if (error) throw new Error(error.message);
+  return { data: { user: session.user, profile: data } };
 }
 
-export async function updateProfile(data) {
-  return api('/api/auth/me', {
-    method: 'PUT',
-    body: JSON.stringify(data),
-  });
+export async function updateProfile(updates) {
+  const session = await getSession();
+  if (!session) throw new Error('Oturum bulunamadı');
+  const { data, error } = await supabase.from('profiles').update(updates).eq('id', session.user.id).select().single();
+  if (error) throw new Error(error.message);
+  return { data };
 }
 
 export async function getAppointments() {
-  return api('/api/appointments');
+  const session = await getSession();
+  if (!session) throw new Error('Oturum bulunamadı');
+  const { data, error } = await supabase.from('appointments').select('*, doctor:doctors(*, profile:profiles(*))').eq('user_id', session.user.id).order('date', { ascending: true });
+  if (error) throw new Error(error.message);
+  return { data };
 }
 
 export async function createAppointment(data) {
-  return api('/api/appointments', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  });
-}
+  const session = await getSession();
+  if (!session) throw new Error('Oturum bulunamadı');
 
-export async function updateAppointment(id, data) {
-  return api(`/api/appointments/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify(data),
-  });
+  const { data: slot, error: slotError } = await supabase.from('availability').select('*').eq('id', data.slot_id).single();
+  if (slotError || !slot) throw new Error('Slot bulunamadı');
+  if (slot.is_booked) throw new Error('Bu slot zaten dolu');
+
+  const { error: bookError } = await supabase.from('availability').update({ is_booked: true }).eq('id', data.slot_id);
+  if (bookError) throw new Error('Slot rezerve edilemedi');
+
+  const { data: appt, error } = await supabase.from('appointments').insert({
+    doctor_id: data.doctor_id,
+    user_id: session.user.id,
+    slot_id: data.slot_id,
+    date: slot.date,
+    time: slot.start_time,
+    status: 'confirmed',
+    notes: data.notes || ''
+  }).select().single();
+  if (error) throw new Error(error.message);
+  return { data: appt };
 }
 
 export async function cancelAppointment(id) {
-  return api(`/api/appointments/${id}`, { method: 'DELETE' });
+  const session = await getSession();
+  if (!session) throw new Error('Oturum bulunamadı');
+
+  const { data: appt, error: getError } = await supabase.from('appointments').select('slot_id').eq('id', id).single();
+  if (getError) throw new Error('Randevu bulunamadı');
+
+  if (appt.slot_id) {
+    await supabase.from('availability').update({ is_booked: false }).eq('id', appt.slot_id);
+  }
+
+  const { error } = await supabase.from('appointments').update({ status: 'cancelled' }).eq('id', id).eq('user_id', session.user.id);
+  if (error) throw new Error(error.message);
+  return { success: true };
 }
 
 export async function getDoctors() {
-  return api('/api/doctors');
-}
-
-export async function getDoctor(id) {
-  return api(`/api/doctors/${id}`);
+  const { data, error } = await supabase.from('doctors').select('*, profile:profiles(*)');
+  if (error) throw new Error(error.message);
+  return { data };
 }
 
 export async function getAvailability(doctorId, date) {
-  const params = new URLSearchParams({ doctor_id: doctorId, date });
-  return api(`/api/availability?${params}`);
+  const { data, error } = await supabase.from('availability').select('*').eq('doctor_id', doctorId).eq('date', date).eq('is_booked', false).order('start_time');
+  if (error) throw new Error(error.message);
+  return { data };
 }
 
 export async function generateSlots(doctorId, startDate, endDate) {
-  return api('/api/availability/generate', {
-    method: 'POST',
-    body: JSON.stringify({ start_date: startDate, end_date: endDate }),
+  const { data, error } = await supabase.rpc('generate_availability', {
+    p_doctor_id: doctorId,
+    p_start_date: startDate,
+    p_end_date: endDate
   });
+  if (error) throw new Error(error.message);
+  return { data };
 }
+
+export { supabase, getSession };

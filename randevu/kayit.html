@@ -52,6 +52,7 @@
           <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required>
         </div>
         <div id="formError" class="form-error"></div>
+        <div id="formSuccess" class="form-success"></div>
         <button type="submit" class="btn btn-primary form-submit">Kayit Ol</button>
       </form>
       <div class="form-footer">
@@ -65,18 +66,18 @@
     window.THREE = THREE;
     import { initDNAScene } from './js/dna-scene.js';
     import { signup } from './js/api.js';
-    import { isAuthenticated, setUser } from './js/auth.js';
+    import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
-    if (isAuthenticated()) {
-      window.location.href = 'panel.html';
-    }
+    redirectIfAuthenticated();
 
     initDNAScene('authCanvas', { cameraZ: 8, tubeRadius: 0.12, starCount: 2000 });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const errEl = document.getElementById('formError');
+      const successEl = document.getElementById('formSuccess');
       errEl.classList.remove('visible');
+      successEl.classList.remove('visible');
 
       const fullName = document.getElementById('full_name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -105,8 +106,15 @@
 
       try {
         const res = await signup({ full_name: fullName, email, phone, role, password });
-        if (res.data?.user) setUser(res.data.user);
-        window.location.href = 'panel.html';
+        if (res?.data?.user?.identities?.length === 0) {
+          successEl.textContent = 'Bu e-posta zaten kayitli. Giris sayfasina yonlendiriliyorsunuz...';
+          successEl.classList.add('visible');
+          setTimeout(() => { window.location.href = 'giris.html'; }, 2000);
+        } else {
+          successEl.textContent = 'Kaydiniz basariyla olusturuldu. Giris sayfasina yonlendiriliyorsunuz...';
+          successEl.classList.add('visible');
+          setTimeout(() => { window.location.href = 'panel.html'; }, 1500);
+        }
       } catch (err) {
         errEl.textContent = err.message;
         errEl.classList.add('visible');

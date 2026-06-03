@@ -64,8 +64,8 @@
   <script type="module">
     import * as THREE from 'three';
     window.THREE = THREE;
-    import { redirectIfNotAuthenticated, getUser, setUser } from './js/auth.js';
-    import { logout, getProfile } from './js/api.js';
+    import { redirectIfNotAuthenticated, getUser } from './js/auth.js';
+    import { getProfile, getAppointments, logout, getDoctors } from './js/api.js';
     import { renderAppointments, setupBookModal } from './js/appointments.js';
 
     redirectIfNotAuthenticated();
@@ -79,7 +79,6 @@
 
     getProfile().then(res => {
       if (res.data?.user) {
-        setUser(res.data.user);
         const u = res.data.user;
         document.getElementById('userName').textContent = u.full_name || u.email;
       }

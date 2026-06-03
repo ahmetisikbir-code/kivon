@@ -1,51 +1,47 @@
-const TOKEN_KEY = 'kivon_token';
-const USER_KEY = 'kivon_user';
+import { supabase, getSession } from './api.js';
 
 export function isAuthenticated() {
-  const token = getToken();
-  if (!token) return false;
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.exp * 1000 > Date.now();
-  } catch {
-    return false;
-  }
+  return !!supabase.auth.currentSession;
 }
 
 export function getToken() {
-  return localStorage.getItem(TOKEN_KEY);
+  return supabase.auth.currentSession?.access_token || null;
 }
 
 export function setToken(token) {
-  localStorage.setItem(TOKEN_KEY, token);
+  // Supabase manages tokens, no-op for manual set
 }
 
 export function clearToken() {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
+  supabase.auth.signOut();
 }
 
 export function setUser(user) {
-  localStorage.setItem(USER_KEY, JSON.stringify(user));
+  localStorage.setItem('kivon_user', JSON.stringify(user));
 }
 
 export function getUser() {
-  try {
-    const raw = localStorage.getItem(USER_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
+  try { const raw = localStorage.getItem('kivon_user'); return raw ? JSON.parse(raw) : null; }
+  catch { return null; }
 }
 
 export function redirectIfNotAuthenticated() {
-  if (!isAuthenticated()) {
-    window.location.href = 'giris.html';
-  }
+  getSession().then(session => {
+    if (!session) window.location.href = 'giris.html';
+  });
 }
 
 export function redirectIfAuthenticated() {
-  if (isAuthenticated()) {
-    window.location.href = 'panel.html';
-  }
+  getSession().then(session => {
+    if (session) window.location.href = 'panel.html';
+  });
 }
+
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session?.user) {
+    setUser(session.user.user_metadata);
+  }
+  if (event === 'SIGNED_OUT') {
+    localStorage.removeItem('kivon_user');
+  }
+});
