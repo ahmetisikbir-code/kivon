@@ -625,6 +625,8 @@
       return true;
     }
 
+    initCalendar([]);
+
     async function loadAppointments() {
       const container = document.getElementById('appointmentsContainer');
       const todayContainer = document.getElementById('todayAppointments');
@@ -651,7 +653,10 @@
         }
 
         const events = buildCalendarEvents(allAppointments);
-        initCalendar(events);
+        if (calendar) {
+          calendar.removeAllEvents();
+          events.forEach(e => calendar.addEvent(e));
+        }
         renderChart();
 
         if (!allAppointments.length) {
