@@ -99,7 +99,9 @@ export function statusLabel(status) {
 }
 
 export function statusBadge(status) {
-  return `<span class="badge badge-${status}">${statusLabel(status)}</span>`;
+  const clean = sanitizeHTML(String(status || ''));
+  const label = sanitizeHTML(statusLabel(status));
+  return `<span class="badge badge-${clean}">${label}</span>`;
 }
 
 export function getInitials(name) {

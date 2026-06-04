@@ -116,6 +116,14 @@ const lang = {
     selectTime: 'Saat Seçin',
     noSlots: 'Bu tarihte uygun randevu bulunamadı.',
     backHome: 'Ana Sayfa',
+    unknownDoctor: 'Bilinmeyen Doktor',
+    unknown: 'Bilinmeyen',
+    general: 'Genel',
+    or: 'veya',
+    bookHere: 'bu sayfadan yeni randevu alın',
+    retry: 'Tekrar Dene',
+    bookingSuccess: 'Randevunuz başarıyla oluşturuldu. Onay bekleniyor.',
+    locale: 'tr-TR',
   },
   en: {
     appName: 'KIVON',
@@ -234,6 +242,14 @@ const lang = {
     selectTime: 'Select Time',
     noSlots: 'No available slots on this date.',
     backHome: 'Home',
+    unknownDoctor: 'Unknown Doctor',
+    unknown: 'Unknown',
+    general: 'General',
+    or: 'or',
+    bookHere: 'book here',
+    retry: 'Retry',
+    bookingSuccess: 'Your appointment has been created. Waiting for confirmation.',
+    locale: 'en-US',
   }
 };
 
