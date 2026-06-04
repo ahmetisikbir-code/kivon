@@ -72,9 +72,10 @@
     .glass-stat .stat-value { color: white; font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
     .glass-stat .stat-trend { color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; }
 
-    .main-content { margin-left: var(--sidebar-width); padding: 24px 32px; min-height: 100vh; position: relative; }
-    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
-    .page-title { color: white; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+    .main-content { margin-left: var(--sidebar-width); padding: 20px 28px; min-height: 100vh; position: relative; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .page-title { color: white; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 
     .tab-nav { display: flex; gap: 2px; margin-bottom: 24px; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px; }
     .tab-btn { padding: 8px 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.45); border-radius: 10px; transition: all var(--transition); }
@@ -158,12 +159,17 @@
     .stagger > *:nth-child(6) { animation-delay: 0.3s; }
 
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; }
+      .main-content { margin-left: 0; padding: 14px; }
       .sidebar { transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
       .page-header { flex-direction: column; align-items: stretch; }
-      .glass-stat .stat-value { font-size: 22px; }
+      .glass-stat .stat-value { font-size: 20px; }
       #menuToggle { display: flex; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+      .main-content { padding: 10px; }
+      .stats-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -227,7 +233,7 @@
     </div>
 
     <div class="tab-content active" id="tabCalendar">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px" class="stagger" id="statsContainer">
+      <div class="stats-grid stagger" id="statsContainer">
         <div class="glass-stat" style="border-left:3px solid var(--primary)">
           <div class="stat-icon" style="background:rgba(8,145,178,0.15);color:var(--primary-light)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -357,6 +363,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/locales/tr.global.min.js"></script>
   <script src="https://unpkg.com/chart.js@4/dist/chart.umd.min.js"></script>
   <script type="module">
     import { redirectIfNotAuthenticated, getUser, clearToken } from './js/auth.js';
@@ -385,8 +392,8 @@
       if (tabEl) tabEl.classList.add('active');
       document.querySelector(`.sidebar-link[data-tab="${tab}"]`)?.classList.add('active');
       if (tab === 'patients') loadPatients();
-      if (tab === 'calendar' && calendar) {
-        setTimeout(() => calendar.render(), 100);
+      if (tab === 'calendar') {
+        if (calendar) setTimeout(() => calendar.updateSize(), 50);
         renderChart();
       }
     }
@@ -484,12 +491,12 @@
       try {
         calendar = new FullCalendar.Calendar(el, {
           initialView: 'dayGridMonth', locale: 'tr', firstDay: 1, height: 'auto',
-          headerToolbar: { left: 'prev,next', center: 'title', right: 'dayGridMonth' },
-          buttonText: { today: 'Bugün', month: 'Ay' },
+          headerToolbar: { left: 'prev,next', center: 'title', right: '' },
+          buttonText: { today: 'Bugün' },
           events: events,
           eventClick: function(info) {
             const p = info.event.extendedProps;
-            showToast(`${info.event.title}`, p.status === 'confirmed' ? 'info' : 'warning');
+            showToast(`${info.event.title} — ${p.description || ''}`, p.status === 'confirmed' ? 'info' : 'warning');
           }
         });
         calendar.render();

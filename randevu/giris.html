@@ -21,9 +21,12 @@
     .split-left .orb-3 { width: 300px; height: 300px; background: #fbbf24; top: 50%; left: 50%; animation: float 20s ease-in-out infinite 5s; }
     @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -50px) scale(1.1); } 66% { transform: translate(-30px, 30px) scale(0.95); } }
     .brand-content { position: relative; z-index: 1; max-width: 520px; }
-    .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
-    .brand-logo .icon { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #22d3ee, #0891b2); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #0f172a; box-shadow: 0 8px 24px rgba(8,145,178,0.3); }
-    .brand-logo span { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+    .brand-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .brand-logo .icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #22d3ee, #0891b2); display: flex; align-items: center; justify-content: center; font-size: 0; position: relative; box-shadow: 0 8px 24px rgba(8,145,178,0.3); }
+    .brand-logo .icon svg { width: 24px; height: 24px; stroke: #0f172a; stroke-width: 2.5; fill: none; }
+    .brand-logo .brand-text { display: flex; flex-direction: column; }
+    .brand-logo .brand-text .name { font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; }
+    .brand-logo .brand-text .sub { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; margin-top: 2px; }
     .brand-tagline { font-size: 42px; font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
     .brand-tagline span { background: linear-gradient(135deg, #22d3ee, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .brand-desc { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 40px; max-width: 440px; }
@@ -71,8 +74,13 @@
     <div class="orb orb-3"></div>
     <div class="brand-content">
       <div class="brand-logo">
-        <div class="icon">K</div>
-        <span>KIVON</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="brand-text">
+          <span class="name">KIVON</span>
+          <span class="sub">Randevu Asistanı</span>
+        </div>
       </div>
       <div class="brand-tagline">
         Randevu derdine <span>AI çözüm</span>
@@ -90,8 +98,8 @@
           <div class="stat-label">AI Asistan</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">0 TL</div>
-          <div class="stat-label">Başlangıç</div>
+          <div class="stat-value">WhatsApp</div>
+          <div class="stat-label">Entegrasyon</div>
         </div>
       </div>
     </div>
