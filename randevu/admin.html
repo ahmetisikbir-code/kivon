@@ -98,6 +98,8 @@
 
       <div id="todayAppointments" style="margin-top:24px"></div>
 
+      <div id="patientsContainer" style="margin-top:32px"></div>
+
       <div id="appointmentsContainer" style="margin-top:32px"></div>
     </main>
   </div>
@@ -163,7 +165,7 @@
       const doctorId = await getDoctorId();
       const { data, error } = await supabase
         .from('appointments')
-        .select('id, date, time, status, notes, user_id, patient_name, patient_phone')
+        .select('id, date, time, status, notes, user_id, patient_name, patient_phone, patient_id')
         .eq('doctor_id', doctorId)
         .order('date', { ascending: true })
         .order('time', { ascending: true });
@@ -183,6 +185,61 @@
         }
       }
       return data || [];
+    }
+
+    async function loadPatients() {
+      const container = document.getElementById('patientsContainer');
+      try {
+        const session = await getSession();
+        const doctorId = await getDoctorId();
+        const { data: appointments } = await supabase
+          .from('appointments')
+          .select('id, date, time, status, patient_name, patient_phone, patient_id')
+          .eq('doctor_id', doctorId)
+          .neq('status', 'cancelled')
+          .order('date', { ascending: false });
+
+        if (!appointments || !appointments.length) {
+          container.innerHTML = '';
+          return;
+        }
+
+        const patientMap = {};
+        appointments.forEach(apt => {
+          const key = apt.patient_phone || apt.patient_name || 'bilinmeyen';
+          if (!patientMap[key]) {
+            patientMap[key] = { name: apt.patient_name || 'Bilinmeyen', phone: apt.patient_phone || '-', count: 0, lastDate: '', visits: [] };
+          }
+          patientMap[key].count++;
+          const dateStr = apt.date ? new Date(apt.date + 'T00:00:00').toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+          if (dateStr > patientMap[key].lastDate) patientMap[key].lastDate = dateStr;
+          patientMap[key].visits.push({ date: dateStr, time: apt.time ? apt.time.slice(0, 5) : '', status: apt.status });
+        });
+
+        const patients = Object.values(patientMap).sort((a, b) => b.count - a.count);
+
+        let html = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px;color:#8b5cf6">Hastalar</h3>';
+        html += '<div style="display:flex;flex-direction:column;gap:8px">';
+        patients.forEach(p => {
+          const visitList = p.visits.map(v => `${v.date} ${v.time} (${v.status === 'confirmed' ? 'Onaylandı' : v.status})`).join('<br>');
+          html += `<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--glass);border:1px solid var(--glass-border);border-radius:8px;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+            <div style="width:36px;height:36px;border-radius:50%;background:#8b5cf6;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;flex-shrink:0">${(p.name.charAt(0) || '?').toUpperCase()}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:15px;font-weight:500">${p.name}</div>
+              <div style="font-size:12px;color:var(--text-muted)">${p.phone}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;font-weight:600;color:#00d4ff">${p.count} ziyaret</div>
+              <div style="font-size:11px;color:var(--text-muted)">Son: ${p.lastDate}</div>
+            </div>
+          </div>
+          <div style="display:none;padding:8px 16px 12px 54px;font-size:13px;color:var(--text-muted);line-height:1.6">${visitList}</div>`;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      } catch (err) {
+        console.error('Hasta listesi hatasi:', err);
+      }
     }
 
     async function cancelDoctorAppointment(id) {
@@ -333,6 +390,7 @@
 
     await checkRole();
     loadAppointments();
+    loadPatients();
 
     async function loadDoctorWhatsApp() {
       try {
