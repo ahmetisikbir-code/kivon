@@ -19,37 +19,62 @@
 <body>
   <div class="auth-page">
     <div class="auth-canvas" id="authCanvas"></div>
-    <div class="auth-card glass">
+    <div class="auth-card glass" style="max-width:520px">
       <h1>Kayit Ol</h1>
-      <p>KIVON hesabi olusturun</p>
+      <p>Isletmeniz icin KIVON hesabi olusturun</p>
       <form id="registerForm">
-        <div class="form-group">
-          <label for="full_name">Ad Soyad</label>
-          <input type="text" id="full_name" class="form-input" placeholder="Adiniz ve soyadiniz" required>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label for="first_name">Ad</label>
+            <input type="text" id="first_name" class="form-input" placeholder="Adiniz" required>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Soyad</label>
+            <input type="text" id="last_name" class="form-input" placeholder="Soyadiniz" required>
+          </div>
         </div>
         <div class="form-group">
-          <label for="email">E-posta</label>
-          <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+          <label for="business_name">Isletme Adi</label>
+          <input type="text" id="business_name" class="form-input" placeholder="Ornegin: Dr. Ahmet Dis Poliklinigi" required>
         </div>
         <div class="form-group">
-          <label for="phone">Telefon</label>
-          <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required>
-        </div>
-        <div class="form-group">
-          <label for="role">Rol</label>
-          <select id="role" class="form-select" required>
+          <label for="sector">Sektor</label>
+          <select id="sector" class="form-select" required>
             <option value="">Seciniz...</option>
-            <option value="user">Kullanici</option>
-            <option value="doctor">Doktor</option>
+            <option value="doktor">Doktor / Dis Hekimi</option>
+            <option value="kuaför">Kuafor / Berber</option>
+            <option value="güzellik">Guzellik Salonu</option>
+            <option value="spor">Spor / Fitness / Pilates</option>
+            <option value="masaj">Masaj / Fizyoterapi</option>
+            <option value="veteriner">Veteriner</option>
+            <option value="psikolog">Psikolog / Diyetisyen</option>
+            <option value="avukat">Avukat / Danisman</option>
+            <option value="diger">Diger</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="password">Sifre</label>
-          <input type="password" id="password" class="form-input" placeholder="En az 6 karakter" minlength="6" required>
+          <label for="address">Adres</label>
+          <input type="text" id="address" class="form-input" placeholder="Il, ilce, cadde, no ...">
         </div>
-        <div class="form-group">
-          <label for="confirm_password">Sifre Tekrar</label>
-          <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label for="email">E-posta</label>
+            <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label for="password">Sifre</label>
+            <input type="password" id="password" class="form-input" placeholder="En az 6 karakter" minlength="6" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Sifre Tekrar</label>
+            <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required>
+          </div>
         </div>
         <div id="formError" class="form-error"></div>
         <div id="formSuccess" class="form-success"></div>
@@ -65,7 +90,7 @@
     import * as THREE from 'three';
     window.THREE = THREE;
     import { initDNAScene } from './js/dna-scene.js';
-    import { signup } from './js/api.js';
+    import { supabase, signup } from './js/api.js';
     import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
     redirectIfAuthenticated();
@@ -79,15 +104,19 @@
       errEl.classList.remove('visible');
       successEl.classList.remove('visible');
 
-      const fullName = document.getElementById('full_name').value.trim();
+      const firstName = document.getElementById('first_name').value.trim();
+      const lastName = document.getElementById('last_name').value.trim();
+      const fullName = `${firstName} ${lastName}`;
+      const businessName = document.getElementById('business_name').value.trim();
+      const sector = document.getElementById('sector').value;
+      const address = document.getElementById('address').value.trim();
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const role = document.getElementById('role').value;
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirm_password').value;
 
-      if (!fullName || !email || !phone || !role || !password || !confirmPassword) {
-        errEl.textContent = 'Tum alanlar gereklidir.';
+      if (!firstName || !lastName || !businessName || !sector || !email || !phone || !password || !confirmPassword) {
+        errEl.textContent = 'Tum zorunlu alanlari doldurun.';
         errEl.classList.add('visible');
         return;
       }
@@ -105,8 +134,25 @@
       }
 
       try {
-        const res = await signup({ full_name: fullName, email, phone, role, password });
-        successEl.textContent = 'Kaydiniz olusturuldu. E-posta adresinize gelen dogrulama linkine tiklayin, ardindan giris yapabilirsiniz.';
+        const res = await signup({ full_name: fullName, email, phone, role: 'doctor', password });
+
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .update({ full_name: businessName, role: 'doctor' })
+          .eq('id', res.user.id);
+        if (profileError) console.error('Profil hatasi:', profileError);
+
+        const { error: doctorError } = await supabase
+          .from('doctors')
+          .insert({
+            profile_id: res.user.id,
+            specialty: sector,
+            address: address || null,
+            whatsapp_number: phone
+          });
+        if (doctorError) console.error('Doktor hatasi:', doctorError);
+
+        successEl.textContent = 'Kaydiniz olusturuldu! E-posta adresinize gelen dogrulama linkine tiklayin, ardindan giris yapabilirsiniz.';
         successEl.classList.add('visible');
         document.getElementById('registerForm').querySelector('button').disabled = true;
       } catch (err) {
