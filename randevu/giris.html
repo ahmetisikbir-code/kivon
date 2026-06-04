@@ -3,111 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KIVON hesabiniza giris yapin.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co;">
+  <meta name="description" content="KIVON — Yapay zeka destekli randevu sisteminize giriş yapın.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co;">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Giriş Yap — KIVON</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --bg-alt: #1e293b;
-      --surface: rgba(255,255,255,0.04);
-      --primary: #22d3ee;
-      --primary-dark: #0891b2;
-      --primary-glow: rgba(34,211,238,0.15);
-      --secondary: #a78bfa;
-      --accent: #fbbf24;
-      --danger: #f87171;
-      --success: #34d399;
-      --text: rgba(255,255,255,0.9);
-      --text-secondary: rgba(255,255,255,0.7);
-      --text-muted: rgba(255,255,255,0.4);
-      --text-light: rgba(255,255,255,0.2);
-      --border: rgba(255,255,255,0.08);
-      --border-light: rgba(255,255,255,0.05);
-      --shadow-xl: 0 24px 64px rgba(0,0,0,0.5);
-      --radius-lg: 20px;
-      --radius-sm: 8px;
-    }
-    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; font-family: 'Inter', sans-serif; }
-    .ambient-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-    .ambient-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
-    .ambient-bg .orb-1 { width: 500px; height: 500px; top: -120px; right: -100px; background: radial-gradient(circle, #22d3ee 0%, transparent 70%); }
-    .ambient-bg .orb-2 { width: 400px; height: 400px; bottom: -80px; left: -80px; background: radial-gradient(circle, #a78bfa 0%, transparent 70%); animation: orbFloat 8s ease-in-out infinite alternate; }
-    .ambient-bg .orb-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: radial-gradient(circle, #fbbf24 0%, transparent 70%); animation: orbFloat 12s ease-in-out infinite alternate; }
-    @keyframes orbFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -30px) scale(1.1); } }
-    .glass-card { width: 100%; max-width: 420px; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 20px; padding: 40px 36px; box-shadow: 0 24px 80px rgba(0,0,0,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); position: relative; z-index: 1; animation: slideUp 0.4s ease; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .glass-card .auth-logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 24px; letter-spacing: -0.5px; text-decoration: none; }
-    .glass-card .auth-logo svg { stroke: var(--primary); }
-    .glass-card h1 { font-size: 26px; font-weight: 700; color: var(--text); text-align: center; margin-bottom: 4px; }
-    .glass-card > p { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 28px; }
-    .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
-    .lang-bar .lang-switcher { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: 6px; cursor: pointer; outline: none; }
-    .lang-bar .lang-switcher option { background: #1e293b; color: white; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-    .ambient-input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; transition: all 0.2s; font-family: inherit; }
-    .ambient-input::placeholder { color: var(--text-light); }
-    .ambient-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background: rgba(255,255,255,0.08); }
-    .ambient-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: var(--text); border-color: var(--border); }
-    .form-error { display: none; font-size: 13px; color: var(--danger); background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.15); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; overflow: hidden; background: #0f172a; }
+    .split-left { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 48px; overflow: hidden; }
+    .split-left .bg { position: absolute; inset: 0; background: url('images/gradient-purple.jpg') center/cover no-repeat; opacity: 0.15; filter: blur(4px) saturate(1.2); }
+    .split-left .overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%); }
+    .split-left .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; }
+    .split-left .orb-1 { width: 600px; height: 600px; background: #22d3ee; top: -20%; left: -10%; animation: float 25s ease-in-out infinite; }
+    .split-left .orb-2 { width: 500px; height: 500px; background: #a78bfa; bottom: -20%; right: -10%; animation: float 30s ease-in-out infinite reverse; }
+    .split-left .orb-3 { width: 300px; height: 300px; background: #fbbf24; top: 50%; left: 50%; animation: float 20s ease-in-out infinite 5s; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -50px) scale(1.1); } 66% { transform: translate(-30px, 30px) scale(0.95); } }
+    .brand-content { position: relative; z-index: 1; max-width: 520px; }
+    .brand-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .brand-logo .icon { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #22d3ee, #0891b2); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #0f172a; box-shadow: 0 8px 24px rgba(8,145,178,0.3); }
+    .brand-logo span { font-size: 28px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+    .brand-tagline { font-size: 42px; font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
+    .brand-tagline span { background: linear-gradient(135deg, #22d3ee, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .brand-desc { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 40px; max-width: 440px; }
+    .brand-stats { display: flex; gap: 40px; }
+    .brand-stats .stat-item { }
+    .brand-stats .stat-value { font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; }
+    .brand-stats .stat-label { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .split-right { width: 460px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 48px 40px; position: relative; background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.06); }
+    .auth-card { }
+    .auth-card .lang-row { display: flex; justify-content: flex-end; margin-bottom: 32px; }
+    .auth-card .lang-row select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; outline: none; }
+    .auth-card .lang-row select option { background: #1e293b; }
+    .auth-card h1 { font-size: 22px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .auth-card > p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
+    .form-input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: white; font-size: 14px; outline: none; transition: all 0.2s; font-family: inherit; }
+    .form-input::placeholder { color: rgba(255,255,255,0.15); }
+    .form-input:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34,211,238,0.1); background: rgba(255,255,255,0.06); }
+    .form-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: white; }
+    .btn-submit { width: 100%; padding: 13px; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; background: linear-gradient(135deg, #22d3ee, #0891b2); color: #0f172a; cursor: pointer; transition: all 0.2s; font-family: inherit; margin-top: 4px; box-shadow: 0 4px 16px rgba(8,145,178,0.2); }
+    .btn-submit:hover { box-shadow: 0 6px 24px rgba(8,145,178,0.3); transform: translateY(-1px); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-error { display: none; font-size: 13px; color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.12); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
     .form-error.visible { display: block; }
-    .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px var(--primary-glow); font-family: inherit; }
-    .btn-primary:hover { box-shadow: 0 6px 28px var(--primary-glow); transform: translateY(-1px); }
-    .btn-primary:active { transform: scale(0.98); }
-    .form-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted); }
-    .form-footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-    .form-footer a:hover { color: var(--primary-light); text-decoration: underline; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .auth-footer { text-align: center; margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.35); }
+    .auth-footer a { color: #22d3ee; text-decoration: none; font-weight: 600; }
+    .auth-footer a:hover { text-decoration: underline; }
+    .auth-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 24px 0; }
+    .auth-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; margin-bottom: 28px; transition: color 0.2s; }
+    .auth-back:hover { color: rgba(255,255,255,0.6); }
+    @media (max-width: 900px) {
+      .split-left { display: none; }
+      .split-right { width: 100%; min-height: 100vh; border-left: none; padding: 40px 28px; }
+    }
   </style>
-  <title data-i18n="login">Giriş Yap — KIVON Randevu</title>
 </head>
 <body>
-  <div class="ambient-bg">
+  <div class="split-left">
+    <div class="bg"></div>
+    <div class="overlay"></div>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <div class="icon">K</div>
+        <span>KIVON</span>
+      </div>
+      <div class="brand-tagline">
+        Randevu derdine <span>AI çözüm</span>
+      </div>
+      <div class="brand-desc">
+        İşletmeniz için 7/24 çalışan yapay zeka asistanı. WhatsApp üzerinden randevu alın, hatırlatmalar gönderin, müşterilerinizi yönetin.
+      </div>
+      <div class="brand-stats">
+        <div class="stat-item">
+          <div class="stat-value">10+</div>
+          <div class="stat-label">Sektör</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">7/24</div>
+          <div class="stat-label">AI Asistan</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">0 TL</div>
+          <div class="stat-label">Başlangıç</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="glass-card">
-    <a href="index.html" class="auth-logo">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
-      <span data-i18n="appName">KIVON</span>
-    </a>
-
-    <div class="lang-bar">
-      <select class="lang-switcher">
-        <option value="tr">🇹🇷 TR</option>
-        <option value="en">🇬🇧 EN</option>
-      </select>
-    </div>
-
-    <h1 data-i18n="login">Giriş Yap</h1>
-    <p data-i18n="welcome">KIVON hesabınıza giriş yapın</p>
-
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email" data-i18n="email">E-posta</label>
-        <input type="email" id="email" class="ambient-input" placeholder="ornek@email.com" required autocomplete="email">
+  <div class="split-right">
+    <div class="auth-card">
+      <div class="lang-row">
+        <select class="lang-switcher">
+          <option value="tr">🇹🇷 TR</option>
+          <option value="en">🇬🇧 EN</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="password" data-i18n="password">Şifre</label>
-        <input type="password" id="password" class="ambient-input" placeholder="••••••••" required autocomplete="current-password">
-      </div>
-      <div id="formError" class="form-error" role="alert"></div>
-      <button type="submit" class="btn btn-primary" data-i18n="login">Giriş Yap</button>
-    </form>
 
-    <div class="form-footer">
-      <span data-i18n="noAccount">Hesabınız yok mu?</span> <a href="kayit.html" data-i18n="register">Kayıt Ol</a>
+      <a href="index.html" class="auth-back" data-i18n="backHome">← Ana Sayfa</a>
+      <h1 data-i18n="login">Giriş Yap</h1>
+      <p data-i18n="welcome">KIVON hesabınıza giriş yapın</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email" data-i18n="email">E-posta</label>
+          <input type="email" id="email" class="form-input" placeholder="ornek@email.com" data-i18n-placeholder="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password" data-i18n="password">Şifre</label>
+          <input type="password" id="password" class="form-input" placeholder="••••••••" data-i18n-placeholder="password" required autocomplete="current-password">
+        </div>
+        <div id="formError" class="form-error" role="alert"></div>
+        <button type="submit" class="btn-submit" data-i18n="login">Giriş Yap</button>
+      </form>
+
+      <div class="auth-divider"></div>
+
+      <div class="auth-footer">
+        <span data-i18n="noAccount">Hesabınız yok mu?</span> <a href="kayit.html" data-i18n="register">Kayıt Ol</a>
+      </div>
     </div>
   </div>
 
@@ -124,27 +144,25 @@
       const errEl = document.getElementById('formError');
       errEl.classList.remove('visible');
       errEl.textContent = '';
-
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-
       if (!email || !password) {
         errEl.textContent = t('required');
         errEl.classList.add('visible');
         return;
       }
-
+      const btn = document.querySelector('.btn-submit');
+      btn.disabled = true;
+      btn.textContent = '...';
       try {
         const result = await login(email, password);
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', result.user.id)
-          .single();
+        const { data: profile } = await supabase.from('profiles').select('role').eq('id', result.user.id).single();
         window.location.href = (profile?.role === 'doctor') ? 'admin.html' : 'panel.html';
       } catch (err) {
         errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = t('login');
       }
     });
   </script>

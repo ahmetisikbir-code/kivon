@@ -118,6 +118,7 @@ const lang = {
     selectDate: 'Tarih Seçin',
     selectTime: 'Saat Seçin',
     noSlots: 'Bu tarihte uygun randevu bulunamadı.',
+    backHome: 'Ana Sayfa',
   },
   en: {
     appName: 'KIVON',
@@ -238,6 +239,7 @@ const lang = {
     selectDate: 'Select Date',
     selectTime: 'Select Time',
     noSlots: 'No available slots on this date.',
+    backHome: 'Home',
   }
 };
 
