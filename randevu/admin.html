@@ -268,7 +268,7 @@
           const fullDate = date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
           const time = apt.time ? apt.time.slice(0, 5) : '';
           const status = (apt.status || 'pending').toLowerCase();
-          const patientName = apt.profiles?.full_name || 'Bilinmeyen Hasta';
+          const patientName = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen Hasta';
           const labels = { pending: 'Beklemede', confirmed: 'Onaylandi', cancelled: 'Iptal Edildi', completed: 'Tamamlandi' };
           const statusLabel = labels[status] || status;
 

@@ -44,7 +44,7 @@
     import * as THREE from 'three';
     window.THREE = THREE;
     import { initDNAScene } from './js/dna-scene.js';
-    import { login } from './js/api.js';
+    import { supabase, login } from './js/api.js';
     import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
     redirectIfAuthenticated();
@@ -66,8 +66,13 @@
       }
 
       try {
-        await login(email, password);
-        window.location.href = 'panel.html';
+        const result = await login(email, password);
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', result.user.id)
+          .single();
+        window.location.href = (profile?.role === 'doctor') ? 'admin.html' : 'panel.html';
       } catch (err) {
         errEl.textContent = err.message;
         errEl.classList.add('visible');
