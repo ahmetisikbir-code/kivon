@@ -12,8 +12,11 @@ export function setToken(token) {
   // Supabase manages tokens, no-op for manual set
 }
 
-export function clearToken() {
-  supabase.auth.signOut();
+export async function clearToken() {
+  await supabase.auth.signOut();
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('supabase') || k.startsWith('sb-'));
+  keys.forEach(k => localStorage.removeItem(k));
+  sessionStorage.setItem('kivon_logout', '1');
 }
 
 export function setUser(user) {
@@ -32,6 +35,10 @@ export function redirectIfNotAuthenticated() {
 }
 
 export async function redirectIfAuthenticated() {
+  if (sessionStorage.getItem('kivon_logout') === '1') {
+    sessionStorage.removeItem('kivon_logout');
+    return;
+  }
   const session = await getSession();
   if (!session) return;
   const { data: profile } = await supabase
