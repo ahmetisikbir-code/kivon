@@ -299,6 +299,9 @@ export async function cancelBooking(id) {
   }
 }
 
+window.loadDoctorsStep = loadDoctorsStep;
+window.hideBookModal = hideBookModal;
+
 function updateIndicators(activeStep) {
   const indicators = document.querySelectorAll('.step-indicator');
   indicators.forEach((el, i) => {

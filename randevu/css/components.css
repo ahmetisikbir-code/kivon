@@ -362,8 +362,8 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .nav-links a:not(.btn-nav) { display: none; }
-  .nav-links.mobile-open { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--surface); padding: 12px 16px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
-  .nav-links.mobile-open a { display: flex; }
+  .nav-links.open { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--surface); padding: 12px 16px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+  .nav-links.open a { display: flex; }
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .main { margin-left: 0; padding: 20px 16px; }
