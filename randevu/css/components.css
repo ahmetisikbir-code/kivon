@@ -320,10 +320,6 @@
 .appt-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
 /* ===== CALENDAR OVERRIDES ===== */
-#calendar {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px;
-}
 .fc { font-family: var(--font) !important; }
 .fc .fc-toolbar-title { font-size: 18px !important; font-weight: 700 !important; }
 .fc .fc-button { background: var(--bg) !important; border: 1px solid var(--border) !important; color: var(--text) !important; box-shadow: none !important; border-radius: var(--radius-sm) !important; }

@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%235b5bd6'/><text x='50' y='68' font-size='52' font-weight='bold' fill='white' text-anchor='middle' font-family='Inter,sans-serif'>K</text></svg>">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
@@ -122,23 +121,36 @@
     .whatsapp-glass h3 { color: white; font-size: 16px; margin: 0; }
     .whatsapp-glass label { color: rgba(255,255,255,0.4); font-size: 12px; }
 
-    .fc { font-family: 'Inter', sans-serif !important; background: rgba(255,255,255,0.06); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.06); }
-    .fc .fc-toolbar-title { color: white !important; font-size: 17px !important; font-weight: 700 !important; }
-    .fc .fc-button { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.12) !important; color: rgba(255,255,255,0.7) !important; border-radius: 8px !important; font-size: 13px !important; padding: 6px 14px !important; }
-    .fc .fc-button:hover { background: rgba(255,255,255,0.14) !important; color: white !important; }
-    .fc .fc-button-primary:not(:disabled).fc-button-active { background: var(--primary) !important; border-color: var(--primary) !important; color: #0f172a !important; font-weight: 700 !important; }
-    .fc .fc-daygrid-day.fc-day-today { background: rgba(8,145,178,0.18) !important; }
-    .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number { color: var(--primary-light) !important; }
-    .fc .fc-col-header-cell-cushion { color: rgba(255,255,255,0.45) !important; font-weight: 600 !important; font-size: 12px !important; }
-    .fc .fc-daygrid-day-number { color: rgba(255,255,255,0.8) !important; font-size: 13px !important; font-weight: 500 !important; }
-    .fc .fc-daygrid-day-events { min-height: 40px !important; }
-    .fc-theme-standard td, .fc-theme-standard th { border-color: rgba(255,255,255,0.07) !important; background: rgba(255,255,255,0.02) !important; }
-    .fc .fc-daygrid-day-frame { background: rgba(255,255,255,0.02); }
-    .fc .fc-scrollgrid-sync-table { background: transparent !important; }
+    #calendar { background: transparent; border: none; padding: 0; }
+    .fc {
+      font-family: 'Inter', sans-serif !important;
+      --fc-page-bg-color: transparent;
+      --fc-neutral-bg-color: rgba(255,255,255,0.03);
+      --fc-border-color: rgba(255,255,255,0.07);
+      --fc-button-bg-color: rgba(255,255,255,0.08);
+      --fc-button-border-color: rgba(255,255,255,0.12);
+      --fc-button-text-color: rgba(255,255,255,0.7);
+      --fc-button-hover-bg-color: rgba(255,255,255,0.14);
+      --fc-button-hover-border-color: rgba(255,255,255,0.2);
+      --fc-button-active-bg-color: #0891b2;
+      --fc-button-active-border-color: #0891b2;
+      --fc-today-bg-color: rgba(8,145,178,0.18);
+      --fc-event-bg-color: rgba(8,145,178,0.2);
+      --fc-event-border-color: #0891b2;
+      --fc-event-text-color: #7dd3fc;
+      --fc-list-event-hover-bg-color: rgba(255,255,255,0.04);
+      background: rgba(15,23,42,0.4); border-radius: var(--radius);
+    }
+    .fc .fc-toolbar-title { color: white; font-size: 17px; font-weight: 700; }
+    .fc .fc-button { border-radius: 8px; font-size: 13px; padding: 6px 14px; }
+    .fc .fc-button-primary:not(:disabled).fc-button-active { font-weight: 700; color: #0f172a !important; }
+    .fc .fc-col-header-cell-cushion { color: rgba(255,255,255,0.45); font-weight: 600; font-size: 12px; }
+    .fc .fc-daygrid-day-number { color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 500; }
+    .fc .fc-daygrid-day-events { min-height: 40px; }
+    .fc .fc-daygrid-day-frame { background: transparent; }
     .fc .fc-day-other .fc-daygrid-day-top { opacity: 0.35; }
-    .fc .fc-daygrid-event { border-radius: 6px !important; padding: 3px 8px !important; font-size: 11px !important; font-weight: 600 !important; border: none !important; margin: 2px 4px !important; }
-    .fc .fc-daygrid-more-link { color: rgba(255,255,255,0.5) !important; font-size: 11px !important; }
-    .fc .fc-scrollgrid { border-color: rgba(255,255,255,0.06) !important; }
+    .fc .fc-daygrid-event { border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 600; border: none; margin: 2px 4px; }
+    .fc .fc-daygrid-more-link { color: rgba(255,255,255,0.5) !important; font-size: 11px; }
 
     .appt-glass {
       display: flex; align-items: center; gap: 16px; padding: 14px 20px;
