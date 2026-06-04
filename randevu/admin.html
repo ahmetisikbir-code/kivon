@@ -3,600 +3,662 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
-  <title>Doktor Paneli — KIVON</title>
+  <title>Panel — KIVON</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
   <style>
-    #calendar { max-width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-    .fc { font-family: 'Inter', sans-serif !important; }
-    .fc .fc-toolbar-title { font-size: 18px !important; font-weight: 700 !important; }
-    .fc .fc-button { background: var(--bg) !important; border: 1px solid var(--border) !important; color: var(--text) !important; border-radius: var(--radius-sm) !important; }
-    .fc .fc-button-primary:not(:disabled):hover { background: var(--primary-bg) !important; border-color: var(--primary) !important; color: var(--primary) !important; }
+    .ambient-bg {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    .ambient-bg img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.12;
+      filter: blur(80px) saturate(1.5); transform: scale(1.2);
+    }
+    .ambient-bg .orb {
+      position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+    .ambient-bg .orb:nth-child(2) { width: 600px; height: 600px; background: var(--primary); top: -10%; left: -5%; animation-delay: -5s; }
+    .ambient-bg .orb:nth-child(3) { width: 500px; height: 500px; background: var(--secondary); bottom: -15%; right: -8%; animation-delay: -10s; }
+    .ambient-bg .orb:nth-child(4) { width: 400px; height: 400px; background: #f59e0b; top: 40%; left: 50%; animation-delay: -15s; }
+    @keyframes orbFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -40px) scale(1.1); } 66% { transform: translate(-20px, 30px) scale(0.9); } }
+
+    .ambient-sidebar {
+      background: rgba(15,23,42,0.85); backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .ambient-sidebar::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(8,145,178,0.08) 0%, rgba(124,58,237,0.05) 100%);
+      pointer-events: none;
+    }
+    .ambient-sidebar .sidebar-logo { color: white; }
+    .ambient-sidebar .sidebar-link { color: rgba(255,255,255,0.55); }
+    .ambient-sidebar .sidebar-link:hover { background: rgba(255,255,255,0.06); color: white; }
+    .ambient-sidebar .sidebar-link.active { background: rgba(8,145,178,0.15); color: var(--primary-light); box-shadow: inset 3px 0 0 var(--primary-light); }
+    .ambient-sidebar .sidebar-footer { border-top-color: rgba(255,255,255,0.06); }
+    .ambient-sidebar .sidebar-footer a { color: rgba(255,255,255,0.45); }
+    .ambient-sidebar .sidebar-footer a:hover { background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .ambient-sidebar .sidebar-brand { display: flex; align-items: center; gap: 10px; }
+    .ambient-sidebar .sidebar-brand-icon { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; color: white; box-shadow: 0 4px 12px rgba(8,145,178,0.3); }
+
+    .glass-card {
+      background: rgba(255,255,255,0.06); backdrop-filter: blur(20px) saturate(1.3);
+      -webkit-backdrop-filter: blur(20px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: all var(--transition-slow);
+    }
+    .glass-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.12); }
+    .glass-card-padded { padding: 24px; }
+
+    .glass-stat {
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(16px) saturate(1.3);
+      -webkit-backdrop-filter: blur(16px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius);
+      padding: 20px 24px; position: relative; overflow: hidden;
+      transition: all var(--transition-slow);
+    }
+    .glass-stat:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+    .glass-stat .stat-icon { position: absolute; right: 16px; top: 16px; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; opacity: 0.6; }
+    .glass-stat .stat-label { color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .glass-stat .stat-value { color: white; font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+    .glass-stat .stat-trend { color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px; }
+
+    .main-content { margin-left: var(--sidebar-width); padding: 24px 32px; min-height: 100vh; position: relative; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+    .page-title { color: white; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+
+    .tab-nav { display: flex; gap: 2px; margin-bottom: 24px; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px; }
+    .tab-btn { padding: 8px 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.45); border-radius: 10px; transition: all var(--transition); }
+    .tab-btn:hover { color: rgba(255,255,255,0.8); }
+    .tab-btn.active { background: rgba(255,255,255,0.1); color: white; font-weight: 600; }
+    .tab-content { display: none; animation: fadeIn 0.3s ease; }
+    .tab-content.active { display: block; }
+
+    .ambient-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .ambient-table th { padding: 12px 16px; text-align: left; font-weight: 500; font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .ambient-table td { padding: 12px 16px; font-size: 14px; color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .ambient-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .ambient-select { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none; width: 100%; }
+    .ambient-select option { background: #1e293b; color: white; }
+    .ambient-input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none; width: 100%; }
+    .ambient-input::placeholder { color: rgba(255,255,255,0.25); }
+    .ambient-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(8,145,178,0.15); }
+
+    .ambient-badge { display: inline-flex; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.08); }
+    .ambient-badge-success { background: rgba(16,185,129,0.15); color: #6ee7b7; border-color: rgba(16,185,129,0.2); }
+    .ambient-badge-warning { background: rgba(245,158,11,0.15); color: #fcd34d; border-color: rgba(245,158,11,0.2); }
+    .ambient-badge-danger { background: rgba(239,68,68,0.15); color: #fca5a5; border-color: rgba(239,68,68,0.2); }
+    .ambient-badge-info { background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.2); }
+
+    .whatsapp-glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); padding: 20px 24px; }
+    .whatsapp-glass h3 { color: white; font-size: 16px; margin: 0; }
+    .whatsapp-glass label { color: rgba(255,255,255,0.4); font-size: 12px; }
+
+    .fc { font-family: 'Inter', sans-serif !important; background: rgba(255,255,255,0.04); border-radius: var(--radius); padding: 16px; border: 1px solid rgba(255,255,255,0.06); }
+    .fc .fc-toolbar-title { color: white !important; font-size: 16px !important; font-weight: 700 !important; }
+    .fc .fc-button { background: rgba(255,255,255,0.06) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.7) !important; border-radius: 8px !important; }
+    .fc .fc-button:hover { background: rgba(255,255,255,0.1) !important; color: white !important; }
     .fc .fc-button-primary:not(:disabled).fc-button-active { background: var(--primary) !important; border-color: var(--primary) !important; color: white !important; }
-    .fc .fc-daygrid-day.fc-day-today { background: var(--primary-bg) !important; }
-    .fc .fc-daygrid-event { border-radius: 4px !important; padding: 2px 6px !important; font-size: 11px !important; cursor: pointer !important; border: none !important; }
-    .fc-theme-standard td, .fc-theme-standard th { border-color: var(--border-light) !important; }
-    .fc .fc-col-header-cell-cushion { font-weight: 600 !important; color: var(--text-secondary) !important; font-size: 12px !important; }
-    .whatsapp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
-    .admin-box { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
-    .toggle-switch { position: relative; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0; }
-    .toggle-switch input { display: none; }
-    .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; transition: 0.3s; }
-    .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
-    .toggle-switch input:checked + .toggle-slider { background: var(--primary); }
-    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
-    .chart-wrap { max-width: 200px; margin: 0 auto; }
-    .patient-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .patient-row:hover { box-shadow: var(--shadow-sm); }
-    .visit-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-light); }
-    .visit-item:last-child { border-bottom: none; }
-    .trend-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
-    .trend-badge.up { background: var(--success-bg); color: var(--success-dark); }
-    .trend-badge.down { background: var(--danger-bg); color: var(--danger-dark); }
-    .skeleton-row { display: flex; align-items: center; gap: 12px; padding: 16px 0; }
+    .fc .fc-daygrid-day.fc-day-today { background: rgba(8,145,178,0.08) !important; }
+    .fc .fc-col-header-cell-cushion { color: rgba(255,255,255,0.5) !important; font-weight: 600 !important; font-size: 12px !important; }
+    .fc .fc-daygrid-day-number { color: rgba(255,255,255,0.7) !important; font-size: 13px !important; }
+    .fc .fc-daygrid-day-events { min-height: 40px !important; }
+    .fc-theme-standard td, .fc-theme-standard th { border-color: rgba(255,255,255,0.06) !important; }
+
+    .appt-glass {
+      display: flex; align-items: center; gap: 16px; padding: 14px 20px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius); transition: all var(--transition-slow); cursor: pointer;
+    }
+    .appt-glass:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); }
+    .appt-glass .apt-time { font-size: 16px; font-weight: 700; color: var(--primary-light); min-width: 50px; }
+    .appt-glass .apt-name { flex: 1; font-size: 14px; color: rgba(255,255,255,0.9); }
+
+    .patient-glass {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius); overflow: hidden; transition: all var(--transition);
+    }
+    .patient-glass:hover { background: rgba(255,255,255,0.06); }
+
+    .page-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .lang-switcher { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; outline: none; }
+    .lang-switcher option { background: #1e293b; color: white; }
+
+    .empty-glass { text-align: center; padding: 60px 24px; }
+    .empty-glass svg { width: 48px; height: 48px; color: rgba(255,255,255,0.15); margin-bottom: 16px; }
+    .empty-glass h3 { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 6px; }
+    .empty-glass p { color: rgba(255,255,255,0.3); font-size: 13px; }
+
+    .modal-glass { background: rgba(15,23,42,0.95); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); }
+    .modal-glass .modal-title { color: white; }
+    .modal-glass .modal-close { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+
+    [data-i18n] { transition: opacity 0.2s; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .stagger > * { animation: slideUp 0.4s ease both; }
+    .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+    .stagger > *:nth-child(2) { animation-delay: 0.1s; }
+    .stagger > *:nth-child(3) { animation-delay: 0.15s; }
+    .stagger > *:nth-child(4) { animation-delay: 0.2s; }
+    .stagger > *:nth-child(5) { animation-delay: 0.25s; }
+    .stagger > *:nth-child(6) { animation-delay: 0.3s; }
+
+    @media (max-width: 768px) {
+      .main-content { margin-left: 0; padding: 16px; }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .page-header { flex-direction: column; align-items: stretch; }
+      .glass-stat .stat-value { font-size: 22px; }
+    }
   </style>
 </head>
 <body>
-  <div style="display:flex;min-height:100vh">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span class="sidebar-logo">KIVON</span>
-      </div>
-      <nav class="sidebar-nav">
-        <button class="sidebar-link active" data-tab="calendar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Takvim
-        </button>
-        <button class="sidebar-link" data-tab="list">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          Liste
-        </button>
-        <button class="sidebar-link" data-tab="patients">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Hastalar
-        </button>
-      </nav>
-      <div class="sidebar-footer">
-        <button class="sidebar-link" id="logoutBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Cikis Yap
-        </button>
-      </div>
-    </aside>
+  <div class="ambient-bg">
+    <img src="images/abstract-flow.jpg" alt="">
+    <img src="images/abstract-circles.jpg" alt="" style="opacity:0.08;filter:blur(120px)">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
 
-    <main class="main">
-      <div class="page-header">
-        <h1 class="page-title" id="pageTitle">Panel</h1>
-        <div class="page-actions">
-          <div class="avatar" id="userAvatar">D</div>
+  <aside class="sidebar ambient-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">K</div>
+        <span class="sidebar-logo" data-i18n="appName">KIVON</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="sidebar-link active" data-tab="calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span data-i18n="calendar">Takvim</span>
+      </button>
+      <button class="sidebar-link" data-tab="list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span data-i18n="list">Liste</span>
+      </button>
+      <button class="sidebar-link" data-tab="patients">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span data-i18n="patients">Hastalar</span>
+      </button>
+      <div style="flex:1"></div>
+      <button class="sidebar-link" data-tab="whatsapp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span data-i18n="whatsapp">WhatsApp</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span data-i18n="logout">Çıkış Yap</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title" id="pageTitle" data-i18n="adminPanel">Yönetim Paneli</h1>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:4px" id="pageSubtitle"></div>
+      </div>
+      <div class="page-actions">
+        <select class="lang-switcher" id="langSwitcher">
+          <option value="tr">TR</option>
+          <option value="en">EN</option>
+        </select>
+        <div class="avatar" id="userAvatar" style="width:36px;height:36px;font-size:14px;border:2px solid rgba(255,255,255,0.1)">D</div>
+      </div>
+    </div>
+
+    <div class="tab-content active" id="tabCalendar">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px" class="stagger" id="statsContainer">
+        <div class="glass-stat" style="border-left:3px solid var(--primary)">
+          <div class="stat-icon" style="background:rgba(8,145,178,0.15);color:var(--primary-light)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="stat-label" data-i18n="todayCount">Bugün</div>
+          <div class="stat-value" id="statToday">0</div>
+          <div class="stat-trend" id="trendToday"></div>
+        </div>
+        <div class="glass-stat" style="border-left:3px solid var(--secondary)">
+          <div class="stat-icon" style="background:rgba(124,58,237,0.15);color:var(--secondary-light)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="stat-label" data-i18n="totalCount">Toplam</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="glass-stat" style="border-left:3px solid #f59e0b">
+          <div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#fcd34d">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 8 14"/></svg>
+          </div>
+          <div class="stat-label" data-i18n="pendingCount">Bekleyen</div>
+          <div class="stat-value" id="statPending">0</div>
+        </div>
+        <div class="glass-stat" style="border-left:3px solid var(--success)">
+          <div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#6ee7b7">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="stat-label" data-i18n="completedCount">Tamamlanan</div>
+          <div class="stat-value" id="statCompleted">0</div>
         </div>
       </div>
+      <div id="calendar"></div>
+    </div>
 
-      <div class="stat-grid" style="margin-bottom:24px">
-        <div class="stat-card">
-          <div class="stat-label">Bugun</div>
-          <div class="stat-value" style="color:var(--primary)" id="statToday">0</div>
-          <div class="stat-trend up" id="trendToday">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
-            <span>+%0</span>
-          </div>
+    <div class="tab-content" id="tabList">
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);padding:8px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06)">
+          <span style="font-size:12px;color:rgba(255,255,255,0.4)" data-i18n="availability">Müsaitlik:</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="availabilityToggle" checked>
+            <span class="toggle-slider" style="background:rgba(255,255,255,0.15)"></span>
+          </label>
+          <span id="availabilityStatus" style="font-size:12px;color:#6ee7b7;font-weight:500" data-i18n="available">Müsait</span>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Toplam</div>
-          <div class="stat-value" style="color:var(--secondary)" id="statTotal">0</div>
-          <div class="stat-trend up" id="trendTotal">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
-            <span>Tum randevular</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Bekleyen</div>
-          <div class="stat-value" style="color:var(--warning)" id="statPending">0</div>
-          <div class="stat-trend up" id="trendPending">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
-            <span>Onay bekleyen</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Tamamlanan</div>
-          <div class="stat-value" style="color:var(--success)" id="statCompleted">0</div>
-          <div class="stat-trend up" id="trendCompleted">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>
-            <span>Basarili</span>
-          </div>
-        </div>
+        <button class="btn btn-primary btn-sm" id="generateSlotsBtn" style="font-size:12px;padding:8px 18px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span data-i18n="generateSlots">Slot Oluştur</span>
+        </button>
+        <button class="btn btn-sm" id="exportBtn" style="font-size:12px;padding:8px 18px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.08)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Dışa Aktar
+        </button>
       </div>
+      <div id="todayAppointments" style="margin-bottom:16px"></div>
+      <div id="appointmentsContainer"></div>
+    </div>
 
-      <div class="card card-padded" style="margin-bottom:24px">
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <div class="admin-box">
-            <span style="font-size:14px;color:var(--text-muted)">Musaitlik:</span>
-            <label class="toggle-switch">
-              <input type="checkbox" id="availabilityToggle" checked>
-              <span class="toggle-slider"></span>
-            </label>
-            <span id="availabilityStatus" style="font-size:14px;color:var(--success);font-weight:600">Musait</span>
-          </div>
-          <button class="btn btn-primary" id="generateSlotsBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Slot Olustur
-          </button>
-          <div style="flex:1;min-width:200px">
-            <canvas id="statusChart" width="80" height="80" style="max-width:80px;max-height:80px;margin-left:auto"></canvas>
-          </div>
-        </div>
-      </div>
+    <div class="tab-content" id="tabPatients">
+      <div id="patientsContainer"></div>
+    </div>
 
-      <div class="whatsapp-card" style="margin-bottom:24px">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <h3 style="margin:0;font-size:18px;font-weight:600">WhatsApp Bot</h3>
+    <div class="tab-content" id="tabWhatsapp">
+      <div class="whatsapp-glass">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(37,211,102,0.15);display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="#25D366" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <h3 data-i18n="whatsapp">WhatsApp Bot</h3>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
           <div>
-            <label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px">Bagli Numara</label>
+            <label data-i18n="connectedNumber" style="display:block;margin-bottom:4px">Bağlı Numara</label>
             <div style="display:flex;align-items:center;gap:8px">
-              <span id="whatsappNumberDisplay" style="font-size:16px;font-weight:600">-</span>
-              <button class="btn btn-sm btn-outline" id="editWpBtn">Degistir</button>
+              <span id="whatsappNumberDisplay" style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.9)">-</span>
+              <button class="btn btn-sm" id="editWpBtn" style="font-size:11px;padding:4px 12px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:6px">Düzenle</button>
             </div>
           </div>
           <div>
-            <label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:4px">Bot Durumu</label>
-            <span id="botStatus" style="font-size:14px;color:var(--text-muted)">Bilinmiyor</span>
+            <label data-i18n="botStatus" style="display:block;margin-bottom:4px">Bot Durumu</label>
+            <span id="botStatus" style="font-size:13px;color:rgba(255,255,255,0.4)">Bilinmiyor</span>
           </div>
         </div>
         <div id="wpNumberForm" style="display:none;margin-top:12px">
           <div style="display:flex;gap:8px">
-            <input type="text" id="wpNumberInput" class="form-input" placeholder="+90 5XX XXX XXXX" style="flex:1" autocomplete="off">
-            <button class="btn btn-primary" id="saveWpBtn">Kaydet</button>
-            <button class="btn btn-ghost" id="cancelWpBtn">Iptal</button>
+            <input type="text" id="wpNumberInput" class="ambient-input" placeholder="+90 5XX XXX XXXX" style="flex:1">
+            <button class="btn btn-primary btn-sm" id="saveWpBtn">Kaydet</button>
+            <button class="btn btn-sm" id="cancelWpBtn" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.08)">İptal</button>
           </div>
         </div>
-        <div style="margin-top:12px;padding:12px 16px;background:var(--success-bg);border:1px solid rgba(37,211,102,0.2);border-radius:8px;font-size:13px;color:var(--text-secondary);line-height:1.6">
-          <strong style="color:#059669">Baglanti:</strong> WhatsApp botunu calistirin ve QR kodu telefonda WhatsApp &gt; Bagli cihazlar &gt; Cihaz bagla ile okutun.
-        </div>
       </div>
-
-      <div class="tab-content active" id="tabCalendar">
-        <div id="calendar"></div>
-      </div>
-
-      <div class="tab-content" id="tabList">
-        <div id="todayAppointments" style="margin-bottom:24px"></div>
-        <div id="appointmentsContainer"></div>
-      </div>
-
-      <div class="tab-content" id="tabPatients">
-        <div id="patientsContainer"></div>
-      </div>
-    </main>
-  </div>
+    </div>
+  </main>
 
   <div class="modal-overlay" id="generateModal">
-    <div class="modal">
+    <div class="modal modal-glass">
       <div class="modal-header">
-        <h3 class="modal-title">Slot Olustur</h3>
+        <h3 class="modal-title" data-i18n="generateSlots">Slot Oluştur</h3>
         <button class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
         <form id="generateForm">
           <div class="form-group">
-            <label class="form-label">Baslangic Tarihi</label>
-            <input type="date" class="form-input" id="startDate" required>
+            <label class="form-label" style="color:rgba(255,255,255,0.6)" data-i18n="startDate">Başlangıç Tarihi</label>
+            <input type="date" class="ambient-input" id="startDate" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Bitis Tarihi</label>
-            <input type="date" class="form-input" id="endDate" required>
+            <label class="form-label" style="color:rgba(255,255,255,0.6)" data-i18n="endDate">Bitiş Tarihi</label>
+            <input type="date" class="ambient-input" id="endDate" required>
           </div>
-          <button type="submit" class="btn btn-primary form-submit" style="width:100%">Olustur</button>
+          <button type="submit" class="btn btn-primary form-submit" style="width:100%;margin-top:8px">
+            <span data-i18n="generateSlots">Oluştur</span>
+          </button>
         </form>
       </div>
     </div>
   </div>
 
+  <div class="modal-overlay" id="chartModal">
+    <div class="modal modal-glass" style="max-width:400px">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="stats">İstatistikler</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align:center">
+        <canvas id="chartCanvas" width="300" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/chart.js@4/dist/chart.umd.min.js"></script>
   <script type="module">
     import { redirectIfNotAuthenticated, getUser, clearToken } from './js/auth.js';
     import { supabase, getSession, getAppointments, cancelAppointment, generateSlots } from './js/api.js';
-    import { showToast, confirmDialog, openModal, closeModal, setupModal, showSkeleton, getInitials, formatDate, formatTime } from './js/ui.js';
+    import { showToast, confirmDialog, openModal, closeModal, setupModal, showSkeleton, getInitials } from './js/ui.js';
+    import { t, initI18n, setLanguage, getCurrentLang } from './js/i18n.js';
 
     redirectIfNotAuthenticated();
+    initI18n();
+
+    document.getElementById('langSwitcher').value = getCurrentLang();
+    document.getElementById('langSwitcher').addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+      location.reload();
+    });
 
     const user = getUser();
     const avatar = document.getElementById('userAvatar');
-    if (user && user.full_name) {
-      avatar.textContent = getInitials(user.full_name);
+    if (user && (user.full_name || user.email)) {
+      avatar.textContent = getInitials(user.full_name || user.email);
     }
 
     let calendar = null;
     let allAppointments = [];
     let doctorIdCache = null;
-    let statusChart = null;
+    let chartInstance = null;
 
     function switchTab(tab) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.sidebar-link[data-tab]').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
       const tabEl = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
       if (tabEl) tabEl.classList.add('active');
-      const link = document.querySelector('.sidebar-link[data-tab="' + tab + '"]');
-      if (link) link.classList.add('active');
+      document.querySelector(`.sidebar-link[data-tab="${tab}"]`)?.classList.add('active');
       if (tab === 'patients') loadPatients();
       if (tab === 'calendar' && calendar) {
-        setTimeout(() => calendar.render(), 50);
+        setTimeout(() => calendar.render(), 100);
+        renderChart();
       }
     }
 
     document.querySelectorAll('.sidebar-link[data-tab]').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        switchTab(el.dataset.tab);
+      el.addEventListener('click', () => switchTab(el.dataset.tab));
+    });
+
+    document.getElementById('exportBtn')?.addEventListener('click', () => {
+      const rows = [['Tarih','Saat','Hasta','Durum']];
+      allAppointments.forEach(a => {
+        rows.push([a.date, a.time?.slice(0,5)||'', a.patient_name||a.profiles?.full_name||'-', a.status]);
       });
+      const csv = rows.map(r => r.join(',')).join('\n');
+      const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'randevular.csv'; a.click();
+      URL.revokeObjectURL(a.href);
+      showToast('Dışa aktarıldı', 'success');
     });
 
     async function checkRole() {
       const session = await getSession();
       if (!session) return;
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single();
-      if (profile && profile.role !== 'doctor') {
-        window.location.href = 'panel.html';
-      }
-      const { data: dr } = await supabase
-        .from('doctors')
-        .select('sector, profile:profiles(full_name)')
-        .eq('profile_id', session.user.id)
-        .single();
+      const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single();
+      if (profile && profile.role !== 'doctor') { window.location.href = 'panel.html'; return; }
+      const { data: dr } = await supabase.from('doctors').select('sector, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
       if (dr) {
-        const sector = dr.sector || 'randevu';
-        const name = dr.profile?.full_name || 'Panel';
-        const sektorAdi = { 'doktor': 'Doktor', 'kuafor': 'Kuafor', 'guzellik': 'Guzellik', 'berber': 'Berber', 'spor': 'Spor', 'fitness': 'Fitness', 'masaj': 'Masaj', 'avukat': 'Avukat', 'veteriner': 'Veteriner', 'psikolog': 'Psikolog' }[sector] || 'Isletme';
-        document.title = sektorAdi + ' Paneli — ' + name;
-        document.getElementById('pageTitle').textContent = sektorAdi + ' Paneli';
+        const sektorAdi = { 'doktor':'Doktor','kuaför':'Kuafor','güzellik':'Guzellik','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.sector] || 'İşletme';
+        document.title = `${sektorAdi} Paneli — ${dr.profile?.full_name || 'KIVON'}`;
+        document.getElementById('pageTitle').textContent = `${sektorAdi} Paneli`;
+        document.getElementById('pageSubtitle').textContent = dr.profile?.full_name || '';
       }
     }
 
     async function getDoctorId() {
       if (doctorIdCache) return doctorIdCache;
       const session = await getSession();
-      if (!session) throw new Error('Oturum bulunamadi.');
-      const { data: doctor } = await supabase
-        .from('doctors')
-        .select('id')
-        .eq('profile_id', session.user.id)
-        .single();
-      if (!doctor) throw new Error('Doktor profili bulunamadi.');
-      doctorIdCache = doctor.id;
-      return doctor.id;
+      const { data: doctor } = await supabase.from('doctors').select('id').eq('profile_id', session.user.id).single();
+      if (!doctor) throw new Error('Doktor profili bulunamadi');
+      doctorIdCache = doctor.id; return doctor.id;
     }
 
     async function fetchDoctorAppointments() {
       const session = await getSession();
-      if (!session) throw new Error('Oturum bulunamadi.');
       const doctorId = await getDoctorId();
       const { data, error } = await supabase
         .from('appointments')
         .select('id, date, time, status, notes, user_id, patient_name, patient_phone, patient_id')
         .eq('doctor_id', doctorId)
-        .order('date', { ascending: true })
-        .order('time', { ascending: true });
+        .order('date', { ascending: true }).order('time', { ascending: true });
       if (error) throw new Error(error.message);
-      if (data && data.length) {
+      if (data?.length) {
         const userIds = data.filter(a => a.user_id).map(a => a.user_id);
         if (userIds.length) {
-          const { data: profiles } = await supabase
-            .from('profiles')
-            .select('id, full_name, phone')
-            .in('id', userIds);
+          const { data: profiles } = await supabase.from('profiles').select('id, full_name, phone').in('id', userIds);
           if (profiles) {
-            const profileMap = {};
-            profiles.forEach(p => { profileMap[p.id] = p; });
-            data.forEach(a => { if (a.user_id) a.profiles = profileMap[a.user_id]; });
+            const pm = {}; profiles.forEach(p => pm[p.id] = p);
+            data.forEach(a => { if (a.user_id) a.profiles = pm[a.user_id]; });
           }
         }
       }
       return data || [];
     }
 
-    function initCalendar(events) {
-      const el = document.getElementById('calendar');
-      if (!el) return;
-      if (calendar) { calendar.destroy(); }
-      calendar = new FullCalendar.Calendar(el, {
-        initialView: 'dayGridMonth',
-        locale: 'tr',
-        firstDay: 1,
-        height: 'auto',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek'
-        },
-        buttonText: {
-          today: 'Bugun',
-          month: 'Ay',
-          week: 'Hafta',
-          day: 'Gun'
-        },
-        events: events,
-        eventClick: function(info) {
-          const apt = info.event.extendedProps;
-          showToast((apt.patientName || '') + ' - ' + (apt.time || ''), 'info');
-        }
-      });
-      calendar.render();
-    }
-
-    function buildCalendarEvents(appointments) {
-      const statusLabels = { pending: 'Beklemede', confirmed: 'Onaylandi', cancelled: 'Iptal', completed: 'Tamamlandi' };
-      return appointments.map(apt => {
-        const patientName = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
-        const time = apt.time ? apt.time.slice(0, 5) : '';
-        const status = (apt.status || 'pending').toLowerCase();
-        const colors = {
-          pending: { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' },
-          confirmed: { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' },
-          cancelled: { bg: '#fecaca', text: '#991b1b', border: '#ef4444' },
-          completed: { bg: '#dcfce7', text: '#166534', border: '#22c55e' }
-        };
-        const c = colors[status] || colors.pending;
-        return {
-          id: apt.id,
-          title: time + ' ' + patientName,
-          start: apt.date,
-          description: patientName + ' - ' + (statusLabels[status] || status) + (time ? ' ' + time : ''),
-          backgroundColor: c.bg,
-          textColor: c.text,
-          borderColor: c.border,
-          classNames: ['fc-event-' + status],
-          extendedProps: { status, patientName, time }
-        };
-      });
-    }
-
-    function updateStatusChart(stats) {
-      const canvas = document.getElementById('statusChart');
-      if (!canvas) return;
-      if (statusChart) { statusChart.destroy(); }
-      const ctx = canvas.getContext('2d');
-      statusChart = new Chart(ctx, {
+    function renderChart() {
+      const pending = allAppointments.filter(a => a.status === 'pending').length;
+      const confirmed = allAppointments.filter(a => a.status === 'confirmed').length;
+      const completed = allAppointments.filter(a => a.status === 'completed').length;
+      const cancelled = allAppointments.filter(a => a.status === 'cancelled').length;
+      if (chartInstance) chartInstance.destroy();
+      const ctx = document.getElementById('chartCanvas');
+      if (!ctx || (pending+confirmed+completed+cancelled) === 0) return;
+      chartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Bekleyen', 'Onaylandi', 'Tamamlandi', 'Iptal'],
+          labels: ['Bekleyen','Onaylandı','Tamamlandı','İptal'],
           datasets: [{
-            data: [stats.pending || 0, stats.confirmed || 0, stats.completed || 0, stats.cancelled || 0],
-            backgroundColor: ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'],
-            borderWidth: 0
+            data: [pending, confirmed, completed, cancelled],
+            backgroundColor: ['rgba(245,158,11,0.6)','rgba(8,145,178,0.6)','rgba(16,185,129,0.6)','rgba(239,68,68,0.4)'],
+            borderColor: ['#f59e0b','#0891b2','#10b981','#ef4444'],
+            borderWidth: 2
           }]
         },
         options: {
-          responsive: true,
-          cutout: '65%',
-          plugins: {
-            legend: { display: false },
-            tooltip: { enabled: true }
-          }
+          responsive: true, cutout: '70%',
+          plugins: { legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.6)', font: {size:11} } } }
         }
+      });
+    }
+
+    function initCalendar(events) {
+      const el = document.getElementById('calendar');
+      if (!el) return;
+      if (calendar) { try { calendar.destroy(); } catch(e) { } }
+      try {
+        calendar = new FullCalendar.Calendar(el, {
+          initialView: 'dayGridMonth', locale: 'tr', firstDay: 1, height: 'auto',
+          headerToolbar: { left: 'prev,next', center: 'title', right: 'dayGridMonth' },
+          buttonText: { today: 'Bugün', month: 'Ay' },
+          events: events,
+          eventClick: function(info) {
+            const p = info.event.extendedProps;
+            showToast(`${info.event.title}`, p.status === 'confirmed' ? 'info' : 'warning');
+          }
+        });
+        calendar.render();
+      } catch(e) { /* ignore */ }
+    }
+
+    function buildCalendarEvents(appointments) {
+      const labels = { pending:'Beklemede', confirmed:'Onaylandı', cancelled:'İptal', completed:'Tamamlandı' };
+      const colors = {
+        pending: { bg:'rgba(245,158,11,0.2)', text:'#fcd34d', border:'#f59e0b' },
+        confirmed: { bg:'rgba(8,145,178,0.2)', text:'#7dd3fc', border:'#0891b2' },
+        cancelled: { bg:'rgba(239,68,68,0.15)', text:'#fca5a5', border:'#ef4444' },
+        completed: { bg:'rgba(16,185,129,0.15)', text:'#6ee7b7', border:'#10b981' }
+      };
+      return appointments.map(apt => {
+        const name = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
+        const time = apt.time ? apt.time.slice(0,5) : '';
+        const s = (apt.status||'pending').toLowerCase();
+        const c = colors[s] || colors.pending;
+        return {
+          id: apt.id, title: time ? `${time} ${name}` : name, start: apt.date,
+          backgroundColor: c.bg, textColor: c.text, borderColor: c.border,
+          classNames: ['rounded'],
+          extendedProps: { status:s, patientName:name, time:time, description:`${labels[s]||s}` }
+        };
       });
     }
 
     async function loadPatients() {
       const container = document.getElementById('patientsContainer');
-      showSkeleton(container, 3, 'row');
+      showSkeleton(container, 4, 'row');
       try {
         const doctorId = await getDoctorId();
         const { data: appointments } = await supabase
-          .from('appointments')
-          .select('id, date, time, status, patient_name, patient_phone, patient_id')
-          .eq('doctor_id', doctorId)
-          .neq('status', 'cancelled')
-          .order('date', { ascending: false });
-
-        if (!appointments || !appointments.length) {
-          container.innerHTML = '<div class="empty-state"><h3>Henuz hasta yok</h3><p>Henuz kayitli bir hastaniz bulunmuyor.</p></div>';
+          .from('appointments').select('id, date, time, status, patient_name, patient_phone, patient_id')
+          .eq('doctor_id', doctorId).neq('status','cancelled').order('date', { ascending: false });
+        if (!appointments?.length) {
+          container.innerHTML = '<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3 data-i18n="noPatients">Henüz hasta yok</h3><p>Henüz kayıtlı hastanız bulunmuyor.</p></div>';
           return;
         }
-
-        const patientMap = {};
-        appointments.forEach(apt => {
-          const key = apt.patient_phone || apt.patient_name || 'bilinmeyen';
-          if (!patientMap[key]) {
-            patientMap[key] = { name: apt.patient_name || 'Bilinmeyen', phone: apt.patient_phone || '-', count: 0, lastDate: '', visits: [] };
-          }
-          patientMap[key].count++;
-          const dateObj = apt.date ? new Date(apt.date + 'T00:00:00') : null;
-          const dateStr = dateObj ? dateObj.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-          if (dateStr > patientMap[key].lastDate) patientMap[key].lastDate = dateStr;
-          patientMap[key].visits.push({ date: dateStr, time: apt.time ? apt.time.slice(0, 5) : '', status: apt.status });
+        const pm = {};
+        appointments.forEach(a => {
+          const k = a.patient_phone || a.patient_name || 'x';
+          if (!pm[k]) pm[k] = { name: a.patient_name||'Bilinmeyen', phone: a.patient_phone||'-', count:0, lastDate:'', visits:[] };
+          pm[k].count++;
+          const ds = a.date ? new Date(a.date+'T00:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'}) : '';
+          if (ds > pm[k].lastDate) pm[k].lastDate = ds;
+          pm[k].visits.push({date:ds, time:a.time?.slice(0,5)||'', status:a.status});
         });
-
-        const patients = Object.values(patientMap).sort((a, b) => b.count - a.count);
-
-        let html = '<div class="flex-between" style="margin-bottom:16px">';
-        html += '<h3 style="font-size:18px;font-weight:700">Hastalar</h3>';
-        html += '<span style="font-size:13px;color:var(--text-muted)">' + patients.length + ' hasta</span>';
-        html += '</div>';
-        html += '<div style="display:flex;flex-direction:column;gap:8px">';
-        patients.forEach((p, idx) => {
-          const initial = (p.name.charAt(0) || '?').toUpperCase();
-          const visitList = p.visits.map(v =>
-            '<div class="visit-item">' +
-              '<span>' + v.date + '</span>' +
-              '<span style="color:var(--text-muted)">' + v.time + '</span>' +
-              '<span class="badge badge-' + v.status + '">' + (v.status === 'confirmed' ? 'Onaylandi' : v.status) + '</span>' +
-            '</div>'
-          ).join('');
-          html += '<div class="patient-row">' +
-            '<div class="flex-between" style="padding:14px 16px;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\'">' +
-              '<div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0">' +
-                '<div class="avatar avatar-sm">' + initial + '</div>' +
-                '<div style="flex:1;min-width:0">' +
-                  '<div style="font-size:15px;font-weight:600">' + p.name + '</div>' +
-                  '<div style="font-size:12px;color:var(--text-muted)">' + p.phone + '</div>' +
-                '</div>' +
-              '</div>' +
-              '<div style="text-align:right;margin-right:12px">' +
-                '<div style="font-size:15px;font-weight:700;color:var(--primary)">' + p.count + '</div>' +
-                '<div style="font-size:11px;color:var(--text-muted)">ziyaret</div>' +
-              '</div>' +
-              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted);flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>' +
-            '</div>' +
-            '<div style="display:none;padding:8px 16px 12px;border-top:1px solid var(--border-light);background:var(--bg)">' +
-              '<div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px">Ziyaret Gecmisi</div>' +
-              (visitList || '<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Kayit bulunamadi</div>') +
-            '</div>' +
-          '</div>';
+        const patients = Object.values(pm).sort((a,b) => b.count - a.count);
+        let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <h3 style="color:white;font-size:16px;font-weight:600">${t('patients')}</h3>
+          <span style="font-size:12px;color:rgba(255,255,255,0.35)">${patients.length} ${t('visitCount')}</span>
+        </div>`;
+        patients.forEach(p => {
+          const visits = p.visits.map(v => `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+            <span style="font-size:13px;color:rgba(255,255,255,0.7)">${v.date}</span>
+            <span style="font-size:12px;color:rgba(255,255,255,0.4)">${v.time}</span>
+            <span class="ambient-badge ambient-badge-${v.status==='confirmed'?'success':v.status==='cancelled'?'danger':'info'}">${t('status'+v.status.charAt(0).toUpperCase()+v.status.slice(1))||v.status}</span>
+          </div>`).join('');
+          html += `<div class="patient-glass">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:white;flex-shrink:0">${(p.name.charAt(0)||'?').toUpperCase()}</div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.9)">${p.name}</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.35)">${p.phone}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:18px;font-weight:700;color:var(--primary-light)">${p.count}</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3)">${t('visitCount')}</div>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:rgba(255,255,255,0.2)"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div style="display:none;padding:8px 16px 12px;border-top:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02)">
+              <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px" data-i18n="visitHistory">Ziyaret Geçmişi</div>
+              ${visits || '<div style="font-size:13px;color:rgba(255,255,255,0.3);padding:8px 0">-</div>'}
+            </div>
+          </div>`;
         });
-        html += '</div>';
         container.innerHTML = html;
-      } catch (err) {
-        container.innerHTML = '<p style="color:var(--danger);text-align:center;padding:40px">Hastalar yuklenirken bir hata olustu.</p>';
+      } catch(err) {
+        container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}</p>`;
       }
     }
 
     async function cancelDoctorAppointment(id) {
-      const session = await getSession();
-      if (!session) throw new Error('Oturum bulunamadi.');
       const doctorId = await getDoctorId();
-      const { data: appt, error: getError } = await supabase
-        .from('appointments')
-        .select('slot_id')
-        .eq('id', id)
-        .eq('doctor_id', doctorId)
-        .single();
-      if (getError) throw new Error('Randevu bulunamadi.');
-      if (appt.slot_id) {
-        await supabase.from('availability').update({ is_booked: false }).eq('id', appt.slot_id);
-      }
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: 'cancelled' })
-        .eq('id', id)
-        .eq('doctor_id', doctorId);
-      if (error) throw new Error(error.message);
+      const { data: appt } = await supabase.from('appointments').select('slot_id').eq('id',id).eq('doctor_id',doctorId).single();
+      if (!appt) throw new Error('Randevu bulunamadi');
+      if (appt.slot_id) await supabase.from('availability').update({is_booked:false}).eq('id',appt.slot_id);
+      const { error } = await supabase.from('appointments').update({status:'cancelled'}).eq('id',id).eq('doctor_id',doctorId);
+      if (error) throw error;
       return true;
     }
 
     async function loadAppointments() {
       const container = document.getElementById('appointmentsContainer');
       const todayContainer = document.getElementById('todayAppointments');
+      container.innerHTML = '<div class="spinner" style="border-top-color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.1)"></div>';
       try {
         allAppointments = await fetchDoctorAppointments();
-        const today = new Date().toISOString().slice(0, 10);
+        const today = new Date().toISOString().slice(0,10);
         const todayApts = allAppointments.filter(a => a.date === today && a.status === 'confirmed');
-
         const total = allAppointments.length;
-        const todayCount = todayApts.length;
-        const pendingCount = allAppointments.filter(a => a.status === 'pending' || a.status === 'confirmed').length;
-        const completedCount = allAppointments.filter(a => a.status === 'completed').length;
-        const cancelledCount = allAppointments.filter(a => a.status === 'cancelled').length;
-        const confirmedCount = allAppointments.filter(a => a.status === 'confirmed').length;
-
-        document.getElementById('statToday').textContent = todayCount;
+        document.getElementById('statToday').textContent = todayApts.length;
         document.getElementById('statTotal').textContent = total;
-        document.getElementById('statPending').textContent = pendingCount;
-        document.getElementById('statCompleted').textContent = completedCount;
-
-        document.getElementById('trendToday').querySelector('span').textContent = todayCount > 0 ? '+' + todayCount + ' bugun' : 'Bugun yok';
-        document.getElementById('trendTotal').querySelector('span').textContent = total + ' toplam';
-        document.getElementById('trendPending').querySelector('span').textContent = pendingCount > 0 ? pendingCount + ' bekleyen' : 'Bekleyen yok';
-        document.getElementById('trendCompleted').querySelector('span').textContent = completedCount > 0 ? completedCount + ' tamamlandi' : 'Henuz yok';
-
-        updateStatusChart({ pending: pendingCount - confirmedCount, confirmed: confirmedCount, completed: completedCount, cancelled: cancelledCount });
+        document.getElementById('statPending').textContent = allAppointments.filter(a => a.status === 'pending' || a.status === 'confirmed').length;
+        document.getElementById('statCompleted').textContent = allAppointments.filter(a => a.status === 'completed').length;
+        const trend = document.getElementById('trendToday');
+        if (todayApts.length > 0) trend.innerHTML = `<span class="stat-trend up">↑ ${todayApts.length} ${t('todayCount')}</span>`;
 
         if (todayApts.length) {
-          let html = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--primary)">Bugunku Randevular</h3>';
-          html += '<div style="display:flex;flex-direction:column;gap:8px">';
-          todayApts.forEach(apt => {
-            const time = apt.time ? apt.time.slice(0, 5) : '';
-            const patientName = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
-            html += '<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px">' +
-              '<span style="font-size:18px;font-weight:700;color:var(--primary);min-width:50px">' + time + '</span>' +
-              '<span style="flex:1;font-size:15px">' + patientName + '</span>' +
-              '<span class="badge badge-' + apt.status + '">Onaylandi</span>' +
-            '</div>';
-          });
-          html += '</div>';
-          todayContainer.innerHTML = html;
+          todayContainer.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px" class="stagger">${todayApts.map(apt => {
+            const name = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
+            return `<div class="appt-glass"><span class="apt-time">${apt.time?.slice(0,5)||''}</span><span class="apt-name">${name}</span><span class="ambient-badge ambient-badge-success">${t('statusConfirmed')}</span></div>`;
+          }).join('')}</div>`;
         } else {
-          todayContainer.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:14px">Bugun randevu yok</div>';
+          todayContainer.innerHTML = '<div style="text-align:center;padding:24px;color:rgba(255,255,255,0.3);font-size:13px">Bugün randevu yok</div>';
         }
 
         if (!allAppointments.length) {
-          container.innerHTML = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Tum Randevular</h3>' +
-            '<div class="empty-state">' +
-              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:64px;height:64px;color:var(--text-light);margin-bottom:16px">' +
-                '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' +
-              '</svg>' +
-              '<h3 style="font-size:18px;font-weight:600;margin-bottom:6px">Henuz randevu yok</h3>' +
-              '<p style="color:var(--text-muted);font-size:14px">Henuz size ait bir randevu bulunmuyor.</p>' +
-            '</div>';
-          const events = buildCalendarEvents(allAppointments);
-          initCalendar(events);
+          container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><h3>${t('noAppointments')}</h3><p>Henüz size ait bir randevu bulunmuyor.</p></div>`;
           return;
         }
 
-        let tableHtml = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Tum Randevular</h3>';
-        tableHtml += '<div class="table-wrap"><table><thead><tr>' +
-          '<th>Tarih</th><th>Saat</th><th>Hasta</th><th>Durum</th><th></th>' +
-        '</tr></thead><tbody>';
+        let tableHtml = `<table class="ambient-table"><thead><tr><th>${t('date')}</th><th>${t('time')}</th><th>${t('patient')}</th><th>${t('stats')}</th><th></th></tr></thead><tbody>`;
         allAppointments.forEach(apt => {
-          const date = new Date(apt.date + 'T00:00:00');
-          const fullDate = date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
-          const time = apt.time ? apt.time.slice(0, 5) : '';
-          const status = (apt.status || 'pending').toLowerCase();
-          const patientName = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen Hasta';
-          const labels = { pending: 'Beklemede', confirmed: 'Onaylandi', cancelled: 'Iptal Edildi', completed: 'Tamamlandi' };
-          const statusLabel = labels[status] || status;
-          const showCancel = status === 'pending' || status === 'confirmed';
-          tableHtml += '<tr>' +
-            '<td>' + fullDate + '</td>' +
-            '<td>' + time + '</td>' +
-            '<td>' + patientName + '</td>' +
-            '<td><span class="badge badge-' + status + '">' + statusLabel + '</span></td>' +
-            '<td>' +
-              (showCancel ? '<button class="btn btn-sm btn-danger cancel-btn" data-id="' + apt.id + '">Iptal</button>' : '') +
-            '</td>' +
-          '</tr>';
+          const date = new Date(apt.date+'T00:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+          const time = apt.time?.slice(0,5)||'';
+          const s = (apt.status||'pending').toLowerCase();
+          const name = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
+          const badgeClass = {pending:'warning',confirmed:'info',cancelled:'danger',completed:'success'}[s]||'info';
+          const statusTxt = t('status'+s.charAt(0).toUpperCase()+s.slice(1))||s;
+          tableHtml += `<tr><td>${date}</td><td>${time}</td><td style="color:rgba(255,255,255,0.9)">${name}</td><td><span class="ambient-badge ambient-badge-${badgeClass}">${statusTxt}</span></td><td>
+            ${s==='pending'||s==='confirmed'?`<button class="btn btn-sm cancel-btn" data-id="${apt.id}" style="font-size:11px;padding:3px 12px;background:rgba(239,68,68,0.12);color:#fca5a5;border:1px solid rgba(239,68,68,0.15);border-radius:6px">${t('cancel')}</button>`:''}
+          </td></tr>`;
         });
-        tableHtml += '</tbody></table></div>';
-        container.innerHTML = tableHtml;
+        tableHtml += '</tbody></table>';
+        container.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h3 style="color:white;font-size:16px;font-weight:600">${t('appointments')}</h3>
+          <span style="font-size:12px;color:rgba(255,255,255,0.35)">${allAppointments.length}</span>
+        </div><div style="overflow-x:auto">${tableHtml}</div>`;
 
         container.querySelectorAll('.cancel-btn').forEach(btn => {
           btn.addEventListener('click', async () => {
-            if (await cancelBooking(btn.dataset.id)) {
-              loadAppointments();
+            const ok = await confirmDialog(t('cancelConfirm'), t('cancel'));
+            if (ok) {
+              try { await cancelDoctorAppointment(btn.dataset.id); showToast(t('cancelled'),'success'); loadAppointments(); }
+              catch(e) { showToast(t('error'),'error'); }
             }
           });
         });
 
         const events = buildCalendarEvents(allAppointments);
         initCalendar(events);
+        renderChart();
 
-      } catch (err) {
-        container.innerHTML = '<p style="color:var(--danger);text-align:center;padding:40px">Randevular yuklenirken bir hata olustu.</p>';
+      } catch(err) {
+        container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}</p>`;
       }
     }
 
     async function cancelBooking(id) {
-      const confirmed = await confirmDialog('Randevuyu iptal etmek istediginize emin misiniz?', 'Iptal Onayi');
-      if (!confirmed) return false;
-      try {
-        await cancelDoctorAppointment(id);
-        showToast('Randevu basariyla iptal edildi', 'success');
-        return true;
-      } catch (err) {
-        showToast('Randevu iptal edilemedi.', 'error');
-        return false;
-      }
+      try { await cancelDoctorAppointment(id); return true; }
+      catch { return false; }
     }
 
     await checkRole();
@@ -605,87 +667,58 @@
     async function loadDoctorWhatsApp() {
       try {
         const session = await getSession();
-        const { data: doctor } = await supabase
-          .from('doctors')
-          .select('id, whatsapp_number')
-          .eq('profile_id', session.user.id)
-          .single();
-        if (doctor) {
-          document.getElementById('whatsappNumberDisplay').textContent = doctor.whatsapp_number || '-';
-        }
-      } catch (e) { /* ignore */ }
+        const { data: doctor } = await supabase.from('doctors').select('id, whatsapp_number').eq('profile_id',session.user.id).single();
+        if (doctor) document.getElementById('whatsappNumberDisplay').textContent = doctor.whatsapp_number || '-';
+      } catch(e) {}
     }
     loadDoctorWhatsApp();
 
     document.getElementById('editWpBtn').addEventListener('click', () => {
-      const display = document.getElementById('whatsappNumberDisplay');
       document.getElementById('wpNumberForm').style.display = 'block';
-      document.getElementById('wpNumberInput').value = display.textContent === '-' ? '' : display.textContent;
+      document.getElementById('wpNumberInput').value = document.getElementById('whatsappNumberDisplay').textContent === '-' ? '' : document.getElementById('whatsappNumberDisplay').textContent;
     });
-    document.getElementById('cancelWpBtn').addEventListener('click', () => {
-      document.getElementById('wpNumberForm').style.display = 'none';
-    });
+    document.getElementById('cancelWpBtn').addEventListener('click', () => document.getElementById('wpNumberForm').style.display = 'none');
     document.getElementById('saveWpBtn').addEventListener('click', async () => {
       const val = document.getElementById('wpNumberInput').value.trim();
-      if (!val) return showToast('Numara girin', 'warning');
+      if (!val) return;
       try {
         const session = await getSession();
-        const { error } = await supabase
-          .from('doctors')
-          .update({ whatsapp_number: val })
-          .eq('profile_id', session.user.id);
-        if (error) throw error;
+        await supabase.from('doctors').update({whatsapp_number:val}).eq('profile_id',session.user.id);
         document.getElementById('whatsappNumberDisplay').textContent = val;
         document.getElementById('wpNumberForm').style.display = 'none';
-        showToast('WhatsApp numarasi guncellendi', 'success');
-      } catch (e) { showToast('WhatsApp numarasi guncellenemedi.', 'error'); }
+        showToast('Kaydedildi','success');
+      } catch(e) { showToast(t('error'),'error'); }
     });
 
     const toggle = document.getElementById('availabilityToggle');
     const statusEl = document.getElementById('availabilityStatus');
     toggle.addEventListener('change', () => {
-      if (toggle.checked) {
-        statusEl.textContent = 'Musait';
-        statusEl.style.color = 'var(--success)';
-      } else {
-        statusEl.textContent = 'Musait Degil';
-        statusEl.style.color = 'var(--danger)';
-      }
+      statusEl.textContent = toggle.checked ? t('available') : t('unavailable');
+      statusEl.style.color = toggle.checked ? '#6ee7b7' : '#fca5a5';
     });
 
-    setupModal('generateModal');
+    const generateModal = document.getElementById('generateModal');
     document.getElementById('generateSlotsBtn').addEventListener('click', () => {
-      openModal('generateModal');
-      const today = new Date().toISOString().slice(0, 10);
-      document.getElementById('startDate').value = today;
+      generateModal.classList.add('open');
+      document.getElementById('startDate').value = new Date().toISOString().slice(0,10);
       document.getElementById('endDate').value = '';
     });
-
+    generateModal.querySelector('.modal-close').addEventListener('click', () => generateModal.classList.remove('open'));
+    generateModal.addEventListener('click', (e) => { if (e.target === generateModal) generateModal.classList.remove('open'); });
     document.getElementById('generateForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const startDate = document.getElementById('startDate').value;
-      const endDate = document.getElementById('endDate').value;
       const btn = e.target.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Olusturuluyor...';
+      btn.disabled = true; btn.textContent = 'Oluşturuluyor...';
       try {
         const session = await getSession();
-        const { data: doctor } = await supabase
-          .from('doctors')
-          .select('id')
-          .eq('profile_id', session.user.id)
-          .single();
-        await generateSlots(doctor.id, startDate, endDate);
-        closeModal('generateModal');
-        showToast('Slotlar basariyla olusturuldu', 'success');
-        loadAppointments();
-      } catch (err) {
-        showToast('Slot olusturulamadi.', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Olustur';
-      }
+        const { data: doctor } = await supabase.from('doctors').select('id').eq('profile_id',session.user.id).single();
+        await generateSlots(doctor.id, document.getElementById('startDate').value, document.getElementById('endDate').value);
+        generateModal.classList.remove('open'); loadAppointments(); showToast('Slotlar oluşturuldu','success');
+      } catch(err) { showToast(t('error'),'error'); }
+      finally { btn.disabled = false; btn.textContent = t('generateSlots'); }
     });
+
+    document.getElementById('chartModal').querySelector('.modal-close').addEventListener('click', () => closeModal('chartModal'));
 
     document.getElementById('logoutBtn').addEventListener('click', async (e) => {
       e.preventDefault();

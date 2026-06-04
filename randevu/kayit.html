@@ -5,128 +5,203 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
   <meta name="description" content="KIVON hesabi olusturun, isletmeniz icin AI destekli randevu sistemine baslayin.">
-  <style>
-    .password-strength { display: flex; gap: 4px; margin-top: 6px; }
-    .password-strength .bar { height: 4px; flex: 1; border-radius: 4px; background: var(--border); transition: background 0.3s; }
-    .password-strength .bar.weak { background: #ef4444; }
-    .password-strength .bar.medium { background: #f59e0b; }
-    .password-strength .bar.strong { background: #22c55e; }
-    .password-strength .bar.very-strong { background: #10b981; }
-    .strength-label { font-size: 12px; margin-top: 4px; display: block; }
-    .strength-label.weak { color: #ef4444; }
-    .strength-label.medium { color: #f59e0b; }
-    .strength-label.strong { color: #22c55e; }
-    .strength-label.very-strong { color: #10b981; }
-    .validation-hint { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .validation-hint.valid { color: #22c55e; }
-    .validation-hint.invalid { color: #ef4444; }
-  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Kayit Ol — KIVON Randevu</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --surface: rgba(255,255,255,0.04);
+      --primary: #22d3ee;
+      --primary-dark: #0891b2;
+      --primary-glow: rgba(34,211,238,0.15);
+      --secondary: #a78bfa;
+      --accent: #fbbf24;
+      --danger: #f87171;
+      --danger-bg: rgba(248,113,113,0.12);
+      --success: #34d399;
+      --success-bg: rgba(52,211,153,0.12);
+      --text: rgba(255,255,255,0.9);
+      --text-secondary: rgba(255,255,255,0.7);
+      --text-muted: rgba(255,255,255,0.4);
+      --text-light: rgba(255,255,255,0.2);
+      --border: rgba(255,255,255,0.08);
+      --border-light: rgba(255,255,255,0.05);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.5);
+      --radius-lg: 20px;
+      --radius-sm: 8px;
+    }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; font-family: 'Inter', sans-serif; padding: 40px 24px; }
+    .ambient-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .ambient-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
+    .ambient-bg .orb-1 { width: 500px; height: 500px; top: -120px; right: -100px; background: radial-gradient(circle, #22d3ee 0%, transparent 70%); }
+    .ambient-bg .orb-2 { width: 400px; height: 400px; bottom: -80px; left: -80px; background: radial-gradient(circle, #a78bfa 0%, transparent 70%); animation: orbFloat 8s ease-in-out infinite alternate; }
+    .ambient-bg .orb-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: radial-gradient(circle, #fbbf24 0%, transparent 70%); animation: orbFloat 12s ease-in-out infinite alternate; }
+    @keyframes orbFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -30px) scale(1.1); } }
+    .glass-card { width: 100%; max-width: 520px; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; box-shadow: 0 24px 80px rgba(0,0,0,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); position: relative; z-index: 1; animation: slideUp 0.4s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .glass-card .auth-logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 20px; letter-spacing: -0.5px; text-decoration: none; }
+    .glass-card .auth-logo svg { stroke: var(--primary); }
+    .glass-card h1 { font-size: 26px; font-weight: 700; color: var(--text); text-align: center; margin-bottom: 4px; }
+    .glass-card > p { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 28px; }
+    .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+    .lang-bar .lang-switcher { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: 6px; cursor: pointer; outline: none; }
+    .lang-bar .lang-switcher option { background: #1e293b; color: white; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ambient-input, .ambient-select { width: 100%; padding: 11px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; transition: all 0.2s; font-family: inherit; }
+    .ambient-input::placeholder { color: var(--text-light); }
+    .ambient-input:focus, .ambient-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background: rgba(255,255,255,0.08); }
+    .ambient-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: var(--text); border-color: var(--border); }
+    .ambient-select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+    .ambient-select option { background: #1e293b; color: white; }
+    .password-strength { display: flex; gap: 4px; margin-top: 6px; }
+    .password-strength .bar { height: 4px; flex: 1; border-radius: 4px; background: rgba(255,255,255,0.08); transition: background 0.3s; }
+    .password-strength .bar.weak { background: #f87171; }
+    .password-strength .bar.medium { background: #fbbf24; }
+    .password-strength .bar.strong { background: #34d399; }
+    .password-strength .bar.very-strong { background: #34d399; }
+    .strength-label { font-size: 12px; margin-top: 4px; display: block; }
+    .strength-label.weak { color: #f87171; }
+    .strength-label.medium { color: #fbbf24; }
+    .strength-label.strong { color: #34d399; }
+    .strength-label.very-strong { color: #34d399; }
+    .validation-hint { font-size: 12px; color: var(--text-muted); margin-top: 3px; display: block; }
+    .validation-hint.valid { color: #34d399; }
+    .validation-hint.invalid { color: #f87171; }
+    .form-error { display: none; font-size: 13px; color: var(--danger); background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.15); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
+    .form-error.visible { display: block; }
+    .form-success { display: none; font-size: 14px; color: var(--success); background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.15); padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; }
+    .form-success.visible { display: block; }
+    .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px var(--primary-glow); font-family: inherit; margin-top: 4px; }
+    .btn-primary:hover { box-shadow: 0 6px 28px var(--primary-glow); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .form-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted); }
+    .form-footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .form-footer a:hover { color: var(--primary-light); text-decoration: underline; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } .glass-card { padding: 28px 20px; } }
+  </style>
+  <title data-i18n="register">Kayıt Ol — KIVON Randevu</title>
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">KIVON</a>
-    <div class="nav-links">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="giris.html" class="btn-nav">Giris Yap</a>
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="glass-card">
+    <a href="index.html" class="auth-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span data-i18n="appName">KIVON</span>
+    </a>
+
+    <div class="lang-bar">
+      <select class="lang-switcher">
+        <option value="tr">🇹🇷 TR</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
     </div>
-  </nav>
 
-  <div class="auth-page">
-    <div class="auth-card auth-card-lg">
-      <a href="index.html" class="auth-logo">KIVON</a>
-      <h1>Kayit Ol</h1>
-      <p>Isletmeniz icin KIVON hesabi olusturun</p>
+    <h1 data-i18n="register">Kayıt Ol</h1>
+    <p data-i18n="signup">İşletmeniz için KIVON hesabı oluşturun</p>
 
-      <form id="registerForm" autocomplete="off">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="first_name" class="form-label">Ad</label>
-            <input type="text" id="first_name" class="form-input" placeholder="Adiniz" required>
-          </div>
-          <div class="form-group">
-            <label for="last_name" class="form-label">Soyad</label>
-            <input type="text" id="last_name" class="form-input" placeholder="Soyadiniz" required>
-          </div>
-        </div>
-
+    <form id="registerForm" autocomplete="off">
+      <div class="form-row">
         <div class="form-group">
-          <label for="business_name" class="form-label">Isletme Adi</label>
-          <input type="text" id="business_name" class="form-input" placeholder="Ornegin: Dr. Ahmet Dis Poliklinigi" required>
+          <label for="first_name" data-i18n="firstName">Ad</label>
+          <input type="text" id="first_name" class="ambient-input" placeholder="Adınız" required>
         </div>
-
         <div class="form-group">
-          <label for="sector" class="form-label">Sektor</label>
-          <select id="sector" class="form-select" required>
-            <option value="">Seciniz...</option>
-            <option value="doktor">Doktor / Dis Hekimi</option>
-            <option value="kuaför">Kuafor / Berber</option>
-            <option value="güzellik">Guzellik Salonu</option>
-            <option value="spor">Spor / Fitness / Pilates</option>
-            <option value="masaj">Masaj / Fizyoterapi</option>
-            <option value="veteriner">Veteriner</option>
-            <option value="psikolog">Psikolog / Diyetisyen</option>
-            <option value="avukat">Avukat / Danisman</option>
-            <option value="diger">Diger</option>
-          </select>
+          <label for="last_name" data-i18n="lastName">Soyad</label>
+          <input type="text" id="last_name" class="ambient-input" placeholder="Soyadınız" required>
         </div>
-
-        <div class="form-group">
-          <label for="address" class="form-label">Adres</label>
-          <input type="text" id="address" class="form-input" placeholder="Il, ilce, cadde, no ...">
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email" class="form-label">E-posta</label>
-            <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label for="phone" class="form-label">Telefon</label>
-            <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required autocomplete="tel">
-            <small id="phoneHint" class="validation-hint">05 ile baslayan 11 haneli numara (orn: 0532 123 45 67)</small>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="password" class="form-label">Sifre</label>
-            <input type="password" id="password" class="form-input" placeholder="En az 8 karakter, buyuk harf ve rakam" minlength="8" required autocomplete="new-password">
-            <div class="password-strength" id="passwordStrength">
-              <div class="bar" id="strBar1"></div>
-              <div class="bar" id="strBar2"></div>
-              <div class="bar" id="strBar3"></div>
-              <div class="bar" id="strBar4"></div>
-            </div>
-            <small id="strengthLabel" class="strength-label"></small>
-            <small id="passwordHint" class="validation-hint">En az 8 karakter, bir buyuk harf ve bir rakam icermelidir</small>
-          </div>
-          <div class="form-group">
-            <label for="confirm_password" class="form-label">Sifre Tekrar</label>
-            <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required autocomplete="new-password">
-            <small id="confirmHint" class="validation-hint"></small>
-          </div>
-        </div>
-
-        <div id="formError" class="form-error" role="alert"></div>
-        <div id="formSuccess" class="form-success" role="status"></div>
-        <button type="submit" class="btn btn-primary form-submit">Kayit Ol</button>
-      </form>
-
-      <div class="form-footer">
-        Zaten hesabiniz var mi? <a href="giris.html">Giris Yap</a>
       </div>
+
+      <div class="form-group">
+        <label for="business_name" data-i18n="businessName">İşletme Adı</label>
+        <input type="text" id="business_name" class="ambient-input" placeholder="Örneğin: Dr. Ahmet Diş Polikliniği" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sector" data-i18n="sector">Sektör</label>
+        <select id="sector" class="ambient-select" required>
+          <option value="" data-i18n="selectSector">Seçiniz...</option>
+          <option value="doktor">Doktor / Diş Hekimi</option>
+          <option value="kuaför">Kuaför / Berber</option>
+          <option value="güzellik">Güzellik Salonu</option>
+          <option value="spor">Spor / Fitness / Pilates</option>
+          <option value="masaj">Masaj / Fizyoterapi</option>
+          <option value="veteriner">Veteriner</option>
+          <option value="psikolog">Psikolog / Diyetisyen</option>
+          <option value="avukat">Avukat / Danışman</option>
+          <option value="diger">Diğer</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="address" data-i18n="address">Adres</label>
+        <input type="text" id="address" class="ambient-input" placeholder="İl, ilçe, cadde, no ...">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email" data-i18n="email">E-posta</label>
+          <input type="email" id="email" class="ambient-input" placeholder="ornek@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone" data-i18n="phone">Telefon</label>
+          <input type="tel" id="phone" class="ambient-input" placeholder="05XX XXX XX XX" required autocomplete="tel">
+          <small id="phoneHint" class="validation-hint">05 ile başlayan 11 haneli numara</small>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password" data-i18n="password">Şifre</label>
+          <input type="password" id="password" class="ambient-input" placeholder="En az 8 karakter" minlength="8" required autocomplete="new-password">
+          <div class="password-strength" id="passwordStrength">
+            <div class="bar" id="strBar1"></div>
+            <div class="bar" id="strBar2"></div>
+            <div class="bar" id="strBar3"></div>
+            <div class="bar" id="strBar4"></div>
+          </div>
+          <small id="strengthLabel" class="strength-label"></small>
+          <small id="passwordHint" class="validation-hint" data-i18n="passwordRequirements">En az 8 karakter, büyük harf ve rakam içermelidir</small>
+        </div>
+        <div class="form-group">
+          <label for="confirm_password" data-i18n="confirmPassword">Şifre Tekrar</label>
+          <input type="password" id="confirm_password" class="ambient-input" placeholder="Şifrenizi tekrar girin" required autocomplete="new-password">
+          <small id="confirmHint" class="validation-hint"></small>
+        </div>
+      </div>
+
+      <div id="formError" class="form-error" role="alert"></div>
+      <div id="formSuccess" class="form-success" role="status"></div>
+      <button type="submit" class="btn btn-primary" data-i18n="register">Kayıt Ol</button>
+    </form>
+
+    <div class="form-footer">
+      <span data-i18n="haveAccount">Zaten hesabınız var mı?</span> <a href="giris.html" data-i18n="login">Giriş Yap</a>
     </div>
   </div>
 
   <script type="module">
+    import { redirectIfAuthenticated } from './js/auth.js';
     import { supabase, signup, validateEmail, validatePassword, validateTurkishPhone, getPasswordStrength } from './js/api.js';
-    import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
+    import { t, initI18n } from './js/i18n.js';
 
+    initI18n();
     redirectIfAuthenticated();
 
     const passwordInput = document.getElementById('password');
@@ -149,10 +224,10 @@
       strengthLabel.className = 'strength-label ' + result.class;
       if (confirmInput.value) {
         if (confirmInput.value === passwordInput.value) {
-          confirmHint.textContent = 'Sifreler eslesiyor';
+          confirmHint.textContent = 'Şifreler eşleşiyor';
           confirmHint.className = 'validation-hint valid';
         } else {
-          confirmHint.textContent = 'Sifreler eslesmiyor';
+          confirmHint.textContent = 'Şifreler eşleşmiyor';
           confirmHint.className = 'validation-hint invalid';
         }
       }
@@ -161,25 +236,25 @@
     confirmInput.addEventListener('input', () => {
       if (!confirmInput.value) { confirmHint.textContent = ''; confirmHint.className = 'validation-hint'; return; }
       if (confirmInput.value === passwordInput.value) {
-        confirmHint.textContent = 'Sifreler eslesiyor';
+        confirmHint.textContent = 'Şifreler eşleşiyor';
         confirmHint.className = 'validation-hint valid';
       } else {
-        confirmHint.textContent = 'Sifreler eslesmiyor';
+        confirmHint.textContent = 'Şifreler eşleşmiyor';
         confirmHint.className = 'validation-hint invalid';
       }
     });
 
     phoneInput.addEventListener('input', () => {
       if (!phoneInput.value) {
-        phoneHint.textContent = '05 ile baslayan 11 haneli numara (orn: 0532 123 45 67)';
+        phoneHint.textContent = '05 ile başlayan 11 haneli numara';
         phoneHint.className = 'validation-hint';
         return;
       }
       if (validateTurkishPhone(phoneInput.value)) {
-        phoneHint.textContent = 'Gecerli telefon numarasi';
+        phoneHint.textContent = 'Geçerli telefon numarası';
         phoneHint.className = 'validation-hint valid';
       } else {
-        phoneHint.textContent = 'Gecersiz format. 05XX XXX XX XX seklinde giriniz';
+        phoneHint.textContent = 'Geçersiz format - 05XX XXX XX XX';
         phoneHint.className = 'validation-hint invalid';
       }
     });
@@ -205,20 +280,19 @@
       const confirmPassword = document.getElementById('confirm_password').value;
 
       if (!firstName || !lastName || !businessName || !sector || !email || !phone || !password || !confirmPassword) {
-        errEl.textContent = 'Tum zorunlu alanlari doldurun.';
+        errEl.textContent = t('required');
         errEl.classList.add('visible');
-        document.getElementById('registerForm').querySelector('button').disabled = false;
         return;
       }
 
       if (!validateEmail(email)) {
-        errEl.textContent = 'Gecerli bir e-posta adresi giriniz.';
+        errEl.textContent = t('emailInvalid');
         errEl.classList.add('visible');
         return;
       }
 
       if (!validateTurkishPhone(phone)) {
-        errEl.textContent = 'Gecerli bir telefon numarasi giriniz (05XX XXX XX XX).';
+        errEl.textContent = t('phoneInvalid');
         errEl.classList.add('visible');
         return;
       }
@@ -231,7 +305,7 @@
       }
 
       if (password !== confirmPassword) {
-        errEl.textContent = 'Sifreler eslesmiyor.';
+        errEl.textContent = t('passwordMismatch');
         errEl.classList.add('visible');
         return;
       }
@@ -255,11 +329,11 @@
           });
         if (doctorError) console.error('Doktor hatasi:', doctorError);
 
-        successEl.textContent = 'Kaydiniz olusturuldu! E-posta adresinize gelen dogrulama linkine tiklayin, ardindan giris yapabilirsiniz.';
+        successEl.textContent = 'Kaydınız oluşturuldu! E-posta adresinize gelen doğrulama linkine tıklayın, ardından giriş yapabilirsiniz.';
         successEl.classList.add('visible');
         document.getElementById('registerForm').querySelector('button').disabled = true;
       } catch (err) {
-        errEl.textContent = err.message || 'Kayit olusturulurken bir hata olustu.';
+        errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');
       }
     });

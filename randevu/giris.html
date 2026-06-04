@@ -8,46 +8,114 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Giris Yap — KIVON Randevu</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --surface: rgba(255,255,255,0.04);
+      --primary: #22d3ee;
+      --primary-dark: #0891b2;
+      --primary-glow: rgba(34,211,238,0.15);
+      --secondary: #a78bfa;
+      --accent: #fbbf24;
+      --danger: #f87171;
+      --success: #34d399;
+      --text: rgba(255,255,255,0.9);
+      --text-secondary: rgba(255,255,255,0.7);
+      --text-muted: rgba(255,255,255,0.4);
+      --text-light: rgba(255,255,255,0.2);
+      --border: rgba(255,255,255,0.08);
+      --border-light: rgba(255,255,255,0.05);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.5);
+      --radius-lg: 20px;
+      --radius-sm: 8px;
+    }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; font-family: 'Inter', sans-serif; }
+    .ambient-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .ambient-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
+    .ambient-bg .orb-1 { width: 500px; height: 500px; top: -120px; right: -100px; background: radial-gradient(circle, #22d3ee 0%, transparent 70%); }
+    .ambient-bg .orb-2 { width: 400px; height: 400px; bottom: -80px; left: -80px; background: radial-gradient(circle, #a78bfa 0%, transparent 70%); animation: orbFloat 8s ease-in-out infinite alternate; }
+    .ambient-bg .orb-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: radial-gradient(circle, #fbbf24 0%, transparent 70%); animation: orbFloat 12s ease-in-out infinite alternate; }
+    @keyframes orbFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -30px) scale(1.1); } }
+    .glass-card { width: 100%; max-width: 420px; background: rgba(15,23,42,0.7); border: 1px solid var(--border); border-radius: 20px; padding: 40px 36px; box-shadow: 0 24px 80px rgba(0,0,0,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); position: relative; z-index: 1; animation: slideUp 0.4s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .glass-card .auth-logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 24px; letter-spacing: -0.5px; text-decoration: none; }
+    .glass-card .auth-logo svg { stroke: var(--primary); }
+    .glass-card h1 { font-size: 26px; font-weight: 700; color: var(--text); text-align: center; margin-bottom: 4px; }
+    .glass-card > p { font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 28px; }
+    .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .lang-bar .lang-switcher { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: 6px; cursor: pointer; outline: none; }
+    .lang-bar .lang-switcher option { background: #1e293b; color: white; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .ambient-input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; transition: all 0.2s; font-family: inherit; }
+    .ambient-input::placeholder { color: var(--text-light); }
+    .ambient-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background: rgba(255,255,255,0.08); }
+    .ambient-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: var(--text); border-color: var(--border); }
+    .form-error { display: none; font-size: 13px; color: var(--danger); background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.15); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
+    .form-error.visible { display: block; }
+    .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px var(--primary-glow); font-family: inherit; }
+    .btn-primary:hover { box-shadow: 0 6px 28px var(--primary-glow); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
+    .form-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted); }
+    .form-footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .form-footer a:hover { color: var(--primary-light); text-decoration: underline; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  </style>
+  <title data-i18n="login">Giriş Yap — KIVON Randevu</title>
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">KIVON</a>
-    <div class="nav-links">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="kayit.html" class="btn-nav">Kayit Ol</a>
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="glass-card">
+    <a href="index.html" class="auth-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span data-i18n="appName">KIVON</span>
+    </a>
+
+    <div class="lang-bar">
+      <select class="lang-switcher">
+        <option value="tr">🇹🇷 TR</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
     </div>
-  </nav>
 
-  <div class="auth-page">
-    <div class="auth-card">
-      <a href="index.html" class="auth-logo">KIVON</a>
-      <h1>Giris Yap</h1>
-      <p>KIVON hesabiniza giris yapin</p>
+    <h1 data-i18n="login">Giriş Yap</h1>
+    <p data-i18n="welcome">KIVON hesabınıza giriş yapın</p>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email" class="form-label">E-posta</label>
-          <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="password" class="form-label">Sifre</label>
-          <input type="password" id="password" class="form-input" placeholder="Sifreniz" required autocomplete="current-password">
-        </div>
-        <div id="formError" class="form-error" role="alert"></div>
-        <button type="submit" class="btn btn-primary form-submit">Giris Yap</button>
-      </form>
-
-      <div class="form-footer">
-        Hesabiniz yok mu? <a href="kayit.html">Kayit Ol</a>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email" data-i18n="email">E-posta</label>
+        <input type="email" id="email" class="ambient-input" placeholder="ornek@email.com" required autocomplete="email">
       </div>
+      <div class="form-group">
+        <label for="password" data-i18n="password">Şifre</label>
+        <input type="password" id="password" class="ambient-input" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <div id="formError" class="form-error" role="alert"></div>
+      <button type="submit" class="btn btn-primary" data-i18n="login">Giriş Yap</button>
+    </form>
+
+    <div class="form-footer">
+      <span data-i18n="noAccount">Hesabınız yok mu?</span> <a href="kayit.html" data-i18n="register">Kayıt Ol</a>
     </div>
   </div>
 
   <script type="module">
+    import { redirectIfAuthenticated } from './js/auth.js';
     import { supabase, login } from './js/api.js';
-    import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
+    import { t, initI18n } from './js/i18n.js';
 
+    initI18n();
     redirectIfAuthenticated();
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -60,7 +128,7 @@
       const password = document.getElementById('password').value;
 
       if (!email || !password) {
-        errEl.textContent = 'E-posta ve sifre gereklidir.';
+        errEl.textContent = t('required');
         errEl.classList.add('visible');
         return;
       }
@@ -74,7 +142,7 @@
           .single();
         window.location.href = (profile?.role === 'doctor') ? 'admin.html' : 'panel.html';
       } catch (err) {
-        errEl.textContent = err.message;
+        errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');
       }
     });

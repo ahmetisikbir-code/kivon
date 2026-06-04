@@ -7,52 +7,171 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Randevularım — KIVON</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #1e293b;
+      --surface: rgba(255,255,255,0.06);
+      --surface-hover: rgba(255,255,255,0.10);
+      --primary: #22d3ee;
+      --primary-dark: #0891b2;
+      --primary-light: #67e8f9;
+      --primary-glow: rgba(34, 211, 238, 0.15);
+      --secondary: #a78bfa;
+      --secondary-dark: #7c3aed;
+      --secondary-light: #c4b5fd;
+      --accent: #fbbf24;
+      --success: #34d399;
+      --success-bg: rgba(52,211,153,0.12);
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --danger-bg: rgba(248,113,113,0.12);
+      --info: #60a5fa;
+      --text: rgba(255,255,255,0.9);
+      --text-secondary: rgba(255,255,255,0.7);
+      --text-muted: rgba(255,255,255,0.4);
+      --text-light: rgba(255,255,255,0.2);
+      --border: rgba(255,255,255,0.08);
+      --border-light: rgba(255,255,255,0.05);
+      --border-dark: rgba(255,255,255,0.12);
+      --shadow: 0 4px 24px rgba(0,0,0,0.2);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.3);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.4);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    body { background: var(--bg); color: var(--text); }
+    .container { max-width: 960px; }
+    .ambient-bg { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .ambient-bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
+    .ambient-bg .orb-1 { width: 500px; height: 500px; top: -120px; right: -100px; background: radial-gradient(circle, #22d3ee 0%, transparent 70%); }
+    .ambient-bg .orb-2 { width: 400px; height: 400px; bottom: -80px; left: -80px; background: radial-gradient(circle, #a78bfa 0%, transparent 70%); animation: orbFloat 8s ease-in-out infinite alternate; }
+    .ambient-bg .orb-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: radial-gradient(circle, #fbbf24 0%, transparent 70%); animation: orbFloat 12s ease-in-out infinite alternate; }
+    @keyframes orbFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -30px) scale(1.1); } }
+    main { position: relative; z-index: 1; }
+    .nav { background: rgba(15,23,42,0.6); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--border); }
+    .nav-logo { color: var(--primary); }
+    .nav-logo svg { stroke: var(--primary); }
+    .nav-links span { color: var(--text); }
+    .nav-links a:not(.btn) { color: var(--text-secondary); }
+    .nav-links a:not(.btn):hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .lang-switcher { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: 6px; cursor: pointer; outline: none; }
+    .lang-switcher option { background: #1e293b; color: white; }
+    .btn-outline { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); backdrop-filter: blur(8px); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: rgba(34,211,238,0.08); }
+    .btn-ghost { color: var(--text-secondary); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; box-shadow: 0 4px 20px var(--primary-glow); }
+    .btn-primary:hover { box-shadow: 0 6px 28px var(--primary-glow); transform: translateY(-1px); color: #0f172a; }
+    .page-title { color: var(--text); font-weight: 700; }
+    .appt-glass { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(12px); transition: all 0.25s ease; }
+    .appt-glass:hover { background: rgba(255,255,255,0.07); border-color: rgba(34,211,238,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .appt-glass .appt-date { min-width: 52px; text-align: center; padding: 8px 12px; background: rgba(34,211,238,0.08); border-radius: 8px; border: 1px solid rgba(34,211,238,0.12); }
+    .appt-glass .appt-date .day { font-size: 20px; font-weight: 700; color: var(--primary); line-height: 1; }
+    .appt-glass .appt-date .month { font-size: 9px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px; }
+    .appt-glass .appt-info { flex: 1; min-width: 0; }
+    .appt-glass .appt-info h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .appt-glass .appt-info p { font-size: 12px; color: var(--text-muted); }
+    .appt-glass .appt-time { font-size: 14px; font-weight: 600; color: var(--primary); white-space: nowrap; }
+    .appt-glass .appt-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .modal-glass { width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; background: rgba(15,23,42,0.85); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 24px 80px rgba(0,0,0,0.6); backdrop-filter: blur(24px); position: relative; animation: slideUp 0.25s ease; }
+    .modal-glass .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 16px; border-bottom: 1px solid var(--border); }
+    .modal-glass .modal-title { font-size: 18px; font-weight: 700; color: var(--text); }
+    .modal-glass .modal-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); cursor: pointer; transition: all 0.2s; font-size: 18px; }
+    .modal-glass .modal-close:hover { color: var(--text); border-color: var(--text-muted); }
+    .modal-glass .modal-body { padding: 24px; }
+    .modal-glass .form-select { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text); padding: 11px 14px; border-radius: 8px; font-size: 14px; width: 100%; outline: none; transition: all 0.2s; }
+    .modal-glass .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+    .modal-glass .form-select option { background: #1e293b; color: white; }
+    .modal-glass .form-label { color: var(--text-secondary); font-size: 13px; font-weight: 600; margin-bottom: 6px; display: block; }
+    .modal-glass .spinner { border-color: var(--border); border-top-color: var(--primary); }
+    .modal-glass .calendar-header button { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text-secondary); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .modal-glass .calendar-header button:hover { border-color: var(--primary); color: var(--primary); }
+    .modal-glass .calendar-day-header { color: var(--text-muted); }
+    .modal-glass .calendar-day { color: var(--text-secondary); }
+    .modal-glass .calendar-day:hover { border-color: rgba(34,211,238,0.3); background: rgba(34,211,238,0.06); }
+    .modal-glass .calendar-day.today { border-color: var(--secondary); }
+    .modal-glass .calendar-day.selected { background: var(--primary); color: #0f172a; font-weight: 600; border-color: var(--primary); }
+    .modal-glass .calendar-day.unavailable { opacity: 0.15; }
+    .modal-glass .time-slot { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--text); }
+    .modal-glass .time-slot:hover { border-color: var(--primary); background: rgba(34,211,238,0.08); }
+    .modal-glass .time-slot.selected { background: var(--primary); color: #0f172a; font-weight: 600; border-color: var(--primary); }
+    .modal-glass .time-slot.disabled { opacity: 0.2; }
+    .whatsapp-section { text-align: center; padding: 32px 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; margin-top: 24px; backdrop-filter: blur(12px); }
+    .whatsapp-section h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; font-weight: 600; }
+    .whatsapp-section p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+    .whatsapp-section svg { margin-bottom: 12px; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    .empty-state svg { color: var(--text-light); }
+    .empty-state h3 { color: var(--text); }
+    .empty-state p { color: var(--text-muted); }
+    .badge { border: 1px solid rgba(255,255,255,0.08); }
+    .badge-primary { background: rgba(34,211,238,0.12); color: var(--primary); }
+    .badge-success { background: rgba(52,211,153,0.12); color: var(--success); }
+    .badge-warning { background: rgba(251,191,36,0.12); color: var(--accent); }
+    .badge-danger { background: rgba(248,113,113,0.12); color: var(--danger); }
+    .badge-info { background: rgba(96,165,250,0.12); color: var(--info); }
+    .btn-danger { background: transparent; color: var(--danger); border: 1.5px solid rgba(248,113,113,0.3); }
+    .btn-danger:hover { background: var(--danger-bg); }
+  </style>
+  <title data-i18n="appointments">Randevularım — KIVON</title>
 </head>
 <body>
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
   <nav class="nav">
     <div class="nav-logo">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <circle cx="12" cy="12" r="10"/>
         <polyline points="12 6 12 12 16 14"/>
       </svg>
-      KIVON
+      <span data-i18n="appName">KIVON</span>
     </div>
-    <div class="nav-links">
+    <div class="nav-links" style="gap:10px">
       <span id="userName" style="font-weight:600;font-size:14px;color:var(--text)"></span>
-      <a href="admin.html" id="doctorLink" class="btn btn-outline btn-sm" style="display:none">Doktor Paneli</a>
-      <button id="logoutBtn" class="btn btn-ghost btn-sm">Çıkış Yap</button>
+      <a href="admin.html" id="doctorLink" class="btn btn-outline btn-sm" style="display:none" data-i18n="adminPanel">Doktor Paneli</a>
+      <select class="lang-switcher">
+        <option value="tr">🇹🇷 TR</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
+      <button id="logoutBtn" class="btn btn-ghost btn-sm" data-i18n="logout">Çıkış Yap</button>
     </div>
   </nav>
 
   <main style="padding-top:92px;padding-bottom:60px;">
     <div class="container">
       <div class="page-header" style="margin-top:4px">
-        <h1 class="page-title">Randevularım</h1>
+        <h1 class="page-title" data-i18n="appointments">Randevularım</h1>
         <div class="page-actions">
-          <button id="newAppointmentBtn" class="btn btn-primary">Yeni Randevu</button>
+          <button id="newAppointmentBtn" class="btn btn-primary" data-i18n="newAppointment">Yeni Randevu</button>
         </div>
       </div>
 
       <div id="appointmentsList">
-        <div class="spinner" style="margin:60px auto;"></div>
+        <div class="spinner" style="margin:60px auto;border-color:rgba(255,255,255,0.08);border-top-color:var(--primary)"></div>
       </div>
 
       <div class="whatsapp-section">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.5" style="margin-bottom:12px">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.5">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
         </svg>
-        <h3>WhatsApp'tan da randevu alabilirsiniz</h3>
+        <h3 data-i18n="whatsapp">WhatsApp'tan da randevu alabilirsiniz</h3>
         <p>7/24 randevu almak için WhatsApp üzerinden mesaj gönderebilirsiniz.</p>
-        <a href="https://wa.me/905303982712" class="btn btn-outline" target="_blank">WhatsApp'tan Yaz</a>
+        <a href="https://wa.me/905303982712" class="btn btn-outline" target="_blank" data-i18n="whatsapp">WhatsApp'tan Yaz</a>
       </div>
     </div>
   </main>
 
-  <div class="modal-overlay" id="bookModal">
-    <div class="modal">
+  <div class="modal-overlay" id="bookModal" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)">
+    <div class="modal-glass">
       <div class="modal-header">
-        <h3 class="modal-title">Yeni Randevu</h3>
+        <h3 class="modal-title" data-i18n="newAppointment">Yeni Randevu</h3>
         <button class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
@@ -72,8 +191,10 @@
     import { redirectIfNotAuthenticated, getUser, setUser } from './js/auth.js';
     import { supabase, getProfile, getAppointments, logout, getDoctors } from './js/api.js';
     import { renderAppointments, setupBookModal } from './js/appointments.js';
-    import { showToast, confirmDialog, statusBadge, getInitials, formatDate, formatTime } from './js/ui.js';
+    import { showToast, confirmDialog, getInitials, statusBadge, formatDate, formatTime } from './js/ui.js';
+    import { t, initI18n, setLanguage, getCurrentLang } from './js/i18n.js';
 
+    initI18n();
     redirectIfNotAuthenticated();
 
     const userNameEl = document.getElementById('userName');
