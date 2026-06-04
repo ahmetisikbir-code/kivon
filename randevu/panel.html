@@ -65,9 +65,8 @@
   <script type="module">
     import * as THREE from 'three';
     window.THREE = THREE;
-    import { redirectIfNotAuthenticated, getUser } from './js/auth.js';
-    import { getProfile, getAppointments, logout, getDoctors } from './js/api.js';
-    import { renderAppointments, setupBookModal } from './js/appointments.js';
+    import { redirectIfNotAuthenticated, getUser, setUser } from './js/auth.js';
+    import { supabase, getProfile, getAppointments, logout, getDoctors } from './js/api.js';
 
     redirectIfNotAuthenticated();
 
@@ -85,7 +84,7 @@
         document.getElementById('userName').textContent = u.full_name || u.email;
       }
       if (res.data?.profile?.role === 'doctor') {
-        document.getElementById('doctorLink').style.display = 'inline-block';
+        window.location.href = 'admin.html';
       }
     }).catch(() => {});
 

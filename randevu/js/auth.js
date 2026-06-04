@@ -31,10 +31,15 @@ export function redirectIfNotAuthenticated() {
   });
 }
 
-export function redirectIfAuthenticated() {
-  getSession().then(session => {
-    if (session) window.location.href = 'panel.html';
-  });
+export async function redirectIfAuthenticated() {
+  const session = await getSession();
+  if (!session) return;
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', session.user.id)
+    .single();
+  window.location.href = (profile?.role === 'doctor') ? 'admin.html' : 'panel.html';
 }
 
 supabase.auth.onAuthStateChange((event, session) => {
