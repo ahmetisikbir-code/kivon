@@ -77,7 +77,28 @@
         </div>
       </div>
 
-      <div id="appointmentsContainer"></div>
+      <div class="dash-stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px">
+        <div class="stat-card glass" style="padding:20px 24px;border-radius:var(--radius);border:1px solid var(--glass-border);text-align:center">
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">Bugun</div>
+          <div id="statToday" class="stat-num" style="font-size:32px;font-weight:800;color:#00d4ff">0</div>
+        </div>
+        <div class="stat-card glass" style="padding:20px 24px;border-radius:var(--radius);border:1px solid var(--glass-border);text-align:center">
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">Toplam</div>
+          <div id="statTotal" class="stat-num" style="font-size:32px;font-weight:800;color:#8b5cf6">0</div>
+        </div>
+        <div class="stat-card glass" style="padding:20px 24px;border-radius:var(--radius);border:1px solid var(--glass-border);text-align:center">
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">Bekleyen</div>
+          <div id="statPending" class="stat-num" style="font-size:32px;font-weight:800;color:#f59e0b">0</div>
+        </div>
+        <div class="stat-card glass" style="padding:20px 24px;border-radius:var(--radius);border:1px solid var(--glass-border);text-align:center">
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">Tamamlanan</div>
+          <div id="statCompleted" class="stat-num" style="font-size:32px;font-weight:800;color:#22c55e">0</div>
+        </div>
+      </div>
+
+      <div id="todayAppointments" style="margin-top:24px"></div>
+
+      <div id="appointmentsContainer" style="margin-top:32px"></div>
     </main>
   </div>
 
@@ -175,11 +196,42 @@
 
     async function loadAppointments() {
       const container = document.getElementById('appointmentsContainer');
+      const todayContainer = document.getElementById('todayAppointments');
       try {
         const appointments = await fetchDoctorAppointments();
+        const today = new Date().toISOString().slice(0, 10);
+        const todayApts = appointments.filter(a => a.date === today && a.status === 'confirmed');
+
+        const total = appointments.length;
+        const todayCount = todayApts.length;
+        const pendingCount = appointments.filter(a => a.status === 'pending' || a.status === 'confirmed').length;
+        const completedCount = appointments.filter(a => a.status === 'completed').length;
+
+        document.getElementById('statToday').textContent = todayCount;
+        document.getElementById('statTotal').textContent = total;
+        document.getElementById('statPending').textContent = pendingCount;
+        document.getElementById('statCompleted').textContent = completedCount;
+
+        if (todayApts.length) {
+          let html = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px;color:#00d4ff">Bugunku Randevular</h3><div style="display:flex;flex-direction:column;gap:8px">';
+          todayApts.forEach(apt => {
+            const time = apt.time ? apt.time.slice(0, 5) : '';
+            const patientName = apt.profiles?.full_name || 'Bilinmeyen';
+            html += `<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--glass);border:1px solid var(--glass-border);border-radius:8px">
+              <span style="font-size:18px;font-weight:700;color:#00d4ff;min-width:50px">${time}</span>
+              <span style="flex:1;font-size:15px">${patientName}</span>
+              <span class="badge badge-${apt.status}" style="font-size:11px">Onaylandi</span>
+            </div>`;
+          });
+          html += '</div>';
+          todayContainer.innerHTML = html;
+        } else {
+          todayContainer.innerHTML = '';
+        }
 
         if (!appointments.length) {
           container.innerHTML = `
+            <h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Tum Randevular</h3>
             <div class="empty-state">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -196,7 +248,7 @@
 
         const table = document.createElement('table');
         table.className = 'appointments-table';
-        table.style.cssText = 'width:100%;border-collapse:collapse;margin-top:24px';
+        table.style.cssText = 'width:100%;border-collapse:collapse';
         table.innerHTML = `
           <thead>
             <tr style="background:var(--glass);border-bottom:1px solid var(--glass-border)">
@@ -245,7 +297,7 @@
           }
         });
 
-        container.innerHTML = '';
+        container.innerHTML = '<h3 style="font-size:16px;font-weight:600;margin-bottom:12px">Tum Randevular</h3>';
         container.appendChild(table);
 
       } catch (err) {
