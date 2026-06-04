@@ -87,9 +87,9 @@
     .glass-stat .stat-value { color: white; font-size: 22px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
     .glass-stat .stat-trend { color: rgba(255,255,255,0.35); font-size: 11px; margin-top: 4px; }
 
-    .main-content { margin-left: var(--sidebar-width); padding: 16px 28px; min-height: 100vh; position: relative; }
+    .main-content { margin-left: var(--sidebar-width); padding: 0 28px 28px; min-height: 100vh; position: relative; }
     .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
-    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
     .page-title { color: white; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
 
     .tab-nav { display: flex; gap: 2px; margin-bottom: 24px; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px; }
@@ -122,7 +122,7 @@
     .whatsapp-glass h3 { color: white; font-size: 16px; margin: 0; }
     .whatsapp-glass label { color: rgba(255,255,255,0.4); font-size: 12px; }
 
-    .fc { font-family: 'Inter', sans-serif !important; background: rgba(255,255,255,0.04); border-radius: var(--radius); padding: 14px; border: 1px solid rgba(255,255,255,0.06); }
+    .fc { font-family: 'Inter', sans-serif !important; background: rgba(255,255,255,0.04); border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.06); }
     .fc .fc-toolbar-title { color: white !important; font-size: 17px !important; font-weight: 700 !important; }
     .fc .fc-button { background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.12) !important; color: rgba(255,255,255,0.7) !important; border-radius: 8px !important; font-size: 13px !important; padding: 6px 14px !important; }
     .fc .fc-button:hover { background: rgba(255,255,255,0.14) !important; color: white !important; }
@@ -177,7 +177,7 @@
     .stagger > *:nth-child(6) { animation-delay: 0.3s; }
 
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 12px; }
+      .main-content { margin-left: 0; padding: 0 12px 12px; }
       .sidebar { transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
       .page-header { flex-direction: column; align-items: stretch; }
@@ -185,12 +185,10 @@
       .glass-stat { padding: 12px 14px; }
       #menuToggle { display: flex; }
       .stats-grid { grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 14px; }
-      .fc { padding: 10px !important; }
     }
     @media (max-width: 480px) {
-      .main-content { padding: 8px; }
+      .main-content { padding: 0 8px 8px; }
       .stats-grid { grid-template-columns: 1fr; gap: 6px; margin-bottom: 12px; }
-      .fc { padding: 6px !important; }
     }
   </style>
 </head>
@@ -652,6 +650,10 @@
           todayContainer.innerHTML = '<div style="text-align:center;padding:24px;color:rgba(255,255,255,0.3);font-size:13px">Bugün randevu yok</div>';
         }
 
+        const events = buildCalendarEvents(allAppointments);
+        initCalendar(events);
+        renderChart();
+
         if (!allAppointments.length) {
           container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><h3>${t('noAppointments')}</h3><p>Henüz size ait bir randevu bulunmuyor.</p></div>`;
           return;
@@ -685,12 +687,8 @@
           });
         });
 
-        const events = buildCalendarEvents(allAppointments);
-        initCalendar(events);
-        renderChart();
-
       } catch(err) {
-        container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}<br><button class="btn btn-outline retry-btn" style="margin-top:16px" onclick="event.stopPropagation();renderPatients()">${t('retry')}</button></p>`;
+        container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}<br><button class="btn btn-outline retry-btn" style="margin-top:16px" onclick="event.stopPropagation();loadAppointments()">${t('retry')}</button></p>`;
       }
     }
 
