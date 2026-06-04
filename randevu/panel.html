@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
-    }
-  }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Panel — KIVON Randevu</title>
+  <title>Panel — KIVON</title>
 </head>
 <body>
   <nav class="nav">
-    <div class="nav-logo">KIVON Randevu</div>
+    <div class="nav-logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      KIVON
+    </div>
     <div class="nav-links">
-      <span id="userName" style="color:var(--text);font-weight:500;font-size:14px;"></span>
-      <a href="admin.html" id="doctorLink" style="display:none;font-size:12px;color:var(--purple);text-decoration:none;padding:4px 12px;border:1px solid var(--purple);border-radius:100px">Doktor Paneli</a>
-      <button id="logoutBtn" class="btn btn-sm btn-outline">Cikis Yap</button>
+      <span id="userName" style="color:var(--text);font-weight:600;font-size:14px;"></span>
+      <a href="admin.html" id="doctorLink" style="display:none;font-size:12px;color:var(--secondary);text-decoration:none;padding:4px 14px;border:1.5px solid var(--secondary);border-radius:100px;font-weight:600">Doktor Paneli</a>
+      <button id="logoutBtn" class="btn btn-sm btn-ghost">Cikis Yap</button>
     </div>
   </nav>
 
-  <main style="padding-top:88px;">
+  <main style="padding-top:82px;">
     <div class="container">
       <div class="dash-header">
         <h1>Randevularim</h1>
@@ -39,16 +35,16 @@
         <div class="spinner" style="margin:60px auto;"></div>
       </div>
 
-      <div class="whatsapp-section glass">
+      <div class="whatsapp-section">
         <h3>WhatsApp'tan da randevu alabilirsiniz</h3>
         <p>7/24 randevu almak icin WhatsApp uzerinden mesaj gonderebilirsiniz.</p>
-        <a href="#" class="btn btn-outline">WhatsApp'tan Yaz</a>
+        <a href="https://wa.me/905303982712" class="btn btn-outline" target="_blank">WhatsApp'tan Yaz</a>
       </div>
     </div>
   </main>
 
   <div class="modal-overlay" id="bookModal">
-    <div class="modal glass" style="position:relative">
+    <div class="modal">
       <button class="modal-close">&times;</button>
       <h2>Yeni Randevu</h2>
       <div class="step-indicators">
@@ -63,10 +59,9 @@
   </div>
 
   <script type="module">
-    import * as THREE from 'three';
-    window.THREE = THREE;
     import { redirectIfNotAuthenticated, getUser, setUser } from './js/auth.js';
     import { supabase, getProfile, getAppointments, logout, getDoctors } from './js/api.js';
+    import { renderAppointments, setupBookModal } from './js/appointments.js';
 
     redirectIfNotAuthenticated();
 

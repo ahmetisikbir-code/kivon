@@ -3,13 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
-    }
-  }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,9 +10,16 @@
   <title>Kayit Ol — KIVON Randevu</title>
 </head>
 <body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">KIVON</a>
+    <div class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="giris.html" class="btn-nav">Giris Yap</a>
+    </div>
+  </nav>
+
   <div class="auth-page">
-    <div class="auth-canvas" id="authCanvas"></div>
-    <div class="auth-card glass" style="max-width:520px">
+    <div class="auth-card" style="max-width:520px">
       <h1>Kayit Ol</h1>
       <p>Isletmeniz icin KIVON hesabi olusturun</p>
       <form id="registerForm">
@@ -81,21 +81,16 @@
         <button type="submit" class="btn btn-primary form-submit">Kayit Ol</button>
       </form>
       <div class="form-footer">
-        Zaten hesabin var mi? <a href="giris.html">Giris Yap</a>
+        Zaten hesabiniz var mi? <a href="giris.html">Giris Yap</a>
       </div>
     </div>
   </div>
 
   <script type="module">
-    import * as THREE from 'three';
-    window.THREE = THREE;
-    import { initDNAScene } from './js/dna-scene.js';
     import { supabase, signup } from './js/api.js';
     import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
     redirectIfAuthenticated();
-
-    initDNAScene('authCanvas', { cameraZ: 8, tubeRadius: 0.12, starCount: 2000 });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
