@@ -145,6 +145,18 @@
       if (profile && profile.role !== 'doctor') {
         window.location.href = 'panel.html';
       }
+      const { data: dr } = await supabase
+        .from('doctors')
+        .select('sector, profile:profiles(full_name)')
+        .eq('profile_id', session.user.id)
+        .single();
+      if (dr) {
+        const sector = dr.sector || 'randevu';
+        const name = dr.profile?.full_name || 'Panel';
+        const sektorAdi = { 'doktor': 'Doktor', 'kuaför': 'Kuafor', 'güzellik': 'Guzellik', 'berber': 'Berber', 'spor': 'Spor', 'fitness': 'Fitness', 'masaj': 'Masaj', 'avukat': 'Avukat', 'veteriner': 'Veteriner', 'psikolog': 'Psikolog' }[sector] || 'Isletme';
+        document.title = `${sektorAdi} Paneli — ${name}`;
+        document.querySelector('h1').textContent = `${sektorAdi} Paneli`;
+      }
     }
 
     async function getDoctorId() {
