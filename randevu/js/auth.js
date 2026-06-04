@@ -13,14 +13,16 @@ export function setToken(token) {
 }
 
 export async function clearToken() {
-  await supabase.auth.signOut();
-  const keys = Object.keys(localStorage).filter(k => k.startsWith('supabase') || k.startsWith('sb-'));
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('supabase') || k.startsWith('sb-') || k === 'kivon_user');
   keys.forEach(k => localStorage.removeItem(k));
   sessionStorage.setItem('kivon_logout', '1');
+  await supabase.auth.signOut();
 }
 
 export function setUser(user) {
-  localStorage.setItem('kivon_user', JSON.stringify(user));
+  if (!user) { localStorage.removeItem('kivon_user'); return; }
+  const safe = { full_name: user.full_name || user.name || '', email: user.email || '', role: user.role || '' };
+  localStorage.setItem('kivon_user', JSON.stringify(safe));
 }
 
 export function getUser() {

@@ -3,6 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
+  <meta name="description" content="KIVON hesabi olusturun, isletmeniz icin AI destekli randevu sistemine baslayin.">
+  <style>
+    .password-strength { display: flex; gap: 4px; margin-top: 6px; }
+    .password-strength .bar { height: 4px; flex: 1; border-radius: 4px; background: var(--border); transition: background 0.3s; }
+    .password-strength .bar.weak { background: #ef4444; }
+    .password-strength .bar.medium { background: #f59e0b; }
+    .password-strength .bar.strong { background: #22c55e; }
+    .password-strength .bar.very-strong { background: #10b981; }
+    .strength-label { font-size: 12px; margin-top: 4px; display: block; }
+    .strength-label.weak { color: #ef4444; }
+    .strength-label.medium { color: #f59e0b; }
+    .strength-label.strong { color: #22c55e; }
+    .strength-label.very-strong { color: #10b981; }
+    .validation-hint { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .validation-hint.valid { color: #22c55e; }
+    .validation-hint.invalid { color: #ef4444; }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,26 +37,30 @@
   </nav>
 
   <div class="auth-page">
-    <div class="auth-card" style="max-width:520px">
+    <div class="auth-card auth-card-lg">
+      <a href="index.html" class="auth-logo">KIVON</a>
       <h1>Kayit Ol</h1>
       <p>Isletmeniz icin KIVON hesabi olusturun</p>
-      <form id="registerForm">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+
+      <form id="registerForm" autocomplete="off">
+        <div class="form-row">
           <div class="form-group">
-            <label for="first_name">Ad</label>
+            <label for="first_name" class="form-label">Ad</label>
             <input type="text" id="first_name" class="form-input" placeholder="Adiniz" required>
           </div>
           <div class="form-group">
-            <label for="last_name">Soyad</label>
+            <label for="last_name" class="form-label">Soyad</label>
             <input type="text" id="last_name" class="form-input" placeholder="Soyadiniz" required>
           </div>
         </div>
+
         <div class="form-group">
-          <label for="business_name">Isletme Adi</label>
+          <label for="business_name" class="form-label">Isletme Adi</label>
           <input type="text" id="business_name" class="form-input" placeholder="Ornegin: Dr. Ahmet Dis Poliklinigi" required>
         </div>
+
         <div class="form-group">
-          <label for="sector">Sektor</label>
+          <label for="sector" class="form-label">Sektor</label>
           <select id="sector" class="form-select" required>
             <option value="">Seciniz...</option>
             <option value="doktor">Doktor / Dis Hekimi</option>
@@ -52,34 +74,49 @@
             <option value="diger">Diger</option>
           </select>
         </div>
+
         <div class="form-group">
-          <label for="address">Adres</label>
+          <label for="address" class="form-label">Adres</label>
           <input type="text" id="address" class="form-input" placeholder="Il, ilce, cadde, no ...">
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+
+        <div class="form-row">
           <div class="form-group">
-            <label for="email">E-posta</label>
-            <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required>
+            <label for="email" class="form-label">E-posta</label>
+            <input type="email" id="email" class="form-input" placeholder="ornek@email.com" required autocomplete="email">
           </div>
           <div class="form-group">
-            <label for="phone">Telefon</label>
-            <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="form-group">
-            <label for="password">Sifre</label>
-            <input type="password" id="password" class="form-input" placeholder="En az 6 karakter" minlength="6" required>
-          </div>
-          <div class="form-group">
-            <label for="confirm_password">Sifre Tekrar</label>
-            <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required>
+            <label for="phone" class="form-label">Telefon</label>
+            <input type="tel" id="phone" class="form-input" placeholder="05XX XXX XX XX" required autocomplete="tel">
+            <small id="phoneHint" class="validation-hint">05 ile baslayan 11 haneli numara (orn: 0532 123 45 67)</small>
           </div>
         </div>
-        <div id="formError" class="form-error"></div>
-        <div id="formSuccess" class="form-success"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password" class="form-label">Sifre</label>
+            <input type="password" id="password" class="form-input" placeholder="En az 8 karakter, buyuk harf ve rakam" minlength="8" required autocomplete="new-password">
+            <div class="password-strength" id="passwordStrength">
+              <div class="bar" id="strBar1"></div>
+              <div class="bar" id="strBar2"></div>
+              <div class="bar" id="strBar3"></div>
+              <div class="bar" id="strBar4"></div>
+            </div>
+            <small id="strengthLabel" class="strength-label"></small>
+            <small id="passwordHint" class="validation-hint">En az 8 karakter, bir buyuk harf ve bir rakam icermelidir</small>
+          </div>
+          <div class="form-group">
+            <label for="confirm_password" class="form-label">Sifre Tekrar</label>
+            <input type="password" id="confirm_password" class="form-input" placeholder="Sifrenizi tekrar girin" required autocomplete="new-password">
+            <small id="confirmHint" class="validation-hint"></small>
+          </div>
+        </div>
+
+        <div id="formError" class="form-error" role="alert"></div>
+        <div id="formSuccess" class="form-success" role="status"></div>
         <button type="submit" class="btn btn-primary form-submit">Kayit Ol</button>
       </form>
+
       <div class="form-footer">
         Zaten hesabiniz var mi? <a href="giris.html">Giris Yap</a>
       </div>
@@ -87,17 +124,74 @@
   </div>
 
   <script type="module">
-    import { supabase, signup } from './js/api.js';
+    import { supabase, signup, validateEmail, validatePassword, validateTurkishPhone, getPasswordStrength } from './js/api.js';
     import { isAuthenticated, redirectIfAuthenticated } from './js/auth.js';
 
     redirectIfAuthenticated();
+
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirm_password');
+    const phoneInput = document.getElementById('phone');
+    const phoneHint = document.getElementById('phoneHint');
+    const confirmHint = document.getElementById('confirmHint');
+    const strengthLabel = document.getElementById('strengthLabel');
+    const bars = [document.getElementById('strBar1'), document.getElementById('strBar2'), document.getElementById('strBar3'), document.getElementById('strBar4')];
+
+    passwordInput.addEventListener('input', () => {
+      const result = getPasswordStrength(passwordInput.value);
+      bars.forEach((bar, i) => {
+        bar.className = 'bar';
+        if (i < Math.ceil(result.score / 25)) {
+          bar.classList.add(result.class);
+        }
+      });
+      strengthLabel.textContent = result.label;
+      strengthLabel.className = 'strength-label ' + result.class;
+      if (confirmInput.value) {
+        if (confirmInput.value === passwordInput.value) {
+          confirmHint.textContent = 'Sifreler eslesiyor';
+          confirmHint.className = 'validation-hint valid';
+        } else {
+          confirmHint.textContent = 'Sifreler eslesmiyor';
+          confirmHint.className = 'validation-hint invalid';
+        }
+      }
+    });
+
+    confirmInput.addEventListener('input', () => {
+      if (!confirmInput.value) { confirmHint.textContent = ''; confirmHint.className = 'validation-hint'; return; }
+      if (confirmInput.value === passwordInput.value) {
+        confirmHint.textContent = 'Sifreler eslesiyor';
+        confirmHint.className = 'validation-hint valid';
+      } else {
+        confirmHint.textContent = 'Sifreler eslesmiyor';
+        confirmHint.className = 'validation-hint invalid';
+      }
+    });
+
+    phoneInput.addEventListener('input', () => {
+      if (!phoneInput.value) {
+        phoneHint.textContent = '05 ile baslayan 11 haneli numara (orn: 0532 123 45 67)';
+        phoneHint.className = 'validation-hint';
+        return;
+      }
+      if (validateTurkishPhone(phoneInput.value)) {
+        phoneHint.textContent = 'Gecerli telefon numarasi';
+        phoneHint.className = 'validation-hint valid';
+      } else {
+        phoneHint.textContent = 'Gecersiz format. 05XX XXX XX XX seklinde giriniz';
+        phoneHint.className = 'validation-hint invalid';
+      }
+    });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const errEl = document.getElementById('formError');
       const successEl = document.getElementById('formSuccess');
       errEl.classList.remove('visible');
+      errEl.textContent = '';
       successEl.classList.remove('visible');
+      successEl.textContent = '';
 
       const firstName = document.getElementById('first_name').value.trim();
       const lastName = document.getElementById('last_name').value.trim();
@@ -113,17 +207,31 @@
       if (!firstName || !lastName || !businessName || !sector || !email || !phone || !password || !confirmPassword) {
         errEl.textContent = 'Tum zorunlu alanlari doldurun.';
         errEl.classList.add('visible');
+        document.getElementById('registerForm').querySelector('button').disabled = false;
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        errEl.textContent = 'Gecerli bir e-posta adresi giriniz.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      if (!validateTurkishPhone(phone)) {
+        errEl.textContent = 'Gecerli bir telefon numarasi giriniz (05XX XXX XX XX).';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      const pwCheck = validatePassword(password);
+      if (!pwCheck.valid) {
+        errEl.textContent = pwCheck.message;
+        errEl.classList.add('visible');
         return;
       }
 
       if (password !== confirmPassword) {
         errEl.textContent = 'Sifreler eslesmiyor.';
-        errEl.classList.add('visible');
-        return;
-      }
-
-      if (password.length < 6) {
-        errEl.textContent = 'Sifre en az 6 karakter olmalidir.';
         errEl.classList.add('visible');
         return;
       }
@@ -151,7 +259,7 @@
         successEl.classList.add('visible');
         document.getElementById('registerForm').querySelector('button').disabled = true;
       } catch (err) {
-        errEl.textContent = err.message;
+        errEl.textContent = err.message || 'Kayit olusturulurken bir hata olustu.';
         errEl.classList.add('visible');
       }
     });

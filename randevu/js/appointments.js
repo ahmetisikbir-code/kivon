@@ -1,4 +1,5 @@
-import { getAppointments, createAppointment, cancelAppointment, getDoctors, getAvailability } from './api.js';
+import { getAppointments, createAppointment, cancelAppointment, getDoctors, getAvailability, sanitizeHTML } from './api.js';
+import { showToast, confirmDialog, statusBadge } from './ui.js';
 
 export async function renderAppointments(container) {
   if (!container) return;
@@ -16,13 +17,18 @@ export async function renderAppointments(container) {
             <line x1="8" y1="2" x2="8" y2="6"/>
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          <h3>Henuz randevunuz yok</h3>
-          <p>WhatsApp uzerinden veya bu sayfadan yeni bir randevu alin.</p>
+          <h3>Henüz randevunuz yok</h3>
+          <p>WhatsApp üzerinden veya bu sayfadan yeni bir randevu alın.</p>
           <button class="btn btn-primary" onclick="window.dispatchEvent(new CustomEvent('open-book-modal'))">Randevu Al</button>
         </div>
       `;
       return;
     }
+
+    const listWrap = document.createElement('div');
+    listWrap.style.display = 'flex';
+    listWrap.style.flexDirection = 'column';
+    listWrap.style.gap = '12px';
 
     appointments.forEach(apt => {
       const date = new Date(apt.date || apt.appointment_date);
@@ -30,27 +36,27 @@ export async function renderAppointments(container) {
       const month = date.toLocaleString('tr-TR', { month: 'short' });
       const time = apt.time || (apt.appointment_time ? apt.appointment_time.slice(0, 5) : '');
       const status = (apt.status || 'pending').toLowerCase();
-      const doctorName = apt.doctor?.profile?.full_name || apt.doctor_name || 'Bilinmeyen Doktor';
+      const doctorName = sanitizeHTML(apt.doctor?.profile?.full_name || apt.doctor_name || 'Bilinmeyen Doktor');
       const fullDate = date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
 
       const card = document.createElement('div');
-      card.className = 'appointment-card glass animate-fadeIn';
+      card.className = 'appt-card animate-fadeIn';
       card.innerHTML = `
-        <div class="appointment-date-box">
+        <div class="appt-date">
           <div class="day">${day}</div>
           <div class="month">${month}</div>
         </div>
-        <div class="appointment-info">
+        <div class="appt-info">
           <h4>${doctorName}</h4>
           <p>${fullDate}</p>
         </div>
-        <div class="appointment-time">${time}</div>
-        <span class="badge badge-${status}">${statusLabel(status)}</span>
-        <div class="appointment-actions">
-          ${status === 'pending' || status === 'confirmed' ? `<button class="btn btn-sm btn-danger" data-id="${apt.id || apt.appointment_id}">Iptal</button>` : ''}
+        <div class="appt-time">${sanitizeHTML(time)}</div>
+        ${statusBadge(status)}
+        <div class="appt-actions">
+          ${status === 'pending' || status === 'confirmed' ? `<button class="btn btn-sm btn-danger" data-id="${apt.id || apt.appointment_id}">İptal</button>` : ''}
         </div>
       `;
-      container.appendChild(card);
+      listWrap.appendChild(card);
 
       const cancelBtn = card.querySelector('.btn-danger');
       if (cancelBtn) {
@@ -61,19 +67,11 @@ export async function renderAppointments(container) {
         });
       }
     });
-  } catch (err) {
-    container.innerHTML = `<p style="color: var(--danger); text-align: center; padding: 40px;">Randevular yuklenirken hata: ${err.message}</p>`;
-  }
-}
 
-function statusLabel(status) {
-  const labels = {
-    pending: 'Beklemede',
-    confirmed: 'Onaylandi',
-    cancelled: 'Iptal Edildi',
-    completed: 'Tamamlandi',
-  };
-  return labels[status] || status;
+    container.appendChild(listWrap);
+  } catch (err) {
+    container.innerHTML = '<p style="color: var(--danger); text-align: center; padding: 40px;">Randevular yüklenirken bir hata oluştu.</p>';
+  }
 }
 
 export function showBookModal() {
@@ -101,7 +99,7 @@ async function loadDoctorsStep() {
     bookingState.step = 1;
     renderStep1();
   } catch (err) {
-    content.innerHTML = `<p style="color:var(--danger)">Doktorlar yuklenemedi: ${err.message}</p>`;
+    content.innerHTML = '<p style="color:var(--danger)">Doktorlar yuklenemedi.</p>';
   }
 }
 
@@ -113,7 +111,10 @@ function renderStep1() {
   let html = '<label class="form-group"><label>Doktor Secin</label><select class="form-select" id="doctorSelect">';
   html += '<option value="">Doktor seciniz...</option>';
   bookingState.doctors.forEach(doc => {
-    html += `<option value="${doc.id || doc.user_id}">${doc.full_name} - ${doc.specialty || 'Genel'}</option>`;
+    const name = sanitizeHTML(doc.full_name);
+    const specialty = sanitizeHTML(doc.specialty || 'Genel');
+    const val = sanitizeHTML(doc.id || doc.user_id);
+    html += `<option value="${val}">${name} - ${specialty}</option>`;
   });
   html += '</select></div>';
   html += '<button class="btn btn-primary form-submit" id="step1Next" disabled>Devam</button>';
@@ -234,7 +235,7 @@ async function renderStep3() {
     slots.forEach(slot => {
       const time = slot.start_time || slot.time || slot;
       const isBooked = slot.is_booked || false;
-      html += `<div class="time-slot ${isBooked ? 'disabled' : ''}" data-time="${time}" data-slot-id="${slot.id}">${String(time).slice(0, 5)}</div>`;
+      html += `<div class="time-slot ${isBooked ? 'disabled' : ''}" data-time="${sanitizeHTML(String(time))}" data-slot-id="${sanitizeHTML(slot.id)}">${sanitizeHTML(String(time).slice(0, 5))}</div>`;
     });
     html += '</div><button class="btn btn-primary form-submit" id="step3Confirm" style="margin-top:20px" disabled>Randevuyu Onayla</button>';
 
@@ -257,7 +258,7 @@ async function renderStep3() {
       }
     });
   } catch (err) {
-    content.innerHTML = `<p style="color:var(--danger)">Saater yuklenemedi: ${err.message}</p>`;
+    content.innerHTML = '<p style="color:var(--danger)">Saatler yuklenemedi.</p>';
   }
 }
 
@@ -281,20 +282,19 @@ async function confirmBooking(doctorId, date, time, slotId) {
     bookingState = { step: 1, doctorId: null, date: null, time: null, doctors: bookingState.doctors };
     setTimeout(() => hideBookModal(), 3000);
   } catch (err) {
-    content.innerHTML = `<p style="color:var(--danger);text-align:center;padding:20px">Hata: ${err.message}</p>
-      <button class="btn btn-outline form-submit" onclick="loadDoctorsStep()">Tekrar Dene</button>`;
+    content.innerHTML = '<p style="color:var(--danger);text-align:center;padding:20px">Randevu olusturulamadi.</p><button class="btn btn-outline form-submit" onclick="loadDoctorsStep()">Tekrar Dene</button>';
   }
 }
 
 export async function cancelBooking(id) {
-  const confirmed = confirm('Randevuyu iptal etmek istediginize emin misiniz?');
+  const confirmed = await confirmDialog('Randevuyu iptal etmek istediğinize emin misiniz?', 'Randevu İptal');
   if (!confirmed) return false;
   try {
     await cancelAppointment(id);
     showToast('Randevu iptal edildi', 'success');
     return true;
   } catch (err) {
-    showToast(err.message, 'error');
+    showToast('Randevu iptal edilemedi.', 'error');
     return false;
   }
 }
@@ -306,20 +306,6 @@ function updateIndicators(activeStep) {
     if (i + 1 === activeStep) el.classList.add('active');
     else if (i + 1 < activeStep) el.classList.add('completed');
   });
-}
-
-function showToast(message, type = 'info') {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  requestAnimationFrame(() => toast.classList.add('visible'));
-  setTimeout(() => {
-    toast.classList.remove('visible');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
 }
 
 export function setupBookModal() {
