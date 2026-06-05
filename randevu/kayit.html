@@ -77,10 +77,14 @@
     .form-error.visible { display: block; }
     .form-success { display: none; font-size: 14px; color: var(--success); background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.15); padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; }
     .form-success.visible { display: block; }
-    .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px var(--primary-glow); font-family: inherit; margin-top: 4px; }
+    .btn-primary { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #0f172a; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px var(--primary-glow); font-family: inherit; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
     .btn-primary:hover { box-shadow: 0 6px 28px var(--primary-glow); transform: translateY(-1px); }
     .btn-primary:active { transform: scale(0.98); }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(15,23,42,0.25); border-top-color: #0f172a; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+    .btn-primary.loading .btn-text { display: none; }
+    .btn-primary.loading .btn-spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .form-footer { text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted); }
     .form-footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
     .form-footer a:hover { color: var(--primary-light); text-decoration: underline; }
@@ -189,7 +193,7 @@
 
       <div id="formError" class="form-error" role="alert"></div>
       <div id="formSuccess" class="form-success" role="status"></div>
-      <button type="submit" class="btn btn-primary" data-i18n="register">Kayıt Ol</button>
+      <button type="submit" class="btn btn-primary"><span class="btn-text" data-i18n="register">Kayıt Ol</span><span class="btn-spinner"></span></button>
     </form>
 
     <div class="form-footer">
@@ -311,6 +315,9 @@
         return;
       }
 
+      const btn = document.querySelector('.btn-primary');
+      btn.disabled = true;
+      btn.classList.add('loading');
       try {
         const res = await signup({ full_name: fullName, email, phone, role: 'doctor', password });
 
@@ -332,10 +339,13 @@
 
         successEl.textContent = 'Kaydınız oluşturuldu! E-posta adresinize gelen doğrulama linkine tıklayın, ardından giriş yapabilirsiniz.';
         successEl.classList.add('visible');
-        document.getElementById('registerForm').querySelector('button').disabled = true;
+        btn.disabled = true;
+        btn.classList.remove('loading');
       } catch (err) {
         errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');
+        btn.disabled = false;
+        btn.classList.remove('loading');
       }
     });
   </script>

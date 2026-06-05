@@ -48,10 +48,14 @@
     .form-input::placeholder { color: rgba(255,255,255,0.15); }
     .form-input:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34,211,238,0.1); background: rgba(255,255,255,0.06); }
     .form-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: white; }
-    .btn-submit { width: 100%; padding: 13px; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; background: linear-gradient(135deg, #22d3ee, #0891b2); color: #0f172a; cursor: pointer; transition: all 0.2s; font-family: inherit; margin-top: 4px; box-shadow: 0 4px 16px rgba(8,145,178,0.2); }
+    .btn-submit { width: 100%; padding: 13px; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; background: linear-gradient(135deg, #22d3ee, #0891b2); color: #0f172a; cursor: pointer; transition: all 0.2s; font-family: inherit; margin-top: 4px; box-shadow: 0 4px 16px rgba(8,145,178,0.2); display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
     .btn-submit:hover { box-shadow: 0 6px 24px rgba(8,145,178,0.3); transform: translateY(-1px); }
     .btn-submit:active { transform: scale(0.98); }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-spinner { width: 16px; height: 16px; border: 2px solid rgba(15,23,42,0.25); border-top-color: #0f172a; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+    .btn-submit.loading .btn-text { display: none; }
+    .btn-submit.loading .btn-spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .form-error { display: none; font-size: 13px; color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.12); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
     .form-error.visible { display: block; }
     .auth-footer { text-align: center; margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.35); }
@@ -129,7 +133,7 @@
           <input type="password" id="password" class="form-input" placeholder="••••••••" data-i18n-placeholder="password" required autocomplete="current-password">
         </div>
         <div id="formError" class="form-error" role="alert"></div>
-        <button type="submit" class="btn-submit" data-i18n="login">Giriş Yap</button>
+        <button type="submit" class="btn-submit"><span class="btn-text" data-i18n="login">Giriş Yap</span><span class="btn-spinner"></span></button>
       </form>
 
       <div class="auth-divider"></div>
@@ -162,7 +166,7 @@
       }
       const btn = document.querySelector('.btn-submit');
       btn.disabled = true;
-      btn.textContent = '...';
+      btn.classList.add('loading');
       try {
         const result = await login(email, password);
         const { data: profile } = await supabase.from('profiles').select('role').eq('id', result.user.id).single();
@@ -171,7 +175,7 @@
         errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');
         btn.disabled = false;
-        btn.textContent = t('login');
+        btn.classList.remove('loading');
       }
     });
   </script>
