@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.groq.com https://remiwuslxbqlzuevecic.supabase.co;">
-  <meta name="description" content="KIVON Randevu - Isletmeniz icin yapay zeka destekli WhatsApp randevu sistemi. Doktor, kuafor, guzellik salonu ve daha fazlasi icin online randevu.">
-  <title>KIVON Randevu — AI Destekli Randevu Sistemi</title>
+  <meta name="description" content="KIVON - Isletmeniz icin yapay zeka destekli WhatsApp randevu sistemi.">
+  <title>KIVON — AI Randevu Sistemi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%235b5bd6'/><text x='50' y='68' font-size='52' font-weight='bold' fill='white' text-anchor='middle' font-family='Inter,sans-serif'>K</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='68' font-size='52' font-weight='bold' fill='white' text-anchor='middle' font-family='Inter,sans-serif'>K</text></svg>">
 </head>
 <body>
+
   <nav class="nav">
     <a href="index.html" class="nav-logo">KIVON</a>
     <div class="nav-links">
@@ -20,7 +20,6 @@
       <a href="#sektorler">Sektorler</a>
       <a href="#iletisim">Iletisim</a>
       <a href="giris.html">Giris Yap</a>
-      <a href="kayit.html" class="btn-nav">Baslayin</a>
     </div>
     <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
       <span></span><span></span><span></span>
@@ -33,10 +32,9 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         Yapay Zeka Destekli Randevu Sistemi
       </div>
-      <h1 class="hero-title">Randevu derdine<br><span>AI cozum</span></h1>
-      <p class="hero-subtitle">Isletmeniz icin 7/24 calisan yapay zeka asistan. WhatsApp uzerinden randevu alin, hatirlatmalar gonderin, musteri memnuniyetini artirin.</p>
+      <h1 class="hero-title">Randevu surecini<br><span>AI ile donusturun</span></h1>
+      <p class="hero-subtitle">Isletmeniz icin 7/24 calisan yapay zeka asistan. WhatsApp uzerinden randevu alir, takvimi yonetir, musterilerinizi bilgilendirir.</p>
       <div class="hero-actions">
-        <a href="kayit.html" class="btn btn-primary btn-lg">Hemen Baslayin</a>
         <a href="#nasil-calisir" class="btn btn-outline btn-lg">Kesfet</a>
       </div>
       <div class="hero-image">
@@ -45,38 +43,25 @@
     </div>
   </section>
 
-  <section class="section" style="padding-bottom:0">
-    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
-      <div>
-        <h2 class="section-title" style="text-align:left">Randevu almak bu kadar kolay olmamisti</h2>
-        <p class="section-subtitle" style="text-align:left;margin-bottom:24px">Musterileriniz WhatsApp'tan mesaj atar, AI asistaniniz takviminizi kontrol eder ve en uygun randevuyu aninda olusturur.</p>
-        <a href="kayit.html" class="btn btn-primary btn-lg">Hemen Baslayin</a>
-      </div>
-      <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)">
-        <img src="images/hero-medical.jpg" alt="AI Randevu Asistani" style="width:100%;height:auto;display:block">
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="nasil-calisir" style="background:var(--bg-alt)">
+  <section class="section" id="nasil-calisir" style="padding:100px 0">
     <div class="container">
-      <h2 class="section-title" style="text-align:center">Nasil Calisir?</h2>
-      <p class="section-subtitle" style="text-align:center">3 adimda isletmenizi AI ile tanistirin</p>
+      <h2 class="section-title">Nasil Calisir?</h2>
+      <p class="section-subtitle">AI asistaniniz randevu surecini nasil yonettir</p>
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-number">1</div>
-          <h3>30 Saniyede Kaydolun</h3>
-          <p>Sektorunuzu secin, calisma saatlerinizi belirleyin. Hesabiniz aninda hazir.</p>
+          <h3>Musteri Mesaj Gonderir</h3>
+          <p>Hasta veya musteri WhatsApp uzerinden dogal dilde mesaj gonderir. AI aninda yanit verir.</p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3>WhatsApp'a Baglayin</h3>
-          <p>AI asistaninizi isletme numaraniza baglayin. Tum konusmalari devralir.</p>
+          <h3>AI Sureci Yonettir</h3>
+          <p>Yapay zeka hizmet secimi, tarih ve saat belirleme adimlarini konusma icinde yonettir.</p>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h3>AI Calismaya Baslasin</h3>
-          <p>Musterileriniz WhatsApp'tan mesaj atar, AI takviminizi yonetenir. Size kalan isinize odaklanmak.</p>
+          <h3>Randevu Otomatik Kaydedilir</h3>
+          <p>Onay alindiginda randevu veritabanina yazilir. Panelinizde aninda goruntileyebilirsiniz.</p>
         </div>
       </div>
     </div>
@@ -84,50 +69,50 @@
 
   <section class="section section-alt" id="ozellikler">
     <div class="container">
-      <h2 class="section-title">Neden KIVON?</h2>
-      <p class="section-subtitle">Isletmenizi bir adim oteye tasiyacak ozellikler</p>
+      <h2 class="section-title">Ozellikler</h2>
+      <p class="section-subtitle">AI destekli randevu sisteminin sunduklari</p>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <h3>WhatsApp Entegrasyonu</h3>
-          <p>Musterileriniz WhatsApp uzerinden dogal dilde mesaj gondererek randevu alabilir. AI asistaniniz tum konusmalari yonetenir.</p>
+          <h3>Whatsap Entegrasyonu</h3>
+          <p>Musteriler dogal dilde mesaj gondererek randevu alir. AI tum konusmalari yonettir.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <h3>7/24 Otonom Randevu</h3>
-          <p>AI asistaniniz haftanin 7 gunu, 24 saat boyunca randevu alir, takviminizi yonetenir ve musterilerinizi bilgilendirir.</p>
+          <p>Haftanin 7 gunu, 24 saat boyunca randevu alir, takviminizi yonettir ve musterileri bilgilendirir.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
           <h3>Akilli Takvim</h3>
-          <p>Mukerrer randevulari engelleyen akilli sistem, sizin belirlediginiz calisma saatlerine gore otomatik slot olusturur.</p>
+          <p>Mukerrer randevulari engelleyen sistem, belirlediginiz saatlere gore otomatik slot olusturur.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           </div>
-          <h3>Hasta/Musteri Takibi</h3>
-          <p>Grup landirilmis musteri listesi, ziyaret gecmisi, kac kere geldi, son ne zaman geldi gibi detayli istatistikler.</p>
+          <h3>Musteri Takibi</h3>
+          <p>Gruplandirilmis musteri listesi, ziyaret gecmisi, kac kere geldigi gibi detayli istatistikler.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           </div>
-          <h3>Hatirlatma Bildirimleri</h3>
-          <p>Randevudan bir gun once otomatik WhatsApp hatirlatma. Musteriniz unutmaz, siz kaybetmezsiniz.</p>
+          <h3>Hatirlatma</h3>
+          <p>Randevudan bir gun once otomatik WhatsApp hatirlatma gonderir.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </div>
-          <h3>Online Panel</h3>
-          <p>Web panel uzerinden tum randevulari goruntuleyin, durum guncelleyin, yeni randevu ekleyin veya iptal edin.</p>
+          <h3>Yonetim Paneli</h3>
+          <p>Web panel uzerinden tum randevulari goruntuleyin, durum guncelleyin ve yonettin.</p>
         </div>
       </div>
     </div>
@@ -135,8 +120,8 @@
 
   <section class="section" id="sektorler">
     <div class="container">
-      <h2 class="section-title">Tum Sektorler Icin Uygun</h2>
-      <p class="section-subtitle">9 farkli sektore ozel AI cozumleri</p>
+      <h2 class="section-title">Sektorler</h2>
+      <p class="section-subtitle">Her sektore uygun AI cozumleri</p>
       <div class="sectors-grid">
         <div class="sector-card">
           <div class="sector-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
@@ -174,21 +159,10 @@
           <div class="sector-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
           <span>Psikolog</span>
         </div>
-        <div class="sector-card" style="grid-column:span 2">
+        <div class="sector-card">
           <div class="sector-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 0-4 4v1h8V6a4 4 0 0 0-4-4z"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg></div>
           <span>Avukat</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="iletisim" style="background:var(--bg); padding:60px 0; text-align:center">
-    <div class="container">
-      <h2 class="section-title" style="margin-bottom:12px">Hemen Baslayin</h2>
-      <p class="section-subtitle" style="margin-bottom:28px">Isletmeniz icin AI destekli randevu sistemine gecin.</p>
-      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
-        <a href="kayit.html" class="btn btn-primary btn-lg">Ucretsiz Dene</a>
-        <a href="https://wa.me/905303982712" class="btn btn-secondary btn-lg" target="_blank">WhatsApp'tan Ulas</a>
       </div>
     </div>
   </section>
@@ -197,20 +171,18 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>KIVON</h3>
-        <p>Yapay zeka destekli randevu sistemi ile isletmenizi bir adim oteye tasiyin.</p>
+        <p>Yapay zeka destekli randevu sistemi.</p>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
         <a href="#ozellikler">Ozellikler</a>
         <a href="#sektorler">Sektorler</a>
         <a href="#iletisim">Iletisim</a>
-        <a href="kayit.html">Kayit Ol</a>
       </div>
       <div class="footer-col">
         <h4>Kaynaklar</h4>
         <a href="pages/gizlilik.html">Gizlilik Politikasi</a>
         <a href="pages/kullanim.html">Kullanim Kosullari</a>
-        <a href="musteri-listesi.html">Referanslar</a>
       </div>
       <div class="footer-col">
         <h4>Iletisim</h4>
@@ -219,7 +191,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 KIVON. Tum haklari saklidir.
+      &copy; 2026 KIVON.
     </div>
   </footer>
 
