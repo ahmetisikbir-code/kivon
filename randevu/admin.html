@@ -227,7 +227,10 @@
         <div class="sidebar-brand-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;color:#0f172a"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <span class="sidebar-logo" data-i18n="appName">KIVON</span>
+        <span class="sidebar-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="vertical-align:middle;margin-right:6px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span data-i18n="appName">KIVON</span>
+        </span>
       </div>
     </div>
     <nav class="sidebar-nav">
@@ -249,12 +252,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         <span data-i18n="whatsapp">WhatsApp</span>
       </button>
-      <a href="profile.html" class="sidebar-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span data-i18n="settings">Profil</span>
-      </a>
+      <button class="sidebar-link" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span data-i18n="settings">Ayarlar</span>
+      </button>
       <a href="#" id="logoutBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span data-i18n="logout">Çıkış Yap</span>
       </a>
     </div>
@@ -313,10 +316,6 @@
           </label>
           <span id="availabilityStatus" style="font-size:12px;color:#6ee7b7;font-weight:500" data-i18n="available">Müsait</span>
         </div>
-        <button class="btn btn-primary btn-sm" id="generateSlotsBtn" style="font-size:12px;padding:8px 18px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span data-i18n="generateSlots">Slot Oluştur</span>
-        </button>
         <button class="btn btn-primary btn-sm" id="addAppointmentBtn" style="font-size:12px;padding:8px 18px">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           <span data-i18n="newAppointment">Yeni Randevu Ekle</span>
@@ -368,6 +367,132 @@
           </div>
           <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6)">WhatsApp > Bağlı Cihazlar > Cihaz Bağla ile okutun</p>
         </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tabSettings">
+      <div class="whatsapp-glass">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(34,211,238,0.15);display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" width="24" height="24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>Ayarlar</h3>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="form-group">
+            <label class="form-label">Profil Fotoğrafı</label>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+              <div id="avatarPreview" style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid rgba(34,211,238,0.3)">
+                <span id="avatarPlaceholder" style="font-size:24px;font-weight:600;color:rgba(255,255,255,0.4)">?</span>
+              </div>
+              <input type="text" id="settingsAvatarUrl" class="ambient-input" placeholder="Fotoğraf URL'si" style="flex:1;font-size:12px">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ad Soyad</label>
+            <input type="text" id="settingsName" class="ambient-input" placeholder="Ad Soyad">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefon</label>
+            <input type="tel" id="settingsPhone" class="ambient-input" placeholder="+90 5XX XXX XXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="settingsEmail" class="ambient-input" placeholder="ornek@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cinsiyet</label>
+            <select id="settingsGender" class="ambient-input" style="appearance:auto">
+              <option value="">Seçiniz</option>
+              <option value="erkek">Erkek</option>
+              <option value="kadin">Kadın</option>
+              <option value="belirtmek_istemiyorum">Belirtmek İstemiyorum</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Meslek / Ünvan</label>
+            <input type="text" id="settingsTitle" class="ambient-input" placeholder="Örn: Diş Hekimi, Kuaför">
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <label class="form-label">Hizmetler</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <input type="text" id="serviceInput" class="ambient-input" placeholder="Hizmet adı" style="flex:1;font-size:12px">
+            <input type="text" id="servicePrice" class="ambient-input" placeholder="Fiyat" style="width:100px;font-size:12px">
+            <button class="btn btn-primary btn-sm" id="addServiceBtn">Ekle</button>
+          </div>
+          <div id="serviceTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+        </div>
+
+        <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="grid-column:1/-1">
+            <label class="form-label">Çalışma Saatleri</label>
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Pazartesi</label>
+            <input type="text" id="hourMon" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Salı</label>
+            <input type="text" id="hourTue" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Çarşamba</label>
+            <input type="text" id="hourWed" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Perşembe</label>
+            <input type="text" id="hourThu" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Cuma</label>
+            <input type="text" id="hourFri" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Cumartesi</label>
+            <input type="text" id="hourSat" class="ambient-input" placeholder="09:00-18:00" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:11px">Pazar</label>
+            <input type="text" id="hourSun" class="ambient-input" placeholder="Kapalı" style="font-size:12px">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mola Saati</label>
+            <div style="display:flex;gap:8px">
+              <input type="time" id="breakStart" class="ambient-input" style="font-size:12px">
+              <span style="color:rgba(255,255,255,0.3);align-self:center">-</span>
+              <input type="time" id="breakEnd" class="ambient-input" style="font-size:12px">
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <label class="form-label">Tatil Günleri</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <input type="date" id="holidayDate" class="ambient-input" style="font-size:12px">
+            <input type="text" id="holidayNote" class="ambient-input" placeholder="Açıklama (opsiyonel)" style="flex:1;font-size:12px">
+            <button class="btn btn-primary btn-sm" id="addHolidayBtn">Ekle</button>
+          </div>
+          <div id="holidayList" style="margin-top:8px"></div>
+        </div>
+
+        <div style="margin-top:20px">
+          <label class="form-label">Adres</label>
+          <textarea id="settingsAddress" class="ambient-input" rows="2" placeholder="İşletme adresi" style="font-size:12px;width:100%"></textarea>
+        </div>
+
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08)">
+          <label class="form-label">Şifre Değiştir</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px">
+            <input type="password" id="oldPassword" class="ambient-input" placeholder="Eski şifre" style="font-size:12px">
+            <input type="password" id="newPassword" class="ambient-input" placeholder="Yeni şifre" style="font-size:12px">
+            <input type="password" id="confirmPassword" class="ambient-input" placeholder="Yeni şifre tekrar" style="font-size:12px">
+          </div>
+        </div>
+
+        <button class="btn btn-primary form-submit" id="saveSettingsBtn" style="width:100%;margin-top:24px">Ayarları Kaydet</button>
       </div>
     </div>
   </main>
@@ -843,15 +968,20 @@
       statusEl.style.color = toggle.checked ? '#6ee7b7' : '#fca5a5';
     });
 
-    const generateModal = document.getElementById('generateModal');
-    document.getElementById('generateSlotsBtn').addEventListener('click', () => {
-      generateModal.classList.add('open');
-      document.getElementById('startDate').value = new Date().toISOString().slice(0,10);
-      document.getElementById('endDate').value = '';
-    });
-    generateModal.querySelector('.modal-close').addEventListener('click', () => generateModal.classList.remove('open'));
-    generateModal.addEventListener('click', (e) => { if (e.target === generateModal) generateModal.classList.remove('open'); });
-    document.getElementById('generateForm').addEventListener('submit', async (e) => {
+    const generateBtn = document.getElementById('generateSlotsBtn');
+    if (generateBtn) {
+      generateBtn.addEventListener('click', () => {
+        document.getElementById('generateModal')?.classList.add('open');
+        const sd = document.getElementById('startDate'); if (sd) sd.value = new Date().toISOString().slice(0,10);
+        const ed = document.getElementById('endDate'); if (ed) ed.value = '';
+      });
+    }
+    const gModal = document.getElementById('generateModal');
+    if (gModal) {
+      gModal.querySelector('.modal-close')?.addEventListener('click', () => gModal.classList.remove('open'));
+      gModal.addEventListener('click', (e) => { if (e.target === gModal) gModal.classList.remove('open'); });
+    }
+    document.getElementById('generateForm')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = e.target.querySelector('button[type="submit"]');
       btn.disabled = true; btn.classList.add('btn-loading'); btn.textContent = ' Oluşturuluyor...';
@@ -859,7 +989,7 @@
         const session = await getSession();
         const { data: doctor } = await supabase.from('doctors').select('id').eq('profile_id',session.user.id).single();
         await generateSlots(doctor.id, document.getElementById('startDate').value, document.getElementById('endDate').value);
-        generateModal.classList.remove('open'); loadAppointments(); showToast('Slotlar oluşturuldu','success');
+        document.getElementById('generateModal')?.classList.remove('open'); loadAppointments(); showToast('Slotlar oluşturuldu','success');
       } catch(err) { showToast(t('error'),'error'); }
       finally { btn.disabled = false; btn.textContent = t('generateSlots'); }
     });
@@ -924,6 +1054,135 @@
       await clearToken();
       window.location.href = 'giris';
     });
+
+    let services = [];
+    let holidays = [];
+    let holidayList = [];
+
+    async function loadSettings() {
+      try {
+        const session = await getSession();
+        if (!session) return;
+        const { data: doctor } = await supabase.from('doctors').select('*, profile:profiles(*)').eq('profile_id', session.user.id).single();
+        if (!doctor) return;
+        const p = doctor.profile || {};
+        if (p.full_name) document.getElementById('settingsName').value = p.full_name;
+        if (p.phone) document.getElementById('settingsPhone').value = p.phone;
+        if (p.email) document.getElementById('settingsEmail').value = p.email;
+        if (doctor.specialty) document.getElementById('settingsTitle').value = doctor.specialty;
+        if (doctor.gender) document.getElementById('settingsGender').value = doctor.gender;
+        if (doctor.address) document.getElementById('settingsAddress').value = doctor.address;
+        if (doctor.avatar_url) { document.getElementById('settingsAvatarUrl').value = doctor.avatar_url; document.getElementById('avatarPlaceholder').textContent = 'K'; }
+        if (doctor.working_hours) {
+          const days = ['mon','tue','wed','thu','fri','sat','sun'];
+          const hours = doctor.working_hours.split('|');
+          days.forEach((d,i) => { const el = document.getElementById('hour'+d.charAt(0).toUpperCase()+d.slice(1)); if (el && hours[i]) el.value = hours[i]; });
+        }
+        if (doctor.break_start) document.getElementById('breakStart').value = doctor.break_start;
+        if (doctor.break_end) document.getElementById('breakEnd').value = doctor.break_end;
+        if (doctor.services) {
+          try { services = typeof doctor.services === 'string' ? JSON.parse(doctor.services) : doctor.services; } catch(e) { services = []; }
+          if (!Array.isArray(services)) services = [];
+          renderServiceTags();
+        }
+        if (doctor.holidays) {
+          try { holidays = typeof doctor.holidays === 'string' ? JSON.parse(doctor.holidays) : doctor.holidays; } catch(e) { holidays = []; }
+          if (!Array.isArray(holidays)) holidays = [];
+          renderHolidayList();
+        }
+      } catch(e) { console.error('Settings load error:', e); }
+    }
+
+    function renderServiceTags() {
+      const c = document.getElementById('serviceTags');
+      c.innerHTML = services.map((s, i) => {
+        const name = typeof s === 'string' ? s : s.name || s;
+        const price = typeof s === 'object' ? s.price : '';
+        return `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(34,211,238,0.12);color:#22d3ee;padding:4px 10px;border-radius:6px;font-size:12px">${name}${price ? ' ('+price+' TL)' : ''}<button class="del-service" data-idx="${i}" style="background:none;border:none;color:#fca5a5;cursor:pointer;padding:0;font-size:14px">&times;</button></span>`;
+      }).join('');
+      c.querySelectorAll('.del-service').forEach(b => b.addEventListener('click', () => { services.splice(parseInt(b.dataset.idx), 1); renderServiceTags(); }));
+    }
+
+    function renderHolidayList() {
+      const c = document.getElementById('holidayList');
+      if (!holidays.length) { c.innerHTML = '<span style="color:rgba(255,255,255,0.3);font-size:12px">Henüz tatil günü eklenmemiş</span>'; return; }
+      c.innerHTML = holidays.map((h, i) => {
+        const date = typeof h === 'string' ? h : h.date || h;
+        const note = typeof h === 'object' ? h.note : '';
+        return `<div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);padding:6px 12px;border-radius:6px;margin-bottom:4px"><span style="font-size:12px;color:rgba(255,255,255,0.7)">${date}${note ? ' - '+note : ''}</span><button class="del-holiday" data-idx="${i}" style="background:none;border:none;color:#fca5a5;cursor:pointer;font-size:14px">&times;</button></div>`;
+      }).join('');
+      c.querySelectorAll('.del-holiday').forEach(b => b.addEventListener('click', () => { holidays.splice(parseInt(b.dataset.idx), 1); renderHolidayList(); }));
+    }
+
+    document.getElementById('addServiceBtn').addEventListener('click', () => {
+      const name = document.getElementById('serviceInput').value.trim();
+      const price = document.getElementById('servicePrice').value.trim();
+      if (!name) return;
+      services.push(price ? { name, price } : name);
+      document.getElementById('serviceInput').value = '';
+      document.getElementById('servicePrice').value = '';
+      renderServiceTags();
+    });
+
+    document.getElementById('addHolidayBtn').addEventListener('click', () => {
+      const date = document.getElementById('holidayDate').value;
+      const note = document.getElementById('holidayNote').value.trim();
+      if (!date) return;
+      holidays.push(note ? { date, note } : date);
+      document.getElementById('holidayDate').value = '';
+      document.getElementById('holidayNote').value = '';
+      renderHolidayList();
+    });
+
+    document.getElementById('settingsAvatarUrl').addEventListener('input', (e) => {
+      const url = e.target.value.trim();
+      const ph = document.getElementById('avatarPlaceholder');
+      if (url) ph.textContent = 'K'; else ph.textContent = '?';
+    });
+
+    document.getElementById('saveSettingsBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('saveSettingsBtn');
+      btn.disabled = true; btn.textContent = 'Kaydediliyor...';
+      try {
+        const session = await getSession();
+        const name = document.getElementById('settingsName').value.trim();
+        const parts = name.split(/\s+/);
+        const workingHours = ['mon','tue','wed','thu','fri','sat','sun'].map(d => document.getElementById('hour'+d.charAt(0).toUpperCase()+d.slice(1))?.value || '').join('|');
+        const { error: profileErr } = await supabase.from('profiles').update({
+          full_name: name, phone: document.getElementById('settingsPhone').value.trim(), email: document.getElementById('settingsEmail').value.trim()
+        }).eq('id', session.user.id);
+        if (profileErr) throw profileErr;
+        const { error: doctorErr } = await supabase.from('doctors').update({
+          specialty: document.getElementById('settingsTitle').value.trim(),
+          gender: document.getElementById('settingsGender').value,
+          address: document.getElementById('settingsAddress').value.trim(),
+          avatar_url: document.getElementById('settingsAvatarUrl').value.trim() || null,
+          working_hours: workingHours,
+          services: JSON.stringify(services),
+          holidays: JSON.stringify(holidays),
+          break_start: document.getElementById('breakStart').value || null,
+          break_end: document.getElementById('breakEnd').value || null
+        }).eq('profile_id', session.user.id);
+        if (doctorErr) throw doctorErr;
+        const oldPw = document.getElementById('oldPassword').value;
+        const newPw = document.getElementById('newPassword').value;
+        const confirmPw = document.getElementById('confirmPassword').value;
+        if (oldPw && newPw && newPw === confirmPw) {
+          const { error: pwErr } = await supabase.auth.updateUser({ password: newPw });
+          if (pwErr) throw pwErr;
+          document.getElementById('oldPassword').value = '';
+          document.getElementById('newPassword').value = '';
+          document.getElementById('confirmPassword').value = '';
+        }
+        showToast('Ayarlar kaydedildi', 'success');
+      } catch(e) { showToast(e.message || 'Hata', 'error'); }
+      finally { btn.disabled = false; btn.textContent = 'Ayarları Kaydet'; }
+    });
+
+    const settingsTab = document.querySelector('.sidebar-link[data-tab="settings"]');
+    if (settingsTab) {
+      settingsTab.addEventListener('click', () => { setTimeout(loadSettings, 100); });
+    }
   </script>
 </body>
 </html>
