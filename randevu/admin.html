@@ -460,7 +460,7 @@
       const session = await getSession();
       if (!session) return;
       const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single();
-      if (profile && profile.role !== 'doctor') { window.location.href = 'panel.html'; return; }
+      if (profile && profile.role !== 'doctor') { window.location.href = 'panel'; return; }
       const { data: dr } = await supabase.from('doctors').select('sector, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
       if (dr) {
         const sektorAdi = { 'doktor':'Doktor','kuaför':'Kuafor','güzellik':'Guzellik','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.sector] || 'İşletme';
@@ -792,7 +792,7 @@
     document.getElementById('logoutBtn').addEventListener('click', async (e) => {
       e.preventDefault();
       await clearToken();
-      window.location.href = 'giris.html';
+      window.location.href = 'giris';
     });
   </script>
 </body>

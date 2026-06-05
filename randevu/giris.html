@@ -119,7 +119,7 @@
         </select>
       </div>
 
-      <a href="index.html" class="auth-back" data-i18n="backHome">← Ana Sayfa</a>
+      <a href="./" class="auth-back" data-i18n="backHome">← Ana Sayfa</a>
       <h1 data-i18n="login">Giriş Yap</h1>
       <p data-i18n="welcome">KIVON hesabınıza giriş yapın</p>
 
@@ -139,7 +139,7 @@
       <div class="auth-divider"></div>
 
       <div class="auth-footer">
-        <span data-i18n="noAccount">Hesabınız yok mu?</span> <a href="kayit.html" data-i18n="register">Kayıt Ol</a>
+        <span data-i18n="noAccount">Hesabınız yok mu?</span> <a href="kayit" data-i18n="register">Kayıt Ol</a>
       </div>
     </div>
   </div>
@@ -170,7 +170,7 @@
       try {
         const result = await login(email, password);
         const { data: profile } = await supabase.from('profiles').select('role').eq('id', result.user.id).single();
-        window.location.href = (profile?.role === 'doctor') ? 'admin.html' : 'panel.html';
+        window.location.href = (profile?.role === 'doctor') ? 'admin' : 'panel';
       } catch (err) {
         errEl.textContent = err.message || t('error');
         errEl.classList.add('visible');

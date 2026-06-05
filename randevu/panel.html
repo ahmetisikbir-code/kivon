@@ -137,7 +137,7 @@
     </div>
     <div class="nav-links" style="gap:10px">
       <span id="userName" style="font-weight:600;font-size:14px;color:var(--text)"></span>
-      <a href="admin.html" id="doctorLink" class="btn btn-outline btn-sm" style="display:none" data-i18n="adminPanel">Doktor Paneli</a>
+      <a href="admin" id="doctorLink" class="btn btn-outline btn-sm" style="display:none" data-i18n="adminPanel">Doktor Paneli</a>
       <select class="lang-switcher">
         <option value="tr">🇹🇷 TR</option>
         <option value="en">🇬🇧 EN</option>
@@ -229,7 +229,7 @@
 
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       await logout();
-      window.location.href = 'giris.html';
+      window.location.href = 'giris';
     });
 
     document.getElementById('newAppointmentBtn').addEventListener('click', () => {
