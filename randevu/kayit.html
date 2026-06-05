@@ -57,6 +57,7 @@
     .ambient-input::placeholder { color: var(--text-light); }
     .ambient-input:focus, .ambient-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); background: rgba(255,255,255,0.08); }
     .ambient-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: var(--text); border-color: var(--border); }
+    textarea.ambient-input { min-height: 60px; max-height: 200px; }
     .ambient-select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
     .ambient-select option { background: #1e293b; color: white; }
     .password-strength { display: flex; gap: 4px; margin-top: 6px; }
@@ -157,6 +158,24 @@
       <div class="form-group">
         <label for="address" data-i18n="address">Adres</label>
         <input type="text" id="address" class="ambient-input" placeholder="İl, ilçe, cadde, no ...">
+      </div>
+
+      <div class="form-group">
+        <label for="working_hours" data-i18n="workingHours">Çalışma Saatleri</label>
+        <input type="text" id="working_hours" class="ambient-input" placeholder="Örn: Hafta içi 09:00-18:00, Cumartesi 09:00-13:00">
+        <small class="validation-hint">Bot müşterilere bu bilgiyi verecek</small>
+      </div>
+
+      <div class="form-group">
+        <label for="services" data-i18n="services">Hizmetler</label>
+        <textarea id="services" class="ambient-input" rows="3" placeholder="Örn: Saç kesimi, saç boyama, cilt bakımı, diş temizliği..." style="resize:vertical;font-family:inherit"></textarea>
+        <small class="validation-hint">Bot müşterilere hizmetlerinizi bu listeye göre anlatacak</small>
+      </div>
+
+      <div class="form-group">
+        <label for="pricing" data-i18n="pricing">Fiyat Bilgisi <span style="color:var(--text-muted);font-weight:400">(isteğe bağlı)</span></label>
+        <textarea id="pricing" class="ambient-input" rows="3" placeholder="Örn: Saç kesimi 200TL, saç boyama 500TL, cilt bakımı 300TL... Girilmezse müşteri işletmeye yönlendirilir" style="resize:vertical;font-family:inherit"></textarea>
+        <small class="validation-hint">Doldurursanız bot fiyat bilgisi verir, boş bırakırsanız işletmeye yönlendirir</small>
       </div>
 
       <div class="form-row">
@@ -279,6 +298,10 @@
       const businessName = document.getElementById('business_name').value.trim();
       const sector = document.getElementById('sector').value;
       const address = document.getElementById('address').value.trim();
+      const workingHours = document.getElementById('working_hours').value.trim();
+      const services = document.getElementById('services').value.trim();
+      const pricing = document.getElementById('pricing').value.trim();
+      const fullServices = pricing ? (services ? services + '\n\nFiyatlar:\n' + pricing : 'Fiyatlar:\n' + pricing) : services;
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const password = document.getElementById('password').value;
@@ -333,6 +356,8 @@
             profile_id: res.user.id,
             specialty: sector,
             address: address || null,
+            working_hours: workingHours || null,
+            services: fullServices || null,
             whatsapp_number: phone
           });
         if (doctorError) console.error('Doktor hatasi:', doctorError);
