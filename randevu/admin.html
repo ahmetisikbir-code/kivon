@@ -227,10 +227,7 @@
         <div class="sidebar-brand-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;color:#0f172a"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <span class="sidebar-logo">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" style="vertical-align:middle;margin-right:6px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          <span data-i18n="appName">KIVON</span>
-        </span>
+        <span class="sidebar-logo" data-i18n="appName">KIVON RANDEVU</span>
       </div>
     </div>
     <nav class="sidebar-nav">
@@ -301,6 +298,39 @@
           <div class="stat-label" data-i18n="completedCount">Tamamlanan</div>
           <div class="stat-value" id="statCompleted">0</div>
           <div class="stat-trend" style="opacity:0.4">·</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-bottom:16px">
+        <button class="tab-btn active" id="statsWeekBtn" style="font-size:12px;padding:6px 16px">Haftalık</button>
+        <button class="tab-btn" id="statsMonthBtn" style="font-size:12px;padding:6px 16px">Aylık</button>
+      </div>
+      <div id="weeklyStatsContainer" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+        <div class="stat-card-dash" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15)">
+          <div class="stat-label" style="color:#6ee7b7">Alınan</div>
+          <div class="stat-value" id="statWeeklyTaken" style="color:#6ee7b7">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15)">
+          <div class="stat-label" style="color:#fbbf24">İptal</div>
+          <div class="stat-value" id="statWeeklyCancelled" style="color:#fbbf24">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15)">
+          <div class="stat-label" style="color:#818cf8">Tamamlanan</div>
+          <div class="stat-value" id="statWeeklyCompleted" style="color:#818cf8">0</div>
+        </div>
+      </div>
+      <div id="monthlyStatsContainer" style="display:none;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+        <div class="stat-card-dash" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15)">
+          <div class="stat-label" style="color:#6ee7b7">Alınan</div>
+          <div class="stat-value" id="statMonthlyTaken" style="color:#6ee7b7">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15)">
+          <div class="stat-label" style="color:#fbbf24">İptal</div>
+          <div class="stat-value" id="statMonthlyCancelled" style="color:#fbbf24">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15)">
+          <div class="stat-label" style="color:#818cf8">Tamamlanan</div>
+          <div class="stat-value" id="statMonthlyCompleted" style="color:#818cf8">0</div>
         </div>
       </div>
       <div id="calendar"></div>
@@ -865,13 +895,31 @@
         }
         renderChart();
 
-        if (!allAppointments.length) {
+        const now = new Date();
+        const weekAgo = new Date(now); weekAgo.setDate(weekAgo.getDate() - 7);
+        const monthAgo = new Date(now); monthAgo.setMonth(monthAgo.getMonth() - 1);
+        const weekStr = weekAgo.toISOString().slice(0,10);
+        const monthStr = monthAgo.toISOString().slice(0,10);
+
+        const weeklyApts = allAppointments.filter(a => a.date >= weekStr);
+        const monthlyApts = allAppointments.filter(a => a.date >= monthStr);
+        animateValue(document.getElementById('statWeeklyTaken'), weeklyApts.filter(a => a.status === 'confirmed' || a.status === 'completed').length);
+        animateValue(document.getElementById('statWeeklyCancelled'), weeklyApts.filter(a => a.status === 'cancelled').length);
+        animateValue(document.getElementById('statWeeklyCompleted'), weeklyApts.filter(a => a.status === 'completed').length);
+        animateValue(document.getElementById('statMonthlyTaken'), monthlyApts.filter(a => a.status === 'confirmed' || a.status === 'completed').length);
+        animateValue(document.getElementById('statMonthlyCancelled'), monthlyApts.filter(a => a.status === 'cancelled').length);
+        animateValue(document.getElementById('statMonthlyCompleted'), monthlyApts.filter(a => a.status === 'completed').length);
+
+        const todayStr = new Date().toISOString().slice(0,10);
+        const futureAppointments = allAppointments.filter(a => a.date >= todayStr);
+
+        if (!futureAppointments.length) {
           container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><h3>${t('noAppointments')}</h3><p>Henüz size ait bir randevu bulunmuyor.</p></div>`;
           return;
         }
 
         let tableHtml = `<table class="ambient-table"><thead><tr><th>${t('date')}</th><th>${t('time')}</th><th>${t('patient')}</th><th>${t('stats')}</th><th></th></tr></thead><tbody>`;
-        allAppointments.forEach(apt => {
+        futureAppointments.forEach(apt => {
           const date = new Date(apt.date+'T00:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
           const time = apt.time?.slice(0,5)||'';
           const s = (apt.status||'pending').toLowerCase();
@@ -885,7 +933,7 @@
         tableHtml += '</tbody></table>';
         container.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
           <h3 style="color:white;font-size:16px;font-weight:600">${t('appointments')}</h3>
-          <span style="font-size:12px;color:rgba(255,255,255,0.35)">${allAppointments.length}</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.35)">${futureAppointments.length}</span>
         </div><div style="overflow-x:auto">${tableHtml}</div>`;
 
         container.querySelectorAll('.cancel-btn').forEach(btn => {
@@ -902,6 +950,19 @@
         container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}<br><button class="btn btn-outline retry-btn" style="margin-top:16px" onclick="event.stopPropagation();loadAppointments()">${t('retry')}</button></p>`;
       }
     }
+
+    document.getElementById('statsWeekBtn').addEventListener('click', () => {
+      document.getElementById('statsWeekBtn').classList.add('active');
+      document.getElementById('statsMonthBtn').classList.remove('active');
+      document.getElementById('weeklyStatsContainer').style.display = 'grid';
+      document.getElementById('monthlyStatsContainer').style.display = 'none';
+    });
+    document.getElementById('statsMonthBtn').addEventListener('click', () => {
+      document.getElementById('statsMonthBtn').classList.add('active');
+      document.getElementById('statsWeekBtn').classList.remove('active');
+      document.getElementById('monthlyStatsContainer').style.display = 'grid';
+      document.getElementById('weeklyStatsContainer').style.display = 'none';
+    });
 
     async function cancelBooking(id) {
       try { await cancelDoctorAppointment(id); return true; }
