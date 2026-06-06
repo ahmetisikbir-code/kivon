@@ -1178,7 +1178,7 @@
       try {
         const { data: doctors } = await supabase
           .from('doctors')
-          .select('id, specialty, gender, working_hours, profile:profiles(full_name, phone, email)')
+          .select('id, specialty, gender, working_hours, profile:profiles(full_name, phone)')
           .eq('clinic_id', currentClinicId);
         if (!doctors?.length) {
           container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3 data-i18n="noDoctors">Henüz doktor eklenmemiş</h3></div>`;
