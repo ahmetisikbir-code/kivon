@@ -758,10 +758,10 @@
       if (!session) return;
       const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single();
       if (profile && profile.role !== 'doctor') { window.location.href = 'panel'; return; }
-      const { data: dr } = await supabase.from('doctors').select('specialty, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
+      const { data: dr } = await supabase.from('doctors').select('sector, specialty, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
       if (dr) {
-        if (dr.specialty) setSector(dr.specialty);
-        const sektorTitle = { 'doktor':'Diş Hekimi','kuaför':'Kuaför','güzellik':'Güzellik Salonu','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.specialty] || 'İşletme';
+        if (dr.sector) setSector(dr.sector);
+        const sektorTitle = { 'doktor':'Diş Hekimi','kuaför':'Kuaför','güzellik':'Güzellik Salonu','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.sector] || dr.specialty || 'İşletme';
         document.title = `${sektorTitle} Paneli — ${dr.profile?.full_name || 'KIVON'}`;
         document.getElementById('pageTitle').textContent = `${sektorTitle} Paneli`;
         document.getElementById('pageSubtitle').textContent = dr.profile?.full_name || '';
@@ -1154,7 +1154,7 @@
           clinicDoctors = doctors || [];
           populateDoctorFilters();
         }
-      } catch(e) {}
+      } catch(e) { console.error('initClinic:', e); }
     }
 
     function populateDoctorFilters() {
@@ -1392,6 +1392,8 @@
           if (doc?.profile_id) await supabase.from('profiles').update({ full_name: name, phone }).eq('id', doc.profile_id);
           await supabase.from('doctors').update({ specialty, working_hours: workingHours }).eq('id', editDoctorId);
         } else {
+          if (!name) throw new Error('Ad soyad gerekli');
+          if (!specialty) throw new Error('Uzmanlık alanı gerekli');
           const tempPw = 'Kivon' + Math.random().toString(36).slice(2,8) + '1!';
           const signupEmail = email || (name.replace(/\s/g,'').toLowerCase() + '_' + Date.now() + '@kivon.app');
           const { data: authData, error: authErr } = await supabase.auth.signUp({
@@ -1401,7 +1403,8 @@
           });
           if (authErr) throw new Error(authErr.message);
           if (!authData?.user) throw new Error('Kullanıcı oluşturulamadı. Lütfen tekrar deneyin.');
-          await supabase.from('doctors').insert({ profile_id: authData.user.id, clinic_id: currentClinicId, specialty, working_hours: workingHours });
+          const { error: insertErr } = await supabase.from('doctors').insert({ profile_id: authData.user.id, clinic_id: currentClinicId, specialty, working_hours: workingHours });
+          if (insertErr) throw new Error('Doktor eklenirken hata: ' + insertErr.message);
           showToast('Doktor eklendi. Giriş bilgileri: ' + signupEmail + ' / ' + tempPw, 'success', 8000);
         }
         docModal.classList.remove('open');
@@ -1434,7 +1437,6 @@
         if (p.phone) document.getElementById('settingsPhone').value = p.phone;
         if (p.email) document.getElementById('settingsEmail').value = p.email;
         if (doctor.specialty) document.getElementById('settingsTitle').value = doctor.specialty;
-        if (doctor.gender) document.getElementById('settingsGender').value = doctor.gender;
         if (doctor.address) document.getElementById('settingsAddress').value = doctor.address;
         if (doctor.avatar_url) {
           const img = document.getElementById('avatarImg');
@@ -1545,12 +1547,9 @@
         if (profileErr) throw profileErr;
         const { error: doctorErr } = await supabase.from('doctors').update({
           specialty: document.getElementById('settingsTitle').value.trim(),
-          gender: document.getElementById('settingsGender').value,
           address: document.getElementById('settingsAddress').value.trim(),
-          avatar_url: avatarData || null,
           working_hours: workingHours,
           services: JSON.stringify(services),
-          holidays: JSON.stringify(holidays),
           break_start: document.getElementById('breakStart').value || null,
           break_end: document.getElementById('breakEnd').value || null
         }).eq('profile_id', session.user.id);
