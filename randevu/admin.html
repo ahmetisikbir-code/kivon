@@ -243,6 +243,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span data-i18n="patients">Hastalar</span>
       </button>
+      <button class="sidebar-link" data-tab="doctors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span data-i18n="doctors">Doktorlar</span>
+      </button>
       <button class="sidebar-link" data-tab="stats">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
         <span data-i18n="stats">İstatistik</span>
@@ -281,11 +285,21 @@
     </div>
 
     <div class="tab-content active" id="tabCalendar">
+      <div id="doctorFilterCalendar" style="margin-bottom:12px;display:none">
+        <select class="ambient-select" id="doctorFilterCalendarSelect" style="max-width:300px">
+          <option value="" data-i18n="allDoctors">Tüm Doktorlar</option>
+        </select>
+      </div>
       <div id="calendar"></div>
     </div>
 
     <div class="tab-content" id="tabList">
       <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+        <div id="doctorFilterList" style="display:none">
+          <select class="ambient-select" id="doctorFilterListSelect" style="max-width:260px;padding:8px 12px;font-size:12px">
+            <option value="" data-i18n="allDoctors">Tüm Doktorlar</option>
+          </select>
+        </div>
         <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);padding:8px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06)">
           <span style="font-size:12px;color:rgba(255,255,255,0.4)" data-i18n="availability">Müsaitlik:</span>
           <label class="toggle-switch">
@@ -309,6 +323,17 @@
 
     <div class="tab-content" id="tabPatients">
       <div id="patientsContainer"></div>
+    </div>
+
+    <div class="tab-content" id="tabDoctors">
+      <div class="page-header" style="margin-bottom:16px">
+        <h3 style="color:white;font-size:16px;font-weight:600" data-i18n="doctors">Doktorlar</h3>
+        <button class="btn btn-primary btn-sm" id="addDoctorBtn" style="font-size:12px;padding:8px 18px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span data-i18n="addDoctor">Yeni Doktor Ekle</span>
+        </button>
+      </div>
+      <div id="doctorsContainer"></div>
     </div>
 
     <div class="tab-content" id="tabStats">
@@ -428,6 +453,23 @@
                 Dosya Seç
                 <input type="file" id="avatarFileInput" accept="image/*" style="display:none">
               </label>
+            </div>
+          </div>
+          <div id="clinicInfoSection" style="display:none;grid-column:1/-1;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.08)">
+            <h4 style="color:white;font-size:14px;font-weight:600;margin-bottom:12px" data-i18n="clinicInfo">Klinik Bilgileri</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="form-group" style="grid-column:1/-1">
+                <label class="form-label" data-i18n="clinicName">Klinik Adı</label>
+                <input type="text" id="settingsClinicName" class="ambient-input" placeholder="Klinik Adı">
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="phone">Telefon</label>
+                <input type="tel" id="settingsClinicPhone" class="ambient-input" placeholder="+90 5XX XXX XXXX">
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="address">Adres</label>
+                <textarea id="settingsClinicAddress" class="ambient-input" rows="2" placeholder="Adres" style="font-size:12px;width:100%"></textarea>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -598,6 +640,42 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="doctorModal">
+    <div class="modal modal-glass" style="max-width:480px">
+      <div class="modal-header">
+        <h3 class="modal-title" id="doctorModalTitle" data-i18n="addDoctor">Yeni Doktor Ekle</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="doctorForm">
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.6)">Ad Soyad *</label>
+            <input type="text" class="ambient-input" id="doctorName" required placeholder="Ad Soyad">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.6)">Telefon *</label>
+            <input type="tel" class="ambient-input" id="doctorPhone" required placeholder="05XX XXX XX XX">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.6)">Email</label>
+            <input type="email" class="ambient-input" id="doctorEmail" placeholder="ornek@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.6)">Uzmanlık / Ünvan</label>
+            <input type="text" class="ambient-input" id="doctorSpecialty" placeholder="Örn: Diş Hekimi">
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.6)">Çalışma Saatleri</label>
+            <input type="text" class="ambient-input" id="doctorWorkingHours" placeholder="09:00-18:00">
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" style="width:100%;margin-top:8px">
+            <span data-i18n="save">Kaydet</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <script src="https://unpkg.com/chart.js@4/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -620,6 +698,12 @@
     let allAppointments = [];
     let doctorIdCache = null;
     let chartInstance = null;
+    let currentClinicId = null;
+    let clinicDoctors = [];
+    let editDoctorId = null;
+    let services = [];
+    let holidays = [];
+    let avatarData = null;
 
     function animateValue(el, target, duration = 600) {
       if (!el) return;
@@ -643,8 +727,13 @@
       if (tabEl) { tabEl.style.animation = ''; tabEl.classList.add('active'); }
       document.querySelector(`.sidebar-link[data-tab="${tab}"]`)?.classList.add('active');
       if (tab === 'patients') loadPatients();
-      if (tab === 'calendar') { if (calendar) setTimeout(() => calendar.updateSize(), 100); }
+      if (tab === 'calendar') { if (calendar) setTimeout(() => calendar.updateSize(), 100); loadAppointments(); }
+      if (tab === 'list') loadAppointments();
       if (tab === 'stats') { renderChart(); renderPeriodChart('week'); }
+      if (tab === 'doctors') loadDoctors();
+      const showFilter = currentClinicId && (tab === 'calendar' || tab === 'list');
+      document.getElementById('doctorFilterCalendar').style.display = tab === 'calendar' && showFilter ? 'block' : 'none';
+      document.getElementById('doctorFilterList').style.display = tab === 'list' && showFilter ? 'inline-block' : 'none';
     }
 
     document.querySelectorAll('.sidebar-link[data-tab]').forEach(el => {
@@ -680,19 +769,30 @@
     async function getDoctorId() {
       if (doctorIdCache) return doctorIdCache;
       const session = await getSession();
-      const { data: doctor } = await supabase.from('doctors').select('id').eq('profile_id', session.user.id).single();
+      const { data: doctor } = await supabase.from('doctors').select('id, clinic_id').eq('profile_id', session.user.id).single();
       if (!doctor) throw new Error('Doktor profili bulunamadi');
-      doctorIdCache = doctor.id; return doctor.id;
+      doctorIdCache = doctor.id;
+      if (doctor.clinic_id) currentClinicId = doctor.clinic_id;
+      return doctor.id;
     }
 
-    async function fetchDoctorAppointments() {
+    async function fetchAppointments(doctorId) {
       const session = await getSession();
-      const doctorId = await getDoctorId();
-      const { data, error } = await supabase
+      let query = supabase
         .from('appointments')
-        .select('id, date, time, status, notes, user_id, patient_name, patient_phone, patient_id')
-        .eq('doctor_id', doctorId)
+        .select('id, date, time, status, notes, user_id, patient_name, patient_phone, patient_id, doctor_id')
         .order('date', { ascending: true }).order('time', { ascending: true });
+      if (doctorId) {
+        query = query.eq('doctor_id', doctorId);
+      } else if (currentClinicId) {
+        const { data: drs } = await supabase.from('doctors').select('id').eq('clinic_id', currentClinicId);
+        if (drs?.length) query = query.in('doctor_id', drs.map(d => d.id));
+        else return [];
+      } else {
+        const did = await getDoctorId();
+        query = query.eq('doctor_id', did);
+      }
+      const { data, error } = await query;
       if (error) throw new Error(error.message);
       if (data?.length) {
         const userIds = data.filter(a => a.user_id).map(a => a.user_id);
@@ -701,6 +801,16 @@
           if (profiles) {
             const pm = {}; profiles.forEach(p => pm[p.id] = p);
             data.forEach(a => { if (a.user_id) a.profiles = pm[a.user_id]; });
+          }
+        }
+        if (currentClinicId) {
+          const doctorIds = [...new Set(data.filter(a => a.doctor_id).map(a => a.doctor_id))];
+          if (doctorIds.length) {
+            const { data: drs } = await supabase.from('doctors').select('id, profile:profiles(full_name)').in('id', doctorIds);
+            if (drs) {
+              const dm = {}; drs.forEach(d => dm[d.id] = d.profile?.full_name || 'Doktor');
+              data.forEach(a => { if (a.doctor_id) a.doctor_name = dm[a.doctor_id]; });
+            }
           }
         }
       }
@@ -822,10 +932,11 @@
       return appointments.map(apt => {
         const name = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
         const time = apt.time ? apt.time.slice(0,5) : '';
+        const doctorLabel = apt.doctor_name ? `[${apt.doctor_name}] ` : '';
         const s = (apt.status||'pending').toLowerCase();
         const c = colors[s] || colors.pending;
         return {
-          id: apt.id, title: time ? `${time} ${name}` : name, start: apt.date,
+          id: apt.id, title: time ? `${time} ${doctorLabel}${name}` : `${doctorLabel}${name}`, start: apt.date,
           backgroundColor: c.bg, textColor: c.text, borderColor: c.border,
           classNames: ['rounded'],
           extendedProps: { status:s, patientName:name, time:time, description:`${labels[s]||s}` }
@@ -837,10 +948,18 @@
       const container = document.getElementById('patientsContainer');
       showSkeleton(container, 4, 'row');
       try {
-        const doctorId = await getDoctorId();
-        const { data: appointments } = await supabase
-          .from('appointments').select('id, date, time, status, patient_name, patient_phone, patient_id')
-          .eq('doctor_id', doctorId).neq('status','cancelled').order('date', { ascending: false });
+        let query = supabase
+          .from('appointments').select('id, date, time, status, patient_name, patient_phone, patient_id, doctor_id')
+          .neq('status','cancelled').order('date', { ascending: false });
+        if (currentClinicId) {
+          const { data: drs } = await supabase.from('doctors').select('id').eq('clinic_id', currentClinicId);
+          if (drs?.length) query = query.in('doctor_id', drs.map(d => d.id));
+          else { container.innerHTML = '<div class="empty-glass">...</div>'; return; }
+        } else {
+          const doctorId = await getDoctorId();
+          query = query.eq('doctor_id', doctorId);
+        }
+        const { data: appointments } = await query;
         if (!appointments?.length) {
           container.innerHTML = '<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3 data-i18n="noPatients">Henüz hasta yok</h3><p>Henüz kayıtlı hastanız bulunmuyor.</p></div>';
           return;
@@ -891,11 +1010,17 @@
     }
 
     async function cancelDoctorAppointment(id) {
-      const doctorId = await getDoctorId();
-      const { data: appt } = await supabase.from('appointments').select('slot_id').eq('id',id).eq('doctor_id',doctorId).single();
+      const { data: appt } = await supabase.from('appointments').select('slot_id, doctor_id').eq('id',id).single();
       if (!appt) throw new Error('Randevu bulunamadi');
+      if (currentClinicId) {
+        const { data: drs } = await supabase.from('doctors').select('id').eq('clinic_id', currentClinicId);
+        if (!drs?.some(d => d.id === appt.doctor_id)) throw new Error('Yetkisiz');
+      } else {
+        const doctorId = await getDoctorId();
+        if (appt.doctor_id !== doctorId) throw new Error('Yetkisiz');
+      }
       if (appt.slot_id) await supabase.from('availability').update({is_booked:false}).eq('id',appt.slot_id);
-      const { error } = await supabase.from('appointments').update({status:'cancelled'}).eq('id',id).eq('doctor_id',doctorId);
+      const { error } = await supabase.from('appointments').update({status:'cancelled'}).eq('id',id);
       if (error) throw error;
       return true;
     }
@@ -908,7 +1033,13 @@
       showSkeleton(container, 3, 'row');
       showSkeleton(todayContainer, 2, 'card');
       try {
-        allAppointments = await fetchDoctorAppointments();
+        let filterDoctorId = null;
+        const activeTab = document.querySelector('.tab-content.active')?.id;
+        if (currentClinicId) {
+          if (activeTab === 'tabCalendar') filterDoctorId = document.getElementById('doctorFilterCalendarSelect').value || null;
+          else if (activeTab === 'tabList') filterDoctorId = document.getElementById('doctorFilterListSelect').value || null;
+        }
+        allAppointments = await fetchAppointments(filterDoctorId);
         const today = new Date().toISOString().slice(0,10);
         const todayApts = allAppointments.filter(a => a.date === today && a.status === 'confirmed');
         const total = allAppointments.length;
@@ -948,7 +1079,8 @@
           return;
         }
 
-        let tableHtml = `<table class="ambient-table"><thead><tr><th>${t('date')}</th><th>${t('time')}</th><th>${t('patient')}</th><th>${t('stats')}</th><th></th></tr></thead><tbody>`;
+        const showDoctorCol = currentClinicId && !filterDoctorId && clinicDoctors.length > 1;
+        let tableHtml = `<table class="ambient-table"><thead><tr><th>${t('date')}</th><th>${t('time')}</th>${showDoctorCol ? `<th>${t('doctor')}</th>` : ''}<th>${t('patient')}</th><th>${t('stats')}</th><th></th></tr></thead><tbody>`;
         futureAppointments.forEach(apt => {
           const date = new Date(apt.date+'T00:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
           const time = apt.time?.slice(0,5)||'';
@@ -956,7 +1088,9 @@
           const name = apt.profiles?.full_name || apt.patient_name || 'Bilinmeyen';
           const badgeClass = {pending:'warning',confirmed:'info',cancelled:'danger',completed:'success'}[s]||'info';
           const statusTxt = t('status'+s.charAt(0).toUpperCase()+s.slice(1))||s;
-          tableHtml += `<tr><td>${date}</td><td>${time}</td><td style="color:rgba(255,255,255,0.9)">${name}</td><td><span class="ambient-badge ambient-badge-${badgeClass}">${statusTxt}</span></td><td>
+          tableHtml += `<tr><td>${date}</td><td>${time}</td>`;
+          if (showDoctorCol) tableHtml += `<td style="color:rgba(255,255,255,0.5);font-size:13px">${apt.doctor_name || '-'}</td>`;
+          tableHtml += `<td style="color:rgba(255,255,255,0.9)">${name}</td><td><span class="ambient-badge ambient-badge-${badgeClass}">${statusTxt}</span></td><td>
             ${s==='pending'||s==='confirmed'?`<button class="btn btn-sm cancel-btn" data-id="${apt.id}" style="font-size:11px;padding:3px 12px;background:rgba(239,68,68,0.12);color:#fca5a5;border:1px solid rgba(239,68,68,0.15);border-radius:6px">${t('cancel')}</button>`:''}
           </td></tr>`;
         });
@@ -1000,7 +1134,102 @@
     }
 
     await checkRole();
+    await initClinic();
     loadAppointments();
+
+    document.getElementById('doctorFilterCalendarSelect')?.addEventListener('change', loadAppointments);
+    document.getElementById('doctorFilterListSelect')?.addEventListener('change', loadAppointments);
+
+    async function initClinic() {
+      try {
+        await getDoctorId();
+        if (currentClinicId) {
+          const { data: doctors } = await supabase
+            .from('doctors')
+            .select('id, specialty, profile:profiles(full_name, phone, email)')
+            .eq('clinic_id', currentClinicId);
+          clinicDoctors = doctors || [];
+          populateDoctorFilters();
+        }
+      } catch(e) {}
+    }
+
+    function populateDoctorFilters() {
+      const sel1 = document.getElementById('doctorFilterCalendarSelect');
+      const sel2 = document.getElementById('doctorFilterListSelect');
+      if (!sel1 || !sel2) return;
+      const opts = clinicDoctors.map(d =>
+        `<option value="${d.id}">${d.profile?.full_name || 'İsimsiz'}</option>`
+      ).join('');
+      const allText = t('allDoctors');
+      sel1.innerHTML = `<option value="">${allText}</option>${opts}`;
+      sel2.innerHTML = `<option value="">${allText}</option>${opts}`;
+    }
+
+    async function loadDoctors() {
+      const container = document.getElementById('doctorsContainer');
+      if (!currentClinicId) {
+        container.innerHTML = '<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3>Bu hesap bir kliniğe bağlı değil</h3></div>';
+        document.getElementById('addDoctorBtn').style.display = 'none';
+        return;
+      }
+      document.getElementById('addDoctorBtn').style.display = 'inline-flex';
+      showSkeleton(container, 3, 'card');
+      try {
+        const { data: doctors } = await supabase
+          .from('doctors')
+          .select('id, specialty, gender, working_hours, profile:profiles(full_name, phone, email)')
+          .eq('clinic_id', currentClinicId);
+        if (!doctors?.length) {
+          container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3 data-i18n="noDoctors">Henüz doktor eklenmemiş</h3></div>`;
+          return;
+        }
+        let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">';
+        doctors.forEach(d => {
+          const name = d.profile?.full_name || 'İsimsiz';
+          const phone = d.profile?.phone || '-';
+          html += `
+            <div class="glass-card glass-card-padded" style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:white;flex-shrink:0">${(name.charAt(0)||'?').toUpperCase()}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.9)">${name}</div>
+                  <div style="font-size:12px;color:rgba(255,255,255,0.4)">${d.specialty || 'Uzmanlık belirtilmemiş'}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.5)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                ${phone}
+              </div>
+              <button class="btn btn-sm edit-doctor-btn" data-id="${d.id}" style="margin-top:4px;font-size:11px;padding:6px 14px;background:rgba(34,211,238,0.1);color:#22d3ee;border:1px solid rgba(34,211,238,0.15);border-radius:6px;align-self:flex-start" data-i18n="edit">Düzenle</button>
+            </div>`;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+        container.querySelectorAll('.edit-doctor-btn').forEach(btn => {
+          btn.addEventListener('click', () => openDoctorModal(btn.dataset.id));
+        });
+      } catch(err) {
+        container.innerHTML = `<p style="color:rgba(239,68,68,0.7);text-align:center;padding:40px">${t('error')}</p>`;
+      }
+    }
+
+    async function openDoctorModal(id) {
+      editDoctorId = id || null;
+      document.getElementById('doctorModalTitle').textContent = id ? t('editDoctor') : t('addDoctor');
+      document.getElementById('doctorForm').reset();
+      if (id) {
+        const { data: doc } = await supabase.from('doctors').select('*, profile:profiles(*)').eq('id', id).single();
+        if (doc) {
+          document.getElementById('doctorName').value = doc.profile?.full_name || '';
+          document.getElementById('doctorPhone').value = doc.profile?.phone || '';
+          document.getElementById('doctorEmail').value = doc.profile?.email || '';
+          document.getElementById('doctorSpecialty').value = doc.specialty || '';
+          document.getElementById('doctorWorkingHours').value = doc.working_hours || '';
+        }
+      }
+      document.getElementById('doctorModal').classList.add('open');
+    }
 
     async function loadDoctorWhatsApp() {
       try {
@@ -1140,6 +1369,37 @@
       finally { btn.disabled = false; btn.textContent = 'Randevu Oluştur'; }
     });
 
+    const docModal = document.getElementById('doctorModal');
+    document.getElementById('addDoctorBtn').addEventListener('click', () => openDoctorModal(null));
+    docModal.querySelector('.modal-close').addEventListener('click', () => docModal.classList.remove('open'));
+    docModal.addEventListener('click', (e) => { if (e.target === docModal) docModal.classList.remove('open'); });
+    document.getElementById('doctorForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = 'Kaydediliyor...';
+      try {
+        const session = await getSession();
+        const name = document.getElementById('doctorName').value.trim();
+        const phone = document.getElementById('doctorPhone').value.trim();
+        const email = document.getElementById('doctorEmail').value.trim();
+        const specialty = document.getElementById('doctorSpecialty').value.trim();
+        const workingHours = document.getElementById('doctorWorkingHours').value.trim();
+        if (editDoctorId) {
+          const { data: doc } = await supabase.from('doctors').select('profile_id').eq('id', editDoctorId).single();
+          if (doc?.profile_id) await supabase.from('profiles').update({ full_name: name, phone, email }).eq('id', doc.profile_id);
+          await supabase.from('doctors').update({ specialty, working_hours: workingHours }).eq('id', editDoctorId);
+        } else {
+          const { data: newProfile } = await supabase.from('profiles').insert({ full_name: name, phone, email, role: 'doctor' }).select().single();
+          if (newProfile) await supabase.from('doctors').insert({ profile_id: newProfile.id, clinic_id: currentClinicId, specialty, working_hours: workingHours });
+        }
+        docModal.classList.remove('open');
+        showToast('Kaydedildi', 'success');
+        loadDoctors();
+        await initClinic();
+      } catch(err) { showToast(err.message || 'Hata', 'error'); }
+      finally { btn.disabled = false; btn.textContent = t('save'); }
+    });
+
     document.getElementById('menuToggle').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('open');
     });
@@ -1149,10 +1409,6 @@
       await clearToken();
       window.location.href = 'giris';
     });
-
-    let services = [];
-    let holidays = [];
-    let holidayList = [];
 
     async function loadSettings() {
       try {
@@ -1191,6 +1447,17 @@
           try { holidays = typeof doctor.holidays === 'string' ? JSON.parse(doctor.holidays) : doctor.holidays; } catch(e) { holidays = []; }
           if (!Array.isArray(holidays)) holidays = [];
           renderHolidayList();
+        }
+        if (currentClinicId) {
+          const { data: clinic } = await supabase.from('clinics').select('*').eq('id', currentClinicId).single();
+          if (clinic) {
+            document.getElementById('clinicInfoSection').style.display = 'block';
+            if (clinic.name) document.getElementById('settingsClinicName').value = clinic.name;
+            if (clinic.phone) document.getElementById('settingsClinicPhone').value = clinic.phone;
+            if (clinic.address) document.getElementById('settingsClinicAddress').value = clinic.address;
+          }
+        } else {
+          document.getElementById('clinicInfoSection').style.display = 'none';
         }
       } catch(e) { console.error('Settings load error:', e); }
     }
@@ -1236,8 +1503,6 @@
       renderHolidayList();
     });
 
-    let avatarData = null;
-
     document.getElementById('avatarFileInput').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -1277,6 +1542,12 @@
           break_end: document.getElementById('breakEnd').value || null
         }).eq('profile_id', session.user.id);
         if (doctorErr) throw doctorErr;
+        if (currentClinicId) {
+          const clinicName = document.getElementById('settingsClinicName').value.trim();
+          const clinicPhone = document.getElementById('settingsClinicPhone').value.trim();
+          const clinicAddress = document.getElementById('settingsClinicAddress').value.trim();
+          await supabase.from('clinics').update({ name: clinicName, phone: clinicPhone, address: clinicAddress }).eq('id', currentClinicId);
+        }
         const oldPw = document.getElementById('oldPassword').value;
         const newPw = document.getElementById('newPassword').value;
         const confirmPw = document.getElementById('confirmPassword').value;
