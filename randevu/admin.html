@@ -1386,11 +1386,21 @@
         const workingHours = document.getElementById('doctorWorkingHours').value.trim();
         if (editDoctorId) {
           const { data: doc } = await supabase.from('doctors').select('profile_id').eq('id', editDoctorId).single();
-          if (doc?.profile_id) await supabase.from('profiles').update({ full_name: name, phone, email }).eq('id', doc.profile_id);
+          if (doc?.profile_id) await supabase.from('profiles').update({ full_name: name, phone }).eq('id', doc.profile_id);
           await supabase.from('doctors').update({ specialty, working_hours: workingHours }).eq('id', editDoctorId);
         } else {
-          const { data: newProfile } = await supabase.from('profiles').insert({ full_name: name, phone, email, role: 'doctor' }).select().single();
-          if (newProfile) await supabase.from('doctors').insert({ profile_id: newProfile.id, clinic_id: currentClinicId, specialty, working_hours: workingHours });
+          const tempPw = 'Kivon' + Math.random().toString(36).slice(2,8) + '1!';
+          const signupEmail = email || (name.replace(/\s/g,'').toLowerCase() + '_' + Date.now() + '@kivon.app');
+          const { data: authData, error: authErr } = await supabase.auth.signUp({
+            email: signupEmail,
+            password: tempPw,
+            options: { data: { full_name: name, phone, role: 'doctor' } }
+          });
+          if (authErr) throw new Error(authErr.message);
+          if (authData?.user) {
+            await supabase.from('doctors').insert({ profile_id: authData.user.id, clinic_id: currentClinicId, specialty, working_hours: workingHours });
+            showToast('Doktor eklendi. Giriş bilgileri: ' + signupEmail + ' / ' + tempPw, 'success', 8000);
+          }
         }
         docModal.classList.remove('open');
         showToast('Kaydedildi', 'success');
