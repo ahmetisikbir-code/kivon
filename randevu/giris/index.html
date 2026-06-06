@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KIVON hesabiniza giris yapin.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://*.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co;">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Giris Yap — KIVON</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='68' font-size='52' font-weight='bold' fill='white' text-anchor='middle' font-family='Inter,sans-serif'>K</text></svg>">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; overflow: hidden; background: #0f172a; }
+    .left { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 48px; overflow: hidden; }
+    .left .bg { position: absolute; inset: 0; background: url('../images/gradient-purple.jpg') center/cover no-repeat; opacity: 0.12; filter: blur(4px) saturate(1.2); }
+    .left .ov { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%); }
+    .left .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; }
+    .left .o1 { width: 600px; height: 600px; background: #22d3ee; top: -20%; left: -10%; animation: float 25s ease-in-out infinite; }
+    .left .o2 { width: 500px; height: 500px; background: #a78bfa; bottom: -20%; right: -10%; animation: float 30s ease-in-out infinite reverse; }
+    @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -50px) scale(1.1); } 66% { transform: translate(-30px, 30px) scale(0.95); } }
+    .brand { position: relative; z-index: 1; max-width: 520px; }
+    .brand-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+    .brand-logo .icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #22d3ee, #0891b2); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(8,145,178,0.3); }
+    .brand-logo .icon svg { width: 24px; height: 24px; stroke: #0f172a; stroke-width: 2.5; fill: none; }
+    .brand-logo .bt { display: flex; flex-direction: column; }
+    .brand-logo .bt .name { font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; }
+    .brand-logo .bt .sub { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; margin-top: 2px; }
+    .brand h2 { font-size: 42px; font-weight: 800; color: white; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; }
+    .brand h2 span { background: linear-gradient(135deg, #22d3ee, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .brand p { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 40px; max-width: 440px; }
+    .right { width: 440px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 48px 36px; position: relative; background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.06); }
+    .auth-card { }
+    .auth-card .sector-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 8px 12px; margin-bottom: 24px; font-size: 13px; color: rgba(255,255,255,0.4); justify-content: center; }
+    .auth-card .sector-badge .s-icon { font-size: 18px; }
+    .auth-card h1 { font-size: 22px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .auth-card > p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .fi { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: white; font-size: 14px; outline: none; transition: all 0.2s; font-family: inherit; }
+    .fi::placeholder { color: rgba(255,255,255,0.15); }
+    .fi:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34,211,238,0.1); background: rgba(255,255,255,0.06); }
+    .fi:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #1e293b inset; -webkit-text-fill-color: white; }
+    .btn { width: 100%; padding: 13px; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; background: linear-gradient(135deg, #22d3ee, #0891b2); color: #0f172a; cursor: pointer; transition: all 0.2s; font-family: inherit; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 16px rgba(8,145,178,0.2); }
+    .btn:hover { box-shadow: 0 6px 24px rgba(8,145,178,0.3); transform: translateY(-1px); }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn .spinner { width: 16px; height: 16px; border: 2px solid rgba(15,23,42,0.25); border-top-color: #0f172a; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+    .btn.loading .btn-text { display: none; }
+    .btn.loading .spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .err { display: none; font-size: 13px; color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.12); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
+    .err.visible { display: block; }
+    .ft { text-align: center; margin-top: 28px; font-size: 13px; color: rgba(255,255,255,0.35); }
+    .ft a { color: #22d3ee; text-decoration: none; font-weight: 600; }
+    .ft a:hover { text-decoration: underline; }
+    .divider { height: 1px; background: rgba(255,255,255,0.05); margin: 24px 0; }
+    @media (max-width: 900px) {
+      .left { display: none; }
+      .right { width: 100%; min-height: 100vh; border-left: none; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <div class="bg"></div>
+    <div class="ov"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="brand">
+      <div class="brand-logo">
+        <div class="icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="bt">
+          <span class="name">KIVON</span>
+          <span class="sub">Randevu Asistani</span>
+        </div>
+      </div>
+      <h2>Randevu derdine <span>AI cozum</span></h2>
+      <p>Isletmeniz icin 7/24 calisan yapay zeka asistani. WhatsApp uzerinden randevu alin, hatirlatmalar gonderin.</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="auth-card">
+      <div class="sector-badge">
+        <span class="s-icon">[?]</span>
+        <span>KIVON hesabiniza giris yapin</span>
+      </div>
+
+      <h1>Giris Yap</h1>
+      <p>E-posta ve sifrenizle devam edin</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">E-posta</label>
+          <input type="email" id="email" class="fi" placeholder="ornek@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Sifre</label>
+          <input type="password" id="password" class="fi" placeholder="Sifreniz" required autocomplete="current-password">
+        </div>
+        <div id="errorBox" class="err" role="alert"></div>
+        <button type="submit" class="btn" id="submitBtn">
+          <span class="btn-text">Giris Yap</span>
+          <span class="spinner"></span>
+        </button>
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="ft">
+        Hesabiniz yok mu? <a href="../kayit/">Kayit Ol</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase, login } from '../../js/api.js';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errEl = document.getElementById('errorBox');
+      errEl.classList.remove('visible');
+      errEl.textContent = '';
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        errEl.textContent = 'E-posta ve sifre gerekli.';
+        errEl.classList.add('visible');
+        return;
+      }
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.classList.add('loading');
+      try {
+        const result = await login(email, password);
+        const { data: profile } = await supabase.from('profiles').select('role').eq('id', result.user.id).single();
+        window.location.href = (profile?.role === 'doctor') ? '../admin/' : '../panel/';
+      } catch (err) {
+        errEl.textContent = err.message || 'Bir hata olustu.';
+        errEl.classList.add('visible');
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    });
+  </script>
+</body>
+</html>

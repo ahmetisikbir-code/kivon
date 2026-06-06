@@ -132,6 +132,12 @@ const lang = {
     bookHere: 'bu sayfadan yeni randevu alın',
     retry: 'Tekrar Dene',
     bookingSuccess: 'Randevunuz başarıyla oluşturuldu. Onay bekleniyor.',
+    sektor_doktor: 'Diş Doktoru',
+    sektor_kuaför: 'Kuaför',
+    sektor_guzellik: 'Güzellik Salonu',
+    kayit_baslik: 'Kayıt Ol',
+    kayit_form: 'Hesap Oluşturun',
+    giris_baslik: 'Giriş Yap',
     locale: 'tr-TR',
   },
   en: {
@@ -267,13 +273,30 @@ const lang = {
     bookHere: 'book here',
     retry: 'Retry',
     bookingSuccess: 'Your appointment has been created. Waiting for confirmation.',
+    sektor_doktor: 'Dentist',
+    sektor_kuaför: 'Barber',
+    sektor_guzellik: 'Beauty Salon',
+    kayit_baslik: 'Sign Up',
+    kayit_form: 'Create Account',
+    giris_baslik: 'Sign In',
     locale: 'en-US',
   }
 };
 
 let currentLang = localStorage.getItem('kivon_lang') || 'tr';
+let currentSector = null;
+
+export function setSector(sector) {
+  currentSector = sector;
+  setLanguage(currentLang);
+}
 
 export function t(key) {
+  if (currentSector) {
+    const sectorKey = `${key}_${currentSector}`;
+    const sectorVal = lang[currentLang]?.[sectorKey] ?? lang['tr']?.[sectorKey];
+    if (sectorVal !== undefined && sectorVal !== null) return sectorVal;
+  }
   return lang[currentLang]?.[key] || lang['tr']?.[key] || key;
 }
 
