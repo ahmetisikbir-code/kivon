@@ -1,6 +1,6 @@
 const lang = {
   tr: {
-    appName: 'KIVON',
+    appName: 'KIVON RANDEVU',
     loading: 'Yükleniyor...',
     login: 'Giriş Yap',
     register: 'Kayıt Ol',
@@ -126,7 +126,7 @@ const lang = {
     locale: 'tr-TR',
   },
   en: {
-    appName: 'KIVON',
+    appName: 'KIVON RANDEVU',
     loading: 'Loading...',
     login: 'Sign In',
     register: 'Sign Up',
