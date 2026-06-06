@@ -243,6 +243,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span data-i18n="patients">Hastalar</span>
       </button>
+      <button class="sidebar-link" data-tab="stats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <span data-i18n="stats">İstatistik</span>
+      </button>
     </nav>
     <div class="sidebar-footer">
       <button class="sidebar-link" data-tab="whatsapp" style="margin-bottom:2px">
@@ -268,7 +272,6 @@
         <div style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:4px" id="pageSubtitle"></div>
       </div>
       <div class="page-actions">
-        <button id="statsToggleBtn" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer" title="İstatistikler">📊</button>
         <select class="lang-switcher" id="langSwitcher">
           <option value="tr">TR</option>
           <option value="en">EN</option>
@@ -278,36 +281,6 @@
     </div>
 
     <div class="tab-content active" id="tabCalendar">
-      <div class="stats-grid stagger" id="statsContainer">
-        <div class="stat-card-dash">
-          <div class="stat-label" data-i18n="todayCount">Bugün</div>
-          <div class="stat-value" id="statToday">0</div>
-          <div class="stat-trend" id="trendToday"></div>
-        </div>
-        <div class="stat-card-dash">
-          <div class="stat-label" data-i18n="totalCount">Toplam</div>
-          <div class="stat-value" id="statTotal">0</div>
-          <div class="stat-trend" style="opacity:0.4">·</div>
-        </div>
-        <div class="stat-card-dash">
-          <div class="stat-label" data-i18n="pendingCount">Bekleyen</div>
-          <div class="stat-value" id="statPending">0</div>
-          <div class="stat-trend" style="opacity:0.4">·</div>
-        </div>
-        <div class="stat-card-dash">
-          <div class="stat-label" data-i18n="completedCount">Tamamlanan</div>
-          <div class="stat-value" id="statCompleted">0</div>
-          <div class="stat-trend" style="opacity:0.4">·</div>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:12px;margin-bottom:12px">
-        <button class="tab-btn active" id="statsWeekBtn" style="font-size:12px;padding:6px 16px">Haftalık</button>
-        <button class="tab-btn" id="statsMonthBtn" style="font-size:12px;padding:6px 16px">Aylık</button>
-      </div>
-      <div style="position:relative;width:100%;max-height:180px;margin-bottom:20px">
-        <canvas id="periodChart"></canvas>
-      </div>
       <div id="calendar"></div>
     </div>
 
@@ -336,6 +309,65 @@
 
     <div class="tab-content" id="tabPatients">
       <div id="patientsContainer"></div>
+    </div>
+
+    <div class="tab-content" id="tabStats">
+      <div class="stats-grid stagger" id="statsContainer">
+        <div class="stat-card-dash">
+          <div class="stat-label" data-i18n="todayCount">Bugün</div>
+          <div class="stat-value" id="statToday">0</div>
+          <div class="stat-trend" id="trendToday"></div>
+        </div>
+        <div class="stat-card-dash">
+          <div class="stat-label" data-i18n="totalCount">Toplam</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-trend" style="opacity:0.4">·</div>
+        </div>
+        <div class="stat-card-dash">
+          <div class="stat-label" data-i18n="pendingCount">Bekleyen</div>
+          <div class="stat-value" id="statPending">0</div>
+          <div class="stat-trend" style="opacity:0.4">·</div>
+        </div>
+        <div class="stat-card-dash">
+          <div class="stat-label" data-i18n="completedCount">Tamamlanan</div>
+          <div class="stat-value" id="statCompleted">0</div>
+          <div class="stat-trend" style="opacity:0.4">·</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-bottom:12px">
+        <button class="tab-btn active" id="statsWeekBtn" style="font-size:12px;padding:6px 16px">Haftalık</button>
+        <button class="tab-btn" id="statsMonthBtn" style="font-size:12px;padding:6px 16px">Aylık</button>
+      </div>
+      <div style="position:relative;width:100%;max-height:180px;margin-bottom:24px">
+        <canvas id="periodChart"></canvas>
+      </div>
+
+      <div id="chartInline" style="margin-top:0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;max-width:320px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <span style="font-size:14px;font-weight:600;color:white" data-i18n="statsBreakdown">Durum Dağılımı</span>
+        </div>
+        <canvas id="chartCanvas" width="280" height="280"></canvas>
+      </div>
+
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="stat-card-dash" style="background:rgba(8,145,178,0.06);border-color:rgba(8,145,178,0.12)">
+          <div class="stat-label" style="color:#22d3ee">Bugünkü Randevular</div>
+          <div class="stat-value" id="statTodayCount" style="color:#22d3ee;font-size:24px">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.12)">
+          <div class="stat-label" style="color:#fca5a5">İptal Edilenler</div>
+          <div class="stat-value" id="statCancelledCount" style="color:#fca5a5;font-size:24px">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(99,102,241,0.06);border-color:rgba(99,102,241,0.12)">
+          <div class="stat-label" style="color:#a5b4fc">Toplam Hasta</div>
+          <div class="stat-value" id="statPatientCount" style="color:#a5b4fc;font-size:24px">0</div>
+        </div>
+        <div class="stat-card-dash" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.12)">
+          <div class="stat-label" style="color:#fcd34d">Bekleyen Onay</div>
+          <div class="stat-value" id="statPendingCount" style="color:#fcd34d;font-size:24px">0</div>
+        </div>
+      </div>
     </div>
 
     <div class="tab-content" id="tabWhatsapp">
@@ -566,14 +598,6 @@
     </div>
   </div>
 
-  <div id="chartInline" style="display:none;margin-top:var(--space-lg);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-xl);max-width:320px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-md)">
-      <span style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--text)" data-i18n="stats">İstatistikler</span>
-      <button id="chartCloseBtn" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px">&times;</button>
-    </div>
-    <canvas id="chartCanvas" width="280" height="280"></canvas>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <script src="https://unpkg.com/chart.js@4/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -619,10 +643,8 @@
       if (tabEl) { tabEl.style.animation = ''; tabEl.classList.add('active'); }
       document.querySelector(`.sidebar-link[data-tab="${tab}"]`)?.classList.add('active');
       if (tab === 'patients') loadPatients();
-      if (tab === 'calendar') {
-        if (calendar) setTimeout(() => calendar.updateSize(), 100);
-        renderChart();
-      }
+      if (tab === 'calendar') { if (calendar) setTimeout(() => calendar.updateSize(), 100); }
+      if (tab === 'stats') { renderChart(); renderPeriodChart('week'); }
     }
 
     document.querySelectorAll('.sidebar-link[data-tab]').forEach(el => {
@@ -695,6 +717,7 @@
       const completed = allAppointments.filter(a => a.status === 'completed').length;
       const cancelled = allAppointments.filter(a => a.status === 'cancelled').length;
       if ((pending+confirmed+completed+cancelled) === 0) { document.getElementById('chartInline').style.display = 'none'; return; }
+      document.getElementById('chartInline').style.display = 'block';
       try {
         chartInstance = new Chart(ctx, {
           type: 'doughnut',
@@ -714,15 +737,6 @@
         });
       } catch(e) { /* ignore chart errors */ }
     }
-
-    document.getElementById('statsToggleBtn').addEventListener('click', () => {
-      const el = document.getElementById('chartInline');
-      if (el.style.display === 'none' || !el.style.display) { el.style.display = 'block'; setTimeout(renderChart, 50); }
-      else el.style.display = 'none';
-    });
-    document.getElementById('chartCloseBtn').addEventListener('click', () => {
-      document.getElementById('chartInline').style.display = 'none';
-    });
 
     let periodChartInstance = null;
     function renderPeriodChart(mode) {
@@ -773,9 +787,6 @@
       document.getElementById('statsMonthBtn').classList.add('active');
       document.getElementById('statsWeekBtn').classList.remove('active');
       renderPeriodChart('month');
-    });
-    document.getElementById('chartCloseBtn').addEventListener('click', () => {
-      document.getElementById('chartInline').style.display = 'none';
     });
 
     function initCalendar(events) {
@@ -905,6 +916,11 @@
         animateValue(document.getElementById('statTotal'), total);
         animateValue(document.getElementById('statPending'), allAppointments.filter(a => a.status === 'pending').length);
         animateValue(document.getElementById('statCompleted'), allAppointments.filter(a => a.status === 'completed').length);
+        animateValue(document.getElementById('statTodayCount'), todayApts.length);
+        animateValue(document.getElementById('statCancelledCount'), allAppointments.filter(a => a.status === 'cancelled').length);
+        animateValue(document.getElementById('statPendingCount'), allAppointments.filter(a => a.status === 'pending').length);
+        const uniquePatients = new Set(allAppointments.map(a => a.patient_id || a.user_id || a.patient_phone).filter(Boolean)).size;
+        animateValue(document.getElementById('statPatientCount'), uniquePatients);
         const trend = document.getElementById('trendToday');
         if (todayApts.length > 0) trend.innerHTML = `<span style="color:var(--success);font-size:var(--text-xs)">▲ ${todayApts.length} ${t('todayCount')}</span>`;
 
@@ -923,8 +939,6 @@
           events.forEach(e => calendar.addEvent(e));
         }
         renderChart();
-
-        renderPeriodChart('week');
 
         const todayStr = new Date().toISOString().slice(0,10);
         const futureAppointments = allAppointments.filter(a => a.date >= todayStr);
