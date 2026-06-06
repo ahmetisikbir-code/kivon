@@ -757,9 +757,9 @@
       if (!session) return;
       const { data: profile } = await supabase.from('profiles').select('role').eq('id', session.user.id).single();
       if (profile && profile.role !== 'doctor') { window.location.href = 'panel'; return; }
-      const { data: dr } = await supabase.from('doctors').select('sector, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
+      const { data: dr } = await supabase.from('doctors').select('specialty, profile:profiles(full_name)').eq('profile_id', session.user.id).single();
       if (dr) {
-        const sektorAdi = { 'doktor':'Doktor','kuaför':'Kuafor','güzellik':'Guzellik','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.sector] || 'İşletme';
+        const sektorAdi = { 'doktor':'Doktor','kuaför':'Kuafor','güzellik':'Guzellik','berber':'Berber','spor':'Spor','fitness':'Fitness','masaj':'Masaj','avukat':'Avukat','veteriner':'Veteriner','psikolog':'Psikolog' }[dr.specialty] || 'İşletme';
         document.title = `${sektorAdi} Paneli — ${dr.profile?.full_name || 'KIVON'}`;
         document.getElementById('pageTitle').textContent = `${sektorAdi} Paneli`;
         document.getElementById('pageSubtitle').textContent = dr.profile?.full_name || '';
@@ -1146,7 +1146,7 @@
         if (currentClinicId) {
           const { data: doctors } = await supabase
             .from('doctors')
-            .select('id, specialty, profile:profiles(full_name, phone, email)')
+            .select('id, specialty, profile:profiles(full_name, phone)')
             .eq('clinic_id', currentClinicId);
           clinicDoctors = doctors || [];
           populateDoctorFilters();
@@ -1178,7 +1178,7 @@
       try {
         const { data: doctors } = await supabase
           .from('doctors')
-          .select('id, specialty, gender, working_hours, profile:profiles(full_name, phone)')
+          .select('id, specialty, working_hours, profile:profiles(full_name, phone)')
           .eq('clinic_id', currentClinicId);
         if (!doctors?.length) {
           container.innerHTML = `<div class="empty-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3 data-i18n="noDoctors">Henüz doktor eklenmemiş</h3></div>`;
@@ -1223,7 +1223,7 @@
         if (doc) {
           document.getElementById('doctorName').value = doc.profile?.full_name || '';
           document.getElementById('doctorPhone').value = doc.profile?.phone || '';
-          document.getElementById('doctorEmail').value = doc.profile?.email || '';
+          document.getElementById('doctorEmail').value = '';
           document.getElementById('doctorSpecialty').value = doc.specialty || '';
           document.getElementById('doctorWorkingHours').value = doc.working_hours || '';
         }
@@ -1537,7 +1537,7 @@
         const parts = name.split(/\s+/);
         const workingHours = ['mon','tue','wed','thu','fri','sat','sun'].map(d => document.getElementById('hour'+d.charAt(0).toUpperCase()+d.slice(1))?.value || '').join('|');
         const { error: profileErr } = await supabase.from('profiles').update({
-          full_name: name, phone: document.getElementById('settingsPhone').value.trim(), email: document.getElementById('settingsEmail').value.trim()
+          full_name: name, phone: document.getElementById('settingsPhone').value.trim()
         }).eq('id', session.user.id);
         if (profileErr) throw profileErr;
         const { error: doctorErr } = await supabase.from('doctors').update({
