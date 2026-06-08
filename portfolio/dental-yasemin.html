@@ -15,7 +15,7 @@ body{font-family:'Inter',sans-serif;background:var(--white);color:var(--dark);ov
 .wa svg{width:26px;height:26px;fill:#fff}
 .sticky-top{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--white);border-bottom:1px solid rgba(107,143,122,.12);padding:10px 5%;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .sticky-top .st-logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--sage);font-style:italic;font-weight:400}
-.st-logo-svg{width:80px;height:28px;flex-shrink:0}
+.st-logo-svg{width:160px;height:32px;flex-shrink:0}
 .sticky-top .st-right{display:flex;align-items:center;gap:14px}
 .sticky-top .st-right a{font-size:.75rem;font-weight:500;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:5px}
 .sticky-top .st-right svg{width:14px;height:14px;fill:var(--sage)}
@@ -24,8 +24,8 @@ body{font-family:'Inter',sans-serif;background:var(--white);color:var(--dark);ov
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:saturate(.65)}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(120deg,rgba(20,26,23,.9) 0%,rgba(26,46,34,.55) 50%,rgba(20,26,23,.7) 100%)}
-.hero-mono{width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem;position:relative;z-index:2}
-.hero-mono-svg{width:75px;height:75px}
+.hero-mono{width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;margin-bottom:2rem;position:relative;z-index:2}
+.hero-mono-svg{width:120px;height:120px}
 .hero-mono .hm-text{font-family:'DM Serif Display',serif;font-size:2.6rem;color:var(--cream);font-style:italic;margin-top:2px;letter-spacing:2px}
 .hero .hero-title{font-size:.78rem;color:var(--sage-l);font-weight:500;letter-spacing:4px;text-transform:uppercase;margin-bottom:.8rem;position:relative;z-index:2}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);color:var(--white);font-weight:400;margin-bottom:.6rem;position:relative;z-index:2}
@@ -92,7 +92,7 @@ footer{background:var(--dark);color:#7a827a;padding:40px 5%;text-align:center;fo
 footer a{color:#7a827a;text-decoration:none}
 footer a:hover{color:var(--sage-l)}
 footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--sage-l);margin-bottom:6px;font-style:italic;display:flex;align-items:center;justify-content:center;gap:8px}
-.f-logo-svg{width:70px;height:24px;fill:var(--sage-l);opacity:.7}
+.f-logo-svg{width:140px;height:28px;fill:var(--sage-l);opacity:.7}
 .footer-row{display:flex;justify-content:center;gap:20px;margin:12px 0;font-size:.8rem;flex-wrap:wrap}
 .footer-row a{color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px}
 .footer-row svg{width:13px;height:13px;fill:currentColor}
@@ -107,9 +107,8 @@ footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s
   .nums-inner{grid-template-columns:1fr;gap:24px}
   .section,.section-sm{padding:50px 5%}
   .hero{padding:80px 5% 50px;min-height:auto}
-  .hero-mono{width:100px;height:100px}
-  .hero-mono span{font-size:2.2rem}
-  .hero-mono .jasmine{font-size:1.1rem}
+  .hero-mono{width:130px;height:130px}
+  .hero-mono-svg{width:85px;height:85px}
 }
 @media(max-width:480px){
   .hero h1{font-size:1.8rem}
@@ -127,16 +126,15 @@ footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s
 
 <div class="sticky-top">
   <a href="#" class="st-logo">
-    <svg class="st-logo-svg" viewBox="0 0 80 28" fill="none">
-      <path d="M4 14 C2 10, 2 6, 5 4 C8 6, 8 10, 6 14 C8 10, 8 6, 5 4" stroke="var(--sage)" stroke-width=".9" opacity=".6" transform="translate(0,0)"/>
-      <path d="M4 14 C2 10, 2 6, 5 4 C8 6, 8 10, 6 14" stroke="var(--sage)" stroke-width=".9" opacity=".6" transform="translate(0,0) rotate(72 5 14)"/>
-      <path d="M4 14 C2 10, 2 6, 5 4 C8 6, 8 10, 6 14" stroke="var(--sage)" stroke-width=".9" opacity=".6" transform="translate(0,0) rotate(144 5 14)"/>
-      <path d="M4 14 C2 10, 2 6, 5 4 C8 6, 8 10, 6 14" stroke="var(--sage)" stroke-width=".9" opacity=".6" transform="translate(0,0) rotate(216 5 14)"/>
-      <path d="M4 14 C2 10, 2 6, 5 4 C8 6, 8 10, 6 14" stroke="var(--sage)" stroke-width=".9" opacity=".6" transform="translate(0,0) rotate(288 5 14)"/>
-      <circle cx="5" cy="14" r="1.8" fill="var(--sage)" opacity=".3"/>
-      <text x="16" y="12" font-family="DM Serif Display, serif" font-size="7.5" font-style="italic" fill="var(--sage)" font-weight="600">Yasemin</text>
-      <text x="16" y="20" font-family="DM Serif Display, serif" font-size="5.5" font-style="italic" fill="var(--sage)" opacity=".7">Beyiz Uz</text>
-      <text x="54" y="15" font-family="Inter, sans-serif" font-size="3.2" fill="var(--muted)" font-weight="500" letter-spacing="1">DT</text>
+    <svg class="st-logo-svg" viewBox="0 0 160 32" fill="none">
+      <path d="M6 16 C3 11, 3 6, 7 4 C11 6, 11 11, 9 16" stroke="var(--sage)" stroke-width="1.1" opacity=".5" transform="rotate(0 7 16)"/>
+      <path d="M6 16 C3 11, 3 6, 7 4 C11 6, 11 11, 9 16" stroke="var(--sage)" stroke-width="1.1" opacity=".5" transform="rotate(72 7 16)"/>
+      <path d="M6 16 C3 11, 3 6, 7 4 C11 6, 11 11, 9 16" stroke="var(--sage)" stroke-width="1.1" opacity=".5" transform="rotate(144 7 16)"/>
+      <path d="M6 16 C3 11, 3 6, 7 4 C11 6, 11 11, 9 16" stroke="var(--sage)" stroke-width="1.1" opacity=".5" transform="rotate(216 7 16)"/>
+      <path d="M6 16 C3 11, 3 6, 7 4 C11 6, 11 11, 9 16" stroke="var(--sage)" stroke-width="1.1" opacity=".5" transform="rotate(288 7 16)"/>
+      <circle cx="7" cy="16" r="2.5" fill="var(--sage)" opacity=".2"/>
+      <text x="22" y="14" font-family="DM Serif Display, serif" font-size="12" font-style="italic" fill="var(--dark)" font-weight="600">Yasemin Beyiz Uz</text>
+      <text x="22" y="26" font-family="Inter, sans-serif" font-size="6.5" fill="var(--muted)" font-weight="500" letter-spacing="2.5" text-transform="uppercase">Dt. Diş Hekimi</text>
     </svg>
   </a>
   <div class="st-right">
@@ -150,16 +148,16 @@ footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s
   <img src="img/yasemin-hero.jpg" alt="" class="hero-bg" loading="eager">
   <div class="hero-overlay"></div>
   <div class="hero-mono">
-    <svg class="hero-mono-svg" viewBox="0 0 60 60" fill="none">
-      <circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width=".3" opacity=".12"/>
-      <path d="M30 30 C24 24, 23 16, 30 12 C37 16, 36 24, 30 30" stroke="currentColor" stroke-width=".7" opacity=".5" transform="rotate(0 30 30)"/>
-      <path d="M30 30 C24 24, 23 16, 30 12 C37 16, 36 24, 30 30" stroke="currentColor" stroke-width=".7" opacity=".5" transform="rotate(72 30 30)"/>
-      <path d="M30 30 C24 24, 23 16, 30 12 C37 16, 36 24, 30 30" stroke="currentColor" stroke-width=".7" opacity=".5" transform="rotate(144 30 30)"/>
-      <path d="M30 30 C24 24, 23 16, 30 12 C37 16, 36 24, 30 30" stroke="currentColor" stroke-width=".7" opacity=".5" transform="rotate(216 30 30)"/>
-      <path d="M30 30 C24 24, 23 16, 30 12 C37 16, 36 24, 30 30" stroke="currentColor" stroke-width=".7" opacity=".5" transform="rotate(288 30 30)"/>
-      <circle cx="30" cy="30" r="8" stroke="currentColor" stroke-width=".3" opacity=".15"/>
-      <circle cx="30" cy="30" r="3" fill="currentColor" opacity=".15"/>
-      <text x="30" y="34" font-family="DM Serif Display, serif" font-size="13" font-style="italic" fill="currentColor" text-anchor="middle" opacity=".8" font-weight="400">yb</text>
+    <svg class="hero-mono-svg" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width=".4" opacity=".1"/>
+      <path d="M50 50 C40 40, 38 26, 50 18 C62 26, 60 40, 50 50" stroke="currentColor" stroke-width="1" opacity=".45" transform="rotate(0 50 50)"/>
+      <path d="M50 50 C40 40, 38 26, 50 18 C62 26, 60 40, 50 50" stroke="currentColor" stroke-width="1" opacity=".45" transform="rotate(72 50 50)"/>
+      <path d="M50 50 C40 40, 38 26, 50 18 C62 26, 60 40, 50 50" stroke="currentColor" stroke-width="1" opacity=".45" transform="rotate(144 50 50)"/>
+      <path d="M50 50 C40 40, 38 26, 50 18 C62 26, 60 40, 50 50" stroke="currentColor" stroke-width="1" opacity=".45" transform="rotate(216 50 50)"/>
+      <path d="M50 50 C40 40, 38 26, 50 18 C62 26, 60 40, 50 50" stroke="currentColor" stroke-width="1" opacity=".45" transform="rotate(288 50 50)"/>
+      <circle cx="50" cy="50" r="14" stroke="currentColor" stroke-width=".4" opacity=".12"/>
+      <circle cx="50" cy="50" r="5" fill="currentColor" opacity=".12"/>
+      <text x="50" y="58" font-family="DM Serif Display, serif" font-size="24" font-style="italic" fill="currentColor" text-anchor="middle" opacity=".75" font-weight="400">yb</text>
     </svg>
   </div>
   <div class="hero-title">Dt. Yasemin Beyiz Uz · Diş Hekimi</div>
@@ -262,15 +260,15 @@ footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s
 
 <footer>
   <div class="f-logo">
-    <svg class="f-logo-svg" viewBox="0 0 70 24" fill="currentColor">
-      <path d="M3 12 C1.5 9, 1.5 5.5, 4 4 C6.5 5.5, 6.5 9, 5 12" stroke="currentColor" stroke-width=".7" opacity=".5" fill="none"/>
-      <path d="M3 12 C1.5 9, 1.5 5.5, 4 4 C6.5 5.5, 6.5 9, 5 12" stroke="currentColor" stroke-width=".7" opacity=".5" fill="none" transform="rotate(72 4 12)"/>
-      <path d="M3 12 C1.5 9, 1.5 5.5, 4 4 C6.5 5.5, 6.5 9, 5 12" stroke="currentColor" stroke-width=".7" opacity=".5" fill="none" transform="rotate(144 4 12)"/>
-      <path d="M3 12 C1.5 9, 1.5 5.5, 4 4 C6.5 5.5, 6.5 9, 5 12" stroke="currentColor" stroke-width=".7" opacity=".5" fill="none" transform="rotate(216 4 12)"/>
-      <path d="M3 12 C1.5 9, 1.5 5.5, 4 4 C6.5 5.5, 6.5 9, 5 12" stroke="currentColor" stroke-width=".7" opacity=".5" fill="none" transform="rotate(288 4 12)"/>
-      <circle cx="4" cy="12" r="1.2" opacity=".3"/>
-      <text x="13" y="12" font-family="DM Serif Display, serif" font-size="6.5" font-style="italic" font-weight="600" opacity=".8">Yasemin Beyiz Uz</text>
-      <text x="13" y="19" font-family="Inter, sans-serif" font-size="3" opacity=".4" letter-spacing="1.5">DİŞ HEKİMİ · BURSA</text>
+    <svg class="f-logo-svg" viewBox="0 0 140 28" fill="currentColor">
+      <path d="M5 14 C3 10, 3 6, 6 4 C9 6, 9 10, 7 14" stroke="currentColor" stroke-width=".8" opacity=".5" fill="none"/>
+      <path d="M5 14 C3 10, 3 6, 6 4 C9 6, 9 10, 7 14" stroke="currentColor" stroke-width=".8" opacity=".5" fill="none" transform="rotate(72 6 14)"/>
+      <path d="M5 14 C3 10, 3 6, 6 4 C9 6, 9 10, 7 14" stroke="currentColor" stroke-width=".8" opacity=".5" fill="none" transform="rotate(144 6 14)"/>
+      <path d="M5 14 C3 10, 3 6, 6 4 C9 6, 9 10, 7 14" stroke="currentColor" stroke-width=".8" opacity=".5" fill="none" transform="rotate(216 6 14)"/>
+      <path d="M5 14 C3 10, 3 6, 6 4 C9 6, 9 10, 7 14" stroke="currentColor" stroke-width=".8" opacity=".5" fill="none" transform="rotate(288 6 14)"/>
+      <circle cx="6" cy="14" r="1.5" opacity=".25"/>
+      <text x="18" y="14" font-family="DM Serif Display, serif" font-size="11" font-style="italic" font-weight="600" opacity=".8">Yasemin Beyiz Uz</text>
+      <text x="18" y="23" font-family="Inter, sans-serif" font-size="5" opacity=".35" letter-spacing="2">DİŞ HEKİMİ · BURSA</text>
     </svg>
     Yasemin Beyiz Uz
   </div>
