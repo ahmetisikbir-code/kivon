@@ -20,7 +20,16 @@
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
 .progress-bar{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:200;transition:width .1s}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(184,134,11,0.08)}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:101;background:var(--dark);color:rgba(255,255,255,.6);padding:7px 5%;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;font-weight:400;height:34px;letter-spacing:.3px}
+.top-bar a{color:rgba(255,255,255,.6);text-decoration:none;transition:color .3s}
+.top-bar a:hover{color:var(--gold)}
+.top-bar .tb-left{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--gold)}
+.top-bar .tb-left svg{width:14px;height:14px;fill:var(--gold)}
+.top-bar .tb-right{display:flex;align-items:center;gap:14px}
+.top-bar .tb-right svg{width:13px;height:13px;fill:rgba(255,255,255,.5);vertical-align:middle;margin-right:3px}
+.top-bar .tb-right span{display:inline-flex;align-items:center}
+@media(max-width:768px){.top-bar{font-size:.62rem;padding:5px 5%;height:28px}.top-bar .tb-right{gap:8px}.top-bar .tb-left{font-size:.62rem}}
+.nav{position:fixed;top:34px;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(184,134,11,0.08)}
 .nav.scrolled{height:60px;box-shadow:0 1px 20px rgba(26,20,16,0.06)}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);text-decoration:none;letter-spacing:.5px}
 .logo span{color:var(--text);font-weight:400}
@@ -34,24 +43,27 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 .btn-nav::after{display:none!important}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px;transition:var(--tr)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fdfcf9 0%,#f5f0ea 30%,#fff 60%,#faf6f0 100%)}
-.hero::before{content:'';position:absolute;top:-50%;right:-10%;width:800px;height:800px;background:radial-gradient(circle,rgba(184,134,11,0.04),transparent 70%);border-radius:50%}
-.hero-content{max-width:540px;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem 1rem;background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.12);color:var(--gold);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;line-height:1.08;margin-bottom:1.2rem;color:var(--text)}
-.hero h1 span{color:var(--gold);font-style:italic}
-.hero p{font-size:1rem;color:var(--muted);margin-bottom:2rem;max-width:440px;font-weight:400;line-height:1.7}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,20,16,.75) 0%,rgba(26,20,16,.35) 50%,rgba(26,20,16,.55) 100%)}
+.hero-content{max-width:600px;z-index:2;padding:0 5%}
+.hero.centered .hero-content{text-align:center;max-width:720px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem 1rem;background:rgba(184,134,11,.2);border:1px solid rgba(184,134,11,.3);color:var(--gold-light);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;line-height:1.08;margin-bottom:1.2rem;color:#fff}
+.hero h1 span{color:var(--gold-light);font-style:italic}
+.hero p{font-size:1rem;color:rgba(255,255,255,.65);margin-bottom:2rem;max-width:480px;font-weight:400;line-height:1.7}
+.hero.centered .hero p{margin:0 auto 2rem}
 .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.hero.centered .hero-buttons{justify-content:center}
 .btn,.btn-outline{font-weight:600;font-size:.85rem;padding:.9rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
 .btn{background:var(--gold);color:#fff;border:none}
 .btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(184,134,11,.3)}
-.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
-.btn-outline:hover{background:var(--text);color:#fff;border-color:var(--text)}
-.hero-image{position:absolute;right:5%;bottom:0;width:44%;max-width:560px;z-index:1;border-radius:24px 24px 0 0;overflow:hidden;box-shadow:-20px 0 60px rgba(26,20,16,.08)}
-.hero-image img{width:100%;height:auto;display:block}
-.hero-meta{display:flex;gap:24px;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
-.hero-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--muted);font-weight:500}
-.hero-meta-item svg{width:18px;height:18px;fill:var(--gold);flex-shrink:0}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.btn-outline:hover{background:#fff;color:var(--text);border-color:#fff}
+.hero-meta{display:flex;gap:24px;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1)}
+.hero.centered .hero-meta{justify-content:center}
+.hero-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.55);font-weight:500}
+.hero-meta-item svg{width:18px;height:18px;fill:var(--gold-light);flex-shrink:0}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:24px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
 .stat-item{text-align:center;padding:8px 0}
 .stat-number{font-size:2rem;font-weight:700;color:var(--gold);line-height:1;font-family:'Cormorant Garamond',serif}
@@ -167,12 +179,8 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 .reveal-d6{transition-delay:.5s}
 @media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}.gallery-item:first-child{grid-column:auto;grid-row:auto}}
 @media(max-width:968px){
-  .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
-  .hero-content{max-width:100%}
-  .hero p{margin:0 auto 2rem;max-width:100%}
-  .hero-buttons{justify-content:center}
-  .hero-meta{justify-content:center;flex-wrap:wrap}
-  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
+  .hero{padding-top:72px;min-height:auto}
+  .hero.centered .hero-content{padding:100px 5% 80px}
   .about-inner{grid-template-columns:1fr;gap:32px}
   .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
   .stats{margin-top:0;padding:20px;grid-template-columns:repeat(2,1fr)}
@@ -190,9 +198,10 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 }
 @media(max-width:480px){
   .hero h1{font-size:2rem}
+  .hero p{font-size:.9rem}
   .stat-number{font-size:1.6rem}
   .cta-box{padding:40px 24px}
-  .hero-meta{flex-direction:column;gap:12px}
+  .hero-meta{flex-direction:column;gap:12px;align-items:center}
 }
 </style>
 <link rel='icon' type='image/png' href='../img/logo-icon.png'>
@@ -205,6 +214,18 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 <body>
 
 <div class="progress-bar" id="progressBar"></div>
+
+<div class="top-bar">
+  <div class="tb-left">
+    <svg viewBox="0 0 24 24"><path d="M19 14v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3m14-2l-9-9-9 9"/></svg>
+    Dt. Pelin Babaemin
+  </div>
+  <div class="tb-right">
+    <span><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 0850 333 0388</span>
+    <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Altınşehir, Nilüfer</span>
+    <a href="https://www.instagram.com/dt.pelinbabaemin/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> @dt.pelinbabaemin</a>
+  </div>
+</div>
 
 <nav class="nav" id="nav">
   <a href="#" class="logo">Pelin <span>Babaemin</span></a>
@@ -220,7 +241,9 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   </button>
 </nav>
 
-<section class="hero">
+<section class="hero centered">
+  <img src="img/hero-clinic.jpg" alt="Babaemin Diş Kliniği" class="hero-bg" loading="eager">
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <span class="hero-badge">Ege Üniversitesi 2014</span>
     <h1>Doğal Gülüşler,<br><span>Özenli Tedaviler</span></h1>
@@ -234,9 +257,6 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
       <span class="hero-meta-item"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>0850 333 0388</span>
     </div>
   </div>
-  <div class="hero-image">
-    <img src="img/doctor-1.jpg" alt="Dt. Pelin Babaemin" loading="eager">
-  </div>
 </section>
 
 <div class="stats">
@@ -249,13 +269,13 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-image reveal">
-      <img src="img/about-treatment.jpg" alt="Dt. Pelin Babaemin" loading="lazy">
+      <img src="img/doctor-1.jpg" alt="Dt. Pelin Babaemin" loading="lazy">
     </div>
     <div class="about-text reveal">
       <span class="section-tag">Hakkımda</span>
       <h3>Dt. Pelin <em>Babaemin</em></h3>
       <div class="badge">Ege Üniversitesi Diş Hekimliği Fakültesi · 2014</div>
-      <p>1991 İzmir doğumluyum. Ege Üniversitesi Diş Hekimliği Fakültesi'nden 2014 yılında mezun oldum. Eşim Dt. Osman Babaemin ile birlikte Bursa Altınşehir'deki kliniğimizde hizmet vermekteyim. Duru adında bir kız çocuk annesiyim. Her hastama özel tedavi planları sunuyor, güncel teknolojileri kullanarak konforlu ve başarılı sonuçlar elde ediyorum.</p>
+      <p>1991 İzmir doğumluyum. Ege Üniversitesi Diş Hekimliği Fakültesi'nden 2014 yılında mezun oldum. Bursa Altınşehir'deki kliniğimde estetik diş hekimliği, kompozit veneer, bonding, dijital gülüş tasarımı ve pedodonti alanlarında hizmet vermekteyim. Her hastama özel tedavi planları sunuyor, güncel teknolojileri kullanarak konforlu ve başarılı sonuçlar elde ediyorum.</p>
       <div class="about-features">
         <div class="about-feat">Estetik Diş Hekimliği</div>
         <div class="about-feat">Kompozit Veneer</div>
@@ -276,7 +296,7 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   </div>
   <div class="treatment-grid">
     <div class="treatment-card reveal reveal-d1">
-      <div class="treatment-img-wrap"><img src="img/treatment-esthetic.jpg" alt="Kompozit Veneer" loading="lazy"></div>
+      <div class="treatment-img-wrap"><img src="img/clinic-2.jpg" alt="Kompozit Veneer" loading="lazy"></div>
       <div class="treatment-body">
         <h3>Kompozit Veneer</h3>
         <p>Dişlerinize doğal görünümlü estetik dokunuşlar ile gülüşünüzü yenileyin. Tek seansta uygulama.</p>
@@ -365,12 +385,11 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 
 <section class="team">
   <div class="section-header reveal">
-    <span class="section-tag">Klinik Kadromuz</span>
-    <h2>Ekibimizle <em>Tanışın</em></h2>
+    <span class="section-tag">Uzman Hekim</span>
+    <h2>Dt. Pelin <em>Babaemin</em></h2>
   </div>
   <div class="team-grid">
     <div class="team-card reveal"><img src="img/doctor-1.jpg" alt="Dt. Pelin" class="tc-img" loading="lazy"><div class="team-body"><h4>Dt. Pelin Babaemin</h4><div class="title">Diş Hekimi</div><p>Ege Üniversitesi 2014 mezunu. Estetik diş hekimliği ve pedodonti alanında uzman.</p></div></div>
-    <div class="team-card reveal"><img src="img/osman-profile.jpg" alt="Dt. Osman" class="tc-img" loading="lazy"><div class="team-body"><h4>Dt. Osman Babaemin</h4><div class="title">Diş Hekimi</div><p>Ege Üniversitesi 2012 mezunu. İmplant ve dijital gülüş tasarımı uzmanı.</p></div></div>
     <div class="team-card reveal"><img src="img/doctor-3.jpg" alt="Modern Klinik" class="tc-img" loading="lazy"><div class="team-body"><h4>Modern Klinik</h4><div class="title">Dijital Altyapı</div><p>3D tomografi, dijital ölçü ve gülüş tasarımı teknolojileri ile donanımlı.</p></div></div>
     <div class="team-card reveal"><img src="img/doctor-4.jpg" alt="Konforlu Ortam" class="tc-img" loading="lazy"><div class="team-body"><h4>Konforlu Ortam</h4><div class="title">Hasta Deneyimi</div><p>Ferahlatıcı ve hijyenik ortamda, ağrısız tedavi deneyimi.</p></div></div>
   </div>
@@ -380,7 +399,7 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   <div class="features-inner">
     <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-team.jpg" alt="Ege Üniversitesi"></div><h4>Ege Üniversitesi Mezunu</h4><p>2014 yılında Ege Üniversitesi Diş Hekimliği Fakültesi'nden mezun oldum.</p></div>
     <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div><h4>Dijital Teknoloji</h4><p>3D tomografi, dijital gülüş tasarımı ile hassas ve konforlu tedavi.</p></div>
-    <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Aile Ortamı"></div><h4>Aile Ortamı</h4><p>Eşimle birlikte hizmet verdiğimiz kliniğimizde sıcak ve güvenilir ortam.</p></div>
+    <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Hasta Konforu"></div><h4>Hasta Konforu</h4><p>Modern ekipmanlar ve hijyenik ortamda, ağrısız ve konforlu tedavi deneyimi.</p></div>
   </div>
 </section>
 
@@ -412,7 +431,7 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-about"><a href="#" class="logo">Pelin <span>Babaemin</span></a><p>Bursa Altınşehir'de eşim Dt. Osman Babaemin ile birlikte hizmet verdiğimiz kliniğimizde, estetik diş hekimliği, kompozit veneer, pedodonti ve genel diş tedavilerinde yanınızdayız.</p></div>
+    <div class="footer-about"><a href="#" class="logo">Pelin <span>Babaemin</span></a><p>Bursa Altınşehir'de hizmet veren kliniğimizde estetik diş hekimliği, kompozit veneer, bonding, dijital gülüş tasarımı, pedodonti ve genel diş tedavilerinde yanınızdayım.</p></div>
     <div class="footer-col"><h5>Hızlı Linkler</h5><a href="#about">Hakkımda</a><a href="#treatments">Tedaviler</a><a href="#gallery">Galeri</a><a href="#contact">İletişim</a></div>
     <div class="footer-col"><h5>Tedaviler</h5><a href="#">Estetik Diş</a><a href="#">İmplant</a><a href="#">Ortodonti</a><a href="#">Kanal Tedavisi</a><a href="#">Pedodonti</a></div>
     <div class="footer-col"><h5>İletişim</h5><a href="tel:+908503330388">0850 333 0388</a><a href="https://wa.me/905303982712">WhatsApp</a><a href="https://www.instagram.com/dt.pelinbabaemin/" target="_blank">Instagram</a><a href="#">Altınşehir, Nilüfer / Bursa</a></div>
