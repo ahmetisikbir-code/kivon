@@ -10,7 +10,8 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
-svg.icon{width:26px;height:26px;fill:none;stroke:var(--teal);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
 /* NAV */
@@ -219,7 +220,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     </div>
   </div>
   <div class="hero-image">
-    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200" alt="DentaCare Kliniği" loading="eager">
+    <img src="img/hero-clinic.jpg" alt="DentaCare Kliniği" loading="eager">
   </div>
   <div class="hero-floating hero-float-1">
     <span class="hero-float-dot"></span>
@@ -241,7 +242,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-image reveal">
-      <img src="https://images.unsplash.com/photo-1631987538667-12556c0bb740?w=800" alt="Klinik" loading="lazy">
+      <img src="img/about-treatment.jpg" alt="Klinik" loading="lazy">
     </div>
     <div class="about-text reveal">
       <span class="section-tag">Hakkımızda</span>
@@ -267,32 +268,32 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
   <div class="treatment-grid">
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-esthetic.jpg" alt="Estetik Diş Hekimliği"></div>
       <h3>Estetik Diş Hekimliği</h3>
       <p>Lamine veneer, zirkonyum kron, dijital gülüş tasarımı ve beyazlatma ile hayalinizdeki gülüşe kavuşun.</p>
     </div>
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3c-4 0-6 3-6 7 0 4 2 7 6 7s6-3 6-7c0-4-2-7-6-7z"/><line x1="12" y1="10" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-implant.jpg" alt="İmplant Tedavisi"></div>
       <h3>İmplant Tedavisi</h3>
       <p>Tek dişten tam ağız rekonstrüksiyonuna, All-on-4/6 ve zigomatik implant uygulamaları.</p>
     </div>
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M8 4h8"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M6 4v2"/><path d="M18 4v2"/><path d="M6 8v2"/><path d="M18 8v2"/><path d="M6 12v2"/><path d="M18 12v2"/><path d="M9 14v4"/><path d="M15 14v4"/><path d="M9 18c-2 0-4 0-4-2"/><path d="M15 18c2 0 4 0 4-2"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-ortho.jpg" alt="Ortodonti"></div>
       <h3>Ortodonti</h3>
       <p>Şeffaf plak (Invisalign) ve metal/şeffaf braketlerle diş düzeltme tedavileri.</p>
     </div>
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 4c-4 0-6 3-6 7 0 4 2 7 6 7s6-3 6-7c0-4-2-7-6-7z"/><path d="M9 9c0-1 1-2 3-2s3 1 3 2"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-general.jpg" alt="Genel Diş Hekimliği"></div>
       <h3>Genel Diş Hekimliği</h3>
       <p>Dolgu, kanal tedavisi, diş taşı temizliği ve periyodik kontroller.</p>
     </div>
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 4c-4 0-6 3-6 7 0 4 2 7 6 7s6-3 6-7c0-4-2-7-6-7z"/><path d="M12 11v6"/><path d="M9 14h6"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-root.jpg" alt="Kanal Tedavisi"></div>
       <h3>Kanal Tedavisi</h3>
       <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun.</p>
     </div>
     <div class="treatment-card reveal">
-      <div class="treatment-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3c-3 0-5 2-5 5 0 3 2 5 5 5s5-2 5-5c0-3-2-5-5-5z"/><path d="M10 9c-2 0-4 1.5-5 3.5"/><path d="M5 12.5c-1 2-1 4 1 5.5s4 1.5 6 .5"/><path d="M2 15c0 2 1 4 3 5"/></svg></div>
+      <div class="treatment-icon"><img src="img/treatment-pedo.jpg" alt="Pedodonti"></div>
       <h3>Pedodonti</h3>
       <p>Çocuk diş hekimliği, koruyucu uygulamalar ve eğlenceli tedavi deneyimi.</p>
     </div>
@@ -338,36 +339,36 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="ba-grid">
     <div class="ba-card reveal">
       <div class="ba-images">
-        <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500" alt="Tedavi öncesi" class="ba-img">
+        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img">
         <span class="ba-label before">ÖNCE</span>
-        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
     </div>
     <div class="ba-card reveal">
       <div class="ba-images">
-        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500" alt="Tedavi öncesi" class="ba-img">
+        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img">
         <span class="ba-label before">ÖNCE</span>
-        <img src="https://images.unsplash.com/photo-1600077106724-1974019013dc?w=500" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
     </div>
     <div class="ba-card reveal">
       <div class="ba-images">
-        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500" alt="Tedavi öncesi" class="ba-img">
+        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img">
         <span class="ba-label before">ÖNCE</span>
-        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=500" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img">
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Holivud Gülüş</h4><span>Full ağız restorasyonu</span></div>
     </div>
     <div class="ba-card reveal">
       <div class="ba-images">
-        <img src="https://images.unsplash.com/photo-1628258334105-2a0b3d6efee1?w=500" alt="Tedavi öncesi" class="ba-img">
+        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img">
         <span class="ba-label before">ÖNCE</span>
-        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img">
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>İmplant Uygulaması</h4><span>All-on-6 implant destekli protez</span></div>
@@ -383,7 +384,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400" alt="Dr. Ayşe Kaya" loading="lazy">
+      <img src="img/doctor-1.jpg" alt="Dr. Ayşe Kaya" loading="lazy">
       <div class="team-body">
         <h4>Dr. Ayşe Kaya</h4>
         <div class="title">Estetik Diş Hekimi</div>
@@ -391,7 +392,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       </div>
     </div>
     <div class="team-card reveal">
-      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400" alt="Dr. Mehmet Demir" loading="lazy">
+      <img src="img/doctor-2.jpg" alt="Dr. Mehmet Demir" loading="lazy">
       <div class="team-body">
         <h4>Dr. Mehmet Demir</h4>
         <div class="title">İmplant Cerrahı</div>
@@ -399,7 +400,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       </div>
     </div>
     <div class="team-card reveal">
-      <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400" alt="Dt. Zeynep Yılmaz" loading="lazy">
+      <img src="img/doctor-3.jpg" alt="Dt. Zeynep Yılmaz" loading="lazy">
       <div class="team-body">
         <h4>Dt. Zeynep Yılmaz</h4>
         <div class="title">Ortodonti Uzmanı</div>
@@ -407,7 +408,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       </div>
     </div>
     <div class="team-card reveal">
-      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400" alt="Dr. Can Öztürk" loading="lazy">
+      <img src="img/doctor-4.jpg" alt="Dr. Can Öztürk" loading="lazy">
       <div class="team-body">
         <h4>Dr. Can Öztürk</h4>
         <div class="title">Çene Cerrahı</div>
@@ -420,17 +421,17 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="features">
   <div class="features-inner">
     <div class="feature-item reveal">
-      <div class="fi-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="fi-icon"><img src="img/feature-team.jpg" alt="Uzman Kadro"></div>
       <h4>Uzman Kadro</h4>
       <p>Alanında deneyimli 8 hekim ile kişiye özel tedavi planlaması.</p>
     </div>
     <div class="feature-item reveal">
-      <div class="fi-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div>
       <h4>Dijital Teknoloji</h4>
       <p>3D tomografi, CAD/CAM, dijital gülüş tasarımı ile hassas tedavi.</p>
     </div>
     <div class="feature-item reveal">
-      <div class="fi-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi"></div>
       <h4>Konfor Garantisi</h4>
       <p>Sedasyonlu tedavi, ağrısız müdahale ve sıcak ortam garantisi.</p>
     </div>
