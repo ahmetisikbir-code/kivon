@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#b8860b;--gold-light:#daa520;--gold-dark:#8b6914;--cream:#faf6f0;--dark:#1a1410;--dark2:#2a221c;--white:#fff;--bg:#fdfcf9;--bgs:#f5f0ea;--border:#e8e0d6;--text:#1a1410;--muted:#7a7068;--light:#a09890;--radius:16px;--shadow:0 4px 24px rgba(26,20,16,0.05);--shadow-lg:0 24px 80px -16px rgba(26,20,16,0.12);--tr:0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+:root{--gold:#c48b7a;--gold-light:#dbb5a8;--gold-dark:#8b5a4a;--cream:#fdf8f6;--dark:#1a1410;--dark2:#2a221c;--white:#fff;--bg:#fdf8f6;--bgs:#f5f0ea;--border:#e8e0d6;--text:#1a1410;--muted:#7a7068;--light:#a09890;--radius:16px;--shadow:0 4px 24px rgba(26,20,16,0.05);--shadow-lg:0 24px 80px -16px rgba(26,20,16,0.12);--tr:0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s}
 .wa-float:hover{transform:scale(1.1)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
-.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(184,134,11,0.25)}
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(196,139,122,0.25)}
 .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .scroll-top:hover{background:var(--gold-dark)}
 .scroll-top svg{width:20px;height:20px;fill:#fff}
@@ -29,7 +29,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 .top-bar .tb-right svg{width:13px;height:13px;fill:rgba(255,255,255,.5);vertical-align:middle;margin-right:3px}
 .top-bar .tb-right span{display:inline-flex;align-items:center}
 @media(max-width:768px){.top-bar{font-size:.62rem;padding:5px 5%;height:28px}.top-bar .tb-right{gap:8px}.top-bar .tb-left{font-size:.62rem}}
-.nav{position:fixed;top:34px;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(184,134,11,0.08)}
+.nav{position:fixed;top:34px;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(196,139,122,0.08)}
 .nav.scrolled{height:60px;box-shadow:0 1px 20px rgba(26,20,16,0.06)}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);text-decoration:none;letter-spacing:.5px}
 .logo span{color:var(--text);font-weight:400}
@@ -39,7 +39,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 .nav-links a:hover::after{width:100%}
 .nav-links a:hover{color:var(--gold)}
 .btn-nav{padding:.5rem 1.5rem;background:var(--gold);color:#fff!important;border-radius:100px;font-weight:600!important;font-size:.78rem!important;text-transform:none!important;transition:transform var(--tr),box-shadow var(--tr)!important}
-.btn-nav:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(184,134,11,.25)}
+.btn-nav:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(196,139,122,.25)}
 .btn-nav::after{display:none!important}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px;transition:var(--tr)}
@@ -48,7 +48,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,20,16,.75) 0%,rgba(26,20,16,.35) 50%,rgba(26,20,16,.55) 100%)}
 .hero-content{max-width:600px;z-index:2;padding:0 5%}
 .hero.centered .hero-content{text-align:center;max-width:720px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem 1rem;background:rgba(184,134,11,.2);border:1px solid rgba(184,134,11,.3);color:var(--gold-light);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem 1rem;background:rgba(196,139,122,.2);border:1px solid rgba(196,139,122,.3);color:var(--gold-light);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;line-height:1.08;margin-bottom:1.2rem;color:#fff}
 .hero h1 span{color:var(--gold-light);font-style:italic}
 .hero p{font-size:1rem;color:rgba(255,255,255,.65);margin-bottom:2rem;max-width:480px;font-weight:400;line-height:1.7}
@@ -57,7 +57,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 .hero.centered .hero-buttons{justify-content:center}
 .btn,.btn-outline{font-weight:600;font-size:.85rem;padding:.9rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
 .btn{background:var(--gold);color:#fff;border:none}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(184,134,11,.3)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(196,139,122,.3)}
 .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
 .btn-outline:hover{background:#fff;color:var(--text);border-color:#fff}
 .hero-meta{display:flex;gap:24px;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1)}
@@ -81,11 +81,11 @@ section{padding:100px 5%}
 .about-image:hover img{transform:scale(1.03)}
 .about-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;margin-bottom:.5rem}
 .about-text h3 em{color:var(--gold);font-style:italic}
-.about-text .badge{display:inline-flex;align-items:center;gap:6px;padding:.25rem .75rem;background:rgba(184,134,11,.08);border-radius:100px;font-size:.7rem;font-weight:600;color:var(--gold);margin-bottom:1rem}
+.about-text .badge{display:inline-flex;align-items:center;gap:6px;padding:.25rem .75rem;background:rgba(196,139,122,.08);border-radius:100px;font-size:.7rem;font-weight:600;color:var(--gold);margin-bottom:1rem}
 .about-text p{color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;font-weight:400;line-height:1.7}
 .about-features{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .about-feat{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:500;padding:6px 0}
-.about-feat::before{content:'✦';width:24px;height:24px;border-radius:50%;background:rgba(184,134,11,.1);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0}
+.about-feat::before{content:'✦';width:24px;height:24px;border-radius:50%;background:rgba(196,139,122,.1);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0}
 .treatments{background:var(--white)}
 .treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 .treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--tr);cursor:default}
@@ -103,7 +103,7 @@ section{padding:100px 5%}
 .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
 .process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow);transition:var(--tr)}
 .process-step:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1.1rem;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;box-shadow:0 4px 12px rgba(184,134,11,.2)}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1.1rem;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;box-shadow:0 4px 12px rgba(196,139,122,.2)}
 .process-step h4{font-size:.95rem;font-weight:600;margin-bottom:.4rem;font-family:'Cormorant Garamond',serif}
 .process-step p{font-size:.82rem;color:var(--muted);font-weight:400}
 .gallery{background:var(--bgs);padding:100px 5%}
@@ -138,7 +138,7 @@ section{padding:100px 5%}
 .team-body p{font-size:.8rem;color:var(--muted);font-weight:400}
 .features{background:linear-gradient(135deg,var(--dark),var(--dark2));padding:80px 5%;color:var(--cream)}
 .features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1100px;margin:0 auto;text-align:center}
-.feature-item .fi-icon{width:64px;height:64px;border-radius:50%;background:rgba(184,134,11,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;border:1px solid rgba(184,134,11,.15)}
+.feature-item .fi-icon{width:64px;height:64px;border-radius:50%;background:rgba(196,139,122,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;border:1px solid rgba(196,139,122,.15)}
 .feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .feature-item h4{font-size:1rem;font-weight:600;margin-bottom:.5rem;font-family:'Cormorant Garamond',serif;color:var(--gold)}
 .feature-item p{font-size:.85rem;opacity:.65;font-weight:400;line-height:1.6}
@@ -152,7 +152,7 @@ section{padding:100px 5%}
 .testimonial-card .detail{font-size:.72rem;color:var(--light)}
 .cta-section{background:var(--white);text-align:center;padding:80px 5%}
 .cta-box{max-width:680px;margin:0 auto;padding:64px 48px;background:linear-gradient(135deg,#fdfcf9,#f5f0ea);border-radius:24px;position:relative;overflow:hidden}
-.cta-box::before{content:'✦';position:absolute;top:-30px;right:-10px;font-size:10rem;color:rgba(184,134,11,.03);line-height:1}
+.cta-box::before{content:'✦';position:absolute;top:-30px;right:-10px;font-size:10rem;color:rgba(196,139,122,.03);line-height:1}
 .cta-box h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:.75rem}
 .cta-box p{color:var(--muted);margin-bottom:2rem;font-size:.92rem;font-weight:400}
 .cta-box .btn{font-size:.9rem;padding:1rem 2.5rem}
@@ -232,7 +232,6 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Hakkımda</a></li>
     <li><a href="#treatments">Tedaviler</a></li>
-    <li><a href="#gallery">Galeri</a></li>
     <li><a href="#testimonials">Yorumlar</a></li>
     <li><a href="https://www.instagram.com/dt.pelinbabaemin/" class="btn-nav" target="_blank">Instagram</a></li>
   </ul>
@@ -242,11 +241,11 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 </nav>
 
 <section class="hero centered">
-  <img src="img/clinic-2.jpg" alt="Babaemin Diş Kliniği" class="hero-bg" loading="eager">
+  <img src="img/banner-clinic.jpg" alt="Babaemin Diş Kliniği" class="hero-bg" loading="eager">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <span class="hero-badge">Ücretsiz Danışma</span>
-    <h1>Doğal Gülüşler,<br><span>Özenli Tedaviler</span></h1>
+    <h1>Gülüşünüz<br><span>Sanatımız</span></h1>
     <p>Estetik diş hekimliğinde her detayı özenle planlıyor, size özel tedavi yaklaşımıyla doğal ve kalıcı sonuçlar hedefliyorum.</p>
     <div class="hero-buttons">
       <a href="https://wa.me/905303982712" class="btn">WhatsApp'tan Randevu Al</a>
@@ -296,7 +295,7 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   </div>
   <div class="treatment-grid">
     <div class="treatment-card reveal reveal-d1">
-      <div class="treatment-img-wrap"><img src="img/clinic-2.jpg" alt="Kompozit Veneer" loading="lazy"></div>
+      <div class="treatment-img-wrap"><img src="img/treatment-smile.jpg" alt="Kompozit Veneer" loading="lazy"></div>
       <div class="treatment-body">
         <h3>Kompozit Veneer</h3>
         <p>Dişlerinize doğal görünümlü estetik dokunuşlar ile gülüşünüzü yenileyin. Tek seansta uygulama.</p>
@@ -368,20 +367,6 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   </div>
 </section>
 
-<section class="gallery" id="gallery">
-  <div class="section-header reveal">
-    <span class="section-tag">Klinik</span>
-    <h2>Kliniğimizden <em>Kareler</em></h2>
-    <p>Modern ve hijyenik ortamımızı yakından görün.</p>
-  </div>
-  <div class="gallery-grid">
-    <div class="gallery-item reveal"><img src="img/clinic-1.jpg" alt="Klinik" loading="eager"></div>
-    <div class="gallery-item reveal reveal-d2"><img src="img/clinic-3.jpg" alt="Klinik" loading="eager"></div>
-    <div class="gallery-item reveal reveal-d3"><img src="img/about-treatment.jpg" alt="Klinik" loading="eager"></div>
-    <div class="gallery-item reveal reveal-d4"><img src="img/clinic-4.jpg" alt="Klinik" loading="eager"></div>
-    <div class="gallery-item reveal reveal-d5"><img src="img/clinic-5.jpg" alt="Klinik" loading="eager"></div>
-  </div>
-</section>
 
 <section class="team">
   <div class="section-header reveal">
@@ -390,8 +375,6 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
   </div>
   <div class="team-grid">
     <div class="team-card reveal"><img src="img/doctor-1.jpg" alt="Dt. Pelin" class="tc-img" loading="lazy"><div class="team-body"><h4>Dt. Pelin Babaemin</h4><div class="title">Diş Hekimi</div><p>Ege Üniversitesi 2014 mezunu. Estetik diş hekimliği ve pedodonti alanında uzman.</p></div></div>
-    <div class="team-card reveal"><img src="img/doctor-3.jpg" alt="Modern Klinik" class="tc-img" loading="lazy"><div class="team-body"><h4>Modern Klinik</h4><div class="title">Dijital Altyapı</div><p>3D tomografi, dijital ölçü ve gülüş tasarımı teknolojileri ile donanımlı.</p></div></div>
-    <div class="team-card reveal"><img src="img/doctor-4.jpg" alt="Konforlu Ortam" class="tc-img" loading="lazy"><div class="team-body"><h4>Konforlu Ortam</h4><div class="title">Hasta Deneyimi</div><p>Ferahlatıcı ve hijyenik ortamda, ağrısız tedavi deneyimi.</p></div></div>
   </div>
 </section>
 
@@ -432,7 +415,7 @@ footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
 <footer>
   <div class="footer-inner">
     <div class="footer-about"><a href="#" class="logo">Pelin <span>Babaemin</span></a><p>Bursa Altınşehir'de hizmet veren kliniğimizde estetik diş hekimliği, kompozit veneer, bonding, dijital gülüş tasarımı, pedodonti ve genel diş tedavilerinde yanınızdayım.</p></div>
-    <div class="footer-col"><h5>Hızlı Linkler</h5><a href="#about">Hakkımda</a><a href="#treatments">Tedaviler</a><a href="#gallery">Galeri</a><a href="#contact">İletişim</a></div>
+    <div class="footer-col"><h5>Hızlı Linkler</h5><a href="#about">Hakkımda</a><a href="#treatments">Tedaviler</a><a href="#contact">İletişim</a></div>
     <div class="footer-col"><h5>Tedaviler</h5><a href="#">Estetik Diş</a><a href="#">İmplant</a><a href="#">Ortodonti</a><a href="#">Kanal Tedavisi</a><a href="#">Pedodonti</a></div>
     <div class="footer-col"><h5>İletişim</h5><a href="tel:+908503330388">0850 333 0388</a><a href="https://wa.me/905303982712">WhatsApp</a><a href="https://www.instagram.com/dt.pelinbabaemin/" target="_blank">Instagram</a><a href="#">Altınşehir, Nilüfer / Bursa</a></div>
   </div>
