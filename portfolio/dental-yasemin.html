@@ -24,10 +24,9 @@ body{font-family:'Inter',sans-serif;background:var(--white);color:var(--dark);ov
 .sticky-top .st-right svg{width:14px;height:14px;fill:var(--sage)}
 .sticky-top .st-right .st-btn{padding:.4rem 1.2rem;background:var(--sage);color:#fff!important;border-radius:100px;font-weight:600!important;font-size:.7rem!important}
 @media(max-width:600px){.sticky-top{padding:8px 5%}.sticky-top .st-logo{font-size:.9rem}.sticky-top .st-right{gap:8px}.sticky-top .st-right a{font-size:.65rem}.sticky-top .st-right .st-btn{padding:.35rem 1rem;font-size:.65rem!important}}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden;background:var(--sage-d)}
-.hero-pattern{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.06}
-.hero-pattern svg{width:100%;height:100%}
-.hero-fade{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 40%,rgba(26,46,34,.2) 0%,rgba(20,26,23,.6) 100%)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:saturate(.65)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(120deg,rgba(20,26,23,.9) 0%,rgba(26,46,34,.55) 50%,rgba(20,26,23,.7) 100%)}
 .hero-mono{width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem;position:relative;z-index:2}
 .hero-mono-svg{width:52px;height:52px;fill:var(--cream);opacity:.9}
 .hero-mono .hm-text{font-family:'DM Serif Display',serif;font-size:2.6rem;color:var(--cream);font-style:italic;margin-top:2px;letter-spacing:2px}
@@ -154,32 +153,8 @@ footer .f-logo{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s
 </div>
 
 <section class="hero">
-  <div class="hero-pattern">
-    <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <g id="jasm">
-          <path d="M0-6c-1.8 0-2.8 2.5-2.3 4.8s2.3 4 2.3 4 1.8-1.7 2.3-4c.5-2.3-.5-4.8-2.3-4.8z" opacity=".8" transform="rotate(0)"/>
-          <path d="M0-6c-1.8 0-2.8 2.5-2.3 4.8s2.3 4 2.3 4 1.8-1.7 2.3-4c.5-2.3-.5-4.8-2.3-4.8z" opacity=".8" transform="rotate(72)"/>
-          <path d="M0-6c-1.8 0-2.8 2.5-2.3 4.8s2.3 4 2.3 4 1.8-1.7 2.3-4c.5-2.3-.5-4.8-2.3-4.8z" opacity=".8" transform="rotate(144)"/>
-          <path d="M0-6c-1.8 0-2.8 2.5-2.3 4.8s2.3 4 2.3 4 1.8-1.7 2.3-4c.5-2.3-.5-4.8-2.3-4.8z" opacity=".8" transform="rotate(216)"/>
-          <path d="M0-6c-1.8 0-2.8 2.5-2.3 4.8s2.3 4 2.3 4 1.8-1.7 2.3-4c.5-2.3-.5-4.8-2.3-4.8z" opacity=".8" transform="rotate(288)"/>
-          <circle cx="0" cy="0" r="2.5" opacity=".6"/>
-        </g>
-      </defs>
-      <rect width="200" height="200" fill="#fff"/>
-      <use href="#jasm" x="30" y="30" transform="scale(1.2)"/>
-      <use href="#jasm" x="170" y="40" transform="scale(.8)"/>
-      <use href="#jasm" x="50" y="170" transform="scale(.9)"/>
-      <use href="#jasm" x="160" y="160" transform="scale(1.1)"/>
-      <use href="#jasm" x="100" y="100" transform="scale(1.5)"/>
-      <use href="#jasm" x="15" y="100" transform="scale(.6)"/>
-      <use href="#jasm" x="185" y="105" transform="scale(.7)"/>
-      <use href="#jasm" x="65" y="65" transform="scale(.5)"/>
-      <use href="#jasm" x="135" y="145" transform="scale(.55)"/>
-      <use href="#jasm" x="100" y="8" transform="scale(.7)"/>
-    </svg>
-  </div>
-  <div class="hero-fade"></div>
+  <img src="img/hero-clinic.jpg" alt="" class="hero-bg" loading="eager">
+  <div class="hero-overlay"></div>
   <div class="hero-mono">
     <svg class="hero-mono-svg" viewBox="0 0 40 40" fill="none">
       <path d="M20 6c-2 0-3.2 2.8-2.6 5.5.6 2.7 2.6 4.5 2.6 4.5s2-1.8 2.6-4.5c.6-2.7-.6-5.5-2.6-5.5z" fill="currentColor" opacity=".5" transform="rotate(0 20 20)"/>
