@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dt. Yasemin Beyiz Uz — Diş Hekimi | Bursa Osmangazi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#7a9a8a;--gold-light:#a8c4b4;--gold-dark:#4d705e;--cream:#f4f8f5;--dark:#1a1410;--dark2:#2a221c;--white:#fff;--bg:#f4f8f5;--bgs:#eaf0ec;--border:#dce4df;--text:#1a1410;--muted:#6a7a70;--light:#8a9a90;--radius:16px;--shadow:0 4px 24px rgba(26,20,16,0.05);--shadow-lg:0 24px 80px -16px rgba(26,20,16,0.12);--tr:0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(122,154,138,0.25)}
+.scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.scroll-top:hover{background:var(--gold-dark)}
+.scroll-top svg{width:20px;height:20px;fill:#fff}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
+.progress-bar{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:200;transition:width .1s}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:101;background:var(--dark);color:rgba(255,255,255,.6);padding:7px 5%;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;font-weight:400;height:34px;letter-spacing:.3px}
+.top-bar a{color:rgba(255,255,255,.6);text-decoration:none;transition:color .3s}
+.top-bar a:hover{color:var(--gold)}
+.top-bar .tb-left{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--gold)}
+.top-bar .tb-left svg{width:14px;height:14px;fill:var(--gold)}
+.top-bar .tb-right{display:flex;align-items:center;gap:14px}
+.top-bar .tb-right svg{width:13px;height:13px;fill:rgba(255,255,255,.5);vertical-align:middle;margin-right:3px}
+.top-bar .tb-right span{display:inline-flex;align-items:center}
+@media(max-width:768px){.top-bar{font-size:.62rem;padding:5px 5%;height:28px}.top-bar .tb-right{gap:8px}.top-bar .tb-left{font-size:.62rem}}
+.nav{position:fixed;top:34px;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(122,154,138,0.08)}
+.nav.scrolled{height:60px;box-shadow:0 1px 20px rgba(26,20,16,0.06)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);text-decoration:none;letter-spacing:.5px}
+.logo span{color:var(--text);font-weight:400}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr);letter-spacing:.5px;text-transform:uppercase;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width var(--tr)}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--gold)}
+.btn-nav{padding:.5rem 1.5rem;background:var(--gold);color:#fff!important;border-radius:100px;font-weight:600!important;font-size:.78rem!important;text-transform:none!important;transition:transform var(--tr),box-shadow var(--tr)!important}
+.btn-nav:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(122,154,138,.25)}
+.btn-nav::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px;transition:var(--tr)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(26,20,16,.75) 0%,rgba(26,20,16,.35) 50%,rgba(26,20,16,.55) 100%)}
+.hero-content{max-width:600px;z-index:2;padding:0 5%}
+.hero.centered .hero-content{text-align:center;max-width:720px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem 1rem;background:rgba(122,154,138,.2);border:1px solid rgba(122,154,138,.3);color:var(--gold-light);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;line-height:1.08;margin-bottom:1.2rem;color:#fff}
+.hero h1 span{color:var(--gold-light);font-style:italic}
+.hero p{font-size:1rem;color:rgba(255,255,255,.65);margin-bottom:2rem;max-width:480px;font-weight:400;line-height:1.7}
+.hero.centered .hero p{margin:0 auto 2rem}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.hero.centered .hero-buttons{justify-content:center}
+.btn,.btn-outline{font-weight:600;font-size:.85rem;padding:.9rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
+.btn{background:var(--gold);color:#fff;border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(122,154,138,.3)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.btn-outline:hover{background:#fff;color:var(--text);border-color:#fff}
+.hero-meta{display:flex;gap:24px;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1)}
+.hero.centered .hero-meta{justify-content:center}
+.hero-meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.55);font-weight:500}
+.hero-meta-item svg{width:18px;height:18px;fill:var(--gold-light);flex-shrink:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:24px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
+.stat-item{text-align:center;padding:8px 0}
+.stat-number{font-size:2rem;font-weight:700;color:var(--gold);line-height:1;font-family:'Cormorant Garamond',serif}
+.stat-label{font-size:.75rem;color:var(--muted);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:1px}
+section{padding:100px 5%}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-tag{display:inline-block;font-size:.7rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:3px;margin-bottom:.75rem}
+.section-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.6rem);font-weight:600;color:var(--text);margin-bottom:.75rem}
+.section-header h2 em{color:var(--gold);font-style:italic}
+.section-header p{color:var(--muted);max-width:520px;margin:0 auto;font-size:.92rem;font-weight:400}
+.about{background:var(--bg);padding:100px 5%}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:center}
+.about-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);position:relative}
+.about-image img{width:100%;height:440px;object-fit:cover;display:block;transition:transform .6s}
+.about-image:hover img{transform:scale(1.03)}
+.about-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;margin-bottom:.5rem}
+.about-text h3 em{color:var(--gold);font-style:italic}
+.about-text .badge{display:inline-flex;align-items:center;gap:6px;padding:.25rem .75rem;background:rgba(122,154,138,.08);border-radius:100px;font-size:.7rem;font-weight:600;color:var(--gold);margin-bottom:1rem}
+.about-text p{color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;font-weight:400;line-height:1.7}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.about-feat{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:500;padding:6px 0}
+.about-feat::before{content:'✦';width:24px;height:24px;border-radius:50%;background:rgba(122,154,138,.1);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0}
+.treatments{background:var(--white)}
+.treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--tr);cursor:default}
+.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.treatment-img-wrap{width:100%;height:180px;overflow:hidden;position:relative}
+.treatment-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.treatment-card:hover .treatment-img-wrap img{transform:scale(1.08)}
+.treatment-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(transparent,rgba(26,20,16,.4))}
+.treatment-body{padding:1.25rem 1.25rem 1.5rem}
+.treatment-body h3{font-size:1rem;font-weight:600;margin-bottom:.4rem;font-family:'Cormorant Garamond',serif}
+.treatment-body p{font-size:.82rem;color:var(--muted);line-height:1.6;font-weight:400}
+.treatment-body .t-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--gold);text-decoration:none;margin-top:.75rem}
+.treatment-body .t-link:hover{text-decoration:underline}
+.process{background:var(--bg)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow);transition:var(--tr)}
+.process-step:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1.1rem;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;box-shadow:0 4px 12px rgba(122,154,138,.2)}
+.process-step h4{font-size:.95rem;font-weight:600;margin-bottom:.4rem;font-family:'Cormorant Garamond',serif}
+.process-step p{font-size:.82rem;color:var(--muted);font-weight:400}
+.gallery{background:var(--bgs);padding:100px 5%}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+.gallery-item{border-radius:12px;overflow:hidden;position:relative;cursor:pointer;aspect-ratio:4/3}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-item:first-child{grid-column:1/3;grid-row:1/3}
+.ba{background:var(--white);padding:100px 5%}
+.ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
+.ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.ba-compare{position:relative;width:100%;height:260px;overflow:hidden;cursor:ew-resize;user-select:none}
+.ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
+.ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--gold);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.15)}
+.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.ba-label{position:absolute;top:10px;z-index:6;font-size:.65rem;font-weight:600;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
+.ba-label.before{left:10px;background:rgba(0,0,0,.6);color:#fff}
+.ba-label.after{right:10px;background:var(--gold);color:#fff}
+.ba-info{padding:14px 18px}
+.ba-info h4{font-size:.9rem;font-weight:600;font-family:'Cormorant Garamond',serif}
+.ba-info span{font-size:.78rem;color:var(--muted)}
+.team{background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.team-card .tc-img{width:100%;height:280px;object-fit:cover;display:block}
+.team-body{padding:1.25rem}
+.team-body h4{font-size:.95rem;font-weight:600;font-family:'Cormorant Garamond',serif}
+.team-body .title{font-size:.75rem;color:var(--gold);font-weight:600;margin:4px 0 8px;text-transform:uppercase;letter-spacing:1.5px}
+.team-body p{font-size:.8rem;color:var(--muted);font-weight:400}
+.features{background:linear-gradient(135deg,var(--dark),var(--dark2));padding:80px 5%;color:var(--cream)}
+.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1100px;margin:0 auto;text-align:center}
+.feature-item .fi-icon{width:64px;height:64px;border-radius:50%;background:rgba(122,154,138,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem;border:1px solid rgba(122,154,138,.15)}
+.feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.feature-item h4{font-size:1rem;font-weight:600;margin-bottom:.5rem;font-family:'Cormorant Garamond',serif;color:var(--gold)}
+.feature-item p{font-size:.85rem;opacity:.65;font-weight:400;line-height:1.6}
+.testimonials{background:var(--bg);padding:100px 5%}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.testimonial-card{background:var(--white);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
+.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stars{color:var(--gold);font-size:.85rem;margin-bottom:.75rem;letter-spacing:2px}
+.testimonial-card .text{font-size:.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.7;font-weight:400}
+.testimonial-card .author{font-weight:600;font-size:.85rem;font-family:'Cormorant Garamond',serif}
+.testimonial-card .detail{font-size:.72rem;color:var(--light)}
+.cta-section{background:var(--white);text-align:center;padding:80px 5%}
+.cta-box{max-width:680px;margin:0 auto;padding:64px 48px;background:linear-gradient(135deg,#fdfcf9,#f5f0ea);border-radius:24px;position:relative;overflow:hidden}
+.cta-box::before{content:'✦';position:absolute;top:-30px;right:-10px;font-size:10rem;color:rgba(122,154,138,.03);line-height:1}
+.cta-box h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:.75rem}
+.cta-box p{color:var(--muted);margin-bottom:2rem;font-size:.92rem;font-weight:400}
+.cta-box .btn{font-size:.9rem;padding:1rem 2.5rem}
+.cta-phone{display:inline-flex;align-items:center;gap:8px;font-size:1.4rem;font-weight:700;color:var(--gold);text-decoration:none;font-family:'Cormorant Garamond',serif;margin-bottom:1rem}
+.cta-phone:hover{text-decoration:underline}
+.cta-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:1.5rem}
+.cta-row .btn-outline{color:var(--muted);border-color:var(--border)}
+.cta-row .btn-outline:hover{background:var(--text);color:#fff;border-color:var(--text)}
+footer{background:var(--dark);color:#a09890;padding:60px 5% 30px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.04)}
+footer .logo{color:var(--gold);margin-bottom:1rem;display:inline-block}
+.footer-about p{font-size:.82rem;line-height:1.7;font-weight:400}
+.footer-col h5{color:var(--cream);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
+.footer-col a{display:block;color:#7a7068;text-decoration:none;font-size:.82rem;margin-bottom:8px;transition:color var(--tr);font-weight:400}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{text-align:center;padding-top:30px;font-size:.72rem;color:#5a5250;font-weight:400;letter-spacing:.5px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:0s}
+.reveal-d2{transition-delay:.1s}
+.reveal-d3{transition-delay:.2s}
+.reveal-d4{transition-delay:.3s}
+.reveal-d5{transition-delay:.4s}
+.reveal-d6{transition-delay:.5s}
+@media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}.gallery-item:first-child{grid-column:auto;grid-row:auto}}
+@media(max-width:968px){
+  .hero{padding-top:72px;min-height:auto}
+  .hero.centered .hero-content{padding:100px 5% 80px}
+  .about-inner{grid-template-columns:1fr;gap:32px}
+  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
+  .stats{margin-top:0;padding:20px;grid-template-columns:repeat(2,1fr)}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  section{padding:60px 5%}
+  .treatment-grid,.process-steps{grid-template-columns:1fr}
+  .testimonial-grid,.features-inner,.gallery-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+  .team-grid{grid-template-columns:1fr;max-width:360px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2rem}
+  .hero p{font-size:.9rem}
+  .stat-number{font-size:1.6rem}
+  .cta-box{padding:40px 24px}
+  .hero-meta{flex-direction:column;gap:12px;align-items:center}
+}
+</style>
+<link rel='icon' type='image/png' href='../img/logo-icon.png'>
+<link rel='canonical' href='https://kivontr.com/portfolio/dental-yasemin.html'>
+<meta property='og:title' content='Dt. Yasemin Beyiz Uz — Diş Hekimi | Bursa Osmangazi'>
+<meta property='og:description' content='Dt. Yasemin Beyiz Uz ile sağlıklı gülüşlere kavuşun. Bursa Osmangazi'de modern diş hekimliği.'>
+<meta property='og:type' content='website'>
+<meta name='description' content='Dt. Yasemin Beyiz Uz ile sağlıklı gülüşlere kavuşun. Bursa Osmangazi'de modern diş hekimliği.'>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="top-bar">
+  <div class="tb-left">
+    <svg viewBox="0 0 24 24"><path d="M19 14v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3m14-2l-9-9-9 9"/></svg>
+    Dt. Yasemin Beyiz Uz
+  </div>
+  <div class="tb-right">
+    <span><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 0224 222 73 34</span>
+    <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Osmangazi, Bursa</span>
+    <a href="https://www.instagram.com/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> @dt.yaseminbeyiz</a>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="#" class="logo">Yasemin <span>Beyiz Uz</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Hakkımda</a></li>
+    <li><a href="#treatments">Tedaviler</a></li>
+    <li><a href="#testimonials">Yorumlar</a></li>
+    <li><a href="https://www.instagram.com/" class="btn-nav" target="_blank">Instagram</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero centered">
+  <img src="img/banner-clinic.jpg" alt="Yasemin Beyiz Uz" class="hero-bg" loading="eager">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-badge">Bursa Osmangazi</span>
+    <h1>Sağlıklı Gülüşler,<br><span>Güvenilir Eller</span></h1>
+    <p>Bursa Osmangazi'deki muayenehanemde modern diş hekimliği yaklaşımıyla hastalarıma özel tedavi planları sunuyorum.</p>
+    <div class="hero-buttons">
+      <a href="tel:+902242227334" class="btn">Hemen Ara: 0224 222 73 34</a>
+      <a href="#treatments" class="btn-outline">Tedaviler</a>
+    </div>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Şehreküstü, Osmangazi / Bursa</span>
+      <span class="hero-meta-item"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>0224 222 73 34</span>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Mutlu Hasta</div></div>
+  <div class="stat-item"><div class="stat-number">10+</div><div class="stat-label">Yıllık Deneyim</div></div>
+  <div class="stat-item"><div class="stat-number">%98</div><div class="stat-label">Memnuniyet</div></div>
+  <div class="stat-item"><div class="stat-number">Bursa</div><div class="stat-label">Osmangazi</div></div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-image reveal">
+      <img src="img/doctor-1.jpg" alt="Dt. Yasemin Beyiz Uz" loading="lazy">
+    </div>
+    <div class="about-text reveal">
+      <span class="section-tag">Hakkımda</span>
+      <h3>Dt. Yasemin <em>Beyiz Uz</em></h3>
+      <div class="badge">Bursa Osmangazi · Diş Hekimi</div>
+      <p>Bursa Osmangazi'deki muayenehanemde hastalarıma en kaliteli diş hekimliği hizmetini sunmak için çalışıyorum. Genel diş hekimliği, estetik uygulamalar, kanal tedavisi, dolgu ve diğer tüm diş tedavilerinde modern teknolojileri kullanarak konforlu ve başarılı sonuçlar elde ediyorum. Her hastama özel tedavi planları sunuyor, güncel teknolojileri kullanarak konforlu ve başarılı sonuçlar elde ediyorum.</p>
+      <div class="about-features">
+        <div class="about-feat">Genel Diş Hekimliği</div>
+        <div class="about-feat">Estetik Uygulamalar</div>
+        <div class="about-feat">Kanal Tedavisi</div>
+        <div class="about-feat">Diş Dolgusu</div>
+        <div class="about-feat">Diş Taşı Temizliği</div>
+        <div class="about-feat">Diş Beyazlatma</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="treatments" id="treatments">
+  <div class="section-header reveal">
+    <span class="section-tag">Tedaviler</span>
+    <h2>Tüm Diş <em>Tedavi Hizmetleri</em></h2>
+    <p>Estetikten kanal tedavisine, dolgudan diş beyazlatmaya tüm diş hekimliği hizmetlerimle yanınızdayım.</p>
+  </div>
+  <div class="treatment-grid">
+    <div class="treatment-card reveal reveal-d1">
+      <div class="treatment-img-wrap"><img src="img/treatment-smile.jpg" alt="Kompozit Veneer" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>Kompozit Veneer</h3>
+        <p>Dişlerinize doğal görünümlü estetik dokunuşlar ile gülüşünüzü yenileyin. Tek seansta uygulama.</p>
+      </div>
+    </div>
+    <div class="treatment-card reveal reveal-d2">
+      <div class="treatment-img-wrap"><img src="img/treatment-implant.jpg" alt="İmplant" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>İmplant Tedavisi</h3>
+        <p>Eksik dişlerinizi doğal diş konforunda implantlarla tamamlayın. Ömür boyu kullanım.</p>
+      </div>
+    </div>
+    <div class="treatment-card reveal reveal-d3">
+      <div class="treatment-img-wrap"><img src="img/treatment-ortho.jpg" alt="Bonding" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>Bonding Uygulamaları</h3>
+        <p>Kırık, renklenmiş veya şekil bozukluğu olan dişlerinize hızlı ve estetik çözüm.</p>
+      </div>
+    </div>
+    <div class="treatment-card reveal reveal-d4">
+      <div class="treatment-img-wrap"><img src="img/treatment-general.jpg" alt="Genel Diş" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>Genel Diş Hekimliği</h3>
+        <p>Dolgu, kanal tedavisi, diş taşı temizliği ve periyodik kontrollerle ağız sağlığınızı koruyun.</p>
+      </div>
+    </div>
+    <div class="treatment-card reveal reveal-d5">
+      <div class="treatment-img-wrap"><img src="img/treatment-root.jpg" alt="Gülüş Tasarımı" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>Dijital Gülüş Tasarımı</h3>
+        <p>Dijital teknoloji ile tedavi öncesi gülüşünüzü görün, hayalinizdeki sonuca birlikte karar verin.</p>
+      </div>
+    </div>
+    <div class="treatment-card reveal reveal-d6">
+      <div class="treatment-img-wrap"><img src="img/treatment-pedo.jpg" alt="Pedodonti" loading="lazy"></div>
+      <div class="treatment-body">
+        <h3>Pedodonti</h3>
+        <p>Çocuk diş hekimliği, koruyucu uygulamalar ve minik hastalarımıza özel tedavi deneyimi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-header reveal">
+    <span class="section-tag">Tedavi Süreci</span>
+    <h2>4 Adımda <em>Gülüşünüze Kavuşun</em></h2>
+    <p>Planlı ve şeffaf bir tedavi süreciyle sürpriz yok, sadece size özel bir yol haritası.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal"><div class="step-num">1</div><h4>Ön Muayene</h4><p>Detaylı ağız muayenesi ve dijital tarama ile mevcut durumunuz analiz edilir.</p></div>
+    <div class="process-step reveal"><div class="step-num">2</div><h4>Planlama</h4><p>Dijital gülüş tasarımı ile tedavi öncesi sonucu görür, size özel plan yaparız.</p></div>
+    <div class="process-step reveal"><div class="step-num">3</div><h4>Tedavi</h4><p>Konforlu ve ağrısız tedavi deneyimi ile sağlıklı gülüşünüze kavuşun.</p></div>
+    <div class="process-step reveal"><div class="step-num">4</div><h4>Takip</h4><p>Düzenli kontroller ve bakım önerileriyle gülüşünüz uzun yıllar korunur.</p></div>
+  </div>
+</section>
+
+<section class="ba">
+  <div class="section-header reveal">
+    <span class="section-tag">Öncesi & Sonrası</span>
+    <h2>Gerçek <em>Vakalar</em></h2>
+    <p>Her vaka özenle planlanmış ve başarıyla tamamlanmıştır.</p>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-card reveal reveal-d1"><div class="ba-compare" data-position="50"><img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img"><img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after"><div class="ba-divider"></div><span class="ba-label before">ÖNCE</span><span class="ba-label after">SONRA</span></div><div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div></div>
+    <div class="ba-card reveal reveal-d2"><div class="ba-compare" data-position="50"><img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img"><img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after"><div class="ba-divider"></div><span class="ba-label before">ÖNCE</span><span class="ba-label after">SONRA</span></div><div class="ba-info"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div></div>
+    <div class="ba-card reveal reveal-d3"><div class="ba-compare" data-position="50"><img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img"><img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after"><div class="ba-divider"></div><span class="ba-label before">ÖNCE</span><span class="ba-label after">SONRA</span></div><div class="ba-info"><h4>Full Ağız Restorasyonu</h4><span>Holivud gülüş tasarımı</span></div></div>
+    <div class="ba-card reveal reveal-d4"><div class="ba-compare" data-position="50"><img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img"><img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after"><div class="ba-divider"></div><span class="ba-label before">ÖNCE</span><span class="ba-label after">SONRA</span></div><div class="ba-info"><h4>İmplant Uygulaması</h4><span>All-on-6 implant destekli protez</span></div></div>
+  </div>
+</section>
+
+
+<section class="team">
+  <div class="section-header reveal">
+    <span class="section-tag">Hekiminiz</span>
+    <h2>Dt. Yasemin <em>Beyiz Uz</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal"><img src="img/doctor-1.jpg" alt="Dt. Yasemin" class="tc-img" loading="lazy"><div class="team-body"><h4>Dt. Yasemin Beyiz Uz</h4><div class="title">Diş Hekimi</div><p>Ege Üniversitesi 2014 mezunu. Estetik diş hekimliği ve pedodonti alanında uzman.</p></div></div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-team.jpg" alt="Deneyim"></div><h4>Deneyimli Hekim</h4><p>Uzun yıllardır Bursa'da diş hekimliği alanında güvenilir hizmet sunmaktayım.</p></div>
+    <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-tech.jpg" alt="Modern Cihazlar"></div><h4>Modern Ekipmanlar</h4><p>Güncel teknoloji ile donanmış muayenehanemde hijyenik ve konforlu tedavi.</p></div>
+    <div class="feature-item reveal"><div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Hasta Odaklı"></div><h4>Hasta Odaklı Yaklaşım</h4><p>Her hastama özel tedavi planı, ağrısız müdahale ve sıcak iletişim.</p></div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-tag">Hasta Yorumları</span>
+    <h2>Hastalarım <em>Ne Diyor?</em></h2>
+    <p>Her yorum, daha iyiye gitmek için en değerli rehberim.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="text">"Dt. Yasemin Hanım sayesinde gülüşümden çok mutluyum. İşlemler çok konforluydu, kesinlikle tavsiye ederim."</p><strong class="author">Ayşe K.</strong><div class="detail">Lamine Veneer · Bursa</div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="text">"Uzun süredir diş problemi yaşıyordum. İlgili ve profesyonel yaklaşımıyla kısa sürede çözüm bulduk."</p><strong class="author">Mehmet T.</strong><div class="detail">İmplant Tedavisi · Bursa</div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="text">"Kızımın diş tedavisi için gittik, çocuklarla iletişimi harika. Hiç korkmadan tedavisini tamamladı."</p><strong class="author">Zeynep A.</strong><div class="detail">Pedodonti · Bursa</div></div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-box reveal">
+    <span class="section-tag">İletişim</span>
+    <h2>Sağlıklı Bir Gülüş İçin <em>İlk Adımı Atın</em></h2>
+    <p>Osmangazi'deki muayenehanemde sizi ağırlamaktan mutluluk duyarım. Randevu için iletişime geçin.</p>
+    <a href="tel:+902242227334" class="cta-phone">0224 222 73 34</a>
+    <div class="cta-row">
+      <a href="tel:+902242227334" class="btn" target="_blank">Hemen Ara</a>
+      <a href="https://www.instagram.com/" class="btn-outline" target="_blank">Instagram'da Takip Et</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-about"><a href="#" class="logo">Yasemin <span>Beyiz Uz</span></a><p>Bursa Osmangazi'de hizmet veren muayenehanemde genel diş hekimliği, estetik uygulamalar ve tüm diş tedavilerinde yanınızdayım.</p></div>
+    <div class="footer-col"><h5>Hızlı Linkler</h5><a href="#about">Hakkımda</a><a href="#treatments">Tedaviler</a><a href="#contact">İletişim</a></div>
+    <div class="footer-col"><h5>Tedaviler</h5><a href="#">Estetik Diş</a><a href="#">İmplant</a><a href="#">Kanal Tedavisi</a><a href="#">Dolgu</a></div>
+    <div class="footer-col"><h5>İletişim</h5><a href="tel:+902242227334">0224 222 73 34</a><a href="#">Şehreküstü, Osmangazi / Bursa</a></div>
+  </div>
+  <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.1)"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d963.393!2d29.061!3d40.188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDExJzE2LjgiTiAyOcKwMDMnMzkuNSJF!5e0!3m2!1str!2str!4v1" width="100%" height="220" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Konum"></iframe></div>
+  <div class="footer-bottom">© 2026 Dt. Yasemin Beyiz Uz · Diş Hekimliği · Bursa</div>
+</footer>
+
+<a href="tel:+902242227334" class="wa-float" target="_blank" rel="noopener" aria-label="Ara"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+<button class="scroll-top" id="scrollTop" aria-label="Yukarı"><svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></button>
+
+<script>
+const nav=document.getElementById('nav'), hamburger=document.getElementById('hamburger'), navLinks=document.getElementById('navLinks'), scrollTop=document.getElementById('scrollTop'), progressBar=document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>50);
+  scrollTop.classList.toggle('show',scrollY>400);
+  progressBar.style.width=Math.min(scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100,100)+'%';
+  document.querySelectorAll('.reveal').forEach(e=>{if(e.getBoundingClientRect().top<window.innerHeight*.85)e.classList.add('visible')})
+});
+scrollTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(l=>l.addEventListener('click',()=>navLinks.classList.remove('open')));
+document.querySelectorAll('.ba-compare').forEach(c=>{const a=c.querySelector('.ba-after'),d=c.querySelector('.ba-divider');const u=x=>{const r=c.getBoundingClientRect();let p=((x-r.left)/r.width)*100;p=Math.max(10,Math.min(90,p));a.style.clipPath=`inset(0 ${100-p}% 0 0)`;d.style.left=p+'%'};c.addEventListener('mousemove',e=>u(e.clientX));c.addEventListener('touchmove',e=>u(e.touches[0].clientX),{passive:!0})});
+window.dispatchEvent(new Event('scroll'));
+</script>
+</body>
+</html>
