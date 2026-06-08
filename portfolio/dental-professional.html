@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DentaCare — Premium Diş Kliniği | Estetik & İmplant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(13,148,136,0.08);transition:var(--tr)}
+.nav.scrolled{height:60px;box-shadow:0 4px 24px rgba(0,0,0,0.05)}
+.logo{font-size:1.35rem;font-weight:800;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 2px 8px rgba(13,148,136,0.3)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr)}
+.nav-links a:hover{color:var(--teal)}
+.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,0.3)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--tr)}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 30%,#fff 60%,#f0fdfa 100%)}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.05),transparent 70%);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(8,145,178,0.05),transparent 70%);border-radius:50%}
+.hero-content{max-width:580px;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.12);color:var(--teal);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
+.hero h1 span{color:var(--teal)}
+.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:460px}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.btn,.btn-outline{font-weight:600;font-size:0.95rem;padding:0.85rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
+.btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,148,136,0.3)}
+.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal)}
+.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
+.hero-image{position:absolute;right:5%;bottom:0;width:48%;max-width:620px;z-index:1;border-radius:20px 20px 0 0;overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero-image img{width:100%;height:auto;display:block}
+.hero-floating{position:absolute;z-index:3;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite}
+.hero-float-1{top:30%;right:38%;animation-delay:0s}
+.hero-float-2{bottom:25%;right:42%;animation-delay:2s}
+.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:32px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
+.stat-item{text-align:center}
+.stat-number{font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1}
+.stat-label{font-size:0.82rem;color:var(--muted);margin-top:6px;font-weight:500}
+/* SECTIONS */
+section{padding:100px 5%}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
+.section-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:0.75rem}
+.section-header p{color:var(--muted);max-width:540px;margin:0 auto;font-size:1rem}
+/* ABOUT */
+.about{background:var(--bg)}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:center}
+.about-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.about-image img{width:100%;height:400px;object-fit:cover;display:block}
+.about-text h3{font-size:1.6rem;font-weight:800;margin-bottom:1rem}
+.about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500}
+.about-feat::before{content:'✓';width:22px;height:22px;border-radius:50%;background:rgba(13,148,136,0.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+/* TREATMENTS */
+.treatments{background:var(--white)}
+.treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
+.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--cyan));transform:scaleX(0);transition:transform var(--tr)}
+.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.treatment-card:hover::before{transform:scaleX(1)}
+.treatment-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(13,148,136,0.08),rgba(8,145,178,0.08));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+.treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
+.treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
+/* PROCESS */
+.process{background:var(--bg)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow)}
+.process-step:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--teal);font-weight:300}
+.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
+.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
+.process-step p{font-size:0.85rem;color:var(--muted)}
+/* BEFORE AFTER */
+.ba{background:var(--white)}
+.ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
+.ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.ba-images{display:grid;grid-template-columns:1fr 1fr;position:relative}
+.ba-img{width:100%;height:200px;object-fit:cover;display:block}
+.ba-label{position:absolute;top:10px;left:10px;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px}
+.ba-label.before{background:rgba(0,0,0,0.6);color:#fff}
+.ba-label.after{background:var(--teal);color:#fff}
+.ba-info{padding:14px 18px}
+.ba-info h4{font-size:0.95rem;font-weight:700}
+.ba-info span{font-size:0.8rem;color:var(--muted)}
+/* TEAM */
+.team{background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.team-card img{width:100%;height:280px;object-fit:cover;display:block}
+.team-body{padding:1.25rem}
+.team-body h4{font-size:1rem;font-weight:700}
+.team-body .title{font-size:0.82rem;color:var(--teal);font-weight:600;margin:4px 0 8px}
+.team-body p{font-size:0.82rem;color:var(--muted)}
+/* TESTIMONIALS */
+.testimonials{background:var(--white)}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.testimonial-card{background:var(--bg);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
+.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem}
+.testimonial-card .text{font-size:0.92rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
+.testimonial-card .author{font-weight:700;font-size:0.9rem}
+.testimonial-card .detail{font-size:0.78rem;color:var(--light)}
+/* FEATURES */
+.features{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:80px 5%;color:#fff}
+.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto;text-align:center}
+.feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
+.feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
+.feature-item p{font-size:0.88rem;opacity:0.8}
+/* FAQ */
+.faq{background:var(--bg)}
+.faq-list{max-width:720px;margin:0 auto}
+.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--white);transition:var(--tr)}
+.faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)}
+.faq-question:hover{color:var(--teal)}
+.faq-question .arrow{font-size:1.2rem;transition:transform var(--tr);color:var(--muted)}
+.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--teal)}
+.faq-answer{padding:0 1.25rem 0;max-height:0;overflow:hidden;transition:all 0.35s ease;font-size:0.9rem;color:var(--muted);line-height:1.6}
+.faq-item.active .faq-answer{padding:0 1.25rem 1rem;max-height:200px}
+/* CTA */
+.cta-section{background:var(--white);text-align:center;padding:80px 5%}
+.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 100%);border-radius:24px;border:1px solid rgba(13,148,136,0.1)}
+.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem}
+.cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
+.cta-box .btn{font-size:1rem;padding:1rem 2.5rem}
+/* FOOTER */
+footer{background:#0f172a;color:#94a3b8;padding:60px 5% 30px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+footer .logo{color:#fff;margin-bottom:1rem}
+footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--cyan))}
+.footer-about p{font-size:0.85rem;line-height:1.7}
+.footer-col h5{color:#fff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.footer-col a{display:block;color:#64748b;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
+.footer-col a:hover{color:var(--teal-light)}
+.footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#475569}
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* RESPONSIVE */
+@media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:968px){
+  .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
+  .hero-content{max-width:100%}
+  .hero p{margin:0 auto 2rem}
+  .hero-buttons{justify-content:center}
+  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
+  .hero-floating{display:none}
+  .about-inner{grid-template-columns:1fr;gap:32px}
+  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
+  .process-step:not(:last-child)::after{display:none}
+  .stats{margin-top:0;padding:24px;grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  section{padding:60px 5%}
+  .treatment-grid,.process-steps,.feature-items{grid-template-columns:1fr}
+  .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+  .team-grid{grid-template-columns:1fr;max-width:400px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.2rem}
+  .stat-number{font-size:1.6rem}
+  .cta-box{padding:40px 24px}
+}
+</style>
+
+<link rel='icon' type='image/png' href='../img/logo-icon.png'>
+<link rel='canonical' href='https://kivontr.com/portfolio/dental-professional.html'>
+<meta property='og:title' content='DentaCare — Premium Diş Kliniği | Estetik & İmplant'>
+<meta property='og:description' content='Profesyonel diş kliniği web sitesi örneği — estetik diş hekimliği, implant, ortodonti ve daha fazlası.'>
+<meta property='og:type' content='website'>
+<meta name='description' content='Profesyonel diş kliniği web sitesi örneği — estetik diş hekimliği, implant, ortodonti ve daha fazlası.'>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#" class="logo">DentaCare</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Kurumsal</a></li>
+    <li><a href="#treatments">Tedaviler</a></li>
+    <li><a href="#team">Ekibimiz</a></li>
+    <li><a href="#testimonials">Yorumlar</a></li>
+    <li><a href="#contact" class="btn-nav">Randevu Al</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">✦ 4.9 · 1.200+ Mutlu Hasta</span>
+    <h1>Sağlıklı Gülüşler,<span>Özgüvenli Hayatlar</span></h1>
+    <p>Modern teknoloji ve uzman kadromuzla estetik diş hekimliğinden implant tedavisine kadar tüm ihtiyaçlarınızda yanınızdayız.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn">Randevu Al</a>
+      <a href="#treatments" class="btn-outline">Tedavilerimiz</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200" alt="DentaCare Kliniği" loading="eager">
+  </div>
+  <div class="hero-floating hero-float-1">
+    <span class="hero-float-dot"></span>
+    <span>Dijital Gülüş Tasarımı</span>
+  </div>
+  <div class="hero-floating hero-float-2">
+    <span class="hero-float-dot" style="background:var(--cyan)"></span>
+    <span>Ücretsiz Danışmanlık</span>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat-item"><div class="stat-number">15+</div><div class="stat-label">Yıllık Deneyim</div></div>
+  <div class="stat-item"><div class="stat-number">1.200+</div><div class="stat-label">Mutlu Hasta</div></div>
+  <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Hasta Memnuniyeti</div></div>
+  <div class="stat-item"><div class="stat-number">8</div><div class="stat-label">Uzman Hekim</div></div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-image reveal">
+      <img src="https://images.unsplash.com/photo-1631987538667-12556c0bb740?w=800" alt="Klinik" loading="lazy">
+    </div>
+    <div class="about-text reveal">
+      <span class="section-tag">Hakkımızda</span>
+      <h3>Modern Diş Hekimliğinde Fark Yaratan Klinik</h3>
+      <p>DentaCare olarak, her hastamıza özel tedavi planları sunuyor, dijital teknolojileri kullanarak konforlu ve başarılı sonuçlar elde ediyoruz. 15 yılı aşkın deneyimimizle estetik ve fonksiyonel mükemmelliği bir arada sunuyoruz.</p>
+      <div class="about-features">
+        <div class="about-feat">Dijital Gülüş Tasarımı</div>
+        <div class="about-feat">CAD/CAM Teknolojisi</div>
+        <div class="about-feat">3D Tomografi</div>
+        <div class="about-feat">Sedasyonlu Tedavi</div>
+        <div class="about-feat">Sterilizasyon Sistemi</div>
+        <div class="about-feat">Acil Servis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="treatments" id="treatments">
+  <div class="section-header reveal">
+    <span class="section-tag">Tedavilerimiz</span>
+    <h2>Kapsamlı Diş Tedavi Hizmetleri</h2>
+    <p>Estetikten cerrahiye, pedodontiden ortodontiye tüm diş hekimliği hizmetlerimizle yanınızdayız.</p>
+  </div>
+  <div class="treatment-grid">
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">✨</div>
+      <h3>Estetik Diş Hekimliği</h3>
+      <p>Lamine veneer, zirkonyum kron, dijital gülüş tasarımı ve beyazlatma ile hayalinizdeki gülüşe kavuşun.</p>
+    </div>
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">🦷</div>
+      <h3>İmplant Tedavisi</h3>
+      <p>Tek dişten tam ağız rekonstrüksiyonuna, All-on-4/6 ve zigomatik implant uygulamaları.</p>
+    </div>
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">🛡️</div>
+      <h3>Ortodonti</h3>
+      <p>Şeffaf plak (Invisalign) ve metal/şeffaf braketlerle diş düzeltme tedavileri.</p>
+    </div>
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">🪥</div>
+      <h3>Genel Diş Hekimliği</h3>
+      <p>Dolgu, kanal tedavisi, diş taşı temizliği ve periyodik kontroller.</p>
+    </div>
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">🔬</div>
+      <h3>Kanal Tedavisi</h3>
+      <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun.</p>
+    </div>
+    <div class="treatment-card reveal">
+      <div class="treatment-icon">👶</div>
+      <h3>Pedodonti</h3>
+      <p>Çocuk diş hekimliği, koruyucu uygulamalar ve eğlenceli tedavi deneyimi.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-header reveal">
+    <span class="section-tag">Tedavi Sürecimiz</span>
+    <h2>4 Adımda Gülüşünüze Kavuşun</h2>
+    <p>Planlı ve şeffaf bir tedavi süreciyle sürpriz yok, sadece size özel bir yol haritası.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">1</div>
+      <h4>Dijital Tarama</h4>
+      <p>3D ağız içi tarayıcı ile dakikalar içinde dijital ölçünüz alınır. Klasik macunlu ölçü yok.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">2</div>
+      <h4>Planlama & Simülasyon</h4>
+      <p>Dijital gülüş tasarımı ile tedavi öncesi sonucu görür, ihtiyaçlarınıza göre plan yaparız.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">3</div>
+      <h4>Tedavi Aşaması</h4>
+      <p>Konforlu ve ağrısız tedavi deneyimi. Sedasyon seçeneği ile tamamen rahatlayın.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">4</div>
+      <h4>Kontrol & Koruma</h4>
+      <p>Tedavi sonrası düzenli kontroller ve bakım önerileriyle gülüşünüz uzun yıllar korunur.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ba">
+  <div class="section-header reveal">
+    <span class="section-tag">Öncesi & Sonrası</span>
+    <h2>Gerçek Vakalar, Gerçek Sonuçlar</h2>
+    <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-card reveal">
+      <div class="ba-images">
+        <img src="https://images.unsplash.com/photo-1606811951342-926d0b4d1a7a?w=500" alt="Önce" class="ba-img">
+        <span class="ba-label before">Önce</span>
+        <img src="https://images.unsplash.com/photo-1606811951342-926d0b4d1a7a?w=500&fit=mirror" alt="Sonra" class="ba-img" style="transform:scaleX(-1)">
+        <span class="ba-label after">Sonra</span>
+      </div>
+      <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
+    </div>
+    <div class="ba-card reveal">
+      <div class="ba-images">
+        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500" alt="Önce" class="ba-img">
+        <span class="ba-label before">Önce</span>
+        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500&fit=mirror" alt="Sonra" class="ba-img" style="transform:scaleX(-1)">
+        <span class="ba-label after">Sonra</span>
+      </div>
+      <div class="ba-info"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
+    </div>
+    <div class="ba-card reveal">
+      <div class="ba-images">
+        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=500" alt="Önce" class="ba-img">
+        <span class="ba-label before">Önce</span>
+        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=500&fit=mirror" alt="Sonra" class="ba-img" style="transform:scaleX(-1)">
+        <span class="ba-label after">Sonra</span>
+      </div>
+      <div class="ba-info"><h4>Holivud Gülüş</h4><span>Full ağız restorasyonu</span></div>
+    </div>
+    <div class="ba-card reveal">
+      <div class="ba-images">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500" alt="Önce" class="ba-img">
+        <span class="ba-label before">Önce</span>
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&fit=mirror" alt="Sonra" class="ba-img" style="transform:scaleX(-1)">
+        <span class="ba-label after">Sonra</span>
+      </div>
+      <div class="ba-info"><h4>İmplant Uygulaması</h4><span>All-on-6 implant destekli protez</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="section-header reveal">
+    <span class="section-tag">Uzman Kadro</span>
+    <h2>Deneyimli Hekimlerimizle Tanışın</h2>
+    <p>Her biri alanında uzman, hasta memnuniyetine odaklı hekimlerimizle güvendesiniz.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400" alt="Dr. Ayşe Kaya" loading="lazy">
+      <div class="team-body">
+        <h4>Dr. Ayşe Kaya</h4>
+        <div class="title">Estetik Diş Hekimi</div>
+        <p>15 yıllık deneyim, İstanbul Üniversitesi mezunu. Dijital gülüş tasarımı uzmanı.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400" alt="Dr. Mehmet Demir" loading="lazy">
+      <div class="team-body">
+        <h4>Dr. Mehmet Demir</h4>
+        <div class="title">İmplant Cerrahı</div>
+        <p>1.500+ implant vakası. All-on-4/6 ve zigomatik implant deneyimi.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400" alt="Dt. Zeynep Yılmaz" loading="lazy">
+      <div class="team-body">
+        <h4>Dt. Zeynep Yılmaz</h4>
+        <div class="title">Ortodonti Uzmanı</div>
+        <p>Invisalign Diamond Provider. Şeffaf plak tedavisinde 500+ vaka.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400" alt="Dr. Can Öztürk" loading="lazy">
+      <div class="team-body">
+        <h4>Dr. Can Öztürk</h4>
+        <div class="title">Çene Cerrahı</div>
+        <p>Gömülü diş cerrahisi, çene kisti ve patoloji ameliyatları uzmanı.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <div class="feature-item reveal">
+      <div class="fi-icon">🏆</div>
+      <h4>Uzman Kadro</h4>
+      <p>Alanında deneyimli 8 hekim ile kişiye özel tedavi planlaması.</p>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">💎</div>
+      <h4>Dijital Teknoloji</h4>
+      <p>3D tomografi, CAD/CAM, dijital gülüş tasarımı ile hassas tedavi.</p>
+    </div>
+    <div class="feature-item reveal">
+      <div class="fi-icon">❤️</div>
+      <h4>Konfor Garantisi</h4>
+      <p>Sedasyonlu tedavi, ağrısız müdahale ve sıcak ortam garantisi.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-tag">Hasta Yorumları</span>
+    <h2>Hastalarımız Ne Diyor?</h2>
+    <p>Her yorum, daha iyiye gitmek için en değerli rehberimiz.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="text">"Uzun süredir diş estetiğimden rahatsızdım. Dr. Ayşe Hanım sayesinde hayal ettiğim gülüşe kavuştum. İşlemler hiç korktuğum gibi değildi, çok konforluydu."</p>
+      <strong class="author">Elif Y.</strong>
+      <div class="detail">Lamine Veneer · 2 ay önce</div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="text">"İmplant tedavim için yurt dışından geldim. Tüm süreç çok profesyonelce planlanmıştı. Transfer, otel, klinik derken harika bir deneyim oldu."</p>
+      <strong class="author">Ahmet R.</strong>
+      <div class="detail">All-on-6 İmplant · 3 ay önce</div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="text">"6 yaşındaki kızım için gittik, dişçiden bu kadar keyif alacağını hiç düşünmezdim. Pedodonti bölümü çocuklar için gerçekten harika tasarlanmış."</p>
+      <strong class="author">Aslı K.</strong>
+      <div class="detail">Pedodonti · 1 hafta önce</div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section-header reveal">
+    <span class="section-tag">Sık Sorulanlar</span>
+    <h2>Merak Ettikleriniz</h2>
+    <p>Tedavi süreciyle ilgili en çok sorulan soruları yanıtladık.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item active">
+      <button class="faq-question">Tedavi ne kadar sürer?<span class="arrow">▼</span></button>
+      <div class="faq-answer">Tedavi süresi uygulamaya göre değişir. Lamine veneer genellikle 2-3 seansta tamamlanırken, implant tedavisi 3-6 ay sürebilir. İlk muayenede size özel zaman çizelgesi oluşturulur.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Anestezi veya sedasyon seçeneğiniz var mı?<span class="arrow">▼</span></button>
+      <div class="faq-answer">Evet, lokal anestezi yanında sedasyon (uyutma) seçeneğimiz de mevcuttur. Özellikle implant cerrahisi ve çoklu çekimlerde hasta konforu için sedasyon öneriyoruz.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Fiyat bilgisi alabilir miyim?<span class="arrow">▼</span></button>
+      <div class="faq-answer">Fiyatlar tedavi planına göre değişiklik gösterir. Ücretsiz ön muayene randevusu alarak size özel fiyat teklifi oluşturabiliriz. Ayrıca taksit seçeneklerimiz mevcuttur.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Yurt dışından hasta kabul ediyor musunuz?<span class="arrow">▼</span></button>
+      <div class="faq-answer">Evet, dental turizm kapsamında yurt dışından hastalarımızı kabul ediyoruz. VIP transfer, otel konaklama ve rehberlik hizmetleriyle konforlu bir tedavi deneyimi sunuyoruz.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-box reveal">
+    <span class="section-tag">İletişim</span>
+    <h2>Sağlıklı Bir Gülüş İçin İlk Adımı Atın</h2>
+    <p>Ücretsiz ön muayene randevusu için hemen bizimle iletişime geçin. Uzman ekibimiz size en uygun tedaviyi planlasın.</p>
+    <a href="https://wa.me/905303982712" class="btn" target="_blank" rel="noopener noreferrer">WhatsApp'tan Randevu Al</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-about">
+      <a href="#" class="logo">DentaCare</a>
+      <p>DentaCare, modern teknoloji ve uzman kadrosuyla estetik diş hekimliği alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Hızlı Linkler</h5>
+      <a href="#about">Kurumsal</a>
+      <a href="#treatments">Tedaviler</a>
+      <a href="#team">Ekibimiz</a>
+      <a href="#testimonials">Yorumlar</a>
+      <a href="#contact">İletişim</a>
+    </div>
+    <div class="footer-col">
+      <h5>Tedaviler</h5>
+      <a href="#">Estetik Diş Hekimliği</a>
+      <a href="#">İmplant</a>
+      <a href="#">Ortodonti</a>
+      <a href="#">Kanal Tedavisi</a>
+      <a href="#">Pedodonti</a>
+    </div>
+    <div class="footer-col">
+      <h5>İletişim</h5>
+      <a href="https://wa.me/905303982712">WhatsApp</a>
+      <a href="#">info@dentacare.com</a>
+      <a href="#">0212 555 00 00</a>
+      <a href="#">Levent, İstanbul</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 DentaCare Diş Kliniği. Tüm hakları saklıdır.</div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('visible');
+  });
+});
+
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+  });
+});
+
+window.dispatchEvent(new Event('scroll'));
+</script>
+</body>
+</html>
