@@ -12,6 +12,16 @@
 :root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
 .treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
 .feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.55)}}
+/* SCROLL TOP */
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(13,148,136,0.25)}
+.scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.scroll-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.scroll-top svg{width:20px;height:20px;fill:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
 /* NAV */
@@ -87,19 +97,24 @@ section{padding:100px 5%}
 .step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
 .process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
 .process-step p{font-size:0.85rem;color:var(--muted)}
-/* BEFORE AFTER */
+/* BEFORE AFTER - Interactive Slider */
 .ba{background:var(--white)}
 .ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
 .ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
 .ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
-.ba-images{display:grid;grid-template-columns:1fr 1fr;position:relative}
-.ba-img{width:100%;height:200px;object-fit:cover;display:block}
-.ba-label{position:absolute;top:10px;left:10px;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px}
-.ba-label.before{background:rgba(0,0,0,0.6);color:#fff}
-.ba-label.after{background:var(--teal);color:#fff}
+.ba-compare{position:relative;width:100%;height:260px;overflow:hidden;cursor:ew-resize;user-select:none}
+.ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
+.ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--white);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,0.2)}
+.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--teal);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.ba-label{position:absolute;top:10px;z-index:6;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
+.ba-label.before{left:10px;background:rgba(0,0,0,0.6);color:#fff}
+.ba-label.after{right:10px;background:var(--teal);color:#fff}
 .ba-info{padding:14px 18px}
-.ba-info h4{font-size:0.95rem;font-weight:700}
-.ba-info span{font-size:0.8rem;color:var(--muted)}
+.ba-info h4{font-size:.95rem;font-weight:700}
+.ba-info span{font-size:.8rem;color:var(--muted)}
+/* TREATMENT CARDS - Image Upgrade */
+.treatment-card-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:12px 12px 0 0;margin:-2rem -1.75rem 1rem;width:calc(100% + 3.5rem)}
 /* TEAM */
 .team{background:var(--bg)}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
@@ -125,6 +140,20 @@ section{padding:100px 5%}
 .feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
 .feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
 .feature-item p{font-size:0.88rem;opacity:0.8}
+/* PRICING */
+.pricing{background:var(--white)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.pricing-card{border:2px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);position:relative;background:var(--white)}
+.pricing-card:hover{border-color:var(--teal);transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.pricing-card.featured{border-color:var(--teal);background:linear-gradient(135deg,#f0fdfa,#fff)}
+.pricing-card.featured::before{content:'POPÜLER';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;font-size:.7rem;font-weight:700;padding:4px 16px;border-radius:100px;letter-spacing:1px}
+.pricing-card h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.pricing-card .price{font-size:2rem;font-weight:800;color:var(--teal);margin:.5rem 0}
+.pricing-card .price span{font-size:.85rem;font-weight:500;color:var(--muted)}
+.pricing-card ul{list-style:none;margin:1rem 0;padding:0}
+.pricing-card ul li{font-size:.85rem;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.pricing-card ul li::before{content:'✓';color:var(--teal);font-weight:700}
+.pricing-card .btn{width:100%;justify-content:center;margin-top:.5rem}
 /* FAQ */
 .faq{background:var(--bg)}
 .faq-list{max-width:720px;margin:0 auto}
@@ -154,9 +183,15 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 /* ANIMATIONS */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:0s}
+.reveal-d2{transition-delay:.1s}
+.reveal-d3{transition-delay:.2s}
+.reveal-d4{transition-delay:.3s}
+.reveal-d5{transition-delay:.4s}
+.reveal-d6{transition-delay:.5s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 /* RESPONSIVE */
-@media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}.pricing-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:968px){
   .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
   .hero-content{max-width:100%}
@@ -174,7 +209,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   .nav-links.open{display:flex}
   .hamburger{display:flex}
   section{padding:60px 5%}
-  .treatment-grid,.process-steps,.feature-items{grid-template-columns:1fr}
+  .treatment-grid,.process-steps,.feature-items,.pricing-grid{grid-template-columns:1fr}
   .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr;gap:24px}
   .team-grid{grid-template-columns:1fr;max-width:400px}
@@ -267,33 +302,33 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     <p>Estetikten cerrahiye, pedodontiden ortodontiye tüm diş hekimliği hizmetlerimizle yanınızdayız.</p>
   </div>
   <div class="treatment-grid">
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-esthetic.jpg" alt="Estetik Diş Hekimliği"></div>
+    <div class="treatment-card reveal reveal-d1">
+      <img src="img/treatment-esthetic.jpg" alt="Estetik Diş Hekimliği" class="treatment-card-img" loading="lazy">
       <h3>Estetik Diş Hekimliği</h3>
       <p>Lamine veneer, zirkonyum kron, dijital gülüş tasarımı ve beyazlatma ile hayalinizdeki gülüşe kavuşun.</p>
     </div>
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-implant.jpg" alt="İmplant Tedavisi"></div>
+    <div class="treatment-card reveal reveal-d2">
+      <img src="img/treatment-implant.jpg" alt="İmplant Tedavisi" class="treatment-card-img" loading="lazy">
       <h3>İmplant Tedavisi</h3>
       <p>Tek dişten tam ağız rekonstrüksiyonuna, All-on-4/6 ve zigomatik implant uygulamaları.</p>
     </div>
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-ortho.jpg" alt="Ortodonti"></div>
+    <div class="treatment-card reveal reveal-d3">
+      <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
       <h3>Ortodonti</h3>
       <p>Şeffaf plak (Invisalign) ve metal/şeffaf braketlerle diş düzeltme tedavileri.</p>
     </div>
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-general.jpg" alt="Genel Diş Hekimliği"></div>
+    <div class="treatment-card reveal reveal-d4">
+      <img src="img/treatment-general.jpg" alt="Genel Diş Hekimliği" class="treatment-card-img" loading="lazy">
       <h3>Genel Diş Hekimliği</h3>
       <p>Dolgu, kanal tedavisi, diş taşı temizliği ve periyodik kontroller.</p>
     </div>
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-root.jpg" alt="Kanal Tedavisi"></div>
+    <div class="treatment-card reveal reveal-d5">
+      <img src="img/treatment-root.jpg" alt="Kanal Tedavisi" class="treatment-card-img" loading="lazy">
       <h3>Kanal Tedavisi</h3>
       <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun.</p>
     </div>
-    <div class="treatment-card reveal">
-      <div class="treatment-icon"><img src="img/treatment-pedo.jpg" alt="Pedodonti"></div>
+    <div class="treatment-card reveal reveal-d6">
+      <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
       <h3>Pedodonti</h3>
       <p>Çocuk diş hekimliği, koruyucu uygulamalar ve eğlenceli tedavi deneyimi.</p>
     </div>
@@ -337,38 +372,42 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
   </div>
   <div class="ba-grid">
-    <div class="ba-card reveal">
-      <div class="ba-images">
-        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img">
-        <span class="ba-label before">ÖNCE</span>
+    <div class="ba-card reveal reveal-d1">
+      <div class="ba-compare" data-position="50">
         <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
     </div>
-    <div class="ba-card reveal">
-      <div class="ba-images">
-        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img">
-        <span class="ba-label before">ÖNCE</span>
+    <div class="ba-card reveal reveal-d2">
+      <div class="ba-compare" data-position="50">
         <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
     </div>
-    <div class="ba-card reveal">
-      <div class="ba-images">
-        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img">
-        <span class="ba-label before">ÖNCE</span>
+    <div class="ba-card reveal reveal-d3">
+      <div class="ba-compare" data-position="50">
         <img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>Holivud Gülüş</h4><span>Full ağız restorasyonu</span></div>
     </div>
-    <div class="ba-card reveal">
-      <div class="ba-images">
-        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img">
-        <span class="ba-label before">ÖNCE</span>
+    <div class="ba-card reveal reveal-d4">
+      <div class="ba-compare" data-position="50">
         <img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
       </div>
       <div class="ba-info"><h4>İmplant Uygulaması</h4><span>All-on-6 implant destekli protez</span></div>
@@ -466,6 +505,55 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
 </section>
 
+<section class="pricing">
+  <div class="section-header reveal">
+    <span class="section-tag">Fiyatlarımız</span>
+    <h2>Şeffaf Fiyatlandırma, Kaliteli Tedavi</h2>
+    <p>Tüm fiyatlarımız muayene ve planlama sonrası netleşir. Size özel taksit seçenekleri mevcuttur.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card reveal reveal-d1">
+      <h3>Temel Bakım</h3>
+      <div class="price">3.500 ₺<span>/başlangıç</span></div>
+      <ul>
+        <li>Detaylı ağız muayenesi</li>
+        <li>Panoramik röntgen</li>
+        <li>Diş taşı temizliği</li>
+        <li>Flor uygulaması</li>
+        <li>2 adet dolgu</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Bilgi Al</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-d3">
+      <h3>Gülüş Tasarımı</h3>
+      <div class="price">12.500 ₺<span>/diş</span></div>
+      <ul>
+        <li>Dijital gülüş tasarımı</li>
+        <li>Emax lamine veneer</li>
+        <li>Geçici diş uygulaması</li>
+        <li>Dijital ölçü (3D tarama)</li>
+        <li>2 yıl garantili işçilik</li>
+        <li>VIP transfer</li>
+      </ul>
+      <a href="#contact" class="btn">Hemen Başvur</a>
+    </div>
+    <div class="pricing-card reveal reveal-d5">
+      <h3>Full Ağız</h3>
+      <div class="price">250.000 ₺<span>/tam ağız</span></div>
+      <ul>
+        <li>All-on-6 implant</li>
+        <li>Zirkonyum kronlar</li>
+        <li>3D tomografi planlama</li>
+        <li>Sedasyonlu cerrahi</li>
+        <li>5 yıl garantili işçilik</li>
+        <li>VIP transfer + otel</li>
+        <li>2 yıl ücretsiz kontrol</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Bilgi Al</a>
+    </div>
+  </div>
+</section>
+
 <section class="faq">
   <div class="section-header reveal">
     <span class="section-tag">Sık Sorulanlar</span>
@@ -531,21 +619,30 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">Levent, İstanbul</a>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 DentaCare Diş Kliniği. Tüm hakları saklıdır.</div>
+  <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96366.39358596434!2d28.915521680922828!3d41.04022995751701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab765c4a0ff85%3A0x5f6d1e00becf8bef!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1" width="100%" height="240" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Konum"></iframe>
+</div>
+<div class="footer-bottom">© 2026 DentaCare Diş Kliniği. Tüm hakları saklıdır.</div>
 </footer>
+
+<a href="https://wa.me/905303982712" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<button class="scroll-top" id="scrollTop" aria-label="Yukarı"><svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></button>
 
 <script>
 const nav = document.getElementById('nav');
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
+const scrollTop = document.getElementById('scrollTop');
 
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
+  scrollTop.classList.toggle('show', window.scrollY > 400);
   document.querySelectorAll('.reveal').forEach(el => {
     if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('visible');
   });
 });
 
+scrollTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
 document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
 
@@ -554,6 +651,21 @@ document.querySelectorAll('.faq-question').forEach(btn => {
     const item = btn.parentElement;
     item.classList.toggle('active');
   });
+});
+
+// Before/After slider
+document.querySelectorAll('.ba-compare').forEach(container => {
+  const after = container.querySelector('.ba-after');
+  const divider = container.querySelector('.ba-divider');
+  const update = x => {
+    const rect = container.getBoundingClientRect();
+    let pct = ((x - rect.left) / rect.width) * 100;
+    pct = Math.max(10, Math.min(90, pct));
+    after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    divider.style.left = pct + '%';
+  };
+  container.addEventListener('mousemove', e => update(e.clientX));
+  container.addEventListener('touchmove', e => update(e.touches[0].clientX), {passive:true});
 });
 
 window.dispatchEvent(new Event('scroll'));
