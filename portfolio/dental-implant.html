@@ -3,64 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İmplantoloji Merkezi — Premium Diş Kliniği | İmplant & Cerrahi</title>
+<title>İmplantoloji Merkezi — İmplant & Çene Cerrahisi Uzmanı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
+:root{--primary:#1e3a5f;--primary-dark:#0f2640;--primary-light:#2563eb;--secondary:#3b82f6;--teal:#0d9488;--cyan:#0891b2;--white:#ffffff;--bg:#f0f4f8;--bgs:#e2e8f0;--border:#cbd5e1;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
 .treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
 .feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.55)}}
-.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(13,148,136,0.25)}
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(30,58,95,0.25)}
 .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-.scroll-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.scroll-top:hover{background:var(--primary-dark);transform:translateY(-2px)}
 .scroll-top svg{width:20px;height:20px;fill:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(13,148,136,0.08);transition:var(--tr)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(30,58,95,0.08);transition:var(--tr)}
 .nav.scrolled{height:60px;box-shadow:0 4px 24px rgba(0,0,0,0.05)}
-.logo{font-size:1.35rem;font-weight:800;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:8px}
-.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 2px 8px rgba(13,148,136,0.3)}
+.logo{font-size:1.35rem;font-weight:800;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 2px 8px rgba(30,58,95,0.3)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr)}
-.nav-links a:hover{color:var(--teal)}
-.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
-.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,0.3)}
+.nav-links a:hover{color:var(--primary)}
+.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,58,95,0.3)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--tr)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 30%,#fff 60%,#f0fdfa 100%)}
-.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.05),transparent 70%);border-radius:50%}
-.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(8,145,178,0.05),transparent 70%);border-radius:50%}
-.hero-content{max-width:580px;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.12);color:var(--teal);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
-.hero h1 span{color:var(--teal)}
-.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:460px}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 100px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0f2640 0%,#1e3a5f 50%,#1e40af 100%)}
+.hero::before{content:'';position:absolute;top:-60%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,0.12),transparent 70%);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-40%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(13,148,136,0.08),transparent 70%);border-radius:50%}
+.hero-content{max-width:720px;z-index:2}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:0.75rem;color:#fff}
+.hero h1 span{color:var(--secondary)}
+.hero-badge{display:inline;color:rgba(255,255,255,0.7);font-size:0.95rem;font-weight:500;margin-bottom:1rem}
+.hero-badge strong{color:var(--secondary);font-weight:700}
+.hero p{font-size:1.1rem;color:rgba(255,255,255,0.75);margin-bottom:2rem;max-width:560px;line-height:1.7}
 .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
 .btn,.btn-outline{font-weight:600;font-size:0.95rem;padding:0.85rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
-.btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;border:none}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,148,136,0.3)}
-.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal)}
-.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
-.hero-image{position:absolute;right:5%;bottom:0;width:48%;max-width:620px;z-index:1;border-radius:20px 20px 0 0;overflow:hidden;box-shadow:var(--shadow-lg)}
-.hero-image img{width:100%;height:auto;display:block}
-.hero-floating{position:absolute;z-index:3;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite}
-.hero-float-1{top:30%;right:38%;animation-delay:0s}
-.hero-float-2{bottom:25%;right:42%;animation-delay:2s}
-.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:32px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
-.stat-item{text-align:center}
-.stat-number{font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1}
-.stat-label{font-size:0.82rem;color:var(--muted);margin-top:6px;font-weight:500}
+.btn{background:var(--white);color:var(--primary);border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,0.2);background:var(--bgs)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4)}
+.btn-outline:hover{background:rgba(255,255,255,0.1);border-color:#fff;transform:translateY(-2px)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:720px;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1)}
+.hero-stat{text-align:left}
+.hero-stat-num{font-size:1.6rem;font-weight:800;color:#fff;line-height:1}
+.hero-stat-label{font-size:0.78rem;color:rgba(255,255,255,0.6);margin-top:4px;font-weight:500}
 section{padding:100px 5%}
 .section-header{text-align:center;margin-bottom:4rem}
-.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
+.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
 .section-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:0.75rem}
 .section-header p{color:var(--muted);max-width:540px;margin:0 auto;font-size:1rem}
 .about{background:var(--bg)}
@@ -71,83 +65,76 @@ section{padding:100px 5%}
 .about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem}
 .about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500}
-.about-feat::before{content:'\2713';width:22px;height:22px;border-radius:50%;background:rgba(13,148,136,0.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+.about-feat::before{content:'\2713';width:22px;height:22px;border-radius:50%;background:rgba(30,58,95,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+.neden-biz{background:var(--primary-dark);padding:100px 5%;color:#fff}
+.neden-biz .section-tag{color:var(--secondary)}
+.neden-biz .section-header h2{color:#fff}
+.neden-biz .section-header p{color:rgba(255,255,255,0.65)}
+.neden-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1100px;margin:0 auto}
+.neden-card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;border:1px solid rgba(255,255,255,0.08);transition:var(--tr)}
+.neden-card:hover{transform:translateY(-6px);background:rgba(255,255,255,0.1)}
+.neden-img{width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0 auto 1.25rem;border:2px solid rgba(255,255,255,0.12)}
+.neden-img img{width:100%;height:100%;object-fit:cover;display:block}
+.neden-card h4{font-size:1.1rem;font-weight:700;margin-bottom:0.6rem}
+.neden-card p{font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.6}
 .treatments{background:var(--white)}
 .treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
-.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--cyan));transform:scaleX(0);transition:transform var(--tr)}
-.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.treatment-card{background:var(--white);border:1px solid var(--primary);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
+.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));transform:scaleX(0);transition:transform var(--tr)}
+.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--primary-light)}
 .treatment-card:hover::before{transform:scaleX(1)}
 .treatment-card-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:12px 12px 0 0;margin:-2rem -1.75rem 1rem;width:calc(100% + 3.5rem)}
-.treatment-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(13,148,136,0.08),rgba(8,145,178,0.08));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+.treatment-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(30,58,95,0.08),rgba(59,130,246,0.08));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
 .treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
 .treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
-.process{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow)}
-.process-step:not(:last-child)::after{content:'\2192';position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--teal);font-weight:300}
-.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
-.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
-.process-step p{font-size:0.85rem;color:var(--muted)}
-.ba{background:var(--white)}
+.ba{background:var(--bg)}
 .ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
-.ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
+.ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--white)}
 .ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
 .ba-compare{position:relative;width:100%;height:260px;overflow:hidden;cursor:ew-resize;user-select:none}
 .ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
 .ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
 .ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--white);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,0.2)}
-.ba-divider::after{content:'\27FF';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--teal);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.ba-divider::after{content:'\27FF';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--primary);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .ba-label{position:absolute;top:10px;z-index:6;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
 .ba-label.before{left:10px;background:rgba(0,0,0,0.6);color:#fff}
-.ba-label.after{right:10px;background:var(--teal);color:#fff}
+.ba-label.after{right:10px;background:var(--primary);color:#fff}
 .ba-info{padding:14px 18px}
 .ba-info h4{font-size:.95rem;font-weight:700}
 .ba-info span{font-size:.8rem;color:var(--muted)}
-.team{background:var(--bg)}
+.team{background:var(--white)}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
+.team-card{background:var(--bg);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
 .team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
 .team-card img{width:100%;height:280px;object-fit:cover;display:block}
 .team-body{padding:1.25rem}
 .team-body h4{font-size:1rem;font-weight:700}
-.team-body .title{font-size:0.82rem;color:var(--teal);font-weight:600;margin:4px 0 8px}
+.team-body .title{font-size:0.82rem;color:var(--primary);font-weight:600;margin:4px 0 8px}
 .team-body p{font-size:0.82rem;color:var(--muted)}
-.testimonials{background:var(--white)}
-.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.testimonial-card{background:var(--bg);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
-.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem}
-.testimonial-card .text{font-size:0.92rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
-.testimonial-card .author{font-weight:700;font-size:0.9rem}
-.testimonial-card .detail{font-size:0.78rem;color:var(--light)}
-.features{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:80px 5%;color:#fff}
-.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto;text-align:center}
-.feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
-.feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
-.feature-item p{font-size:0.88rem;opacity:0.8}
 .faq{background:var(--bg)}
 .faq-list{max-width:720px;margin:0 auto}
 .faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--white);transition:var(--tr)}
 .faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)}
-.faq-question:hover{color:var(--teal)}
+.faq-question:hover{color:var(--primary)}
 .faq-question .arrow{font-size:1.2rem;transition:transform var(--tr);color:var(--muted)}
-.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--teal)}
+.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--primary)}
 .faq-answer{padding:0 1.25rem 0;max-height:0;overflow:hidden;transition:all 0.35s ease;font-size:0.9rem;color:var(--muted);line-height:1.6}
 .faq-item.active .faq-answer{padding:0 1.25rem 1rem;max-height:200px}
-.cta-section{background:var(--white);text-align:center;padding:80px 5%}
-.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 100%);border-radius:24px;border:1px solid rgba(13,148,136,0.1)}
-.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem}
-.cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
-.cta-box .btn{font-size:1rem;padding:1rem 2.5rem}
-footer{background:#0f172a;color:#94a3b8;padding:60px 5% 30px}
+.cta-section{background:var(--bg);text-align:center;padding:80px 5%}
+.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#1e3a5f 0%,#1e40af 100%);border-radius:24px;border:1px solid rgba(59,130,246,0.2)}
+.cta-box .section-tag{color:rgba(255,255,255,0.6)}
+.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem;color:#fff}
+.cta-box p{color:rgba(255,255,255,0.75);margin-bottom:2rem;font-size:1rem}
+.cta-box .btn{font-size:1rem;padding:1rem 2.5rem;background:var(--white);color:var(--primary)}
+.cta-box .btn:hover{background:var(--bgs)}
+footer{background:var(--primary-dark);color:#94a3b8;padding:60px 5% 30px}
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
 footer .logo{color:#fff;margin-bottom:1rem}
-footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--cyan))}
+footer .logo::before{background:linear-gradient(135deg,var(--secondary),var(--primary-light))}
 .footer-about p{font-size:0.85rem;line-height:1.7}
 .footer-col h5{color:#fff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
 .footer-col a{display:block;color:#64748b;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
-.footer-col a:hover{color:var(--teal-light)}
+.footer-col a:hover{color:var(--secondary)}
 .footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#475569}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -164,36 +151,36 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   .hero-content{max-width:100%}
   .hero p{margin:0 auto 2rem}
   .hero-buttons{justify-content:center}
-  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
-  .hero-floating{display:none}
+  .hero-stats{text-align:center}
+  .hero-stat{text-align:center}
   .about-inner{grid-template-columns:1fr;gap:32px}
-  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
-  .process-step:not(:last-child)::after{display:none}
-  .stats{margin-top:0;padding:24px;grid-template-columns:repeat(2,1fr)}
+  .treatment-grid{grid-template-columns:repeat(2,1fr)}
+  .neden-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
   section{padding:60px 5%}
-  .treatment-grid,.process-steps,.feature-items{grid-template-columns:1fr}
-  .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
+  .treatment-grid{grid-template-columns:1fr}
+  .neden-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr;gap:24px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
   .team-grid{grid-template-columns:1fr;max-width:400px}
 }
 @media(max-width:480px){
   .hero h1{font-size:2.2rem}
-  .stat-number{font-size:1.6rem}
+  .hero-stat-num{font-size:1.3rem}
   .cta-box{padding:40px 24px}
 }
 </style>
-
 <link rel='icon' type='image/png' href='../img/logo-icon.png'>
 <link rel='canonical' href='https://kivontr.com/portfolio/dental-implant.html'>
-<meta property='og:title' content='İmplantoloji Merkezi — Premium Diş Kliniği | İmplant & Cerrahi'>
-<meta property='og:description' content='İmplantoloji merkezi web sitesi örneği — implant tedavisi, all-on-4/6, zigomatik implant ve cerrahi çözümler.'>
+<meta property='og:title' content='İmplantoloji Merkezi — İmplant & Çene Cerrahisi Uzmanı'>
+<meta property='og:description' content='İmplantoloji merkezi — implant tedavisi, All-on-4/6, zigomatik implant ve çene cerrahisi çözümleri.'>
 <meta property='og:type' content='website'>
-<meta name='description' content='İmplantoloji merkezi web sitesi örneği — implant tedavisi, all-on-4/6, zigomatik implant ve cerrahi çözümler.'>
+<meta name='description' content='İmplantoloji merkezi — implant tedavisi, All-on-4/6, zigomatik implant ve çene cerrahisi çözümleri.'>
 </head>
 <body>
 
@@ -201,9 +188,9 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <a href="#" class="logo">İmplantoloji</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Kurumsal</a></li>
+    <li><a href="#neden">Neden Biz</a></li>
     <li><a href="#treatments">Tedaviler</a></li>
     <li><a href="#team">Ekibimiz</a></li>
-    <li><a href="#testimonials">Yorumlar</a></li>
     <li><a href="#contact" class="btn-nav">Randevu Al</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menü">
@@ -213,43 +200,32 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 
 <section class="hero">
   <div class="hero-content">
-    <span class="hero-badge">✦ 4.9 · 2.500+ İmplant</span>
-    <h1>Sağlam Dişler,<span>Güvenli Gülüşler</span></h1>
-    <p>İmplant cerrahisinde 20 yılı aşkın deneyimimizle, kaybettiğiniz dişlerinizi en modern tekniklerle geri kazandırıyoruz.</p>
+    <div class="hero-badge">✦ <strong>20+ Yıl</strong> · <strong>2.500+</strong> İmplant</div>
+    <h1>Sağlam Dişler,<br><span>Güvenli Gülüşler</span></h1>
+    <p>Tek dişten tam ağıza, All-on-4/6 ve zigomatik implant çözümleri ile kaybettiğiniz dişlerinizi en modern cerrahi tekniklerle geri kazandırıyoruz.</p>
     <div class="hero-buttons">
       <a href="#contact" class="btn">Randevu Al</a>
-      <a href="#treatments" class="btn-outline">Tedavilerimiz</a>
+      <a href="#ba" class="btn-outline">Vakaları İncele</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">20+</div><div class="hero-stat-label">Yıllık Deneyim</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">2.500+</div><div class="hero-stat-label">Başarılı İmplant</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">%99</div><div class="hero-stat-label">Başarı Oranı</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-label">Uzman Hekim</div></div>
     </div>
   </div>
-  <div class="hero-image">
-    <img src="img/hero-clinic.jpg" alt="İmplantoloji Kliniği" loading="eager">
-  </div>
-  <div class="hero-floating hero-float-1">
-    <span class="hero-float-dot"></span>
-    <span>All-on-6 İmplant</span>
-  </div>
-  <div class="hero-floating hero-float-2">
-    <span class="hero-float-dot" style="background:var(--cyan)"></span>
-    <span>Ücretsiz Muayene</span>
-  </div>
 </section>
-
-<div class="stats">
-  <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Yıllık Deneyim</div></div>
-  <div class="stat-item"><div class="stat-number">2.500+</div><div class="stat-label">Başarılı İmplant</div></div>
-  <div class="stat-item"><div class="stat-number">99%</div><div class="stat-label">Başarı Oranı</div></div>
-  <div class="stat-item"><div class="stat-number">10</div><div class="stat-label">Uzman Hekim</div></div>
-</div>
 
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-image reveal">
-      <img src="img/feature-comfort.jpg" alt="Klinik" loading="lazy">
+      <img src="img/feature-tech.jpg" alt="Klinik" loading="lazy">
     </div>
     <div class="about-text reveal">
       <span class="section-tag">Hakkımızda</span>
-      <h3>İmplantolojide Uzman Kadro</h3>
-      <p>İmplantoloji olarak, her hastamıza özel implant tedavi planları sunuyor, dijital cerrahi teknolojileri kullanarak konforlu ve kalıcı çözümler elde ediyoruz. 20 yılı aşkın deneyimimizle implant ve cerrahi mükemmelliği bir arada sunuyoruz.</p>
+      <h3>İmplantolojide Uzman Cerrahi Kadro</h3>
+      <p>İmplantoloji Merkezi olarak, her hastamıza özel implant tedavi planları sunuyor, dijital cerrahi teknolojiler kullanarak konforlu ve kalıcı çözümler elde ediyoruz. 20 yılı aşkın deneyimimizle implant ve çene cerrahisi mükemmelliğini bir arada sunuyoruz. Tedavi öncesi 3D tomografi ile detaylı planlama, rehberli cerrahi ile milimetrik hassasiyet ve sedasyon desteğiyle stressiz bir deneyim sunuyoruz.</p>
+      <p>Kliniğimizde tüm implant prosedürleri steril koşullarda, güncel cerrahi protokoller ve kaliteli implant markaları kullanılarak gerçekleştirilmektedir. Her hasta için kişiselleştirilmiş tedavi planı oluşturuyor, tedavi öncesi ve sonrası süreci şeffaf bir şekilde yönetiyoruz.</p>
       <div class="about-features">
         <div class="about-feat">All-on-4/6 İmplant</div>
         <div class="about-feat">Zigomatik İmplant</div>
@@ -258,6 +234,31 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
         <div class="about-feat">CAD/CAM</div>
         <div class="about-feat">VIP Transfer</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="neden-biz" id="neden">
+  <div class="section-header reveal">
+    <span class="section-tag">Neden Biz</span>
+    <h2>Neden İmplantoloji Merkezi?</h2>
+    <p>Deneyimli cerrahi ekibimiz, ileri görüntüleme teknolojimiz ve konfor odaklı yaklaşımımızla fark yaratıyoruz.</p>
+  </div>
+  <div class="neden-grid">
+    <div class="neden-card reveal reveal-d1">
+      <div class="neden-img"><img src="img/feature-team.jpg" alt="Uzman Cerrahi Ekip" loading="lazy"></div>
+      <h4>Uzman Cerrahi Ekip</h4>
+      <p>10 kişilik deneyimli cerrahi kadromuz, her yıl yüzlerce başarılı implant vakasına imza atmaktadır. Her hekim kendi alanında uzmanlaşmış, düzenli olarak ulusal ve uluslararası kongrelere katılarak bilgilerini güncel tutmaktadır.</p>
+    </div>
+    <div class="neden-card reveal reveal-d2">
+      <div class="neden-img"><img src="img/feature-tech.jpg" alt="İleri Görüntüleme" loading="lazy"></div>
+      <h4>İleri Görüntüleme</h4>
+      <p>3D konik ışınlı tomografi (CBCT) ile çene kemiğiniz milimetrik hassasiyetle taranır. Cerrahi rehberlerle implant yerleşimi hatasız planlanır.</p>
+    </div>
+    <div class="neden-card reveal reveal-d3">
+      <div class="neden-img"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi" loading="lazy"></div>
+      <h4>Konfor Garantisi</h4>
+      <p>Sedasyonlu cerrahi ile implant tedavinizi uyurken geçirin. Ağrısız, stressiz ve konforlu bir deneyim için size özel protokol uyguluyoruz.</p>
     </div>
   </div>
 </section>
@@ -275,64 +276,34 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <p>Tek dişten tam ağız rekonstrüksiyonuna, All-on-4/6 ve zigomatik implant uygulamaları ile kalıcı çözümler.</p>
     </div>
     <div class="treatment-card reveal reveal-d2">
-      <img src="img/treatment-esthetic.jpg" alt="Estetik Diş Hekimliği" class="treatment-card-img" loading="lazy">
-      <h3>Estetik Diş Hekimliği</h3>
-      <p>Lamine veneer, zirkonyum kron ve dijital gülüş tasarımı ile implant üstü estetik restorasyonlar.</p>
+      <img src="img/treatment-esthetic.jpg" alt="Estetik Diş" class="treatment-card-img" loading="lazy">
+      <h3>Estetik Diş</h3>
+      <p>İmplant üstü zirkonyum kron, lamine veneer ve dijital gülüş tasarımı ile doğal ve estetik restorasyonlar.</p>
     </div>
     <div class="treatment-card reveal reveal-d3">
       <img src="img/treatment-root.jpg" alt="Kanal Tedavisi" class="treatment-card-img" loading="lazy">
       <h3>Kanal Tedavisi</h3>
-      <p>Mikroskop destekli kanal tedavisi ile implant öncesi doğal dişlerinizi koruyun.</p>
+      <p>Mikroskop destekli kanal tedavisi ile implant öncesi doğal dişlerinizi koruyun, ağrısız tedavi deneyimi.</p>
     </div>
     <div class="treatment-card reveal reveal-d4">
       <img src="img/treatment-general.jpg" alt="Genel Diş" class="treatment-card-img" loading="lazy">
       <h3>Genel Diş</h3>
-      <p>Dolgu, diş taşı temizliği ve periyodik kontroller ile ağız sağlığınızı koruyun.</p>
+      <p>Dolgu, diş taşı temizliği ve periyodik kontroller ile ağız sağlığınızı koruyun, implant öncesi hazırlık.</p>
     </div>
     <div class="treatment-card reveal reveal-d5">
       <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
       <h3>Ortodonti</h3>
-      <p>Şeffaf plak ve braket tedavileri ile implant öncesi diş düzeltme çözümleri.</p>
+      <p>Şeffaf plak ve braket tedavileri ile implant öncesi diş düzeltme, kapanış bozukluklarının giderilmesi.</p>
     </div>
     <div class="treatment-card reveal reveal-d6">
       <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
       <h3>Pedodonti</h3>
-      <p>Çocuk diş hekimliği ve koruyucu uygulamalar ile erken yaşta sağlıklı gülüşler.</p>
+      <p>Çocuk diş hekimliği ve koruyucu uygulamalar ile erken yaşta sağlıklı gülüşler, implant koruma programı.</p>
     </div>
   </div>
 </section>
 
-<section class="process">
-  <div class="section-header reveal">
-    <span class="section-tag">Tedavi Sürecimiz</span>
-    <h2>4 Adımda İmplant Tedavisi</h2>
-    <p>Planlı ve şeffaf bir cerrahi süreçle sürpriz yok, sadece size özel bir yol haritası.</p>
-  </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">1</div>
-      <h4>3D Tomografi & Planlama</h4>
-      <p>Dijital tomografi ile çene kemiğiniz 3 boyutlu taranır, implant planlaması dijital olarak yapılır.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">2</div>
-      <h4>İmplant Cerrahisi (Sedasyonlu)</h4>
-      <p>Sedasyon altında konforlu cerrahi, tek diş implantı yaklaşık 30 dakikada yerleştirilir.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">3</div>
-      <h4>Protez Aşaması</h4>
-      <p>İmplant kaynama süresi sonunda dijital ölçü alınır, kişiye özel protez hazırlanır.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">4</div>
-      <h4>Kontrol & Bakım</h4>
-      <p>Düzenli kontroller ve profesyonel bakım ile implantlarınız uzun yıllar sorunsuz kullanılır.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ba">
+<section class="ba" id="ba">
   <div class="section-header reveal">
     <span class="section-tag">Öncesi & Sonrası</span>
     <h2>Gerçek İmplant Vakaları</h2>
@@ -347,12 +318,12 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
         <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
       </div>
-      <div class="ba-info"><h4>All-on-6 İmplant</h4><span>Tam ağız implant destekli protez</span></div>
+      <div class="ba-info"><h4>All-on-6 İmplant</h4><span>Tam ağız implant destekli sabit protez</span></div>
     </div>
     <div class="ba-card reveal reveal-d2">
       <div class="ba-compare" data-position="50">
-        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
         <div class="ba-divider"></div>
         <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
@@ -371,8 +342,8 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     </div>
     <div class="ba-card reveal reveal-d4">
       <div class="ba-compare" data-position="50">
-        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
         <div class="ba-divider"></div>
         <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
@@ -386,15 +357,15 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="section-header reveal">
     <span class="section-tag">Uzman Kadro</span>
     <h2>İmplant Cerrahisi Ekibimiz</h2>
-    <p>Her biri alanında uzman, implant ve cerrahi tedavilere odaklı hekimlerimizle güvendesiniz.</p>
+    <p>Her biri alanında uzman, implant ve çene cerrahisi tedavilerine odaklı hekimlerimizle güvendesiniz.</p>
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-      <img src="img/doctor-1.jpg" alt="Dr. Ali Yılmaz" loading="lazy">
+      <img src="img/doctor-1.jpg" alt="Prof. Dr. Ali Yılmaz" loading="lazy">
       <div class="team-body">
-        <h4>Dr. Ali Yılmaz</h4>
-        <div class="title">İmplant Cerrahı</div>
-        <p>20 yıllık deneyim, 2.500+ implant vakası. All-on-4/6 ve zigomatik implant uzmanı.</p>
+        <h4>Prof. Dr. Ali Yılmaz</h4>
+        <div class="title">Baş Cerrah</div>
+        <p>20 yıllık deneyim, 2.500+ başarılı implant vakası. All-on-4/6 ve zigomatik implant cerrahisinde Türkiye'nin önde gelen cerrahlarından biridir.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -402,7 +373,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dr. Zeynep Kaya</h4>
         <div class="title">Çene Cerrahı</div>
-        <p>Çene kisti, gömülü diş cerrahisi ve kemik grefti ameliyatları uzmanı.</p>
+        <p>Çene kisti, gömülü diş cerrahisi, kemik grefti ve sinus lifting ameliyatlarında uzman. Sedasyonlu cerrahi deneyimi ile hastalarına konforlu operasyon imkanı sunar.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -410,64 +381,16 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dt. Mehmet Demir</h4>
         <div class="title">Periodontoloji</div>
-        <p>Diş eti cerrahisi, implant çevresi yumuşak doku yönetimi ve kemik grefti.</p>
+        <p>Diş eti cerrahisi, implant çevresi yumuşak doku yönetimi, kemik augmentasyonu ve lazer destekli periodontal tedavilerde deneyimli.</p>
       </div>
     </div>
     <div class="team-card reveal">
       <img src="img/doctor-4.jpg" alt="Dr. Can Yıldız" loading="lazy">
       <div class="team-body">
         <h4>Dr. Can Yıldız</h4>
-        <div class="title">Protetik Diş Hekimi</div>
-        <p>İmplant üstü protezler, CAD/CAM restorasyonlar ve dijital gülüş tasarımı.</p>
+        <div class="title">Protetik Diş</div>
+        <p>İmplant üstü protezler, CAD/CAM teknolojisi ile zirkonyum ve emax restorasyonlar, dijital gülüş tasarımı ve full ağız rehabilitasyon uzmanı.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-inner">
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-team.jpg" alt="Uzman Kadro"></div>
-      <h4>İmplant Uzmanları</h4>
-      <p>Alanında deneyimli 10 hekim ile cerrahi ve protetik tedavi planlaması.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div>
-      <h4>Dijital Cerrahi</h4>
-      <p>3D tomografi, rehberli cerrahi, CAD/CAM ile milimetrik hassasiyet.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi"></div>
-      <h4>Sedasyon Konforu</h4>
-      <p>Sedasyonlu implant cerrahisi ile ağrısız ve stressiz tedavi deneyimi.</p>
-    </div>
-  </div>
-</section>
-
-<section class="testimonials" id="testimonials">
-  <div class="section-header reveal">
-    <span class="section-tag">Hasta Yorumları</span>
-    <h2>İmplant Hastalarımız Ne Diyor?</h2>
-    <p>Her yorum, daha iyiye gitmek için en değerli rehberimiz.</p>
-  </div>
-  <div class="testimonial-grid">
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="text">"Hiç beklemediğim kadar kolay oldu. All-on-6 implant tedavim sayesinde 1 günde yeni dişlerime kavuştum. Sedasyon sayesinde hiçbir şey hissetmedim."</p>
-      <strong class="author">Ali R.</strong>
-      <div class="detail">All-on-6 İmplant · 2 ay önce</div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="text">"Tek diş implantım 30 dakikada tamamlandı. Dr. Ali Yılmaz gerçekten çok ilgiliydi. İmplant sonrası hiç ağrı yaşamadım, şiddetle tavsiye ederim."</p>
-      <strong class="author">Sema K.</strong>
-      <div class="detail">Tek Diş İmplant · 1 ay önce</div>
-    </div>
-    <div class="testimonial-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="text">"Yurt dışından geldim, her şey kusursuz planlanmıştı. Havaalanından alındım, otel ve klinik arası transfer ayarlanmıştı. Full ağız implantlarım mükemmel oldu."</p>
-      <strong class="author">David M.</strong>
-      <div class="detail">Full Ağız İmplant · 3 hafta önce</div>
     </div>
   </div>
 </section>
@@ -481,19 +404,19 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="faq-list">
     <div class="faq-item active">
       <button class="faq-question">İmplant tedavisi ne kadar sürer?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Tek diş implantı yaklaşık 30 dakikada yerleştirilir. İmplantın çene kemiğiyle kaynaşması (osseointegrasyon) 2-4 ay sürer. Bu süre sonunda protez aşamasına geçilir. All-on-4/6 gibi çoklu implantlarda toplam süreç 3-6 ay arasındadır.</div>
+      <div class="faq-answer">Tek diş implantı yaklaşık 30 dakikada yerleştirilir. İmplantın çene kemiğiyle kaynaşması (osseointegrasyon) 2-4 ay sürer. Bu süre boyunca geçici protez kullanılır. All-on-4/6 gibi çoklu implantlarda ise geçici sabit protez aynı gün takılır, kalıcı protez 3-6 ay sonra hazırlanır. Tedavi süresi hastanın kemik yapısına ve tedavi planına göre değişiklik gösterebilir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">İmplant ağrılı bir işlem mi?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Hayır, implant cerrahisi lokal anestezi altında yapıldığı için işlem sırasında ağrı hissedilmez. Sedasyon seçeneği ile tamamen uyutularak işlemin hiçbir anını hatırlamayabilirsiniz. Sonrasında hafif bir şişlik olabilir ancak ağrı kesicilerle rahatça yönetilir.</div>
+      <div class="faq-answer">İmplant cerrahisi lokal anestezi altında yapıldığı için işlem sırasında ağrı hissedilmez. Sedasyon seçeneği ile tamamen uyutularak işlemin hiçbir anını hatırlamayabilirsiniz. Sonrasında hafif bir şişlik ve hassasiyet olabilir, reçete edilen ağrı kesicilerle rahatça yönetilir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">İmplant ömrü ne kadardır?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Düzenli bakım ve kontrollerle implantlar ömür boyu kullanılabilir. Ağız hijyenine dikkat edildiğinde ve yıllık kontroller aksatılmadığında implant başarı oranı %99'un üzerindedir.</div>
+      <div class="faq-answer">Düzenli bakım ve kontrollerle implantlar ömür boyu kullanılabilir. Ağız hijyenine dikkat edildiğinde ve yıllık kontroller aksatılmadığında implant başarı oranı %99'un üzerindedir. Sigara kullanımı implant ömrünü olumsuz etkileyebilir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Kemik yetmezliğinde ne yapılır?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Kemik yetmezliği durumunda zigomatik implant (elmacık kemiğine yerleştirilen özel implant) veya kemik grefti seçenekleri mevcuttur. 3D tomografi ile değerlendirme sonrası size en uygun yöntem belirlenir.</div>
+      <div class="faq-answer">Kemik yetmezliği durumunda zigomatik implant (elmacık kemiğine yerleştirilen özel implant) veya kemik grefti seçenekleri mevcuttur. 3D tomografi ile değerlendirme sonrası size en uygun yöntem belirlenir. Sinus lifting de sık kullanılan bir yöntemdir.</div>
     </div>
   </div>
 </section>
@@ -502,7 +425,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="cta-box reveal">
     <span class="section-tag">İletişim</span>
     <h2>Sağlam Bir Gülüş İçin İlk Adımı Atın</h2>
-    <p>Ücretsiz implant muayenesi için hemen bizimle iletişime geçin. Uzman ekibimiz size en uygun tedaviyi planlasın.</p>
+    <p>Ücretsiz implant muayenesi için hemen bizimle iletişime geçin. Uzman cerrahi ekibimiz size en uygun tedaviyi planlasın.</p>
     <a href="https://wa.me/905303982712" class="btn" target="_blank" rel="noopener noreferrer">WhatsApp'tan Randevu Al</a>
   </div>
 </section>
@@ -511,20 +434,20 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="footer-inner">
     <div class="footer-about">
       <a href="#" class="logo">İmplantoloji</a>
-      <p>İmplantoloji, modern cerrahi teknoloji ve uzman kadrosuyla implant tedavisi alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
+      <p>İmplantoloji Merkezi, modern cerrahi teknoloji ve uzman kadrosuyla implant tedavisi ve çene cerrahisi alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
     </div>
     <div class="footer-col">
       <h5>Hızlı Linkler</h5>
       <a href="#about">Kurumsal</a>
+      <a href="#neden">Neden Biz</a>
       <a href="#treatments">Tedaviler</a>
       <a href="#team">Ekibimiz</a>
-      <a href="#testimonials">Yorumlar</a>
       <a href="#contact">İletişim</a>
     </div>
     <div class="footer-col">
       <h5>Tedaviler</h5>
       <a href="#">İmplant Tedavisi</a>
-      <a href="#">Estetik Diş Hekimliği</a>
+      <a href="#">Estetik Diş</a>
       <a href="#">Kanal Tedavisi</a>
       <a href="#">Ortodonti</a>
       <a href="#">Pedodonti</a>
@@ -540,7 +463,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96366.39358596434!2d28.915521680922828!3d41.04022995751701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab765c4a0ff85%3A0x5f6d1e00becf8bef!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1" width="100%" height="240" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Konum"></iframe>
 </div>
-<div class="footer-bottom">© 2026 İmplantoloji Diş Kliniği. Tüm hakları saklıdır.</div>
+<div class="footer-bottom">© 2026 İmplantoloji Merkezi. Tüm hakları saklıdır.</div>
 </footer>
 
 <a href="https://wa.me/905303982712" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>

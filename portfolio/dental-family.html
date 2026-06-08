@@ -3,91 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aile Diş Kliniği — Çocuk & Yetişkin Diş Hekimliği | Pedodonti</title>
+<title>Aile Diş Kliniği — Çocuk & Yetişkin Diş Sağlığı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
-.treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
-.feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+:root{--primary:#d97706;--primary-dark:#b45309;--primary-light:#f59e0b;--secondary:#fbbf24;--accent:#fde68a;--bg:#fffbeb;--bgs:#fef3c7;--border:#fde68a;--white:#ffffff;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.55)}}
-.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(13,148,136,0.25)}
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(217,119,6,0.25)}
 .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-.scroll-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.scroll-top:hover{background:var(--primary-dark);transform:translateY(-2px)}
 .scroll-top svg{width:20px;height:20px;fill:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(13,148,136,0.08);transition:var(--tr)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,251,235,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(217,119,6,0.1);transition:var(--tr)}
 .nav.scrolled{height:60px;box-shadow:0 4px 24px rgba(0,0,0,0.05)}
-.logo{font-size:1.35rem;font-weight:800;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:8px}
-.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 2px 8px rgba(13,148,136,0.3)}
+.logo{font-size:1.35rem;font-weight:800;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 2px 8px rgba(217,119,6,0.3)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr)}
-.nav-links a:hover{color:var(--teal)}
-.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
-.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,0.3)}
+.nav-links a:hover{color:var(--primary)}
+.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(217,119,6,0.3)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--tr)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 30%,#fff 60%,#f0fdfa 100%)}
-.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.05),transparent 70%);border-radius:50%}
-.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(8,145,178,0.05),transparent 70%);border-radius:50%}
-.hero-content{max-width:580px;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.12);color:var(--teal);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
-.hero h1 span{color:var(--teal)}
-.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:460px}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 50%,#fff 100%);gap:5%}
+.hero-content{max-width:520px;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(217,119,6,0.1);border:1px solid rgba(217,119,6,0.15);color:var(--primary);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:1rem;color:var(--text)}
+.hero h1 span{color:var(--primary);display:block}
+.hero p{font-size:1.05rem;color:var(--muted);margin-bottom:2rem;max-width:460px;line-height:1.7}
 .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
 .btn,.btn-outline{font-weight:600;font-size:0.95rem;padding:0.85rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
-.btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;border:none}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,148,136,0.3)}
-.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal)}
-.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
-.hero-image{position:absolute;right:5%;bottom:0;width:48%;max-width:620px;z-index:1;border-radius:20px 20px 0 0;overflow:hidden;box-shadow:var(--shadow-lg)}
-.hero-image img{width:100%;height:auto;display:block}
-.hero-floating{position:absolute;z-index:3;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite}
-.hero-float-1{top:30%;right:38%;animation-delay:0s}
-.hero-float-2{bottom:25%;right:42%;animation-delay:2s}
-.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(217,119,6,0.3)}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-2px)}
+.hero-image{width:40%;max-width:420px;z-index:2;flex-shrink:0}
+.hero-image img{width:100%;height:auto;display:block;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:0 12px 40px rgba(217,119,6,0.2);border:4px solid rgba(217,119,6,0.15)}
+.hero-float-wrap{position:absolute;bottom:20%;right:48%;z-index:3;pointer-events:none}
+.hero-float{background:var(--white);border-radius:14px;padding:12px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:inline-flex;align-items:center;gap:10px;font-size:0.82rem;font-weight:600;animation:float 4s ease-in-out infinite;margin-bottom:8px}
+.hero-float:last-child{animation-delay:2s;margin-bottom:0}
+.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--primary);flex-shrink:0}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:32px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
-.stat-item{text-align:center}
-.stat-number{font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;padding:0 5%}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:1.75rem 1.5rem;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);transition:var(--tr)}
+.stat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--secondary)}
+.stat-icon{width:48px;height:48px;border-radius:50%;overflow:hidden;margin:0 auto 0.75rem;flex-shrink:0;border:2px solid var(--border)}
+.stat-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.stat-number{font-size:2rem;font-weight:800;color:var(--primary);line-height:1}
 .stat-label{font-size:0.82rem;color:var(--muted);margin-top:6px;font-weight:500}
 section{padding:100px 5%}
 .section-header{text-align:center;margin-bottom:4rem}
-.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
+.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
 .section-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:0.75rem}
 .section-header p{color:var(--muted);max-width:540px;margin:0 auto;font-size:1rem}
 .about{background:var(--bg)}
 .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:center}
 .about-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
-.about-image img{width:100%;height:400px;object-fit:cover;display:block}
+.about-image img{width:100%;height:420px;object-fit:cover;display:block}
 .about-text h3{font-size:1.6rem;font-weight:800;margin-bottom:1rem}
-.about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500}
-.about-feat::before{content:'✓';width:22px;height:22px;border-radius:50%;background:rgba(13,148,136,0.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+.about-text>p{color:var(--muted);margin-bottom:1.5rem;font-size:0.95rem;line-height:1.7}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.about-feat{display:flex;align-items:center;gap:10px;font-size:0.88rem;font-weight:500;padding:0.5rem 0.75rem;background:var(--white);border-radius:10px;border:1px solid var(--border);transition:var(--tr)}
+.about-feat:hover{background:var(--bgs);border-color:var(--secondary)}
+.about-feat::before{content:'✓';width:22px;height:22px;border-radius:50%;background:rgba(217,119,6,0.1);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
 .treatments{background:var(--white)}
 .treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
-.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--cyan));transform:scaleX(0);transition:transform var(--tr)}
-.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.treatment-card:hover::before{transform:scaleX(1)}
-.treatment-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(13,148,136,0.08),rgba(8,145,178,0.08));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
-.treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
-.treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
+.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--tr);cursor:default;border-top:4px solid var(--primary);box-shadow:var(--shadow)}
+.treatment-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent;border-top-color:var(--primary-light)}
+.treatment-card-img{width:100%;height:180px;object-fit:cover;display:block}
+.treatment-body{padding:1.5rem 1.75rem 2rem}
+.treatment-body h3{font-size:1.15rem;font-weight:700;margin-bottom:0.5rem;color:var(--text)}
+.treatment-body p{font-size:0.88rem;color:var(--muted);line-height:1.6}
 .process{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow)}
-.process-step:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--teal);font-weight:300}
-.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
-.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
-.process-step p{font-size:0.85rem;color:var(--muted)}
+.process-timeline{max-width:700px;margin:0 auto;position:relative;padding-left:60px}
+.process-timeline::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--primary),var(--secondary),var(--accent));border-radius:3px}
+.process-step-v{position:relative;padding:0 0 3rem 2rem}
+.process-step-v:last-child{padding-bottom:0}
+.process-step-v::before{content:'';position:absolute;left:-38px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--primary);border:3px solid var(--bg);box-shadow:0 0 0 3px var(--secondary)}
+.process-step-v .step-num-v{position:absolute;left:-58px;top:0;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:800}
+.process-step-v h4{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.3rem}
+.process-step-v p{font-size:0.9rem;color:var(--muted);line-height:1.5;max-width:500px}
+.process-step-v .step-tag{display:inline-block;font-size:0.7rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.2rem}
 .ba{background:var(--white)}
 .ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
 .ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
@@ -96,59 +98,53 @@ section{padding:100px 5%}
 .ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
 .ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
 .ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--white);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,0.2)}
-.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--teal);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--primary);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .ba-label{position:absolute;top:10px;z-index:6;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
 .ba-label.before{left:10px;background:rgba(0,0,0,0.6);color:#fff}
-.ba-label.after{right:10px;background:var(--teal);color:#fff}
+.ba-label.after{right:10px;background:var(--primary);color:#fff}
 .ba-info{padding:14px 18px}
 .ba-info h4{font-size:.95rem;font-weight:700}
 .ba-info span{font-size:.8rem;color:var(--muted)}
-.treatment-card-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:12px 12px 0 0;margin:-2rem -1.75rem 1rem;width:calc(100% + 3.5rem)}
-.team{background:var(--bg)}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
-.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-.team-card img{width:100%;height:280px;object-fit:cover;display:block}
-.team-body{padding:1.25rem}
-.team-body h4{font-size:1rem;font-weight:700}
-.team-body .title{font-size:0.82rem;color:var(--teal);font-weight:600;margin:4px 0 8px}
-.team-body p{font-size:0.82rem;color:var(--muted)}
-.testimonials{background:var(--white)}
+.testimonials{background:var(--bgs)}
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.testimonial-card{background:var(--bg);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
+.testimonial-card{background:var(--white);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
 .testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem}
+.stars{color:var(--primary);font-size:0.9rem;margin-bottom:0.75rem}
 .testimonial-card .text{font-size:0.92rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
 .testimonial-card .author{font-weight:700;font-size:0.9rem}
 .testimonial-card .detail{font-size:0.78rem;color:var(--light)}
-.features{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:80px 5%;color:#fff}
-.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto;text-align:center}
-.feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
-.feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
-.feature-item p{font-size:0.88rem;opacity:0.8}
-.faq{background:var(--bg)}
+.team{background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);text-align:center}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+.team-card img{width:100%;height:280px;object-fit:cover;display:block}
+.team-body{padding:1.25rem}
+.team-body h4{font-size:1rem;font-weight:700}
+.team-body .title{font-size:0.82rem;color:var(--primary);font-weight:600;margin:4px 0 8px}
+.team-body p{font-size:0.82rem;color:var(--muted)}
+.faq{background:var(--white)}
 .faq-list{max-width:720px;margin:0 auto}
-.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--white);transition:var(--tr)}
+.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--bg);transition:var(--tr)}
 .faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)}
-.faq-question:hover{color:var(--teal)}
+.faq-question:hover{color:var(--primary)}
 .faq-question .arrow{font-size:1.2rem;transition:transform var(--tr);color:var(--muted)}
-.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--teal)}
+.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--primary)}
 .faq-answer{padding:0 1.25rem 0;max-height:0;overflow:hidden;transition:all 0.35s ease;font-size:0.9rem;color:var(--muted);line-height:1.6}
 .faq-item.active .faq-answer{padding:0 1.25rem 1rem;max-height:200px}
-.cta-section{background:var(--white);text-align:center;padding:80px 5%}
-.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 100%);border-radius:24px;border:1px solid rgba(13,148,136,0.1)}
-.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem}
+.cta-section{background:var(--bg);text-align:center;padding:80px 5%}
+.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border-radius:24px;border:1px solid rgba(217,119,6,0.1)}
+.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem;color:var(--text)}
 .cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
 .cta-box .btn{font-size:1rem;padding:1rem 2.5rem}
-footer{background:#0f172a;color:#94a3b8;padding:60px 5% 30px}
+footer{background:#1c1917;color:#a8a29e;padding:60px 5% 30px}
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
 footer .logo{color:#fff;margin-bottom:1rem}
-footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--cyan))}
+footer .logo::before{background:linear-gradient(135deg,var(--primary-light),var(--secondary))}
 .footer-about p{font-size:0.85rem;line-height:1.7}
 .footer-col h5{color:#fff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
-.footer-col a{display:block;color:#64748b;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
-.footer-col a:hover{color:var(--teal-light)}
-.footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#475569}
+.footer-col a{display:block;color:#78716c;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
+.footer-col a:hover{color:var(--primary-light)}
+.footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#57534e}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-d1{transition-delay:0s}
@@ -157,40 +153,45 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 .reveal-d4{transition-delay:.3s}
 .reveal-d5{transition-delay:.4s}
 .reveal-d6{transition-delay:.5s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.map-wrap{max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
 @media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:968px){
-  .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
+  .hero{flex-direction:column-reverse;text-align:center;padding:100px 5% 60px;min-height:auto;gap:2rem}
   .hero-content{max-width:100%}
   .hero p{margin:0 auto 2rem}
   .hero-buttons{justify-content:center}
-  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
-  .hero-floating{display:none}
+  .hero-image{width:60%;max-width:300px}
+  .hero-float-wrap{display:none}
   .about-inner{grid-template-columns:1fr;gap:32px}
-  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
-  .process-step:not(:last-child)::after{display:none}
-  .stats{margin-top:0;padding:24px;grid-template-columns:repeat(2,1fr)}
+  .treatment-grid{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
   section{padding:60px 5%}
-  .treatment-grid,.process-steps,.feature-items{grid-template-columns:1fr}
-  .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
+  .treatment-grid,.testimonial-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
+  .ba-card .ba-compare{height:220px}
   .footer-inner{grid-template-columns:1fr;gap:24px}
   .team-grid{grid-template-columns:1fr;max-width:400px}
+  .process-timeline{padding-left:45px}
+  .process-step-v::before{left:-23px}
+  .process-step-v .step-num-v{left:-43px;width:24px;height:24px;font-size:0.7rem}
 }
 @media(max-width:480px){
   .hero h1{font-size:2.2rem}
-  .stat-number{font-size:1.6rem}
+  .hero-image{width:80%}
+  .stat-number{font-size:1.5rem}
+  .stat-card{padding:1.25rem 1rem}
   .cta-box{padding:40px 24px}
+  .about-features{grid-template-columns:1fr}
 }
 </style>
-
 <link rel='icon' type='image/png' href='../img/logo-icon.png'>
 <link rel='canonical' href='https://kivontr.com/portfolio/dental-family.html'>
-<meta property='og:title' content='Aile Diş'>
+<meta property='og:title' content='Aile Diş Kliniği — Çocuk & Yetişkin Diş Sağlığı'>
 <meta property='og:description' content='Aile diş kliniği — çocuk ve yetişkin diş hekimliği, pedodonti, ortodonti, implant ve daha fazlası.'>
 <meta property='og:type' content='website'>
 <meta name='description' content='Aile diş kliniği — çocuk ve yetişkin diş hekimliği, pedodonti, ortodonti, implant ve daha fazlası.'>
@@ -200,9 +201,9 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <nav class="nav" id="nav">
   <a href="#" class="logo">Aile Diş</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#about">Kurumsal</a></li>
+    <li><a href="#about">Hakkımızda</a></li>
     <li><a href="#treatments">Tedaviler</a></li>
-    <li><a href="#team">Ekibimiz</a></li>
+    <li><a href="#process">Süreç</a></li>
     <li><a href="#testimonials">Yorumlar</a></li>
     <li><a href="#contact" class="btn-nav">Randevu Al</a></li>
   </ul>
@@ -214,31 +215,43 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="hero">
   <div class="hero-content">
     <span class="hero-badge">✦ 4.8 · 2.000+ Aile</span>
-    <h1>Tüm Aile İçin<span>Sağlıklı Gülüşler</span></h1>
-    <p>Çocuktan yetişkine tüm ailenizin diş sağlığı için modern pedodonti ve genel diş hekimliği hizmetlerini bir arada sunuyoruz.</p>
+    <h1>Tüm Aileniz İçin<span>Sıcak Bir Gülüş</span></h1>
+    <p>Çocuklardan büyüklere, her yaştan hasta için sıcak ve güvenilir bir diş kliniği deneyimi. Pedodonti ve aile hekimliği bir arada.</p>
     <div class="hero-buttons">
       <a href="#contact" class="btn">Randevu Al</a>
-      <a href="#treatments" class="btn-outline">Tedavilerimiz</a>
+      <a href="#team" class="btn-outline">Ekibimizi Tanıyın</a>
     </div>
   </div>
   <div class="hero-image">
-    <img src="img/hero-clinic.jpg" alt="Aile Diş Kliniği" loading="eager">
+    <img src="img/treatment-pedo.jpg" alt="Aile Diş Kliniği" loading="eager">
   </div>
-  <div class="hero-floating hero-float-1">
-    <span class="hero-float-dot"></span>
-    <span>Çocuk Dostu Klinik</span>
-  </div>
-  <div class="hero-floating hero-float-2">
-    <span class="hero-float-dot" style="background:var(--cyan)"></span>
-    <span>Aile İndirimi</span>
+  <div class="hero-float-wrap">
+    <div class="hero-float"><span class="hero-float-dot"></span><span>Çocuk Dostu Klinik</span></div>
+    <div class="hero-float"><span class="hero-float-dot" style="background:var(--secondary)"></span><span>Aile İndirimi</span></div>
   </div>
 </section>
 
 <div class="stats">
-  <div class="stat-item"><div class="stat-number">8+</div><div class="stat-label">Yıllık Deneyim</div></div>
-  <div class="stat-item"><div class="stat-number">2.000+</div><div class="stat-label">Aile</div></div>
-  <div class="stat-item"><div class="stat-number">%96</div><div class="stat-label">Hasta Memnuniyeti</div></div>
-  <div class="stat-item"><div class="stat-number">6</div><div class="stat-label">Uzman Hekim</div></div>
+  <div class="stat-card reveal reveal-d1">
+    <div class="stat-icon"><img src="img/feature-team.jpg" alt="Yıl"></div>
+    <div class="stat-number">8+</div>
+    <div class="stat-label">Yıllık Deneyim</div>
+  </div>
+  <div class="stat-card reveal reveal-d2">
+    <div class="stat-icon"><img src="img/feature-tech.jpg" alt="Aile"></div>
+    <div class="stat-number">2.000+</div>
+    <div class="stat-label">Mutlu Aile</div>
+  </div>
+  <div class="stat-card reveal reveal-d3">
+    <div class="stat-icon"><img src="img/feature-comfort.jpg" alt="Memnuniyet"></div>
+    <div class="stat-number">%96</div>
+    <div class="stat-label">Hasta Memnuniyeti</div>
+  </div>
+  <div class="stat-card reveal reveal-d4">
+    <div class="stat-icon"><img src="img/about-treatment.jpg" alt="Hekim"></div>
+    <div class="stat-number">6</div>
+    <div class="stat-label">Uzman Hekim</div>
+  </div>
 </div>
 
 <section class="about" id="about">
@@ -248,13 +261,13 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     </div>
     <div class="about-text reveal">
       <span class="section-tag">Hakkımızda</span>
-      <h3>Tüm Aileniz İçin Güvenilir Diş Kliniği</h3>
-      <p>Aile Diş Kliniği olarak, çocuklar ve yetişkinler için kapsamlı diş hekimliği hizmetleri sunuyoruz. Pedodonti odaklı yaklaşımımız ve sıcak ortamımızla her yaştan hastamızın konforlu bir tedavi deneyimi yaşamasını sağlıyoruz.</p>
+      <h3>Gülümseten Aile Diş Sağlığı Deneyimi</h3>
+      <p>Aile Diş Kliniği olarak, çocuklar ve yetişkinler için kapsamlı diş hekimliği hizmetlerini sıcak ve samimi bir ortamda sunuyoruz. Pedodonti odaklı yaklaşımımız sayesinde minik hastalarımız diş hekimi koltuğunda kendini güvende hissederken, yetişkinler de en kaliteli tedaviyi alıyor.</p>
       <div class="about-features">
         <div class="about-feat">Çocuk Dostu Ortam</div>
         <div class="about-feat">Diş Taşı Temizliği</div>
         <div class="about-feat">Flor Uygulaması</div>
-        <div class="about-feat">Koruyucu Diş Hekimliği</div>
+        <div class="about-feat">Koruyucu Diş Bakımı</div>
         <div class="about-feat">Acil Müdahale</div>
         <div class="about-feat">Aile İndirimi</div>
       </div>
@@ -265,84 +278,82 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="treatments" id="treatments">
   <div class="section-header reveal">
     <span class="section-tag">Tedavilerimiz</span>
-    <h2>Ailece Sağlıklı Gülüşler İçin</h2>
-    <p>Çocuk diş hekimliğinden yetişkin tedavilerine, tüm ailenizin ihtiyaçlarına özel çözümler sunuyoruz.</p>
+    <h2>Tüm Aileniz İçin Çözümler</h2>
+    <p>Pedodontiden ortodontiye, estetikten implanta kadar geniş yelpazede hizmet sunuyoruz.</p>
   </div>
   <div class="treatment-grid">
     <div class="treatment-card reveal reveal-d1">
       <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
-      <h3>Pedodonti</h3>
-      <p>Çocuk diş hekimliği, koruyucu uygulamalar ve eğlenceli tedavi deneyimi ile minik hastalarımızın sağlıklı gülüşleri.</p>
+      <div class="treatment-body"><h3>Pedodonti</h3><p>Çocuk diş hekimliği, süt dişi tedavileri ve koruyucu uygulamalarla miniklerin sağlıklı gülüşleri.</p></div>
     </div>
     <div class="treatment-card reveal reveal-d2">
       <img src="img/treatment-general.jpg" alt="Genel Diş" class="treatment-card-img" loading="lazy">
-      <h3>Genel Diş</h3>
-      <p>Dolgu, diş taşı temizliği, periyodik kontroller ve tüm yetişkin diş hekimliği hizmetleri.</p>
+      <div class="treatment-body"><h3>Genel Diş</h3><p>Dolgu, diş taşı temizliği, periyodik kontroller ve tüm yetişkin diş hekimliği hizmetleri tek çatı altında.</p></div>
     </div>
     <div class="treatment-card reveal reveal-d3">
       <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
-      <h3>Ortodonti</h3>
-      <p>Şeffaf plak ve braket tedavileri ile çocuklar ve yetişkinler için düzgün diş sıralaması.</p>
+      <div class="treatment-body"><h3>Ortodonti</h3><p>Şeffaf plak ve braket tedavileri ile çocuklar ve yetişkinler için ideal diş düzeltme çözümleri.</p></div>
     </div>
     <div class="treatment-card reveal reveal-d4">
       <img src="img/treatment-esthetic.jpg" alt="Estetik" class="treatment-card-img" loading="lazy">
-      <h3>Estetik</h3>
-      <p>Lamine veneer, zirkonyum kron ve beyazlatma ile hayalinizdeki gülüşe kavuşun.</p>
+      <div class="treatment-body"><h3>Estetik</h3><p>Lamine veneer, zirkonyum kron ve beyazlatma ile hayalinizdeki gülüşe kavuşmanız için özel çözümler.</p></div>
     </div>
     <div class="treatment-card reveal reveal-d5">
       <img src="img/treatment-implant.jpg" alt="İmplant" class="treatment-card-img" loading="lazy">
-      <h3>İmplant</h3>
-      <p>Tek dişten çoklu implant tedavisine, eksik dişlerinizi tamamlayan kalıcı çözümler.</p>
+      <div class="treatment-body"><h3>İmplant</h3><p>Tek dişten çoklu implant tedavisine, eksik dişlerinizi tamamlayan ömür boyu kalıcı çözümler.</p></div>
     </div>
     <div class="treatment-card reveal reveal-d6">
       <img src="img/treatment-root.jpg" alt="Kanal Tedavisi" class="treatment-card-img" loading="lazy">
-      <h3>Kanal Tedavisi</h3>
-      <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun, ağrılarınızdan kurtulun.</p>
+      <div class="treatment-body"><h3>Kanal Tedavisi</h3><p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun, ağrılarınızdan kurtulun.</p></div>
     </div>
   </div>
 </section>
 
-<section class="process">
+<section class="process" id="process">
   <div class="section-header reveal">
-    <span class="section-tag">Tedavi Sürecimiz</span>
-    <h2>4 Adımda Ailenizin Diş Sağlığı</h2>
-    <p>Size özel planlanmış tedavi sürecimizle konforlu ve güvenilir bir deneyim sunuyoruz.</p>
+    <span class="section-tag">Tedavi Süreci</span>
+    <h2>4 Adımda Aile Diş Sağlığınız</h2>
+    <p>Size özel planlanmış adımlarla konforlu ve güvenilir bir tedavi deneyimi yaşayın.</p>
   </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">1</div>
+  <div class="process-timeline">
+    <div class="process-step-v reveal">
+      <div class="step-num-v">1</div>
+      <span class="step-tag">Adım 1</span>
       <h4>Aile Kaydı</h4>
-      <p>Tüm aile bireylerinizin kaydını oluşturuyor, herkesin ihtiyaçlarını tek bir dosyada topluyoruz.</p>
+      <p>Aile bilgileri alınır, tüm bireylerin ihtiyaçları tek dosyada toplanır ve randevu planlaması yapılır.</p>
     </div>
-    <div class="process-step reveal">
-      <div class="step-num">2</div>
+    <div class="process-step-v reveal">
+      <div class="step-num-v">2</div>
+      <span class="step-tag">Adım 2</span>
       <h4>Muayene</h4>
-      <p>Detaylı ağız muayenesi ve gerekli görüntüleme ile mevcut durumunuzu değerlendiriyoruz.</p>
+      <p>Detaylı ağız muayenesi ve gerekli görüntüleme ile mevcut diş sağlığı durumunuz değerlendirilir.</p>
     </div>
-    <div class="process-step reveal">
-      <div class="step-num">3</div>
+    <div class="process-step-v reveal">
+      <div class="step-num-v">3</div>
+      <span class="step-tag">Adım 3</span>
       <h4>Tedavi Planı</h4>
-      <p>Her aile üyesi için kişiselleştirilmiş tedavi planı oluşturarak adım adım ilerliyoruz.</p>
+      <p>Size özel tedavi planı oluşturulur, tüm aşamalar detaylıca anlatılır ve onayınız alınır.</p>
     </div>
-    <div class="process-step reveal">
-      <div class="step-num">4</div>
+    <div class="process-step-v reveal">
+      <div class="step-num-v">4</div>
+      <span class="step-tag">Adım 4</span>
       <h4>Düzenli Kontrol</h4>
-      <p>Tedavi sonrası düzenli kontrollerle ailenizin diş sağlığını uzun vadede koruyoruz.</p>
+      <p>Periyodik takip ve kontrollerle ailenizin diş sağlığı uzun vadede korunur, olası sorunlar önlenir.</p>
     </div>
   </div>
 </section>
 
-<section class="ba">
+<section class="ba" id="ba">
   <div class="section-header reveal">
     <span class="section-tag">Öncesi & Sonrası</span>
-    <h2>Gerçek Vakalar, Gerçek Sonuçlar</h2>
-    <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
+    <h2>Başarılı Tedavi Sonuçlarımız</h2>
+    <p>Tüm görseller gerçek hastalarımıza ait olup yazılı izinle paylaşılmaktadır.</p>
   </div>
   <div class="ba-grid">
     <div class="ba-card reveal reveal-d1">
       <div class="ba-compare" data-position="50">
-        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
         <div class="ba-divider"></div>
         <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
@@ -351,8 +362,8 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
     </div>
     <div class="ba-card reveal reveal-d2">
       <div class="ba-compare" data-position="50">
-        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
         <div class="ba-divider"></div>
         <span class="ba-label before">ÖNCE</span>
         <span class="ba-label after">SONRA</span>
@@ -385,8 +396,8 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="team" id="team">
   <div class="section-header reveal">
     <span class="section-tag">Uzman Kadro</span>
-    <h2>Ailenizin Diş Sağlığına Değer Veren Hekimler</h2>
-    <p>Her biri alanında uzman, çocuk ve yetişkin hastalara yaklaşımıyla fark yaratan hekimlerimizle tanışın.</p>
+    <h2>Ailenizin Diş Sağlığı İçin Burada</h2>
+    <p>Her biri alanında deneyimli, çocuk ve yetişkin hastalara yaklaşımıyla fark yaratan hekimlerimiz.</p>
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
@@ -394,7 +405,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dt. Sema Yıldız</h4>
         <div class="title">Pedodonti Uzmanı</div>
-        <p>Çocuk diş hekimliğinde 10 yıllık deneyim, koruyucu diş hekimliği ve sedasyonlu tedavi uzmanı.</p>
+        <p>Çocuk diş hekimliğinde 10 yıllık deneyim, koruyucu diş hekimliği ve davranış yönlendirme uzmanı.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -402,7 +413,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dr. Ahmet Kaya</h4>
         <div class="title">Çocuk Diş Hekimi</div>
-        <p>Pedodonti alanında uzman, çocuk hastalarla iletişim ve davranış yönlendirme konusunda deneyimli.</p>
+        <p>Pedodonti alanında uzman, çocuk hastalarla iletişim ve sedasyonlu tedavi konusunda deneyimli.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -410,7 +421,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dt. Elif Yılmaz</h4>
         <div class="title">Ortodonti</div>
-        <p>Şeffaf plak ve braket tedavileri ile çocuk ve yetişkin ortodonti vakalarında uzman.</p>
+        <p>Şeffaf plak ve braket tedavileri ile çocuk ve yetişkin ortodonti vakalarında 8 yıllık deneyim.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -418,28 +429,8 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dr. Ali Öz</h4>
         <div class="title">Genel Diş Hekimi</div>
-        <p>Genel diş hekimliği, implant ve kanal tedavisinde 12 yıllık deneyim, tüm ailenizin hekimi.</p>
+        <p>Genel diş hekimliği, implant ve kanal tedavisi alanında 12 yıllık deneyim, tüm ailenizin hekimi.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-inner">
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-team.jpg" alt="Uzman Kadro"></div>
-      <h4>Çocuk Dostu Ekip</h4>
-      <p>Pedodonti uzmanlarımız ve deneyimli ekibimizle çocuklar diş hekimini seviyor.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div>
-      <h4>Modern Teknoloji</h4>
-      <p>Dijital röntgen, 3D tomografi ve mikroskop destekli tedavi ile hassas ve konforlu hizmet.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi"></div>
-      <h4>Sıcak Ortam</h4>
-      <p>Çocuk oyun alanı, sakinleştirici dekor ve güler yüzlü ekibimizle her yaştan hastamız kendini evinde hisseder.</p>
     </div>
   </div>
 </section>
@@ -453,20 +444,20 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="testimonial-grid">
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"6 yaşındaki oğlum dişçiye gitmeye bayılıyor artık! Oyuncaklarla karşılanıyor, işlemler hiç korkutucu değil. Harika bir ekip."</p>
-      <strong class="author">Merve Y.</strong>
-      <div class="detail">Pedodonti · 1 ay önce</div>
+      <p class="text">"5 yaşındaki kızım dişçiye gitmek için gün sayıyor! Oyuncaklarla karşılanmak ve güler yüzlü yaklaşım sayesinde hiç korkmuyor. Tüm aile olarak çok memnunuz."</p>
+      <strong class="author">Zeynep A.</strong>
+      <div class="detail">Pedodonti · 2 hafta önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Tüm aile olarak 3 yıldır geliyoruz, herkes çok memnun. Çocuklarımıza gösterilen ilgi ve sabır gerçekten takdire şayan."</p>
-      <strong class="author">İbrahim K.</strong>
-      <div class="detail">Aile Diş · 2 hafta önce</div>
+      <p class="text">"Üç çocuğumla birlikte gidiyorum, hepsini aynı anda muayene edip zamanımıza saygı gösteriyorlar. Aile paketi indirimi de cabası. Kesinlikle tavsiye ederim."</p>
+      <strong class="author">Murat T.</strong>
+      <div class="detail">Aile Diş · 1 ay önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Korkularımı yenmeme yardımcı oldular, harika bir ekip. Yıllardır ertelediğim tedavimi rahatça yaptırabildim."</p>
-      <strong class="author">Nalan S.</strong>
+      <p class="text">"Diş hekimi korkum vardı ama bu klinikteki sıcak ortam ve ilgili doktorlar sayesinde tüm tedavilerimi sorunsuz tamamladım. Artık düzenli kontrollerimi aksatmıyorum."</p>
+      <strong class="author">Fatma K.</strong>
       <div class="detail">Genel Diş · 3 hafta önce</div>
     </div>
   </div>
@@ -481,19 +472,19 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="faq-list">
     <div class="faq-item active">
       <button class="faq-question">Çocuklar ilk diş muayenesine ne zaman gitmeli?<span class="arrow">▼</span></button>
-      <div class="faq-answer">İlk diş muayenesi ilk süt dişinin çıkmasını takiben 6-12 ay arasında yapılmalıdır. Erken muayene ile koruyucu önlemler alınır ve çocuğunuz diş hekimine alışır.</div>
+      <div class="faq-answer">İlk diş muayenesi ilk süt dişinin çıkmasını takiben 6-12 ay arasında yapılmalıdır. Erken muayene ile koruyucu önlemler alınır ve çocuğunuz diş hekimine alışır. Amerikan Pediatrik Diş Hekimliği Akademisi de ilk muayeneyi 1 yaş civarı önermektedir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Süt dişi kanal tedavisi gerekli mi?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Evet, süt dişleri alttaki kalıcı dişlere rehberlik eder. Süt dişinin erken kaybı çapraşıklığa yol açabilir. Gerekli durumlarda süt dişi kanal tedavisi ile diş korunur.</div>
+      <div class="faq-answer">Evet, süt dişleri alttaki kalıcı dişlere rehberlik eder. Süt dişinin erken kaybı çapraşıklığa ve kalıcı dişlerin yanlış pozisyonda çıkmasına yol açabilir. Gerekli durumlarda süt dişi kanal tedavisi ile diş korunur.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Aile paketi indiriminiz var mı?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Evet, ailemizin tüm bireyleri için özel paket fırsatlarımız mevcuttur. Detaylı bilgi için klinik randevunuzda size özel teklif sunuyoruz.</div>
+      <div class="faq-answer">Evet, ailemizin tüm bireyleri için özel paket fırsatlarımız mevcuttur. 3 ve üzeri aile üyesi için geçerli olan indirim paketimizle tüm tedavilerde avantajlı fiyatlar sunuyoruz. Detaylı bilgi için klinik randevunuzda size özel teklif sunuyoruz.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Acil durumlarda ulaşabilir miyim?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Evet, acil diş durumlarında WhatsApp hattımız üzerinden bize ulaşabilirsiniz. Şiddetli ağrı, travma veya şişlik gibi durumlarda hızlı müdahale için ekibimiz hazırdır.</div>
+      <div class="faq-answer">Evet, acil diş durumlarında WhatsApp hattımız üzerinden bize 7/24 ulaşabilirsiniz. Şiddetli ağrı, travma, kırık veya şişlik gibi durumlarda hızlı müdahale için acil ekibimiz hazırdır.</div>
     </div>
   </div>
 </section>
@@ -501,7 +492,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <section class="cta-section" id="contact">
   <div class="cta-box reveal">
     <span class="section-tag">İletişim</span>
-    <h2>Ailenizin Diş Sağlığını Bize Emanet Edin</h2>
+    <h2>Ailenizin Gülüşü Bizimle Güvende</h2>
     <p>Ücretsiz ön muayene randevusu için hemen bizimle iletişime geçin. Çocuklar ve yetişkinler için en uygun tedavi planını birlikte oluşturalım.</p>
     <a href="https://wa.me/905303982712" class="btn" target="_blank" rel="noopener noreferrer">WhatsApp'tan Randevu Al</a>
   </div>
@@ -510,13 +501,14 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <footer>
   <div class="footer-inner">
     <div class="footer-about">
-      <a href="#" class="logo">Aile Diş</a>
-      <p>Aile Diş Kliniği, çocuk ve yetişkin diş hekimliği alanında hizmet vermektedir. Pedodonti odaklı yaklaşımımızla tüm ailenizin sağlıklı gülüşlerini koruyoruz.</p>
+      <a href="#" class="logo">Aile Diş Kliniği</a>
+      <p>Aile Diş Kliniği, çocuk ve yetişkin diş hekimliği alanında hizmet vermektedir. Pedodonti odaklı yaklaşımımız ve sıcak klinik ortamımızla tüm ailenizin sağlıklı gülüşlerini koruyoruz.</p>
     </div>
     <div class="footer-col">
       <h5>Hızlı Linkler</h5>
-      <a href="#about">Kurumsal</a>
+      <a href="#about">Hakkımızda</a>
       <a href="#treatments">Tedaviler</a>
+      <a href="#process">Süreç</a>
       <a href="#team">Ekibimiz</a>
       <a href="#testimonials">Yorumlar</a>
       <a href="#contact">İletişim</a>
@@ -528,6 +520,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">Ortodonti</a>
       <a href="#">Estetik</a>
       <a href="#">İmplant</a>
+      <a href="#">Kanal Tedavisi</a>
     </div>
     <div class="footer-col">
       <h5>İletişim</h5>
@@ -535,9 +528,10 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">info@ailedis.com</a>
       <a href="#">0212 555 00 00</a>
       <a href="#">Levent, İstanbul</a>
+      <a href="#">Pzt-Cmt: 09:00-19:00</a>
     </div>
   </div>
-  <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
+  <div class="map-wrap">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96366.39358596434!2d28.915521680922828!3d41.04022995751701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab765c4a0ff85%3A0x5f6d1e00becf8bef!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1" width="100%" height="240" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Konum"></iframe>
 </div>
 <div class="footer-bottom">© 2026 Aile Diş Kliniği. Tüm hakları saklıdır.</div>

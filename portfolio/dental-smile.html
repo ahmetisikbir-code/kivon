@@ -3,92 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gülüş Estetiği Merkezi — Premium Diş Kliniği | Veneer & Gülüş Tasarımı</title>
+<title>Gülüş Estetiği Merkezi — Gülüş Tasarımı & Veneer Uzmanı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
+:root{--primary:#be185d;--primary-dark:#9d174d;--primary-light:#f43f5e;--secondary:#e11d48;--accent:#fecdd3;--bg:#fff1f2;--bgs:#ffe4e6;--white:#ffffff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
 .treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
 .feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.55)}}
-.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(13,148,136,0.25)}
+.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(190,29,93,0.25)}
 .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-.scroll-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.scroll-top:hover{background:var(--primary-dark);transform:translateY(-2px)}
 .scroll-top svg{width:20px;height:20px;fill:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(13,148,136,0.08);transition:var(--tr)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(190,29,93,0.08);transition:var(--tr)}
 .nav.scrolled{height:60px;box-shadow:0 4px 24px rgba(0,0,0,0.05)}
-.logo{font-size:1.35rem;font-weight:800;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:8px}
-.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 2px 8px rgba(13,148,136,0.3)}
+.logo{font-size:1.35rem;font-weight:800;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 2px 8px rgba(190,29,93,0.3)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr)}
-.nav-links a:hover{color:var(--teal)}
-.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
-.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,0.3)}
+.nav-links a:hover{color:var(--primary)}
+.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(190,29,93,0.3)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--tr)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 30%,#fff 60%,#f0fdfa 100%)}
-.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.05),transparent 70%);border-radius:50%}
-.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(8,145,178,0.05),transparent 70%);border-radius:50%}
-.hero-content{max-width:580px;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.12);color:var(--teal);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
-.hero h1 span{color:var(--teal)}
-.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:460px}
-.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 5% 80px;position:relative;overflow:hidden;text-align:center}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1}
+.hero-content{max-width:650px;z-index:2;position:relative}
+.hero-content .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
+.hero-content h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:#fff}
+.hero-content h1 span{color:var(--primary-light)}
+.hero-content p{font-size:1.1rem;color:rgba(255,255,255,0.85);margin-bottom:2rem;max-width:540px;margin-left:auto;margin-right:auto;line-height:1.7}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
 .btn,.btn-outline{font-weight:600;font-size:0.95rem;padding:0.85rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
-.btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;border:none}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,148,136,0.3)}
-.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal)}
-.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
-.hero-image{position:absolute;right:5%;bottom:0;width:48%;max-width:620px;z-index:1;border-radius:20px 20px 0 0;overflow:hidden;box-shadow:var(--shadow-lg)}
-.hero-image img{width:100%;height:auto;display:block}
-.hero-floating{position:absolute;z-index:3;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite}
-.hero-float-1{top:30%;right:38%;animation-delay:0s}
-.hero-float-2{bottom:25%;right:42%;animation-delay:2s}
-.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(190,29,93,0.3)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5)}
+.btn-outline:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px)}
+.hero-floating{position:absolute;z-index:4;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite;color:var(--text)}
+.hero-float-1{top:28%;right:8%;animation-delay:0s}
+.hero-float-2{bottom:30%;left:8%;animation-delay:2s}
+.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--primary);flex-shrink:0}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:32px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
-.stat-item{text-align:center}
-.stat-number{font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1}
-.stat-label{font-size:0.82rem;color:var(--muted);margin-top:6px;font-weight:500}
 section{padding:100px 5%}
 .section-header{text-align:center;margin-bottom:4rem}
-.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
+.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
 .section-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:0.75rem}
 .section-header p{color:var(--muted);max-width:540px;margin:0 auto;font-size:1rem}
 .about{background:var(--bg)}
+.about-inner .about-text .section-tag{margin-bottom:0.5rem}
 .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:center}
 .about-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
 .about-image img{width:100%;height:400px;object-fit:cover;display:block}
 .about-text h3{font-size:1.6rem;font-weight:800;margin-bottom:1rem}
-.about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500}
-.about-feat::before{content:'✓';width:22px;height:22px;border-radius:50%;background:rgba(13,148,136,0.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
-.treatments{background:var(--white)}
-.treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
-.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--cyan));transform:scaleX(0);transition:transform var(--tr)}
-.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.treatment-card:hover::before{transform:scaleX(1)}
-.treatment-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(13,148,136,0.08),rgba(8,145,178,0.08));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
-.treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
-.treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
-.process{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow)}
-.process-step:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--teal);font-weight:300}
-.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
-.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
-.process-step p{font-size:0.85rem;color:var(--muted)}
+.about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem;line-height:1.7}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.5rem}
+.about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500;padding:4px 0}
+.about-feat::before{content:'✓';width:22px;height:22px;border-radius:50%;background:rgba(190,29,93,0.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
 .ba{background:var(--white)}
+.ba .section-header{margin-bottom:3rem}
 .ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
 .ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
 .ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
@@ -96,24 +77,35 @@ section{padding:100px 5%}
 .ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
 .ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
 .ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--white);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,0.2)}
-.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--teal);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.ba-divider::after{content:'⟷';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--primary);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .ba-label{position:absolute;top:10px;z-index:6;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
 .ba-label.before{left:10px;background:rgba(0,0,0,0.6);color:#fff}
-.ba-label.after{right:10px;background:var(--teal);color:#fff}
+.ba-label.after{right:10px;background:var(--primary);color:#fff}
 .ba-info{padding:14px 18px}
 .ba-info h4{font-size:.95rem;font-weight:700}
 .ba-info span{font-size:.8rem;color:var(--muted)}
+.treatments{background:var(--bgs)}
+.treatments .section-header{margin-bottom:3rem}
+.treatments .section-header p{max-width:600px}
+.treatment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.treatment-card{background:var(--white);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;overflow:hidden;border:none;box-shadow:none}
+.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
 .treatment-card-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:12px 12px 0 0;margin:-2rem -1.75rem 1rem;width:calc(100% + 3.5rem)}
+.treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
+.treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
 .team{background:var(--bg)}
+.team .section-header p{max-width:600px}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
 .team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
 .team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-.team-card img{width:100%;height:280px;object-fit:cover;display:block}
+.team-card img{width:100%;height:280px;object-fit:cover;display:block;transition:transform var(--tr)}
+.team-card:hover img{transform:scale(1.03)}
 .team-body{padding:1.25rem}
 .team-body h4{font-size:1rem;font-weight:700}
-.team-body .title{font-size:0.82rem;color:var(--teal);font-weight:600;margin:4px 0 8px}
+.team-body .title{font-size:0.82rem;color:var(--primary);font-weight:600;margin:4px 0 8px}
 .team-body p{font-size:0.82rem;color:var(--muted)}
 .testimonials{background:var(--white)}
+.testimonials .section-header{margin-bottom:3rem}
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
 .testimonial-card{background:var(--bg);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
 .testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
@@ -121,33 +113,32 @@ section{padding:100px 5%}
 .testimonial-card .text{font-size:0.92rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
 .testimonial-card .author{font-weight:700;font-size:0.9rem}
 .testimonial-card .detail{font-size:0.78rem;color:var(--light)}
-.features{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:80px 5%;color:#fff}
-.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto;text-align:center}
-.feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
-.feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
-.feature-item p{font-size:0.88rem;opacity:0.8}
 .faq{background:var(--bg)}
+.faq .section-header{margin-bottom:3rem}
 .faq-list{max-width:720px;margin:0 auto}
 .faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--white);transition:var(--tr)}
 .faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)}
-.faq-question:hover{color:var(--teal)}
+.faq-question:hover{color:var(--primary)}
 .faq-question .arrow{font-size:1.2rem;transition:transform var(--tr);color:var(--muted)}
-.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--teal)}
+.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--primary)}
 .faq-answer{padding:0 1.25rem 0;max-height:0;overflow:hidden;transition:all 0.35s ease;font-size:0.9rem;color:var(--muted);line-height:1.6}
 .faq-item.active .faq-answer{padding:0 1.25rem 1rem;max-height:200px}
 .cta-section{background:var(--white);text-align:center;padding:80px 5%}
-.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 100%);border-radius:24px;border:1px solid rgba(13,148,136,0.1)}
+.cta-box h2 span{color:var(--primary)}
+.cta-box .section-tag{color:var(--primary)}
+.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,var(--bg) 0%,var(--bgs) 100%);border-radius:24px;border:1px solid var(--accent)}
 .cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem}
 .cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
 .cta-box .btn{font-size:1rem;padding:1rem 2.5rem}
 footer{background:#0f172a;color:#94a3b8;padding:60px 5% 30px}
-.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
-footer .logo{color:#fff;margin-bottom:1rem}
-footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--cyan))}
-.footer-about p{font-size:0.85rem;line-height:1.7}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:30px;max-width:1200px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+footer .logo{color:#fff;margin-bottom:1rem;font-size:1.25rem}
+footer .logo::before{background:linear-gradient(135deg,var(--primary-light),var(--secondary))}
+footer a[href^="https://wa.me"]{display:inline-flex;align-items:center;gap:6px}
+.footer-about p{font-size:0.85rem;line-height:1.7;max-width:360px}
 .footer-col h5{color:#fff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
 .footer-col a{display:block;color:#64748b;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
-.footer-col a:hover{color:var(--teal-light)}
+.footer-col a:hover{color:var(--primary-light)}
 .footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#475569}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -160,37 +151,32 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:968px){
-  .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
+  .hero{flex-direction:column;padding:100px 5% 60px;min-height:auto}
   .hero-content{max-width:100%}
-  .hero p{margin:0 auto 2rem}
+  .hero-content p{margin-left:auto;margin-right:auto}
   .hero-buttons{justify-content:center}
-  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
   .hero-floating{display:none}
   .about-inner{grid-template-columns:1fr;gap:32px}
-  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
-  .process-step:not(:last-child)::after{display:none}
-  .stats{margin-top:0;padding:24px;grid-template-columns:repeat(2,1fr)}
+  .treatment-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
   section{padding:60px 5%}
-  .treatment-grid,.process-steps,.feature-items{grid-template-columns:1fr}
-  .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
+  .treatment-grid{grid-template-columns:1fr}
+  .ba-grid,.testimonial-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr;gap:24px}
   .team-grid{grid-template-columns:1fr;max-width:400px}
 }
 @media(max-width:480px){
   .hero h1{font-size:2.2rem}
-  .stat-number{font-size:1.6rem}
   .cta-box{padding:40px 24px}
 }
 </style>
-
 <link rel='icon' type='image/png' href='../img/logo-icon.png'>
 <link rel='canonical' href='https://kivontr.com/portfolio/dental-smile.html'>
-<meta property='og:title' content='Gülüş Estetiği Merkezi — Premium Diş Kliniği | Veneer & Gülüş Tasarımı'>
+<meta property='og:title' content='Gülüş Estetiği Merkezi — Gülüş Tasarımı & Veneer Uzmanı'>
 <meta property='og:description' content='Gülüş Estetiği Merkezi — dijital gülüş tasarımı, lamine veneer, estetik diş hekimliği ve implant tedavileri.'>
 <meta property='og:type' content='website'>
 <meta name='description' content='Gülüş Estetiği Merkezi — dijital gülüş tasarımı, lamine veneer, estetik diş hekimliği ve implant tedavileri.'>
@@ -201,9 +187,11 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <a href="#" class="logo">Gülüş Estetiği</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">Kurumsal</a></li>
+    <li><a href="#ba">Öncesi & Sonrası</a></li>
     <li><a href="#treatments">Tedaviler</a></li>
     <li><a href="#team">Ekibimiz</a></li>
     <li><a href="#testimonials">Yorumlar</a></li>
+    <li><a href="#faq">SSS</a></li>
     <li><a href="#contact" class="btn-nav">Randevu Al</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menü">
@@ -212,52 +200,97 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 </nav>
 
 <section class="hero">
+  <div class="hero-bg">
+    <img src="img/treatment-esthetic.jpg" alt="Gülüş Estetiği Merkezi" loading="eager">
+    <div class="hero-overlay"></div>
+  </div>
   <div class="hero-content">
-    <span class="hero-badge">✦ 4.9 · 900+ Mutlu Hasta</span>
-    <h1>Estetik Gülüşler,<span>Özgüvenli Hayatlar</span></h1>
-    <p>Dijital gülüş tasarımı, lamine veneer ve estetik diş hekimliğinde uzman kadromuzla hayalinizdeki gülüşe kavuşun.</p>
-    <div class="hero-buttons">
+    <span class="hero-badge">✦ 5.0 · 900+ Mutlu Hasta</span>
+    <h1>Hayalinizdeki <span>Gülüşe Kavuşun</span></h1>
+    <p>Dijital gülüş tasarımı, lamine veneer ve estetik diş hekimliğinde uzman ekibimizle size özel gülüş tasarımları oluşturuyoruz. 3D dijital tarama ve simülasyon ile tedavi sonucunuzu önceden görün.</p>
+      <div class="hero-buttons">
       <a href="#contact" class="btn">Randevu Al</a>
       <a href="#treatments" class="btn-outline">Tedavilerimiz</a>
     </div>
-  </div>
-  <div class="hero-image">
-    <img src="img/hero-clinic.jpg" alt="Gülüş Estetiği Merkezi" loading="eager">
   </div>
   <div class="hero-floating hero-float-1">
     <span class="hero-float-dot"></span>
     <span>Dijital Gülüş Tasarımı</span>
   </div>
   <div class="hero-floating hero-float-2">
-    <span class="hero-float-dot" style="background:var(--cyan)"></span>
-    <span>Ücretsiz Danışmanlık</span>
+    <span class="hero-float-dot" style="background:var(--secondary)"></span>
+    <span>Veneer Uzmanı</span>
   </div>
 </section>
 
-<div class="stats">
-  <div class="stat-item"><div class="stat-number">12+</div><div class="stat-label">Yıllık Deneyim</div></div>
-  <div class="stat-item"><div class="stat-number">900+</div><div class="stat-label">Mutlu Hasta</div></div>
-  <div class="stat-item"><div class="stat-number">97%</div><div class="stat-label">Hasta Memnuniyeti</div></div>
-  <div class="stat-item"><div class="stat-number">6</div><div class="stat-label">Uzman Hekim</div></div>
-</div>
-
 <section class="about" id="about">
   <div class="about-inner">
-    <div class="about-image reveal">
-      <img src="img/feature-tech.jpg" alt="Gülüş Estetiği Merkezi" loading="lazy">
-    </div>
     <div class="about-text reveal">
       <span class="section-tag">Hakkımızda</span>
-      <h3>Estetik Gülüş Tasarımında Uzman Klinik</h3>
-      <p>Gülüş Estetiği olarak, her hastamızın yüz hatlarına ve kişiliğine uygun özel gülüş tasarımları oluşturuyoruz. Dijital teknolojilerle planladığımız lamine veneer, Emax kron ve beyazlatma tedavileriyle hayalinizdeki gülüşe kavuşmanızı sağlıyoruz.</p>
+      <h3>Gülüş Tasarımında Uzman Kadro</h3>
+      <p>Gülüş Estetiği Merkezi olarak, her hastamızın yüz hatlarına ve kişiliğine uygun özel gülüş tasarımları oluşturuyoruz. Dijital teknolojilerle planladığımız lamine veneer, Emax kron ve beyazlatma tedavileriyle hayalinizdeki gülüşe kavuşmanızı sağlıyoruz. 3D ağız içi tarayıcı ile konforlu ölçü alımı, CAD/CAM teknolojisi ile hassas üretim ve dijital gülüş simülasyonu ile tedavi öncesi sonucu görmeniz mümkün.</p>
+      <p>Kliniğimizde her hasta için sterilizasyon ve hijyen en üst seviyede tutulmakta, konforlu bir deneyim için sedasyon seçeneği sunulmaktadır. Tüm tedavilerimiz alanında uzman hekimler tarafından, güncel protokoller ve kaliteli malzemeler kullanılarak gerçekleştirilmektedir.</p>
+      <p>Dijital gülüş tasarımı sürecimizde 3D ağız tarayıcısı ile ölçü alınır, özel yazılımlarla gülüşünüz tasarlanır ve siz onay verdikten sonra uygulamaya geçilir. Böylece tedavi sonucunu önceden görme avantajı elde edersiniz.</p>
       <div class="about-features">
         <div class="about-feat">Dijital Gülüş Tasarımı</div>
         <div class="about-feat">Lamine Veneer</div>
         <div class="about-feat">Emax Kron</div>
         <div class="about-feat">Beyazlatma</div>
-        <div class="about-feat">CAD/CAM</div>
-        <div class="about-feat">3D Tomografi</div>
+        <div class="about-feat">3D Tarama</div>
       </div>
+    </div>
+    <div class="about-image reveal">
+      <img src="img/ba-1-after.jpg" alt="Gülüş Estetiği Merkezi" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="ba" id="ba">
+  <div class="section-header reveal">
+    <span class="section-tag">Öncesi & Sonrası</span>
+    <h2>Gerçek Vakalar, Gerçek Sonuçlar</h2>
+    <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-card reveal reveal-d1">
+      <div class="ba-compare" data-position="50">
+        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
+        <span class="ba-label after">SONRA</span>
+      </div>
+      <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 8 diş</span></div>
+    </div>
+    <div class="ba-card reveal reveal-d2">
+      <div class="ba-compare" data-position="50">
+        <img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
+        <span class="ba-label after">SONRA</span>
+      </div>
+      <div class="ba-info"><h4>Gülüş Tasarımı</h4><span>Full ağız dijital smile design</span></div>
+    </div>
+    <div class="ba-card reveal reveal-d3">
+      <div class="ba-compare" data-position="50">
+        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
+        <span class="ba-label after">SONRA</span>
+      </div>
+      <div class="ba-info"><h4>Emax Kron</h4><span>Tek diş porselen restorasyon</span></div>
+    </div>
+    <div class="ba-card reveal reveal-d4">
+      <div class="ba-compare" data-position="50">
+        <img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img">
+        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
+        <div class="ba-divider"></div>
+        <span class="ba-label before">ÖNCE</span>
+        <span class="ba-label after">SONRA</span>
+      </div>
+      <div class="ba-info"><h4>Beyazlatma</h4><span>Ofis tipi diş beyazlatma uygulaması</span></div>
     </div>
   </div>
 </section>
@@ -270,114 +303,24 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
   <div class="treatment-grid">
     <div class="treatment-card reveal reveal-d1">
-      <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
-      <h3>Ortodonti</h3>
-      <p>Şeffaf plak ve braket tedavileriyle düzgün ve estetik dişlere kavuşun.</p>
+      <img src="img/treatment-esthetic.jpg" alt="Estetik Diş Hekimliği" class="treatment-card-img" loading="lazy">
+      <h3>Estetik Diş Hekimliği</h3>
+      <p>Lamine veneer, Emax zirkonyum kron, dijital gülüş tasarımı ve beyazlatma ile hayalinizdeki gülüşe kavuşun. Estetik dolgu ve lastik restorasyonları da mevcuttur.</p>
     </div>
     <div class="treatment-card reveal reveal-d2">
-      <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
-      <h3>Pedodonti</h3>
-      <p>Çocuklar için özel tasarlanmış konforlu ve eğlenceli tedavi deneyimi.</p>
+      <img src="img/treatment-implant.jpg" alt="İmplant Tedavisi" class="treatment-card-img" loading="lazy">
+      <h3>İmplant Tedavisi</h3>
+      <p>Tek dişten tam ağız rekonstrüksiyonuna kadar All-on-4, All-on-6 ve zigomatik implant uygulamaları. İmplant üstü protezlerle estetik ve fonksiyonel çözümler.</p>
     </div>
     <div class="treatment-card reveal reveal-d3">
-      <img src="img/treatment-general.jpg" alt="Genel Diş" class="treatment-card-img" loading="lazy">
-      <h3>Genel Diş</h3>
-      <p>Dolgu, kanal tedavisi ve düzenli kontrollerle ağız sağlığınızı koruyun.</p>
+      <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
+      <h3>Ortodonti</h3>
+      <p>Şeffaf plak ve estetik braket tedavileriyle düzgün ve sağlıklı dişlere kavuşun. Hızlı ortodonti seçenekleri ile kısa sürede sonuç alın.</p>
     </div>
     <div class="treatment-card reveal reveal-d4">
-      <img src="img/treatment-esthetic.jpg" alt="Estetik" class="treatment-card-img" loading="lazy">
-      <h3>Estetik</h3>
-      <p>Lamine veneer, Emax kron, dijital gülüş tasarımı ve beyazlatma uygulamaları.</p>
-    </div>
-    <div class="treatment-card reveal reveal-d5">
-      <img src="img/treatment-implant.jpg" alt="İmplant" class="treatment-card-img" loading="lazy">
-      <h3>İmplant</h3>
-      <p>Tek dişten tam ağıza implant çözümleriyle estetik gülüşünüzü tamamlayın.</p>
-    </div>
-    <div class="treatment-card reveal reveal-d6">
-      <img src="img/treatment-root.jpg" alt="Kanal Tedavisi" class="treatment-card-img" loading="lazy">
-      <h3>Kanal Tedavisi</h3>
-      <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun.</p>
-    </div>
-  </div>
-</section>
-
-<section class="process">
-  <div class="section-header reveal">
-    <span class="section-tag">Tedavi Sürecimiz</span>
-    <h2>4 Adımda Yeni Gülüşünüze Kavuşun</h2>
-    <p>Dijital planlama ve konforlu uygulamayla hayalinizdeki gülüşe adım adım ulaşın.</p>
-  </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">1</div>
-      <h4>Dijital Gülüş Analizi</h4>
-      <p>3D ağız içi tarayıcı ile dakikalar içinde dijital ölçünüz alınır. Klasik macunlu ölçü yok.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">2</div>
-      <h4>Tasarım & Onay</h4>
-      <p>Dijital simülasyon ile tedavi sonucunu önceden görür, ihtiyaçlarınıza göre plan yaparız.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">3</div>
-      <h4>Tedavi Uygulaması</h4>
-      <p>Konforlu ve ağrısız işlem ile yeni gülüşünüze kavuşun. Sedasyon seçeneği ile tamamen rahatlayın.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">4</div>
-      <h4>Koruma & Bakım</h4>
-      <p>Düzenli kontroller ve bakım önerileriyle gülüşünüz uzun yıllar korunur.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ba">
-  <div class="section-header reveal">
-    <span class="section-tag">Öncesi & Sonrası</span>
-    <h2>Gerçek Vakalar, Gerçek Sonuçlar</h2>
-    <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
-  </div>
-  <div class="ba-grid">
-    <div class="ba-card reveal reveal-d1">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Gülüş Tasarımı</h4><span>Full ağız estetik restorasyon</span></div>
-    </div>
-    <div class="ba-card reveal reveal-d2">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
-    </div>
-    <div class="ba-card reveal reveal-d3">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Emax Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
-    </div>
-    <div class="ba-card reveal reveal-d4">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Beyazlatma</h4><span>Ofis tipi diş beyazlatma uygulaması</span></div>
+      <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
+      <h3>Pedodonti</h3>
+      <p>Çocuklar için özel tasarlanmış konforlu ve eğlenceli tedavi deneyimi. Koruyucu diş hekimliği, flor uygulaması ve çocuk kanal tedavisi.</p>
     </div>
   </div>
 </section>
@@ -390,56 +333,36 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
   <div class="team-grid">
     <div class="team-card reveal">
-      <img src="img/doctor-1.jpg" alt="Dr. Elif Karaca" loading="lazy">
+      <img src="img/doctor-1.jpg" alt="Dt. Sema Yıldız" loading="lazy">
       <div class="team-body">
-        <h4>Dr. Elif Karaca</h4>
-        <div class="title">Estetik Diş Hekimi</div>
-        <p>Dijital gülüş tasarımı ve lamine veneer alanında 10 yıllık deneyim.</p>
-      </div>
-    </div>
-    <div class="team-card reveal">
-      <img src="img/doctor-2.jpg" alt="Dr. Burak Yıldız" loading="lazy">
-      <div class="team-body">
-        <h4>Dr. Burak Yıldız</h4>
-        <div class="title">Protetik Diş Hekimi</div>
-        <p>Emax kron, zirkonyum ve porselen laminate restorasyonlarda uzman.</p>
-      </div>
-    </div>
-    <div class="team-card reveal">
-      <img src="img/doctor-3.jpg" alt="Dt. Cansu Aydın" loading="lazy">
-      <div class="team-body">
-        <h4>Dt. Cansu Aydın</h4>
+        <h4>Dt. Sema Yıldız</h4>
         <div class="title">Gülüş Tasarımı Uzmanı</div>
-        <p>Dijital smile design ve estetik diş planlamasında 500+ vaka.</p>
+        <p>Dijital smile design ve lamine veneer alanında 12 yıllık deneyim. Yurt içi ve yurt dışı kongrelerde eğitmen.</p>
       </div>
     </div>
     <div class="team-card reveal">
-      <img src="img/doctor-4.jpg" alt="Dr. Ali Korkmaz" loading="lazy">
+      <img src="img/doctor-2.jpg" alt="Dr. Burak Demir" loading="lazy">
       <div class="team-body">
-        <h4>Dr. Ali Korkmaz</h4>
-        <div class="title">Diş Hekimi</div>
-        <p>Genel diş hekimliği, estetik dolgu ve kanal tedavisi uygulamaları.</p>
+        <h4>Dr. Burak Demir</h4>
+        <div class="title">Protetik Diş Hekimi</div>
+        <p>Emax kron, zirkonyum ve porselen laminate restorasyonlarda 800+ vaka. Protetik rehabilitasyon uzmanı.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-inner">
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-team.jpg" alt="Uzman Kadro"></div>
-      <h4>Uzman Kadro</h4>
-      <p>Gülüş tasarımında deneyimli 6 hekim ile kişiye özel tedavi planlaması.</p>
+    <div class="team-card reveal">
+      <img src="img/doctor-3.jpg" alt="Dt. Elif Kaya" loading="lazy">
+      <div class="team-body">
+        <h4>Dt. Elif Kaya</h4>
+        <div class="title">Estetik Diş Hekimi</div>
+        <p>Beyazlatma ve dijital gülüş tasarımında 500+ başarılı tedavi. Estetik dolgu ve laminate uzmanı.</p>
+      </div>
     </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div>
-      <h4>Dijital Teknoloji</h4>
-      <p>3D gülüş tasarımı, CAD/CAM ve dijital analiz ile hassas planlama.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi"></div>
-      <h4>Konfor Garantisi</h4>
-      <p>Sedasyon, ağrısız işlem ve sıcak klinik ortamıyla rahat tedavi.</p>
+    <div class="team-card reveal">
+      <img src="img/doctor-4.jpg" alt="Dr. Can Öztürk" loading="lazy">
+      <div class="team-body">
+        <h4>Dr. Can Öztürk</h4>
+        <div class="title">İmplant Cerrahı</div>
+        <p>All-on-4/6 ve zigomatik implant cerrahisinde 1.200+ vaka. Çene cerrahisi ve kemik grefti uzmanı.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -453,21 +376,21 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="testimonial-grid">
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Gülüş tasarımı için geldim, sonuçlardan çok memnunum."</p>
-      <strong class="author">Ayşe T.</strong>
-      <div class="detail">Lamine Veneer · 2 ay önce</div>
+      <p class="text">"Hayatımda bu kadar güzel gülümsediğimi hatırlamıyorum. Lamine veneer sonrası kendimi çok özgüvenli hissediyorum. Herkese tavsiye ediyorum."</p>
+      <strong class="author">Zeynep A.</strong>
+      <div class="detail">Lamine Veneer · 1 ay önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Yıllarca gülümsemekten çekindim, artık özgürce gülebiliyorum."</p>
-      <strong class="author">Mehmet K.</strong>
-      <div class="detail">Gülüş Tasarımı · 3 ay önce</div>
+      <p class="text">"Veneer sonrası özgüvenim yerine geldi. Artık fotoğraflarda gülümsemekten çekinmiyorum. Dt. Sema Hanım'a çok teşekkür ederim."</p>
+      <strong class="author">Canan K.</strong>
+      <div class="detail">Gülüş Tasarımı · 2 ay önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Kızımın diş teli tedavisi çok hızlı ve konforlu geçti."</p>
-      <strong class="author">Fatma Y.</strong>
-      <div class="detail">Pedodonti · 1 hafta önce</div>
+      <p class="text">"Dijital tasarım sayesinde sonucu önceden gördüm, harikaydı. Tam istediğim gibi oldu. Emax kronlarım doğal dişlerimden farksız."</p>
+      <strong class="author">Mert Y.</strong>
+      <div class="detail">Emax Kron · 3 hafta önce</div>
     </div>
   </div>
 </section>
@@ -481,19 +404,15 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="faq-list">
     <div class="faq-item active">
       <button class="faq-question">Gülüş tasarımı ne kadar sürer?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Gülüş tasarımı süreci genellikle 2-3 seansta tamamlanır. İlk seansta dijital tarama ve tasarım, ikinci seansta uygulama yapılır. Tedavi planınıza göre süre değişiklik gösterebilir.</div>
+      <div class="faq-answer">Gülüş tasarımı süreci genellikle 2-3 seansta tamamlanır. İlk seansta dijital ağız içi tarama ve 3D gülüş tasarımı yapılır, ikinci seansta lamine veneer veya kron uygulaması gerçekleştirilir. Tedavi planınıza göre süre değişiklik gösterebilir. Dijital simülasyon sayesinde tedavi öncesi nihai sonucu görebilirsiniz.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Veneer diş kaplama ağrılı mı?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Lamine veneer uygulaması minimal invaziv bir işlemdir ve lokal anestezi altında yapılır. İşlem sırasında ağrı hissedilmez. İşlem sonrası hafif hassasiyet olabilir ancak kısa sürede geçer.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Fiyat bilgisi nasıl alabilirim?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Fiyatlar tedavi planına göre değişiklik gösterir. Ücretsiz ön muayene randevusu alarak size özel fiyat teklifi oluşturabiliriz. Ayrıca size özel ödeme seçeneklerimiz mevcuttur.</div>
+      <div class="faq-answer">Lamine veneer uygulaması minimal invaziv bir işlemdir ve lokal anestezi altında yapılır. Diş minesinde çok az aşındırma yapılır veya hiç aşındırma yapılmaz. İşlem sırasında ağrı hissedilmez. İşlem sonrası birkaç gün hafif hassasiyet olabilir ancak kısa sürede geçer. Emax porselen sayesinde doğal ve estetik görünüm elde edilir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Yurt dışından hasta kabul ediyor musunuz?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Evet, dental turizm kapsamında yurt dışından hastalarımızı kabul ediyoruz. VIP transfer, otel konaklama ve rehberlik hizmetleriyle konforlu bir tedavi deneyimi sunuyoruz.</div>
+      <div class="faq-answer">Evet, dental turizm kapsamında yurt dışından hastalarımızı kabul ediyoruz. VIP transfer, otel konaklama ve rehberlik hizmetleriyle konforlu bir tedavi deneyimi sunuyoruz. Tedavi planlaması online olarak yapılabilmekte, gelmeden önce dijital gülüş tasarımı simülasyonunuz hazırlanmaktadır.</div>
     </div>
   </div>
 </section>
@@ -502,7 +421,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="cta-box reveal">
     <span class="section-tag">İletişim</span>
     <h2>Hayalinizdeki Gülüşe Kavuşun</h2>
-    <p>Ücretsiz ön muayene randevusu için hemen bizimle iletişime geçin. Gülüş tasarımı uzmanlarımız size en uygun tedaviyi planlasın.</p>
+    <p>Ücretsiz ön muayene randevusu için hemen bizimle iletişime geçin. Gülüş tasarımı uzmanlarımız size en uygun tedaviyi planlasın. Dijital gülüş tasarımı, lamine veneer, Emax kron ve beyazlatma tedavilerinde size özel çözümler sunuyoruz. Hayalinizdeki gülüşe bir adım uzaklıktasınız.</p>
     <a href="https://wa.me/905303982712" class="btn" target="_blank" rel="noopener noreferrer">WhatsApp'tan Randevu Al</a>
   </div>
 </section>
@@ -511,11 +430,12 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="footer-inner">
     <div class="footer-about">
       <a href="#" class="logo">Gülüş Estetiği</a>
-      <p>Gülüş Estetiği, dijital teknoloji ve uzman kadrosuyla gülüş tasarımı ve estetik diş hekimliği alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
+      <p>Gülüş Estetiği Merkezi, dijital teknoloji ve uzman kadrosuyla gülüş tasarımı ve estetik diş hekimliği alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
     </div>
     <div class="footer-col">
       <h5>Hızlı Linkler</h5>
       <a href="#about">Kurumsal</a>
+      <a href="#ba">Öncesi & Sonrası</a>
       <a href="#treatments">Tedaviler</a>
       <a href="#team">Ekibimiz</a>
       <a href="#testimonials">Yorumlar</a>
@@ -526,8 +446,8 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">Estetik Diş Hekimliği</a>
       <a href="#">İmplant</a>
       <a href="#">Ortodonti</a>
-      <a href="#">Kanal Tedavisi</a>
       <a href="#">Pedodonti</a>
+      <a href="#">Beyazlatma</a>
     </div>
     <div class="footer-col">
       <h5>İletişim</h5>
@@ -535,12 +455,21 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">info@gulussetetigi.com</a>
       <a href="#">0212 555 00 00</a>
       <a href="#">Levent, İstanbul</a>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+    </div>
+    <div class="footer-col">
+      <h5>Çalışma Saatleri</h5>
+      <a href="#">Hafta içi: 09:00 - 20:00</a>
+      <a href="#">Cumartesi: 10:00 - 17:00</a>
+      <a href="#">Pazar: Kapalı</a>
+      <a href="#">Acil: 7/24 WhatsApp</a>
     </div>
   </div>
   <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96366.39358596434!2d28.915521680922828!3d41.04022995751701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab765c4a0ff85%3A0x5f6d1e00becf8bef!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1" width="100%" height="240" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Konum"></iframe>
 </div>
-<div class="footer-bottom">© 2026 Gülüş Estetiği. Tüm hakları saklıdır.</div>
+<div class="footer-bottom">© 2026 Gülüş Estetiği Merkezi. Tüm hakları saklıdır.</div>
 </footer>
 
 <a href="https://wa.me/905303982712" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>

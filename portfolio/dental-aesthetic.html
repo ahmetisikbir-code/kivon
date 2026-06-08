@@ -3,150 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estetik Diş Kliniği — Premium Diş Hekimliği | Veneer & Kaplama</title>
+<title>Estetik Diş Kliniği — Veneer & Zirkonyon Uzmanı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#14b8a6;--cyan:#0891b2;--white:#ffffff;--bg:#f8fafc;--bgs:#f1f5f9;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--light:#94a3b8;--radius:14px;--shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);--shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);--tr:0.4s cubic-bezier(0.4,0,0.2,1)}
-.treatment-icon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
-.feature-item .fi-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite}
+:root{
+  --primary:#6d28d9;--primary-dark:#4c1d95;--primary-light:#7c3aed;
+  --secondary:#8b5cf6;--accent:#c4b5fd;--bg:#f5f3ff;--bgs:#ede9fe;
+  --border:#ddd6fe;--white:#ffffff;--text:#1e293b;--muted:#64748b;
+  --light:#94a3b8;--radius:14px;
+  --shadow:0 4px 6px -1px rgba(0,0,0,0.05),0 2px 4px -2px rgba(0,0,0,0.03);
+  --shadow-lg:0 20px 50px -12px rgba(0,0,0,0.12);
+  --tr:0.4s cubic-bezier(0.4,0,0.2,1)
+}
+.wa-float{
+  position:fixed;bottom:24px;right:24px;z-index:999;width:56px;height:56px;
+  border-radius:50%;background:#25D366;color:#fff;display:flex;
+  align-items:center;justify-content:center;text-decoration:none;
+  box-shadow:0 4px 16px rgba(37,211,102,0.35);transition:all .3s;animation:waPulse 2s infinite
+}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.45)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
 @keyframes waPulse{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.35)}50%{box-shadow:0 4px 28px rgba(37,211,102,0.55)}}
-.scroll-top{position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;border-radius:50%;background:var(--teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;box-shadow:0 4px 12px rgba(13,148,136,0.25)}
+.scroll-top{
+  position:fixed;bottom:92px;right:24px;z-index:999;width:42px;height:42px;
+  border-radius:50%;background:var(--primary);color:#fff;border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(12px);transition:all .3s;
+  box-shadow:0 4px 12px rgba(109,40,217,0.25)
+}
 .scroll-top.show{opacity:1;visibility:visible;transform:translateY(0)}
-.scroll-top:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.scroll-top:hover{background:var(--primary-dark);transform:translateY(-2px)}
 .scroll-top svg{width:20px;height:20px;fill:#fff}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.6}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(13,148,136,0.08);transition:var(--tr)}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.88);backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(109,40,217,0.08);transition:var(--tr)
+}
 .nav.scrolled{height:60px;box-shadow:0 4px 24px rgba(0,0,0,0.05)}
-.logo{font-size:1.35rem;font-weight:800;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:8px}
-.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));box-shadow:0 2px 8px rgba(13,148,136,0.3)}
+.logo{font-size:1.35rem;font-weight:800;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo::before{content:'';width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 2px 8px rgba(109,40,217,0.3)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color var(--tr)}
-.nav-links a:hover{color:var(--teal)}
-.btn-nav{padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff !important;border-radius:100px;font-weight:600 !important;font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important}
-.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,0.3)}
+.nav-links a:hover{color:var(--primary)}
+.btn-nav{
+  padding:0.5rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff !important;border-radius:100px;font-weight:600 !important;
+  font-size:0.85rem !important;transition:transform var(--tr),box-shadow var(--tr) !important
+}
+.btn-nav:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(109,40,217,0.3)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
 .hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:2px;transition:var(--tr)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 30%,#fff 60%,#f0fdfa 100%)}
-.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,0.05),transparent 70%);border-radius:50%}
-.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(8,145,178,0.05),transparent 70%);border-radius:50%}
-.hero-content{max-width:580px;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.12);color:var(--teal);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,4.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
-.hero h1 span{color:var(--teal)}
-.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:460px}
+.hero{
+  min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 40%,#fff 70%,#f5f3ff 100%);gap:5%
+}
+.hero::before{content:'';position:absolute;top:-40%;left:50%;width:500px;height:500px;background:radial-gradient(circle,rgba(109,40,217,0.06),transparent 70%);border-radius:50%;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:350px;height:350px;background:radial-gradient(circle,rgba(139,92,246,0.05),transparent 70%);border-radius:50%;pointer-events:none}
+.hero-image{width:45%;max-width:520px;z-index:2;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);flex-shrink:0}
+.hero-image img{width:100%;height:auto;display:block;aspect-ratio:4/3;object-fit:cover}
+.hero-content{max-width:500px;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:0.4rem 1.2rem;
+  background:rgba(109,40,217,0.08);border:1px solid rgba(109,40,217,0.12);
+  color:var(--primary);border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:1.5rem
+}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,3.8rem);font-weight:700;line-height:1.1;margin-bottom:1rem;color:var(--text)}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:1.05rem;color:var(--muted);margin-bottom:2rem;max-width:440px;line-height:1.7}
 .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
 .btn,.btn-outline{font-weight:600;font-size:0.95rem;padding:0.85rem 2.2rem;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all var(--tr)}
-.btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;border:none}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,148,136,0.3)}
-.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal)}
-.btn-outline:hover{background:var(--teal);color:#fff;transform:translateY(-2px)}
-.hero-image{position:absolute;right:5%;bottom:0;width:48%;max-width:620px;z-index:1;border-radius:20px 20px 0 0;overflow:hidden;box-shadow:var(--shadow-lg)}
-.hero-image img{width:100%;height:auto;display:block}
-.hero-floating{position:absolute;z-index:3;background:var(--white);border-radius:14px;padding:14px 18px;box-shadow:0 8px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:600;animation:float 4s ease-in-out infinite}
-.hero-float-1{top:30%;right:38%;animation-delay:0s}
-.hero-float-2{bottom:25%;right:42%;animation-delay:2s}
-.hero-float-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:-40px auto 0;padding:32px 40px;background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);position:relative;z-index:10;gap:16px}
-.stat-item{text-align:center}
-.stat-number{font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1}
-.stat-label{font-size:0.82rem;color:var(--muted);margin-top:6px;font-weight:500}
+.btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(109,40,217,0.3)}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-2px)}
 section{padding:100px 5%}
 .section-header{text-align:center;margin-bottom:4rem}
-.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
+.section-tag{display:inline-block;font-size:0.78rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem}
 .section-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text);margin-bottom:0.75rem}
 .section-header p{color:var(--muted);max-width:540px;margin:0 auto;font-size:1rem}
-.about{background:var(--bg)}
-.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:center}
-.about-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
-.about-image img{width:100%;height:400px;object-fit:cover;display:block}
-.about-text h3{font-size:1.6rem;font-weight:800;margin-bottom:1rem}
-.about-text p{color:var(--muted);margin-bottom:1.4rem;font-size:0.95rem}
-.about-features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.about-feat{display:flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500}
-.about-feat::before{content:'\2713';width:22px;height:22px;border-radius:50%;background:rgba(13,148,136,0.1);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0}
+.about{background:var(--bg);text-align:center}
+.about-wrap{max-width:700px;margin:0 auto}
+.about-wrap h3{font-size:1.5rem;font-weight:800;margin-bottom:1rem;color:var(--text)}
+.about-wrap p{color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:1.5rem}
+.about-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:2.5rem}
+.about-pill{
+  padding:0.45rem 1.2rem;background:var(--white);border:1px solid var(--border);
+  border-radius:100px;font-size:0.85rem;font-weight:600;color:var(--primary);transition:var(--tr)
+}
+.about-pill:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-2px)}
+.about-banner{border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);max-width:900px;margin:0 auto}
+.about-banner img{width:100%;height:auto;display:block;max-height:340px;object-fit:cover}
 .treatments{background:var(--white)}
-.treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.treatment-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.75rem;transition:var(--tr);cursor:default;position:relative;overflow:hidden}
-.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--cyan));transform:scaleX(0);transition:transform var(--tr)}
-.treatment-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.treatment-card:hover::before{transform:scaleX(1)}
-.treatment-card-img{width:100%;height:160px;object-fit:cover;display:block;border-radius:12px 12px 0 0;margin:-2rem -1.75rem 1rem;width:calc(100% + 3.5rem)}
-.treatment-card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem}
-.treatment-card p{font-size:0.88rem;color:var(--muted);line-height:1.5}
-.process{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.process-step{text-align:center;padding:2.5rem 1.5rem;background:var(--white);border-radius:var(--radius);position:relative;box-shadow:var(--shadow)}
-.process-step:not(:last-child)::after{content:'\2192';position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--teal);font-weight:300}
-.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 1rem}
-.process-step h4{font-size:1rem;font-weight:700;margin-bottom:0.4rem}
-.process-step p{font-size:0.85rem;color:var(--muted)}
-.ba{background:var(--white)}
-.ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1000px;margin:0 auto}
-.ba-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:var(--tr);background:var(--bg)}
-.ba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
-.ba-compare{position:relative;width:100%;height:260px;overflow:hidden;cursor:ew-resize;user-select:none}
-.ba-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
-.ba-after{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 50% 0 0)}
-.ba-divider{position:absolute;top:0;left:50%;width:3px;height:100%;background:var(--white);transform:translateX(-50%);z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,0.2)}
-.ba-divider::after{content:'\27FF';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--teal);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
-.ba-label{position:absolute;top:10px;z-index:6;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:1px;pointer-events:none}
-.ba-label.before{left:10px;background:rgba(0,0,0,0.6);color:#fff}
-.ba-label.after{right:10px;background:var(--teal);color:#fff}
-.ba-info{padding:14px 18px}
-.ba-info h4{font-size:.95rem;font-weight:700}
-.ba-info span{font-size:.8rem;color:var(--muted)}
-.team{background:var(--bg)}
+.treatment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.treatment-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:0;overflow:hidden;transition:var(--tr);cursor:default;
+  border-top:4px solid var(--primary);box-shadow:var(--shadow)
+}
+.treatment-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent;border-top-color:var(--primary)}
+.treatment-card-img{width:100%;height:180px;object-fit:cover;display:block}
+.treatment-body{padding:1.5rem 1.75rem 2rem}
+.treatment-body h3{font-size:1.15rem;font-weight:700;margin-bottom:0.5rem;color:var(--text)}
+.treatment-body p{font-size:0.88rem;color:var(--muted);line-height:1.6}
+.ba{background:var(--bg)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:0 auto}
+.ba-card{
+  border-radius:var(--radius);overflow:hidden;position:relative;cursor:pointer;
+  aspect-ratio:4/3;box-shadow:var(--shadow);transition:var(--tr)
+}
+.ba-card:hover{transform:scale(1.02);box-shadow:var(--shadow-lg)}
+.ba-card img{width:100%;height:100%;object-fit:cover;display:block;transition:var(--tr)}
+.ba-card:hover img{transform:scale(1.05)}
+.ba-caption{
+  position:absolute;bottom:0;left:0;right:0;padding:1rem 1.25rem;
+  background:linear-gradient(transparent,rgba(109,40,217,0.85));color:#fff;
+  transform:translateY(100%);transition:var(--tr);opacity:0
+}
+.ba-card:hover .ba-caption{transform:translateY(0);opacity:1}
+.ba-caption h4{font-size:1rem;font-weight:700}
+.ba-caption span{font-size:0.82rem;opacity:0.85}
+.team{background:var(--white)}
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.team-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);text-align:center}
-.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.team-card{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);transition:var(--tr);text-align:center
+}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
 .team-card img{width:100%;height:280px;object-fit:cover;display:block}
 .team-body{padding:1.25rem}
 .team-body h4{font-size:1rem;font-weight:700}
-.team-body .title{font-size:0.82rem;color:var(--teal);font-weight:600;margin:4px 0 8px}
+.team-body .title{font-size:0.82rem;color:var(--primary);font-weight:600;margin:4px 0 8px}
 .team-body p{font-size:0.82rem;color:var(--muted)}
-.testimonials{background:var(--white)}
+.testimonials{background:var(--bg)}
 .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.testimonial-card{background:var(--bg);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
+.testimonial-card{background:var(--white);border-radius:var(--radius);padding:1.75rem;border:1px solid var(--border);transition:var(--tr)}
 .testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .stars{color:#f59e0b;font-size:0.9rem;margin-bottom:0.75rem}
 .testimonial-card .text{font-size:0.92rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
 .testimonial-card .author{font-weight:700;font-size:0.9rem}
 .testimonial-card .detail{font-size:0.78rem;color:var(--light)}
-.features{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:80px 5%;color:#fff}
-.features-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto;text-align:center}
-.feature-item .fi-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 1rem;backdrop-filter:blur(4px)}
-.feature-item h4{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
-.feature-item p{font-size:0.88rem;opacity:0.8}
-.faq{background:var(--bg)}
+.faq{background:var(--white)}
 .faq-list{max-width:720px;margin:0 auto}
-.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--white);transition:var(--tr)}
-.faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)}
-.faq-question:hover{color:var(--teal)}
+.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--bg);transition:var(--tr)}
+.faq-question{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.95rem;
+  background:none;border:none;width:100%;text-align:left;color:var(--text);transition:var(--tr)
+}
+.faq-question:hover{color:var(--primary)}
 .faq-question .arrow{font-size:1.2rem;transition:transform var(--tr);color:var(--muted)}
-.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--teal)}
+.faq-item.active .faq-question .arrow{transform:rotate(180deg);color:var(--primary)}
 .faq-answer{padding:0 1.25rem 0;max-height:0;overflow:hidden;transition:all 0.35s ease;font-size:0.9rem;color:var(--muted);line-height:1.6}
 .faq-item.active .faq-answer{padding:0 1.25rem 1rem;max-height:200px}
-.cta-section{background:var(--white);text-align:center;padding:80px 5%}
-.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f0fdfa 0%,#ecfeff 100%);border-radius:24px;border:1px solid rgba(13,148,136,0.1)}
-.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem}
+.cta-section{background:var(--bg);text-align:center;padding:80px 5%}
+.cta-box{max-width:700px;margin:0 auto;padding:60px 40px;background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border-radius:24px;border:1px solid rgba(109,40,217,0.1)}
+.cta-box h2{font-size:2rem;font-weight:800;margin-bottom:0.75rem;color:var(--text)}
 .cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
 .cta-box .btn{font-size:1rem;padding:1rem 2.5rem}
 footer{background:#0f172a;color:#94a3b8;padding:60px 5% 30px}
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06)}
 footer .logo{color:#fff;margin-bottom:1rem}
-footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--cyan))}
+footer .logo::before{background:linear-gradient(135deg,var(--primary-light),var(--secondary))}
 .footer-about p{font-size:0.85rem;line-height:1.7}
 .footer-col h5{color:#fff;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
 .footer-col a{display:block;color:#64748b;text-decoration:none;font-size:0.85rem;margin-bottom:8px;transition:color var(--tr)}
-.footer-col a:hover{color:var(--teal-light)}
+.footer-col a:hover{color:var(--accent)}
 .footer-bottom{text-align:center;padding-top:30px;font-size:0.8rem;color:#475569}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -156,34 +185,32 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 .reveal-d4{transition-delay:.3s}
 .reveal-d5{transition-delay:.4s}
 .reveal-d6{transition-delay:.5s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @media(max-width:1024px){.team-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:968px){
   .hero{flex-direction:column;text-align:center;padding:100px 5% 60px;min-height:auto}
+  .hero-image{width:80%;max-width:500px}
   .hero-content{max-width:100%}
   .hero p{margin:0 auto 2rem}
   .hero-buttons{justify-content:center}
-  .hero-image{position:relative;right:auto;bottom:auto;width:90%;margin-top:2rem}
-  .hero-floating{display:none}
-  .about-inner{grid-template-columns:1fr;gap:32px}
-  .treatment-grid,.process-steps{grid-template-columns:repeat(2,1fr)}
-  .process-step:not(:last-child)::after{display:none}
-  .stats{margin-top:0;padding:24px;grid-template-columns:repeat(2,1fr)}
+  .treatment-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--white);padding:1.5rem;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg)}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
   section{padding:60px 5%}
-  .treatment-grid,.process-steps{grid-template-columns:1fr}
-  .ba-grid,.testimonial-grid,.features-inner{grid-template-columns:1fr}
+  .treatment-grid,.testimonial-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
+  .ba-card{aspect-ratio:16/10}
   .footer-inner{grid-template-columns:1fr;gap:24px}
   .team-grid{grid-template-columns:1fr;max-width:400px}
 }
 @media(max-width:480px){
   .hero h1{font-size:2.2rem}
-  .stat-number{font-size:1.6rem}
+  .hero-image{width:95%}
   .cta-box{padding:40px 24px}
+  .about-pills{gap:8px}
+  .about-pill{font-size:0.8rem;padding:0.35rem 1rem}
 }
 </style>
 
@@ -199,7 +226,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 <nav class="nav" id="nav">
   <a href="#" class="logo">Estetik Diş</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#about">Kurumsal</a></li>
+    <li><a href="#about">Hakkımızda</a></li>
     <li><a href="#treatments">Tedaviler</a></li>
     <li><a href="#team">Ekibimiz</a></li>
     <li><a href="#testimonials">Yorumlar</a></li>
@@ -211,53 +238,39 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
+  <div class="hero-image reveal">
+    <img src="img/treatment-esthetic.jpg" alt="Estetik Diş Kliniği" loading="eager">
+  </div>
+  <div class="hero-content reveal">
     <span class="hero-badge">✦ 5.0 · 1.500+ Vaka</span>
-    <h1>Mükemmel Gülüş,<span>Kusursuz Estetik</span></h1>
-    <p>Lamine veneer, zirkonyum kron ve dijital gülüş tasarımı ile hayalinizdeki gülüşe kavuşun. Uzman ekibimizle size özel estetik çözümler sunuyoruz.</p>
+    <h1>Sanat ve Bilimin <span>Buluştuğu Nokta</span></h1>
+    <p>Estetik diş hekimliğinde dijital teknoloji ve sanatsal bakış açısını birleştiriyoruz. Lamine veneer, zirkonyum kron ve gülüş tasarımı ile hayalinizdeki gülüşe kavuşmanız için yanınızdayız. Her vaka özel tasarlanır, her gülüş benzersizdir. Klinik konforunda, sedasyon seçeneği ile ağrısız tedavi deneyimi sunuyoruz.</p>
+    <p>İstanbul Levent'teki kliniğimizde en kaliteli malzemeler ve son teknoloji ekipmanlarla çalışıyoruz. Dijital ölçü, CAD/CAM tasarım ve aynı gün restorasyon imkanı ile zamanınıza değer katıyoruz.</p>
     <div class="hero-buttons">
       <a href="#contact" class="btn">Randevu Al</a>
       <a href="#treatments" class="btn-outline">Tedavilerimiz</a>
     </div>
   </div>
-  <div class="hero-image">
-    <img src="img/hero-clinic.jpg" alt="Estetik Diş Kliniği" loading="eager">
-  </div>
-  <div class="hero-floating hero-float-1">
-    <span class="hero-float-dot"></span>
-    <span>Dijital Tasarım</span>
-  </div>
-  <div class="hero-floating hero-float-2">
-    <span class="hero-float-dot" style="background:var(--cyan)"></span>
-    <span>5 Yıl Garanti</span>
-  </div>
 </section>
 
-<div class="stats">
-  <div class="stat-item"><div class="stat-number">10+</div><div class="stat-label">Yıllık Deneyim</div></div>
-  <div class="stat-item"><div class="stat-number">1.500+</div><div class="stat-label">Başarılı Vaka</div></div>
-  <div class="stat-item"><div class="stat-number">%100</div><div class="stat-label">Hasta Memnuniyeti</div></div>
-  <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">Uzman Hekim</div></div>
-</div>
-
 <section class="about" id="about">
-  <div class="about-inner">
-    <div class="about-image reveal">
-      <img src="img/feature-team.jpg" alt="Klinik" loading="lazy">
+  <div class="about-wrap reveal">
+    <span class="section-tag">Hakkımızda</span>
+    <h3>Estetik Diş Hekimliğinde Fark Yaratan Klinik</h3>
+    <p>Estetik Diş Kliniği olarak, her hastamızın gülüşünü özel kılan detaylara odaklanıyoruz. Dijital teknolojilerle desteklenen tedavi planlarımızda lamine veneer, emax kron, zirkonyum ve beyazlatma gibi estetik çözümler sunuyor, doğal ve kalıcı sonuçlar elde ediyoruz. Hastalarımızın yüzlerindeki mutluluk en büyük referansımız.</p>
+    <p>Sadece dişlere değil, insana dokunan bir hizmet anlayışıyla her aşamada yanınızdayız. Ücretsiz ön muayene ile size özel tedavi yol haritasını çıkarıyor, tedavi öncesi ve sonrası süreçte tüm sorularınızı yanıtlıyoruz. 3D ağız içi tarayıcımız ile konforsuz ölçü alma dönemi sona erdi. Dijital gülüş tasarımı sayesinde tedavi sonucunuzu önceden görebiliyor, dilediğiniz değişiklikleri yapabiliyoruz.</p>
+    <p>Klinik ortamımızda hasta konforu her şeyden önce gelir. Sedasyon seçeneği ile tedavi korkusu olan hastalarımız için stressiz bir deneyim sunuyoruz. Tüm restorasyonlarımız 5 yıl garantili olup düzenli kontrollerle ömrü uzatılmaktadır. Modern teknoloji, deneyimli kadro ve kişiye özel yaklaşım — estetik gülüşünüz için ihtiyacınız olan her şey tek çatı altında.</p>
+    <div class="about-pills">
+      <span class="about-pill">Lamine Veneer</span>
+      <span class="about-pill">Emax Kron</span>
+      <span class="about-pill">Zirkonyum</span>
+      <span class="about-pill">Beyazlatma</span>
+      <span class="about-pill">Dijital Tasarım</span>
+      <span class="about-pill">3D Tarama</span>
     </div>
-    <div class="about-text reveal">
-      <span class="section-tag">Hakkımızda</span>
-      <h3>Estetik Diş Hekimliğinde Fark Yaratan Klinik</h3>
-      <p>Estetik Diş Kliniği olarak, her hastamızın gülüşünü özel kılan detaylara odaklanıyoruz. Dijital teknolojilerle desteklenen tedavi planlarımızda lamine veneer, emax kron, zirkonyum ve beyazlatma gibi estetik çözümler sunuyor, doğal ve kalıcı sonuçlar elde ediyoruz.</p>
-      <div class="about-features">
-        <div class="about-feat">Lamine Veneer</div>
-        <div class="about-feat">Emax Kron</div>
-        <div class="about-feat">Zirkonyum Kron</div>
-        <div class="about-feat">Ofis Tipi Beyazlatma</div>
-        <div class="about-feat">Dijital Gülüş Tasarımı</div>
-        <div class="about-feat">3D Tarama</div>
-      </div>
-    </div>
+  </div>
+  <div class="about-banner reveal">
+    <img src="img/ba-1-after.jpg" alt="Tedavi sonucu" loading="lazy">
   </div>
 </section>
 
@@ -270,113 +283,71 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="treatment-grid">
     <div class="treatment-card reveal reveal-d1">
       <img src="img/treatment-esthetic.jpg" alt="Lamine Veneer" class="treatment-card-img" loading="lazy">
-      <h3>Lamine Veneer</h3>
-      <p>Porselen laminate veneer ile dişlerinize doğal görünümlü, leke tutmayan ve kalıcı bir estetik kazandırın.</p>
+      <div class="treatment-body">
+        <h3>Lamine Veneer</h3>
+        <p>Porselen laminate veneer ile dişlerinize doğal görünümlü, leke tutmayan ve kalıcı bir estetik kazandırın. Dijital gülüş tasarımı ile öncesinde sonucu görün.</p>
+      </div>
     </div>
     <div class="treatment-card reveal reveal-d2">
-      <img src="img/treatment-implant.jpg" alt="Zirkonyum Kron" class="treatment-card-img" loading="lazy">
-      <h3>Zirkonyum Kron</h3>
-      <p>Metal alaşımsız, ışık geçirgenliği yüksek zirkonyum kronlar ile doğal diş görünümü ve uzun ömürlü restorasyon.</p>
+      <img src="img/treatment-general.jpg" alt="Diş Beyazlatma" class="treatment-card-img" loading="lazy">
+      <div class="treatment-body">
+        <h3>Diş Beyazlatma</h3>
+        <p>Ofis tipi profesyonel beyazlatma ile tek seansta 6-8 ton daha beyaz dişlere kavuşun. Güvenli, etkili ve kalıcı sonuçlar. Diş minesine zarar vermeyen özel jeller ile uygulama yapıyoruz.</p>
+      </div>
     </div>
     <div class="treatment-card reveal reveal-d3">
-      <img src="img/treatment-general.jpg" alt="Beyazlatma" class="treatment-card-img" loading="lazy">
-      <h3>Beyazlatma</h3>
-      <p>Ofis tipi profesyonel beyazlatma ile tek seansta 6-8 ton daha beyaz dişlere kavuşun.</p>
+      <img src="img/treatment-implant.jpg" alt="Zirkonyum Kron" class="treatment-card-img" loading="lazy">
+      <div class="treatment-body">
+        <h3>Zirkonyum Kron</h3>
+        <p>Metal alaşımsız, ışık geçirgenliği yüksek zirkonyum kronlar ile doğal diş görünümü ve uzun ömürlü restorasyon. 5 yıl garanti.</p>
+      </div>
     </div>
     <div class="treatment-card reveal reveal-d4">
       <img src="img/treatment-root.jpg" alt="Kanal Tedavisi" class="treatment-card-img" loading="lazy">
-      <h3>Kanal Tedavisi</h3>
-      <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun, ağrısız ve konforlu tedavi deneyimi.</p>
+      <div class="treatment-body">
+        <h3>Kanal Tedavisi</h3>
+        <p>Mikroskop destekli kanal tedavisi ile doğal dişlerinizi koruyun. Ağrısız ve konforlu tedavi deneyimi, sedasyon seçeneği mevcut.</p>
+      </div>
     </div>
     <div class="treatment-card reveal reveal-d5">
-      <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
-      <h3>Pedodonti</h3>
-      <p>Çocuk diş hekimliği, koruyucu uygulamalar ve miniklere özel eğlenceli tedavi deneyimi.</p>
+      <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
+      <div class="treatment-body">
+        <h3>Ortodonti</h3>
+        <p>Şeffaf plak ve braket tedavileri ile diş düzeltme, kapanış bozukluklarının düzeltilmesi. Estetik ve konforlu ortodontik çözümler.</p>
+      </div>
     </div>
     <div class="treatment-card reveal reveal-d6">
-      <img src="img/treatment-ortho.jpg" alt="Ortodonti" class="treatment-card-img" loading="lazy">
-      <h3>Ortodonti</h3>
-      <p>Şeffaf plak ve braket tedavileri ile diş düzeltme, kapanış bozukluklarının düzeltilmesi.</p>
+      <img src="img/treatment-pedo.jpg" alt="Pedodonti" class="treatment-card-img" loading="lazy">
+      <div class="treatment-body">
+        <h3>Pedodonti</h3>
+        <p>Çocuk diş hekimliği, koruyucu uygulamalar ve miniklere özel eğlenceli tedavi deneyimi. Diş hekimi korkusunu yenmeleri için özel yaklaşım.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="process">
+<section class="ba" id="ba">
   <div class="section-header reveal">
-    <span class="section-tag">Tedavi Sürecimiz</span>
-    <h2>4 Adımda Estetik Gülüşünüze Kavuşun</h2>
-    <p>Planlı ve şeffaf bir tedavi süreciyle sürpriz yok, sadece size özel bir yol haritası.</p>
-  </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">1</div>
-      <h4>Dijital Planlama</h4>
-      <p>3D ağız içi tarayıcı ile dakikalar içinde dijital ölçünüz alınır. Klasik macunlu ölçü yok.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">2</div>
-      <h4>Tasarım Onay</h4>
-      <p>Dijital gülüş tasarımı simülasyonu ile tedavi sonucunu önceden görür, onay verirsiniz.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">3</div>
-      <h4>Uygulama</h4>
-      <p>Konforlu ve hassas uygulama ile hayalinizdeki gülüşe kavuşursunuz. Sedasyon seçeneği mevcut.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="step-num">4</div>
-      <h4>Son Kontrol</h4>
-      <p>Tedavi sonrası düzenli kontroller ve bakım önerileriyle gülüşünüz uzun yıllar korunur.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ba">
-  <div class="section-header reveal">
-    <span class="section-tag">Öncesi & Sonrası</span>
-    <h2>Gerçek Vakalar, Gerçek Sonuçlar</h2>
-    <p>Tüm vakalar gerçek hastalarımıza aittir. Her biri yazılı izinle paylaşılmaktadır.</p>
+    <span class="section-tag">Galeri</span>
+    <h2>Başarılı Tedavi Sonuçlarımız</h2>
+    <p>Tüm görseller gerçek hastalarımıza ait olup yazılı izinle paylaşılmaktadır.</p>
   </div>
   <div class="ba-grid">
     <div class="ba-card reveal reveal-d1">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-1-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-1-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
+      <img src="img/ba-1-after.jpg" alt="Lamine Veneer sonucu" loading="lazy">
+      <div class="ba-caption"><h4>Lamine Veneer</h4><span>Emax porselen laminate — 6 diş</span></div>
     </div>
     <div class="ba-card reveal reveal-d2">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-3-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-3-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
+      <img src="img/ba-2-after.jpg" alt="Gülüş tasarımı sonucu" loading="lazy">
+      <div class="ba-caption"><h4>Gülüş Tasarımı</h4><span>Full ağız estetik restorasyon</span></div>
     </div>
     <div class="ba-card reveal reveal-d3">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-2-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-2-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Gülüş Tasarımı</h4><span>Full ağız estetik restorasyon</span></div>
+      <img src="img/ba-3-after.jpg" alt="Zirkonyum kron sonucu" loading="lazy">
+      <div class="ba-caption"><h4>Zirkonyum Kron</h4><span>Tek diş zirkonyum restorasyon</span></div>
     </div>
     <div class="ba-card reveal reveal-d4">
-      <div class="ba-compare" data-position="50">
-        <img src="img/ba-4-after.jpg" alt="Tedavi sonrası" class="ba-img">
-        <img src="img/ba-4-before.jpg" alt="Tedavi öncesi" class="ba-img ba-after">
-        <div class="ba-divider"></div>
-        <span class="ba-label before">ÖNCE</span>
-        <span class="ba-label after">SONRA</span>
-      </div>
-      <div class="ba-info"><h4>Diş Beyazlatma</h4><span>Ofis tipi profesyonel beyazlatma</span></div>
+      <img src="img/ba-4-after.jpg" alt="Beyazlatma sonucu" loading="lazy">
+      <div class="ba-caption"><h4>Diş Beyazlatma</h4><span>Ofis tipi profesyonel beyazlatma</span></div>
     </div>
   </div>
 </section>
@@ -393,15 +364,15 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dt. Elif Yıldız</h4>
         <div class="title">Estetik Diş Hekimi</div>
-        <p>Lamine veneer ve dijital gülüş tasarımı alanında uzman. 200+ başarılı estetik vaka.</p>
+        <p>Lamine veneer ve dijital gülüş tasarımı alanında uzman. 200+ başarılı estetik vaka. Hastalarına özel yaklaşımıyla fark yaratıyor.</p>
       </div>
     </div>
     <div class="team-card reveal">
       <img src="img/doctor-2.jpg" alt="Dr. Canan Demir" loading="lazy">
       <div class="team-body">
         <h4>Dr. Canan Demir</h4>
-        <div class="title">Protetik Diş Hekimi</div>
-        <p>Zirkonyum ve emax kron restorasyonlarında deneyimli. CAD/CAM teknolojisi uzmanı.</p>
+        <div class="title">Protetik Diş</div>
+        <p>Zirkonyum ve emax kron restorasyonlarında deneyimli. CAD/CAM teknolojisi uzmanı. Estetik ve fonksiyonu bir arada sunuyor.</p>
       </div>
     </div>
     <div class="team-card reveal">
@@ -409,36 +380,16 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <div class="team-body">
         <h4>Dt. Burak Aslan</h4>
         <div class="title">Gülüş Tasarımı</div>
-        <p>Dijital gülüş tasarımı ve full ağız estetik planlamada 300+ vaka deneyimi.</p>
+        <p>Dijital gülüş tasarımı ve full ağız estetik planlamada 300+ vaka deneyimi. Sanatsal bakış açısıyla her gülüşü özel kılıyor.</p>
       </div>
     </div>
     <div class="team-card reveal">
       <img src="img/doctor-4.jpg" alt="Dr. Ece Kaya" loading="lazy">
       <div class="team-body">
         <h4>Dr. Ece Kaya</h4>
-        <div class="title">Diş Beyazlatma</div>
-        <p>Ofis tipi beyazlatma ve koruyucu diş hekimliği alanında uzman. Renklendirme terapisti.</p>
+        <div class="title">Beyazlatma</div>
+        <p>Ofis tipi beyazlatma ve koruyucu diş hekimliği alanında 10+ yıllık deneyim. Renklendirme ve estetik tedavilerde uzman.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-inner">
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-team.jpg" alt="Uzman Kadro"></div>
-      <h4>Uzman Kadro</h4>
-      <p>Estetik diş hekimliğinde deneyimli 5 hekim ile kişiye özel tedavi planlaması.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-tech.jpg" alt="Dijital Teknoloji"></div>
-      <h4>Dijital Teknoloji</h4>
-      <p>3D tarama, dijital gülüş tasarımı ve CAD/CAM ile hassas estetik tedavi.</p>
-    </div>
-    <div class="feature-item reveal">
-      <div class="fi-icon"><img src="img/feature-comfort.jpg" alt="Konfor Garantisi"></div>
-      <h4>Konfor Garantisi</h4>
-      <p>Sedasyonlu tedavi, ağrısız müdahale ve 5 yıl garantili restorasyonlar.</p>
     </div>
   </div>
 </section>
@@ -452,19 +403,19 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="testimonial-grid">
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Dişlerimden o kadar memnunum ki artık fotoğraf çektirmeyi seviyorum! Lamine veneer öncesi gülmekten çekiniyordum."</p>
+      <p class="text">"Dişlerimden o kadar memnunum ki artık fotoğraf çektirmeyi seviyorum! Lamine veneer öncesi gülmekten çekiniyordum. Dt. Elif Hanım'a çok teşekkür ederim, harika bir iş çıkardı."</p>
       <strong class="author">Duygu A.</strong>
       <div class="detail">Lamine Veneer · 1 ay önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Zirkonyum kronlarım doğal dişlerimden farksız. Kimse anlamıyor, çok doğal bir görünüm elde ettim."</p>
+      <p class="text">"Zirkonyum kronlarım doğal dişlerimden farksız. Kimse anlamıyor, çok doğal bir görünüm elde ettim. Dr. Canan Demir'e profesyonel yaklaşımı için minnettarım."</p>
       <strong class="author">Kerem T.</strong>
       <div class="detail">Zirkonyum Kron · 2 ay önce</div>
     </div>
     <div class="testimonial-card reveal">
       <div class="stars">★★★★★</div>
-      <p class="text">"Beyazlatma sonrası 10 yaş genç görünüyorum. Tek seansta inanılmaz bir fark yarattı, kesinlikle tavsiye ederim."</p>
+      <p class="text">"Beyazlatma sonrası 10 yaş genç görünüyorum. Tek seansta inanılmaz bir fark yarattı, kesinlikle tavsiye ederim. Dr. Ece Kaya ilgisi ve uzmanlığıyla fark yaratıyor."</p>
       <strong class="author">Leyla S.</strong>
       <div class="detail">Ofis Tipi Beyazlatma · 3 hafta önce</div>
     </div>
@@ -480,19 +431,15 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   <div class="faq-list">
     <div class="faq-item active">
       <button class="faq-question">Veneer mi zirkonyum mu?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Lamine veneer dişin ön yüzeyine uygulanan ince porselen yaprakken, zirkonyum kron tüm dişi kaplar. Veneer estetik düzeltmeler için idealdir, zirkonyum ise daha fazla dayanıklılık gerektiren durumlarda tercih edilir. Muayene sonrası size en uygun seçeneği öneriyoruz.</div>
+      <div class="faq-answer">Lamine veneer dişin ön yüzeyine uygulanan ince porselen yaprakken, zirkonyum kron tüm dişi kaplar. Veneer estetik düzeltmeler için idealdir, zirkonyum ise daha fazla dayanıklılık gerektiren durumlarda tercih edilir. Her iki tedavi de dijital planlama ile önceden simüle edilir ve muayene sonrası size en uygun seçeneği öneriyoruz.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Diş beyazlatma ne kadar etkili?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Ofis tipi profesyonel beyazlatma tek seansta 6-8 ton açılma sağlar. Etkisi kişiden kişiye değişmekle birlikte, doğru bakım ve düzenli kontrollerle 1-2 yıl kalıcıdır.</div>
+      <div class="faq-answer">Ofis tipi profesyonel beyazlatma tek seansta 6-8 ton açılma sağlar. Etkisi kişiden kişiye değişmekle birlikte, doğru bakım ve düzenli kontrollerle 1-2 yıl kalıcıdır. İşlem öncesi diş taşı temizliği ve muayene ile uygunluğunuz değerlendirilir.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Kaplama dişler ne kadar dayanıklı?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Zirkonyum ve emax kronlar 10-15 yıl ve üzeri ömre sahiptir. Lamine veneerler doğru bakımla 10+ yıl dayanır. Tüm restorasyonlarımız 5 yıl garantilidir.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Fiyat bilgisi alabilir miyim?<span class="arrow">▼</span></button>
-      <div class="faq-answer">Tedavi maliyeti seçilen malzeme ve diş sayısına göre değişir. Ücretsiz ön muayene randevusu alarak size özel fiyat teklifi oluşturabiliriz.</div>
+      <div class="faq-answer">Zirkonyum ve emax kronlar 10-15 yıl ve üzeri ömre sahiptir. Lamine veneerler doğru bakımla 10+ yıl dayanır. Tüm restorasyonlarımız 5 yıl garantilidir. Düzenli 6 aylık kontroller ve doğru ağız bakımı ile ömür boyu sağlıklı bir gülüşe sahip olabilirsiniz.</div>
     </div>
   </div>
 </section>
@@ -506,17 +453,43 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
   </div>
 </section>
 
+<section style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);text-align:center;padding:40px 5%">
+  <div style="max-width:700px;margin:0 auto">
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0">📍 Levent, İstanbul · Pzt-Cmt 09:00-19:00 · 📞 0212 555 00 00</p>
+  </div>
+</section>
+
+<section style="background:var(--white);text-align:center;padding:60px 5%;border-top:1px solid var(--border)">
+  <div class="section-header reveal" style="margin-bottom:2rem">
+    <span class="section-tag">Sosyal Medya</span>
+    <h2>Bizi Takip Edin</h2>
+    <p>Instagram'da güncel tedavi sonuçlarımızı ve klinik yaşamımızı takip edebilirsiniz.</p>
+  </div>
+  <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+    <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:0.7rem 1.6rem;border-radius:100px;border:1px solid var(--border);text-decoration:none;color:var(--text);font-weight:600;font-size:0.9rem;transition:var(--tr)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">📸 Instagram</a>
+    <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:0.7rem 1.6rem;border-radius:100px;border:1px solid var(--border);text-decoration:none;color:var(--text);font-weight:600;font-size:0.9rem;transition:var(--tr)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">📘 Facebook</a>
+    <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:0.7rem 1.6rem;border-radius:100px;border:1px solid var(--border);text-decoration:none;color:var(--text);font-weight:600;font-size:0.9rem;transition:var(--tr)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">▶ YouTube</a>
+    <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:0.7rem 1.6rem;border-radius:100px;border:1px solid var(--border);text-decoration:none;color:var(--text);font-weight:600;font-size:0.9rem;transition:var(--tr)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">🔗 LinkedIn</a>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-about">
       <a href="#" class="logo">Estetik Diş</a>
-      <p>Estetik Diş Kliniği, modern teknoloji ve uzman kadrosuyla estetik diş hekimliği alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz.</p>
+      <p>Estetik Diş Kliniği, modern teknoloji ve uzman kadrosuyla estetik diş hekimliği alanında hizmet vermektedir. Her hastaya özel tedavi planı ve konforlu deneyim sunuyoruz. Levent, İstanbul'da hizmet veren kliniğimizde dijital gülüş tasarımından zirkonyum restorasyonlara kadar tüm estetik diş tedavileri için yanınızdayız. Randevu almak için WhatsApp hattımızdan veya telefonla bize ulaşabilirsiniz.</p>
+      <div style="display:flex;gap:12px;margin-top:1rem">
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#94a3b8;text-decoration:none;font-size:1rem;transition:all .3s" aria-label="Instagram">IG</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#94a3b8;text-decoration:none;font-size:1rem;transition:all .3s" aria-label="Facebook">FB</a>
+        <a href="#" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:#94a3b8;text-decoration:none;font-size:1rem;transition:all .3s" aria-label="YouTube">YT</a>
+      </div>
     </div>
     <div class="footer-col">
-      <h5>Hızlı Linkler</h5>
-      <a href="#about">Kurumsal</a>
+      <h5>Kurumsal</h5>
+      <a href="#about">Hakkımızda</a>
       <a href="#treatments">Tedaviler</a>
       <a href="#team">Ekibimiz</a>
+      <a href="#ba">Galeri</a>
       <a href="#testimonials">Yorumlar</a>
       <a href="#contact">İletişim</a>
     </div>
@@ -527,6 +500,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">Diş Beyazlatma</a>
       <a href="#">Ortodonti</a>
       <a href="#">Pedodonti</a>
+      <a href="#">Kanal Tedavisi</a>
     </div>
     <div class="footer-col">
       <h5>İletişim</h5>
@@ -534,6 +508,7 @@ footer .logo::before{background:linear-gradient(135deg,var(--teal-light),var(--c
       <a href="#">info@estetikdis.com</a>
       <a href="#">0212 555 00 00</a>
       <a href="#">Levent, İstanbul</a>
+      <a href="#">Pzt-Cmt: 09:00-19:00</a>
     </div>
   </div>
   <div style="max-width:1100px;margin:30px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.15)">
@@ -568,20 +543,6 @@ document.querySelectorAll('.faq-question').forEach(btn => {
     const item = btn.parentElement;
     item.classList.toggle('active');
   });
-});
-
-document.querySelectorAll('.ba-compare').forEach(container => {
-  const after = container.querySelector('.ba-after');
-  const divider = container.querySelector('.ba-divider');
-  const update = x => {
-    const rect = container.getBoundingClientRect();
-    let pct = ((x - rect.left) / rect.width) * 100;
-    pct = Math.max(10, Math.min(90, pct));
-    after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-    divider.style.left = pct + '%';
-  };
-  container.addEventListener('mousemove', e => update(e.clientX));
-  container.addEventListener('touchmove', e => update(e.touches[0].clientX), {passive:true});
 });
 
 window.dispatchEvent(new Event('scroll'));
