@@ -130,14 +130,8 @@ nav.scrolled {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   position: relative;
-  background: linear-gradient(160deg, rgba(13,5,8,0.85) 0%, rgba(26,10,18,0.9) 30%, rgba(42,10,24,0.9) 60%, rgba(13,5,8,0.95) 100%);
+  background: linear-gradient(160deg, #0d0508 0%, #1a0a12 30%, #2a0a18 60%, #0d0508 100%);
   overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0.2;
 }
 .hero::before {
   content: '';
@@ -149,8 +143,10 @@ nav.scrolled {
 .hero-pattern {
   position: absolute; inset: 0;
   background-image:
-    radial-gradient(circle 1px at 25% 30%, rgba(201, 168, 76, 0.04) 0%, transparent 100%),
-    radial-gradient(circle 0.5px at 75% 60%, rgba(201, 168, 76, 0.03) 0%, transparent 100%);
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.035'%3E%3Cpath d='M50 0L0 50l50 50 50-50z'/%3E%3Cpath d='M50 15L15 50l35 35 35-35z'/%3E%3Cpath d='M50 30L30 50l20 20 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0l100 100-100 100L0 100z' fill='none' stroke='%23c9a84c' stroke-width='0.3' stroke-opacity='0.06'/%3E%3Cpath d='M100 20l80 80-80 80-80-80z' fill='none' stroke='%23c9a84c' stroke-width='0.3' stroke-opacity='0.04'/%3E%3Cpath d='M0 0h200v200H0z' fill='none' stroke='%23c9a84c' stroke-width='0.3' stroke-opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 100px 100px, 200px 200px;
+  background-position: 0 0, 50px 50px;
   pointer-events: none;
 }
 .hero-content {
@@ -795,7 +791,6 @@ footer .socials svg { width: 16px; height: 16px; }
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <img class="hero-bg" src="img/kaftan-18.jpg" alt="">
   <div class="hero-pattern"></div>
   <div class="hero-content">
     <div class="hero-badge">✦ Premium Bridal Wear</div>
