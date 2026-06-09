@@ -3,7 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bindallı & Kaftan — Premium Bridal Wear</title>
+<meta http-equiv="Content-Language" content="tr">
+<title>Bindallı & Kaftan | Bursa'da Bindallı ve Kaftan Kiralama</title>
+<meta name="description" content="Bursa'da bindallı ve kaftan kiralama ve satış. Kına gecesi ve düğünleriniz için özel tasarım bindallı ve kaftan koleksiyonu. 0532 227 77 16">
+<meta name="keywords" content="bindallı, kaftan, bindallı kiralama, kaftan kiralama, bursa bindallı, bursa kaftan, kına gecesi bindallı, gelin bindallı, bursa kına gecesi">
+<meta name="author" content="Bindallı & Kaftan">
+<link rel="canonical" href="https://kivontr.com/portfolio/bindalli-ve-kaftan.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bindallı & Kaftan | Bursa'da Bindallı ve Kaftan Kiralama">
+<meta property="og:description" content="Bursa'da bindallı ve kaftan kiralama ve satış. Kına gecesi ve düğünleriniz için özel tasarım bindallı ve kaftan koleksiyonu.">
+<meta property="og:image" content="https://kivontr.com/portfolio/img/bindalli-kaftan-logo.svg">
+<meta property="og:url" content="https://kivontr.com/portfolio/bindalli-ve-kaftan.html">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bindallı & Kaftan | Bursa'da Bindallı ve Kaftan Kiralama">
+<meta name="twitter:description" content="Bursa'da bindallı ve kaftan kiralama ve satış. Kına gecesi ve düğünleriniz için özel tasarım bindallı ve kaftan koleksiyonu.">
+<meta name="twitter:image" content="https://kivontr.com/portfolio/img/bindalli-kaftan-logo.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Bindallı & Kaftan",
+  "description": "Bursa'da bindallı ve kaftan kiralama ve satış",
+  "telephone": "+905322277716",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Kuruçeşme Mah. Altıparmak Cad., Otel Sk. No:6",
+    "addressLocality": "Osmangazi",
+    "addressRegion": "Bursa",
+    "addressCountry": "TR"
+  },
+  "image": "https://kivontr.com/portfolio/img/bindalli-kaftan-logo.svg",
+  "url": "https://kivontr.com/portfolio/bindalli-ve-kaftan.html",
+  "priceRange": "₺₺₺"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
@@ -568,6 +602,33 @@ nav.scrolled {
   background: var(--gold);
   color: var(--black);
 }
+.contact-map {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  min-height: 320px;
+}
+.contact-map iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.contact-map-link {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-top: 12px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.contact-map-link:hover {
+  opacity: 1;
+}
 
 /* ─── FOOTER ─── */
 footer {
@@ -637,98 +698,339 @@ footer .socials svg { width: 16px; height: 16px; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
-/* ─── PRODUCT MODAL ─── */
-.modal-overlay {
+/* ─── PRODUCT DETAIL ─── */
+.product-detail {
   position: fixed; inset: 0; z-index: 2000;
-  background: rgba(13,5,8,0.95);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s 0.6s;
+}
+.product-detail.open {
+  visibility: visible;
+  transition: visibility 0s 0s;
+}
+.pd-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(13,5,8,0.85);
+  opacity: 0;
   transition: opacity 0.6s;
-  backdrop-filter: blur(10px);
 }
-.modal-overlay.open {
+.product-detail.open .pd-backdrop {
   opacity: 1;
-  pointer-events: all;
 }
-.modal-content {
-  max-width: 800px;
-  width: 90%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  background: var(--dark);
-  border: 1px solid var(--border);
-  padding: 48px;
-  transform: scale(0.9);
+.pd-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 100%;
+  max-width: 1200px;
+  background: var(--black);
+  overflow-y: auto;
+  transform: translateX(100%);
   transition: transform 0.6s var(--ease-expo);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.6);
 }
-.modal-overlay.open .modal-content {
-  transform: scale(1);
+.product-detail.open .pd-panel {
+  transform: translateX(0);
 }
-.modal-img {
-  aspect-ratio: 3 / 4;
-  background: linear-gradient(160deg, var(--burgundy), var(--dark));
+.pd-close {
+  position: fixed; top: 24px; left: 24px; z-index: 10;
+  background: rgba(13,5,8,0.8);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  width: 48px; height: 48px;
+  font-size: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s;
+  backdrop-filter: blur(8px);
+  font-family: var(--font-body);
+  line-height: 1;
+}
+.pd-close:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.15);
+  transform: scale(1.05);
+}
+.pd-scroll {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.pd-main {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+.pd-image {
+  flex: 0 0 60%;
+  position: relative;
   overflow: hidden;
+  background: linear-gradient(160deg, var(--burgundy), var(--dark));
 }
-.modal-img img {
+.pd-image img {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
 }
-.modal-details .cat {
+.pd-info {
+  flex: 0 0 40%;
+  padding: 120px 56px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pd-cat {
   font-size: 0.8rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
-.modal-details h2 {
+.pd-name {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   color: var(--cream);
   letter-spacing: 2px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  line-height: 1.2;
 }
-.modal-details p {
+.pd-desc {
   color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 8px;
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  line-height: 1.7;
 }
-.modal-details .price {
+.pd-features {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 2;
+}
+.pd-features .pd-bullet {
+  color: var(--gold);
+  margin-right: 8px;
+}
+.pd-feature-line {
+  display: block;
+}
+.pd-price {
   font-family: var(--font-display);
   font-size: 1.3rem;
   color: var(--gold);
-  margin: 20px 0;
+  margin-bottom: 28px;
   letter-spacing: 2px;
 }
-.modal-details .modal-wa {
+.pd-wa {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   background: #25D366;
   color: white;
-  padding: 14px 32px;
+  padding: 16px 36px;
   font-family: var(--font-display);
   font-size: 0.75rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   transition: all 0.4s;
+  align-self: flex-start;
 }
-.modal-details .modal-wa:hover {
+.pd-wa:hover {
   background: #20bd5a;
   transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.2);
 }
-.modal-close {
-  position: absolute; top: 24px; right: 24px;
-  background: none; border: none;
-  color: var(--text-dim);
-  font-size: 2rem;
+/* ─── RELATED ─── */
+.pd-related {
+  padding: 48px 56px 80px;
+  border-top: 1px solid var(--border);
+}
+.pd-related h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.pd-related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.pd-related-card {
   cursor: pointer;
-  transition: color 0.4s;
-  line-height: 1;
+  border: 1px solid var(--border);
+  transition: all 0.4s;
+  overflow: hidden;
+  background: var(--dark);
 }
-.modal-close:hover { color: var(--gold); }
-.modal-overlay .modal-close { position: static; align-self: start; justify-self: end; font-size: 1.5rem; }
-.modal-overlay .modal-close { position: absolute; top: 20px; right: 20px; font-size: 2rem; }
+.pd-related-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.pd-related-card img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+.pd-related-card span {
+  display: block;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--cream);
+  letter-spacing: 1px;
+}
+.pd-related-card .pd-related-cat {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0 16px 4px;
+}
+@media (max-width: 768px) {
+  .pd-main { flex-direction: column; min-height: auto; }
+  .pd-image { flex: none; height: 50vh; min-height: 300px; }
+  .pd-image img { position: relative; height: 100%; }
+  .pd-info { padding: 80px 24px 40px; }
+  .pd-related { padding: 32px 24px; }
+  .pd-related-grid { grid-template-columns: repeat(2, 1fr); }
+  .pd-close { top: 16px; left: 16px; width: 40px; height: 40px; font-size: 1.3rem; }
+  .pd-panel { max-width: 100%; }
+}
+
+/* ═══════════════════════════════════════════════
+   ENHANCEMENTS — Product Cards & Interactions
+   ═══════════════════════════════════════════════ */
+
+/* Badge tag (Yeni, Özel, Popüler) */
+.badge-tag {
+  position: absolute; top: 16px; right: 16px; z-index: 3;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  padding: 4px 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.3);
+}
+
+/* Price badge at card bottom */
+.price-badge {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--gold);
+  background: linear-gradient(to top, rgba(13,5,8,0.92) 60%, transparent);
+  padding: 28px 24px 16px;
+}
+.product-card:hover .price-badge {
+  opacity: 0;
+}
+
+/* Product card enhanced hover */
+.product-card {
+  transition: all 0.6s var(--ease-expo);
+}
+.product-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.15), 0 0 40px rgba(201,168,76,0.06);
+}
+
+/* Category tag hover */
+.category-tag {
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 4px 14px;
+  background: rgba(13,5,8,0.7);
+  backdrop-filter: blur(6px);
+  transition: all 0.4s;
+}
+.product-card:hover .category-tag {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+/* Product detail meta info */
+.pd-meta {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 16px 0 20px;
+}
+.pd-meta-item {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+}
+.pd-meta-item strong {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+
+/* Value item hover */
+.value-item {
+  border: 1px solid var(--border);
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.4s;
+}
+.value-item:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.value-item:hover .num { color: var(--gold-light); }
+.value-item:hover .label { color: var(--text-muted); }
+
+/* Section divider */
+.section + .section::before {
+  content: '';
+  display: block;
+  width: 80px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  margin: -60px auto 0;
+  opacity: 0.4;
+}
+
+/* Button press effect */
+.hero-cta:active, .contact-form button:active, .contact-wa:active, .filter-btn:active, .pd-wa:active, .wa-float:active {
+  transform: scale(0.96);
+}
+
+/* Loading skeleton for images */
+.product-card-img {
+  background: linear-gradient(120deg, var(--dark) 30%, rgba(201,168,76,0.08) 50%, var(--dark) 70%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s ease infinite;
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
@@ -755,7 +1057,6 @@ footer .socials svg { width: 16px; height: 16px; }
   .nav-toggle { display: block; }
   .section { padding: 80px 24px; }
   .product-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-  .modal-content { grid-template-columns: 1fr; padding: 32px; }
   .about-values { grid-template-columns: 1fr; }
 }
 
@@ -768,16 +1069,6 @@ footer .socials svg { width: 16px; height: 16px; }
   .filter-btn { padding: 8px 18px; font-size: 0.9rem; }
 }
 
-/* ─── PLACEHOLDER STYLES (will replace with real photos) ─── */
-.ph-bindalli { background: linear-gradient(135deg, #4a0e2e, #2a0a18); }
-.ph-kaftan { background: linear-gradient(135deg, #2a1a0a, #1a0a12); }
-
-.ph-aksesuar { background: linear-gradient(135deg, #1a2a1a, #0a1a0a); }
-.ph-pattern {
-  background-image:
-    repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(201,168,76,0.03) 20px, rgba(201,168,76,0.03) 21px),
-    repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(201,168,76,0.03) 20px, rgba(201,168,76,0.03) 21px);
-}
 </style>
 </head>
 <body>
@@ -917,12 +1208,10 @@ footer .socials svg { width: 16px; height: 16px; }
         WhatsApp'tan Yaz
       </a>
     </div>
-    <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault(); window.open('https://wa.me/905322277716?text='+encodeURIComponent('Merhaba, Bindallı & Kaftan hakkında bilgi almak istiyorum.\n\nAdım: '+document.getElementById('cf-name').value+'\nTelefon: '+document.getElementById('cf-phone').value+'\nMesaj: '+document.getElementById('cf-msg').value), '_blank')">
-      <input type="text" id="cf-name" placeholder="Adınız" required>
-      <input type="tel" id="cf-phone" placeholder="Telefon Numaranız">
-      <textarea id="cf-msg" placeholder="Mesajınız..." required></textarea>
-      <button type="submit">WhatsApp'tan Gönder</button>
-    </form>
+    <div class="contact-map reveal reveal-delay-1">
+      <iframe src="https://maps.google.com/maps?q=Kuru%C3%A7e%C5%9Fme+Mah+Alt%C4%B1parmak+Cad+Otel+Sk+No6+Osmangazi+Bursa&output=embed&z=15" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a class="contact-map-link" href="https://maps.google.com/?q=Kuru%C3%A7e%C5%9Fme+Mah+Alt%C4%B1parmak+Cad+Otel+Sk+No6+Osmangazi+Bursa" target="_blank">Google Maps'te Aç →</a>
+    </div>
   </div>
 </section>
 
@@ -946,23 +1235,35 @@ footer .socials svg { width: 16px; height: 16px; }
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- ─── PRODUCT MODAL ─── -->
-<div class="modal-overlay" id="productModal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-img" id="modalImg">
-      <img src="img/kaftan-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover">
-    </div>
-    <div class="modal-details">
-      <div class="cat" id="modalCat"></div>
-      <h2 id="modalName"></h2>
-      <p id="modalDesc"></p>
-      <p id="modalFeatures" style="font-size:0.9rem;color:var(--text-dim)"></p>
-      <div class="price" id="modalPrice"></div>
-      <a id="modalWa" href="#" target="_blank" class="modal-wa">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Fiyat Sor & Sipariş Ver
-      </a>
+<!-- ─── PRODUCT DETAIL ─── -->
+<div class="product-detail" id="productDetail">
+  <div class="pd-backdrop"></div>
+  <div class="pd-panel">
+    <button class="pd-close" onclick="location.hash=''" aria-label="Geri dön">←</button>
+    <div class="pd-scroll">
+      <div class="pd-main">
+        <div class="pd-image" id="pdImage"></div>
+        <div class="pd-info">
+          <div class="pd-cat" id="pdCat"></div>
+          <h2 class="pd-name" id="pdName"></h2>
+          <p class="pd-desc" id="pdDesc"></p>
+          <div class="pd-features" id="pdFeatures"></div>
+          <div class="pd-price" id="pdPrice"></div>
+          <div class="pd-meta">
+            <span class="pd-meta-item"><strong>Renk:</strong> <span id="pdColor"></span></span>
+            <span class="pd-meta-item"><strong>Kumaş:</strong> <span id="pdMaterial"></span></span>
+            <span class="pd-meta-item"><strong>Beden:</strong> <span id="pdSizes"></span></span>
+          </div>
+          <a id="pdWa" href="#" target="_blank" class="pd-wa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Fiyat Sor & Sipariş Ver
+          </a>
+        </div>
+      </div>
+      <div class="pd-related">
+        <h3>Benzer Ürünler</h3>
+        <div class="pd-related-grid" id="pdRelated"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -972,100 +1273,170 @@ footer .socials svg { width: 16px; height: 16px; }
 const products = [
   {
     id: 1, category: 'bindalli', name: 'Imperial',
-    desc: 'Altın işlemeli, burgundy renk özel tasarım bindallı. Kına gecesinin vazgeçilmez zerafeti.',
+    desc: 'Altın işlemeli, burgundy renk özel tasarım bindallı. Kına gecesinin vazgeçilmez zerafeti. Göz alıcı altın sim işlemeleri ve kadife kumaşıyla unutulmaz bir gece için tasarlandı.',
     features: '• El işlemesi altın sim • Burgundy kadife • Özel kesim',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Burgundy',
+    badge: 'Yeni',
+    rating: 5,
     img: 'img/kaftan-1.jpg'
   },
   {
     id: 2, category: 'bindalli', name: 'Sultan',
-    desc: 'Fildişi rengi, gümüş işlemeli modern bindallı. Klasik çizgilerde contemporary dokunuş.',
+    desc: 'Fildişi rengi, gümüş işlemeli modern bindallı. Klasik çizgilerde contemporary dokunuş. Havuzlu etek detayı ve gümüş iplik işlemeleriyle asaletin zirvesi.',
     features: '• Gümüş iplik işleme • Fildişi saten • Havuzlu etek',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Saten',
+    color: 'Fildişi',
+    badge: 'Özel',
+    rating: 5,
     img: 'img/kaftan-2.jpg'
   },
   {
     id: 3, category: 'bindalli', name: 'Mirage',
-    desc: 'Zümrüt yeşili, taş işlemeli göz kamaştırıcı bindallı. Farklı olmak isteyen gelinler için.',
+    desc: 'Zümrüt yeşili, taş işlemeli göz kamaştırıcı bindallı. Farklı olmak isteyen gelinler için özel olarak tasarlandı. Yırtmaç detayı ve el işçiliği taşlarla süslenmiş eşsiz bir model.',
     features: '• Zümrüt taş işleme • Yeşil kadife • Yırtmaç detay',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Zümrüt Yeşili',
+    badge: 'Popüler',
+    rating: 5,
     img: 'img/kaftan-3.jpg'
   },
   {
     id: 4, category: 'bindalli', name: 'Nazlı',
-    desc: 'Pudra pembesi, dantel detaylı romantik bindallı. Masumiyet ve zarafetin buluşması.',
+    desc: 'Pudra pembesi, dantel detaylı romantik bindallı. Masumiyet ve zarafetin buluştuğu bu model, inci işlemeleriyle büyülüyor. Fransız danteli ve ipek saten kumaşıyla özel gecelerin favorisi.',
     features: '• Fransız dantel • Pudra ipek saten • İnci işleme',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'İpek Saten',
+    color: 'Pudra Pembesi',
+    badge: 'Yeni',
+    rating: 5,
     img: 'img/kaftan-4.jpg'
   },
   {
     id: 5, category: 'kaftan', name: 'Pelerinli Kaftan',
-    desc: 'İhtişamlı pelerin detaylı, altın varak işlemeli kaftan. Muhteşem bir giriş için.',
+    desc: 'İhtişamlı pelerin detaylı, altın varak işlemeli kaftan. Muhteşem bir giriş yapmak isteyenler için tasarlandı. Özel gün davetlerinde tüm dikkatleri üzerinize toplayacak bir şaheser.',
     features: '• Pelerin detay • Altın varak işleme • İç astar saten',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Antrasit',
+    badge: 'Özel',
+    rating: 5,
     img: 'img/kaftan-5.jpg'
   },
   {
     id: 6, category: 'kaftan', name: 'İpek Kaftan',
-    desc: 'Tam ipek, hafif ve akıcı kesim. Günlük kullanımdan özel gecelere kadar çok yönlü.',
+    desc: 'Tam ipek, hafif ve akıcı kesim. Günlük kullanımdan özel gecelere kadar çok yönlü bir kullanım sunar. El yapımı püskül detayları ve kaliteli ipek kumaşıyla konforun adresi.',
     features: '• 100% ipek • El yapımı püsküller • Tek beden',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'İpek',
+    color: 'Krem',
+    badge: 'Yeni',
+    rating: 4,
     img: 'img/kaftan-6.jpg'
   },
   {
     id: 7, category: 'kaftan', name: 'Kuşaklı Kaftan',
-    desc: 'Belden kuşaklı, modern kesim kaftan. Hem şık hem fonksiyonel tasarım.',
+    desc: 'Belden kuşaklı, modern kesim kaftan. Hem şık hem fonksiyonel tasarımıyla günlük kullanımda da özel günlerde de tercih edilebilir. Altın detaylı kuşağı ve V yaka kesimiyle dikkat çeker.',
     features: '• Altın kuşak • V yaka • Yan yırtmaç',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Şifon',
+    color: 'Gümüş Gri',
+    badge: 'Popüler',
+    rating: 4,
     img: 'img/kaftan-7.jpg'
   },
   {
     id: 8, category: 'kaftan', name: 'Siyah Kaftan',
-    desc: 'Siyah kadife, gümüş işlemeli gece kaftanı. Davetler ve özel geceler için.',
+    desc: 'Siyah kadife, gümüş işlemeli gece kaftanı. Davetler ve özel geceler için ideal bir tercih. Şal yaka tasarımı ve el işçiliği gümüş detaylarıyla sofistike bir şıklık sunar.',
     features: '• Siyah kadife • Gümüş işleme • Şal yaka',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Siyah',
+    badge: 'Popüler',
+    rating: 5,
     img: 'img/kaftan-8.jpg'
   },
   {
     id: 11, category: 'bindalli', name: 'Klasik Bindallı',
-    desc: 'Geleneksel çizgilerde, özel günler için tasarlanmış şık bindallı.',
+    desc: 'Geleneksel çizgilerde, özel günler için tasarlanmış şık bindallı. El işlemesi motifleri ve kaliteli kumaşıyla kına gecelerinin vazgeçilmezi. Zamansız tasarımıyla her dönem tercih edilen bir klasik.',
     features: '• El işlemesi • Kaliteli kumaş • Özel kesim',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Bordo',
+    badge: 'Koleksiyon',
+    rating: 4,
     img: 'img/kaftan-11.jpg'
   },
   {
     id: 12, category: 'bindalli', name: 'Modern Bindallı',
-    desc: 'Modern çizgilerle yorumlanmış, zamansız bir bindallı tasarımı.',
+    desc: 'Modern çizgilerle yorumlanmış, zamansız bir bindallı tasarımı. Geleneksel motifleri çağdaş bir dokunuşla buluşturan bu model, rahat kullanımı ve şık duruşuyla öne çıkıyor.',
     features: '• Modern kesim • Özel dikiş • Rahat kullanım',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Saten',
+    color: 'Lacivert',
+    badge: 'Yeni',
+    rating: 4,
     img: 'img/kaftan-12.jpg'
   },
   {
     id: 13, category: 'bindalli', name: 'Özel Tasarım',
-    desc: 'Mağazamızdan özel tasarım bindallı ve kaftan çeşitlerimizi görebilirsiniz.',
+    desc: 'Mağazamızdan özel tasarım bindallı ve kaftan çeşitlerimizi görebilirsiniz. Her parça el işçiliğiyle özenle hazırlanmakta olup kişiye özel ölçülerle üretilmektedir. Size özel tasarım için bizimle iletişime geçin.',
     features: '• Özel tasarım • El işçiliği • Kişiye özel',
     price: 'Fiyat için iletişim',
+    sizes: 'Kişiye özel',
+    material: 'Kadife',
+    color: 'Kraliyet Mavisi',
+    badge: 'Özel',
+    rating: 5,
     img: 'img/kaftan-13.jpg'
   },
   {
     id: 14, category: 'kaftan', name: 'Kaftan Koleksiyon',
-    desc: 'Şık ve gösterişli kaftan tasarımı, özel günleriniz için.',
+    desc: 'Şık ve gösterişli kaftan tasarımı, özel günleriniz için ideal. Kaliteli kumaşı ve özel kesimiyle fark yaratan bu model, davetlerde ve nişan törenlerinde şıklığınızı tamamlar.',
     features: '• Özel kesim • Kaliteli kumaş • Şık duruş',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Yakutu Kırmızı',
+    badge: 'Yeni',
+    rating: 4,
     img: 'img/kaftan-14.jpg'
   },
   {
     id: 15, category: 'kaftan', name: 'Premium Kaftan',
-    desc: 'Gösterişli ve ihtişamlı kaftan tasarımı.',
+    desc: 'Gösterişli ve ihtişamlı kaftan tasarımı. Özel işleme teknikleriyle hazırlanan bu model, en özel anlarınızda size eşlik eder. Kaliteli malzeme ve işçiliğin mükemmel uyumu.',
     features: '• Özel işleme • Şık model • Kaliteli malzeme',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Koyu Yeşil',
+    badge: 'Popüler',
+    rating: 5,
     img: 'img/kaftan-17.jpg'
   },
   {
     id: 18, category: 'bindalli', name: 'Gelin Bindallı',
-    desc: 'Kına gecesi için özel tasarlanmış bindallı modeli.',
+    desc: 'Kına gecesi için özel tasarlanmış bindallı modeli. Geleneksel motiflerle modern kesimin buluştuğu bu tasarım, kaliteli dikiş ve kumaş detaylarıyla öne çıkıyor. Özel gecenizde fark yaratmak isteyenler için ideal.',
     features: '• Geleneksel motif • Modern kesim • Özel dikiş',
     price: 'Fiyat için iletişim',
+    sizes: 'Tek beden',
+    material: 'Kadife',
+    color: 'Vişne',
+    badge: 'Koleksiyon',
+    rating: 5,
     img: 'img/kaftan-18.jpg'
   }
 ];
@@ -1075,16 +1446,17 @@ function renderProducts(filter = 'all') {
   const grid = document.getElementById('productGrid');
   const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
   grid.innerHTML = filtered.map(p => `
-    <div class="product-card reveal" data-id="${p.id}" onclick="openModal(${p.id})">
+    <div class="product-card reveal" data-id="${p.id}" onclick="location.hash='product-${p.id}'">
       <img class="product-card-img" src="${p.img}" alt="${p.name}" loading="lazy">
       <div class="category-tag">${p.category === 'bindalli' ? 'Bindallı' : 'Kaftan'}</div>
+      ${p.badge ? `<div class="badge-tag">${p.badge}</div>` : ''}
       <div class="product-card-overlay">
         <div class="name">${p.name}</div>
         <div class="desc">${p.desc}</div>
       </div>
+      <div class="price-badge"><span>${p.price}</span></div>
     </div>
   `).join('');
-  // Re-trigger reveal animation
   document.querySelectorAll('.reveal').forEach(el => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1107,29 +1479,56 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// ─── MODAL ───
-function openModal(id) {
+// ─── HASH ROUTING ───
+function openProductDetail(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('modalCat').textContent = p.category === 'bindalli' ? 'Bindallı' : 'Kaftan';
-  document.getElementById('modalName').textContent = p.name;
-  document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalFeatures').textContent = p.features;
-  document.getElementById('modalPrice').textContent = p.price;
-  document.getElementById('modalImg').innerHTML = `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`;
-  document.getElementById('modalWa').href = `https://wa.me/905322277716?text=Merhaba,%20${encodeURIComponent(p.name)}%20ürünü%20hakkında%20bilgi%20almak%20istiyorum.`;
-  document.getElementById('productModal').classList.add('open');
+  document.getElementById('pdCat').textContent = p.category === 'bindalli' ? 'Bindallı' : 'Kaftan';
+  document.getElementById('pdName').textContent = p.name;
+  document.getElementById('pdDesc').textContent = p.desc;
+  document.getElementById('pdFeatures').innerHTML = p.features.split('•').filter(Boolean).map(f => `<span class="pd-feature-line"><span class="pd-bullet">•</span>${f.trim()}</span>`).join('');
+  document.getElementById('pdPrice').textContent = p.price;
+  document.getElementById('pdColor').textContent = p.color;
+  document.getElementById('pdMaterial').textContent = p.material;
+  document.getElementById('pdSizes').textContent = p.sizes;
+  document.getElementById('pdImage').innerHTML = `<img src="${p.img}" alt="${p.name}">`;
+  document.getElementById('pdWa').href = `https://wa.me/905322277716?text=${encodeURIComponent('Merhaba, ' + p.name + ' ürünü hakkında bilgi almak istiyorum.')}`;
+
+  const related = products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
+  document.getElementById('pdRelated').innerHTML = related.map(r => `
+    <div class="pd-related-card" onclick="location.hash='product-${r.id}'">
+      <img src="${r.img}" alt="${r.name}" loading="lazy">
+      <div class="pd-related-cat">${r.category === 'bindalli' ? 'Bindallı' : 'Kaftan'}</div>
+      <span>${r.name}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('productDetail').classList.add('open');
   document.body.style.overflow = 'hidden';
+  window.scrollTo(0, 0);
 }
 
-function closeModal() {
-  document.getElementById('productModal').classList.remove('open');
+function closeProductDetail() {
+  document.getElementById('productDetail').classList.remove('open');
   document.body.style.overflow = '';
 }
-document.getElementById('productModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+
+function handleHash() {
+  const match = window.location.hash.match(/^#product-(\d+)$/);
+  if (match) {
+    openProductDetail(parseInt(match[1]));
+  } else {
+    closeProductDetail();
+  }
+}
+
+window.addEventListener('hashchange', handleHash);
+if (window.location.hash) handleHash();
+
+document.querySelector('.pd-backdrop').addEventListener('click', function() {
+  location.hash = '';
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProductDetail(); });
 
 // ─── NAV SCROLL ───
 window.addEventListener('scroll', () => {
