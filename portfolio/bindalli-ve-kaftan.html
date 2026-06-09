@@ -65,14 +65,13 @@ nav.scrolled {
   border-bottom: 1px solid var(--border);
 }
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
+  display: flex; align-items: center;
 }
-.nav-logo span { color: var(--text); }
+.nav-logo img {
+  height: 36px;
+  width: 36px;
+  display: block;
+}
 .nav-links { display: flex; gap: 36px; align-items: center; }
 .nav-links a {
   font-family: var(--font-body);
@@ -159,6 +158,17 @@ nav.scrolled {
 @keyframes heroFade {
   0% { opacity: 0; transform: translateY(40px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+.hero-logo {
+  margin-bottom: 32px;
+  animation: heroFade 2s var(--ease-expo) forwards;
+}
+.hero-logo img {
+  width: 140px;
+  height: 140px;
+}
+@media (max-width: 768px) {
+  .hero-logo img { width: 100px; height: 100px; }
 }
 .hero-badge {
   display: inline-block;
@@ -745,7 +755,7 @@ footer .socials svg { width: 16px; height: 16px; }
 
 <!-- ─── NAV ─── -->
 <nav id="nav">
-  <a href="#" class="nav-logo">Bindallı<span> & </span>Kaftan</a>
+  <a href="#" class="nav-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan" style="height:36px;width:36px"></a>
   <div class="nav-links" id="navLinks">
     <a href="#katalog">Katalog</a>
     <a href="#hakkimizda">Hakkımızda</a>
@@ -763,6 +773,7 @@ footer .socials svg { width: 16px; height: 16px; }
 <section class="hero">
   <div class="hero-pattern"></div>
   <div class="hero-content">
+    <div class="hero-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan"></div>
     <div class="hero-badge">✦ Premium Bridal Wear</div>
     <h1 class="hero-title">
       Bindallı & Kaftan
