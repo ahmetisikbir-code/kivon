@@ -771,7 +771,7 @@ footer .socials svg { width: 16px; height: 16px; }
 /* ─── PLACEHOLDER STYLES (will replace with real photos) ─── */
 .ph-bindalli { background: linear-gradient(135deg, #4a0e2e, #2a0a18); }
 .ph-kaftan { background: linear-gradient(135deg, #2a1a0a, #1a0a12); }
-.ph-gelinlik { background: linear-gradient(135deg, #2a2a3a, #1a1a2a); }
+
 .ph-aksesuar { background: linear-gradient(135deg, #1a2a1a, #0a1a0a); }
 .ph-pattern {
   background-image:
@@ -807,7 +807,7 @@ footer .socials svg { width: 16px; height: 16px; }
       <div class="hero-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan"></div>
       <div class="hero-brand-text">
         <h1 class="hero-title">Bindallı <span class="amp">&amp;</span> Kaftan</h1>
-        <p class="hero-sub">Gelinlik • Kaftan • Bindallı</p>
+        <p class="hero-sub">Bindallı • Kaftan</p>
       </div>
     </div>
     <div class="hero-divider"></div>
@@ -849,9 +849,9 @@ footer .socials svg { width: 16px; height: 16px; }
     <div class="about-text reveal reveal-delay-1">
       <div class="section-label">✦ Hakkımızda</div>
       <h2 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:24px">Gelenek ve Zarafet</h2>
-      <p class="lead">Bindallı & Kaftan olarak, Bursa'da gelinlik, bindallı ve kaftan kiralama ve satış hizmeti sunuyoruz.</p>
+      <p class="lead">Bindallı & Kaftan olarak, Bursa'da bindallı ve kaftan kiralama ve satış hizmeti sunuyoruz.</p>
       <p>Her gelinin kına gecesinde ve düğününde kendini özel hissetmesi için özenle seçilmiş koleksiyonumuzla sizlere hizmet veriyoruz. Geleneksel motifleri modern çizgilerle buluşturan tasarımlarımız, en özel gecenizde size eşlik ediyor.</p>
-      <p>Mağazamızda bindallı, kaftan, gelinlik ve aksesuar çeşitlerimizi görebilir, randevu alarak özel olarak deneyebilirsiniz.</p>
+      <p>Mağazamızda bindallı ve kaftan çeşitlerimizi görebilir, randevu alarak özel olarak deneyebilirsiniz.</p>
       <div class="about-values">
         <div class="value-item">
           <span class="num">100+</span>
@@ -1027,20 +1027,6 @@ const products = [
     img: 'img/kaftan-8.jpg'
   },
   {
-    id: 9, category: 'gelinlik', name: 'Beyaz Rüya',
-    desc: 'Klasik kesim, dantel detaylı beyaz gelinlik. Her gelinin hayali.',
-    features: '• Korsaj dantel • Kabarık etek • Uzun kollu',
-    price: 'Fiyat için iletişim',
-    img: 'img/kaftan-9.jpg'
-  },
-  {
-    id: 10, category: 'gelinlik', name: 'Modern Vera',
-    desc: 'Sade ve modern çizgilerde, minimal detaylı gelinlik. Sadelikte zerafet.',
-    features: '• İpek saten • Sırt dekolte • Balık kesim',
-    price: 'Fiyat için iletişim',
-    img: 'img/kaftan-10.jpg'
-  },
-  {
     id: 11, category: 'bindalli', name: 'Klasik Bindallı',
     desc: 'Geleneksel çizgilerde, özel günler için tasarlanmış şık bindallı.',
     features: '• El işlemesi • Kaliteli kumaş • Özel kesim',
@@ -1070,20 +1056,6 @@ const products = [
   },
   {
     id: 15, category: 'kaftan', name: 'Premium Kaftan',
-    desc: 'El işçiliği ile hazırlanmış premium kaftan modeli.',
-    features: '• El işlemesi • Premium kumaş • Özel tasarım',
-    price: 'Fiyat için iletişim',
-    img: 'img/kaftan-15.jpg'
-  },
-  {
-    id: 16, category: 'gelinlik', name: 'Gelinlik Modeli',
-    desc: 'En özel gününüz için zarif ve şık gelinlik.',
-    features: '• Özel tasarım • Şık kesim • Kaliteli dikiş',
-    price: 'Fiyat için iletişim',
-    img: 'img/kaftan-16.jpg'
-  },
-  {
-    id: 17, category: 'kaftan', name: 'İhtişamlı Kaftan',
     desc: 'Gösterişli ve ihtişamlı kaftan tasarımı.',
     features: '• Özel işleme • Şık model • Kaliteli malzeme',
     price: 'Fiyat için iletişim',
@@ -1105,7 +1077,7 @@ function renderProducts(filter = 'all') {
   grid.innerHTML = filtered.map(p => `
     <div class="product-card reveal" data-id="${p.id}" onclick="openModal(${p.id})">
       <img class="product-card-img" src="${p.img}" alt="${p.name}" loading="lazy">
-      <div class="category-tag">${p.category === 'bindalli' ? 'Bindallı' : p.category === 'kaftan' ? 'Kaftan' : p.category === 'gelinlik' ? 'Gelinlik' : 'Aksesuar'}</div>
+      <div class="category-tag">${p.category === 'bindalli' ? 'Bindallı' : 'Kaftan'}</div>
       <div class="product-card-overlay">
         <div class="name">${p.name}</div>
         <div class="desc">${p.desc}</div>
@@ -1139,7 +1111,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 function openModal(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('modalCat').textContent = p.category === 'bindalli' ? 'Bindallı' : p.category === 'kaftan' ? 'Kaftan' : p.category === 'gelinlik' ? 'Gelinlik' : 'Aksesuar';
+  document.getElementById('modalCat').textContent = p.category === 'bindalli' ? 'Bindallı' : 'Kaftan';
   document.getElementById('modalName').textContent = p.name;
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalFeatures').textContent = p.features;
