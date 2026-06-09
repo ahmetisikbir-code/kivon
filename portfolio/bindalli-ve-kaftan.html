@@ -442,35 +442,7 @@ nav.scrolled {
 .ig-section {
   background: var(--dark);
 }
-.ig-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.ig-item {
-  aspect-ratio: 1;
-  overflow: hidden;
-  position: relative;
-  background: linear-gradient(160deg, var(--burgundy), var(--dark));
-}
-.ig-item img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-expo);
-  opacity: 0.85;
-}
-.ig-item:hover img { transform: scale(1.08); }
-.ig-item-overlay {
-  position: absolute; inset: 0;
-  background: rgba(13,5,8,0.4);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-.ig-item:hover .ig-item-overlay { opacity: 1; }
-.ig-item-overlay svg { width: 28px; height: 28px; color: var(--cream); }
+
 
 /* ─── CONTACT ─── */
 .contact-grid {
@@ -723,7 +695,6 @@ footer .socials svg { width: 16px; height: 16px; }
 @media (max-width: 1024px) {
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-  .ig-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -747,7 +718,6 @@ footer .socials svg { width: 16px; height: 16px; }
   .product-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
   .modal-content { grid-template-columns: 1fr; padding: 32px; }
   .about-values { grid-template-columns: 1fr; }
-  .ig-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
@@ -821,10 +791,6 @@ footer .socials svg { width: 16px; height: 16px; }
 
   <div class="filter-bar reveal reveal-delay-1">
     <button class="filter-btn active" data-filter="all">Tümü</button>
-    <button class="filter-btn" data-filter="bindalli">Bindallı</button>
-    <button class="filter-btn" data-filter="kaftan">Kaftan</button>
-    <button class="filter-btn" data-filter="gelinlik">Gelinlik</button>
-    <button class="filter-btn" data-filter="aksesuar">Aksesuar</button>
   </div>
 
   <div class="product-grid" id="productGrid">
@@ -873,25 +839,7 @@ footer .socials svg { width: 16px; height: 16px; }
     <h2 class="section-title" style="font-size:clamp(1.4rem,3vw,2rem)">Bizi Takip Edin</h2>
     <div class="section-dash"></div>
   </div>
-  <div class="ig-grid" style="margin-top:56px">
-    <!-- Instagram placeholder grid items -->
-    <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <img src="img/kaftan-14.jpg" alt="Instagram">
-      <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
-    </a>
-    <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <img src="img/kaftan-15.jpg" alt="Instagram">
-      <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
-    </a>
-    <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <img src="img/kaftan-16.jpg" alt="Instagram">
-      <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
-    </a>
-    <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <img src="img/kaftan-17.jpg" alt="Instagram">
-      <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
-    </a>
-  </div>
+  <div style="margin-top:32px"></div>
   <div style="text-align:center;padding:40px 24px 80px">
     <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="hero-cta" style="display:inline-flex">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
@@ -1051,16 +999,16 @@ const products = [
     img: 'img/kaftan-10.jpg'
   },
   {
-    id: 11, category: 'aksesuar', name: 'Zirkon Taç',
-    desc: 'El işçiliği ile hazırlanmış, zirkon taşlarla süslü gelin tacı.',
-    features: '• Zirkon taş • Gümüş iskelet • Ayarlanabilir',
+    id: 11, category: 'bindalli', name: 'Klasik Bindallı',
+    desc: 'Geleneksel çizgilerde, özel günler için tasarlanmış şık bindallı.',
+    features: '• El işlemesi • Kaliteli kumaş • Özel kesim',
     price: 'Fiyat için iletişim',
     img: 'img/kaftan-11.jpg'
   },
   {
-    id: 12, category: 'aksesuar', name: 'Altın Kemer',
-    desc: 'İnce işçilikle hazırlanmış altın varak görünümlü gelin kemeri.',
-    features: '• Altın kaplama • Ayarlanabilir boy • Toplu iğne detay',
+    id: 12, category: 'bindalli', name: 'Modern Bindallı',
+    desc: 'Modern çizgilerle yorumlanmış, zamansız bir bindallı tasarımı.',
+    features: '• Modern kesim • Özel dikiş • Rahat kullanım',
     price: 'Fiyat için iletişim',
     img: 'img/kaftan-12.jpg'
   }
