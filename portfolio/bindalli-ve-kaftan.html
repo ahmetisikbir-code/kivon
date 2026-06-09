@@ -65,25 +65,12 @@ nav.scrolled {
   border-bottom: 1px solid var(--border);
 }
 .nav-logo {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center;
 }
 .nav-logo img {
   height: 36px;
   width: 36px;
   display: block;
-}
-.nav-logo-text {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.nav-logo-text em {
-  font-style: italic;
-  color: var(--cream);
-  letter-spacing: 4px;
 }
 .nav-links { display: flex; gap: 36px; align-items: center; }
 .nav-links a {
@@ -172,48 +159,16 @@ nav.scrolled {
   0% { opacity: 0; transform: translateY(40px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-.hero-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+.hero-logo {
+  margin-bottom: 32px;
   animation: heroFade 2s var(--ease-expo) forwards;
 }
 .hero-logo img {
-  width: 130px;
-  height: 130px;
-  display: block;
-}
-.hero-brand-text {
-  text-align: left;
-}
-.hero-brand-text .hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--cream);
-  line-height: 1.1;
-  margin: 0;
-}
-.hero-brand-text .hero-title .amp {
-  font-style: italic;
-  color: var(--gold);
-  font-weight: 400;
-  letter-spacing: 8px;
-}
-.hero-brand-text .hero-sub {
-  font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  color: var(--text-muted);
-  font-style: italic;
-  margin: 8px 0 0;
+  width: 140px;
+  height: 140px;
 }
 @media (max-width: 768px) {
-  .hero-brand { flex-direction: column; gap: 16px; }
-  .hero-logo img { width: 90px; height: 90px; }
-  .hero-brand-text { text-align: center; }
+  .hero-logo img { width: 100px; height: 100px; }
 }
 .hero-badge {
   display: inline-block;
@@ -227,6 +182,24 @@ nav.scrolled {
   margin-bottom: 40px;
   backdrop-filter: blur(4px);
   background: rgba(201, 168, 76, 0.04);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.hero-title span {
+  display: block;
+  font-weight: 300;
+  font-size: clamp(1rem, 3vw, 2rem);
+  letter-spacing: 12px;
+  color: var(--gold);
+  margin-top: 8px;
 }
 .hero-divider {
   width: 60px; height: 1px;
@@ -761,6 +734,8 @@ footer .socials svg { width: 16px; height: 16px; }
   .product-grid { grid-template-columns: 1fr; }
   nav { padding: 16px 20px; }
   .section { padding: 60px 20px; }
+  .hero-title { letter-spacing: 4px; }
+  .hero-title span { letter-spacing: 6px; }
   .filter-btn { padding: 8px 18px; font-size: 0.9rem; }
 }
 
@@ -780,7 +755,7 @@ footer .socials svg { width: 16px; height: 16px; }
 
 <!-- ─── NAV ─── -->
 <nav id="nav">
-  <a href="#" class="nav-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan"><span class="nav-logo-text">Bindallı <em>&amp;</em> Kaftan</span></a>
+  <a href="#" class="nav-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan" style="height:36px;width:36px"></a>
   <div class="nav-links" id="navLinks">
     <a href="#katalog">Katalog</a>
     <a href="#hakkimizda">Hakkımızda</a>
@@ -798,15 +773,14 @@ footer .socials svg { width: 16px; height: 16px; }
 <section class="hero">
   <div class="hero-pattern"></div>
   <div class="hero-content">
+    <div class="hero-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan"></div>
     <div class="hero-badge">✦ Premium Bridal Wear</div>
-    <div class="hero-brand">
-      <div class="hero-logo"><img src="img/bindalli-kaftan-logo.svg" alt="Bindallı & Kaftan"></div>
-      <div class="hero-brand-text">
-        <h1 class="hero-title">Bindallı <span class="amp">&amp;</span> Kaftan</h1>
-        <p class="hero-sub">Gelinlik • Kaftan • Bindallı</p>
-      </div>
-    </div>
+    <h1 class="hero-title">
+      Bindallı & Kaftan
+      <span>Gelinlik • Kaftan • Bindallı</span>
+    </h1>
     <div class="hero-divider"></div>
+    <p class="hero-sub">Hayalinizdeki kına gecesi ve düğün için özel tasarım bindallı ve kaftan koleksiyonu</p>
     <a href="#katalog" class="hero-cta">
       Koleksiyonu İncele
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
