@@ -1,0 +1,475 @@
+/* ══════════════════════════════════════════════════════════════
+   ENHANCEMENTS — Bindallı & Kaftan Premium Bridal Wear
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. PRODUCT CARDS ─── */
+
+/* Persistent price/badge at card bottom */
+.product-card .price-badge {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  background: linear-gradient(to top, rgba(13,5,8,0.92) 60%, transparent);
+  padding: 28px 24px 16px;
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 0.4s var(--ease-smooth);
+  z-index: 2;
+}
+.product-card .price-badge span {
+  display: inline-block;
+  position: relative;
+}
+.product-card .price-badge span::before {
+  content: '⟡ ';
+  color: var(--gold);
+  opacity: 0.7;
+}
+.product-card:hover .price-badge {
+  opacity: 1;
+}
+
+/* Different overlay behavior on hover — overlay slides up */
+.product-card-overlay {
+  z-index: 1;
+}
+.product-card:hover .product-card-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+.product-card .product-card-overlay ~ .price-badge {
+  bottom: auto;
+  top: auto;
+}
+
+/* Enhanced hover: subtle glow + scale */
+.product-card {
+  transition: all 0.6s var(--ease-expo);
+  will-change: transform;
+}
+.product-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: var(--gold);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(201, 168, 76, 0.15),
+    0 0 40px rgba(201, 168, 76, 0.06);
+}
+
+/* Category tag: more prominent, gold glow on hover */
+.product-card .category-tag {
+  position: absolute; top: 16px; left: 16px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  padding: 6px 16px;
+  background: rgba(13,5,8,0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.4s var(--ease-smooth);
+  z-index: 3;
+}
+.product-card:hover .category-tag {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+}
+
+
+/* ─── 2. SMOOTH PAGE TRANSITIONS ─── */
+
+/* Modal: slide from right instead of scale */
+.modal-content {
+  max-width: 800px;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 48px;
+  transform: translateX(60px);
+  opacity: 0;
+  transition: all 0.6s var(--ease-expo);
+  position: relative;
+}
+.modal-overlay.open .modal-content {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Fade transition for overlay */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(13,5,8,0.96);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s var(--ease-smooth);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Section fade on scroll — strengthen existing reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s var(--ease-expo);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ─── 3. MICRO-INTERACTIONS ─── */
+
+/* Button press (scale down) */
+.hero-cta:active,
+.contact-form button:active,
+.contact-wa:active,
+.filter-btn:active,
+.modal-wa:active,
+.wa-float:active {
+  transform: scale(0.96);
+}
+.hero-cta,
+.contact-form button,
+.contact-wa,
+.filter-btn,
+.modal-wa,
+.wa-float {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Smooth scroll — already set on html */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Loading skeleton animation for product images */
+.product-card-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-expo), opacity 0.6s;
+}
+.product-card-img:not([src]),
+.product-card-img[src=""],
+.product-card-img.loading {
+  background: linear-gradient(
+    120deg,
+    var(--dark) 30%,
+    rgba(201, 168, 76, 0.08) 50%,
+    var(--dark) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s var(--ease-smooth) infinite;
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+/* ─── 4. RESPONSIVE IMPROVEMENTS ─── */
+
+/* Tablet: 768-1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .section {
+    padding: 100px 40px;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .about-image {
+    max-height: 400px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .modal-content {
+    grid-template-columns: 1fr;
+    padding: 40px;
+    gap: 32px;
+  }
+  .about-values {
+    grid-template-columns: 1fr 1fr;
+  }
+  .section-header {
+    margin-bottom: 52px;
+  }
+}
+
+/* Mobile: <768px */
+@media (max-width: 768px) {
+  .section {
+    padding: 72px 20px;
+  }
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .product-card {
+    aspect-ratio: 3 / 4;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .section-title {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+  .filter-bar {
+    gap: 6px;
+    margin-bottom: 36px;
+  }
+  .filter-btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+  .modal-content {
+    grid-template-columns: 1fr;
+    padding: 28px;
+    gap: 24px;
+  }
+  .modal-details h2 {
+    font-size: 1.3rem;
+  }
+  .about-values {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .value-item {
+    padding: 16px;
+  }
+  .value-item .num {
+    font-size: 1.3rem;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-brand {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-brand-text {
+    text-align: center;
+  }
+  .hero-brand-text .hero-title {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+  .hero-logo img {
+    width: 90px;
+    height: 90px;
+  }
+  .hero-cta {
+    padding: 14px 28px;
+    font-size: 0.75rem;
+  }
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 6px 18px;
+    margin-bottom: 28px;
+  }
+  footer {
+    padding: 32px 20px;
+  }
+}
+
+/* Small mobile: <480px */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .section {
+    padding: 56px 16px;
+  }
+  .about-values {
+    grid-template-columns: 1fr;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+  nav {
+    padding: 14px 16px;
+  }
+  nav.scrolled {
+    padding: 10px 16px;
+  }
+  .modal-content {
+    padding: 20px;
+    margin: 12px;
+    width: auto;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px 16px;
+  }
+  .hero-cta {
+    padding: 12px 24px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+  }
+  .hero-badge {
+    font-size: 0.7rem;
+    padding: 5px 14px;
+    letter-spacing: 3px;
+  }
+}
+
+
+/* ─── 5. ADDITIONAL POLISH ─── */
+
+/* Subtle gold divider between sections */
+.section + .section::before {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold) 20%,
+    var(--gold) 80%,
+    transparent
+  );
+  margin: -60px auto 0;
+  opacity: 0.4;
+}
+
+/* Improve stats/values section */
+.about-values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+.value-item {
+  border: 1px solid var(--border);
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+.value-item::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.4s var(--ease-expo);
+  transform: translateX(-50%);
+}
+.value-item:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.value-item:hover::before {
+  width: 60%;
+}
+.value-item .num {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  transition: color 0.4s;
+}
+.value-item:hover .num {
+  color: var(--gold-light);
+}
+.value-item .label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  transition: color 0.4s;
+}
+.value-item:hover .label {
+  color: var(--text-muted);
+}
+
+/* Better focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Focus styles for nav links */
+.nav-links a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+/* Focus for filter buttons */
+.filter-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Focus for social links */
+footer .socials a:focus-visible,
+.nav-ig:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Focus for modal close */
+.modal-close:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  color: var(--gold);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
