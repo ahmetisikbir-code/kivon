@@ -130,8 +130,14 @@ nav.scrolled {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   position: relative;
-  background: linear-gradient(160deg, #0d0508 0%, #1a0a12 30%, #2a0a18 60%, #0d0508 100%);
+  background: linear-gradient(160deg, rgba(13,5,8,0.85) 0%, rgba(26,10,18,0.9) 30%, rgba(42,10,24,0.9) 60%, rgba(13,5,8,0.95) 100%);
   overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
 }
 .hero::before {
   content: '';
@@ -789,6 +795,7 @@ footer .socials svg { width: 16px; height: 16px; }
 
 <!-- ─── HERO ─── -->
 <section class="hero">
+  <img class="hero-bg" src="img/kaftan-18.jpg" alt="">
   <div class="hero-pattern"></div>
   <div class="hero-content">
     <div class="hero-badge">✦ Premium Bridal Wear</div>
@@ -834,13 +841,7 @@ footer .socials svg { width: 16px; height: 16px; }
 <section class="section" id="hakkimizda">
   <div class="about-grid">
     <div class="about-image reveal">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#6b142b,#1a0a12);color:var(--gold);font-family:var(--font-display);font-size:1.2rem;letter-spacing:4px;border:1px solid var(--border)">
-        <div style="text-align:center;padding:40px">
-          <div style="font-size:3rem;margin-bottom:16px;opacity:0.5">✦</div>
-          <div>BİNDALLI & KAFTAN</div>
-          <div style="font-size:0.8rem;opacity:0.5;margin-top:8px;letter-spacing:2px;font-style:italic">Kuruçeşme Mah. Altıparmak Cad., Otel Sk. No:6, Osmangazi, Bursa</div>
-        </div>
-      </div>
+      <img src="img/kaftan-13.jpg" alt="Bindallı & Kaftan">
     </div>
     <div class="about-text reveal reveal-delay-1">
       <div class="section-label">✦ Hakkımızda</div>
@@ -880,19 +881,19 @@ footer .socials svg { width: 16px; height: 16px; }
   <div class="ig-grid" style="margin-top:56px">
     <!-- Instagram placeholder grid items -->
     <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4a0e2e,#2a0a18);color:var(--gold);font-size:2rem;font-family:var(--font-display)">✦</div>
+      <img src="img/kaftan-14.jpg" alt="Instagram">
       <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
     </a>
     <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a1a0a,#1a0a12);color:var(--gold);font-size:2rem;font-family:var(--font-display)">✦</div>
+      <img src="img/kaftan-15.jpg" alt="Instagram">
       <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
     </a>
     <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a2a3a,#1a1a2a);color:var(--gold);font-size:2rem;font-family:var(--font-display)">✦</div>
+      <img src="img/kaftan-16.jpg" alt="Instagram">
       <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
     </a>
     <a href="https://www.instagram.com/bindallivekaftan/" target="_blank" class="ig-item">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a2a1a,#0a1a0a);color:var(--gold);font-size:2rem;font-family:var(--font-display)">✦</div>
+      <img src="img/kaftan-17.jpg" alt="Instagram">
       <div class="ig-item-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></div>
     </a>
   </div>
@@ -965,7 +966,7 @@ footer .socials svg { width: 16px; height: 16px; }
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-img" id="modalImg">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#6b142b,#1a0a12);color:var(--gold);font-size:3rem;font-family:var(--font-display)">✦</div>
+      <img src="img/kaftan-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover">
     </div>
     <div class="modal-details">
       <div class="cat" id="modalCat"></div>
@@ -989,84 +990,84 @@ const products = [
     desc: 'Altın işlemeli, burgundy renk özel tasarım bindallı. Kına gecesinin vazgeçilmez zerafeti.',
     features: '• El işlemesi altın sim • Burgundy kadife • Özel kesim',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #4a0e2e, #6b142b)'
+    img: 'img/kaftan-1.jpg'
   },
   {
     id: 2, category: 'bindalli', name: 'Sultan',
     desc: 'Fildişi rengi, gümüş işlemeli modern bindallı. Klasik çizgilerde contemporary dokunuş.',
     features: '• Gümüş iplik işleme • Fildişi saten • Havuzlu etek',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #3a2a2a, #5a4a3a)'
+    img: 'img/kaftan-2.jpg'
   },
   {
     id: 3, category: 'bindalli', name: 'Mirage',
     desc: 'Zümrüt yeşili, taş işlemeli göz kamaştırıcı bindallı. Farklı olmak isteyen gelinler için.',
     features: '• Zümrüt taş işleme • Yeşil kadife • Yırtmaç detay',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #1a3a2a, #2a5a3a)'
+    img: 'img/kaftan-3.jpg'
   },
   {
     id: 4, category: 'bindalli', name: 'Nazlı',
     desc: 'Pudra pembesi, dantel detaylı romantik bindallı. Masumiyet ve zarafetin buluşması.',
     features: '• Fransız dantel • Pudra ipek saten • İnci işleme',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #4a2a3a, #6a3a4a)'
+    img: 'img/kaftan-4.jpg'
   },
   {
     id: 5, category: 'kaftan', name: 'Pelerinli Kaftan',
     desc: 'İhtişamlı pelerin detaylı, altın varak işlemeli kaftan. Muhteşem bir giriş için.',
     features: '• Pelerin detay • Altın varak işleme • İç astar saten',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #2a1a0a, #4a2a1a)'
+    img: 'img/kaftan-5.jpg'
   },
   {
     id: 6, category: 'kaftan', name: 'İpek Kaftan',
     desc: 'Tam ipek, hafif ve akıcı kesim. Günlük kullanımdan özel gecelere kadar çok yönlü.',
     features: '• 100% ipek • El yapımı püsküller • Tek beden',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #3a2a1a, #5a3a2a)'
+    img: 'img/kaftan-6.jpg'
   },
   {
     id: 7, category: 'kaftan', name: 'Kuşaklı Kaftan',
     desc: 'Belden kuşaklı, modern kesim kaftan. Hem şık hem fonksiyonel tasarım.',
     features: '• Altın kuşak • V yaka • Yan yırtmaç',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #1a2a2a, #3a4a3a)'
+    img: 'img/kaftan-7.jpg'
   },
   {
     id: 8, category: 'kaftan', name: 'Siyah Kaftan',
     desc: 'Siyah kadife, gümüş işlemeli gece kaftanı. Davetler ve özel geceler için.',
     features: '• Siyah kadife • Gümüş işleme • Şal yaka',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #1a1a1a, #2a2a2a)'
+    img: 'img/kaftan-8.jpg'
   },
   {
     id: 9, category: 'gelinlik', name: 'Beyaz Rüya',
     desc: 'Klasik kesim, dantel detaylı beyaz gelinlik. Her gelinin hayali.',
     features: '• Korsaj dantel • Kabarık etek • Uzun kollu',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #2a2a3a, #3a3a4a)'
+    img: 'img/kaftan-9.jpg'
   },
   {
     id: 10, category: 'gelinlik', name: 'Modern Vera',
     desc: 'Sade ve modern çizgilerde, minimal detaylı gelinlik. Sadelikte zerafet.',
     features: '• İpek saten • Sırt dekolte • Balık kesim',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #1a1a2a, #2a2a4a)'
+    img: 'img/kaftan-10.jpg'
   },
   {
     id: 11, category: 'aksesuar', name: 'Zirkon Taç',
     desc: 'El işçiliği ile hazırlanmış, zirkon taşlarla süslü gelin tacı.',
     features: '• Zirkon taş • Gümüş iskelet • Ayarlanabilir',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #1a2a1a, #2a4a2a)'
+    img: 'img/kaftan-11.jpg'
   },
   {
     id: 12, category: 'aksesuar', name: 'Altın Kemer',
     desc: 'İnce işçilikle hazırlanmış altın varak görünümlü gelin kemeri.',
     features: '• Altın kaplama • Ayarlanabilir boy • Toplu iğne detay',
     price: 'Fiyat için iletişim',
-    bg: 'linear-gradient(135deg, #2a2a1a, #4a3a1a)'
+    img: 'img/kaftan-12.jpg'
   }
 ];
 
@@ -1076,9 +1077,7 @@ function renderProducts(filter = 'all') {
   const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
   grid.innerHTML = filtered.map(p => `
     <div class="product-card reveal" data-id="${p.id}" onclick="openModal(${p.id})">
-      <div class="product-card-img" style="background:${p.bg};display:flex;align-items:center;justify-content:center;">
-        <div style="text-align:center;color:var(--gold);opacity:0.4;font-family:var(--font-display);font-size:2.5rem;letter-spacing:4px">✦</div>
-      </div>
+      <img class="product-card-img" src="${p.img}" alt="${p.name}" loading="lazy">
       <div class="category-tag">${p.category === 'bindalli' ? 'Bindallı' : p.category === 'kaftan' ? 'Kaftan' : p.category === 'gelinlik' ? 'Gelinlik' : 'Aksesuar'}</div>
       <div class="product-card-overlay">
         <div class="name">${p.name}</div>
@@ -1118,7 +1117,7 @@ function openModal(id) {
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalFeatures').textContent = p.features;
   document.getElementById('modalPrice').textContent = p.price;
-  document.getElementById('modalImg').innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:${p.bg};color:var(--gold);font-size:3rem;font-family:var(--font-display)">✦</div>`;
+  document.getElementById('modalImg').innerHTML = `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`;
   document.getElementById('modalWa').href = `https://wa.me/905322277716?text=Merhaba,%20${encodeURIComponent(p.name)}%20ürünü%20hakkında%20bilgi%20almak%20istiyorum.`;
   document.getElementById('productModal').classList.add('open');
   document.body.style.overflow = 'hidden';
